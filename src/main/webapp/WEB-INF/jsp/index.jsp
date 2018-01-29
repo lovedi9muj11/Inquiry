@@ -15,7 +15,7 @@
 					<label class="col-sm-4 control-label" style="text-align: right;"><font
 						color="red">Login</font> : </label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="user" name="username" value=""
+						<input type="text" class="form-control" id="user" name="username" value="" 
 							maxlength="10" />
 					</div>
 				</div>

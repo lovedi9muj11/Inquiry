@@ -10,5 +10,5 @@
 <body>
 <h1> HelloWorld  = ${ userLogin.name }</h1>
 </body>
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footer.jsp"></jsp:include> 
 </html>

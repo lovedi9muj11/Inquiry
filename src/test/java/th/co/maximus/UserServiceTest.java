@@ -18,7 +18,7 @@ public class UserServiceTest {
 	public void login() {
 		UserBean bean = userService.authenLogin("admin", "password");
 		
-		System.out.println("====" +bean.getUserName());
+		System.out.println("====" +bean.getUserName()); 
 		
 	}
 

@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserBean authenLogin(String username, String password) {
-		String sql = " SELECT * FROM user WHERE username = '" +username+ "' AND password = '" +password+ "'";
+		String sql = " SELECT * FROM user WHERE username = '" +username+ "' AND password = '" +password+ "'"; 
 		UserBean bean = jdbcTemplate.queryForObject(sql, new mapper());
 		return bean;
 	}
