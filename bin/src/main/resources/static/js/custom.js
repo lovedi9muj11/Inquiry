@@ -1,4 +1,4 @@
-
+alert("I'm active");
 
 function xxx(){
 	console.log("Goooo...");
