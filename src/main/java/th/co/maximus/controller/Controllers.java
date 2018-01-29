@@ -1,39 +1,30 @@
 package th.co.maximus.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import th.co.maximus.bean.UserBean;
-import th.co.maximus.service.UserService;
 
 @RestController
+@RequestMapping("/controller")
 public class Controllers {
-	@Autowired
-	private UserService userService;
 	
-	@RequestMapping("/")
-	public ModelAndView firstPage() {
-		return new ModelAndView("index");
-	}
-	
-	@RequestMapping("/login")
-	public ModelAndView login(String username, String password,HttpServletRequest request) {
-		String gotoPage = "";
-		
-		UserBean bean = userService.authenLogin(username, password);
-		
-		if(bean.getUserName() != null) {
-			request.getSession().setAttribute("userLogin", bean);
-			gotoPage = "welcome";
-		}else {
-			gotoPage = "index";
-		}
-		return new ModelAndView(gotoPage);
-	}
-
+//	@Autowired ServiceImpl serviceImpl;
+//	
+//	@RequestMapping(value = "/test", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String testMethod(@RequestBody BeanClass req) {
+//		return serviceImpl.testMethod(req.getName());
+//	}
+//	
+//	@RequestMapping(value = "/all", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<BeanClass> testAll() {
+//		return serviceImpl.allBeanClass();
+//	}
+//	
+//	@RequestMapping(value = "/xxx", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String xxxTest() {
+//		return "Test xxx :: xxx";
+//	}
 
 }

@@ -59,18 +59,9 @@ public class UserServiceImpl implements UserService{
 			userBean.setName(rs.getString("name"));
 			userBean.setSurName(rs.getString("surName"));
 			userBean.setRoleCode(rs.getString("roleCode"));
-			userBean.setUserName(rs.getString("username"));
-			userBean.setPassword(rs.getString("password"));
 			return userBean;
 		}
 
-	}
-
-	@Override
-	public UserBean authenLogin(String username, String password) {
-		String sql = " SELECT * FROM user WHERE username = '" +username+ "' AND password = '" +password+ "'";
-		UserBean bean = jdbcTemplate.queryForObject(sql, new mapper());
-		return bean;
 	}
 
 }

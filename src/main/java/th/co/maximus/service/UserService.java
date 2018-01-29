@@ -15,7 +15,5 @@ public interface UserService {
 	UserBean selectBy(String name);
 	
 	List<UserBean> selectAll();
-	
-	UserBean authenLogin(String username,String password);
 
 }
