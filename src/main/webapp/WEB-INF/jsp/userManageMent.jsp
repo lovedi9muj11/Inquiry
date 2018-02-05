@@ -1,0 +1,72 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="../layout/header.jsp"></jsp:include>
+<jsp:include page="../layout/menu.jsp"></jsp:include>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="js/userMgt.js"></script>
+<title>Menu</title>
+
+<link href="${contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+
+</head>
+<body>
+	<header class="header_page"></header>
+
+	<!-- main panel -->
+	<div id="page-content-wrapper">
+<!-- 		<div id="header-wrapper"> -->
+		<br />
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group">
+					<label class="col-md-2 control-label right">ชื่อ : </label>
+					<div class="col-md-3 right">
+						<input type="text" id="name" class="form-control"></input>
+					</div>
+					<div class="col-md-2 left">
+						<button type="button" id="search" class="btn btn-primary btn3d" onclick="search()">ค้นหา</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="" id="table_user">
+				<div class="panel panel-default panal-radius">
+					<div class="panel-body">
+						<table id="subscriptionList" class="table">
+							<thead>
+								<tr>
+									<th data-running-no="true">#</th>
+									<th>Name</th>
+									<th>Role</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="right"></td>
+									<td class="left"></td>
+									<td class="left"></td>
+									<td class="left"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- 		</div> -->
+	</div>
+</body>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+</html>
