@@ -2,17 +2,17 @@ package th.co.maximus.bean;
 
 public class UserBean {
 	
-	private int id;
+	private Long id;
 	private String name;
 	private String surName;
 	private String userName;
 	private String password;
 	private String roleCode;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

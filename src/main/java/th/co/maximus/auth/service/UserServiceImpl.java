@@ -9,6 +9,7 @@ import th.co.maximus.auth.repository.RoleRepository;
 import th.co.maximus.auth.repository.UserRepository;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,4 +31,9 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 }

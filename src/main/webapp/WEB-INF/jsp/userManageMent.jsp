@@ -43,7 +43,7 @@
 			<div class="" id="table_user">
 				<div class="panel panel-default panal-radius">
 					<div class="panel-body">
-						<table id="subscriptionList" class="table">
+						<table id="userList" class="table table-bordered">
 							<thead>
 								<tr>
 									<th data-running-no="true">#</th>
@@ -52,13 +52,8 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td class="right"></td>
-									<td class="left"></td>
-									<td class="left"></td>
-									<td class="left"></td>
-								</tr>
+							<tbody id="uList">
+								<tr class="right" id="userid"> </tr>
 							</tbody>
 						</table>
 					</div>
