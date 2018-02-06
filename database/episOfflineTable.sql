@@ -185,4 +185,35 @@ CREATE TABLE EPIS.TRSMETHOD_MANUAL
 	MANUAL_ID BIGINT, PRIMARY KEY (METHOD_MANUAL_ID)
 )
 
+CREATE TABLE `role` (
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=3;
+
+CREATE TABLE `user` (
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`password` VARCHAR(255) NULL DEFAULT NULL,
+	`username` VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=3;
+
+CREATE TABLE `user_role` (
+	`user_id` BIGINT(20) NOT NULL,
+	`role_id` BIGINT(20) NOT NULL,
+	PRIMARY KEY (`user_id`, `role_id`),
+	INDEX `FKa68196081fvovjhkek5m97n3y` (`role_id`),
+	CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
+
+
 
