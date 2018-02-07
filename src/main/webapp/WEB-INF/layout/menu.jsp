@@ -22,6 +22,7 @@
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ชำระค่าบริการ<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
 			          <ul class="dropdown-menu forAnimate" role="menu">
 			            <li><a href="/gotoPayment">ชำระค่าบริการ</a></li>
+			            <li><a href="/payOther">ชำระค่าบริการอื่นๆ</a></li>
 			          </ul>
 			        </li>
 			        <li class="dropdown">
