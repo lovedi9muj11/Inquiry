@@ -19,26 +19,30 @@ public class UserController {
 	
 	@Autowired private UserService userService;
 	
-
 	@RequestMapping(value = {"/userManageMent/search"}, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
     public List<UserBean> search(@RequestBody User user) {
 
-//		model.addAttribute("userForm", userService.findByUsername(user.getUsername()));
 		User res = new User();
 		List<User> resList = new ArrayList<User>();
 		List<UserBean> resultList = new ArrayList<UserBean>();
 		
-		if("".equals(user.getUsername())) {resList = userService.findAll();}
+		if("".equals(user.getUsername())) {
+			resList = userService.findAll();
+			}
 		else {res = userService.findByUsername(user.getUsername());resList.add(res);}
 		
 		for(int i=0; i<resList.size(); i++) {
+			String roleCode = "";
 			UserBean result = new UserBean();
 			result.setId(resList.get(i).getId());
 			result.setUserName(resList.get(i).getUsername());
 			result.setPassword(resList.get(i).getPassword());
-			result.setRoleCode("");
-			
+			for(int j=0; j<resList.get(i).getRoles().size(); j++) {
+				roleCode += resList.get(i).getRoles().get(j).getName();
+				if(resList.get(i).getRoles().size()>1 || j!=resList.get(i).getRoles().size()){roleCode+=", ";}
+			}
+			result.setRoleCode(roleCode);
 			resultList.add(result);
 		}
 		
