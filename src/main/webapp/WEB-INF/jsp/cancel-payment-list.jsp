@@ -70,7 +70,7 @@
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table class="table table-bordered" cellspacing="0" width="100%">
+							<table id="example" class="table table-bordered" cellspacing="0" width="100%">
 						    <thead>
 						        <tr>
 						         	<th style="text-align: center;">#</th>  				                         
