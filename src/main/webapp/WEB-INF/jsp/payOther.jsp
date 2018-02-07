@@ -36,7 +36,7 @@
         <li><a href="#"><span class="glyphicon glyphicon-edit"></span> การรับชำระ</a></li>
     	</ul>
 				<div class="panel panel-primary ">
-				<div class="panel-heading">เพิ่มใบเสร็จ1</div>
+				<div class="panel-heading">เพิ่มใบเสร็จ</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
