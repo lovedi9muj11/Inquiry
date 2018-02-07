@@ -6,7 +6,7 @@
 	<nav class="navbar navbar-inverse top-bar navbar-fixed-top">
 	    <div class="container-fluid">
 			<div class="navbar-header">	
-				<i class="fa fa-flask"></i> Offline 
+				<i class="fa fa-bullseye"></i> Offline 
 			</div>
 		<div class="navbar-right">
 <!-- 				<div class="row"> -->
@@ -18,7 +18,7 @@
 				</c:if>
 <!-- 					</div> -->
 <!-- 				</div> -->
-	      	 <h3>${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h3>
+	      	 <h4>${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
 		</div>
 	    </div>		   
 	</nav>

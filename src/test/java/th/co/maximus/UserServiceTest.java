@@ -2,8 +2,6 @@ package th.co.maximus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.HashSet;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,9 +35,9 @@ public class UserServiceTest {
 	public void save() {
 		User bean = new User();
 		bean.setPassword("password");
-		bean.setUsername("Epis11");
+		bean.setUsername("Epis12");
 		bean.setPasswordConfirm("password");
-		bean.setRoles(new HashSet<>(roleRepository.findAll()));
+		bean.setRoles(roleRepository.findAll());
 		userService.save(bean);
 		assertThat(bean).isNotNull();
 	}

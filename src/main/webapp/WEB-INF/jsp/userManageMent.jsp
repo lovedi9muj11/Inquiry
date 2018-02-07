@@ -16,11 +16,11 @@
 <script src="js/userMgt.js"></script>
 <title>Menu</title>
 
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
+<div class="container-fluid">
 	<header class="header_page"></header>
 
 	<!-- main panel -->
@@ -35,34 +35,39 @@
 						<input type="text" id="name" class="form-control"></input>
 					</div>
 					<div class="col-md-2 left">
-						<button type="button" id="search" class="btn btn-primary btn3d" onclick="search()">ค้นหา</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
+						<button type="button" id="search" class="btn btn-primary " onclick="search()">ค้นหา</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
 					</div>
 				</div>
 			</div>
 		</div>
 		<br />
 		<div class="row">
-			<div class="" id="table_user">
-				<div class="panel panel-default panal-radius">
-					<div class="panel-body">
-						<table id="userList" class="table table-bordered">
-							<thead>
-								<tr>
-									<th data-running-no="true">#</th>
-									<th>Name</th>
-									<th>Role</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody id="uList">
-							</tbody>
-						</table>
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group">
+<!-- 				<div class="" id="table_user"> -->
+						<div class="panel panel-default panal-radius">
+							<div class="panel-body">
+								<table id="userList" class="table table-bordered">
+									<thead>
+										<tr>
+											<th data-running-no="true">#</th>
+											<th>Name</th>
+											<th>Role</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+<!-- 			</div> -->
 		</div>
 <!-- 		</div> -->
 	</div>
+</div>
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 </html>
