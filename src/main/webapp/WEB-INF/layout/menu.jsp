@@ -24,6 +24,12 @@
 			            <li><a href="/gotoPayment">ชำระค่าบริการ</a></li>
 			          </ul>
 			        </li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ยกเลิกชำระค่าบริการ<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
+			          <ul class="dropdown-menu forAnimate" role="menu">
+			            <li><a href="/cancalPayment">ยกเลิกชำระค่าบริการ</a></li>
+			          </ul>
+			        </li>
 
 <!-- 			        <li class="dropdown"> -->
 <!-- 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ใบกำกับการขน <span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-truck"></span></a> -->
