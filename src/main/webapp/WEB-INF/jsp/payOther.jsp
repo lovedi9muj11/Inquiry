@@ -35,8 +35,8 @@
 		 <ul class="list-inline pull-right">
         <li><a href="#"><span class="glyphicon glyphicon-edit"></span> การรับชำระ</a></li>
     	</ul>
-				<div class="panel panel-primary ">
-				<div class="panel-heading">เพิ่มใบเสร็จ</div>
+				<div class="panel panel-warning " >
+				<div class="panel-heading" style="background-color: #ee7600;">เพิ่มใบเสร็จ</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
@@ -68,7 +68,7 @@
 										<label class="control-label col-sm-2">กลุ่มผู้ใช้บริการ
 											:</label>
 										<div class="col-sm-2" id="serviceDepartmentDiv" style="margin-top: 10px;">
-											<select id="#" class="form-control"></select>
+											<input id="#" class="form-control text-right">
 										</div>
 
 									</div>
@@ -154,8 +154,8 @@
 			<div class="row">
 			
 				<div class="col-md-5">
-					<div class="panel panel-primary ">
-					<div class="panel-heading">รายการหัก
+					<div class="panel panel-warning ">
+					<div class="panel-heading" style="background-color: #ee7600;">รายการหัก
 					<div id=# class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown">
@@ -171,8 +171,7 @@
 						<li><a href="#">ค่าตอบแทนการรับชำระเงิน</a></li>
 					</ul>
 				</div>
-								
-					</ul>
+						
 					</div>
 						<div class="panel-body">
 							<div class="row">
@@ -239,8 +238,8 @@
 				
 				<div class="col-md-7">
 					
-					<div class="panel panel-primary ">
-					<div class="panel-heading">วิธีการรับชำระเงิน
+					<div class="panel panel-warning ">
+					<div class="panel-heading" style="background-color: #ee7600;">วิธีการรับชำระเงิน
 					<div id="#" class=" btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown">
@@ -260,7 +259,6 @@
 						<li><a href="#">GFMIS</a></li>
 					</ul>
 				</div>
-					</ul>
 					</div>
 						<div class="panel-body">
 							<div class="row">
@@ -290,8 +288,8 @@
 			<div class="row">
 			
 				<div class="col-md-5">
-					<div class="panel panel-primary">
-						<div class="panel-heading">สรุปรายการหัก</div>
+					<div class="panel panel-warning">
+						<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 						<div class="panel-body">
 							<table id="deductionList" class="table table-hover">
 								<thead>
@@ -309,8 +307,8 @@
 				</div>
 				
 				<div class='col-md-7'>
-					<div class="panel panel-primary">
-						<div class="panel-heading">สรุปวิธีการรับชำระ</div>
+					<div class="panel panel-warning">
+						<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีการรับชำระ</div>
 						<div class="panel-body">
 							<table id="payTypeList" class="table table-hover">
 								<thead>
