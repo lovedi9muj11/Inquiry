@@ -39,46 +39,41 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-
-	var markup = "<tr><td>"
-			+ count
-			+ "</td><td>"
-			+ "test1"
-			+ "</td><td>"
-			+ docDed
-			+ "</td><td>"
-			+ radioResult
-			+ "</td><td>"
-			+ moneyDed
-			+ "</td><td><a onclick='myDeleteFunction()'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"+ count+ "</td><td>"	+ "test1"+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"	+ moneyDed+ "</td><td><a onclick='myDeleteFunction()'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 };
 
 function myDeleteFunction() {
 	var table = document.getElementById("deductibleTable");
+	var tableDed = document.getElementById("showDeductibleTable");
 	if (table.rows.length > 0) {
 		table.deleteRow(1);
+	}
+	if(tableDed.rows.length > 0){
+		tableDed.deleteRow(1);
 	}
 }
 
 function addDataTableDed(){
 	var oTable = document.getElementById('deductibleTable');
-	var table = document.getElementById("sumDeductibleTable");
-	
-	//gets rows of table
-	var rowLength = oTable.rows.length;
-
-	//loops through rows    
+	var result = [];
+	var rowLength = oTable.rows.length;  
 	for (i = 1; i < rowLength; i++){
-
-	   //gets cells of current row
 	   var oCells = oTable.rows.item(i).cells;
-
-		$("#sumDeductibleTable").find('tbody').append(oCells);
-		$("#sumDeductibleTable").find('tbody').append(oCells[0]).append("ภาษีหัก ณ ที่จ่าย");
-		
+	   for(var fs =0; fs< oCells.length; fs++){
+		   result.push(oCells[fs].innerHTML);
+		   document.getElementById("sumDeductibleTable").rows.innerHTML = result[fs];
+	   }
+	   
 	}
+	var markup = "<tr><td>"+ result[0]+ "</td><td>"+ result[1]+ "</td><td>"+ result[4]+ "</td><td><a onclick='myDeleteFunction()'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	$("#showDeductibleTable").find('tbody').append(markup);
+	for(var i = document.getElementById("deductibleTable").rows.length; i > 1;i--)
+	{
+	document.getElementById("deductibleTable").deleteRow(i -1);
+	}
+	var table = document.getElementById("sumDeductibleTable");
 }
 
 
