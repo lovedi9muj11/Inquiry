@@ -30,11 +30,18 @@
 	 <div id="page-content-wrapper"> 
 		<!-- 		<div id="header-wrapper"> -->
 		<br />
-		
+		<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group" align="right">
+							<div class="col-md-12 col-sm-12">
+								<a><span class="glyphicon glyphicon-share">ดำเนินการรับชำระ</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
 		 <div class="container-fluid">
-		 <ul class="list-inline pull-right">
-        <li><a href="#"><span class="glyphicon glyphicon-edit"></span> การรับชำระ</a></li>
-    	</ul>
+		 
 				<div class="panel">
 				<div class="panel-heading">เพิ่มใบเสร็จ</div>
 					<div class="panel-body">
