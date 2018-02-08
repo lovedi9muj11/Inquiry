@@ -39,8 +39,7 @@ public class UserController {
 			result.setUserName(resList.get(i).getUsername());
 			result.setPassword(resList.get(i).getPassword());
 			for(int j=0; j<resList.get(i).getRoles().size(); j++) {
-				roleCode += resList.get(i).getRoles().get(j).getName();
-				if(resList.get(i).getRoles().size()>1 || j!=resList.get(i).getRoles().size()){roleCode+=", ";}
+				roleCode += resList.get(i).getRoles().get(j).getName() + " ";
 			}
 			result.setRoleCode(roleCode);
 			resultList.add(result);
