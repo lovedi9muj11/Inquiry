@@ -10,7 +10,7 @@
 			      <ul class="nav navbar-nav">
 
 			        <li class="active"><a href="/">หน้าจอหลัก<span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-home">
-			        </span></a></li><h1>${pageContext.request.userPrincipal.name}</h1>
+			        </span></a></li>
 
 					<li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-file-text-o"></span></a>
@@ -35,5 +35,14 @@
 			    </div>	
 				</nav>
 			</div>
-			<!-- /#sidebar -->	
+			<!-- /#sidebar -->
+			<!-- main panel -->
+<!-- 			<div id="page-content-wrapper"> -->
+				
+<!-- 				<div id="header-wrapper"> -->
+<!-- 				</div> -->
+				
+<!-- 				<div id="content-wrapper" class="container-fluid"> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>

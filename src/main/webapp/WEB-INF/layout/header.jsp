@@ -3,7 +3,7 @@
 <jsp:include page="../commons/sMainStyles.jsp"></jsp:include>
 
 <div id="wrapper">
-	<nav class="navbar navbar-inverse top-bar navbar-fixed-top" style="background-color: #ff8040;">
+	<nav class="navbar navbar-inverse top-bar navbar-fixed-top" style="background-color: #ee7600;">
 	    <div class="container-fluid">
 			<div class="navbar-header">	
 				<i class="fa fa-bullseye"></i> Offline 
