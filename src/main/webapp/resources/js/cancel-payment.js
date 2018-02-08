@@ -61,8 +61,15 @@ $(document).ready(function () {
         var data = table.row( $(this).parents('tr') ).data();
         alert( data.id );
     } );
+    
+    $('#clear').click(function(){
+    	$("#billNumber").val('');
+    	$("#receiptNumber").val('');
+    });
 
 });
+
+
 
 
 function format(d) {

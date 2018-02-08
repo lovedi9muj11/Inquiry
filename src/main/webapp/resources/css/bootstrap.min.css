@@ -1354,7 +1354,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #333;
+    color: #000;
     background-color: #fff
 }
 
@@ -5862,7 +5862,11 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px
+    border-top-right-radius: 3px;
+    font-weight: bold;
+    color: black;
+    background-color: #ee7600;
+     
 }
 
 .panel-heading > .dropdown .dropdown-toggle {
