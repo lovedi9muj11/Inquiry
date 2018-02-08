@@ -39,13 +39,13 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<input type="text" id="billNumber" class="form-control text-left">
 						</div>
 					</div>
 					<div class="form-group col-md-6">
 						<label class="col-md-4 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<input type="text" id="receiptNumber" class="form-control">
 						</div>
 					</div>
