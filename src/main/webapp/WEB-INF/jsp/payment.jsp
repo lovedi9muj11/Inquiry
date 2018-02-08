@@ -211,8 +211,8 @@
 											<li class="active"><a href="#tab1warning"
 												data-toggle="tab">รายการหัก</a></li>
 											<li class="dropdown" role="presentation"><select
-												class="form-control">
-													<option>ภาษีหัก ณ ที่จ่าย</option>
+												class="form-control" id="deduction">
+													<option value="deductionOfTax">ภาษีหัก ณ ที่จ่าย</option>
 											</select></li>
 										</ul>
 									</div>
@@ -327,7 +327,7 @@
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="จำนวนเงิน">
+															id="moneyTran" name="moneyTran" placeholder="จำนวนเงิน">
 													</div>
 
 												</div>
@@ -339,17 +339,17 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ประเภทของบัตรเครดิต:</label>
 													<div class="col-sm-4">
-														<select class="form-control">
+														<select class="form-control" id="creditType" name="creditType">
 															<option>กรุณาเลือก</option>
-															<option>VISA</option>
-															<option>MASTER-CARD</option>
+															<option value="visa">VISA</option>
+															<option value="masterCard">MASTER-CARD</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่บัตร:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="เลขที่บัตร">
+															id="creditNo" placeholder="เลขที่บัตร" name="creditNo">
 													</div>
 												</div>
 											</div>
@@ -359,24 +359,24 @@
 														for="formGroupInputLarge">ธนาคารเจ้าของเครื่อง
 														(EDC):</label>
 													<div class="col-sm-4">
-														<select class="form-control">
+														<select class="form-control" id="edcType">
 															<option>กรุณาเลือก</option>
-															<option>VISA</option>
-															<option>MASTER-CARD</option>
+															<option value="paypal">Paypal </option>
+															<option value="7Eleven">7-Eleven</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวเนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="จำนวเนเงิน">
+															id="creditPrice" placeholder="จำนวเนเงิน" name="creditPrice">
 													</div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12 right">
-														<button type="button" class="btn btn-warning">
+														<button type="button" class="btn btn-warning" onclick="selectTranPrice()" >
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการบัตรเครดิต</span>
 														</button>
 													</div>
@@ -385,7 +385,7 @@
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12">
-														<table class="table">
+														<table class="table" id="creditTable">
 															<thead>
 																<tr>
 																	<th>#</th>
@@ -461,7 +461,7 @@
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12 right">
-														<button type="button" class="btn btn-warning">
+														<button type="button" class="btn btn-warning" onclick="selectTranPrice()">
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการเช็ค</span>
 														</button>
 													</div>
@@ -497,7 +497,7 @@
 										<div class="row">
 											<div class="form-group">
 												<div class="col-sm-12 right">
-													<button type="button" class="btn btn-primary">
+													<button type="button" class="btn btn-primary" onclick="sumTranPrice()">
 														<span class="glyphicon glyphicon-plus">เพิ่มวิธีการรับชำระ</span>
 													</button>
 												</div>
@@ -520,7 +520,7 @@
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
 									<div style="display:none">
-									<table id="sumDeductibleTable"></table>
+									<table id="sumDeductibleTable"><tbody></tbody></table>
 									</div>
 										<table class="table" id="showDeductibleTable">
 											<thead>
@@ -545,7 +545,7 @@
 								<div class="panel panel-warning">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
 									<div class="panel-body">
-										<table class="table">
+										<table class="table" id="sumTotalPriceTable">
 											<thead>
 												<tr>
 													<th>#</th>
