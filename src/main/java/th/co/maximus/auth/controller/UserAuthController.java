@@ -64,9 +64,6 @@ public class UserAuthController {
     public String usermgt(Model model) {
         return "userManageMent";
     }
-    @RequestMapping(value = {"/payOther"}, method = RequestMethod.GET)
-    public String payOther(Model model) {
-        return "payOther";
-    }
+   
     
 }
