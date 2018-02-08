@@ -189,7 +189,7 @@
 						         	<th style="text-align: center;">#</th>  				                         
 					                <th style="text-align: center;">วันที่ทำรายการ</th>
 					                <th style="text-align: center;">วันที่ออกใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;">เลขที่ใบเสร็๗รับเงิน</th>
+					                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
 					                <th style="text-align: center;">สถานที่รับชำระ</th>
 					                <th style="text-align: center;">ผู้รับชำระ</th>
 					                <th style="text-align: center;">เลขที่ใบแจ้งค่าใช้บริการ</th>
