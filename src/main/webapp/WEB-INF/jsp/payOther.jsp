@@ -35,8 +35,8 @@
 		 <ul class="list-inline pull-right">
         <li><a href="#"><span class="glyphicon glyphicon-edit"></span> การรับชำระ</a></li>
     	</ul>
-				<div class="panel panel-warning " >
-				<div class="panel-heading" style="background-color: #ee7600;">เพิ่มใบเสร็จ</div>
+				<div class="panel">
+				<div class="panel-heading">เพิ่มใบเสร็จ</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
@@ -154,24 +154,15 @@
 			<div class="row">
 			
 				<div class="col-md-5">
-					<div class="panel panel-warning ">
-					<div class="panel-heading" style="background-color: #ee7600;">รายการหัก
-					<div id=# class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">
-						<span class="selection">ภาษีหัก ณ ที่จ่าย</span> <span
-							class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" id='#'>
-						<li><a href="#">ภาษีหัก ณ ที่จ่าย</a></li>
-						<!-- GFMIS -->
-						<li><a href="#">ค่าธรรมเนียม</a></li>
-						<li><a href="#">ค่าปรับ</a></li>
-						<li><a href="#">เงินประกันผลงาน</a></li>
-						<li><a href="#">ค่าตอบแทนการรับชำระเงิน</a></li>
-					</ul>
-				</div>
-						
+					<div class="panel">
+					<div class="panel-heading">รายการหัก
+						<select class="form-control" style="display: inline;width: 30%;padding-left: 20px">
+							<option>ภาษีหัก ณ ที่จ่าย</option>
+							<option>ค่าธรรมเนียม</option>
+							<option>ค่าปรับ</option>
+							<option>เงินประกันผลงาน</option>
+							<option>ค่าตอบแทนการรับชำระเงิน</option>
+						</select>					
 					</div>
 						<div class="panel-body">
 							<div class="row">
@@ -236,30 +227,23 @@
 					</div>
 				</div>
 				
-				<div class="col-md-7">
-					
-					<div class="panel panel-warning ">
-					<div class="panel-heading" style="background-color: #ee7600;">วิธีการรับชำระเงิน
-					<div id="#" class=" btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">
-						<span class="selection">เงินสด</span> <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" id='#'>
-						<li><a href="#">เงินสด</a></li>
-						<li><a href="#">เช็ค</a></li>
-						<li><a href="#">บัตรเครดิต</a></li>
-						<li><a href="#">ธนาณัติ</a></li>
-						<li><a href="#">ตั๋วแลกเงิน</a></li>
-						<li><a href="#">คูปอง</a></li>
-						<li><a href="#">เงินโอนในประเทศ</a></li>
-						<li><a href="#">offset</a></li>
-						<li><a href="#">เงินโอนต่างประเทศ</a></li>
-						<li><a href="#">อื่น ๆ</a></li>
-						<li><a href="#">GFMIS</a></li>
-					</ul>
-				</div>
-					</div>
+				<div class="col-md-7">	
+					<div class="panel">
+						<div class="panel-heading">วิธีการรับชำระเงิน				
+							<select class="form-control" style="display: inline;width: 30%;padding-left: 20px">
+								<option>เงินสด</option>
+								<option>เช็ค</option>
+								<option>บัตรเครดิต</option>
+								<option>ธนาณัติ</option>
+								<option>ตั๋วแลกเงิน</option>
+								<option>คูปอง</option>
+								<option>เงินโอนในประเทศ</option>
+								<option>offset</option>
+								<option>เงินโอนต่างประเทศ</option>
+								<option>อื่น ๆ</option>
+								<option>GFMIS</option>
+							</select>	
+						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12">
@@ -288,8 +272,8 @@
 			<div class="row">
 			
 				<div class="col-md-5">
-					<div class="panel panel-warning">
-						<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
+					<div class="panel">
+						<div class="panel-heading">สรุปรายการหัก</div>
 						<div class="panel-body">
 							<table id="deductionList" class="table table-hover">
 								<thead>
@@ -307,8 +291,8 @@
 				</div>
 				
 				<div class='col-md-7'>
-					<div class="panel panel-warning">
-						<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีการรับชำระ</div>
+					<div class="panel">
+						<div class="panel-heading">สรุปวิธีการรับชำระ</div>
 						<div class="panel-body">
 							<table id="payTypeList" class="table table-hover">
 								<thead>

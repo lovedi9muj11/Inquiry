@@ -33,20 +33,20 @@
 			<li id="li3">สรุปการยกเลิกชำระ</li> >>
 			<li id="li4">ผลการยกเลิกการชำระ</li>
 		</ul>
-		<div class="panel panel-primary" id="panel1">
+		<div class="panel" id="panel1">
 			<div class="panel-heading">ค้นหาข้อมูล</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-6">
 						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control text-left">
+							<input type="text" id="billNumber" class="form-control text-left">
 						</div>
 					</div>
 					<div class="form-group col-md-6">
 						<label class="col-md-4 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control">
+							<input type="text" id="receiptNumber" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -71,8 +71,8 @@
 						 /.box-header -->
 						<div class="box-body">
 							<table id="example" class="table table-bordered" cellspacing="0" width="100%">
-						    <thead>
 						        <tr>
+						    <thead>
 						         	<th style="text-align: center;">#</th>  				                         
 					                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
 					                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
