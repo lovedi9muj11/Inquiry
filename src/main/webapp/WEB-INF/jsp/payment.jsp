@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 20px">
+				<div class="row" style="margin-top: 20px;" >
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
@@ -504,9 +504,12 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel">
-									<div class="panel-heading">สรุปรายการหัก</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
-										<table class="table" id="sumDeductibleTable">
+									<div style="display:none">
+									<table id="sumDeductibleTable"></table>
+									</div>
+										<table class="table" id="showDeductibleTable">
 											<thead>
 												<tr align="center">
 													<th>#</th>
@@ -527,7 +530,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel">
-									<div class="panel-heading">สรุปวิธีกาชำระเงิน</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
 									<div class="panel-body">
 										<table class="table">
 											<thead>
