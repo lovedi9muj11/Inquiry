@@ -40,17 +40,9 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-<<<<<<< HEAD
 								<div class="panel">
-									<div class="panel-heading">	เพิ่มใบเสร็จ
->
-=======
-								<div class="panel with-nav-tabs " >
-									<div class="panel-heading " style="background-color: #ee7600;">
-										<ul class="nav nav-tabs">
-											<li class="active"><a href="#tab1warning"
-												data-toggle="tab"><span class="glyphicon glyphicon-user">เพิ่มใบเสร็จ</span></a></li>
->>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
+									<div class="panel-heading">เพิ่มใบเสร็จ
+
 									</div>
 									<div class="panel-body">
 										<div class="row">
@@ -211,24 +203,11 @@
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-<<<<<<< HEAD
 								<div class="panel">
 									<div class="panel-heading" > รายการหัก													
 										<select class="form-control" style="display: inline;width: 30%;padding-left: 20px">
 												<option>ภาษีหัก ณ ที่จ่าย</option>
 										</select>																		
-=======
-								<div class="panel with-nav-tabs panel-warning">
-									<div class="panel-heading" style="background-color: #ee7600;">
-										<ul class="nav nav-tabs">
-											<li class="active"><a href="#tab1warning"
-												data-toggle="tab">รายการหัก</a></li>
-											<li class="dropdown" role="presentation"><select
-												class="form-control">
-													<option>ภาษีหัก ณ ที่จ่าย</option>
-											</select></li>
-										</ul>
->>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 									</div>
 									<div class="panel-body">
 										<div class="row">
@@ -319,7 +298,6 @@
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-<<<<<<< HEAD
 								<div class="panel">
 									<div class="panel-heading">วิธีการรับชำระ
 										<select class="form-control" id="typePayment" onchange="findTypePayment()" style="display: inline;width: 30%;padding-left: 20px">
@@ -327,21 +305,6 @@
 												<option value="credit">บัตรเครดิต</option>
 												<option value="check">เช็ค</option>
 										</select>
-=======
-								<div class="panel with-nav-tabs panel-warning">
-									<div class="panel-heading" style="background-color: #ee7600;">
-										<ul class="nav nav-tabs">
-											<li class="active"><a href="#tab1warning"
-												data-toggle="tab">วิธีการรับชำระ</a></li>
-											<li><select class="form-control" id="typePayment"
-												onchange="findTypePayment()">
-													<option value="money">เงินสด</option>
-													<option value="credit">บัตรเครดิต</option>
-													<option value="check">เช็ค</option>
-											</select></li>
-										</ul>
-
->>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 									</div>
 									<div class="panel-body">
 										<div id="money">
@@ -540,11 +503,7 @@
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-<<<<<<< HEAD
 								<div class="panel">
-=======
-								<div class="panel panel-warning">
->>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
 									<div style="display:none">
@@ -570,11 +529,7 @@
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-<<<<<<< HEAD
 								<div class="panel">
-=======
-								<div class="panel panel-warning">
->>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
 									<div class="panel-body">
 										<table class="table">
