@@ -36,12 +36,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 20px">
+				<div class="row" style="margin-top: 20px;" >
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
-								<div class="panel with-nav-tabs panel-warning">
-									<div class="panel-heading">
+								<div class="panel with-nav-tabs " >
+									<div class="panel-heading " style="background-color: #ee7600;">
 										<ul class="nav nav-tabs">
 											<li class="active"><a href="#tab1warning"
 												data-toggle="tab"><span class="glyphicon glyphicon-user">เพิ่มใบเสร็จ</span></a></li>
@@ -206,7 +206,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel with-nav-tabs panel-warning">
-									<div class="panel-heading">
+									<div class="panel-heading" style="background-color: #ee7600;">
 										<ul class="nav nav-tabs">
 											<li class="active"><a href="#tab1warning"
 												data-toggle="tab">รายการหัก</a></li>
@@ -306,7 +306,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel with-nav-tabs panel-warning">
-									<div class="panel-heading">
+									<div class="panel-heading" style="background-color: #ee7600;">
 										<ul class="nav nav-tabs">
 											<li class="active"><a href="#tab1warning"
 												data-toggle="tab">วิธีการรับชำระ</a></li>
@@ -517,9 +517,12 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel panel-warning">
-									<div class="panel-heading">สรุปรายการหัก</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
-										<table class="table" id="sumDeductibleTable">
+									<div style="display:none">
+									<table id="sumDeductibleTable"></table>
+									</div>
+										<table class="table" id="showDeductibleTable">
 											<thead>
 												<tr align="center">
 													<th>#</th>
@@ -540,7 +543,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel panel-warning">
-									<div class="panel-heading">สรุปวิธีกาชำระเงิน</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
 									<div class="panel-body">
 										<table class="table">
 											<thead>
