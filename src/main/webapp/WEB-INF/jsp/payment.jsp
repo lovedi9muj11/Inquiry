@@ -314,7 +314,7 @@
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="จำนวนเงิน">
+															 placeholder="จำนวนเงิน" id="moneyTran" name="moneyTran">
 													</div>
 
 												</div>
@@ -326,17 +326,17 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ประเภทของบัตรเครดิต:</label>
 													<div class="col-sm-4">
-														<select class="form-control">
-															<option>กรุณาเลือก</option>
-															<option>VISA</option>
-															<option>MASTER-CARD</option>
+														<select class="form-control" id="creditType" name="creditType">
+															<option value="">กรุณาเลือก</option>
+															<option value="visa">VISA</option>
+															<option value="masterCard">MASTER-CARD</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่บัตร:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="เลขที่บัตร">
+															id="creditNo" name="creditNo" placeholder="เลขที่บัตร">
 													</div>
 												</div>
 											</div>
@@ -346,24 +346,24 @@
 														for="formGroupInputLarge">ธนาคารเจ้าของเครื่อง
 														(EDC):</label>
 													<div class="col-sm-4">
-														<select class="form-control">
-															<option>กรุณาเลือก</option>
-															<option>VISA</option>
-															<option>MASTER-CARD</option>
+														<select class="form-control" id="edcType">
+															<option value="">กรุณาเลือก</option>
+															<option value="paypal">Paypal </option>
+															<option value="7Eleven">7-Eleven</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวเนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="จำนวเนเงิน">
+															id="creditPrice" name="creditPrice" placeholder="จำนวเนเงิน">
 													</div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12 right">
-														<button type="button" class="btn btn-warning">
+														<button type="button" class="btn btn-warning" onclick="addDataTablecreditTranPrice()">
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการบัตรเครดิต</span>
 														</button>
 													</div>
@@ -372,7 +372,7 @@
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12">
-														<table class="table">
+														<table class="table" id="creditTable">
 															<thead>
 																<tr>
 																	<th>#</th>
@@ -383,7 +383,6 @@
 																</tr>
 															</thead>
 															<tbody>
-																<tr></tr>
 															</tbody>
 														</table>
 													</div>
@@ -397,17 +396,18 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รหัสธนาคาร:</label>
 													<div class="col-sm-4">
-														<select class="form-control">
-															<option>กรุณาเลือก</option>
-															<option>001</option>
-															<option>002</option>
+														<select class="form-control" id="bankNo"  onchange="findBank()">
+															<option value="">กรุณาเลือก</option>
+															<option value="001">001</option>
+															<option value="002">002</option>
+															<option value="003">003</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่เช็ค:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="เลขที่เช็ค">
+															id="checkNo" name="checkNo" placeholder="เลขที่เช็ค">
 													</div>
 												</div>
 											</div>
@@ -416,16 +416,17 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ชื่อธนาคาร :</label>
 													<div class="col-sm-4">
-														<select class="form-control">
-															<option>กรุณาเลือก</option>
-															<option>ธนาคารกรุงไทย</option>
-															<option>ธนาคารไทยพานิชย์</option>
+														<select class="form-control" id="bankName" onchange="findBankNo()">
+															<option value="">กรุณาเลือก</option>
+															<option value="ktb">ธนาคารกรุงไทย</option>
+															<option value="scb">ธนาคารไทยพานิชย์</option>
+															<option value="kbk">ธนาคารกสิกรไทย</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="date">
+														<input class="form-control" type="date" id="dateCheck">
 													</div>
 												</div>
 											</div>
@@ -435,20 +436,20 @@
 														for="formGroupInputLarge">สาขา :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="สาขา">
+															id="branchCheck" name="branchCheck" placeholder="สาขา">
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															id="formGroupInputLarge" placeholder="จำนวนเงิน">
+															id="moneyCheck" placeholder="จำนวนเงิน">
 													</div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12 right">
-														<button type="button" class="btn btn-warning">
+														<button type="button" class="btn btn-warning" onclick="addDataTableCheck()">
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการเช็ค</span>
 														</button>
 													</div>
@@ -457,7 +458,7 @@
 											<div class="row">
 												<div class="form-group">
 													<div class="col-sm-12">
-														<table class="table">
+														<table class="table" id="checkTable">
 															<thead>
 																<tr>
 																	<th>#</th>
@@ -470,7 +471,6 @@
 																</tr>
 															</thead>
 															<tbody>
-																<tr></tr>
 															</tbody>
 														</table>
 													</div>
@@ -484,7 +484,7 @@
 										<div class="row">
 											<div class="form-group">
 												<div class="col-sm-12 right">
-													<button type="button" class="btn btn-primary">
+													<button type="button" class="btn btn-primary" onclick="sumTranPrice()">
 														<span class="glyphicon glyphicon-plus">เพิ่มวิธีการรับชำระ</span>
 													</button>
 												</div>
@@ -507,7 +507,7 @@
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
 									<div style="display:none">
-									<table id="sumDeductibleTable"></table>
+									<table id="sumDeductibleTable"><tbody></tbody></table>
 									</div>
 										<table class="table" id="showDeductibleTable">
 											<thead>
@@ -532,7 +532,11 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
 									<div class="panel-body">
-										<table class="table">
+									<div style="display:none">
+									<table id="sumTotalPriceTable"><tbody></tbody></table>
+									</div>
+										<table class="table" id="showTotalPriceTable">
+										
 											<thead>
 												<tr>
 													<th>#</th>
@@ -542,7 +546,6 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr></tr>
 											</tbody>
 										</table>
 									</div>
