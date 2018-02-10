@@ -28,135 +28,158 @@
 	<!-- main panel -->
 	
 	 <div id="page-content-wrapper"> 
-		<!-- 		<div id="header-wrapper"> -->
+	
 		<br />
 		<div class="row">
+		
+            <div class="col-md-12 col-sm-12">
+						<div class="form-group" >
+							<div class="col-md-12 col-sm-12">
+								 <ol class="breadcrumb">
+                <li><i>รับชำระอื่นๆ</i></li>
+                <li class="active">เพิ่มข้อมูลการรับชำระอื่นๆ</li>
+            </ol>
+							</div>
+						</div>
+					</div>
 					<div class="col-md-12 col-sm-12">
+						<div class="form-group" align="right">
+							<div class="col-md-12 col-sm-12">
+			<ul class="list-inline pull-right list-menu-set">
+				<li><a id="buttonCreatePaymentAndPrint" class="btn btn-link"><span
+						class="glyphicon glyphicon-print"></span> บันทึกและพิมพ์</a></li>
+				<li><a id="buttonCancelPayment" class="btn btn-link"><span
+						class="glyphicon glyphicon-remove-circle"></span> ยกเลิกรายการ</a></li>
+			</ul>
+			</div>
+			</div>
+			</div>
+            
+					<!-- <div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
 								<a><span class="glyphicon glyphicon-share">ดำเนินการรับชำระ</span></a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<br/>
 		 <div class="container-fluid">
 		 
 				<div class="panel">
-				<div class="panel-heading">เพิ่มใบเสร็จ</div>
+				<div class="panel-heading">ข้อมูลลูกค้า</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12">
-								<div class="form-horizontal">
-									<div class="form-group">
-										<label class="control-label col-sm-2">ชื่อ:</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">เลขที่ลูกค้า :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">TaxNo :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">เลขที่ลูกค้า :</label>
+                                            <div class="col-sm-2"><input id="inputCustomerBillNo" class="form-control"></div>
+                                            <label class="control-label col-sm-2">ชื่อลูกค้า :</label>
+                                            <div class="col-sm-5"><input id="inputCustomerName" class="form-control" ></div>
+                                            <input type="hidden" id="inputCustomerType">
+                                        </div>
 
-									</div>
-									<div class="form-group">
-										<label class="control-label col-sm-2">ที่อยู่ :</label>
-										<div class="col-sm-6">
-											<textarea id="#" class="form-control text-right"></textarea>
-										</div>
-										<label class="control-label col-sm-2">สาขา :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">กลุ่มผู้ใช้บริการ
-											:</label>
-										<div class="col-sm-2" id="serviceDepartmentDiv" style="margin-top: 10px;">
-											<input id="#" class="form-control text-right">
-										</div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">Tax ID :</label>
+                                            <div class="col-sm-2"><input id="inputCustomerTaxNo" maxlength="13" class="form-control" ></div>
+                                            <label class="control-label col-sm-2">สาขา :</label>
+                                            <div class="col-sm-2"><input id="inputCustomerBranch" maxlength="5" class="form-control" ></div>
+                                        </div>
 
-									</div>
-
-									<div class="form-group">
-										<label class="control-label col-sm-2">เลขที่ใบแจ้ง:</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">หมายเลขบริการ :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">ยอดก่อนภาษี :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-
-									</div>
-									<div class="form-group">
-										<label class="control-label col-sm-2">ภาษามูลค่าเพิ่ม
-											:</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">จำนวนเงินรวมภาษี
-											:</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-										<label class="control-label col-sm-2">ยอดชำระ :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right">
-										</div>
-
-									</div>
-
-									<div class="form-group">
-										<label class="control-label col-sm-2">รอบการใช้งานเพิ่ม
-											:</label>
-										<div class="col-sm-2">
-											<input type="date" class="form-control ">
-										</div>
-										<label class="control-label col-sm-2">รอบการใช้งานสิ้นสุด
-											:</label>
-										<div class="col-sm-2">
-											<input type="date" class="form-control ">
-										</div>
-
-									</div>
-
-									<div class="form-group">
-										<label class="control-label col-sm-2">วันครบกำหนด :</label>
-										<div class="col-sm-2">
-											<input type="date" class="form-control ">
-										</div>
-										<label class="control-label col-sm-2">วันจัดทำใบแจ้งค่าบริการ
-											:</label>
-										<div class="col-sm-2">
-											<input type="date" class="form-control ">
-										</div>
-
-									</div>
-
-									<div class="form-group">
-										<label class="control-label col-sm-2">สถานะ :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right" disabled>
-										</div>
-										<label class="control-label col-sm-2">Vat Rate :</label>
-										<div class="col-sm-2">
-											<input id="#" class="form-control text-right" disabled>
-										</div>
-
-									</div>
-
-								</div>
-							</div>
-						</div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">กลุ่มผู้ใช้บริการ :</label>
+                                            <div class="col-sm-2">
+                                                <select class="form-control" id="inputCustomerSegment" ></select>
+                                            </div>
+                                            <label class="control-label col-sm-2">VAT Rate :</label>
+                                            <div class="col-sm-2">
+                                                <select id="inputCustomerVatRate" class="form-control" >
+                                                    <option>7</option>
+                                                    <option>0</option>
+                                                    <option>Non VAT</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">ที่อยู่ :</label>
+                                            <div class="col-sm-6"><textarea id="inputCustomerAddress" class="form-control" ></textarea></div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                        
+    </div>
 					</div>
 				</div>
+				
+				
+            <div class="panel">
+				<div class="panel-heading">รายการรับชำระ</div>
+					<div class="panel-body">
+                        <div role="tabpanel" class="tab-pane active" id="tab_1">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">ประเภทรายได้ :</label>
+                                    <div class="col-sm-2" id="serviceNameDiv"><select id="inputServiceType" class="form-control"></select></div>
+                                    <label class="control-label col-sm-2">หน่วยงานรับรายได้ :</label>
+                                    <div class="col-sm-2" id="serviceDepartmentDiv">
+                                        <select id="inputServiceDepartment" class="form-control"></select>
+                                    </div>
+                                    <label class="control-label col-sm-2">เงินส่วนลดก่อน VAT :</label>
+                                    <div class="col-sm-2"><input id="inputServiceDiscount" class="form-control text-right"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">ชื่อบริการ :</label>
+                                    <div class="col-sm-2" id="serviceNameDiv"><select class="form-control" id="inputServiceName"></select></div>
+                                    <label class="control-label col-sm-2">จำนวนรายการ :</label>
+                                    <div class="col-sm-2"><input id="inputServiceMoreData" class="form-control text-right"></div>
+                                    <div class="col-sm-1"><select id="inputServiceUnit" class="form-control"></select></div>
+                                    <label class="control-label col-sm-1"><input type="checkbox" hidden="hidden" name="checkboxAdditionalDiscount"><span class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลดพิเศษ :</label>
+                                    <div class="col-sm-2"><input id="inputSpecialDiscount" class="form-control text-right" ></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">จำนวนเงินต่อหน่วย :</label>
+                                    <div class="col-sm-2"><input id="inputServiceAmount" class="form-control"></div>
+                                    <label class="control-label col-sm-2">ภาษีหัก ณ ที่จ่าย :</label>
+                                    <div class="col-sm-2"><input id="inputServiceDeduction" class="form-control text-right"></div>
+                                    <div class="col-sm-1 "><a id="#" class="btn btn-primary"></span>คำนวน</a></div>
+                                    <div class="col-sm-2 col-sm-offset-1"><a id="buttonAddBillingList" class="btn btn-primary"> <span class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการรับชำระ</a></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="radio col-sm-2 col-sm-offset-2">
+                                        <label><input type="radio" name="vatRadio" value="exclude" checked><b>ก่อน vat</b></label>
+                                        <label><input type="radio" name="vatRadio" value="include"><b>หลัง vat</b> </label>
+                                    </div>
+                                    <label class="control-label col-sm-2">ประเภทสกุลเงิน :</label>
+                                    <div class="col-sm-1"><select id="inputServiceUnit" class="form-control"></select></div>
+                                </div>
+                            </div>
+                            <br /> <br />
+
+                            <table id="tableBillingList" data-row-style="rowStyle" data-toggle="table"
+                                   data-classes="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th data-align="center" data-field="id" data-formatter="runningFormatter">#</th>
+                                    <th data-field="serviceType">ประเภทบริการ</th>
+                                    <th data-field="serviceName" data-formatter="stringInputFormatter">ชื่อบริการ</th>
+                                    <th data-field="serviceMoreData" data-align="right">จำนวนรายการ</th>
+                                    <th data-field="serviceAmount" data-align="right" data-formatter="numberFormatter">จำนวนเงินต่อหน่วย (ก่อน Vat)</th>
+                                    <th data-field="serviceDiscount" data-align="right" data-formatter="numberFormatter">เงินส่วนลด</th>
+                                    <th data-field="serviceVat" data-align="right" data-formatter="numberFormatterForVat">ภาษีมูลค่าเพิ่ม</th>
+                                    <th data-field="serviceDeduction" data-align="right" data-formatter="numberFormatter">ภาษีหัก ณ ที่จ่าย</th>
+                                    <th data-field="serviceTotalCharge" data-align="right" data-formatter="numberFormatter">ยอดเงินรวม</th>
+                                    <th data-field="serviceSpecialDiscount" data-align="right" data-formatter="numberInputAuthenFormatter">ส่วนลดพิเศษ</th>
+                                    <th data-align="center" data-formatter="operateButtonFormatter"></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+				
 
 			<div class="row">
 			
@@ -316,6 +339,142 @@
 					</div>
 				</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel">
+					<div class="panel-heading">สรุปยอดเงินที่ต้องชำระ</div>
+					<div class="panel-body">
+						<div class="form-horizontal">
+
+							<div class="form-group">
+								<label class="control-label col-sm-10">ยอดเงินก่อนหักส่วนลด
+									:</label>
+								<div class="col-sm-2">
+									<input id="preItemsDiscount" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ส่วนลด :</label>
+								<div class="col-sm-2">
+									<input id="itemsDiscount" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ส่วนลดพิเศษ :</label>
+								<div class="col-sm-2">
+									<input id="discount" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-10">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
+									:</label>
+								<div class="col-sm-2">
+									<input id="charge" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ภาษีมูลค่าเพิ่ม
+									:</label>
+								<div class="col-sm-2">
+									<input id="vat" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ยอดเงินที่ต้องชำระรวมภาษีมูลค่าเพิ่ม
+									:</label>
+								<div class="col-sm-2">
+									<input id="totalCharge" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ภาษีหัก ณ
+									ที่จ่าย :</label>
+								<div class="col-sm-2">
+									<input id="deduct" class="form-control text-right" disabled>
+								</div>
+							</div>
+							<div class="form-group" id="feeSummaryDiv">
+								<label class="control-label col-sm-10">ค่าธรรมเนียม :</label>
+								<div class="col-sm-2">
+									<input id="fee" class="form-control text-right" disabled>
+								</div>
+							</div>
+							<div class="form-group" id="penaltySummaryDiv">
+								<label class="control-label col-sm-10">ค่าปรับ :</label>
+								<div class="col-sm-2">
+									<input id="penalty" class="form-control text-right" disabled>
+								</div>
+							</div>
+							<div class="form-group" id="retentionSummaryDiv">
+								<label class="control-label col-sm-10">เงินประกันผลงาน
+									:</label>
+								<div class="col-sm-2">
+									<input id="retention" class="form-control text-right" disabled>
+								</div>
+							</div>
+							<div class="form-group" id="compensationSummaryDiv">
+								<label class="control-label col-sm-10">ค่าตอบแทนการรับชำระเงิน
+									:</label>
+								<div class="col-sm-2">
+									<input id="compensation" class="form-control text-right"
+										disabled>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ยอดเงินที่ต้องชำระ
+									:</label>
+								<div class="col-sm-2">
+									<input id="balanceDue" class="form-control text-right" disabled>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">ยอดเงินรับมา :</label>
+								<div class="col-sm-2">
+									<input id="inputReceived" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-10">เงินทอน :</label>
+								<div class="col-sm-2">
+									<input id="change" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="control-label col-sm-10">
+									<label class="strong"><input type="radio"
+										name="specialOptions" value="1">
+										รายได้อื่นที่ไม่มีภาษี</label>&nbsp;&nbsp;&nbsp;&nbsp; <label
+										class="strong"><input type="radio"
+										name="specialOptions" value="2"> รายได้อื่นมีภาษี</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								</div>
+								<div class="col-sm-2">
+									<input id="inputAdvanced" class="form-control text-right"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="form-group">
+                            <label class="control-label col-sm-2">ข้อความเพิ่มเติมในใบเสร็จ :</label>
+                            <div class="col-sm-5"><input id="inputAdditionalRemark" class="form-control"></div>
+                            <%--<label class="control-label col-sm-3"><input type="checkbox" name="checkboxAdditionalDiscount">&nbsp;&nbsp;ลูกค้ารับภาระภาษี &nbsp;&nbsp;<span class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลด :</label>
+                            <div class="col-sm-2"><input id="inputAdditionalDiscount" class="form-control text-right" disabled></div>--%>
+                        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		</div>
 		</div>
 </body>
