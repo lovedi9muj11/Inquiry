@@ -29,8 +29,12 @@ public class PaymentFirstBean implements Serializable{
 	private double vat;
 	private double balanceOfTax;
 	private double balanceSummary;
+	private String remark;
+	private double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
+	
+	
 	public String getCustName() {
 		return custName;
 	}
@@ -156,6 +160,18 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
 		this.paymentTranPrice = paymentTranPrice;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public double getSummaryTax() {
+		return summaryTax;
+	}
+	public void setSummaryTax(double summaryTax) {
+		this.summaryTax = summaryTax;
 	}
 	
 	
