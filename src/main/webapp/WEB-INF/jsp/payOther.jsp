@@ -121,17 +121,17 @@
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ประเภทรายได้ :</label>
-                                    <div class="col-sm-2" id="serviceNameDiv"><select id="inputServiceType" class="form-control"></select></div>
+                                    <div class="col-sm-2" ><input id="inputServiceAmount" class="form-control"></div>
                                     <label class="control-label col-sm-2">หน่วยงานรับรายได้ :</label>
-                                    <div class="col-sm-2" id="serviceDepartmentDiv">
-                                        <select id="inputServiceDepartment" class="form-control"></select>
+                                    <div class="col-sm-2" >
+                                        <input id="inputServiceAmount" class="form-control">
                                     </div>
                                     <label class="control-label col-sm-2">เงินส่วนลดก่อน VAT :</label>
                                     <div class="col-sm-2"><input id="inputServiceDiscount" class="form-control text-right"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ชื่อบริการ :</label>
-                                    <div class="col-sm-2" id="serviceNameDiv"><select class="form-control" id="inputServiceName"></select></div>
+                                    <div class="col-sm-2" ><input id="inputServiceAmount" class="form-control"></div>
                                     <label class="control-label col-sm-2">จำนวนรายการ :</label>
                                     <div class="col-sm-2"><input id="inputServiceMoreData" class="form-control text-right"></div>
                                     <div class="col-sm-1"><select id="inputServiceUnit" class="form-control"></select></div>
@@ -188,10 +188,6 @@
 					<div class="panel-heading">รายการหัก
 						<select class="form-control" style="display: inline;width: 30%;padding-left: 20px">
 							<option>ภาษีหัก ณ ที่จ่าย</option>
-							<option>ค่าธรรมเนียม</option>
-							<option>ค่าปรับ</option>
-							<option>เงินประกันผลงาน</option>
-							<option>ค่าตอบแทนการรับชำระเงิน</option>
 						</select>					
 					</div>
 						<div class="panel-body">
@@ -260,18 +256,10 @@
 				<div class="col-md-7">	
 					<div class="panel">
 						<div class="panel-heading">วิธีการรับชำระเงิน				
-							<select class="form-control" style="display: inline;width: 30%;padding-left: 20px">
+							<select class="form-control" style="display: inline;width: 20%;padding-left: 20px">
 								<option>เงินสด</option>
 								<option>เช็ค</option>
 								<option>บัตรเครดิต</option>
-								<option>ธนาณัติ</option>
-								<option>ตั๋วแลกเงิน</option>
-								<option>คูปอง</option>
-								<option>เงินโอนในประเทศ</option>
-								<option>offset</option>
-								<option>เงินโอนต่างประเทศ</option>
-								<option>อื่น ๆ</option>
-								<option>GFMIS</option>
 							</select>	
 						</div>
 						<div class="panel-body">
@@ -401,33 +389,7 @@
 									<input id="deduct" class="form-control text-right" disabled>
 								</div>
 							</div>
-							<div class="form-group" id="feeSummaryDiv">
-								<label class="control-label col-sm-10">ค่าธรรมเนียม :</label>
-								<div class="col-sm-2">
-									<input id="fee" class="form-control text-right" disabled>
-								</div>
-							</div>
-							<div class="form-group" id="penaltySummaryDiv">
-								<label class="control-label col-sm-10">ค่าปรับ :</label>
-								<div class="col-sm-2">
-									<input id="penalty" class="form-control text-right" disabled>
-								</div>
-							</div>
-							<div class="form-group" id="retentionSummaryDiv">
-								<label class="control-label col-sm-10">เงินประกันผลงาน
-									:</label>
-								<div class="col-sm-2">
-									<input id="retention" class="form-control text-right" disabled>
-								</div>
-							</div>
-							<div class="form-group" id="compensationSummaryDiv">
-								<label class="control-label col-sm-10">ค่าตอบแทนการรับชำระเงิน
-									:</label>
-								<div class="col-sm-2">
-									<input id="compensation" class="form-control text-right"
-										disabled>
-								</div>
-							</div>
+							
 							<div class="form-group">
 								<label class="control-label col-sm-10">ยอดเงินที่ต้องชำระ
 									:</label>
