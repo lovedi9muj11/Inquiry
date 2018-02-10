@@ -2,6 +2,25 @@ $(document).ready(function() {
 	findTypePayment();
 	findBank();
 	findBankNo();
+    var cars = ['ทต.', 'ตร.', 'ปง.', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen'];
+    
+    // Constructing the suggestion engine
+    var cars = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: cars
+    });
+    
+    // Initializing the typeahead
+    $('#typeahead').typeahead({
+        hint: true,
+        highlight: true, /* Enable substring highlighting */
+        minLength: 1 /* Specify minimum characters required for showing result */
+    },
+    {
+        name: 'cars',
+        source: cars
+    });
 });
 
 function findTypePayment() {
@@ -52,6 +71,7 @@ function addRow() {
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
+	var invoiceNo = $("#invoiceNo").val();
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
@@ -65,7 +85,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"+ count+ "</td><td>"	+ "test1"+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"	+ moneyDed+ "</td><td><a onclick='myDeleteFunction()'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"+ count+ "</td><td>"	+ invoiceNo + "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"	+ moneyDed+ "</td><td><a onclick='myDeleteFunction()'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var docDed = $("#docDed").val("");
@@ -164,7 +184,7 @@ function addDataSumCheckTranPrice(){
 			   result.push(oCells[fs].innerHTML);
 		   }
 
-		   var markup = "<tr><td>"+ count+ "</td><td>"+ nameMode + "</td><td>"+ result[6]+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+count+")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		   var markup = "<tr><td>"+ count+ "</td><td>"+ nameMode + "</td><td>"+ result[5]+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+count+")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		   $("#showTotalPriceTable").find('tbody').append(markup);
 		   var markup1 = "<tr><td>"+ i+ "</td><td>"+ nameMode + "</td><td>"+ result[1]+ "</td><td>"+ result[2]+ "</td><td>"+ result[3]+ "</td><td>"+ result[4]+ "</td><td>"+ result[5]+ "</td><td>"+ result[6]+ "</td></tr>";
 		   $("#sumTotalPriceTable").find('tbody').append(markup1);
