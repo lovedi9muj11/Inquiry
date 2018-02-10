@@ -28,6 +28,7 @@
 		<br />
 		<div class="container-fluid">
 		<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>
+		<div class="panel">
 		<br />
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
@@ -65,6 +66,7 @@
 			        </div>
 			    </div>
 			</div>
+		</div>
 		</div>
 	</div>
 </div>
