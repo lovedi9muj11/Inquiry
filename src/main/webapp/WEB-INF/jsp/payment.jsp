@@ -31,7 +31,7 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
-								<a><span class="glyphicon glyphicon-share">ดำเนินการรับชำระ</span></a>
+								<a><span class="glyphicon glyphicon-share">บันทึกและพิมพ์ะ</span></a>
 							</div>
 						</div>
 					</div>
@@ -353,7 +353,7 @@
 							<div class="col-md-12 col-sm-12">
 								<div class="panel">
 									<div class="panel-heading">
-										วิธีการรับชำระ <select class="form-control" id="typePayment" name="typePayment"
+										วิธีการรับชำระ <select class="form-control" id="typePayment" name="paymentTranPrice.typePayment"
 											onchange="findTypePayment()"
 											style="display: inline; width: 30%; padding-left: 20px">
 											<option value="money">เงินสด</option>
@@ -369,7 +369,7 @@
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text"
-															placeholder="จำนวนเงิน" id="moneyTran" name="moneyTran">
+															placeholder="จำนวนเงิน" id="moneyTran" name="paymentTranPrice.moneyTran">
 													</div>
 
 												</div>
@@ -382,7 +382,7 @@
 														for="formGroupInputLarge">ประเภทของบัตรเครดิต:</label>
 													<div class="col-sm-4">
 														<select class="form-control" id="creditType" 
-															name="creditType">
+															name="paymentTranPrice.creditType">
 															<option value="">กรุณาเลือก</option>
 															<option value="visa">VISA</option>
 															<option value="masterCard">MASTER-CARD</option>
@@ -392,7 +392,7 @@
 														for="formGroupInputLarge">เลขที่บัตร:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="creditNo"
-															name="creditNo" placeholder="เลขที่บัตร">
+															name="paymentTranPrice.creditNo" placeholder="เลขที่บัตร">
 													</div>
 												</div>
 											</div>
@@ -402,7 +402,7 @@
 														for="formGroupInputLarge">ธนาคารเจ้าของเครื่อง
 														(EDC):</label>
 													<div class="col-sm-4">
-														<select class="form-control" id="edcType" name="edcType">
+														<select class="form-control" id="edcType" name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
 															<option value="paypal">Paypal</option>
 															<option value="7Eleven">7-Eleven</option>
@@ -412,7 +412,7 @@
 														for="formGroupInputLarge">จำนวเนเงิน :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="creditPrice"
-															name="creditPrice" placeholder="จำนวเนเงิน">
+															name="paymentTranPrice.creditPrice" placeholder="จำนวเนเงิน">
 													</div>
 												</div>
 											</div>
@@ -453,7 +453,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รหัสธนาคาร:</label>
 													<div class="col-sm-4">
-														<select class="form-control" id="bankNo" name="bankNo"
+														<select class="form-control" id="bankNo" name="paymentTranPrice.bankNo"
 															onchange="findBank()">
 															<option value="">กรุณาเลือก</option>
 															<option value="001">001</option>
@@ -465,7 +465,7 @@
 														for="formGroupInputLarge">เลขที่เช็ค:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="checkNo"
-															name="checkNo" placeholder="เลขที่เช็ค">
+															name="paymentTranPrice.checkNo" placeholder="เลขที่เช็ค">
 													</div>
 												</div>
 											</div>
@@ -474,7 +474,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ชื่อธนาคาร :</label>
 													<div class="col-sm-4">
-														<select class="form-control" id="bankName" name="bankName"
+														<select class="form-control" id="bankName" name="paymentTranPrice.bankName"
 															onchange="findBankNo()">
 															<option value="">กรุณาเลือก</option>
 															<option value="ktb">ธนาคารกรุงไทย</option>
@@ -485,7 +485,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="date" id="dateCheck" name="dateCheck">
+														<input class="form-control" type="date" id="dateCheck" name="paymentTranPrice.dateCheck">
 													</div>
 												</div>
 											</div>
@@ -495,12 +495,12 @@
 														for="formGroupInputLarge">สาขา :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="branchCheck"
-															name="branchCheck" placeholder="สาขา">
+															name="paymentTranPrice.branchCheck" placeholder="สาขา">
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="moneyCheck" name="moneyCheck"
+														<input class="form-control" type="text" id="moneyCheck" name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
 													</div>
 												</div>
