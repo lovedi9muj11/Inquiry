@@ -261,11 +261,11 @@
 													for="formGroupInputLarge">ประเภทภาษีหัก ณ ที่จ่าย :</label>
 												<div class="col-sm-6">
 													<label> <input type="radio" name="radioDed"
-														id="radioDedCD" value="CD" checked> 69 ทวิ
+														id="radioDedCD" value="69tv" checked> 69 ทวิ
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCC" value="CC"> 3 เดรส
+														id="radioDedCC" value="3d"> 3 เดรส
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCT" value="CT"> 69 ดริ
+														id="radioDedCT" value="39tr"> 69 ดริ
 													</label>
 												</div>
 											</div>

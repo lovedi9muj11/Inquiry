@@ -44,19 +44,118 @@ function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
 	var invoiceNo = $("#invoiceNo").val();
+	var deductible = [];
+	var  resultDeductible = [];
+	var totalPrice = [];
+	var  resultTotalPrice = [];
+	
+	// get radio 
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
 		}
 	}
-//	
-	var list = [ {"radioDed" : radioResult
-	}]
+//	ภาษี หัก ณ ที่จ่าย
+	var table = document.getElementById("sumDeductibleTable");
+	var rowLength = table.rows.length;
+	
+	for (var i = 1; i < rowLength; i++) {
+		deductible = [];
+		var oCells = table.rows.item(i).cells;
+		for (var fs = 0; fs < oCells.length; fs++) {
+			
+			deductible.push(oCells[fs].innerHTML);
+		}
+		resultDeductible.push(deductible);
 
+	}
+	
+	// ตาราง สรุป ยอดเงิน
+	var tableTotalPrice = document.getElementById("sumTotalPriceTable");
+	var rowLengths = tableTotalPrice.rows.length;
+	
+	for (var y = 1; y < rowLengths; y++) {
+		totalPrice = [];
+		var oCells = tableTotalPrice.rows.item(y).cells;
+		for (var fs = 0; fs < oCells.length; fs++) {
+			
+			totalPrice.push(oCells[fs].innerHTML);
+		}
+		resultTotalPrice.push(totalPrice);
+
+	}
+	
+	// list ภาษี หัก ณ ที่จ่าย
+	var listpaymentTaxQ = [];
+	var listpaymentTaxRQ = [];
+	
+	for (var a = 0; a < resultDeductible.length; a++) {
+		listpaymentTaxQ = []
+		listpaymentTaxQ = {"invoiceNo" : resultDeductible[a][1],
+			"docDed" : resultDeductible[a][2],
+			"radioDed" : resultDeductible[a][3],
+			"moneyDed" : resultDeductible[a][4]
+		}
+		listpaymentTaxRQ.push(listpaymentTaxQ);
+	}
+	
+	// list TranPrice
+	
+	var listpaymentTranPriceQ = [];
+	var listpaymentTranPriceRQ = [];
+	
+	for (var b = 0; b < resultTotalPrice.length; b++) {
+		listpaymentTranPriceQ = [];
+		if(resultTotalPrice[b][1] == "CC"){
+			listpaymentTranPriceQ = {
+			"typePayment" : resultTotalPrice[b][1],
+			"moneyTran" : resultTotalPrice[b][2]
+			}
+		}else if (resultTotalPrice[b][1] == "CD"){
+			listpaymentTranPriceQ = {
+					"typePayment" : resultTotalPrice[b][1],
+					"creditType" : resultTotalPrice[b][2],
+					"creditNo" : resultTotalPrice[b][3],
+					"edcType" : resultTotalPrice[b][4],
+					"creditPrice" : resultTotalPrice[b][5]
+					}
+		}else if (resultTotalPrice[b][1] == "CH"){
+			listpaymentTranPriceQ = {
+					"typePayment" : resultTotalPrice[b][1],
+					"bankNo" : resultTotalPrice[b][2],
+					"bankName" : resultTotalPrice[b][3],
+					"branchCheck" : resultTotalPrice[b][4],
+					"checkNo" : resultTotalPrice[b][5],
+					"dateCheck" : resultTotalPrice[b][6],
+					"moneyCheck" : resultTotalPrice[b][7]
+				}
+		}
+		
+		listpaymentTranPriceRQ.push(listpaymentTranPriceQ);
+	}
 	
 	var dataSend = {
-			 "custName":$("#custName").val() , "paymentTax":list 
-	
+			 "custName":$("#custName").val() ,
+			 "custNo":$("#custNo").val() ,
+			 "taxId":$("#taxId").val() ,
+			 "custAddress":$("#custAddress").val() ,
+			 "custBrach":$("#custBrach").val() ,
+			 "userGroup":$("#userGroup").val() ,
+			 "debtCollection":$("#typeahead").val() ,
+			 "invoiceNo":$("#invoiceNo").val() ,
+			 "serviceNo":$("#serviceNo").val() ,
+			 "endDate":$("#endDate").val() ,
+			 "deadlines":$("#deadlines").val() ,
+			 "invoiceDate":$("#invoiceDate").val() ,
+			 "vatrate":$("#vatrate").val() ,
+			 "balanceBeforeTax":$("#balanceBeforeTax").val() ,
+			 "vat":$("#vat").val() ,
+			 "balanceOfTax":$("#balanceOfTax").val() ,
+			 "balanceSummary":$("#balanceSummary").val() ,
+			 "remark":$("#remark").val() ,
+			 "summaryTax":$("#summaryTax").val() ,
+			 "paymentTax":listpaymentTaxRQ  ,
+			 "paymentTranPrice" :listpaymentTranPriceRQ	 
 	}
 	$.ajax({
         type: "POST",
@@ -134,19 +233,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"
-			+ count
-			+ "</td><td>"
-			+ invoiceNo
-			+ "</td><td>"
-			+ docDed
-			+ "</td><td>"
-			+ radioResult
-			+ "</td><td>"
-			+ moneyDed
-			+ "</td><td><a onclick='myDeleteFunction("
-			+ count
-			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var docDed = $("#docDed").val("");
@@ -194,20 +281,9 @@ function addDataTableDed() {
 		}
 
 		var numberRun = number + i;
-		var markup = "<tr><td>"
-				+ numberRun
-				+ "</td><td>"
-				+ "ภาษีหัก ณ ที่จ่าย"
-				+ "</td><td>"
-				+ result[4]
-				+ "</td><td><a onclick='myDeleteDed("
-				+ numberRun
-				+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+ result[4]+ "</td><td><a onclick='myDeleteDed("+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showDeductibleTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + deduction
-				+ "</td><td>" + result[1] + "</td><td>" + result[2]
-				+ "</td><td>" + result[3] + "</td><td>" + result[4]
-				+ "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + deduction	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
 	}
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
@@ -221,7 +297,7 @@ function addDataTableMoneyTranPrice() {
 
 	var number = parseFloat(table - parseFloat(1));
 	var money = $("#moneyTran").val();
-	var nameMode = "เงินสด";
+	var nameMode = "CC";
 	var count = parseInt(1);
 	var summaryTax = $("#summaryTax").val();
 	var numberRun = count + number;
@@ -238,8 +314,7 @@ function addDataTableMoneyTranPrice() {
 				+ numberRun
 				+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode
-				+ "</td><td>" + money + "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode	+ "</td><td>" + money + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 
 		$("#moneyTran").val("");
@@ -252,7 +327,7 @@ function addDataSumCreditTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var oTable = document.getElementById('creditTable');
 	var result = [];
-	var nameMode = "บัตรเครดิต";
+	var nameMode = "CD";
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
@@ -266,18 +341,9 @@ function addDataSumCreditTranPrice() {
 		var numberRun = number + i;
 		var markup = "<tr><td>"
 				+ numberRun
-				+ "</td><td>"
-				+ nameMode
-				+ "</td><td>"
-				+ result[4]
-				+ "</td><td><a onclick='myDeleteSumCreditTranPrice("
-				+ numberRun
-				+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+				+ "</td><td>"+ nameMode+ "</td><td>"+ result[4]	+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode
-				+ "</td><td>" + result[1] + "</td><td>" + result[1]
-				+ "</td><td>" + result[2] + "</td><td>" + result[3]
-				+ "</td><td>" + result[4] + "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td>" + result[3]	+ "</td><td>" + result[4] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
@@ -289,7 +355,7 @@ function addDataSumCheckTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var oTable = document.getElementById('checkTable');
 	var result = [];
-	var nameMode = "เช็ค";
+	var nameMode = "CH";
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
@@ -300,21 +366,9 @@ function addDataSumCheckTranPrice() {
 			result.push(oCells[fs].innerHTML);
 		}
 		var numberRun = number + i;
-		var markup = "<tr><td>"
-				+ numberRun
-				+ "</td><td>"
-				+ nameMode
-				+ "</td><td>"
-				+ result[5]
-				+ "</td><td><a onclick='myDeleteSumCreditTranPrice("
-				+ numberRun
-				+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode	+ "</td><td>"+ result[6]+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode
-				+ "</td><td>" + result[1] + "</td><td>" + result[2]
-				+ "</td><td>" + result[3] + "</td><td>" + result[4]
-				+ "</td><td>" + result[5] + "</td><td>" + result[6]
-				+ "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2]+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td><td>" + result[5] + "</td><td>" + result[6] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 	}
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
@@ -338,19 +392,7 @@ function addDataTableCheck() {
 	for (count; count < table; count++) {
 		count
 	}
-	var markup = "<tr><td>"
-			+ count
-			+ "</td><td>"
-			+ bankNo
-			+ "</td><td>"
-			+ bankName
-			+ "</td><td>"
-			+ branchCheck
-			+ "</td><td>"
-			+ dateCheck
-			+ "</td><td>"
-			+ moneyCheck
-			+ "</td><td><a onclick='myDeleteCheckTranPrice("
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ bankNo+ "</td><td>"+ bankName+ "</td><td>"+ branchCheck+ "</td><td>"+ checkNo+ "</td><td>"+ dateCheck+ "</td><td>"	+ moneyCheck+ "</td><td><a onclick='myDeleteCheckTranPrice("
 			+ count
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#checkTable").find('tbody').append(markup);
