@@ -46,10 +46,8 @@
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
 			<ul class="list-inline pull-right list-menu-set">
-				<li><a id="buttonCreatePaymentAndPrint" class="btn btn-link"><span
-						class="glyphicon glyphicon-print"></span> บันทึกและพิมพ์</a></li>
-				<li><a id="buttonCancelPayment" class="btn btn-link"><span
-						class="glyphicon glyphicon-remove-circle"></span> ยกเลิกรายการ</a></li>
+				<li><a id="buttonCreatePaymentAndPrint" class="btn btn-link"><span class="glyphicon glyphicon-print"></span> บันทึกและพิมพ์</a></li>
+				<li><a id="buttonCancelPayment" class="btn btn-link"><span class="glyphicon glyphicon-remove-circle"></span> ยกเลิกรายการ</a></li>
 			</ul>
 			</div>
 			</div>
@@ -93,9 +91,10 @@
                                                 <select class="form-control" id="inputCustomerSegment" ></select>
                                             </div>
                                             <label class="control-label col-sm-2">VAT Rate :</label>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-1">
                                                 <select id="inputCustomerVatRate" class="form-control" >
                                                     <option>7</option>
+                                                    <option>3</option>
                                                     <option>0</option>
                                                     <option>Non VAT</option>
                                                 </select>
