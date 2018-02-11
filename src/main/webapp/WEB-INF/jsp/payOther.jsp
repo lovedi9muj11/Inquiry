@@ -143,7 +143,7 @@
                                     <div class="col-sm-2"><input id="inputServiceAmount" class="form-control"></div>
                                     <label class="control-label col-sm-2">ภาษีหัก ณ ที่จ่าย :</label>
                                     <div class="col-sm-2"><input id="inputServiceDeduction" class="form-control text-right"></div>
-                                    <div class="col-sm-1 "><a id="#" class="btn btn-primary"></span>คำนวน</a></div>
+                                    <div class="col-sm-1 "><a id="#" class="btn btn-primary">คำนวน</a></div>
                                     <div class="col-sm-2 col-sm-offset-1"><a id="buttonAddBillingList" class="btn btn-primary"> <span class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการรับชำระ</a></div>
                                 </div>
                                 <div class="form-group">
@@ -265,7 +265,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="form-horizontal">
+									<!-- <div class="form-horizontal">
 										<div class="form-group">
 											<label class="control-label col-sm-8">จำนวนเงิน :</label>
 											<div class="col-sm-4">
@@ -279,7 +279,122 @@
 								class="glyphicon glyphicon-plus-sign"></span>
 								เพิ่มวิธีการรับชำระ</a>
 										
+									</div> -->
+									<div role="tabpanel"  id="payType1">
+								<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-sm-8">จำนวนเงิน :</label>
+										<div class="col-sm-4">
+											<input id="payCashAmount" class="form-control text-right">
+										</div>
 									</div>
+								</div>
+								<a class="btn btn-warning pull-right" id="payChqSubmit"><span
+									class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการเงินสด</a>
+							</div>
+							<div role="tabpanel" class="tab-pane hide" id="payType2">
+								<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-sm-2">รหัสธนาคาร :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="#" >
+										</div>
+										<label class="control-label col-sm-2">เลขที่เช็ค :</label>
+										<!-- ICE FIXED CODE no.152 length chq = 7 -->
+										<div class="col-sm-4">
+											<input class="form-control" id="payChqNo" maxlength="7">
+										</div>
+										<!-- end ICE FIXED CODE no.152 length chq = 7 -->
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">ชื่อธนาคาร :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="#" >
+										</div>
+										<label class="control-label col-sm-2">วันที่หน้าเช็ค
+											:</label>
+										<div class="col-sm-4">
+											<div class="input-group input-append date"
+												data-provide="datepicker" data-date-format="dd/mm/yyyy">
+												<input class="form-control" id="payChqDate"
+													placeholder="dd/MM/yyyy" maxlength="10"> <span
+													class="input-group-addon add-on"><span
+													class="glyphicon glyphicon-calendar"></span></span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">สาขา :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="payChqBranch">
+										</div>
+										<label class="control-label col-sm-2">จำนวนเงิน :</label>
+										<div class="col-sm-4">
+											<input class="form-control text-right" id="payChqAmount">
+										</div>
+									</div>
+								</div>
+								<a class="btn btn-warning pull-right" id="payChqSubmit"><span
+									class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการเช็ค</a>
+								<table id="payChqList" class="table">
+									<thead>
+										<tr>
+											<th data-align="center" data-running-no="true">#</th>
+											<th>รหัสธนาคาร</th>
+											<th>ชื่อธนาคาร</th>
+											<th>สาขา</th>
+											<th>เลขที่เช็ค</th>
+											<th>วันที่หน้าเช็ค</th>
+											<th data-align="right" data-number-format="true">จำนวนเงิน</th>
+											<th></th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane hide" id="payType3">
+								<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-sm-3">ประเภทบัตรเครดิต
+											:</label>
+										<div class="col-sm-3">
+											<input class="form-control text-right" id="#">
+										</div>
+										<label class="control-label col-sm-3">เลขที่บัตร :</label>
+										<!-- ICE FIXED CODE no.153 length  = 16 -->
+										<div class="col-sm-3">
+											<input class="form-control" id="payCCNo" maxlength="16">
+										</div>
+										<!-- end ICE FIXED CODE no.153 length  = 16 -->
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-3">ธนาคารเจ้าของเครื่อง
+											(EDC) :</label>
+										<div class="col-sm-3">
+											<input class="form-control text-right" id="#">
+										</div>
+										<label class="control-label col-sm-3">จำนวนเงิน :</label>
+										<div class="col-sm-3">
+											<input class="form-control text-right" id="payCCAmount">
+										</div>
+									</div>
+								</div>
+								<a class="btn btn-warning pull-right" id="payCCSubmit"><span
+									class="glyphicon glyphicon-plus-sign"></span>
+									เพิ่มรายการบัตรเครดิต</a>
+								<table id="payCCList" class="table">
+									<thead>
+										<tr>
+											<th data-align="center" data-running-no="true">#</th>
+											<th>ประเภทบัตรเครดิต</th>
+											<th>เลขที่บัตร</th>
+											<th>EDC</th>
+											<th data-align="right" data-number-format="true">จำนวนเงิน</th>
+											<th></th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+									
 								</div>
 							</div>
 						</div>
@@ -427,8 +542,6 @@
 							<div class="form-group">
                             <label class="control-label col-sm-2">ข้อความเพิ่มเติมในใบเสร็จ :</label>
                             <div class="col-sm-5"><input id="inputAdditionalRemark" class="form-control"></div>
-                            <%--<label class="control-label col-sm-3"><input type="checkbox" name="checkboxAdditionalDiscount">&nbsp;&nbsp;ลูกค้ารับภาระภาษี &nbsp;&nbsp;<span class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลด :</label>
-                            <div class="col-sm-2"><input id="inputAdditionalDiscount" class="form-control text-right" disabled></div>--%>
                         </div>
 						</div>
 					</div>
