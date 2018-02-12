@@ -19,7 +19,7 @@ public class PaymentManualBean {
 	private  Timestamp  createDate;
 	private  String  updateBy;
 	private  Timestamp   updateDate;
-	private  String   recordBtatus;
+	private  String   recordStatus;
 	private  Long   refid;
 	private  String   accountNo;
 	private  String   clearingSap;
@@ -113,11 +113,11 @@ public class PaymentManualBean {
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getRecordBtatus() {
-		return recordBtatus;
+	public String getRecordStatus() {
+		return recordStatus;
 	}
-	public void setRecordBtatus(String recordBtatus) {
-		this.recordBtatus = recordBtatus;
+	public void setRecordStatus(String recordStatus) {
+		this.recordStatus = recordStatus;
 	}
 	public Long getRefid() {
 		return refid;

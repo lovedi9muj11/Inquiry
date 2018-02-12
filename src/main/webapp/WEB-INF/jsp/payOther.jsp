@@ -32,26 +32,27 @@
 		<br />
 		<div class="row">
 		
-            <div class="col-md-12 col-sm-12">
-						<div class="form-group" >
-							<div class="col-md-12 col-sm-12">
-								 <ol class="breadcrumb">
-                <li><i>รับชำระอื่นๆ</i></li>
-                <li class="active">เพิ่มข้อมูลการรับชำระอื่นๆ</li>
-            </ol>
-							</div>
-						</div>
-					</div>
+           <nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">รับชำระค่าบริการ ></a></li>
+						<li><a href="#">ผลการรับชำระ </a></li>
+					</ul>
+				</div>
+				</nav>
+				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
-			<ul class="list-inline pull-right list-menu-set">
-				<li><a id="buttonCreatePaymentAndPrint" class="btn btn-link"><span class="glyphicon glyphicon-print"></span> บันทึกและพิมพ์</a></li>
-				<li><a id="buttonCancelPayment" class="btn btn-link"><span class="glyphicon glyphicon-remove-circle"></span> ยกเลิกรายการ</a></li>
-			</ul>
-			</div>
-			</div>
-			</div>
+								<button name="submitFormPayment" type="button"
+									id="submitFormPayment" class="btn btn-success btn-lg"
+									onclick="submitForm()">
+									<span class="glyphicon glyphicon-share"> บันทึกและพิมพ์</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
             
 					<!-- <div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">

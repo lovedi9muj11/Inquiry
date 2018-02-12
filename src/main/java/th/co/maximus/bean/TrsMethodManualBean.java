@@ -18,6 +18,50 @@ public class TrsMethodManualBean {
 	private  String  offsetAccountCode;
 	private  String  offsetAccountName;
 	private  String  remark;
+	private  String  createBy;
+	private  Timestamp  createDate;
+	private  String  updateBy;
+	private  Timestamp  updateDate;
+	private  String  recordStatus;
+	private  Long  manualId;
+	
+	
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+	public String getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+	public Timestamp getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+	public String getRecordStatus() {
+		return recordStatus;
+	}
+	public void setRecordStatus(String recordStatus) {
+		this.recordStatus = recordStatus;
+	}
+	public Long getManualId() {
+		return manualId;
+	}
+	public void setManualId(Long manualId) {
+		this.manualId = manualId;
+	}
 	public Long getMethodManualId() {
 		return methodManualId;
 	}
