@@ -24,14 +24,14 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
-		String sql = "INSERT INTO payment_manual (ID, CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, METHOD_MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO trscreditref_manual (ID, CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, METHOD_MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sql, trscreDitrefManualBean.getId(), trscreDitrefManualBean.getCreditNo(), trscreDitrefManualBean.getPublisherdec());
 	
 	}
 	
 	@Override
 	public List<TrscreDitrefManualBean> TrscreDitrefManualAll() {
-		return jdbcTemplate.query("select * from payment_manual", new TrscreDitrefManualJoin());
+		return jdbcTemplate.query("select * from trscreditref_manual", new TrscreDitrefManualJoin());
 	}
 	
 	/*public PaymentManualBean xx() {

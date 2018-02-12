@@ -25,14 +25,14 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 
 	@Override
 	public void insertPaymentInvoiceManual(PaymentInvoiceManualBean paymentInvoiceManualBean) {
-		String sql = "INSERT INTO payment_manual (PAYMENT_INVOICE_MANUAL_ID,MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, SUB_NO, PERIOD, SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO payment_invoice_manual (PAYMENT_INVOICE_MANUAL_ID,MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, SUB_NO, PERIOD, SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sql, paymentInvoiceManualBean.getPaymentInvoiceManualId(), paymentInvoiceManualBean.getManualId(), paymentInvoiceManualBean.getSource());
 	
 	}
 	
 	@Override
 	public List<PaymentInvoiceManualBean> PaymentInvoiceManualAll() {
-		return jdbcTemplate.query("select * from payment_manual", new PaymentInvoiceManualJoin());
+		return jdbcTemplate.query("select * from payment_invoice_manual", new PaymentInvoiceManualJoin());
 	}
 	
 	/*public PaymentInvoiceManualBean xx() {

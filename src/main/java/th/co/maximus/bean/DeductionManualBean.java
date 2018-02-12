@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class DeductionManualBean {
 
 	
-	private  Long   deductionManualIdPrimary;
+	private  Long   deductionManualId;
 	private  String   deDuctionNo;
 	private  String   deDuctionType	;
 	private  Long  aMount;
@@ -23,11 +23,11 @@ public class DeductionManualBean {
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
 	private  Long   manualId;
-	public Long getDeductionManualIdPrimary() {
-		return deductionManualIdPrimary;
+	public Long getDeductionManualId() {
+		return deductionManualId;
 	}
-	public void setDeductionManualIdPrimary(Long deductionManualIdPrimary) {
-		this.deductionManualIdPrimary = deductionManualIdPrimary;
+	public void setDeductionManualId(Long deductionManualId) {
+		this.deductionManualId = deductionManualId;
 	}
 	public String getDeDuctionNo() {
 		return deDuctionNo;

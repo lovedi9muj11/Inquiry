@@ -35,7 +35,7 @@
            <nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">รับชำระค่าบริการ ></a></li>
+						<li class="active"><a href="#">รับชำระค่าบริการอื่นๆ ></a></li>
 						<li><a href="#">ผลการรับชำระ </a></li>
 					</ul>
 				</div>

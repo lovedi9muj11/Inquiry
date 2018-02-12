@@ -25,14 +25,14 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void insertTrsmethodManual(TrsMethodManualBean trsMethodManualBean) {
-		String sql = "INSERT INTO payment_manual (METHOD_MANUAL_ID,CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, OFFSET_DOCUMENT_NO, OFFSET_ACCOUNT_CODE,OFFSET_ACCOUNT_NAME,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO trsmethod_manual (METHOD_MANUAL_ID,CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, OFFSET_DOCUMENT_NO, OFFSET_ACCOUNT_CODE,OFFSET_ACCOUNT_NAME,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sql, trsMethodManualBean.getMethodManualId(), trsMethodManualBean.getCode(), trsMethodManualBean.getName());
 	
 	}
 	
 	@Override
 	public List<TrsMethodManualBean> TrsmethodManualAll() {
-		return jdbcTemplate.query("select * from payment_manual", new TrsMethodManualJoin());
+		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
 	}
 	
 	/*public PaymentManualBean xx() {
