@@ -23,7 +23,7 @@ public class PaymentController {
 	 @ResponseBody
 	    public String payment(Model model,@RequestBody PaymentFirstBean paymentBean) {
 		 
-		 paymentBean.getBalanceBeforeTax();
+		 
 
 	        return "payment";
 	    }
