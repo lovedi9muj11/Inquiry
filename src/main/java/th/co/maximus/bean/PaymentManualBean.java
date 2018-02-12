@@ -11,7 +11,7 @@ public class PaymentManualBean {
 	private  Timestamp   paidDate;
 	private  String   brancharea;
 	private  String   branchCode;
-	private  Long  paidAmount;
+	private  double  paidAmount;
 	private  String  source;
 	private  String  clearing;
 	private  String  remark;
@@ -65,10 +65,11 @@ public class PaymentManualBean {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public Long getPaidAmount() {
+
+	public double getPaidAmount() {
 		return paidAmount;
 	}
-	public void setPaidAmount(Long paidAmount) {
+	public void setPaidAmount(double paidAmount) {
 		this.paidAmount = paidAmount;
 	}
 	public String getSource() {
