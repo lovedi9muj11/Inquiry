@@ -1,5 +1,7 @@
 package th.co.maximus.dao;
 
-public interface TrscreDitrefManualDao {
+import th.co.maximus.bean.TrscreDitrefManualBean;
 
+public interface TrscreDitrefManualDao {
+	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean);
 }

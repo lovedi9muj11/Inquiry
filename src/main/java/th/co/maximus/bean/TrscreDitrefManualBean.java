@@ -7,7 +7,7 @@ public class TrscreDitrefManualBean {
 	private  String   creditNo;
 	private  String   publisherdec	;
 	private  String  cardType;
-	private  Long   aMount;
+	private  double   aMount;
 	private  Timestamp   updateDttm;
 	private  String   updateSystem;
 	private  String   updateUser;
@@ -37,10 +37,11 @@ public class TrscreDitrefManualBean {
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
-	public Long getaMount() {
+
+	public double getaMount() {
 		return aMount;
 	}
-	public void setaMount(Long aMount) {
+	public void setaMount(double aMount) {
 		this.aMount = aMount;
 	}
 	public Timestamp getUpdateDttm() {

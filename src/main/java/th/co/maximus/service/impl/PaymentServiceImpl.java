@@ -1,17 +1,37 @@
 package th.co.maximus.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.service.PaymentInvoiceManualService;
+import th.co.maximus.service.PaymentManualService;
 import th.co.maximus.service.PaymentService;
+import th.co.maximus.service.TrsmethodManualService;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
+	@Autowired PaymentManualService paymentManualService;
+	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
+	@Autowired TrsmethodManualService trsmethodManualService;
 
 	@Override
-	public void insert(PaymentFirstBean paymentBean) {
+	public int insert(PaymentFirstBean paymentBean) {
+		int paymentId =0;
+		int userId = 0;
 		
+		try {
+			paymentId = paymentManualService.insertPaymentManual(paymentBean);
+			if(paymentId>0){
+				paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
+				userId = trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return paymentId;
 	}
 
 	@Override

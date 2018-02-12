@@ -9,7 +9,8 @@ public class TrsMethodManualBean {
 	private  String   name;
 	private  String  chequeNo;
 	private  String  accountNo;
-	private  Long   amount;
+	private String creditId;
+	private  double   amount;
 	private  Timestamp   updateDttm;
 	private  String   updateSystem;
 	private  String   updateUser;
@@ -92,10 +93,11 @@ public class TrsMethodManualBean {
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
-	public Long getAmount() {
+
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(Long amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 	public Timestamp getUpdateDttm() {
@@ -145,6 +147,12 @@ public class TrsMethodManualBean {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getCreditId() {
+		return creditId;
+	}
+	public void setCreditId(String creditId) {
+		this.creditId = creditId;
 	}
 	
 	
