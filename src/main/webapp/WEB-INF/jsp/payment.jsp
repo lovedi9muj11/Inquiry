@@ -175,11 +175,11 @@
 													for="formGroupInputLarge">VAT RATE :</label>
 												<div class="col-sm-2">
 													<select class="form-control" id="vatrate" name="vatrate">
-														<option value="">0%</option>
 														<option value="7">7%</option>
-														<option value="8">8%</option>
-														<option value="9">9%</option>
-														<option value="10">10%</option>
+														<option value="">NAN</option>
+														<option value="">0%</option>
+														<option value="3">3%</option>
+														
 													</select>
 												</div>
 											</div>
