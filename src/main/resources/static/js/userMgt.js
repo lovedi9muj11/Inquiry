@@ -15,9 +15,7 @@ $(document).ready(function() {
 function search() {
 	tUser.clear().draw();
 	var data = '';
-	var dataSend = {
-					"username": $('#name').val()
-					};
+	var dataSend = { "username": $('#name').val() };
 	$.ajax({
         type: "POST",
         url: "/userManageMent/search",

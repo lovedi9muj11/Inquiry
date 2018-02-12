@@ -52,7 +52,7 @@
 			                    <table id="userList" class="table table-striped table-hover">
 			                        <thead>
 			                            <tr>
-			                                <th style="text-align: center;" width="10%">#</th>  				                         
+			                                <th style="text-align: center;" width="10%">#</th>
 							                <th style="text-align: center;" width="40%">Name</th>
 							                <th style="text-align: center;" width="30%">Role</th>
 							                <th style="text-align: center;" width="20%">Action</th>
