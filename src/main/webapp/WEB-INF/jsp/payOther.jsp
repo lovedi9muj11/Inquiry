@@ -21,7 +21,7 @@
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 	<link href="css/payment.css" rel="stylesheet">
-<script src="js/payment.js"></script>
+<script src="js/paymentother.js"></script>
 
 </head>
 <body>
@@ -127,17 +127,17 @@
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ประเภทรายได้ :</label>
-                                    <div class="col-sm-2" ><input id="inputCategory" class="form-control"placeholder="ประเภทรายได้"></div>
+                                    <div class="col-sm-2" ><select id="inputCategory" class="form-control"></select></div>
                                     <label class="control-label col-sm-2">หน่วยงานรับรายได้ :</label>
                                     <div class="col-sm-2" >
-                                        <input id="inputAgency" class="form-control"placeholder="หน่วยงานรับรายได้">
+                                        <select id="inputAgency" class="form-control"></select>
                                     </div>
                                     <label class="control-label col-sm-2">เงินส่วนลดก่อน VAT :</label>
                                     <div class="col-sm-2"><input id="inputDiscount" class="form-control "placeholder="เงินส่วนลดก่อน VAT"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ชื่อบริการ :</label>
-                                    <div class="col-sm-2" ><input id="inputServiceName" class="form-control"placeholder="ชื่อบริการ"></div>
+                                    <div class="col-sm-2" ><select id="inputServiceName" class="form-control"></select></div>
                                     <label class="control-label col-sm-2">จำนวนรายการ :</label>
                                     <div class="col-sm-2"><input id="inputServiceMoreData" class="form-control "placeholder="จำนวนรายการ"></div>
                                     <div class="col-sm-1"><input id="inputServiceUnit" class="form-control"placeholder=""></div>
@@ -157,8 +157,7 @@
                                         <label><input type="radio" name="vatRadio" value="exclude" checked><b>ก่อน vat</b></label>
                                         <label><input type="radio" name="vatRadio" value="include"><b>หลัง vat</b> </label>
                                     </div>
-                                    <label class="control-label col-sm-2">ประเภทสกุลเงิน :</label>
-                                    <div class="col-sm-1"><input id="inputCurrency" class="form-control"placeholder="ประเภทสกุลเงิน"></div>
+                                    
                                 </div>
                             </div>
                             <br /> <br />
