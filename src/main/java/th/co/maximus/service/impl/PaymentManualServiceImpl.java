@@ -29,16 +29,22 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setPaidDate(new Timestamp(date.getTime()));
 			paymentManualBean.setBrancharea("CAT นนทบุรี");
 			paymentManualBean.setBranchCode("001");
-			paymentManualBean.setPaidAmount(paymentBean.getBalanceOfTax());
+			paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()+paymentBean.getSummaryTax());
 			paymentManualBean.setSource("OFFLINE");
 			paymentManualBean.setClearing("N");
-			paymentManualBean.setRemark("");
+			paymentManualBean.setRemark(paymentBean.getRemark());
 			paymentManualBean.setCreateBy("ADMIN");
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setUpdateBy("ADMIN");
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
+			
+			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
+				paymentManualBean.setPaytype("เต็มจำนวน");
+			}else{
+				paymentManualBean.setPaytype("ไม่เต็มจำนวน");
+			}
 			
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);

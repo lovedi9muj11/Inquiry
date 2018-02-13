@@ -177,7 +177,7 @@
 													<select class="form-control" id="vatrate" name="vatrate">
 														<option value="7">7%</option>
 														<option value="">NAN</option>
-														<option value="">0%</option>
+														<option value="0">0%</option>
 														<option value="3">3%</option>
 														
 													</select>
@@ -224,8 +224,8 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดชำระ :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="balanceSummary"
-														name="balanceSummary" readonly="">
+													<input class="form-control" type="text" id="balanceSummary" on
+														name="balanceSummary" >
 												</div>
 											</div>
 										</div>
@@ -679,6 +679,17 @@
 												<div class="col-sm-3">
 													<input class="form-control" type="text" id="summaryTax"
 														name="summaryTax" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ยอดเงินที่ชำระ :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text"
+														id="balanceSum" readonly="">
 												</div>
 											</div>
 										</div>

@@ -25,7 +25,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao{
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO payment_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO payment_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
     	jdbcTemplate.update( new PreparedStatementCreator() { public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
             PreparedStatement pst =con.prepareStatement(sql, new String[] {"MANUAL_ID"});
             pst.setString(1,  paymentManualBean.getInvoiceNo());
@@ -43,6 +43,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao{
             pst.setTimestamp(13, paymentManualBean.getUpdateDate());
             pst.setString(14, paymentManualBean.getRecordStatus());
             pst.setString(15, paymentManualBean.getAccountNo());
+            pst.setString(16, paymentManualBean.getPaytype());
             return pst;
         }
     },

@@ -44,7 +44,13 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
 				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
-				trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+				if(paymentTranPriceBean.getTypePayment().equals("CD")){
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
+				}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
+				}else{
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+				}
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
 				trsMethodManualBean.setRemark(paymentBean.getRemark());

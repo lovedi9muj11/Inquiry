@@ -5,7 +5,7 @@ $(document).ready(
 			findBank();
 			findBankNo();
 			summaryTax();
-			summaryTranPrice();
+			
 			disBtn();
 			var cars = [ 'ทต.', 'ตร.', 'ปง.', 'Ferrari', 'Ford', 'Lamborghini',
 					'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen' ];
@@ -27,6 +27,34 @@ $(document).ready(
 				name : 'cars',
 				source : cars
 			});
+			$("#balanceSummary").keyup(function() {
+			    // keydown code
+				var result = $("#balanceSummary").val();
+				var vatRQ = $("#vatrate").val();
+				var beforeVat = parseFloat(0);
+				var vat = parseFloat(0);
+				var summary = parseFloat(0);
+				var summaryT = parseFloat(0);
+				var vatCo = parseFloat(107);
+				var vatRq = parseFloat(0);
+				
+				summaryT = parseFloat(result * parseFloat(vatRQ));
+				vat = parseFloat(summaryT / vatCo);
+				
+				
+				beforeVat = parseFloat(result - vat);
+				summary = parseFloat(beforeVat + vat);
+				$("#balanceBeforeTax").val(beforeVat.toFixed(2));
+				$("#vat").val(vat.toFixed(2));
+				$("#balanceOfTax").val(summary.toFixed(2));
+				// Summary
+				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
+				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
+				$("#vats").val(vat.toFixed(2));
+				$("#balanceOfTaxs").val(summary.toFixed(2));
+			});
+			
+
 		});
 
 function disBtn(){
@@ -40,6 +68,26 @@ function disBtn(){
 		$('button#submitFormPayment').prop('disabled', true);
 	}
 }
+function vatAmount(){
+	var result = $("#balanceSummarys").val();
+	var vatRQ = $("#vatrate").val();
+	var beforeVat = parseFloat(0);
+	var vat = parseFloat(0);
+	var summary = parseFloat(0);
+	var summaryT = parseFloat(0);
+	var vatCo = parseFloat(107);
+	var vatRq = parseFloat(0);
+	
+	summaryT = parseFloat(result * parseFloat(vatRQ));
+	vat = parseFloat(summaryT / vatCo);
+	
+	
+	beforeVat = parseFloat(result - vat);
+	summary = parseFloat(beforeVat + vat);
+	$("#balanceOfTaxs").val(summary.toFixed(2));
+	$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
+	$("#vats").val(vat.toFixed(2));
+};
 function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -109,7 +157,7 @@ function submitForm(){
 		if(resultTotalPrice[b][1] == "CC"){
 			listpaymentTranPriceQ = {
 			"typePayment" : resultTotalPrice[b][1],
-			"moneyTran" : $("#balanceSummary").val()
+			"moneyTran" : resultTotalPrice[b][2]
 			}
 		}else if (resultTotalPrice[b][1] == "CD"){
 			listpaymentTranPriceQ = {
@@ -153,6 +201,11 @@ function submitForm(){
 			 "vat":$("#vat").val() ,
 			 "balanceOfTax":$("#balanceOfTax").val() ,
 			 "balanceSummary":$("#balanceSummary").val() ,
+			 "balanceBeforeTaxs":$("#balanceBeforeTaxs").val() ,
+			 "vats":$("#vats").val() ,
+			 "balanceOfTaxs":$("#balanceOfTaxs").val() ,
+			 "balanceSummarys":$("#balanceSummarys").val() ,
+			 "balanceSum":$("#balanceSum").val() ,
 			 "remark":$("#remark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
 			 "paymentTax":listpaymentTaxRQ  ,
@@ -226,11 +279,10 @@ function addRow() {
 			radioResult = radioButtons[x].value;
 		}
 	}
-
 	var docDed = $("#docDed").val();
 	var moneyDed = $("#moneyDed").val();
 	var count = 1;
-
+	
 	for (count; count < table; count++) {
 		count + table;
 	}
@@ -254,12 +306,22 @@ function myDeleteFunction(count) {
 function myDeleteDed(count) {
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
+	var summaryTa = parseFloat(0);
+	var balance = $("#balanceSummarys").val();
+
 	if (table.rows.length > 0) {
 		for (var i = 1; i < tableDed.rows.length; i++) {
+
+
 			if (count == i) {
+				var oCells = table.rows.item(i).cells;
+				var total = parseFloat(oCells[4].innerHTML);
+				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
+				$("#balanceSummarys").val(balance.toFixed(2));
+				vatAmount();
 				tableDed.deleteRow(count);
 				table.deleteRow(count);
-				summaryTax();
+				removeTax();
 			}
 		}
 	}
@@ -273,23 +335,41 @@ function addDataTableDed() {
 	var deduction = $("#deduction").val();
 	var rowLength = oTable.rows.length;
 	var number = parseFloat(tableDed.rows.length - parseFloat(1));
+	var balance = $("#balanceSummarys").val();
+	var branSum = $("#balanceSummarys").val();
+	var summaTax = $("#summaryTax").val();
 	for (var i = parseFloat(1); i < rowLength; i++) {
 		var oCells = oTable.rows.item(i).cells;
 		result = [];
 		for (var fs = 0; fs < oCells.length; fs++) {
 			result.push(oCells[fs].innerHTML);
 		}
-
+		if(branSum == ""){
+			branSum = parseFloat(0);
+		}
+		if(summaTax == ""){
+			summaTax = parseFloat(0);
+		}
+		var plus = parseFloat(parseFloat(summaTax) + parseFloat(result[4])) ;
+		if(plus > parseFloat(branSum)){
+			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			return ;
+		}
 		var numberRun = number + i;
 		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+ result[4]+ "</td><td><a onclick='myDeleteDed("+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showDeductibleTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + deduction	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
+		
+		balance =	parseFloat(parseFloat(balance) - parseFloat(result[4]));
+		
 	}
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
 		document.getElementById("deductibleTable").deleteRow(i - 1);
 	}
+	$("#balanceSummarys").val(balance.toFixed(2));
 	summaryTax();
+	vatAmount();
 }
 // เงินสด
 function addDataTableMoneyTranPrice() {
@@ -298,16 +378,34 @@ function addDataTableMoneyTranPrice() {
 	var number = parseFloat(table - parseFloat(1));
 	var money = $("#moneyTran").val();
 	var nameMode = "CC";
+	var nameMode1 = "เงินสด";
 	var count = parseInt(1);
 	var summaryTax = $("#summaryTax").val();
 	var numberRun = count + number;
-	if (parseFloat(summaryTax) < parseFloat(money)) {
+	var balanceS = $("#balanceSum").val();
+	if(balanceS == ""){
+		balanceS = parseFloat(0);
+	}
+	var branSum = $("#balanceSummarys").val();
+	var brana = $("#balanceSum").val();
+	var summaTax = $("#summaryTax").val();
+	if(branSum == ""){
+		branSum = parseFloat(0);
+	}
+	if(brana == ""){
+		brana = parseFloat(0);
+	}
+	var plus =  parseFloat(money) ;
 
+	if(plus > parseFloat(branSum)){
+		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		return ;
+	}
 //		var moneyT = parseFloat(money - parseFloat(summaryTax));
 		var markup = "<tr><td>"
 				+ numberRun
 				+ "</td><td>"
-				+ nameMode
+				+ nameMode1
 				+ "</td><td>"
 				+ money
 				+ "</td><td><a onclick='myDeleteSumCreditTranPrice("
@@ -318,8 +416,13 @@ function addDataTableMoneyTranPrice() {
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 
 		$("#moneyTran").val("");
-		summaryTranPrice();
-	}
+		var balan = $("#balanceSummarys").val(); 
+		balan = parseFloat(balan) - parseFloat(money);
+		$("#balanceSummarys").val(balan.toFixed(2));
+		balanceS = parseFloat(parseFloat(balanceS) + parseFloat(money) );
+		$("#balanceSum").val(balanceS.toFixed(2));
+		vatAmount();
+		disBtn();
 }
 
 // add ข้อมูลลง เครดิต
@@ -328,53 +431,105 @@ function addDataSumCreditTranPrice() {
 	var oTable = document.getElementById('creditTable');
 	var result = [];
 	var nameMode = "CD";
+	var nameMode1 = "บัตรเครดิต";
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
-
+	var balanceS = $("#balanceSum").val();
+	if(balanceS == ""){
+		balanceS = parseFloat(0);
+	}
 	for (i = 1; i < rowLength; i++) {
 		var oCells = oTable.rows.item(i).cells;
 		result = [];
 		for (var fs = 0; fs < oCells.length; fs++) {
 			result.push(oCells[fs].innerHTML);
 		}
+		var branSum = $("#balanceSummarys").val();
+		var brana = $("#balanceSum").val();
+		var summaTax = $("#summaryTax").val();
+		if(branSum == ""){
+			branSum = parseFloat(0);
+		}
+		if(brana == ""){
+			brana = parseFloat(0);
+		}
+		var plus = parseFloat(result[4]) ;
+		
+		if(plus > parseFloat(branSum)){
+			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			return ;
+		}
 		var numberRun = number + i;
 		var markup = "<tr><td>"
 				+ numberRun
-				+ "</td><td>"+ nameMode+ "</td><td>"+ result[4]	+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+				+ "</td><td>"+ nameMode1+ "</td><td>"+ result[4]	+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td>" + result[3]	+ "</td><td>" + result[4] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
+		var balan = $("#balanceSummarys").val(); 
+		balan = parseFloat(balan) - parseFloat(result[4]);
+		$("#balanceSummarys").val(balan.toFixed(2));
+		balanceS = parseFloat(parseFloat(balanceS)+parseFloat(result[4]));
+		$("#balanceSum").val(balanceS.toFixed(2));
+		vatAmount();
+		disBtn();
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
 		document.getElementById("creditTable").deleteRow(i - 1);
 	}
-	summaryTranPrice();
+	
 }
 function addDataSumCheckTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var oTable = document.getElementById('checkTable');
 	var result = [];
 	var nameMode = "CH";
+	var nameMode1 = "เช็ค";
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
+	var balanceS = $("#balanceSum").val();
+	if(balanceS == ""){
+		balanceS = parseFloat(0);
+	}
 	for (i = 1; i < rowLength; i++) {
 		var oCells = oTable.rows.item(i).cells;
 		result = [];
 		for (var fs = 0; fs < oCells.length; fs++) {
 			result.push(oCells[fs].innerHTML);
 		}
+		var branSum = $("#balanceSummarys").val();
+		var brana = $("#balanceSum").val();
+		var summaTax = $("#summaryTax").val();
+		if(branSum == ""){
+			branSum = parseFloat(0);
+		}
+		if(brana == ""){
+			brana = parseFloat(0);
+		}
+		var plus = parseFloat(result[6]) ;
+		if(plus > parseFloat(branSum)){
+			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			return ;
+		}
 		var numberRun = number + i;
-		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode	+ "</td><td>"+ result[6]+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode1	+ "</td><td>"+ result[6]+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2]+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td><td>" + result[5] + "</td><td>" + result[6] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
+		var balan = $("#balanceSummarys").val(); 
+		balan = parseFloat(balan) - parseFloat(result[6]);
+		$("#balanceSummarys").val(balan.toFixed(2));
+		balanceS = parseFloat(parseFloat(balanceS)+parseFloat(result[6]));
+		$("#balanceSum").val(balanceS.toFixed(2));
+		vatAmount();
+		disBtn();
 	}
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
 		document.getElementById("checkTable").deleteRow(i - 1);
 	}
-	summaryTranPrice();
+	
 }
 
 function addDataTableCheck() {
@@ -388,7 +543,6 @@ function addDataTableCheck() {
 	var dateCheck = $("#dateCheck").val();
 //	var moneyT = parseFloat(moneyCheck - parseFloat(summaryTax));
 	var count = parseInt(1);
-	if (parseFloat(summaryTax) < parseFloat(moneyCheck)) {
 	for (count; count < table; count++) {
 		count
 	}
@@ -403,7 +557,7 @@ function addDataTableCheck() {
 	$("#dateCheck").val("");
 	$('#bankNo').val("");
 	$('#bankName').val("");
-	}
+
 }
 
 function addDataTablecreditTranPrice() {
@@ -457,17 +611,30 @@ function myDeletecreditTranPrice(count) {
 	var tablesumTotal = document.getElementById("creditTable");
 	if (tablesumTotal.rows.length > 0) {
 		tablesumTotal.deleteRow(count);
+		
 	}
 }
 function myDeleteSumCreditTranPrice(numberRun) {
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	var tablesumTotal = document.getElementById("sumTotalPriceTable");
+	
+	var summaryTa = parseFloat(0);
+	var balance = $("#balanceSummarys").val();
+	var balanceSum = $("#balanceSum").val();
 	if (tablesumTotals.rows.length > 0) {
 		for (var i = 1; i < tablesumTotals.rows.length; i++) {
 			if (numberRun == i) {
+				var oCells = tablesumTotals.rows.item(i).cells;
+				var total = parseFloat(oCells[2].innerHTML);
+				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
+				balanceSum = parseFloat(parseFloat(balanceSum) - parseFloat(total))
+				$("#balanceSummarys").val(balance.toFixed(2));
+				$("#balanceSum").val(balanceSum.toFixed(2));
+				vatAmount();
+				
 				tablesumTotals.deleteRow(numberRun);
 				tablesumTotal.deleteRow(numberRun);
-				summaryTranPrice();
+				
 			}
 		}
 
@@ -486,9 +653,31 @@ function summaryTax() {
 	var rowLength = table.rows.length;
 	var summary = parseFloat(0);
 
+	
 	for (var i = 1; i < rowLength; i++) {
 		var oCells = table.rows.item(i).cells;
 		var total = parseFloat(oCells[2].innerHTML);
+		summary += total;
+		
+	}
+	if (rowLength <= 0) {
+		summary = parseFloat(0);
+	}
+	if (summary < 0) {
+		summary = parseFloat(0);
+	}
+	$("#summaryTax").val(summary.toFixed(2));
+	vatAmount();
+}
+
+function removeTax() {
+	var table = document.getElementById("showDeductibleTable");
+	var rowLength = table.rows.length;
+	var summary = parseFloat(0);
+	for (var i = 1; i < rowLength; i++) {
+		var oCells = table.rows.item(i).cells;
+		var total = parseFloat(oCells[2].innerHTML);
+		summaryTa = total;
 		summary += total;
 	}
 	if (rowLength <= 0) {
@@ -500,55 +689,51 @@ function summaryTax() {
 	$("#summaryTax").val(summary.toFixed(2));
 }
 
-function summaryTranPrice() {
-	disBtn();
-	var table = document.getElementById("showTotalPriceTable");
-	var vatrate = document.getElementById("vatrate").value;
-	var rowLength = table.rows.length;
-	var summary = parseFloat(0);
-	var summaryTax = $("#summaryTax").val();
-	var summarybeforeVat = parseFloat(0);
-	var summaryvat = parseFloat(0);
-	var summaryTVat = parseFloat(0);
-	var beforeVat = parseFloat(0);
-	var vat = parseFloat(0);
-	var summary = parseFloat(0);
-	var vatCo = parseFloat(107);
-	var vatRq = parseFloat(0);
-
-	for (var i = 1; i < rowLength; i++) {
-		var oCells = table.rows.item(i).cells;
-		var total = parseFloat(oCells[2].innerHTML);
-		if (vatrate != "") {
-
-			vatRq = parseFloat(total * parseFloat(vatrate));
-			vat = parseFloat(vatRq / vatCo);
-			beforeVat = parseFloat(total - vat);
-
-			summaryTVat = parseFloat(beforeVat + vat);
-		} else {
-			beforeVat = parseFloat(total);
-		}
-
-		summary += total;
-		summaryvat += vat;
-		summarybeforeVat += beforeVat;
-	}
-
-	summary = parseFloat(summary -summaryTax);
-	if (rowLength <= 0) {
-		summary = parseFloat(0);
-	}
-	if (summary < 0) {
-		summary = parseFloat(0);
-	}
-	$("#balanceSummary").val(summary.toFixed(2));
-	$("#balanceSummarys").val(summary.toFixed(2));
-	$("#balanceBeforeTax").val(summarybeforeVat.toFixed(2));
-	$("#vat").val(summaryvat.toFixed(2));
-	$("#balanceBeforeTaxs").val(summarybeforeVat.toFixed(2));
-	$("#vats").val(summaryvat.toFixed(2));
-	$("#balanceOfTax").val(summaryTVat.toFixed(2));
-	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
-
-}
+//function summaryTranPrice() {
+//	disBtn();
+//	var table = document.getElementById("showTotalPriceTable");
+//	var vatrate = document.getElementById("vatrate").value;
+//	var rowLength = table.rows.length;
+//	var summary = parseFloat(0);
+//	var summaryTax = $("#summaryTax").val();
+//	var summarybeforeVat = parseFloat(0);
+//	var summaryvat = parseFloat(0);
+//	var summaryTVat = parseFloat(0);
+//	var beforeVat = parseFloat(0);
+//	var vat = parseFloat(0);
+//	var summary = parseFloat(0);
+//	var vatCo = parseFloat(107);
+//	var vatRq = parseFloat(0);
+//
+//	for (var i = 1; i < rowLength; i++) {
+//		var oCells = table.rows.item(i).cells;
+//		var total = parseFloat(oCells[2].innerHTML);
+//		if (vatrate != "") {
+//
+//			vatRq = parseFloat(total * parseFloat(vatrate));
+//			vat = parseFloat(vatRq / vatCo);
+//			beforeVat = parseFloat(total - vat);
+//
+//			summaryTVat = parseFloat(beforeVat + vat);
+//		} else {
+//			beforeVat = parseFloat(total);
+//		}
+//
+//		summary += total;
+//		summaryvat += vat;
+//		summarybeforeVat += beforeVat;
+//	}
+//
+//	summary = parseFloat(summary -summaryTax);
+//	if (rowLength <= 0) {
+//		summary = parseFloat(0);
+//	}
+//	if (summary < 0) {
+//		summary = parseFloat(0);
+//	}
+////	$("#balanceSummarys").val(summary.toFixed(2));
+////	$("#balanceBeforeTaxs").val(summarybeforeVat.toFixed(2));
+////	$("#vats").val(summaryvat.toFixed(2));
+////	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
+//
+//}

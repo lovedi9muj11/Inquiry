@@ -26,9 +26,9 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setManualId(Long.valueOf(userId));
 		paymentInvoiceManualBean.setSource("OFFLINE");
 		paymentInvoiceManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
-		paymentInvoiceManualBean.setBeforVat(paymentBean.getBalanceBeforeTax());
-		paymentInvoiceManualBean.setVatAmount(paymentBean.getVat());
-		paymentInvoiceManualBean.setAmount(paymentBean.getBalanceOfTax());
+		paymentInvoiceManualBean.setBeforVat(paymentBean.getBalanceBeforeTaxs());
+		paymentInvoiceManualBean.setVatAmount(paymentBean.getVats());
+		paymentInvoiceManualBean.setAmount(paymentBean.getBalanceSummarys());
 		paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
 		paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
 		paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());

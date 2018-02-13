@@ -22,7 +22,7 @@ public class PaymentManualBean {
 	private  String   recordStatus;
 	private  Long   refid;
 	private  String   accountNo;
-	private  String   clearingSap;
+	private  String   paytype;
 	public Long getManualId() {
 		return manualId;
 	}
@@ -132,12 +132,13 @@ public class PaymentManualBean {
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
-	public String getClearingSap() {
-		return clearingSap;
+	public String getPaytype() {
+		return paytype;
 	}
-	public void setClearingSap(String clearingSap) {
-		this.clearingSap = clearingSap;
+	public void setPaytype(String paytype) {
+		this.paytype = paytype;
 	}
+
 	
 	
 	

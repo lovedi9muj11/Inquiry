@@ -30,6 +30,11 @@ public class PaymentFirstBean implements Serializable{
 	private double vat;
 	private double balanceOfTax;
 	private double balanceSummary;
+	private double balanceBeforeTaxs;
+	private double vats;
+	private double balanceOfTaxs;
+	private double balanceSummarys;
+	private double balanceSum;
 	private String remark;
 	private double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
@@ -179,6 +184,36 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setDocumentNo(String documentNo) {
 		this.documentNo = documentNo;
+	}
+	public double getBalanceBeforeTaxs() {
+		return balanceBeforeTaxs;
+	}
+	public void setBalanceBeforeTaxs(double balanceBeforeTaxs) {
+		this.balanceBeforeTaxs = balanceBeforeTaxs;
+	}
+	public double getVats() {
+		return vats;
+	}
+	public void setVats(double vats) {
+		this.vats = vats;
+	}
+	public double getBalanceOfTaxs() {
+		return balanceOfTaxs;
+	}
+	public void setBalanceOfTaxs(double balanceOfTaxs) {
+		this.balanceOfTaxs = balanceOfTaxs;
+	}
+	public double getBalanceSummarys() {
+		return balanceSummarys;
+	}
+	public void setBalanceSummarys(double balanceSummarys) {
+		this.balanceSummarys = balanceSummarys;
+	}
+	public double getBalanceSum() {
+		return balanceSum;
+	}
+	public void setBalanceSum(double balanceSum) {
+		this.balanceSum = balanceSum;
 	}
 	
 	
