@@ -27,8 +27,8 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO trsmethod_manual (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID) ");
-		sql.append("  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		sql.append(" INSERT INTO trsmethod_manual (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID,CREDITNO) ");
+		sql.append("  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 		
     	jdbcTemplate.update( new PreparedStatementCreator() { public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
         	            PreparedStatement pst =con.prepareStatement(sql.toString(), new String[] {"METHOD_MANUAL_ID"});
@@ -46,6 +46,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
         	            pst.setTimestamp(12, trsMethodManualBean.getUpdateDate());
         	            pst.setString(13, trsMethodManualBean.getRecordStatus());
         	            pst.setLong(14, trsMethodManualBean.getManualId());
+        	            pst.setString(15, trsMethodManualBean.getCreditId());
         	            return pst;
         	        }
         	    },
