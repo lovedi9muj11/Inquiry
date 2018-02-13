@@ -19,15 +19,17 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	
 
 	@Override
-	public void insertPaymentManual(PaymentFirstBean paymentBean) {
+	public int insertPaymentManual(PaymentFirstBean paymentBean) {
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		Date date = new Date();
+		int userId=0;
+		if(!paymentBean.getInvoiceNo().equals("")){
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
-			paymentManualBean.setReceiptNoManual("");
+			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setPaidDate(new Timestamp(date.getTime()));
 			paymentManualBean.setBrancharea("CAT นนทบุรี");
 			paymentManualBean.setBranchCode("001");
-			paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary());
+			paymentManualBean.setPaidAmount(paymentBean.getBalanceOfTax());
 			paymentManualBean.setSource("OFFLINE");
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark("");
@@ -38,9 +40,15 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
+			try {
+				userId=	paymentManualDao.insertPayment(paymentManualBean);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			paymentManualDao.insertPayment(paymentManualBean);
-		
+		}
+		return userId;
 	}
 
 

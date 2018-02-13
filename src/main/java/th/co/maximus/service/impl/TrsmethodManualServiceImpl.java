@@ -1,72 +1,164 @@
 package th.co.maximus.service.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.bean.DeductionManualBean;
+import th.co.maximus.bean.TrsChequeRefManualBean;
 import th.co.maximus.bean.TrsMethodManualBean;
+import th.co.maximus.bean.TrscreDitrefManualBean;
+import th.co.maximus.dao.DeductionManualDao;
+import th.co.maximus.dao.TrsChequeRefManualDao;
+import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.dao.TrscreDitrefManualDao;
+import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.payment.bean.PaymentTaxBean;
+import th.co.maximus.payment.bean.PaymentTranPriceBean;
 import th.co.maximus.service.TrsmethodManualService;
 
 @Service
 public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 	
-private JdbcTemplate jdbcTemplate;
-	
-	public TrsmethodManualServiceImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
+	@Autowired TrsMethodManualDao trsMethodManualDao;
+	@Autowired TrscreDitrefManualDao trscreDitrefManualDao;
+	@Autowired TrsChequeRefManualDao trsChequeRefManualDao;
+	@Autowired DeductionManualDao deductionManualDao;
 	@Override
-	public void insertTrsmethodManual(TrsMethodManualBean trsMethodManualBean) {
-		String sql = "INSERT INTO trsmethod_manual (METHOD_MANUAL_ID,CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, OFFSET_DOCUMENT_NO, OFFSET_ACCOUNT_CODE,OFFSET_ACCOUNT_NAME,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		jdbcTemplate.update(sql, trsMethodManualBean.getMethodManualId(), trsMethodManualBean.getCode(), trsMethodManualBean.getName());
-	
+	public int insertTrsmethodManual(PaymentFirstBean paymentBean,int userId) {
+		Date date = new Date();
+		int idTrsMethod = 0;
+		if(paymentBean.getPaymentTranPrice().size() >=0){
+			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
+				PaymentTranPriceBean paymentTranPriceBean = new PaymentTranPriceBean();
+				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
+				TrscreDitrefManualBean trscreDitrefManualBean = new TrscreDitrefManualBean();
+				TrsChequeRefManualBean trsChequeRefManualBean = new TrsChequeRefManualBean();
+
+				paymentTranPriceBean = paymentBean.getPaymentTranPrice().get(i);
+				trsMethodManualBean.setCode(paymentTranPriceBean.getTypePayment());
+				trsMethodManualBean.setName(paymentTranPriceBean.getTypePayment());
+				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
+				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
+				trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+				trsMethodManualBean.setVersionStamp(1L);
+				trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setRecordStatus("A");
+				trsMethodManualBean.setManualId(Long.valueOf(userId));
+				try {
+					 idTrsMethod = trsMethodManualDao.insertTrsMethod(trsMethodManualBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				if(idTrsMethod >0){
+						if(paymentTranPriceBean.getTypePayment().equals("CD")){
+							//insert Credit
+							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
+							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());
+							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getTypePayment());
+							trscreDitrefManualBean.setCardType(paymentTranPriceBean.getCreditType());
+							trscreDitrefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+							trscreDitrefManualBean.setVersionStamp(1L);
+							trscreDitrefManualBean.setMethodManualId(String.valueOf(idTrsMethod));
+							
+							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
+							
+						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
+							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
+							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());
+							trsChequeRefManualBean.setBranch(paymentTranPriceBean.getBranchCheck());
+							trsChequeRefManualBean.setaMount(paymentTranPriceBean.getMoneyCheck());
+							trsChequeRefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+							trsChequeRefManualBean.setVersionStamp(1L);
+							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+							trsChequeRefManualBean.setMethodManualId(Long.valueOf(idTrsMethod));
+							
+							trsChequeRefManualDao.insert(trsChequeRefManualBean);
+							
+					
+					}
+				}
+
+				
+				
+				
+			}
+			
+		} // END PAY
+		
+		if(paymentBean.getPaymentTax().size() >0){
+			for(int i=0; i < paymentBean.getPaymentTax().size();i++){
+				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
+				DeductionManualBean deductionManualBean= new DeductionManualBean();
+				PaymentTaxBean paymentTaxBean = new PaymentTaxBean();
+				paymentTaxBean = paymentBean.getPaymentTax().get(i);
+
+				trsMethodManualBean.setCode("DEDUC");
+				trsMethodManualBean.setName("ภาษีหัก ณ ที่จ่าย");
+				trsMethodManualBean.setChequeNo("");
+				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setCreditId("");
+				trsMethodManualBean.setAmount(paymentTaxBean.getMoneyDed());
+				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+				trsMethodManualBean.setVersionStamp(1L);
+				trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setRecordStatus("A");
+				trsMethodManualBean.setManualId(Long.valueOf(userId));
+				try {
+					 idTrsMethod = trsMethodManualDao.insertTrsMethod(trsMethodManualBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				if(idTrsMethod >0){
+					deductionManualBean.setDeDuctionNo("ภาษีหัก ณ ที่จ่าย");
+					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
+					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed());
+					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
+					deductionManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+					deductionManualBean.setVersionStamp(1L);
+					deductionManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
+					deductionManualBean.setRemark(paymentBean.getRemark());
+					deductionManualBean.setCreateBy("ADMIN");
+					deductionManualBean.setCreateDate(new Timestamp(date.getTime()));
+					deductionManualBean.setUpdateBy("ADMIN");
+					deductionManualBean.setUpdateDate(new Timestamp(date.getTime()));
+					deductionManualBean.setRecordStatus("A");
+					deductionManualBean.setManualId(Long.valueOf(userId));
+					deductionManualDao.insert(deductionManualBean);
+				
+				}
+				
+
+			}
+		}
+		return userId;
+		
 	}
 	
 	@Override
 	public List<TrsMethodManualBean> TrsmethodManualAll() {
-		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
+//		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
+		return null;
 	}
-	
-	/*public PaymentManualBean xx() {
-		return jdbcTemplate.queryForObject("select * from payment_manual", new PaymentManuaJoin());
-	}*/
-	
-	private static final class TrsMethodManualJoin implements RowMapper<TrsMethodManualBean> {
 
-		@Override
-		public TrsMethodManualBean mapRow(ResultSet rs, int rowNum) throws SQLException {
-			TrsMethodManualBean methodManualBean = new TrsMethodManualBean();
-			methodManualBean.setMethodManualId(rs.getLong("METHOD_MANUAL_ID"));
-			methodManualBean.setCode(rs.getString("CODE"));
-			methodManualBean.setName(rs.getString("NAME"));
-			methodManualBean.setChequeNo(rs.getString("CHEQUENO"));
-			methodManualBean.setAccountNo(rs.getString("ACCOUNTNO"));
-			methodManualBean.setAmount(rs.getLong("AMOUNT"));
-			methodManualBean.setUpdateDttm(rs.getTimestamp("UPDATEDTTM"));
-			methodManualBean.setUpdateSystem(rs.getString("UPDATESYSTEM"));
-			methodManualBean.setUpdateUser(rs.getString("UPDATEUSER"));
-			methodManualBean.setVersionStamp(rs.getLong("VERSIONSTAMP"));
-			methodManualBean.setOffsetDocumentNo(rs.getString("OFFSET_DOCUMENT_NO"));
-			methodManualBean.setOffsetAccountCode(rs.getString("OFFSET_ACCOUNT_CODE"));
-			methodManualBean.setOffsetAccountName(rs.getString("OFFSET_ACCOUNT_NAME"));
-			methodManualBean.setRemark(rs.getString("REMARK"));
-			methodManualBean.setCreateBy(rs.getString("CREATE_BY"));
-			methodManualBean.setCreateDate(rs.getTimestamp("CREATE_DATE"));
-			methodManualBean.setUpdateBy(rs.getString("UPDATE_BY"));
-			methodManualBean.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
-			methodManualBean.setRecordStatus(rs.getString("RECORD_STATUS"));
-			methodManualBean.setManualId(rs.getLong("MANUAL_ID"));
-			return methodManualBean;
-		}
-
-	}
+	
 
 }

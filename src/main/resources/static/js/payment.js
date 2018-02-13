@@ -109,7 +109,7 @@ function submitForm(){
 		if(resultTotalPrice[b][1] == "CC"){
 			listpaymentTranPriceQ = {
 			"typePayment" : resultTotalPrice[b][1],
-			"moneyTran" : resultTotalPrice[b][2]
+			"moneyTran" : $("#balanceSummary").val()
 			}
 		}else if (resultTotalPrice[b][1] == "CD"){
 			listpaymentTranPriceQ = {
@@ -138,6 +138,7 @@ function submitForm(){
 			 "custName":$("#custName").val() ,
 			 "custNo":$("#custNo").val() ,
 			 "taxId":$("#taxId").val() ,
+			 "documentNo" : $("#docDed").val(),
 			 "custAddress":$("#custAddress").val() ,
 			 "custBrach":$("#custBrach").val() ,
 			 "userGroup":$("#userGroup").val() ,
@@ -165,8 +166,8 @@ function submitForm(){
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	if(res.length > 0){
-        		
+        	if(res > 0){
+        		 window.location.href = "paymentSuccess";
         	}
         }
 	})

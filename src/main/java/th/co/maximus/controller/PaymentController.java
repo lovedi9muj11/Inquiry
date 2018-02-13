@@ -15,29 +15,38 @@ import th.co.maximus.service.PaymentService;
 public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
-	
-	
-	
-	 @RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
-	    public String registration(Model model) {
-//	        model.addAttribute("userForm", new User());
 
-	        return "payment";
-	    }
-	 
-	 
-	 @RequestMapping(value = "/paymentService", method = RequestMethod.POST)
-	 @ResponseBody
-	    public String payment(Model model,@RequestBody PaymentFirstBean paymentBean) {
-		 
-		 try {
-			 paymentService.insert(paymentBean);
+	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
+	public String registration(Model model) {
+		// model.addAttribute("userForm", new User());
+
+		return "payment";
+	}
+	@RequestMapping(value = "/paymentSuccess", method = RequestMethod.GET)
+	public String paymentSuccess(Model model) {
+		// model.addAttribute("userForm", new User());
+
+		return "payment-success";
+	}
+	
+	
+	
+	@RequestMapping(value = "/paymentService", method = RequestMethod.POST)
+	@ResponseBody
+	public String payment(Model model, @RequestBody PaymentFirstBean paymentBean) {
+		int paymentId = 0;
+		try {
+			paymentId = paymentService.insert(paymentBean);
+			
+		
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		 
+		if(paymentId>0){
+			
+		}
+		return String.valueOf(paymentId);
+	}
 
-	        return "payment";
-	    }
-	 
 }

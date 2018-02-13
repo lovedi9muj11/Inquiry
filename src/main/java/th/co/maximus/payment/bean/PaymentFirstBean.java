@@ -13,6 +13,7 @@ public class PaymentFirstBean implements Serializable{
 	private String custName;
 	private String custNo;
 	private String taxId;
+	private String documentNo;
 	private String custAddress;
 	private String custBrach;
 	private String userGroup;
@@ -172,6 +173,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setSummaryTax(double summaryTax) {
 		this.summaryTax = summaryTax;
+	}
+	public String getDocumentNo() {
+		return documentNo;
+	}
+	public void setDocumentNo(String documentNo) {
+		this.documentNo = documentNo;
 	}
 	
 	

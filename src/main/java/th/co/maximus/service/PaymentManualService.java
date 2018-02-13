@@ -7,7 +7,7 @@ import th.co.maximus.payment.bean.PaymentFirstBean;
 
 public interface PaymentManualService {
 	
-	public void insertPaymentManual(PaymentFirstBean paymentBean);
+	public int insertPaymentManual(PaymentFirstBean paymentBean);
 	
 	List<PaymentManualBean> PaymentManualAll();
 

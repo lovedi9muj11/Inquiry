@@ -8,11 +8,11 @@ public class PaymentInvoiceManualBean {
 	private  Long   manualId;
 	private  String   source;
 	private  String  invoiceNo;
-	private  Long  beforVat;
-	private  Long   amount;
-	private  Long   vatAmount;
+	private  double  beforVat;
+	private  double   amount;
+	private  double   vatAmount;
 	private  int   vatRate;
-	private  int   customerName;
+	private  String   customerName;
 	private  String  customerAddress;
 	private  String  customerSegment;
 	private  String  customerBranch;
@@ -52,22 +52,22 @@ public class PaymentInvoiceManualBean {
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}
-	public Long getBeforVat() {
+	public double getBeforVat() {
 		return beforVat;
 	}
-	public void setBeforVat(Long beforVat) {
+	public void setBeforVat(double beforVat) {
 		this.beforVat = beforVat;
 	}
-	public Long getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(Long amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public Long getVatAmount() {
+	public double getVatAmount() {
 		return vatAmount;
 	}
-	public void setVatAmount(Long vatAmount) {
+	public void setVatAmount(double vatAmount) {
 		this.vatAmount = vatAmount;
 	}
 	public int getVatRate() {
@@ -76,10 +76,11 @@ public class PaymentInvoiceManualBean {
 	public void setVatRate(int vatRate) {
 		this.vatRate = vatRate;
 	}
-	public int getCustomerName() {
+
+	public String getCustomerName() {
 		return customerName;
 	}
-	public void setCustomerName(int customerName) {
+	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
 	public String getCustomerAddress() {
@@ -172,8 +173,7 @@ public class PaymentInvoiceManualBean {
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
 	}
-	
-	
+
 	
 	
 	

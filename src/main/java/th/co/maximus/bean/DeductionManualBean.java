@@ -9,8 +9,8 @@ public class DeductionManualBean {
 	private  Long   deductionManualId;
 	private  String   deDuctionNo;
 	private  String   deDuctionType	;
-	private  Long  aMount;
-	private  Date  paymentDate;
+	private  double  aMount;
+	private  Timestamp  paymentDate;
 	private  Timestamp   updateDttm;
 	private  String   updateSystem;
 	private  String   updateUser;
@@ -41,16 +41,18 @@ public class DeductionManualBean {
 	public void setDeDuctionType(String deDuctionType) {
 		this.deDuctionType = deDuctionType;
 	}
-	public Long getaMount() {
+
+	public double getaMount() {
 		return aMount;
 	}
-	public void setaMount(Long aMount) {
+	public void setaMount(double aMount) {
 		this.aMount = aMount;
 	}
-	public Date getPaymentDate() {
+
+	public Timestamp getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(Timestamp paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 	public Timestamp getUpdateDttm() {
