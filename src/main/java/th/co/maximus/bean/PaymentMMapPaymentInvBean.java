@@ -13,28 +13,41 @@ public class PaymentMMapPaymentInvBean {
 	private Long paidAmount;
 	private String source;
 	private String clearing;
-	private Long refid;
-	private String accountNo;
-	private String clearingSap;
-
-	private Long paymentInvoiceManualId;
-	private Long beforVat;
-	private Long amount;
-	private int customerName;
-	private String customerAddress;
-	private String customerSegment;
-	private String customerBranch;
-	private String taxNo;
-	private String subNo;
-	private String period;
-	private String serviceType;
-	private String printReceipt;
 	private String remark;
 	private String createBy;
 	private Timestamp createDate;
-	private String updateBy;
-	private Timestamp updateDate;
 	private String recordStatus;
+	private Long amount;
+	private Long vatAmount;
+	private String period;
+	private String accountNo;
+	
+	private String paidDateStr;
+	private String createDateStr;
+	
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public String getPaidDateStr() {
+		return paidDateStr;
+	}
+
+	public void setPaidDateStr(String paidDateStr) {
+		this.paidDateStr = paidDateStr;
+	}
+
+	public String getCreateDateStr() {
+		return createDateStr;
+	}
+
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
 
 	public Long getManualId() {
 		return manualId;
@@ -116,126 +129,6 @@ public class PaymentMMapPaymentInvBean {
 		this.clearing = clearing;
 	}
 
-	public Long getRefid() {
-		return refid;
-	}
-
-	public void setRefid(Long refid) {
-		this.refid = refid;
-	}
-
-	public String getAccountNo() {
-		return accountNo;
-	}
-
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
-	}
-
-	public String getClearingSap() {
-		return clearingSap;
-	}
-
-	public void setClearingSap(String clearingSap) {
-		this.clearingSap = clearingSap;
-	}
-
-	public Long getPaymentInvoiceManualId() {
-		return paymentInvoiceManualId;
-	}
-
-	public void setPaymentInvoiceManualId(Long paymentInvoiceManualId) {
-		this.paymentInvoiceManualId = paymentInvoiceManualId;
-	}
-
-	public Long getBeforVat() {
-		return beforVat;
-	}
-
-	public void setBeforVat(Long beforVat) {
-		this.beforVat = beforVat;
-	}
-
-	public Long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Long amount) {
-		this.amount = amount;
-	}
-
-	public int getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(int customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
-
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
-	}
-
-	public String getCustomerSegment() {
-		return customerSegment;
-	}
-
-	public void setCustomerSegment(String customerSegment) {
-		this.customerSegment = customerSegment;
-	}
-
-	public String getCustomerBranch() {
-		return customerBranch;
-	}
-
-	public void setCustomerBranch(String customerBranch) {
-		this.customerBranch = customerBranch;
-	}
-
-	public String getTaxNo() {
-		return taxNo;
-	}
-
-	public void setTaxNo(String taxNo) {
-		this.taxNo = taxNo;
-	}
-
-	public String getSubNo() {
-		return subNo;
-	}
-
-	public void setSubNo(String subNo) {
-		this.subNo = subNo;
-	}
-
-	public String getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-
-	public String getServiceType() {
-		return serviceType;
-	}
-
-	public void setServiceType(String serviceType) {
-		this.serviceType = serviceType;
-	}
-
-	public String getPrintReceipt() {
-		return printReceipt;
-	}
-
-	public void setPrintReceipt(String printReceipt) {
-		this.printReceipt = printReceipt;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
@@ -260,28 +153,36 @@ public class PaymentMMapPaymentInvBean {
 		this.createDate = createDate;
 	}
 
-	public String getUpdateBy() {
-		return updateBy;
-	}
-
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
 	public String getRecordStatus() {
 		return recordStatus;
 	}
 
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+
+	public Long getVatAmount() {
+		return vatAmount;
+	}
+
+	public void setVatAmount(Long vatAmount) {
+		this.vatAmount = vatAmount;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
 }
