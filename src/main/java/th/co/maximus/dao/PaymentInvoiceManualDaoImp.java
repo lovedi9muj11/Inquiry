@@ -54,12 +54,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setRemark(rs.getString("REMARK"));
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
-			paymentManual.setUpdateBy(rs.getString("UPDATE_BY"));
-			paymentManual.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
 			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS"));
-			paymentManual.setRefid(rs.getLong("REF_ID"));
+			paymentManual.setAmount(rs.getLong("AMOUNT"));
+			paymentManual.setAmount(rs.getLong("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
-			paymentManual.setClearingSap(rs.getString("CLEARING_SAP"));
 			return paymentManual;
 		}
 
@@ -78,8 +76,16 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 				paymentInvoiceManualBean.getCreateBy(),paymentInvoiceManualBean.getCreateDate(),paymentInvoiceManualBean.getUpdateBy(),paymentInvoiceManualBean.getUpdateDate(),paymentInvoiceManualBean.getRecordStatus());
 		
 	}
-	
-	
+
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual payment_m ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
+		sql.append(" where payment_m.ACCOUNT_NO like ");
+		sql.append("'%"+ accountNo+ "%'");
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+	}
 	
 
 }
