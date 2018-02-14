@@ -1,25 +1,73 @@
 $(document).ready(function () {
-    $('#histroryPaymentTB').DataTable( {
-   	 "searching": false,
-   	'ajax': {
-           "url": "https://api.myjson.com/bins/16f2wp",
-       },  
-       "columns": [
-       	   { "data": "1", "width": '2%', "className": "dt-center"},
-           { "data": "2", 'width': '15%' , "className": "dt-left"},
-           { "data": "3"  , 'width': '8%' , "className": "dt-center"},
-           { "data": "4"  , 'width': '8%' , "className": "dt-center"},
-           { "data": "5"  , 'width': '5%', "className": "dt-center"},
-           { "data": "6" , 'width': '10%', "className": "dt-left"},
-           { "data": "7"  , 'width': '10%', "className": "dt-center"},
-           { "data": "8"  , 'width': '10%', "className": "dt-center"},
-           { "data": "9"  , 'width': '10%', "className": "dt-center"},
-           { "data": "10"  , 'width': '10%', "className": "dt-center"},
-           { "data": "11"  , 'width': '10%', "className": "dt-center"},
-           { "data": "12"  , 'width': '10%', "className": "dt-center"},
-           { "data": "13"  , 'width': '10%', "className": "dt-center"},
-           { "data": "14"  , 'width': '10%', "className": "dt-center"},
-           { "data": "15"  , 'width': '10%', "className": "dt-center"}
-       ],'order': [1, 'asc']
-   } );
+	histroryTB = $('#histroryPaymentTB').DataTable({
+		"filter" : false,
+		"info" : false,
+		"columnDefs": [ {
+			"searchable": false,
+			"orderable": false
+//			"targets": [0,2]
+		} ]
+		});
+	
+	search();
+	
+	$('#clearCriteria').click(function(){
+		$('#billAccount').val('');
+		search();
+	});
 });
+
+function search(){
+	histroryTB.clear().draw();
+	var data = '';
+	var dataSend = {"accountNo": $('#billAccount').val()};
+	$.ajax({
+        type: "POST",
+        url: "/histroryPayment/find",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	for (var i = 0; i < res.length; i++) {
+                    createRow(res[i], i);
+                }
+        }
+	})
+};
+
+function createRow(data, seq) {
+
+	no = seq + 1
+	paidDate = data.paidDateStr;
+	createDate = data.createDateStr;
+	receiptNoManual = data.receiptNoManual;
+	branchCode = data.branchCode;
+	createBy = data.createBy;
+	invoiceNo = data.invoiceNo;
+	period = data.period;
+	amount = data.amount;
+	source = data.source;
+	paidAmount = data.paidAmount;
+	vatAmount = data.vatAmount;
+	recordStatus = data.recordStatus;
+
+	if(data.remark == null){
+		remark = "-"
+	}else{
+		remark = data.remark;
+	}
+	accountNo = data.accountNo;
+	
+    var t = $('#histroryPaymentTB').DataTable();
+    var rowNode = t.row.add([no, paidDate, createDate, receiptNoManual, branchCode, createBy, invoiceNo, period, amount, source, paidAmount, vatAmount, recordStatus, remark, accountNo
+    ]).draw(true).node();
+    $(rowNode).find('td').eq(0).addClass('center');
+    $(rowNode).find('td').eq(3).addClass('center');
+};
+
+
+
+
+
+

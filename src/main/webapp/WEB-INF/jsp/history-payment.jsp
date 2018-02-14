@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
@@ -18,6 +18,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	
 <script src="js/histrory-payment.js" type="text/javascript"></script>
+
 <title>Menu</title>
 
 </head>
@@ -31,9 +32,9 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">เลขที่ลูกค้า(Billing Account)]</label>
+						<label class="col-md-4 control-label text-right">เลขที่ลูกค้า(Billing Account)</label>
 						<div class="col-md-4">
-							<input type="text" id="billNumber" class="form-control text-left">
+							<input type="text" id="billAccount" name="billAccount" class="form-control text-left">
 						</div>
 					</div>
 				</div>
@@ -44,8 +45,8 @@
 				<div class="row" style="padding-bottom:10px">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="search" name="search" class="btn btn-primary">Search</button>
-						<button id="clear" name="clear" class="btn btn-danger">Clear</button>
+						<button id="searchCriteria" name="searchCriteria" class="btn btn-primary" onclick="search()">ค้นหา</button>
+						<button id="clearCriteria" name="clearCriteria" class="btn btn-danger">ลบ</button>
 					</div>
 				</div>
 			</div>
@@ -73,7 +74,6 @@
 					                <th style="text-align: center;">รอบการใช้งาน</th>
 					                <th style="text-align: center;">ยอดเงินตามใบแจ้งค่าบริการ</th>
 					                <th style="text-align: center;">วิธีการรับชำระ</th>
-					                <th style="text-align: center;">ประเภทการรับชำระ</th>
 					                <th style="text-align: center;">ยอดชำระ</th>
 					                <th style="text-align: center;">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
 					                <th style="text-align: center;">สถานนะ</th>
