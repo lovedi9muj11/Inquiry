@@ -1,5 +1,7 @@
 package th.co.maximus.auth.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import th.co.maximus.auth.model.User;
 import th.co.maximus.auth.service.SecurityService;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.auth.validator.UserValidator;
+import th.co.maximus.bean.UserBean;
 
 @Controller
 public class UserAuthController {
@@ -65,5 +68,8 @@ public class UserAuthController {
         return "userManageMent";
     }
    
+    public void addUserSession(UserBean user, HttpSession session) {
+    	session.setAttribute("userRole", user.getRoleCode());
+    }
     
 }
