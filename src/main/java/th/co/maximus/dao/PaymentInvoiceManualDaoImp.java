@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.core.utils.Utils;
 
 
 
@@ -37,6 +38,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	}
 	
 	private static final class PaymentManual implements RowMapper<PaymentMMapPaymentInvBean> {
+		Utils utils = new Utils();
 
 		@Override
 		public PaymentMMapPaymentInvBean mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -58,7 +60,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
-			paymentManual.setPeriod(rs.getString("PERIOD"));
+			paymentManual.setPeriod(utils.periodFormat(rs.getString("PERIOD")));
 			return paymentManual;
 		}
 
