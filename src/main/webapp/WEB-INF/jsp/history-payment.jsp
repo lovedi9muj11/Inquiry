@@ -18,6 +18,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	
 <script src="js/histrory-payment.js" type="text/javascript"></script>
+<script src="js/utils.js" type="text/javascript"></script>
 
 <title>Menu</title>
 

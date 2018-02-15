@@ -20,7 +20,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() {
-		List<PaymentMMapPaymentInvBean> result = new ArrayList();
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		for(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean :paymentInvoiceManualDao.findPaymentMuMapPaymentInV()) {
 			paymentMMapPaymentInvBean.setPaidDateStr(dt.format(paymentMMapPaymentInvBean.getPaidDate()));
 			paymentMMapPaymentInvBean.setCreateDateStr(dt.format(paymentMMapPaymentInvBean.getCreateDate()));
@@ -31,7 +31,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo) {
-		List<PaymentMMapPaymentInvBean> result = new ArrayList();
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		for (PaymentMMapPaymentInvBean paymentMMapPaymentInvBean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo)) {
 			paymentMMapPaymentInvBean.setPaidDateStr(dt.format(paymentMMapPaymentInvBean.getPaidDate()));
 			paymentMMapPaymentInvBean.setCreateDateStr(dt.format(paymentMMapPaymentInvBean.getCreateDate()));

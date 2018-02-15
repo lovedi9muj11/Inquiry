@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.constants.Constants;
 
 
 
@@ -54,10 +54,11 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setRemark(rs.getString("REMARK"));
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
-			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS"));
-			paymentManual.setAmount(rs.getLong("AMOUNT"));
-			paymentManual.setAmount(rs.getLong("VAT_AMOUNT"));
+			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE)?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_AC);
+			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
+			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
+			paymentManual.setPeriod(rs.getString("PERIOD"));
 			return paymentManual;
 		}
 

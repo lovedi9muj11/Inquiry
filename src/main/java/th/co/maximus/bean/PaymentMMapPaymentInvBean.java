@@ -1,5 +1,6 @@
 package th.co.maximus.bean;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class PaymentMMapPaymentInvBean {
@@ -17,8 +18,8 @@ public class PaymentMMapPaymentInvBean {
 	private String createBy;
 	private Timestamp createDate;
 	private String recordStatus;
-	private Long amount;
-	private Long vatAmount;
+	private BigDecimal amount;
+	private BigDecimal vatAmount;
 	private String period;
 	private String accountNo;
 	
@@ -161,28 +162,28 @@ public class PaymentMMapPaymentInvBean {
 		this.recordStatus = recordStatus;
 	}
 
-	public Long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Long amount) {
-		this.amount = amount;
-	}
-
-	public Long getVatAmount() {
-		return vatAmount;
-	}
-
-	public void setVatAmount(Long vatAmount) {
-		this.vatAmount = vatAmount;
-	}
-
 	public String getPeriod() {
 		return period;
 	}
 
 	public void setPeriod(String period) {
 		this.period = period;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getVatAmount() {
+		return vatAmount;
+	}
+
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
 	}
 
 }

@@ -13,5 +13,11 @@ public class Constants {
 		public static final String DB_TIME_FORMAT = "HH:mm:ss";
 		public static final String OFFLINE = "OFFLINE";
 	}
+	
+	public static class Status {
+		public static final String ACTIVE = "A";
+		public static final String ACTIVE_A = "ปกติ";
+		public static final String ACTIVE_AC = "รอหักล้าง";
+	}
 
 }

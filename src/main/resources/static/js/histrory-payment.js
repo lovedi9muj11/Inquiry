@@ -42,14 +42,14 @@ function createRow(data, seq) {
 	paidDate = data.paidDateStr;
 	createDate = data.createDateStr;
 	receiptNoManual = data.receiptNoManual;
-	branchCode = data.branchCode;
+	branchCode = data.brancharea;
 	createBy = data.createBy;
 	invoiceNo = data.invoiceNo;
 	period = data.period;
-	amount = data.amount;
+	amount = formatDouble(data.amount,2);
 	source = data.source;
-	paidAmount = data.paidAmount;
-	vatAmount = data.vatAmount;
+	paidAmount = formatDouble(data.paidAmount,2);
+	vatAmount = formatDouble(data.vatAmount,2);
 	recordStatus = data.recordStatus;
 
 	if(data.remark == null){
@@ -65,9 +65,4 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(3).addClass('center');
 };
-
-
-
-
-
 
