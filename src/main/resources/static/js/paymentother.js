@@ -7,11 +7,11 @@ $(document).ready(
 			summaryTax();
 			summaryTranPrice();
 			disBtn();
-			addCharnel();
-			
+//			buttonAddBillingList();
 
 			
 		});
+
 
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
@@ -225,6 +225,17 @@ function addRow() {
 
 function myDeleteFunction(count) {
 	var table = document.getElementById("deductibleTable");
+	if (table.rows.length > 0) {
+		for (var i = 1; i < table.rows.length; i++) {
+			if (count == i) {
+				table.deleteRow(count);
+			}
+		}
+	}
+
+}
+function myDeletebilling(count) {
+	var table = document.getElementById("sumtableBillingList");
 	if (table.rows.length > 0) {
 		for (var i = 1; i < table.rows.length; i++) {
 			if (count == i) {
@@ -535,85 +546,34 @@ function summaryTranPrice() {
 	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
 
 }
-function addCharnel() {
-	var table = document.getElementById("tableBillingList").rows.length;
-	var inputCategory = $("#inputCategory").val();
-	var inputAgency = $("#inputAgency").val();
-	var inputDiscount = $("#inputDiscount").val();
+
+function buttonAddBillingList() {
+	var table = document.getElementById("sumtableBillingList").rows.length;
+	var inputServiceType = document.getElementById("inputServiceType").value;
+	var inputServiceDepartment = document.getElementById("inputServiceDepartment").value;
+	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputServiceName = $("#inputServiceName").val();
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
 	var inputServiceUnit = $("#inputServiceUnit").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
-	var inputMoneypreunit = $("#inputMoneypreunit").val();
-	var inputWithholdingtax = $("#inputWithholdingtax").val();
-	var inputCurrency = $("#inputCurrency").val();
-	//var nameMode = "บัตรเครดิต";
-	var summaryTax = $("#summaryTax").val();
-	var count = parseInt(1);
-	if (parseFloat(summaryTax) < parseFloat(creditPrice)) {
-	for (count; count < table; count++) {
-		count
-	}
-
-	var markup = "<tr><td>"
-			+ count
-			+ "</td><td>"
-			+ inputCategory
-			+ "</td><td>"
-			+ inputAgency
-			+ "</td><td>"
-			+ inputDiscount
-			+ "</td><td>"
-			+ inputServiceName
-			+ "</td><td>"
-			+ inputServiceMoreData
-			+ "</td><td>"
-			+ inputServiceUnit
-			+ "</td><td>"
-			+ inputSpecialDiscount
-			+ "</td><td>"
-			+ inputMoneypreunit
-			+ "</td><td>"
-			+ inputWithholdingtax
-			+ "</td><td>"
-			+ inputCurrency
-			+ "</td><td><a onclick='myDeletecreditTranPrice("
-			+ count
-			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
-	$("#tableBillingList").find('tbody').append(markup);
-
-	$("#inputCategory").val("");
-	$("#inputAgency").val("");
-	$("#inputDiscount").val("");
-	$("#inputServiceName").val("");
-	$("#inputServiceMoreData").val("");
-	$("#inputServiceUnit").val("");
-	$("#inputSpecialDiscount").val("");
-	$("#inputMoneypreunit").val("");
-	$("#inputWithholdingtax").val("");
-	$("#inputCurrency").val("");
-	}
-}
-function addCharnel() {
-	var table = document.getElementById("tableBillingList").rows.length;
-	var radioButtons = document.getElementsByName("radioDed");
-	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
-	for (var x = 0; x < radioButtons.length; x++) {
-		if (radioButtons[x].checked) {
-			radioResult = radioButtons[x].value;
-		}
-	}
-
-	var docDed = $("#docDed").val();
-	var moneyDed = $("#moneyDed").val();
+	var inputServiceAmount = $("#inputServiceAmount").val();
+	var inputServiceDeduction = $("#inputServiceDeduction").val();
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceUnit+ "</td><td>"	+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDeduction+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
-	$("#deductibleTable").find('tbody').append(markup);
-	var moneyDed = $("#moneyDed").val("");
+	$("#sumtableBillingList").find('tbody').append(markup);
+	 
+	$("inputServiceType").val("");
+	 $("inputServiceDepartment").val("");
+	 $("#inputServiceDiscount").val("");
+	 $("#inputServiceName").val("");
+	 $("#inputServiceMoreData").val("");
+	 $("#inputServiceUnit").val("");
+	$("#inputSpecialDiscount").val("");
+	$("#inputServiceAmount").val("");
+	$("#inputServiceDeduction").val("");
 };
