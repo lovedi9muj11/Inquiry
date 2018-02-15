@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import th.co.maximus.core.utils.converter.CustomDateDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateSerializer;
+
 public class PaymentFirstBean implements Serializable{
 	
 	/**
@@ -20,8 +26,8 @@ public class PaymentFirstBean implements Serializable{
 	private String debtCollection;
 	private String invoiceNo;
 	private String serviceNo;
-	private Date startupDate;
-	private Date endDate;
+	private String startupDate;
+	private String endDate;
 	private Date deadlines;
 	private Date invoiceDate;
 	private String custStatus;
@@ -39,8 +45,6 @@ public class PaymentFirstBean implements Serializable{
 	private double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
-	
-	
 	public String getCustName() {
 		return custName;
 	}
@@ -58,6 +62,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setTaxId(String taxId) {
 		this.taxId = taxId;
+	}
+	public String getDocumentNo() {
+		return documentNo;
+	}
+	public void setDocumentNo(String documentNo) {
+		this.documentNo = documentNo;
 	}
 	public String getCustAddress() {
 		return custAddress;
@@ -95,16 +105,16 @@ public class PaymentFirstBean implements Serializable{
 	public void setServiceNo(String serviceNo) {
 		this.serviceNo = serviceNo;
 	}
-	public Date getStartupDate() {
+	public String getStartupDate() {
 		return startupDate;
 	}
-	public void setStartupDate(Date startupDate) {
+	public void setStartupDate(String startupDate) {
 		this.startupDate = startupDate;
 	}
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public Date getDeadlines() {
@@ -155,36 +165,6 @@ public class PaymentFirstBean implements Serializable{
 	public void setBalanceSummary(double balanceSummary) {
 		this.balanceSummary = balanceSummary;
 	}
-	public List<PaymentTaxBean> getPaymentTax() {
-		return paymentTax;
-	}
-	public void setPaymentTax(List<PaymentTaxBean> paymentTax) {
-		this.paymentTax = paymentTax;
-	}
-	public List<PaymentTranPriceBean> getPaymentTranPrice() {
-		return paymentTranPrice;
-	}
-	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
-		this.paymentTranPrice = paymentTranPrice;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	public double getSummaryTax() {
-		return summaryTax;
-	}
-	public void setSummaryTax(double summaryTax) {
-		this.summaryTax = summaryTax;
-	}
-	public String getDocumentNo() {
-		return documentNo;
-	}
-	public void setDocumentNo(String documentNo) {
-		this.documentNo = documentNo;
-	}
 	public double getBalanceBeforeTaxs() {
 		return balanceBeforeTaxs;
 	}
@@ -214,6 +194,30 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setBalanceSum(double balanceSum) {
 		this.balanceSum = balanceSum;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public double getSummaryTax() {
+		return summaryTax;
+	}
+	public void setSummaryTax(double summaryTax) {
+		this.summaryTax = summaryTax;
+	}
+	public List<PaymentTaxBean> getPaymentTax() {
+		return paymentTax;
+	}
+	public void setPaymentTax(List<PaymentTaxBean> paymentTax) {
+		this.paymentTax = paymentTax;
+	}
+	public List<PaymentTranPriceBean> getPaymentTranPrice() {
+		return paymentTranPrice;
+	}
+	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
+		this.paymentTranPrice = paymentTranPrice;
 	}
 	
 	

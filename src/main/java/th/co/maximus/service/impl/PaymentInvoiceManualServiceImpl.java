@@ -1,6 +1,8 @@
 package th.co.maximus.service.impl;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,16 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 
 	@Override
 	public void insertPaymentInvoiceManual(PaymentFirstBean paymentBean,int userId) {
+		String period = "";
+		if(paymentBean.getStartupDate() != null && paymentBean.getEndDate() != null) {
+		String[] sResult = paymentBean.getStartupDate().split("-");
+		String[] eResult = paymentBean.getEndDate().split("-");
 		
+		String start = sResult[0]+sResult[1]+sResult[2];
+		String end = eResult[0]+eResult[1]+eResult[2];
+		
+		 period = start+end;
+		}
 		Date date = new Date();
 		if(!paymentBean.getInvoiceNo().equals("")){
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
@@ -36,7 +47,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
 		paymentInvoiceManualBean.setSubNo("");
-		paymentInvoiceManualBean.setPeriod("");
+		paymentInvoiceManualBean.setPeriod(period);
 		paymentInvoiceManualBean.setServiceType("");
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");

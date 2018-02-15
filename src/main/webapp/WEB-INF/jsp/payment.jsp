@@ -85,8 +85,12 @@
 														name="custBrach" placeholder="สาขา">
 
 												</div>
-												<div class="col-sm-4"></div>
-												<div class="col-sm-4"></div>
+
+											</div>
+
+										</div>
+										<div class="row">
+											<div class="form-group left">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :</label>
 												<div class="col-sm-2">
@@ -104,17 +108,11 @@
 														<option>เจ้าของธุรกิจ</option>
 													</select>
 												</div>
-											</div>
-
-										</div>
-										<div class="row">
-											<div class="form-group left">
-
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
 												<div class="col-sm-2">
 													<input type="text" id="typeahead" class="form-control"
-														style="width: 150%;" placeholder="หน่วยงานติดตามหนี้"
+														style="width: 100%;" placeholder="หน่วยงานติดตามหนี้"
 														name="debtCollection ">
 
 												</div>
@@ -125,16 +123,17 @@
 														name="invoiceNo" placeholder="เลขที่ใบแจ้ง">
 
 												</div>
+
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">หมายเลขบริการ :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="serviceNo"
 														name="serviceNo" placeholder="หมายเลขบริการ">
 												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="form-group">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :</label>
 												<div class="col-sm-2">
@@ -147,16 +146,16 @@
 													<input class="form-control" type="date" id="endDate"
 														name="endDate">
 												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">วันครบกำหนด :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="deadlines"
 														name="deadlines">
 												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="form-group">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">วันจัดทำใบแจ้งค่าใช้บริการ
 													:</label>
@@ -174,12 +173,11 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">VAT RATE :</label>
 												<div class="col-sm-2">
-													<select class="form-control" id="vatrate" name="vatrate">
+													<select class="form-control" id="vatrate" name="vatrate" onchange="findvatAmount()">
 														<option value="7">7%</option>
-														<option value="">NAN</option>
 														<option value="0">0%</option>
 														<option value="3">3%</option>
-														
+
 													</select>
 												</div>
 											</div>
@@ -224,8 +222,8 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดชำระ :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="balanceSummary" on
-														name="balanceSummary" >
+													<input class="form-control" type="text" id="balanceSummary"
+														on name="balanceSummary">
 												</div>
 											</div>
 										</div>
@@ -270,7 +268,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="row hidden">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">เลขที่เอกสาร :</label>
@@ -308,7 +306,6 @@
 															<tr>
 																<th>#</th>
 																<th>เลขที่ใบแจ้งค่าใช้บริการ</th>
-																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
 															</tr>
@@ -688,8 +685,8 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ชำระ :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
-														id="balanceSum" readonly="">
+													<input class="form-control" type="text" id="balanceSum"
+														readonly="">
 												</div>
 											</div>
 										</div>

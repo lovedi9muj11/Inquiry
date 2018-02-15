@@ -15,6 +15,8 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
+	<link href="css/payment.css" rel="stylesheet">
+<script src="js/payment.js"></script>
 
 </head>
 <body>
@@ -25,20 +27,79 @@
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">
-						<li ><a href="#">รับชำระค่าบริการ ></a></li>
+						<li><a href="#">รับชำระค่าบริการ ></a></li>
 						<li class="active"><a href="#">ผลการรับชำระ </a></li>
 					</ul>
 				</div>
 			</nav>
-			<div id="" class="row">
-				<div class="col-lg-12">
-					<div class="col-md-12">
-						<font color="black">Success</font>
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="form-group" align="right">
+						<div class="col-md-12 col-sm-12">
+							<button name="submitFormPayment" type="button" class="btn btn-danger btn-lg" onclick="backPayment()">
+								<span class="glyphicon glyphicon-chevron-left"> กลับไปยังหน้าชำระ</span>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-			
-		</div>
+			<!-- panel รายการหัก -->
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="form-group">
+						<div class="col-md-12 col-sm-12">
+							<div class="panel">
+								<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
+								<div class="panel-body">
+									<div style="display: none">
+										<table id="sumDeductibleTable">
+											<thead>
+												<tr></tr>
+											</thead>
+											<tbody></tbody>
+										</table>
+									</div>
+									<table class="table" id="showResultTable">
+										<thead>
+											<tr align="center">
+												<th></th>
+												<th>#</th>
+												<th>เลขที่ลูกค้า</th>
+												<th>ชื่อลูกค้า</th>
+												<th>เลขที่ใบเสร็จรับเงิน/ใบกำกับภาษี</th>
+												<th>จำนวนเงินที่ชำระ</th>
+												<th>สถานะการรับชำระ</th>
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+									<table class="table hidden" id="showResultTableRQ">
+										<thead>
+											<tr align="center">
+												<th>เลขที่ใบแจ้งค่าใช้บริการ</th>
+												<th>วันที่จัดทำใบแจ้งค่าใช้บริการ</th>
+												<th>วันที่ครบกำหนด</th>
+												<th>ยอดก่อนภาษี</th>
+												<th>ภาษีมูลค่าเพิ่ม</th>
+												<th>ยอดเงินรวมภาษี</th>
+												<th>บอดชำระ</th>
+												<th>ภาษีหัก ณ ที่จ่าย</th>
+												<th>จำนวนเงินคงค้าง</th>
+												<th>รอบการใช้งาน</th>
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	</form>
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

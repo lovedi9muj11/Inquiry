@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.PaymentInvoiceManualService;
 import th.co.maximus.service.PaymentManualService;
 import th.co.maximus.service.PaymentService;
@@ -44,6 +45,12 @@ public class PaymentServiceImpl implements PaymentService{
 	public void update(PaymentFirstBean paymentBean) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public PaymentResultReq findByid(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

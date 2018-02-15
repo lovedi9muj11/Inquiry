@@ -26,7 +26,7 @@ public class CustomDateDeserializer extends JsonDeserializer<Date> {
 		JsonNode node = oc.readTree(jp);
 		Date result = null;
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD", Locale.ENGLISH);
 			if (StringUtils.isNotEmpty(node.asText())) {
 				Date refDate = (Date) dateFormat.parse(node.asText());
 				result = new Date(refDate.getTime());

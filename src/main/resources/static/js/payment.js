@@ -1,11 +1,9 @@
 $(document).ready(
 		function() {
-			
 			findTypePayment();
 			findBank();
 			findBankNo();
 			summaryTax();
-			
 			disBtn();
 			var cars = [ 'ทต.', 'ตร.', 'ปง.', 'Ferrari', 'Ford', 'Lamborghini',
 					'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen' ];
@@ -56,6 +54,9 @@ $(document).ready(
 			
 
 		});
+function backPayment(){
+	window.location.href = "gotoPayment";
+}
 
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
@@ -68,6 +69,27 @@ function disBtn(){
 		$('button#submitFormPayment').prop('disabled', true);
 	}
 }
+function findvatAmount(){
+	var result = $("#balanceSummary").val();
+	var vatRQ = $("#vatrate").val();
+	var beforeVat = parseFloat(0);
+	var vat = parseFloat(0);
+	var summary = parseFloat(0);
+	var summaryT = parseFloat(0);
+	var vatCo = parseFloat(107);
+	var vatRq = parseFloat(0);
+	
+	summaryT = parseFloat(result * parseFloat(vatRQ));
+	vat = parseFloat(summaryT / vatCo);
+	
+	
+	beforeVat = parseFloat(result - vat);
+	summary = parseFloat(beforeVat + vat);
+	$("#balanceBeforeTax").val(beforeVat.toFixed(2));
+	$("#vat").val(vat.toFixed(2));
+	$("#balanceOfTax").val(summary.toFixed(2));
+	// Summary
+};
 function vatAmount(){
 	var result = $("#balanceSummarys").val();
 	var vatRQ = $("#vatrate").val();
@@ -193,6 +215,7 @@ function submitForm(){
 			 "debtCollection":$("#typeahead").val() ,
 			 "invoiceNo":$("#invoiceNo").val() ,
 			 "serviceNo":$("#serviceNo").val() ,
+			 "startupDate":$("#startupDate").val() ,
 			 "endDate":$("#endDate").val() ,
 			 "deadlines":$("#deadlines").val() ,
 			 "invoiceDate":$("#invoiceDate").val() ,
@@ -286,7 +309,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td hidden>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -689,51 +712,3 @@ function removeTax() {
 	$("#summaryTax").val(summary.toFixed(2));
 }
 
-//function summaryTranPrice() {
-//	disBtn();
-//	var table = document.getElementById("showTotalPriceTable");
-//	var vatrate = document.getElementById("vatrate").value;
-//	var rowLength = table.rows.length;
-//	var summary = parseFloat(0);
-//	var summaryTax = $("#summaryTax").val();
-//	var summarybeforeVat = parseFloat(0);
-//	var summaryvat = parseFloat(0);
-//	var summaryTVat = parseFloat(0);
-//	var beforeVat = parseFloat(0);
-//	var vat = parseFloat(0);
-//	var summary = parseFloat(0);
-//	var vatCo = parseFloat(107);
-//	var vatRq = parseFloat(0);
-//
-//	for (var i = 1; i < rowLength; i++) {
-//		var oCells = table.rows.item(i).cells;
-//		var total = parseFloat(oCells[2].innerHTML);
-//		if (vatrate != "") {
-//
-//			vatRq = parseFloat(total * parseFloat(vatrate));
-//			vat = parseFloat(vatRq / vatCo);
-//			beforeVat = parseFloat(total - vat);
-//
-//			summaryTVat = parseFloat(beforeVat + vat);
-//		} else {
-//			beforeVat = parseFloat(total);
-//		}
-//
-//		summary += total;
-//		summaryvat += vat;
-//		summarybeforeVat += beforeVat;
-//	}
-//
-//	summary = parseFloat(summary -summaryTax);
-//	if (rowLength <= 0) {
-//		summary = parseFloat(0);
-//	}
-//	if (summary < 0) {
-//		summary = parseFloat(0);
-//	}
-////	$("#balanceSummarys").val(summary.toFixed(2));
-////	$("#balanceBeforeTaxs").val(summarybeforeVat.toFixed(2));
-////	$("#vats").val(summaryvat.toFixed(2));
-////	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
-//
-//}
