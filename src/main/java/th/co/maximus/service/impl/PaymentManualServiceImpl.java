@@ -26,7 +26,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 		if(!paymentBean.getInvoiceNo().equals("")){
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			paymentManualBean.setPaidDate(new Timestamp(date.getTime()));
+			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
 			paymentManualBean.setBrancharea("CAT นนทบุรี");
 			paymentManualBean.setBranchCode("001");
 			paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()+paymentBean.getSummaryTax());

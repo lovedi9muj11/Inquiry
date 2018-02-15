@@ -14,10 +14,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.payment.bean.PaymentTranPriceBean;
 import th.co.maximus.service.PaymentInvoiceManualService;
 import th.co.maximus.service.PaymentManualService;
+import th.co.maximus.service.PaymentService;
 import th.co.maximus.service.TrsmethodManualService;
 
 @RunWith(SpringRunner.class)
@@ -28,6 +30,7 @@ public class PaymentSeriveTest{
 	@Autowired PaymentManualService paymentManualService;
 	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
 	@Autowired TrsmethodManualService trsmethodManualService;
+	@Autowired PaymentService paymentService;
 	
 	@Ignore
 	@Test
@@ -56,7 +59,7 @@ public class PaymentSeriveTest{
 		
 		paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, 0);
 	}
-	
+	@Ignore
 	@Test
 	@Rollback
 	public void saveTrsMethod() {
@@ -91,6 +94,12 @@ public class PaymentSeriveTest{
 		
 		trsmethodManualService.insertTrsmethodManual(paymentBean,55);
 	}
-	
+	@Test
+	@Rollback
+	public void findById() throws Exception {
+		PaymentResultReq bean = new PaymentResultReq();
+		bean = paymentService.findByid(16);
+		System.out.println(bean);
+	}
 
 }

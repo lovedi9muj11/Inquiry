@@ -3,6 +3,7 @@ package th.co.maximus.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.PaymentInvoiceManualService;
@@ -16,6 +17,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired PaymentManualService paymentManualService;
 	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
 	@Autowired TrsmethodManualService trsmethodManualService;
+	@Autowired PaymentManualDao paymentManualDao;
 
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {
@@ -48,9 +50,9 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public PaymentResultReq findByid(int id) {
+	public PaymentResultReq findByid(int id) throws Exception{
 		// TODO Auto-generated method stub
-		return null;
+		return paymentManualDao.findById(id);
 	}
 
 }
