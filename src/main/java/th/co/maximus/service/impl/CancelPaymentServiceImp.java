@@ -7,19 +7,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
-import th.co.maximus.service.HistoryPaymentService;
+import th.co.maximus.service.CancelPaymentService;
 
 @Service
-public class HistoryPaymentServiceImp implements HistoryPaymentService {
+public class CancelPaymentServiceImp implements CancelPaymentService {
 	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-
+	
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() {
+	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		for(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean :paymentInvoiceManualDao.findPaymentMuMapPaymentInV()) {
 			paymentMMapPaymentInvBean.setPaidDateStr(dt.format(paymentMMapPaymentInvBean.getPaidDate()));
@@ -29,15 +31,4 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		return result;
 	}
 
-	@Override
-	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo) {
-		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
-		for (PaymentMMapPaymentInvBean paymentMMapPaymentInvBean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo)) {
-			paymentMMapPaymentInvBean.setPaidDateStr(dt.format(paymentMMapPaymentInvBean.getPaidDate()));
-			paymentMMapPaymentInvBean.setCreateDateStr(dt.format(paymentMMapPaymentInvBean.getCreateDate()));
-			result.add(paymentMMapPaymentInvBean);
-		}
-		return result;
-
-	}
 }

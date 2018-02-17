@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
@@ -17,8 +17,8 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	
-<script type="text/javascript"
-	src="${contextPath}/resources/js/cancel-payment.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/cancel-payment.js"></script>
+<script src="js/utils.js" type="text/javascript"></script>
 <title>Menu</title>
 
 </head>
@@ -27,12 +27,17 @@
 	<!-- main panel -->
 	<div  style="padding: 30px 10px 50px 50px">
 		<h1 class="page-header"></h1>
+	  <div name="error" id="error"  class="alert alert-danger alert-dismissable fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    <strong>Error : </strong> รหัสผ่านไม่ถูกต้อง
+	  </div>
 		<ul class="list-inline">
 			<li id="li1">ค้นหาข้อมูลการชำระบริการ</li> >>
 			<li id="li2">ระบุเหตุผลการยกเลิกชำระ</li> >>
 			<li id="li3">สรุปการยกเลิกชำระ</li> >>
 			<li id="li4">ผลการยกเลิกการชำระ</li>
 		</ul>
+
 		<div class="panel" id="panel1">
 			<div class="panel-heading">ค้นหาข้อมูล</div>
 			<div class="panel-body">
@@ -70,25 +75,24 @@
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table id="example" class="table table-bordered" cellspacing="0" width="100%">
-						        <tr>
-						    <thead>
-						         	<th style="text-align: center;">#</th>  				                         
-					                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
-					                <th style="text-align: center;">วันที่ทำรายการ</th>
-					                <th style="text-align: center;">เลขที่ลูกค้า</th>
-					                <th style="text-align: center;">ชื่อลูกค้า</th>
-					                <th style="text-align: center;">วิธีการชำระ</th>
-					                <th style="text-align: center;">จำนวนเงิน</th>
-					                <th style="text-align: center;">สถานที่รับชำระ</th>
-					                <th style="text-align: center;">ผู้รับชำระ</th>
-					                <th style="text-align: center;">สถานนะ</th>
-					                <th style="text-align: center;"></th>
-					                
-						        </tr>
-						    </thead>
-						</table>
+							<table id="cancelPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
+								<thead>
+							        <tr>
+							         	<th style="text-align: center;">#</th>  				                         
+						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
+						                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
+						                <th style="text-align: center;">วันที่ทำรายการ</th>
+						                <th style="text-align: center;">เลขที่ลูกค้า</th>
+						                <th style="text-align: center;">ชื่อลูกค้า</th>
+						                <th style="text-align: center;">วิธีการชำระ</th>
+						                <th style="text-align: center;">จำนวนเงิน</th>
+						                <th style="text-align: center;">สถานที่รับชำระ</th>
+						                <th style="text-align: center;">ผู้รับชำระ</th>
+						                <th style="text-align: center;">สถานนะ</th>
+						                <th style="text-align: center;"></th>					             
+							        </tr>
+						    	</thead>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -102,13 +106,13 @@
 					<div class="form-group col-md-5">
 						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control">
+							<input type="text" id="receiptNo" name="receiptNo" class="form-control">
 						</div>
 					</div>
 					<div class="form-group col-md-5">
 						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control">
+							<input type="text" id="invoiceNo" name="invoiceNo" class="form-control">
 						</div>
 					</div>
 					<div class="form-group col-md-2">
@@ -123,25 +127,36 @@
 			<div class="panel-heading">สรุปการยกเลิกชำระ</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control">
+					<div class="col-md-12">
+						<div class="box box-solid">
+							<!--<div class="box-header"></div>
+							 /.box-header -->
+							<div class="box-body">
+								<table id="selectCancelPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
+									<thead>
+								        <tr>
+								         	<th style="text-align: center;">#</th>  				                         
+							                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
+							                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
+							                <th style="text-align: center;">วันที่ทำรายการ</th>
+							                <th style="text-align: center;">เลขที่ลูกค้า</th>
+							                <th style="text-align: center;">ชื่อลูกค้า</th>
+							                <th style="text-align: center;">วิธีการชำระ</th>
+							                <th style="text-align: center;">จำนวนเงิน</th>
+							                <th style="text-align: center;">สถานที่รับชำระ</th>
+							                <th style="text-align: center;">ผู้รับชำระ</th>
+							                <th style="text-align: center;">สถานนะ</th>
+							                <th style="text-align: center;"></th>					             
+								        </tr>
+							    	</thead>
+								</table>
+							</div>
 						</div>
-					</div>
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-2">
-						<button id="search" name="search" class="btn btn-primary">Search</button>
-						<button id="clear" name="clear" class="btn btn-danger">Clear</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 
 		<div class="panel panel-primary" id="panel4">
 			<div class="panel-heading">ผลการยกเลิกการชำระ</div>
@@ -166,6 +181,37 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<!-- dialog confirm authentication -->
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >
+	  <div class="modal-dialog modal-sm" style="width:450px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Authentication</h4>
+	      </div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">user name</label>
+						<div class="col-md-9">
+							<input type="text" id="userName" name="userName" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">password</label>
+						<div class="col-md-9">
+							<input type="password" id="password" name="password" class="form-control">
+						</div>
+					</div>
+				</div>
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-no">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 </body>

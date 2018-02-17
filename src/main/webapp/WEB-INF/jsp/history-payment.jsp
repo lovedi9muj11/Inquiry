@@ -65,20 +65,20 @@
 							<table id="histroryPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
 						    <thead>
 						        <tr>
-						         	<th style="text-align: center;">#</th>  				                         
-					                <th style="text-align: center;">วันที่ทำรายการ</th>
-					                <th style="text-align: center;">วันที่ออกใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;">สถานที่รับชำระ</th>
-					                <th style="text-align: center;">ผู้รับชำระ</th>
-					                <th style="text-align: center;">เลขที่ใบแจ้งค่าใช้บริการ</th>
-					                <th style="text-align: center;">รอบการใช้งาน</th>
-					                <th style="text-align: center;">ยอดเงินตามใบแจ้งค่าบริการ</th>
-					                <th style="text-align: center;">วิธีการรับชำระ</th>
-					                <th style="text-align: center;">ยอดชำระ</th>
-					                <th style="text-align: center;">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
-					                <th style="text-align: center;">สถานนะ</th>
-					                <th style="text-align: center;">หมายเหตุ</th>
+						         	<th style="text-align: center;width: 1%">#</th>  				                         
+					                <th style="text-align: center;width: 10%">วันที่ทำรายการ</th>
+					                <th style="text-align: center;;width: 10%">วันที่ออกใบเสร็จรับเงิน</th>
+					                <th style="text-align: center;;width: 10%">เลขที่ใบเสร็จรับเงิน</th>
+					                <th style="text-align: center;;width: 10%">สถานที่รับชำระ</th>
+					                <th style="text-align: center;;width: 5%">ผู้รับชำระ</th>
+					                <th style="text-align: center;;width: 10%">เลขที่ใบแจ้งค่าใช้บริการ</th>
+					                <th style="text-align: center;;width: 10%">รอบการใช้งาน</th>
+					                <th style="text-align: center;;width: 10%">ยอดเงินตามใบแจ้งค่าบริการ</th>
+					                <th style="text-align: center;;width: 10%">วิธีการรับชำระ</th>
+					                <th style="text-align: center;;width: 5%">ยอดชำระ</th>
+					                <th style="text-align: center;;width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
+					                <th style="text-align: center;;width: 5%">สถานนะ</th>
+					                <th style="text-align: center;;width: 5%">หมายเหตุ</th>
 					                
 						        </tr>
 						    </thead>

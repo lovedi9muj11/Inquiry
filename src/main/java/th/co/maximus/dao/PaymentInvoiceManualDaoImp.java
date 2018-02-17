@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.bean.UserBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.Utils;
 
@@ -57,10 +58,15 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE)?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_AC);
+			paymentManual.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
 			paymentManual.setPeriod(utils.periodFormat(rs.getString("PERIOD")));
+			paymentManual.setPayType((rs.getString("PAY_TYPE")));
+			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
+			paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));
+			
 			return paymentManual;
 		}
 
@@ -88,7 +94,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		sql.append(" where payment_m.ACCOUNT_NO like ");
 		sql.append("'%"+ accountNo+ "%'");
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
-	}
-	
+	}	
 
 }
