@@ -18,14 +18,43 @@ public class PaymentMMapPaymentInvBean {
 	private String createBy;
 	private Timestamp createDate;
 	private String recordStatus;
+	private BigDecimal beforVat;
 	private BigDecimal amount;
 	private BigDecimal vatAmount;
 	private String period;
 	private String accountNo;
+	private String payType;
+	private String customerName;
 	
 	private String paidDateStr;
 	private String createDateStr;
 	
+	
+	
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public BigDecimal getBeforVat() {
+		return beforVat;
+	}
+
+	public void setBeforVat(BigDecimal beforVat) {
+		this.beforVat = beforVat;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
+
 	public String getAccountNo() {
 		return accountNo;
 	}
