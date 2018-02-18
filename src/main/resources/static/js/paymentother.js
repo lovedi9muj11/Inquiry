@@ -7,7 +7,6 @@ $(document).ready(
 			summaryTax();
 			summaryTranPrice();
 			disBtn();
-//			buttonAddBillingList();
 
 			
 		});
@@ -27,7 +26,9 @@ function disBtn(){
 function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
+	var radioVsts = document.getElementsByName("vatRadio");
+	var radioVat = "";
+	var inputCustomerBillNo = $("#inputCustomerBillNo").val();
 	var deductible = [];
 	var  resultDeductible = [];
 	var totalPrice = [];
@@ -37,6 +38,12 @@ function submitForm(){
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
+		}
+	}
+	// get radioVat 
+	for (var x = 0; x < radioVsts.length; x++) {
+		if (radioVsts[x].checked) {
+			radioVat = radioVsts[x].value;
 		}
 	}
 //	ภาษี หัก ณ ที่จ่าย
@@ -75,7 +82,7 @@ function submitForm(){
 	
 	for (var a = 0; a < resultDeductible.length; a++) {
 		listpaymentTaxQ = []
-		listpaymentTaxQ = {"invoiceNo" : resultDeductible[a][1],
+		listpaymentTaxQ = {"inputCustomerBillNo" : resultDeductible[a][1],
 			"docDed" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][3],
 			"moneyDed" : resultDeductible[a][4]
@@ -119,31 +126,24 @@ function submitForm(){
 	}
 	
 	var dataSend = {
-			 "custName":$("#custName").val() ,
-			 "custNo":$("#custNo").val() ,
-			 "taxId":$("#taxId").val() ,
-			 "custAddress":$("#custAddress").val() ,
-			 "custBrach":$("#custBrach").val() ,
+			"inputCustomerBillNo":$("#inputCustomerBillNo").val() ,
+			 "inputCustomerName":$("#inputCustomerName").val() ,
+			 "inputCustomerTaxNo":$("#inputCustomerTaxNo").val() ,
+			 "inputCustomerBranch":$("#inputCustomerBranch").val() ,
 			 "userGroup":$("#userGroup").val() ,
-			 "debtCollection":$("#typeahead").val() ,
-			 "invoiceNo":$("#invoiceNo").val() ,
-			 "serviceNo":$("#serviceNo").val() ,
-			 "endDate":$("#endDate").val() ,
-			 "deadlines":$("#deadlines").val() ,
-			 "invoiceDate":$("#invoiceDate").val() ,
 			 "vatrate":$("#vatrate").val() ,
+			 "inputCustomerAddress":$("#inputCustomerAddress").val() ,
 			 "balanceBeforeTax":$("#balanceBeforeTax").val() ,
-			 "vat":$("#vat").val() ,
 			 "balanceOfTax":$("#balanceOfTax").val() ,
 			 "balanceSummary":$("#balanceSummary").val() ,
-			 "remark":$("#remark").val() ,
+			 "inputAdditionalRemark":$("#inputAdditionalRemark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
 			 "paymentTax":listpaymentTaxRQ  ,
-			 "paymentTranPrice" :listpaymentTranPriceRQ	 
+			 "paymentTranPrice" :listpaymentTranPriceRQ	
 	}
 	$.ajax({
         type: "POST",
-        url: "paymentService",
+        url: "paymenOthertService",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -201,9 +201,11 @@ function findBankNo() {
 
 function addRow() {
 	var table = document.getElementById("deductibleTable").rows.length;
+	var inputCustomerBillNo = $("#inputCustomerBillNo").val();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
+	
+	
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
@@ -217,7 +219,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputCustomerBillNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -558,12 +560,22 @@ function buttonAddBillingList() {
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDeduction = $("#inputServiceDeduction").val();
+	var vatrate = $("#vatrate").val();
+	var radioButtons = document.getElementsByName("vatRadio");
+	var radioResult = "";
+	
+	
+	for (var x = 0; x < radioButtons.length; x++) {
+		if (radioButtons[x].checked) {
+			radioResult = radioButtons[x].value;
+		}
+	}
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceUnit+ "</td><td>"	+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDeduction+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputSpecialDiscount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
 	 

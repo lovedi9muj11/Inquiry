@@ -1,0 +1,167 @@
+package th.co.maximus.service.impl;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import th.co.maximus.bean.DeductionManualBean;
+import th.co.maximus.bean.TrsChequeRefManualBean;
+import th.co.maximus.bean.TrsMethodManualBean;
+import th.co.maximus.bean.TrscreDitrefManualBean;
+import th.co.maximus.dao.DeductionManualDao;
+import th.co.maximus.dao.TrsChequeRefManualDao;
+import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.dao.TrscreDitrefManualDao;
+import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.payment.bean.PaymentOtherFirstBean;
+import th.co.maximus.payment.bean.PaymentTaxBean;
+import th.co.maximus.payment.bean.PaymentTranPriceBean;
+import th.co.maximus.service.TrsmethodOtherManualService;
+
+@Service
+public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualService{
+	@Autowired TrsMethodManualDao trsMethodManualDao;
+	@Autowired TrscreDitrefManualDao trscreDitrefManualDao;
+	@Autowired TrsChequeRefManualDao trsChequeRefManualDao;
+	@Autowired DeductionManualDao deductionManualDao;
+	@Override
+	public int insertTrsmethodManual(PaymentOtherFirstBean paymentBean,int userId) {
+		Date date = new Date();
+		int idTrsMethod = 0;
+		if(paymentBean.getPaymentTranPrice().size() >=0){
+			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
+				PaymentTranPriceBean paymentTranPriceBean = new PaymentTranPriceBean();
+				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
+				TrscreDitrefManualBean trscreDitrefManualBean = new TrscreDitrefManualBean();
+				TrsChequeRefManualBean trsChequeRefManualBean = new TrsChequeRefManualBean();
+
+				paymentTranPriceBean = paymentBean.getPaymentTranPrice().get(i);
+				trsMethodManualBean.setCode(paymentTranPriceBean.getTypePayment());
+				trsMethodManualBean.setName(paymentTranPriceBean.getTypePayment());
+				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
+				//trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
+				if(paymentTranPriceBean.getTypePayment().equals("CD")){
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
+				}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
+				}else{
+					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+				}
+				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+				trsMethodManualBean.setVersionStamp(1L);
+				//trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setRecordStatus("A");
+				trsMethodManualBean.setManualId(Long.valueOf(userId));
+				try {
+					 idTrsMethod = trsMethodManualDao.insertTrsMethod(trsMethodManualBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				if(idTrsMethod >0){
+						if(paymentTranPriceBean.getTypePayment().equals("CD")){
+							//insert Credit
+							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
+							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());
+							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getTypePayment());
+							trscreDitrefManualBean.setCardType(paymentTranPriceBean.getCreditType());
+							trscreDitrefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+							trscreDitrefManualBean.setVersionStamp(1L);
+							trscreDitrefManualBean.setMethodManualId(String.valueOf(idTrsMethod));
+							
+							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
+							
+						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
+							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
+							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());
+							trsChequeRefManualBean.setBranch(paymentTranPriceBean.getBranchCheck());
+							trsChequeRefManualBean.setaMount(paymentTranPriceBean.getMoneyCheck());
+							trsChequeRefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+							trsChequeRefManualBean.setVersionStamp(1L);
+							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+							trsChequeRefManualBean.setMethodManualId(Long.valueOf(idTrsMethod));
+							
+							trsChequeRefManualDao.insert(trsChequeRefManualBean);
+							
+					
+					}
+				}
+
+				
+				
+				
+			}
+			
+		} // END PAY
+		
+		if(paymentBean.getPaymentTax().size() >0){
+			for(int i=0; i < paymentBean.getPaymentTax().size();i++){
+				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
+				DeductionManualBean deductionManualBean= new DeductionManualBean();
+				PaymentTaxBean paymentTaxBean = new PaymentTaxBean();
+				paymentTaxBean = paymentBean.getPaymentTax().get(i);
+
+				trsMethodManualBean.setCode("DEDUC");
+				trsMethodManualBean.setName("ภาษีหัก ณ ที่จ่าย");
+				trsMethodManualBean.setChequeNo("");
+				//trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setCreditId("");
+				trsMethodManualBean.setAmount(paymentTaxBean.getMoneyDed());
+				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+				trsMethodManualBean.setVersionStamp(1L);
+				//trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
+				trsMethodManualBean.setRecordStatus("A");
+				trsMethodManualBean.setManualId(Long.valueOf(userId));
+				try {
+					 idTrsMethod = trsMethodManualDao.insertTrsMethod(trsMethodManualBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				if(idTrsMethod >0){
+					deductionManualBean.setDeDuctionNo("ภาษีหัก ณ ที่จ่าย");
+					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
+					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed());
+					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
+					deductionManualBean.setUpdateDttm(new Timestamp(date.getTime()));
+					deductionManualBean.setVersionStamp(1L);
+					//deductionManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
+					//deductionManualBean.setRemark(paymentBean.getRemark());
+					deductionManualBean.setCreateBy("ADMIN");
+					deductionManualBean.setCreateDate(new Timestamp(date.getTime()));
+					deductionManualBean.setUpdateBy("ADMIN");
+					deductionManualBean.setUpdateDate(new Timestamp(date.getTime()));
+					deductionManualBean.setRecordStatus("A");
+					deductionManualBean.setManualId(Long.valueOf(userId));
+					deductionManualDao.insert(deductionManualBean);
+				
+				}
+				
+
+			}
+		}
+		return userId;
+		
+	}
+	
+	@Override
+	public List<TrsMethodManualBean> TrsmethodManualAll() {
+//		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
+		return null;
+	}
+}

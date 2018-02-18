@@ -185,6 +185,14 @@
                             <br /> <br />
 						<div class="row">
 							<div class="form-group">
+							<div style="display: none">
+											<table id="sumtableBillingListdata">
+												<thead>
+													<tr></tr>
+												</thead>
+												<tbody></tbody>
+											</table>
+										</div>
 							<div class="col-sm-12">
                             <table id="sumtableBillingList" class="table table-striped">
                                 <thead>
@@ -192,12 +200,14 @@
                                     <th >#</th>
                                     <th >ประเภทบริการ</th>
                                     <th >ชื่อบริการ</th>
+                                    <th >หน่วยรับรายได้</th>
                                     <th >จำนวนรายการ</th>
-                                    <th >จำนวนเงินต่อหน่วย (ก่อน Vat)</th>
+                                    <th >จำนวนเงินต่อหน่วย </th>
                                      <th>เงินส่วนลด</th>
                                     <th >ภาษีมูลค่าเพิ่ม</th>
                                     <th >ภาษีหัก ณ ที่จ่าย</th>
                                     <th >ยอดเงินรวม</th>
+                                    <th >ส่วนลดพิเศษ</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -283,7 +293,7 @@
 														<thead>
 															<tr>
 																<th>#</th>
-																<th>เลขที่ใบแจ้งค่าใช้บริการ</th>
+																<th>เลขที่ลูกค้า</th>
 																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
