@@ -1,12 +1,12 @@
 $(document).ready(
-		function() {
+		function() {		
 			findTypePayment();
 			findBank();
 			findBankNo();
 			summaryTax();
+			hideShowdat();
 			disBtn();
-			var cars = [ 'ทต.', 'ตร.', 'ปง.', 'Ferrari', 'Ford', 'Lamborghini',
-					'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen' ];
+			var cars = [ 'ทต.', 'ตร.', 'ปง.','กม.' ];
 
 			// Constructing the suggestion engine
 			var cars = new Bloodhound({
@@ -52,11 +52,8 @@ $(document).ready(
 				$("#balanceOfTaxs").val(summary.toFixed(2));
 			});
 			
-
 		});
-function backPayment(){
-	window.location.href = "gotoPayment";
-}
+
 
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
@@ -69,6 +66,14 @@ function disBtn(){
 		$('button#submitFormPayment').prop('disabled', true);
 	}
 }
+
+
+function printReportPDF(){
+	$("#documentReportForm")
+    .attr("action", "previewPaymentEpisOffline.html?documentNo="+ $("#docNos").val())
+    .attr("target", "_blank").submit();	
+}
+	
 function findvatAmount(){
 	var result = $("#balanceSummary").val();
 	var vatRQ = $("#vatrate").val();
@@ -90,6 +95,9 @@ function findvatAmount(){
 	$("#balanceOfTax").val(summary.toFixed(2));
 	// Summary
 };
+
+
+
 function vatAmount(){
 	var result = $("#balanceSummarys").val();
 	var vatRQ = $("#vatrate").val();
@@ -110,7 +118,25 @@ function vatAmount(){
 	$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
 	$("#vats").val(vat.toFixed(2));
 };
+
+function hideShowdat(){
+	 $("#sCustName").hide();
+	 $("#sCustNo").hide();
+	 $("#staxId").hide();
+	 $("#scustAddress").hide();
+	 $("#scustBrach").hide();
+	 $("#suserGroup").hide();
+	 $("#sdebtCollection").hide();
+	 $("#sinvoiceNo").hide();
+	 $("#sserviceNo").hide();
+	 $("#sstartupDate").hide();
+	 $("#sendDate").hide();
+	 $("#sdeadlines").hide();
+	 $("#sinvoiceDate").hide(); 
+}
 function submitForm(){
+
+	hideShowdat();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
 	var invoiceNo = $("#invoiceNo").val();
@@ -204,6 +230,60 @@ function submitForm(){
 		listpaymentTranPriceRQ.push(listpaymentTranPriceQ);
 	}
 	
+	
+	if($("#custName").val() == ""){
+		$("#sCustName").show();
+		return $("#custName").focus();
+	}
+	if($("#custNo").val() == ""){
+		$("#sCustNo").show();
+		return $("#custNo").focus();
+	}
+	if($("#taxId").val() == ""){
+		$("#staxId").show();
+		return $("#taxId").focus();
+	}
+	if($("#custAddress").val() == ""){
+		$("#scustAddress").show();
+		return $("#custAddress").focus();
+	}
+	if($("#custBrach").val() == ""){
+		$("#scustBrach").show();
+		return $("#custBrach").focus();
+	}
+	if($("#userGroup").val() == ""){
+		$("#suserGroup").show();
+		return $("#userGroup").focus();
+	}
+	if($("#typeahead").val() == ""){
+		$("#sdebtCollection").show();
+		return $("#typeahead").focus();
+	}
+	if($("#invoiceNo").val() == ""){
+		$("#sinvoiceNo").show();
+		return $("#invoiceNo").focus();
+	}
+	if($("#serviceNo").val() == ""){
+		$("#sserviceNo").show();
+		return $("#serviceNo").focus();
+	}
+	if($("#startupDate").val() == ""){
+		$("#sstartupDate").show();
+		return $("#startupDate").focus();
+	}
+	if($("#endDate").val() == ""){
+		$("#sendDate").show();
+		return $("#endDate").focus();
+	}
+	if($("#deadlines").val() == ""){
+		$("#sdeadlines").show();
+		return $("#deadlines").focus();
+	}
+	if($("#invoiceDate").val() == ""){
+		$("#sinvoiceDate").show();
+		return $("#invoiceDate").focus();
+	}
+	
 	var dataSend = {
 			 "custName":$("#custName").val() ,
 			 "custNo":$("#custNo").val() ,
@@ -234,6 +314,7 @@ function submitForm(){
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	 
 	}
+		 
 	$.ajax({
         type: "POST",
         url: "paymentService",
@@ -243,10 +324,14 @@ function submitForm(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res > 0){
-        		 window.location.href = "paymentSuccess";
+        		$("#paymentFrom")
+                .attr("action", "printNewPackageExcel.html?documentReport=-1&documentNo="+ $("input#documentNo").val() +"&buCode="+ $("#businessUnitSelect").val() +"&documentDateFrom="+ $("input#documentDateFrom").val() +"&documentDateTo="+ $("input#documentDateTo").val())
+                .attr("target", "_blank").submit();
+        		 window.location.href = "paymentSuccess?idUser=" +res;
         	}
         }
 	})
+		
 };
 function findTypePayment() {
 	var result = document.getElementById("typePayment").value;
@@ -309,7 +394,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td hidden>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ tdAutoNumber()	+ "</td><td>"+ invoiceNo+ "</td><td hidden>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+  tdAutoNumber()+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -318,13 +403,23 @@ function addRow() {
 function myDeleteFunction(count) {
 	var table = document.getElementById("deductibleTable");
 	if (table.rows.length > 0) {
-		for (var i = 1; i < table.rows.length; i++) {
+		for (var i = 1; i <= table.rows.length; i++) {
 			if (count == i) {
-				table.deleteRow(count);
+				table.deleteRow(parseFloat(count));
 			}
 		}
 	}
+	tdAutoNumber();
 
+}
+function tdAutoNumber() {
+    var table = document.getElementById("deductibleTable");
+    var txt = "";
+    var i;
+    for (i = 0; i < table.rows.length;i++) {
+        txt = table.rows.length;
+    }
+    return txt;
 }
 function myDeleteDed(count) {
 	var tableDed = document.getElementById("showDeductibleTable");

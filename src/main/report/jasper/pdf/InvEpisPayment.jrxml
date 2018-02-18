@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="540" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="66"/>
+	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
+	<style name="Cat_Ct_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
+	<parameter name="ReportSource" class="th.net.cat.to.report.InventoryRepositoryTO"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="productCode" class="java.lang.String">
+		<fieldDescription><![CDATA[productCode]]></fieldDescription>
+	</field>
+	<field name="productName" class="java.lang.String">
+		<fieldDescription><![CDATA[productName]]></fieldDescription>
+	</field>
+	<field name="avgPricePrint" class="java.lang.String">
+		<fieldDescription><![CDATA[avgPricePrint]]></fieldDescription>
+	</field>
+	<field name="totalPricePrint" class="java.lang.String">
+		<fieldDescription><![CDATA[totalPricePrint]]></fieldDescription>
+	</field>
+	<field name="productCountPrint" class="java.lang.String">
+		<fieldDescription><![CDATA[productCountPrint]]></fieldDescription>
+	</field>
+	<field name="productDate" class="java.lang.String">
+		<fieldDescription><![CDATA[productDate]]></fieldDescription>
+	</field>
+	<field name="endDocument" class="java.lang.String">
+		<fieldDescription><![CDATA[endDocument]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band height="154">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="Cat_Wt_Title" positionType="FixRelativeToBottom" x="0" y="47" width="540" height="23" uuid="56b9738d-8351-4498-8f9a-4c618579c8af"/>
+				<box topPadding="2" bottomPadding="0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getCompanyName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Wt_Title" x="0" y="70" width="540" height="23" uuid="b790f4ef-df3e-4685-bef4-21916cf90d09"/>
+				<box topPadding="2" bottomPadding="0"/>
+				<textElement textAlignment="Center">
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="389" y="70" width="40" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4"/>
+				<text><![CDATA[วันที่พิมพ์]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Cat_Hl_Common" x="0" y="70" width="530" height="23" uuid="a4bb5f1c-fb08-4ea6-959c-2cfbf000fa2c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["รายงานสินค้าคงเหลือตามคลังสินค้า"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="93" width="540" height="23" uuid="8678b225-9d3f-464a-8cfd-2500fd9184bf"/>
+				<box topPadding="2" bottomPadding="0"/>
+				<textElement textAlignment="Center">
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="0" y="139" width="90" height="13" uuid="18a30459-4ddf-4195-8774-60e25aa9ae76"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ชื่อสถานประกอบการ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="139" width="430" height="12" uuid="37309408-44b4-417f-92bb-289840c8195c"/>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getCompanyAddress()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="50" height="47" uuid="eaa2bc5d-a8e5-47dc-a008-6f6f15bf253b"/>
+				<imageExpression><![CDATA[$P{ReportSource}.getImagePathRpt()]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="440" y="70" width="99" height="23" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c"/>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentDate()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="93" width="530" height="23" uuid="9ceb8db8-0888-4b7b-ba2d-c83791db4488"/>
+				<textElement textAlignment="Center">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["วันที่ " + $P{ReportSource}.getProductOfMonthPrint()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="121" width="440" height="17" uuid="49b44622-9e6f-4697-bed6-4d785e0e521d"/>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBranchBp() +"  "+ $P{ReportSource}.getBranchNameBp() +"  "+ $P{ReportSource}.getBelongName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Wt_Title" x="0" y="121" width="90" height="12" uuid="29aee47a-d127-4655-afc6-cc93a1614b9b"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[หน่วยงานที่พิมพ์]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<frame>
+				<reportElement x="0" y="0" width="540" height="30" uuid="6005dfe4-5659-4cd7-83c1-3b685b2dc25c"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="430" y="0" width="100" height="30" uuid="30c74415-5cef-42f2-bc25-228109f2114e"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[มูลค่าสินค้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="70" height="30" uuid="f37b7d58-2ff4-415f-ac8f-f1b87cd14af9"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[รหัสสินค้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="80" y="0" width="200" height="30" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ชื่อสินค้า/รายละเอียดสินค้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="0" width="70" height="30" uuid="df12d27a-58c4-4a5f-a5f1-ecc9db116b53"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ราคาต่อหน่วย]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="350" y="0" width="80" height="30" uuid="9731d79f-7887-4400-b547-bf3bb04fbee6">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[คงเหลือ]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Immediate">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="0" y="0" width="540" height="20" isRemoveLineWhenBlank="true" uuid="52573ad8-07e5-438b-88ff-50f2ddb366b5">
+					<printWhenExpression><![CDATA[$F{productCode} != null]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textField>
+					<reportElement x="350" y="0" width="80" height="20" uuid="4cf2f6b5-646d-47bd-8435-c7cc0381fbe4"/>
+					<box>
+						<topPen lineStyle="Dotted"/>
+						<leftPen lineStyle="Dotted"/>
+						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+						<rightPen lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{productCountPrint}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="70" height="20" uuid="56b80de9-a4d6-43f2-8925-e77cbe89c24d"/>
+					<box>
+						<topPen lineStyle="Dotted"/>
+						<leftPen lineStyle="Dotted"/>
+						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+						<rightPen lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{productCode}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="80" y="0" width="200" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
+					<box>
+						<topPen lineStyle="Dotted"/>
+						<leftPen lineStyle="Dotted"/>
+						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+						<rightPen lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="0" width="70" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
+					<box>
+						<topPen lineStyle="Dotted"/>
+						<leftPen lineStyle="Dotted"/>
+						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+						<rightPen lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{avgPricePrint}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="430" y="0" width="100" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
+					<box>
+						<topPen lineStyle="Dotted"/>
+						<leftPen lineStyle="Dotted"/>
+						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+						<rightPen lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{totalPricePrint}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="20" width="540" height="20" isRemoveLineWhenBlank="true" uuid="22793e6d-6bdb-43e5-b75f-12582d083de4">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{endDocument} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<staticText>
+					<reportElement x="280" y="0" width="70" height="20" uuid="3cf93de0-37ef-47fa-bfef-1e9ba32d7353"/>
+					<textElement textAlignment="Right">
+						<font fontName="FreesiaUPC" isBold="true"/>
+					</textElement>
+					<text><![CDATA[รวม]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="430" y="0" width="100" height="20" uuid="3468c25b-90ec-4f35-8bed-995a67a72cc1"/>
+					<textElement textAlignment="Right">
+						<font fontName="FreesiaUPC" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getSumPricePrint()]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="19" width="540" height="1" uuid="b037bcc5-b049-4a05-8368-a18c8142beba"/>
+					<graphicElement>
+						<pen lineWidth="3.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="0" y="2" width="540" height="18" uuid="d7ec39a0-50d2-43a8-a7d5-d3471565172a"/>
+				<textField>
+					<reportElement x="226" y="0" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
+					<textElement textAlignment="Center">
+						<font fontName="FreesiaUPC" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="265" y="0" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
+					<textElement textAlignment="Center">
+						<font fontName="FreesiaUPC" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["จาก    " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

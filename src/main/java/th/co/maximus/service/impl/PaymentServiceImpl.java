@@ -1,8 +1,13 @@
 package th.co.maximus.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
@@ -18,17 +23,41 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
 	@Autowired TrsmethodManualService trsmethodManualService;
 	@Autowired PaymentManualDao paymentManualDao;
-
+	@Autowired
+	ReciptNoGenCode reciptNoGenCode;
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {
 		int paymentId =0;
-		int userId = 0;
-		
+		int code = reciptNoGenCode.genCodeRecipt();
 		try {
+				PaymentManualBean paymentManualBean = new PaymentManualBean();
+				if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
+					paymentManualBean.setPaytype("F");
+				}else{
+					paymentManualBean.setPaytype("P");
+				}
+				SimpleDateFormat sdf = new SimpleDateFormat("yymmdd");
+				String dateS = sdf.format(new Date());
+				
+				String dates=convertDateString(dateS);
+
+				String codeName = "EPO170401";
+				String zeron = "";
+				if(code >9) {
+					zeron ="00"+code;
+				}else {
+					zeron ="000"+code;
+				}
+				codeName = codeName + paymentManualBean.getPaytype()+dates+zeron;		
+				paymentBean.setDocumentNo(codeName);
+
+			
+			
+			
 			paymentId = paymentManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
-				userId = trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
+				trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,4 +84,14 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentManualDao.findById(id);
 	}
 
+	@Override
+	public PaymentResultReq findIdGenCode(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return paymentManualDao.findById(id);
+	}
+
+	public static final String convertDateString(String str) {
+		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
+
+	}
 }

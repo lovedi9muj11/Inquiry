@@ -16,7 +16,7 @@ import th.co.maximus.service.PaymentManualService;
 public class PaymentManualServiceImpl implements PaymentManualService{
 	@Autowired
 	PaymentManualDao paymentManualDao;
-	
+
 
 	@Override
 	public int insertPaymentManual(PaymentFirstBean paymentBean) {
@@ -41,10 +41,12 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
 			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
-				paymentManualBean.setPaytype("เต็มจำนวน");
+				paymentManualBean.setPaytype("F");
 			}else{
-				paymentManualBean.setPaytype("ไม่เต็มจำนวน");
+				paymentManualBean.setPaytype("P");
 			}
+			
+
 			
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);

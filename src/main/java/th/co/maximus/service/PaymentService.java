@@ -9,4 +9,5 @@ public interface PaymentService {
 	public void delete(String id);
 	public void update(PaymentFirstBean paymentBean);
 	public PaymentResultReq findByid(int id)throws Exception;
+	public PaymentResultReq findIdGenCode(int id)throws Exception;
 }
