@@ -45,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService{
 				}else{
 					paymentManualBean.setPaytype("P");
 				}
-				SimpleDateFormat sdf = new SimpleDateFormat("yymmdd");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 				String dateS = sdf.format(new Date());
 				
 				String dates=convertDateString(dateS);

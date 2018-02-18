@@ -2,6 +2,7 @@ package th.co.maximus.report.controller;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class EpisReportController {
 	
 	private ServletContext context;
 
-	
+	@Autowired
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
 	}
@@ -83,7 +84,7 @@ public class EpisReportController {
 		
 		BigDecimal beforeVat = total.multiply(vatRate);
 		
-		BigDecimal beforeVats = beforeVat.divide(resVat);
+		BigDecimal beforeVats = beforeVat.divide(resVat,2,RoundingMode.HALF_UP);
 		
 		BigDecimal vat = total.subtract(beforeVat);
 		
@@ -93,22 +94,24 @@ public class EpisReportController {
 		String nameService = "";
 		nameService = invObject.getBracnCode() + invObject.getBranArea()+ invObject.getSouce();
 		
-		
+		String payCode="";
 		List<String> result = new ArrayList<>();
 		for(int i=0; i<collections.size();i++) {
-			result = new ArrayList<>();
 			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean)collections.get(i);
 			
 			result.add(stockObject.getPaymentCode());
 			
 		}
-		exportPDFReport.setPaymentCode(result.get(0));
+		for(int f = 0; f<result.size();f++) {
+			payCode += "-"+ result.get(f);
+		}
+		exportPDFReport.setPaymentCode(payCode);
 		exportPDFReport.setSouce(nameService);
-		parameters.put("ReportSource", invObject);
+		parameters.put("ReportSource", exportPDFReport);
 		
 		response.setContentType("application/pdf");
 
-		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + "jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());

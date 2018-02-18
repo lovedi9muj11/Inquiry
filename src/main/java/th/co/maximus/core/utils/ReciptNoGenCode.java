@@ -25,7 +25,6 @@ public class ReciptNoGenCode {
 					.append(" 00:00:00.000000' ");
 			sql.append(" AND pm.CREATE_DATE <= ' ").append(convertDateString(date.toString()))
 					.append(" 23:59:59.999999' ");
-			sql.append(" GROUP BY pm.RECEIPT_NO_MANUAL");
 			result = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
 		} catch (Exception e) {
 			return result;

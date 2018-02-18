@@ -4,12 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="22"/>
-	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
-	<style name="Cat_Ct_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFReport"/>
 	<queryString>
 		<![CDATA[]]>
@@ -19,18 +14,26 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="450" y="29" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
+				<reportElement x="450" y="23" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
 				<textElement textAlignment="Center">
 					<font fontName="TH SarabunPSK" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="489" y="29" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
+				<reportElement x="489" y="23" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
 				<textElement textAlignment="Center">
 					<font fontName="TH SarabunPSK" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["จาก    " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Cat_Wt_Title" positionType="FixRelativeToBottom" x="0" y="0" width="540" height="23" uuid="56b9738d-8351-4498-8f9a-4c618579c8af"/>
+				<box topPadding="2" bottomPadding="0"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="0" y="47" width="80" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4"/>
@@ -130,13 +133,6 @@
 				</textElement>
 				<text><![CDATA[ชำระด้วย  :]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="Cat_Hl_Common" x="15" y="2" width="485" height="23" uuid="ca69c0bb-e4a3-464b-908d-1e25b8b3ee17"/>
-				<textElement textAlignment="Center">
-					<font fontName="TH SarabunPSK" size="14"/>
-				</textElement>
-				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -170,7 +166,7 @@
 					<text><![CDATA[ลำดับ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="69" y="0" width="197" height="30" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
+					<reportElement x="80" y="0" width="186" height="30" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
@@ -246,7 +242,7 @@
 					<textFieldExpression><![CDATA[1]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="70" y="0" width="196" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
+					<reportElement x="80" y="0" width="200" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
 					<box>
 						<topPen lineStyle="Dotted"/>
 						<leftPen lineStyle="Dotted"/>
@@ -256,10 +252,10 @@
 					<textElement textAlignment="Left">
 						<font fontName="TH SarabunPSK"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getPaymentCode()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="266" y="0" width="84" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
+					<reportElement x="280" y="0" width="70" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
 					<box>
 						<topPen lineStyle="Dotted"/>
 						<leftPen lineStyle="Dotted"/>
@@ -315,6 +311,13 @@
 					</textElement>
 					<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="321" y="69" width="129" height="19" uuid="254b9ab3-9427-4784-8d9d-836b0f5bfe55"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH SarabunPSK" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentDate()]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</pageFooter>
