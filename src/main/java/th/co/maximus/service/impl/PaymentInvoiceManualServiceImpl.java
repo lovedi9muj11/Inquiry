@@ -46,7 +46,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setCustomerSegment("1");
 		paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
-		paymentInvoiceManualBean.setSubNo("");
+		paymentInvoiceManualBean.setSubNo(paymentBean.getServiceNo());
 		paymentInvoiceManualBean.setPeriod(period);
 		paymentInvoiceManualBean.setServiceType("");
 		paymentInvoiceManualBean.setClearing("N");

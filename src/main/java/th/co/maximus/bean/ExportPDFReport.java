@@ -3,8 +3,7 @@ package th.co.maximus.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class InvEpisOfflineReportBean {
-
+public class ExportPDFReport {
 	private String branArea;
 	private String bracnCode;
 	private String souce;
@@ -18,32 +17,8 @@ public class InvEpisOfflineReportBean {
 	private String taxId;
 	private String remark;
 	private String paymentCode;
-	private String vatRate;
-	
-	
-	
-	public InvEpisOfflineReportBean() {}
-	
-	public InvEpisOfflineReportBean(String branArea,String bracnCode,String souce,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate) {
-		this.branArea = branArea;
-		this.bracnCode = bracnCode;
-		this.souce = souce;
-		this.custNo = custNo;
-		this.custName = custName;
-		this.documentNo = documentNo;
-		this.balanceSummary = balanceSummary;
-		this.invoiceNo = invoiceNo;
-		this.documentDate = documentDate;
-		this.customerAddress = customerAddress;
-		this.taxId = taxId;
-		this.remark = remark;
-		this.paymentCode = paymentCode;
-		this.vatRate = vatRate;
-		
-	}
-	
-	
+	private BigDecimal beforeVat;
+	private BigDecimal vat;
 	public String getBranArea() {
 		return branArea;
 	}
@@ -122,15 +97,18 @@ public class InvEpisOfflineReportBean {
 	public void setPaymentCode(String paymentCode) {
 		this.paymentCode = paymentCode;
 	}
-
-	public String getVatRate() {
-		return vatRate;
+	public BigDecimal getBeforeVat() {
+		return beforeVat;
 	}
-
-	public void setVatRate(String vatRate) {
-		this.vatRate = vatRate;
+	public void setBeforeVat(BigDecimal beforeVat) {
+		this.beforeVat = beforeVat;
 	}
-	
+	public BigDecimal getVat() {
+		return vat;
+	}
+	public void setVat(BigDecimal vat) {
+		this.vat = vat;
+	}
 	
 	
 }

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.PaymentManualBean;
@@ -25,6 +26,14 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired PaymentManualDao paymentManualDao;
 	@Autowired
 	ReciptNoGenCode reciptNoGenCode;
+	
+	@Value("${text.prefix}")
+	private String nameCode;
+	@Value("${text.posno}")
+	private String posNo;
+	@Value("${text.branarea}")
+	private String branArea;
+	
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {
 		int paymentId =0;
@@ -41,14 +50,14 @@ public class PaymentServiceImpl implements PaymentService{
 				
 				String dates=convertDateString(dateS);
 
-				String codeName = "EPO170401";
+				 
 				String zeron = "";
 				if(code >9) {
 					zeron ="00"+code;
 				}else {
 					zeron ="000"+code;
 				}
-				codeName = codeName + paymentManualBean.getPaytype()+dates+zeron;		
+				String codeName = nameCode+posNo+branArea + paymentManualBean.getPaytype()+dates+zeron;		
 				paymentBean.setDocumentNo(codeName);
 
 			

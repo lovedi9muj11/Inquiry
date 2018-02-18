@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ import th.co.maximus.dao.PaymentInvoiceManualDao;
 public class PaymentHistroryDaoTest {
 	
 	@Autowired
-	private PaymentInvoiceManualDao paymentInvoiceManualDao;
-	
+	 PaymentInvoiceManualDao paymentInvoiceManualDao;
+	@Ignore
 	@Test
 	public void findPamentMMapPaymentInV() {
 		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPaymentMuMapPaymentInV();

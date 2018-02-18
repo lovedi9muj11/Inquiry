@@ -68,11 +68,7 @@ function disBtn(){
 }
 
 
-function printReportPDF(){
-	$("#documentReportForm")
-    .attr("action", "previewPaymentEpisOffline.html?documentNo="+ $("#docNos").val())
-    .attr("target", "_blank").submit();	
-}
+
 	
 function findvatAmount(){
 	var result = $("#balanceSummary").val();
@@ -324,9 +320,6 @@ function submitForm(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res > 0){
-        		$("#paymentFrom")
-                .attr("action", "printNewPackageExcel.html?documentReport=-1&documentNo="+ $("input#documentNo").val() +"&buCode="+ $("#businessUnitSelect").val() +"&documentDateFrom="+ $("input#documentDateFrom").val() +"&documentDateTo="+ $("input#documentDateTo").val())
-                .attr("target", "_blank").submit();
         		 window.location.href = "paymentSuccess?idUser=" +res;
         	}
         }
@@ -492,14 +485,16 @@ function addDataTableDed() {
 // เงินสด
 function addDataTableMoneyTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
-
 	var number = parseFloat(table - parseFloat(1));
+	var count = parseInt(1);
+	var numberRun = count + number;
+	
 	var money = $("#moneyTran").val();
 	var nameMode = "CC";
 	var nameMode1 = "เงินสด";
-	var count = parseInt(1);
+	
 	var summaryTax = $("#summaryTax").val();
-	var numberRun = count + number;
+
 	var balanceS = $("#balanceSum").val();
 	if(balanceS == ""){
 		balanceS = parseFloat(0);
@@ -688,7 +683,6 @@ function addDataTablecreditTranPrice() {
 	var summaryTax = $("#summaryTax").val();
 //	var moneyT = parseFloat(creditPrice - parseFloat(summaryTax));
 	var count = parseInt(1);
-	if (parseFloat(summaryTax) < parseFloat(creditPrice)) {
 	for (count; count < table; count++) {
 		count
 	}
@@ -712,7 +706,6 @@ function addDataTablecreditTranPrice() {
 	$("#creditPrice").val("");
 	$("#edcType").val("");
 	$("#creditType").val("");
-	}
 }
 
 function sumTranPrice() {

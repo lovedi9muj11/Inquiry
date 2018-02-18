@@ -101,7 +101,7 @@ public class PaymentSeriveTest{
 	public void findById() throws Exception {
 		paymentService.findByid(16);
 	}
-	
+	@Ignore
 	@Test
 	@Rollback
 	public void genCode() {

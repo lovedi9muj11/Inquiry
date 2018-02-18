@@ -3,6 +3,7 @@ package th.co.maximus.constants;
 public class Constants {
 	
 	public static final String TEST = "TEST";
+	public static final String repotPathc = "/report/jasper/pdf";
 	
 	public static class DateTime {
 		public static final String LOCALE = "TH";

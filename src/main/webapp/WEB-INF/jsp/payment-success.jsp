@@ -16,14 +16,16 @@
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="css/payment.css" rel="stylesheet">
+
 <script src="js/payment-success.js"></script>
-<script src="js/utils.js" type="text/javascript"></script>
+
+	<script src="js/utils.js" type="text/javascript"></script>
 <%=request.getAttribute("paymentResultReq")%>
 </head>
 <body>
 	<header class="header_page"></header>
-<form id="documentReportForm" method="post" class="form-horizontal" role="form"></form>
-	<form name="paymentFrom" method="post" action="paymentService">
+<form id="documentReportForm" method="post" class="form-horizontal" role="form"><input name="docNos" id="docNos" value="${paymentResultReq.documentNo}" type="hidden"></form>
+	<form name="paymentFroms" method="post" action="paymentService">
 		<div id="page-content-wrapper">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -38,7 +40,7 @@
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group" align="right">
 						<div class="col-md-12 col-sm-12">
-							<button name="" type="button"
+							<button name="" type="submit"
 								class="btn btn-info btn-lg" onclick="printReportPDF()">
 								<span class="glyphicon glyphicon-file">
 									พิมพ์ใบเสร็จ</span>
@@ -54,7 +56,7 @@
 			</div>
 			<!-- panel รายการหัก -->
 			<div class="row">
-			<input name="docNos" id="docNos" value="${paymentResultReq.documentNo}" type="hidden">
+			
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group">
 						<div class="col-md-12 col-sm-12">
