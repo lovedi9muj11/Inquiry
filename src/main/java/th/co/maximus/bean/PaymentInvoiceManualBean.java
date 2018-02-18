@@ -28,6 +28,7 @@ public class PaymentInvoiceManualBean {
 	private  String   updateBy;
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
+	private String 	department;
 	public Long getPaymentInvoiceManualId() {
 		return paymentInvoiceManualId;
 	}
@@ -172,6 +173,12 @@ public class PaymentInvoiceManualBean {
 	}
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	

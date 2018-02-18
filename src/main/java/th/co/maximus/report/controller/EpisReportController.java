@@ -45,12 +45,12 @@ public class EpisReportController {
 	}
 	
 	
-	@RequestMapping(value= {"/previewPaymentEpisOffline"}, method = RequestMethod.POST, produces = "application/json") 
-	public void previewReturnStockBySerialHTML(@RequestBody ExportPDFReport exportPDFReport, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		String documentNo = exportPDFReport.getDocumentNo();
+	@RequestMapping(value= {"/previewPaymentEpisOffline.pdf"}) 
+	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+//		String documentNo = "";
  		String JASPER_JRXML_FILENAME = "InvEpisPayment";
 		request.setAttribute("documentReport", "-1");
-		
+		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineReportBean>collections= reportService.inqueryEpisOfflineJSONHandler(documentNo);
 		
 		if(collections != null) {
@@ -113,7 +113,7 @@ public class EpisReportController {
 
 		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,jrDataSource);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
 	}
