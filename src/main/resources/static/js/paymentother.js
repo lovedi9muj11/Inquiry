@@ -150,7 +150,7 @@ function submitForm(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res.length > 0){
-        		
+        		window.location.href = "paymentSuccess?idUser=" +res;
         	}
         }
 	})
@@ -299,7 +299,6 @@ function addDataTableMoneyTranPrice() {
 	var numberRun = count + number;
 	if (parseFloat(summaryTax) < parseFloat(money)) {
 
-//		var moneyT = parseFloat(money - parseFloat(summaryTax));
 		var markup = "<tr><td>"
 				+ numberRun
 				+ "</td><td>"
@@ -382,7 +381,6 @@ function addDataTableCheck() {
 	var branchCheck = $("#branchCheck").val();
 	var moneyCheck = $("#moneyCheck").val();
 	var dateCheck = $("#dateCheck").val();
-//	var moneyT = parseFloat(moneyCheck - parseFloat(summaryTax));
 	var count = parseInt(1);
 	if (parseFloat(summaryTax) < parseFloat(moneyCheck)) {
 	for (count; count < table; count++) {
@@ -575,7 +573,7 @@ function buttonAddBillingList() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputSpecialDiscount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
 	 
@@ -589,3 +587,37 @@ function buttonAddBillingList() {
 	$("#inputServiceAmount").val("");
 	$("#inputServiceDeduction").val("");
 };
+
+function buttonCalculateWt(){
+	
+	
+	
+	var amount = $("#inputServiceAmount").val();
+    var amountUnit = $("#inputServiceMoreData").val();
+    var discount = $("#inputServiceDiscount").val();
+    var specialDiscount = $("#inputSpecialDiscount").val();
+    var sumDisc = discount + specialDiscount;
+    if ($('input[name=vatRadio]:checked').val() == 'exclude') {
+        var total = multiply(amount, amountUnit, 2);
+        var wt = multiply(subtract(total, sumDisc, 2), 0.03, 2);
+    }else{
+       
+    	var vatrate = $("#vatrate").val();
+        var total = multiply(amount, amountUnit, 2);
+        var beforeVat = (total*100)/(100+vatrate);
+        var wt = multiply(subtract(beforeVat, sumDisc, 2), 0.03, 2);
+    }
+    $("#inputServiceDeduction").val(wt);
+    
+	
+	
+}
+
+window.subtract = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 - num2).toFixed(dec), 10); };
+window.multiply = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 * num2).toFixed(dec), 10); };
+
+
+
+
+
+

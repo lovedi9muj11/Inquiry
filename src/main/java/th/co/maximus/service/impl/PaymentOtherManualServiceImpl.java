@@ -25,7 +25,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 		Date date = new Date();
 		int userId=0;
 		if(StringUtils.isNotBlank(paymentBean.getInputCustomerBillNo())){
-			paymentManualBean.setInvoiceNo(paymentBean.getInputCustomerBillNo());
+			//paymentManualBean.setInvoiceNo(paymentBean.getInputCustomerBillNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getInputCustomerBranch());
 			paymentManualBean.setBrancharea("CAT นนทบุรี");
 			paymentManualBean.setBranchCode("001");
@@ -38,7 +38,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setUpdateBy("ADMIN");
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
-			//paymentManualBean.setAccountNo(paymentBean.getCustNo());
+			paymentManualBean.setAccountNo(paymentBean.getInputCustomerBillNo());
 			
 			if(paymentBean.getBalanceSummary()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("เต็มจำนวน");

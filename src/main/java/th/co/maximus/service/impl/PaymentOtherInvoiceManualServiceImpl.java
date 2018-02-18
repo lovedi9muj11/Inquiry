@@ -7,10 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
+import th.co.maximus.bean.TrsMethodManualBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
-import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.payment.bean.PaymentBillBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
+import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.service.PaymentOtherInvoiceManualService;
 
 @Service
@@ -26,24 +29,14 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		Date date = new Date();
 		if(!paymentBean.getInputCustomerBillNo().equals("")){
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
+		
 		paymentInvoiceManualBean.setManualId(Long.valueOf(userId));
 		paymentInvoiceManualBean.setSource("OFFLINE");
-		//paymentInvoiceManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
-		paymentInvoiceManualBean.setBeforVat(paymentBean.getBalanceBeforeTax());
-		//paymentInvoiceManualBean.setVatAmount(paymentBean.getVat());
-		paymentInvoiceManualBean.setAmount(paymentBean.getBalanceSummary());
-		//paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
-		//paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
-		//paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());
-		paymentInvoiceManualBean.setCustomerSegment("1");
-		//paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
-		//paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
 		paymentInvoiceManualBean.setSubNo("");
 		paymentInvoiceManualBean.setPeriod(period);
 		paymentInvoiceManualBean.setServiceType("");
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");
-		paymentInvoiceManualBean.setRemark(paymentBean.getInputAdditionalRemark());
 		paymentInvoiceManualBean.setCreateBy("ADMIN");
 		paymentInvoiceManualBean.setCreateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setUpdateBy("ADMIN");
@@ -52,6 +45,23 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		
 		paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 		}
+		if(paymentBean.getPaymentBill().size() >0){
+			for(int i=0; i < paymentBean.getPaymentBill().size();i++){
+				PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
+				PaymentBillBean paymentBillBean = new PaymentBillBean();
+				paymentBillBean = paymentBean.getPaymentBill().get(i);
+				paymentInvoiceManualBean.setAmount(paymentBillBean.getInputServiceAmount());
+				paymentInvoiceManualBean.setVatAmount(paymentBillBean.getInputsumWt());
+				paymentInvoiceManualBean.setQuantity(paymentBillBean.getInputServiceMoreData());
+				paymentInvoiceManualBean.setIncometype(paymentBillBean.getInputServiceType());
+				paymentInvoiceManualBean.setDiscountbeforvat(paymentBillBean.getInputServiceDiscount());
+				paymentInvoiceManualBean.setDiscountspecial(paymentBillBean.getInputSpecialDiscount());
+				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getVatRadio());
+				paymentInvoiceManualBean.setDepartment(paymentBillBean.getInputServiceDepartment());
+				paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
+
+			}
+			}
 	}
 	
 	@Override
@@ -61,8 +71,5 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		return null;
 	}
 	
-	/*public PaymentInvoiceManualBean xx() {
-		return jdbcTemplate.queryForObject("select * from payment_manual", new PaymentInvoiceManualJoin());
-	}*/
 	
 }

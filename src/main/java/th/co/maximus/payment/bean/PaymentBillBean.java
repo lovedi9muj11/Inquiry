@@ -1,20 +1,29 @@
 package th.co.maximus.payment.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class PaymentBillBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String inputServiceType;
 	private String inputServiceDepartment;
-	private double inputServiceDiscount;
+	private BigDecimal inputServiceDiscount;
 	private String inputServiceName;
-	private String inputServiceMoreData;
+	private Integer inputServiceMoreData;
 	private String inputServiceUnit;
-	private double inputSpecialDiscount;
+	private BigDecimal inputSpecialDiscount;
 	private double inputServiceAmount;
-	private double inputServiceDeduction;
+	private BigDecimal inputServiceDeduction;
 	private String vatrate;
 	private String vatRadio;
+	private double inputsumWt;
+	
+	public double getInputsumWt() {
+		return inputsumWt;
+	}
+	public void setInputsumWt(double inputsumWt) {
+		this.inputsumWt = inputsumWt;
+	}
 	public String getInputServiceType() {
 		return inputServiceType;
 	}
@@ -27,10 +36,10 @@ public class PaymentBillBean implements Serializable{
 	public void setInputServiceDepartment(String inputServiceDepartment) {
 		this.inputServiceDepartment = inputServiceDepartment;
 	}
-	public double getInputServiceDiscount() {
+	public BigDecimal getInputServiceDiscount() {
 		return inputServiceDiscount;
 	}
-	public void setInputServiceDiscount(double inputServiceDiscount) {
+	public void setInputServiceDiscount(BigDecimal inputServiceDiscount) {
 		this.inputServiceDiscount = inputServiceDiscount;
 	}
 	public String getInputServiceName() {
@@ -39,10 +48,10 @@ public class PaymentBillBean implements Serializable{
 	public void setInputServiceName(String inputServiceName) {
 		this.inputServiceName = inputServiceName;
 	}
-	public String getInputServiceMoreData() {
+	public Integer getInputServiceMoreData() {
 		return inputServiceMoreData;
 	}
-	public void setInputServiceMoreData(String inputServiceMoreData) {
+	public void setInputServiceMoreData(Integer inputServiceMoreData) {
 		this.inputServiceMoreData = inputServiceMoreData;
 	}
 	public String getInputServiceUnit() {
@@ -51,10 +60,10 @@ public class PaymentBillBean implements Serializable{
 	public void setInputServiceUnit(String inputServiceUnit) {
 		this.inputServiceUnit = inputServiceUnit;
 	}
-	public double getInputSpecialDiscount() {
+	public BigDecimal getInputSpecialDiscount() {
 		return inputSpecialDiscount;
 	}
-	public void setInputSpecialDiscount(double inputSpecialDiscount) {
+	public void setInputSpecialDiscount(BigDecimal inputSpecialDiscount) {
 		this.inputSpecialDiscount = inputSpecialDiscount;
 	}
 	public double getInputServiceAmount() {
@@ -63,10 +72,10 @@ public class PaymentBillBean implements Serializable{
 	public void setInputServiceAmount(double inputServiceAmount) {
 		this.inputServiceAmount = inputServiceAmount;
 	}
-	public double getInputServiceDeduction() {
+	public BigDecimal getInputServiceDeduction() {
 		return inputServiceDeduction;
 	}
-	public void setInputServiceDeduction(double inputServiceDeduction) {
+	public void setInputServiceDeduction(BigDecimal inputServiceDeduction) {
 		this.inputServiceDeduction = inputServiceDeduction;
 	}
 	public String getVatrate() {

@@ -32,7 +32,10 @@
 	 <div id="page-content-wrapper"> 
 	
 		<br />
-		<div class="row">
+		
+		 <div class="container-fluid">
+		 
+		 <div class="row">
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
@@ -48,7 +51,6 @@
 				</div>
 				</div>
 				<br/>
-		 <div class="container-fluid">
 		 
 				<div class="panel">
 				<div class="panel-heading">ข้อมูลลูกค้า</div>
@@ -113,12 +115,8 @@
                 
                 <div  class="row" >
         <div class="col-md-12 tab-modefile">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#tab_1" aria-controls="tab_1" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"></span> รายการรับชำระ</a></li>
-            </ul>
-            <!-- Tab panes -->
             <div class="panel ">
+            <div class="panel-heading" >รายการรับชำระ</div>
                 <div class="panel-body">
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="tab_1">
@@ -145,7 +143,7 @@
                                     </select>
                                     </div>
                                     <label class="control-label col-sm-2">เงินส่วนลดก่อน VAT :</label>
-                                    <div class="col-sm-2"><input id="inputServiceDiscount"  name="inputServiceDiscount" class="form-control text-right"></div>
+                                    <div class="col-sm-2"><input id="inputServiceDiscount"  name="inputServiceDiscount" class="form-control "></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ชื่อบริการ :</label>
@@ -158,21 +156,21 @@
                                     <option value="ชื่อบริการ  5"> ชื่อบริการ  5 </option>
                                     </select></div>
                                     <label class="control-label col-sm-2">จำนวนรายการ :</label>
-                                    <div class="col-sm-2"><input id="inputServiceMoreData" name="inputServiceMoreData" class="form-control text-right"></div>
+                                    <div class="col-sm-2"><input id="inputServiceMoreData" name="inputServiceMoreData" class="form-control "></div>
                                     <div class="col-sm-1"><select id="inputServiceUnit" name="inputServiceUnit" class="form-control">
                                     <option >   </option>
                                     <option value="เลือก"> เลือก  </option>
                                     <option value="ไม่เลือก"> ไม่เลือก  </option>
                                     </select></div>
                                     <label class="control-label col-sm-1"><input type="checkbox" hidden="hidden" name="checkboxAdditionalDiscount"><span class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลดพิเศษ :</label>
-                                    <div class="col-sm-2"><input id="inputSpecialDiscount"  name="inputSpecialDiscount"class="form-control text-right" ></div>
+                                    <div class="col-sm-2"><input id="inputSpecialDiscount"  name="inputSpecialDiscount"class="form-control " ></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">จำนวนเงินต่อหน่วย :</label>
                                     <div class="col-sm-2"><input id="inputServiceAmount" name="inputServiceAmount" class="form-control"></div>
                                     <label class="control-label col-sm-2">ภาษีหัก ณ ที่จ่าย :</label>
-                                    <div class="col-sm-2"><input id="inputServiceDeduction" class="form-control text-right"></div>
-                                    <div class="col-sm-1"><input type="button" id="buttonCalculateWt" name="buttonCalculateWt" class="btn btn-info" value="คำนวณ"></div>
+                                    <div class="col-sm-2"><input id="inputServiceDeduction" class="form-control "></div>
+                                    <div class="col-sm-1"><input type="button" id="buttonCalculateWt" onclick="buttonCalculateWt()"  name="buttonCalculateWt" class="btn btn-info" value="คำนวณ"></div>
                                     <div class="col-sm-2 col-sm-offset-1"><a id="buttonAddBillingList" onclick="buttonAddBillingList()" class="btn btn-info"> <span class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการรับชำระ</a></div>
                                 </div>
                                 <div class="form-group">
@@ -203,11 +201,11 @@
                                     <th >หน่วยรับรายได้</th>
                                     <th >จำนวนรายการ</th>
                                     <th >จำนวนเงินต่อหน่วย </th>
-                                     <th>เงินส่วนลด</th>
+                                    <th >เงินส่วนลด</th>
                                     <th >ภาษีมูลค่าเพิ่ม</th>
                                     <th >ภาษีหัก ณ ที่จ่าย</th>
-                                    <th >ยอดเงินรวม</th>
                                     <th >ส่วนลดพิเศษ</th>
+                                    <th >ยอดเงินรวม</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -623,21 +621,21 @@
 								<label class="control-label col-sm-10">ยอดเงินก่อนหักส่วนลด
 									:</label>
 								<div class="col-sm-2">
-									<input id="preItemsDiscount" class="form-control text-right"
+									<input id="preItemsDiscount" class="form-control "
 										disabled="disabled">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-10">ส่วนลด :</label>
 								<div class="col-sm-2">
-									<input id="itemsDiscount" class="form-control text-right"
+									<input id="itemsDiscount" class="form-control "
 										disabled="disabled">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-10">ส่วนลดพิเศษ :</label>
 								<div class="col-sm-2">
-									<input id="discount" class="form-control text-right"
+									<input id="discount" class="form-control "
 										disabled="disabled">
 								</div>
 							</div>
