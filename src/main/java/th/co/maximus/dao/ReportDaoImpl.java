@@ -7,14 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 @Repository("ReportDao")
@@ -26,8 +23,7 @@ public class ReportDaoImpl implements ReportDao{
 	
 	
 	@Override
-	public void inqueryEpisOfflineJSONHandler(HttpServletRequest request,HttpServletResponse response, Model model) throws SQLException {
-		String documentNo = request.getParameter("documentNo");
+	public List<InvEpisOfflineReportBean> inqueryEpisOfflineJSONHandler(String documentNo) throws SQLException {
 		Connection connect = dataSource.getConnection();
 		List<InvEpisOfflineReportBean> collections = new ArrayList<InvEpisOfflineReportBean>();
 		
@@ -48,9 +44,9 @@ public class ReportDaoImpl implements ReportDao{
 						
 			}
 		} finally {
-			request.setAttribute("previewEpisOffilneprint", collections);
 			connect.close();
 		}
+		return collections;
 		
 	}
 

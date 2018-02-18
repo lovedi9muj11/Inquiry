@@ -11,8 +11,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,12 +33,11 @@ import th.co.maximus.service.ReportService;
 
 @Controller
 public class EpisReportController {
-	
+	@Autowired
 	ReportService reportService;
+	
 	private ServletContext context;
 
-
-	Constants constants;
 	
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
@@ -44,11 +45,12 @@ public class EpisReportController {
 	
 	
 	@RequestMapping(value= {"/previewPaymentEpisOffline"}, method = RequestMethod.POST, produces = "application/json") 
-	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model,String stockId) throws Exception {
-		String JASPER_JRXML_FILENAME = "InvEpisPayment";
+	public void previewReturnStockBySerialHTML(@RequestBody ExportPDFReport exportPDFReport, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		String documentNo = exportPDFReport.getDocumentNo();
+ 		String JASPER_JRXML_FILENAME = "InvEpisPayment";
 		request.setAttribute("documentReport", "-1");
-		reportService.inqueryEpisOfflineJSONHandler(request, response, model);
-		List<InvEpisOfflineReportBean> collections = (List<InvEpisOfflineReportBean>)request.getAttribute("previewEpisOffilneprint");
+		
+		List<InvEpisOfflineReportBean>collections= reportService.inqueryEpisOfflineJSONHandler(documentNo);
 		
 		if(collections != null) {
 			previewEpisOffilneprint(request, response, collections, JASPER_JRXML_FILENAME);
@@ -76,13 +78,16 @@ public class EpisReportController {
 
 		
 		BigDecimal total = invObject.getBalanceSummary();
+		BigDecimal vatRate = new BigDecimal(invObject.getVatRate());
+		BigDecimal resVat = new BigDecimal(107);
 		
-		BigDecimal beforeVat = total.multiply(new BigDecimal(invObject.getVatRate()));
-		beforeVat = beforeVat.divide(new BigDecimal(107));
+		BigDecimal beforeVat = total.multiply(vatRate);
+		
+		BigDecimal beforeVats = beforeVat.divide(resVat);
 		
 		BigDecimal vat = total.subtract(beforeVat);
 		
-		exportPDFReport.setBeforeVat(beforeVat);
+		exportPDFReport.setBeforeVat(beforeVats);
 		exportPDFReport.setVat(vat);
 		
 		String nameService = "";
@@ -103,7 +108,7 @@ public class EpisReportController {
 		
 		response.setContentType("application/pdf");
 
-		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(constants.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + "jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + "jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());

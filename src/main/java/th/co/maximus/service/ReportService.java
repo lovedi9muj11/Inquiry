@@ -1,14 +1,12 @@
 package th.co.maximus.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.ui.Model;
+import th.co.maximus.bean.InvEpisOfflineReportBean;
 
 public interface ReportService {
 	
-	public void inqueryEpisOfflineJSONHandler(HttpServletRequest request, HttpServletResponse response, Model model)throws SQLException;
+	public List<InvEpisOfflineReportBean> inqueryEpisOfflineJSONHandler(String documentNo)throws SQLException;
 
 }

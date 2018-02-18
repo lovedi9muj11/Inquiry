@@ -24,7 +24,7 @@
 </head>
 <body>
 	<header class="header_page"></header>
-<form id="documentReportForm" method="post" class="form-horizontal" role="form"><input name="docNos" id="docNos" value="${paymentResultReq.documentNo}" type="hidden"></form>
+<form id="documentReportForm" method="post" class="form-horizontal" role="form"></form>
 	<form name="paymentFroms" method="post" action="paymentService">
 		<div id="page-content-wrapper">
 			<nav class="navbar navbar-default">
@@ -35,6 +35,7 @@
 					</ul>
 				</div>
 			</nav>
+			<input name="docNos" id="docNos" value="${paymentResultReq.documentNo}" type="hidden">
 			<div class="row">
 
 				<div class="col-md-12 col-sm-12">

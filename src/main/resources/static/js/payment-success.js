@@ -10,11 +10,16 @@ function openTable(){
 }
 
 function printReportPDF(){
+	var dataSource = {
+			"documentNo" : $("#docNos").val()
+	};
+	
 	
 	$.ajax({
         type: "POST",
         url: "previewPaymentEpisOffline",
-        data: JSON.stringify({"documentNo="+ $("#docNos").val()}),
+        data: JSON.stringify(dataSource),
+
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
@@ -24,13 +29,5 @@ function printReportPDF(){
         	}
         }
 	})
-	
-	
-	
-	
-	
-	
-	$("#documentReportForm")
-    .attr("action", "previewPaymentEpisOffline?)
-    .attr("target", "_blank").submit();	
+
 }

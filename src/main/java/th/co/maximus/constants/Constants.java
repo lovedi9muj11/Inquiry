@@ -3,7 +3,7 @@ package th.co.maximus.constants;
 public class Constants {
 	
 	public static final String TEST = "TEST";
-	public static final String repotPathc = "/report/jasper/pdf";
+	
 	
 	public static class DateTime {
 		public static final String LOCALE = "TH";
@@ -19,6 +19,10 @@ public class Constants {
 		public static final String ACTIVE = "A";
 		public static final String ACTIVE_A = "ปกติ";
 		public static final String ACTIVE_AC = "รอหักล้าง";
+	}
+	
+	public static class report{
+		public static final String repotPathc = "/report/jasper/pdf";
 	}
 
 }
