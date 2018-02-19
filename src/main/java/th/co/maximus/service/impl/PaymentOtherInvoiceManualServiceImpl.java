@@ -25,10 +25,12 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 	@Override
 	public void insertPaymentInvoiceManual(PaymentOtherFirstBean paymentBean,int userId) {
 		String period = "";
+		int payBill = 0;
 		
 		Date date = new Date();
 		if(!paymentBean.getInputCustomerBillNo().equals("")){
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
+		
 		
 		paymentInvoiceManualBean.setManualId(Long.valueOf(userId));
 		paymentInvoiceManualBean.setSource("OFFLINE");
@@ -43,11 +45,9 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
 		
-		paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
-		}
-		if(paymentBean.getPaymentBill().size() >0){
+		if(paymentBean.getPaymentBill().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentBill().size();i++){
-				PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
+				//PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 				PaymentBillBean paymentBillBean = new PaymentBillBean();
 				paymentBillBean = paymentBean.getPaymentBill().get(i);
 				paymentInvoiceManualBean.setAmount(paymentBillBean.getInputServiceAmount());
@@ -58,10 +58,19 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setDiscountspecial(paymentBillBean.getInputSpecialDiscount());
 				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getVatRadio());
 				paymentInvoiceManualBean.setDepartment(paymentBillBean.getInputServiceDepartment());
-				paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
+				
+				
 
 			}
+			//paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 			}
+		
+		
+		paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
+		}
+		
+		
+		
 	}
 	
 	@Override

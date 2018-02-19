@@ -123,7 +123,7 @@
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ประเภทรายได้ :</label>
-                                    <div class="col-sm-2" id="serviceNameDiv"><select id="inputServiceType" name="inputServiceType"  class="form-control">
+                                    <div class="col-sm-2" ><select id="inputServiceType" name="inputServiceType"  class="form-control">
                                     <option >   </option>
                                     <option value="ประเภทรายได้ 1"> ประเภทรายได้ 1 </option>
                                     <option value="ประเภทรายได้ 2"> ประเภทรายได้ 2 </option>
@@ -132,7 +132,7 @@
                                     <option value="ประเภทรายได้ 5"> ประเภทรายได้ 5 </option>
                                     </select></div>
                                     <label class="control-label col-sm-2">หน่วยงานรับรายได้ :</label>
-                                    <div class="col-sm-2" id="serviceDepartmentDiv" name="serviceDepartmentDiv">
+                                    <div class="col-sm-2" >
                                         <select id="inputServiceDepartment" class="form-control">
                                         <option >  </option>
                                         <option value="หน่วยงานรับรายได้ 1"> หน่วยงานรับรายได้ 1  </option>

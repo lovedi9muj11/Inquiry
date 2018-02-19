@@ -33,6 +33,8 @@ function submitForm(){
 	var  resultDeductible = [];
 	var totalPrice = [];
 	var  resultTotalPrice = [];
+	var billtable = [];
+	var resultBill = [];
 	
 	// get radio 
 	for (var x = 0; x < radioButtons.length; x++) {
@@ -60,6 +62,7 @@ function submitForm(){
 		resultDeductible.push(deductible);
 
 	}
+	
 	
 	// ตาราง สรุป ยอดเงิน
 	var tableTotalPrice = document.getElementById("sumTotalPriceTable");
@@ -125,6 +128,43 @@ function submitForm(){
 		listpaymentTranPriceRQ.push(listpaymentTranPriceQ);
 	}
 	
+
+		var listpaymentAddBilling = document.getElementById("sumtableBillingList");
+		var buttonAdd = listpaymentAddBilling.rows.length;
+
+		for (var i = 1; i < buttonAdd; i++) {
+			billtable = [];
+			var oCells = listpaymentAddBilling.rows.item(i).cells;
+			for (var fs = 0; fs < oCells.length; fs++) {
+		
+				billtable.push(oCells[fs].innerHTML);
+	}
+			resultBill.push(billtable);
+		}
+		
+	
+	var listpaymentAddBillingL = [];
+	var listpaymentAddBilling = [];
+	
+	for (var c = 0; c < resultBill.length; c++) {
+		listpaymentAddBilling = [];
+			listpaymentAddBilling = {
+			"inputServiceType" : resultBill[c][1],
+			"inputServiceName" : resultBill[c][2],
+			"inputServiceMoreData" : resultBill[c][3],
+			"inputServiceDepartment" : resultBill[c][4],
+			"inputServiceAmount" : resultBill[c][5],
+			"inputServiceDiscount" : resultBill[c][6],
+			"vatrate" : resultBill[c][7],
+			"inputServiceDeduction" : resultBill[c][8],
+			"inputSpecialDiscount" : resultBill[c][9],
+			"inputServiceAmount" : resultBill[c][10],
+			}
+			
+		
+			listpaymentAddBillingL.push(listpaymentAddBilling);
+	}
+	
 	var dataSend = {
 			"inputCustomerBillNo":$("#inputCustomerBillNo").val() ,
 			 "inputCustomerName":$("#inputCustomerName").val() ,
@@ -138,6 +178,7 @@ function submitForm(){
 			 "balanceSummary":$("#balanceSummary").val() ,
 			 "inputAdditionalRemark":$("#inputAdditionalRemark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
+			 "paymentBill":listpaymentAddBillingL,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	
 	}
@@ -150,7 +191,7 @@ function submitForm(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res.length > 0){
-        		window.location.href = "paymentSuccess?idUser=" +res;
+        		window.location.href = "xxx?idUser=" +res;
         	}
         }
 	})
