@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="22"/>
+	<property name="ireport.y" value="48"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -220,32 +220,6 @@
 					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
 				</box>
 				<textField>
-					<reportElement x="350" y="0" width="80" height="20" uuid="4cf2f6b5-646d-47bd-8435-c7cc0381fbe4"/>
-					<box>
-						<topPen lineStyle="Dotted"/>
-						<leftPen lineStyle="Dotted"/>
-						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
-						<rightPen lineStyle="Dotted"/>
-					</box>
-					<textElement textAlignment="Right">
-						<font fontName="TH SarabunPSK"/>
-					</textElement>
-					<textFieldExpression><![CDATA["0.00"]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="0" y="0" width="70" height="20" uuid="56b80de9-a4d6-43f2-8925-e77cbe89c24d"/>
-					<box>
-						<topPen lineStyle="Dotted"/>
-						<leftPen lineStyle="Dotted"/>
-						<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
-						<rightPen lineStyle="Dotted"/>
-					</box>
-					<textElement textAlignment="Center">
-						<font fontName="TH SarabunPSK"/>
-					</textElement>
-					<textFieldExpression><![CDATA[1]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="70" y="0" width="196" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
 					<box>
 						<topPen lineStyle="Dotted"/>
@@ -284,6 +258,20 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement style="Cat_Hl_Common" x="1" y="0" width="68" height="20" uuid="f55d139b-fc60-4d6f-b6e3-39304743df9a"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH SarabunPSK"/>
+					</textElement>
+					<text><![CDATA[1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Cat_Hl_Common" x="350" y="0" width="80" height="20" uuid="d2fd5ce4-9880-4f97-8164-4c722c262a67"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH SarabunPSK"/>
+					</textElement>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</detail>

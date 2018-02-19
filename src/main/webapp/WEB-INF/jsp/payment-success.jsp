@@ -24,8 +24,8 @@
 </head>
 <body>
 	<header class="header_page"></header>
-<form id="documentReportForm" method="post" class="form-horizontal" role="form"></form>
-	<form name="paymentFroms" method="post" action="paymentService">
+
+	<form id="paymentFroms" method="post" class="form-horizontal" role="form">
 		<div id="page-content-wrapper">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -35,14 +35,14 @@
 					</ul>
 				</div>
 			</nav>
-			<input name="docNos" id="docNos" value="${paymentResultReq.documentNo}" type="hidden">
+			<input name="documentNo" id="documentNo" value="${paymentResultReq.documentNo}" type="hidden">
 			<div class="row">
 
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group" align="right">
 						<div class="col-md-12 col-sm-12">
-							<button name="" type="submit"
-								class="btn btn-info btn-lg" onclick="printReportPDF()">
+							<button name="btnSubmit" id="btnSubmit" type="submit"
+								class="btn btn-info btn-lg" onclick="submti()">
 								<span class="glyphicon glyphicon-file">
 									พิมพ์ใบเสร็จ</span>
 							</button>

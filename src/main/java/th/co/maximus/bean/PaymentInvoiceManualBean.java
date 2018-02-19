@@ -2,7 +2,7 @@ package th.co.maximus.bean;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
+import java.math.BigDecimal;
 public class PaymentInvoiceManualBean {
 
 	private  Long   paymentInvoiceManualId;
@@ -29,13 +29,15 @@ public class PaymentInvoiceManualBean {
 	private  String   updateBy;
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
+
+	private String 	department;
 	
-	private  Integer quantity;          
+	private  Integer quantity;           
 	private  String incometype;       
 	private  BigDecimal discountbeforvat;
 	private  BigDecimal discountspecial;
 	private  String amounttype;   
-	private  String department; 
+	
 	
 	public Integer getQuantity() {
 		return quantity;
@@ -66,12 +68,6 @@ public class PaymentInvoiceManualBean {
 	}
 	public void setAmounttype(String amounttype) {
 		this.amounttype = amounttype;
-	}
-	public String getDepartment() {
-		return department;
-	}
-	public void setDepartment(String department) {
-		this.department = department;
 	}
 	public Long getPaymentInvoiceManualId() {
 		return paymentInvoiceManualId;
@@ -217,6 +213,12 @@ public class PaymentInvoiceManualBean {
 	}
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	

@@ -9,25 +9,24 @@ function openTable(){
 	document.getElementById("showResultTableRQ").style.display="table";
 }
 
-function printReportPDF(){
-	var dataSource = {
-			"documentNo" : $("#docNos").val()
-	};
-	
-	
-	$.ajax({
-        type: "POST",
-        url: "previewPaymentEpisOffline",
-        data: JSON.stringify(dataSource),
+function submti(){
 
-        dataType: "json",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-        	if(res > 0){
-        		 window.location.href = "paymentSuccess?idUser=" +res;
-        	}
-        }
-	})
-
+		$("#paymentFroms").attr("action", "/previewPaymentEpisOffline.pdf")
+		.attr("target", "_blank").submit();
 }
+
+
+//	$.ajax({
+//        type: "POST",
+//        url: "previewPaymentEpisOffline",
+//        data: JSON.stringify(dataSource),
+//
+//        dataType: "json",
+//        async: false,
+//        contentType: "application/json; charset=utf-8",
+//        success: function (res) {
+//        	if(res > 0){
+//        		 window.location.href = "paymentSuccess?idUser=" +res;
+//        	}
+//        }
+//	})
