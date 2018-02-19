@@ -1,7 +1,7 @@
 package th.co.maximus.bean;
 
 import java.sql.Timestamp;
-
+import java.math.BigDecimal;
 public class PaymentInvoiceManualBean {
 
 	private  Long   paymentInvoiceManualId;
@@ -29,6 +29,43 @@ public class PaymentInvoiceManualBean {
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
 	private String 	department;
+	
+	private  Integer quantity;          
+	private  String incometype;       
+	private  BigDecimal discountbeforvat;
+	private  BigDecimal discountspecial;
+	private  String amounttype;   
+	
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	public String getIncometype() {
+		return incometype;
+	}
+	public void setIncometype(String incometype) {
+		this.incometype = incometype;
+	}
+	public BigDecimal getDiscountbeforvat() {
+		return discountbeforvat;
+	}
+	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
+		this.discountbeforvat = discountbeforvat;
+	}
+	public BigDecimal getDiscountspecial() {
+		return discountspecial;
+	}
+	public void setDiscountspecial(BigDecimal discountspecial) {
+		this.discountspecial = discountspecial;
+	}
+	public String getAmounttype() {
+		return amounttype;
+	}
+	public void setAmounttype(String amounttype) {
+		this.amounttype = amounttype;
+	}
 	public Long getPaymentInvoiceManualId() {
 		return paymentInvoiceManualId;
 	}
