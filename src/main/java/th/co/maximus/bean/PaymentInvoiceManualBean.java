@@ -1,5 +1,6 @@
 package th.co.maximus.bean;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 public class PaymentInvoiceManualBean {
@@ -28,6 +29,7 @@ public class PaymentInvoiceManualBean {
 	private  String   updateBy;
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
+<<<<<<< HEAD
 	private String 	department;
 	
 	private  Integer quantity;          
@@ -65,6 +67,51 @@ public class PaymentInvoiceManualBean {
 	}
 	public void setAmounttype(String amounttype) {
 		this.amounttype = amounttype;
+=======
+	
+	private  Integer quantity;          
+	private  String incometype;       
+	private  BigDecimal discountbeforvat;
+	private  BigDecimal discountspecial;
+	private  String amounttype;   
+	private  String department; 
+	
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	public String getIncometype() {
+		return incometype;
+	}
+	public void setIncometype(String incometype) {
+		this.incometype = incometype;
+	}
+	public BigDecimal getDiscountbeforvat() {
+		return discountbeforvat;
+	}
+	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
+		this.discountbeforvat = discountbeforvat;
+	}
+	public BigDecimal getDiscountspecial() {
+		return discountspecial;
+	}
+	public void setDiscountspecial(BigDecimal discountspecial) {
+		this.discountspecial = discountspecial;
+	}
+	public String getAmounttype() {
+		return amounttype;
+	}
+	public void setAmounttype(String amounttype) {
+		this.amounttype = amounttype;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+>>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 	}
 	public Long getPaymentInvoiceManualId() {
 		return paymentInvoiceManualId;
