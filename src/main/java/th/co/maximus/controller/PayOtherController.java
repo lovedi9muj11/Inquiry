@@ -55,7 +55,7 @@ public class PayOtherController {
 			return String.valueOf(paymentId);
 		}
 	 
-	 @RequestMapping(value = "/paymentSuccess", method = RequestMethod.GET)
+	 @RequestMapping(value = "/payOtherSuccess", method = RequestMethod.GET)
 		public String paymentSuccess(Model model,int idUser,HttpServletRequest request) throws Exception {
 			PaymentResultReq paymentResultReq = new PaymentResultReq();
 			Utils utils = new Utils();
