@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -74,13 +74,6 @@
 				</textElement>
 				<text><![CDATA[วันที่  :]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="430" y="70" width="110" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
-				<textElement>
-					<font fontName="TH Sarabun New" pdfFontName="THSarabun.ttf&gt;" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="350" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
 				<textElement textAlignment="Right">
@@ -137,6 +130,11 @@
 				</textElement>
 				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="430" y="70" width="109" height="23" uuid="6172d05e-572c-48a1-93a8-e4e9b54cbede"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

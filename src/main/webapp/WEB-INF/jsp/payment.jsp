@@ -114,7 +114,7 @@
 													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
 												<div class="col-sm-2">
 													<input type="text" id="typeahead" class="form-control"
-														style="width: 175%;" placeholder="หน่วยงานติดตามหนี้"
+														style="width: 157%;" placeholder="หน่วยงานติดตามหนี้"
 														name="debtCollection ">
 														<p id="sdebtCollection" style="color: red;"> คุณยังไม่ได้เลือก  หน่วยงานติดตามหนี้</p>
 
