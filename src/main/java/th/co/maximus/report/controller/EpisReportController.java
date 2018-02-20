@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.bean.ExportPDFReport;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.constants.Constants;
@@ -48,7 +49,7 @@ public class EpisReportController {
 	@RequestMapping(value= {"/previewPaymentEpisOffline.pdf"}) 
 	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 //		String documentNo = "";
- 		String JASPER_JRXML_FILENAME = "InvEpisPayment";
+ 		String JASPER_JRXML_FILENAME = "test";
 		request.setAttribute("documentReport", "-1");
 		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineReportBean>collections= reportService.inqueryEpisOfflineJSONHandler(documentNo);
@@ -110,12 +111,13 @@ public class EpisReportController {
 		parameters.put("ReportSource", exportPDFReport);
 		
 		response.setContentType("application/pdf");
-
+		response.setCharacterEncoding("UTF-8");
+//		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "THSarabun.ttf"); JRProperties.setProperty("net.sf.jasperreports.default.pdf.encoding", "UTF-8"); JRProperties.setProperty("net.sf.jasperreports.default.pdf.embedded", "true");
 		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,jrDataSource);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-
+//        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 	}
 
 }
