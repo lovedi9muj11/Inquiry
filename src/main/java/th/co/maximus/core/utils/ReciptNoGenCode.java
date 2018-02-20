@@ -36,6 +36,6 @@ public class ReciptNoGenCode {
 	public static final String convertDateString(String str) {
 		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
 
-	}
+	} 
 
 }
