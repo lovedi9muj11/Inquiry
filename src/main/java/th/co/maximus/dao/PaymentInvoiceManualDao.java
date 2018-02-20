@@ -14,5 +14,9 @@ public interface PaymentInvoiceManualDao {
 
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo);
 	
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id);
+	
+	
+	
 	
 }
