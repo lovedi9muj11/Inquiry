@@ -3,6 +3,7 @@ package th.co.maximus.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,22 @@ public class PaymentServiceImpl implements PaymentService{
 		int code = reciptNoGenCode.genCodeRecipt();
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
-				if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
-					paymentManualBean.setPaytype("F");
-				}else{
-					paymentManualBean.setPaytype("P");
+				
+				if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
+				}else if(paymentBean.getUserGroup().equals("03")) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
 				}
+				
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 				String dateS = sdf.format(new Date());
 				

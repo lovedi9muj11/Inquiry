@@ -23,6 +23,7 @@ public class PaymentManualBean {
 	private  Long   refid;
 	private  String   accountNo;
 	private  String   paytype;
+	private String docType;
 	public Long getManualId() {
 		return manualId;
 	}
@@ -137,6 +138,12 @@ public class PaymentManualBean {
 	}
 	public void setPaytype(String paytype) {
 		this.paytype = paytype;
+	}
+	public String getDocType() {
+		return docType;
+	}
+	public void setDocType(String docType) {
+		this.docType = docType;
 	}
 
 	

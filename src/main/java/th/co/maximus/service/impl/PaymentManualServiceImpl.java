@@ -47,7 +47,6 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else{
 				paymentManualBean.setPaytype("P");
 			}
-			
 
 			
 			try {

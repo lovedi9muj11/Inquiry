@@ -98,15 +98,9 @@
 													<select class="form-control" id="userGroup"
 														name="userGroup">
 														<option value="">== เลือก ==</option>
-														<option value="01">ธุรกิจทั่วไป</option>
-														<option value="02">บุคคลธรรดา</option>
-														<option value="03">เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
+														<option value="01">บุคคลทั่วไป</option>
+														<option value="02">หน่วยงานรัฐ</option>
+														<option value="03">นิติบุคคล</option>
 													</select>
 													<p id="suserGroup" style="color: red;"> คุณยังไม่ได้เลือก  กลุ่มผู้ใช้บริการ</p>
 												</div>
