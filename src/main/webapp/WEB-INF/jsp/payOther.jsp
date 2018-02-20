@@ -201,7 +201,7 @@
                                     <th >หน่วยรับรายได้</th>
                                     <th >จำนวนรายการ</th>
                                     <th >จำนวนเงินต่อหน่วย </th>
-                                    <th >เงินส่วนลด</th>
+                                    <th >เงินส่วนลดก่อน vat</th>
                                     <th >ภาษีมูลค่าเพิ่ม</th>
                                     <th >ภาษีหัก ณ ที่จ่าย</th>
                                     <th >ส่วนลดพิเศษ</th>
@@ -617,14 +617,14 @@
 					<div class="panel-body">
 						<div class="form-horizontal">
 
-							<div class="form-group">
-								<label class="control-label col-sm-10">ยอดเงินก่อนหักส่วนลด
-									:</label>
-								<div class="col-sm-2">
-									<input id="preItemsDiscount" class="form-control "
-										disabled="disabled">
-								</div>
-							</div>
+<!-- 							<div class="form-group"> -->
+<!-- 								<label class="control-label col-sm-10">ยอดเงินก่อนหักส่วนลด -->
+<!-- 									:</label> -->
+<!-- 								<div class="col-sm-2"> -->
+<!-- 									<input id="preItemsDiscount" class="form-control " -->
+<!-- 										disabled="disabled"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="form-group">
 								<label class="control-label col-sm-10">ส่วนลด :</label>
 								<div class="col-sm-2">

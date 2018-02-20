@@ -7,7 +7,8 @@ $(document).ready(
 			summaryTax();
 			summaryTranPrice();
 			disBtn();
-
+			
+			
 			
 		});
 
@@ -178,6 +179,7 @@ function submitForm(){
 			 "balanceSummary":$("#balanceSummary").val() ,
 			 "inputAdditionalRemark":$("#inputAdditionalRemark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
+			 "vatRadio":$("#vatRadio").val() ,
 			 "paymentBill":listpaymentAddBillingL,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	
@@ -550,6 +552,9 @@ function summaryTranPrice() {
 	var summary = parseFloat(0);
 	var vatCo = parseFloat(107);
 	var vatRq = parseFloat(0);
+	var itemsDiscount = parseFloat(0);
+	var discount = parseFloat(0);
+
 
 	for (var i = 1; i < rowLength; i++) {
 		var oCells = table.rows.item(i).cells;
@@ -585,13 +590,16 @@ function summaryTranPrice() {
 	$("#vats").val(summaryvat.toFixed(2));
 	$("#balanceOfTax").val(summaryTVat.toFixed(2));
 	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
-
+	$("#itemsDiscount").val(summaryTVat.toFixed(2))
+	$("#itemsDiscount").val(itemsDiscount.toFixed(2));
+	$("#discount").val(discount.toFixed(2));
+	
 }
 
 function buttonAddBillingList() {
 	var table = document.getElementById("sumtableBillingList").rows.length;
-	var inputServiceType = document.getElementById("inputServiceType").value;
-	var inputServiceDepartment = document.getElementById("inputServiceDepartment").value;
+	var inputServiceType = $("#inputServiceType").val();
+	var inputServiceDepartment = $("#inputServiceDepartment").val();
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputServiceName = $("#inputServiceName").val();
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
@@ -600,23 +608,17 @@ function buttonAddBillingList() {
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDeduction = $("#inputServiceDeduction").val();
 	var vatrate = $("#vatrate").val();
-	var radioButtons = document.getElementsByName("vatRadio");
-	var radioResult = "";
-	
-	
-	for (var x = 0; x < radioButtons.length; x++) {
-		if (radioButtons[x].checked) {
-			radioResult = radioButtons[x].value;
-		}
-	}
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceDeduction+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
+	
+	$("#itemsDiscount").val(inputServiceDiscount);
+	$("#discount").val(inputSpecialDiscount);
 	 
 	$("inputServiceType").val("");
 	 $("inputServiceDepartment").val("");

@@ -14,8 +14,8 @@ public class PaymentBillBean implements Serializable{
 	private BigDecimal inputSpecialDiscount;
 	private double inputServiceAmount;
 	private BigDecimal inputServiceDeduction;
-	private String vatrate;
-	private String vatRadio;
+	private Integer vatrate;
+	
 	private double inputsumWt;
 	
 	public double getInputsumWt() {
@@ -78,17 +78,11 @@ public class PaymentBillBean implements Serializable{
 	public void setInputServiceDeduction(BigDecimal inputServiceDeduction) {
 		this.inputServiceDeduction = inputServiceDeduction;
 	}
-	public String getVatrate() {
+	public Integer getVatrate() {
 		return vatrate;
 	}
-	public void setVatrate(String vatrate) {
+	public void setVatrate(Integer vatrate) {
 		this.vatrate = vatrate;
-	}
-	public String getVatRadio() {
-		return vatRadio;
-	}
-	public void setVatRadio(String vatRadio) {
-		this.vatRadio = vatRadio;
 	}
 	
 	
