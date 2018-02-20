@@ -2,6 +2,7 @@ package th.co.maximus.bean;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+
 public class PaymentInvoiceManualBean {
 
 	private  Long   paymentInvoiceManualId;
