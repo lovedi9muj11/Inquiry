@@ -16,6 +16,7 @@ function search() {
 	tUser.clear().draw();
 	var data = '';
 	var dataSend = { "username": $('#name').val() };
+	
 	$.ajax({
         type: "POST",
         url: "/userManageMent/search",
@@ -29,6 +30,7 @@ function search() {
                 }
         }
 	})
+	
 }
 
 function createRow(data, seq) {
@@ -44,6 +46,8 @@ function createRow(data, seq) {
         colSeq, colCurId, colCurName,colBotton
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
+    $(rowNode).find('td').eq(1).addClass('center');
+    $(rowNode).find('td').eq(2).addClass('center');
     $(rowNode).find('td').eq(3).addClass('center');
 }
 
