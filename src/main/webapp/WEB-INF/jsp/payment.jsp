@@ -12,12 +12,13 @@
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="css/payment.css" rel="stylesheet">
+<script src="js/utils.js"></script>
 <script src="js/payment.js"></script>
 </head>
 <body>
 	<div class="container-fluid">
 
-		<form name="paymentFrom" method="post" action="paymentService">
+		<form name="paymentFrom" method="post" action="#" id="paymentFrom" class="form-horizontal">
 			<div id="page-content-wrapper">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -50,23 +51,22 @@
 									<div class="panel-body">
 										<div class="row">
 											<div class="form-group">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ชื่อ:</label>
+												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="custName"
-														name="custName" placeholder="ชื่อ">
+												<input class="form-control" type="text" id="custName"	name="custName" placeholder="ชื่อ">
+												<p id="sCustName" style="color: red;"> คุณยังไม่ได้กรอกชื่อ</p>
 												</div>
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">เลขที่ลูกค้า :</label>
+												<label class="col-sm-2 control-label right"	for="custNo">เลขที่ลูกค้า :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="custNo"
-														name="custNo" placeholder="เลขที่ลูกค้า">
+												<input class="form-control" type="text" id="custNo"name="custNo" placeholder="เลขที่ลูกค้า">
+												<p id="sCustNo" style="color: red;"> คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">Tax ID :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="taxId"
 														name="taxId" placeholder="Tax ID">
+														<p id="staxId" style="color: red;"> คุณยังไม่ได้กรอก TAX ID</p>
 												</div>
 											</div>
 										</div>
@@ -77,13 +77,14 @@
 												<div class="col-sm-6">
 													<textarea class="form-control" rows="3" id="custAddress"
 														name="custAddress"></textarea>
+														<p id="scustAddress" style="color: red;"> คุณยังไม่ได้กรอก ที่อยู่</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">สาขา :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="custBrach"
 														name="custBrach" placeholder="สาขา">
-
+													<p id="scustBrach" style="color: red;"> คุณยังไม่ได้กรอก สาขา</p>
 												</div>
 
 											</div>
@@ -97,30 +98,27 @@
 													<select class="form-control" id="userGroup"
 														name="userGroup">
 														<option value="">== เลือก ==</option>
-														<option value="01">ธุรกิจทั่วไป</option>
-														<option value="02">บุคคลธรรดา</option>
-														<option value="03">เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
-														<option>เจ้าของธุรกิจ</option>
+														<option value="01">บุคคลทั่วไป</option>
+														<option value="02">หน่วยงานรัฐ</option>
+														<option value="03">นิติบุคคล</option>
 													</select>
+													<p id="suserGroup" style="color: red;"> คุณยังไม่ได้เลือก  กลุ่มผู้ใช้บริการ</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
 												<div class="col-sm-2">
 													<input type="text" id="typeahead" class="form-control"
-														style="width: 100%;" placeholder="หน่วยงานติดตามหนี้"
+														style="width: 157%;" placeholder="หน่วยงานติดตามหนี้"
 														name="debtCollection ">
+														<p id="sdebtCollection" style="color: red;"> คุณยังไม่ได้เลือก  หน่วยงานติดตามหนี้</p>
 
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">เลขที่ใบแจ้ง :</label>
+													for="invoiceNo">เลขที่ใบแจ้ง :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="invoiceNo"
-														name="invoiceNo" placeholder="เลขที่ใบแจ้ง">
+														name="c" placeholder="เลขที่ใบแจ้ง">
+														<p id="sinvoiceNo" style="color: red;"> คุณยังไม่ได้เลือก  เลขที่ใบแจ้ง</p>
 
 												</div>
 
@@ -133,18 +131,21 @@
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="serviceNo"
 														name="serviceNo" placeholder="หมายเลขบริการ">
+														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="startupDate"
 														name="startupDate">
+														<p id="sstartupDate" style="color: red;"> คุณยังไม่ได้เลือก รอบการใช้งานเริ่มต้น</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">รอบการใช้งานสิ้นสุด :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="endDate"
 														name="endDate">
+														<p id="sendDate" style="color: red;"> คุณยังไม่ได้เลือก รอบการใช้งานสิ้นสุด</p>
 												</div>
 											</div>
 										</div>
@@ -155,6 +156,7 @@
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="deadlines"
 														name="deadlines">
+														<p id="sdeadlines" style="color: red;"> คุณยังไม่ได้เลือก วันครบกำหนด</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">วันจัดทำใบแจ้งค่าใช้บริการ
@@ -162,6 +164,7 @@
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="invoiceDate"
 														name="invoiceDate">
+														<p id="sinvoiceDate" style="color: red;"> คุณยังไม่ได้เลือก วันจัดทำใบแจ้งค่าใช้บริการ</p>
 												</div>
 											</div>
 										</div>
@@ -223,7 +226,7 @@
 													for="formGroupInputLarge">ยอดชำระ :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="balanceSummary"
-														on name="balanceSummary">
+														name="balanceSummary">
 												</div>
 											</div>
 										</div>
@@ -698,6 +701,17 @@
 												<div class="col-sm-3">
 													<input class="form-control" type="text"
 														id="balanceSummarys" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">เงินทอน :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text"
+														id="change" readonly="">
 												</div>
 											</div>
 										</div>

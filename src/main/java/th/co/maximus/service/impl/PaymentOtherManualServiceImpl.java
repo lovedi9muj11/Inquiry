@@ -9,45 +9,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.PaymentManualBean;
-import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
-import th.co.maximus.service.PaymentManualService;
-
+import th.co.maximus.payment.bean.PaymentOtherFirstBean;
+import th.co.maximus.service.PaymentOtherManualService;
 @Service
-public class PaymentManualServiceImpl implements PaymentManualService{
+public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 	@Autowired
 	PaymentManualDao paymentManualDao;
-
+	
 
 	@Override
-	public int insertPaymentManual(PaymentFirstBean paymentBean) {
+	public int insertPaymentManual(PaymentOtherFirstBean paymentBean) {
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		Date date = new Date();
 		int userId=0;
-		if(StringUtils.isNotBlank(paymentBean.getInvoiceNo())){
-			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
-			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
-			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
+		if(StringUtils.isNotBlank(paymentBean.getInputCustomerBillNo())){
+			//paymentManualBean.setInvoiceNo(paymentBean.getInputCustomerBillNo());
+			paymentManualBean.setReceiptNoManual(paymentBean.getInputCustomerBranch());
+			paymentManualBean.setBrancharea("CAT นนทบุรี");
 			paymentManualBean.setBranchCode("001");
-			paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()+paymentBean.getSummaryTax());
-			paymentManualBean.setSource(Constants.dataUser.SOURCE);
+			paymentManualBean.setPaidAmount(paymentBean.getSummaryTax());
+			paymentManualBean.setSource("OFFLINE");
 			paymentManualBean.setClearing("N");
-			paymentManualBean.setRemark(paymentBean.getRemark());
-			paymentManualBean.setCreateBy(Constants.dataUser.NAME_USER);
+			paymentManualBean.setRemark(paymentBean.getInputAdditionalRemark());
+			paymentManualBean.setCreateBy("ADMIN");
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-			paymentManualBean.setUpdateBy(Constants.dataUser.NAME_USER);
+			paymentManualBean.setUpdateBy("ADMIN");
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
-			paymentManualBean.setAccountNo(paymentBean.getCustNo());
+			paymentManualBean.setAccountNo(paymentBean.getInputCustomerBillNo());
 			
-			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
-				paymentManualBean.setPaytype("F");
+			if(paymentBean.getBalanceSummary()>= paymentBean.getBalanceSummary()){
+				paymentManualBean.setPaytype("เต็มจำนวน");
 			}else{
-				paymentManualBean.setPaytype("P");
+				paymentManualBean.setPaytype("ไม่เต็มจำนวน");
 			}
-
 			
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);
@@ -71,8 +68,4 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	/*public PaymentManualBean xx() {
 		return jdbcTemplate.queryForObject("select * from payment_manual", new PaymentManuaJoin());
 	}*/
-	
-
-
-
 }

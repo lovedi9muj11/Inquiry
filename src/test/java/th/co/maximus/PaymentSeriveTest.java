@@ -13,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.payment.bean.PaymentFirstBean;
-import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.payment.bean.PaymentTranPriceBean;
 import th.co.maximus.service.PaymentInvoiceManualService;
@@ -31,6 +31,7 @@ public class PaymentSeriveTest{
 	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
 	@Autowired TrsmethodManualService trsmethodManualService;
 	@Autowired PaymentService paymentService;
+	@Autowired ReciptNoGenCode reciptNoGenCode;
 	
 	@Ignore
 	@Test
@@ -94,12 +95,19 @@ public class PaymentSeriveTest{
 		
 		trsmethodManualService.insertTrsmethodManual(paymentBean,55);
 	}
+	@Ignore
 	@Test
 	@Rollback
 	public void findById() throws Exception {
-		PaymentResultReq bean = new PaymentResultReq();
-		bean = paymentService.findByid(16);
-		System.out.println(bean);
+		paymentService.findByid(16);
+	}
+	@Ignore
+	@Test
+	@Rollback
+	public void genCode() {
+		
+	reciptNoGenCode.genCodeRecipt();
+
 	}
 
 }

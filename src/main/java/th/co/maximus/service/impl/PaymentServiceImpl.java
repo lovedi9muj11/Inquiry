@@ -1,8 +1,15 @@
 package th.co.maximus.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
@@ -18,17 +25,60 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired PaymentInvoiceManualService paymentInvoiceManualService;
 	@Autowired TrsmethodManualService trsmethodManualService;
 	@Autowired PaymentManualDao paymentManualDao;
-
+	@Autowired
+	ReciptNoGenCode reciptNoGenCode;
+	
+	@Value("${text.prefix}")
+	private String nameCode;
+	@Value("${text.posno}")
+	private String posNo;
+	@Value("${text.branarea}")
+	private String branArea;
+	
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {
 		int paymentId =0;
-		int userId = 0;
-		
+		int code = reciptNoGenCode.genCodeRecipt();
 		try {
+				PaymentManualBean paymentManualBean = new PaymentManualBean();
+				
+				if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
+				}else if(paymentBean.getUserGroup().equals("03")) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
+				}
+				
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+				String dateS = sdf.format(new Date());
+				
+				String dates=convertDateString(dateS);
+
+				 
+				String zeron = "";
+				if(code >9) {
+					zeron ="00"+code;
+				}else {
+					zeron ="000"+code;
+				}
+				String codeName = nameCode+posNo+branArea + paymentManualBean.getDocType()+dates+zeron;		
+				paymentBean.setDocumentNo(codeName);
+
+			
+			
+			
 			paymentId = paymentManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
-				userId = trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
+				trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,4 +105,14 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentManualDao.findById(id);
 	}
 
+	@Override
+	public PaymentResultReq findIdGenCode(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return paymentManualDao.findById(id);
+	}
+
+	public static final String convertDateString(String str) {
+		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
+
+	}
 }

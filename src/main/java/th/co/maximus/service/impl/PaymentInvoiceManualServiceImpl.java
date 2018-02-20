@@ -46,9 +46,9 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setCustomerSegment("1");
 		paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
-		paymentInvoiceManualBean.setSubNo("");
+		paymentInvoiceManualBean.setSubNo(paymentBean.getServiceNo());
 		paymentInvoiceManualBean.setPeriod(period);
-		paymentInvoiceManualBean.setServiceType("");
+		paymentInvoiceManualBean.setServiceType("IBASS");
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");
 		paymentInvoiceManualBean.setRemark(paymentBean.getRemark());
@@ -57,6 +57,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setUpdateBy("ADMIN");
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
+		paymentInvoiceManualBean.setDepartment(paymentBean.getDebtCollection());
 		
 		paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 		}

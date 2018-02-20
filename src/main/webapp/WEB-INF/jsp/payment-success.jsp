@@ -15,14 +15,17 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-	<link href="css/payment.css" rel="stylesheet">
-<script src="js/payment.js"></script>
+<link href="css/payment.css" rel="stylesheet">
 
+<script src="js/payment-success.js"></script>
+
+	<script src="js/utils.js" type="text/javascript"></script>
+<%=request.getAttribute("paymentResultReq")%>
 </head>
 <body>
 	<header class="header_page"></header>
 
-	<form name="paymentFrom" method="post" action="paymentService">
+	<form id="paymentFroms" method="post" class="form-horizontal" role="form">
 		<div id="page-content-wrapper">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -32,12 +35,21 @@
 					</ul>
 				</div>
 			</nav>
+			<input name="documentNo" id="documentNo" value="${paymentResultReq.documentNo}" type="hidden">
 			<div class="row">
+
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group" align="right">
 						<div class="col-md-12 col-sm-12">
-							<button name="submitFormPayment" type="button" class="btn btn-danger btn-lg" onclick="backPayment()">
-								<span class="glyphicon glyphicon-chevron-left"> กลับไปยังหน้าชำระ</span>
+							<button name="btnSubmit" id="btnSubmit" type="submit"
+								class="btn btn-info btn-lg" onclick="submti()">
+								<span class="glyphicon glyphicon-file">
+									พิมพ์ใบเสร็จ</span>
+							</button>
+							<button name="submitFormPayment" type="button"
+								class="btn btn-danger btn-lg" onclick="backPayment()">
+								<span class="glyphicon glyphicon-chevron-left">
+									กลับไปยังหน้าชำระ</span>
 							</button>
 						</div>
 					</div>
@@ -45,53 +57,67 @@
 			</div>
 			<!-- panel รายการหัก -->
 			<div class="row">
+			
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group">
 						<div class="col-md-12 col-sm-12">
 							<div class="panel">
 								<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
-								<div class="panel-body">
-									<div style="display: none">
-										<table id="sumDeductibleTable">
-											<thead>
-												<tr></tr>
-											</thead>
-											<tbody></tbody>
-										</table>
-									</div>
-									<table class="table" id="showResultTable">
-										<thead>
-											<tr align="center">
+								<div class="panel-body" align="center">
+									<table class="table" id="showResultTable" align="center">
+										<thead align="center">
+											<tr>
 												<th></th>
-												<th>#</th>
-												<th>เลขที่ลูกค้า</th>
-												<th>ชื่อลูกค้า</th>
-												<th>เลขที่ใบเสร็จรับเงิน/ใบกำกับภาษี</th>
-												<th>จำนวนเงินที่ชำระ</th>
-												<th>สถานะการรับชำระ</th>
+												<th style='text-align: center;'>#</th>
+												<th style='text-align: center;'>เลขที่ลูกค้า</th>
+												<th style='text-align: center;'>ชื่อลูกค้า</th>
+												<th style='text-align: center;'>เลขที่ใบเสร็จรับเงิน/ใบกำกับภาษี</th>
+												<th style='text-align: center;'>จำนวนเงินที่ชำระ</th>
+												<th style='text-align: center;'>สถานะการรับชำระ</th>
 											</tr>
 										</thead>
-										<tbody>
-
+										<tbody align="center">
+											<tr align="center">
+												<td><a onclick="openTable()"> <span
+														class="glyphicon glyphicon-plus"></span>
+												</a></td>
+												<td align="center">1</td>
+												<td align="center">${paymentResultReq.custNo}</td>
+												<td align="center">${paymentResultReq.custName}</td>
+												<td align="center">${paymentResultReq.documentNo}</td>
+												<td align="center">${paymentResultReq.balanceSummary}</td>
+												<td align="center">บันทึกรายการเรียบร้อย</td>
+											</tr>
 										</tbody>
 									</table>
-									<table class="table hidden" id="showResultTableRQ">
-										<thead>
+									<table class="table " id="showResultTableRQ">
+										<thead align="center">
 											<tr align="center">
-												<th>เลขที่ใบแจ้งค่าใช้บริการ</th>
-												<th>วันที่จัดทำใบแจ้งค่าใช้บริการ</th>
-												<th>วันที่ครบกำหนด</th>
-												<th>ยอดก่อนภาษี</th>
-												<th>ภาษีมูลค่าเพิ่ม</th>
-												<th>ยอดเงินรวมภาษี</th>
-												<th>บอดชำระ</th>
-												<th>ภาษีหัก ณ ที่จ่าย</th>
-												<th>จำนวนเงินคงค้าง</th>
-												<th>รอบการใช้งาน</th>
+												<th style='text-align: center;'>เลขที่ใบแจ้งค่าใช้บริการ</th>
+												<th style='text-align: center;'>วันที่จัดทำใบแจ้งค่าใช้บริการ</th>
+												<th style='text-align: center;'>วันที่ครบกำหนด</th>
+												<th style='text-align: center;'>ยอดก่อนภาษี</th>
+												<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th>
+												<th style='text-align: center;'>ยอดเงินรวมภาษี</th>
+												<th style='text-align: center;'>ยอดชำระ</th>
+												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
+												<th style='text-align: center;'>จำนวนเงินคงค้าง</th>
+												<th style='text-align: center;'>รอบการใช้งาน</th>
 											</tr>
 										</thead>
 										<tbody>
-
+											<tr align="center">
+												<td align="center">${paymentResultReq.invoiceNo}</td>
+												<td align="center">${paymentResultReq.invoiceDate}</td>
+												<td align="center">${paymentResultReq.dateLine}</td>
+												<td align="center">${paymentResultReq.beforeVat}</td>
+												<td align="center">${paymentResultReq.vat}</td>
+												<td align="center">${paymentResultReq.balanceOfvat}</td>
+												<td align="center">${paymentResultReq.balanceSummary}</td>
+												<td align="center">${paymentResultReq.deduction}</td>
+												<td align="center">${ paymentResultReq.balancePrice}</td>
+												<td align="center">${paymentResultReq.period}</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>

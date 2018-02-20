@@ -21,11 +21,11 @@ import th.co.maximus.auth.service.UserService;
 @Transactional
 public class UserServiceTest {
 	
-	@Autowired private UserRepository userRepository;
+	@Autowired  UserRepository userRepository;
 	  
-	@Autowired private UserService userService;
+	@Autowired  UserService userService;
 	  
-	@Autowired private RoleRepository roleRepository;
+	@Autowired  RoleRepository roleRepository;
 	
 	@Ignore
 	@Test
@@ -33,7 +33,7 @@ public class UserServiceTest {
 		User bean = userRepository.findByUsername("admin");
 		assertThat(bean).isNotNull();
 	}
-	
+	@Ignore
 	@Test
 	@Rollback
 	public void save() {

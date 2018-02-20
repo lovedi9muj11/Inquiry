@@ -31,7 +31,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO payment_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO payment_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });
@@ -51,6 +51,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 				pst.setString(14, paymentManualBean.getRecordStatus());
 				pst.setString(15, paymentManualBean.getAccountNo());
 				pst.setString(16, paymentManualBean.getPaytype());
+				pst.setString(17, paymentManualBean.getDocType());
 				return pst;
 			}
 		}, keyHolder);
@@ -64,10 +65,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE , pim.BEFOR_VAT , pim.VAT_AMOUNT ,pim.AMOUNT,dud.AMOUNT , py.PAID_AMOUNT , pim.PERIOD ");
+			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE , pim.BEFOR_VAT , pim.VAT_AMOUNT ,pim.AMOUNT,(SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD ");
 			sqlStmt.append(" FROM payment_manual py ");
 			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
-			sqlStmt.append(" INNER JOIN deduction_manual dud ON dud.MANUAL_ID =  py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO ");
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
 			
 			

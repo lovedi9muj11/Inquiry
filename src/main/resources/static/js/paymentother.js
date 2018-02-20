@@ -7,7 +7,6 @@ $(document).ready(
 			summaryTax();
 			summaryTranPrice();
 			disBtn();
-//			buttonAddBillingList();
 
 			
 		});
@@ -27,16 +26,26 @@ function disBtn(){
 function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
+	var radioVsts = document.getElementsByName("vatRadio");
+	var radioVat = "";
+	var inputCustomerBillNo = $("#inputCustomerBillNo").val();
 	var deductible = [];
 	var  resultDeductible = [];
 	var totalPrice = [];
 	var  resultTotalPrice = [];
+	var billtable = [];
+	var resultBill = [];
 	
 	// get radio 
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
+		}
+	}
+	// get radioVat 
+	for (var x = 0; x < radioVsts.length; x++) {
+		if (radioVsts[x].checked) {
+			radioVat = radioVsts[x].value;
 		}
 	}
 //	ภาษี หัก ณ ที่จ่าย
@@ -53,6 +62,7 @@ function submitForm(){
 		resultDeductible.push(deductible);
 
 	}
+	
 	
 	// ตาราง สรุป ยอดเงิน
 	var tableTotalPrice = document.getElementById("sumTotalPriceTable");
@@ -75,7 +85,7 @@ function submitForm(){
 	
 	for (var a = 0; a < resultDeductible.length; a++) {
 		listpaymentTaxQ = []
-		listpaymentTaxQ = {"invoiceNo" : resultDeductible[a][1],
+		listpaymentTaxQ = {"inputCustomerBillNo" : resultDeductible[a][1],
 			"docDed" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][3],
 			"moneyDed" : resultDeductible[a][4]
@@ -118,39 +128,70 @@ function submitForm(){
 		listpaymentTranPriceRQ.push(listpaymentTranPriceQ);
 	}
 	
+
+		var listpaymentAddBilling = document.getElementById("sumtableBillingList");
+		var buttonAdd = listpaymentAddBilling.rows.length;
+
+		for (var i = 1; i < buttonAdd; i++) {
+			billtable = [];
+			var oCells = listpaymentAddBilling.rows.item(i).cells;
+			for (var fs = 0; fs < oCells.length; fs++) {
+		
+				billtable.push(oCells[fs].innerHTML);
+	}
+			resultBill.push(billtable);
+		}
+		
+	
+	var listpaymentAddBillingL = [];
+	var listpaymentAddBilling = [];
+	
+	for (var c = 0; c < resultBill.length; c++) {
+		listpaymentAddBilling = [];
+			listpaymentAddBilling = {
+			"inputServiceType" : resultBill[c][1],
+			"inputServiceName" : resultBill[c][2],
+			"inputServiceMoreData" : resultBill[c][3],
+			"inputServiceDepartment" : resultBill[c][4],
+			"inputServiceAmount" : resultBill[c][5],
+			"inputServiceDiscount" : resultBill[c][6],
+			"vatrate" : resultBill[c][7],
+			"inputServiceDeduction" : resultBill[c][8],
+			"inputSpecialDiscount" : resultBill[c][9],
+			"inputServiceAmount" : resultBill[c][10],
+			}
+			
+		
+			listpaymentAddBillingL.push(listpaymentAddBilling);
+	}
+	
 	var dataSend = {
-			 "custName":$("#custName").val() ,
-			 "custNo":$("#custNo").val() ,
-			 "taxId":$("#taxId").val() ,
-			 "custAddress":$("#custAddress").val() ,
-			 "custBrach":$("#custBrach").val() ,
+			"inputCustomerBillNo":$("#inputCustomerBillNo").val() ,
+			 "inputCustomerName":$("#inputCustomerName").val() ,
+			 "inputCustomerTaxNo":$("#inputCustomerTaxNo").val() ,
+			 "inputCustomerBranch":$("#inputCustomerBranch").val() ,
 			 "userGroup":$("#userGroup").val() ,
-			 "debtCollection":$("#typeahead").val() ,
-			 "invoiceNo":$("#invoiceNo").val() ,
-			 "serviceNo":$("#serviceNo").val() ,
-			 "endDate":$("#endDate").val() ,
-			 "deadlines":$("#deadlines").val() ,
-			 "invoiceDate":$("#invoiceDate").val() ,
 			 "vatrate":$("#vatrate").val() ,
+			 "inputCustomerAddress":$("#inputCustomerAddress").val() ,
 			 "balanceBeforeTax":$("#balanceBeforeTax").val() ,
-			 "vat":$("#vat").val() ,
 			 "balanceOfTax":$("#balanceOfTax").val() ,
 			 "balanceSummary":$("#balanceSummary").val() ,
-			 "remark":$("#remark").val() ,
+			 "inputAdditionalRemark":$("#inputAdditionalRemark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
+			 "paymentBill":listpaymentAddBillingL,
 			 "paymentTax":listpaymentTaxRQ  ,
-			 "paymentTranPrice" :listpaymentTranPriceRQ	 
+			 "paymentTranPrice" :listpaymentTranPriceRQ	
 	}
 	$.ajax({
         type: "POST",
-        url: "paymentService",
+        url: "paymenOthertService",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res.length > 0){
-        		
+        		window.location.href = "xxx?idUser=" +res;
         	}
         }
 	})
@@ -201,9 +242,11 @@ function findBankNo() {
 
 function addRow() {
 	var table = document.getElementById("deductibleTable").rows.length;
+	var inputCustomerBillNo = $("#inputCustomerBillNo").val();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
+	
+	
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
@@ -217,7 +260,7 @@ function addRow() {
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputCustomerBillNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -297,7 +340,6 @@ function addDataTableMoneyTranPrice() {
 	var numberRun = count + number;
 	if (parseFloat(summaryTax) < parseFloat(money)) {
 
-//		var moneyT = parseFloat(money - parseFloat(summaryTax));
 		var markup = "<tr><td>"
 				+ numberRun
 				+ "</td><td>"
@@ -380,7 +422,6 @@ function addDataTableCheck() {
 	var branchCheck = $("#branchCheck").val();
 	var moneyCheck = $("#moneyCheck").val();
 	var dateCheck = $("#dateCheck").val();
-//	var moneyT = parseFloat(moneyCheck - parseFloat(summaryTax));
 	var count = parseInt(1);
 	if (parseFloat(summaryTax) < parseFloat(moneyCheck)) {
 	for (count; count < table; count++) {
@@ -558,12 +599,22 @@ function buttonAddBillingList() {
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDeduction = $("#inputServiceDeduction").val();
+	var vatrate = $("#vatrate").val();
+	var radioButtons = document.getElementsByName("vatRadio");
+	var radioResult = "";
+	
+	
+	for (var x = 0; x < radioButtons.length; x++) {
+		if (radioButtons[x].checked) {
+			radioResult = radioButtons[x].value;
+		}
+	}
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceUnit+ "</td><td>"	+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDeduction+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceAmount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
 	 
@@ -577,3 +628,37 @@ function buttonAddBillingList() {
 	$("#inputServiceAmount").val("");
 	$("#inputServiceDeduction").val("");
 };
+
+function buttonCalculateWt(){
+	
+	
+	
+	var amount = $("#inputServiceAmount").val();
+    var amountUnit = $("#inputServiceMoreData").val();
+    var discount = $("#inputServiceDiscount").val();
+    var specialDiscount = $("#inputSpecialDiscount").val();
+    var sumDisc = discount + specialDiscount;
+    if ($('input[name=vatRadio]:checked').val() == 'exclude') {
+        var total = multiply(amount, amountUnit, 2);
+        var wt = multiply(subtract(total, sumDisc, 2), 0.03, 2);
+    }else{
+       
+    	var vatrate = $("#vatrate").val();
+        var total = multiply(amount, amountUnit, 2);
+        var beforeVat = (total*100)/(100+vatrate);
+        var wt = multiply(subtract(beforeVat, sumDisc, 2), 0.03, 2);
+    }
+    $("#inputServiceDeduction").val(wt);
+    
+	
+	
+}
+
+window.subtract = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 - num2).toFixed(dec), 10); };
+window.multiply = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 * num2).toFixed(dec), 10); };
+
+
+
+
+
+

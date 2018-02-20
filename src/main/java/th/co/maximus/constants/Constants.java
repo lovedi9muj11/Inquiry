@@ -4,6 +4,7 @@ public class Constants {
 	
 	public static final String TEST = "TEST";
 	
+	
 	public static class DateTime {
 		public static final String LOCALE = "TH";
 		public static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -18,6 +19,15 @@ public class Constants {
 		public static final String ACTIVE = "A";
 		public static final String ACTIVE_A = "ปกติ";
 		public static final String ACTIVE_AC = "รอหักล้าง";
+	}
+	
+	public static class report{
+		public static final String repotPathc = "/report/jasper/pdf";
+	}
+	public static class dataUser{
+		public static final String BRANCHAREA = "CAT นนทบุรี";
+		public static final String SOURCE = "OFFLINE";
+		public static final String NAME_USER = "ADMIN";
 	}
 
 }
