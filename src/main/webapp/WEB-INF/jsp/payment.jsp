@@ -12,8 +12,8 @@
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="css/payment.css" rel="stylesheet">
+<script src="js/utils.js"></script>
 <script src="js/payment.js"></script>
-
 </head>
 <body>
 	<div class="container-fluid">
@@ -232,7 +232,7 @@
 													for="formGroupInputLarge">ยอดชำระ :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="balanceSummary"
-														on name="balanceSummary">
+														name="balanceSummary">
 												</div>
 											</div>
 										</div>
@@ -707,6 +707,17 @@
 												<div class="col-sm-3">
 													<input class="form-control" type="text"
 														id="balanceSummarys" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">เงินทอน :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text"
+														id="change" readonly="">
 												</div>
 											</div>
 										</div>

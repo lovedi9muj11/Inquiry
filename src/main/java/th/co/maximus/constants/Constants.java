@@ -24,5 +24,10 @@ public class Constants {
 	public static class report{
 		public static final String repotPathc = "/report/jasper/pdf";
 	}
+	public static class dataUser{
+		public static final String BRANCHAREA = "CAT นนทบุรี";
+		public static final String SOURCE = "OFFLINE";
+		public static final String NAME_USER = "ADMIN";
+	}
 
 }

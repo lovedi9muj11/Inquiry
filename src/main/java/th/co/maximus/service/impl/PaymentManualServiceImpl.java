@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.service.PaymentManualService;
@@ -28,15 +29,15 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
-			paymentManualBean.setBrancharea("CAT นนทบุรี");
+			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode("001");
 			paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()+paymentBean.getSummaryTax());
-			paymentManualBean.setSource("OFFLINE");
+			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());
-			paymentManualBean.setCreateBy("ADMIN");
+			paymentManualBean.setCreateBy(Constants.dataUser.NAME_USER);
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-			paymentManualBean.setUpdateBy("ADMIN");
+			paymentManualBean.setUpdateBy(Constants.dataUser.NAME_USER);
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());

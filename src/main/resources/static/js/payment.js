@@ -1,11 +1,11 @@
-$(document).ready(
-		function() {		
+$(document).ready(function() {		
 			findTypePayment();
 			findBank();
 			findBankNo();
 			summaryTax();
 			hideShowdat();
 			disBtn();
+			$("#change").val(parseFloat(0).toFixed(2));
 			var cars = [ 'ทต.', 'ตร.', 'ปง.','กม.' ];
 
 			// Constructing the suggestion engine
@@ -50,6 +50,7 @@ $(document).ready(
 				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
 				$("#vats").val(vat.toFixed(2));
 				$("#balanceOfTaxs").val(summary.toFixed(2));
+				
 			});
 			
 		});
@@ -95,7 +96,7 @@ function findvatAmount(){
 
 
 function vatAmount(){
-	var result = $("#balanceSummarys").val();
+	var result = $("#balanceSum").val();
 	var vatRQ = $("#vatrate").val();
 	var beforeVat = parseFloat(0);
 	var vat = parseFloat(0);
@@ -417,6 +418,7 @@ function tdAutoNumber() {
 function myDeleteDed(count) {
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
+	var result = $("#balanceSummary").val();
 	var summaryTa = parseFloat(0);
 	var balance = $("#balanceSummarys").val();
 
@@ -428,7 +430,12 @@ function myDeleteDed(count) {
 				var oCells = table.rows.item(i).cells;
 				var total = parseFloat(oCells[4].innerHTML);
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
+				if(balance > result){
+					balance = result;
+					$("#change").val(parseFloat(0).toFixed(2));
+				}
 				$("#balanceSummarys").val(balance.toFixed(2));
+				 
 				vatAmount();
 				tableDed.deleteRow(count);
 				table.deleteRow(count);
@@ -508,12 +515,12 @@ function addDataTableMoneyTranPrice() {
 	if(brana == ""){
 		brana = parseFloat(0);
 	}
-	var plus =  parseFloat(money) ;
+//	var plus =  parseFloat(money) ;
+//	if(plus > parseFloat(branSum)){
+//		plus = parseFloat(branSum);
+////		$("#change").val(parseFloat(0).toFixed(2));
+//	}
 
-	if(plus > parseFloat(branSum)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
-		return ;
-	}
 //		var moneyT = parseFloat(money - parseFloat(summaryTax));
 		var markup = "<tr><td>"
 				+ numberRun
@@ -530,12 +537,29 @@ function addDataTableMoneyTranPrice() {
 
 		$("#moneyTran").val("");
 		var balan = $("#balanceSummarys").val(); 
+		var changeRQ = $("#balanceSummarys").val(); 
+		changeRQ = parseFloat(money) -  parseFloat(balan);
 		balan = parseFloat(balan) - parseFloat(money);
+		if(balan < 0){
+			balan = parseFloat(0);
+		}
+		if(changeRQ < 0){
+			changeRQ = parseFloat(0);
+		}
+		
+		var sumPrice = $("#balanceSummary").val();
 		$("#balanceSummarys").val(balan.toFixed(2));
 		balanceS = parseFloat(parseFloat(balanceS) + parseFloat(money) );
-		$("#balanceSum").val(balanceS.toFixed(2));
+		if(parseFloat(sumPrice) < parseFloat(money)){
+			$("#balanceSum").val(parseFloat(sumPrice).toFixed(2));
+		}else{
+			$("#balanceSum").val(parseFloat(money).toFixed(2));
+		}
+		
+		
 		vatAmount();
 		disBtn();
+		changeMoney(changeRQ);
 }
 
 // add ข้อมูลลง เครดิต
@@ -731,6 +755,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 	
 	var summaryTa = parseFloat(0);
 	var balance = $("#balanceSummarys").val();
+	var sumPrice = $("#balanceSummary").val();
 	var balanceSum = $("#balanceSum").val();
 	if (tablesumTotals.rows.length > 0) {
 		for (var i = 1; i < tablesumTotals.rows.length; i++) {
@@ -739,12 +764,21 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				var total = parseFloat(oCells[2].innerHTML);
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
 				balanceSum = parseFloat(parseFloat(balanceSum) - parseFloat(total))
+				if(parseFloat(balanceSum) <0){
+					balanceSum = parseFloat(0);
+				}
+				if(parseFloat(sumPrice) < parseFloat(balance)){
+					balance = parseFloat(sumPrice);
+					$("#change").val(parseFloat(0).toFixed(2));
+				}
+				
 				$("#balanceSummarys").val(balance.toFixed(2));
 				$("#balanceSum").val(balanceSum.toFixed(2));
 				vatAmount();
 				
 				tablesumTotals.deleteRow(numberRun);
 				tablesumTotal.deleteRow(numberRun);
+				
 				
 			}
 		}
