@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
-import th.co.maximus.bean.UserBean;
+
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.Utils;
 
