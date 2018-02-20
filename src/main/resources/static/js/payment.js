@@ -47,9 +47,9 @@ $(document).ready(function() {
 				$("#balanceOfTax").val(summary.toFixed(2));
 				// Summary
 				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
-				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
-				$("#vats").val(vat.toFixed(2));
-				$("#balanceOfTaxs").val(summary.toFixed(2));
+//				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
+//				$("#vats").val(vat.toFixed(2));
+//				$("#balanceOfTaxs").val(summary.toFixed(2));
 				
 			});
 			
@@ -419,6 +419,7 @@ function myDeleteDed(count) {
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
 	var result = $("#balanceSummary").val();
+	var summaryTax = $("#summaryTax").val();
 	var summaryTa = parseFloat(0);
 	var balance = $("#balanceSummarys").val();
 
@@ -434,6 +435,8 @@ function myDeleteDed(count) {
 					balance = result;
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
+				
+				
 				$("#balanceSummarys").val(balance.toFixed(2));
 				 
 				vatAmount();
@@ -497,6 +500,13 @@ function addDataTableMoneyTranPrice() {
 	var numberRun = count + number;
 	
 	var money = $("#moneyTran").val();
+	
+	if(money == ""){
+		return $("#moneyTran").focus();
+	}
+	if(money < 0){
+		return $("#moneyTran").focus();
+	}
 	var nameMode = "CC";
 	var nameMode1 = "เงินสด";
 	
@@ -521,7 +531,7 @@ function addDataTableMoneyTranPrice() {
 ////		$("#change").val(parseFloat(0).toFixed(2));
 //	}
 
-//		var moneyT = parseFloat(money - parseFloat(summaryTax));
+		//var moneyT = parseFloat(parseFloat(money) - parseFloat(summaryTax));
 		var markup = "<tr><td>"
 				+ numberRun
 				+ "</td><td>"
@@ -757,6 +767,9 @@ function myDeleteSumCreditTranPrice(numberRun) {
 	var balance = $("#balanceSummarys").val();
 	var sumPrice = $("#balanceSummary").val();
 	var balanceSum = $("#balanceSum").val();
+	var summaryTax = $("#summaryTax").val();
+	var res = parseFloat(0);
+	var chen = $("#change").val();
 	if (tablesumTotals.rows.length > 0) {
 		for (var i = 1; i < tablesumTotals.rows.length; i++) {
 			if (numberRun == i) {
@@ -769,6 +782,11 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				}
 				if(parseFloat(sumPrice) < parseFloat(balance)){
 					balance = parseFloat(sumPrice);
+					$("#change").val(parseFloat(0).toFixed(2));
+				}
+				balance = parseFloat(balance) - parseFloat(summaryTax);
+				res = parseFloat(balance) + parseFloat(chen);
+				if(parseFloat(res) >= parseFloat(sumPrice)  ){
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
 				
