@@ -81,9 +81,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		 jdbcTemplate.update(sql.toString(),  paymentInvoiceManualBean.getManualId(), paymentInvoiceManualBean.getSource(),paymentInvoiceManualBean.getInvoiceNo(),
 				paymentInvoiceManualBean.getBeforVat(),paymentInvoiceManualBean.getVatAmount(),paymentInvoiceManualBean.getAmount(),paymentInvoiceManualBean.getVatRate(),
 				paymentInvoiceManualBean.getCustomerName(),paymentInvoiceManualBean.getCustomerAddress(),paymentInvoiceManualBean.getCustomerSegment(),paymentInvoiceManualBean.getCustomerBranch(),paymentInvoiceManualBean.getTaxNo(),paymentInvoiceManualBean.getSubNo(),paymentInvoiceManualBean.getPeriod(),
-				paymentInvoiceManualBean.getServiceType(),paymentInvoiceManualBean.getClearing(),paymentInvoiceManualBean.getPrintReceipt(),paymentInvoiceManualBean.getRemark());
-//				paymentInvoiceManualBean.getCreateBy(),paymentInvoiceManualBean.getCreateDate(),paymentInvoiceManualBean.getUpdateBy(),paymentInvoiceManualBean.getUpdateDate(),paymentInvoiceManualBean.getRecordStatus(),paymentInvoiceManualBean.getQuantity(),
-//				paymentInvoiceManualBean.getIncometype(),paymentInvoiceManualBean.getDiscountbeforvat(),paymentInvoiceManualBean.getDiscountspecial(),paymentInvoiceManualBean.getAmounttype(),paymentInvoiceManualBean.getDepartment());
+				paymentInvoiceManualBean.getServiceType(),paymentInvoiceManualBean.getClearing(),paymentInvoiceManualBean.getPrintReceipt(),paymentInvoiceManualBean.getRemark(),
+				paymentInvoiceManualBean.getCreateBy(),paymentInvoiceManualBean.getCreateDate(),paymentInvoiceManualBean.getUpdateBy(),paymentInvoiceManualBean.getUpdateDate(),paymentInvoiceManualBean.getRecordStatus(),paymentInvoiceManualBean.getQuantity(),
+				paymentInvoiceManualBean.getIncometype(),paymentInvoiceManualBean.getDiscountbeforvat(),paymentInvoiceManualBean.getDiscountspecial(),paymentInvoiceManualBean.getAmounttype(),paymentInvoiceManualBean.getDepartment());
 		
 	}
 
