@@ -69,7 +69,7 @@ public class PaymentServiceImpl implements PaymentService{
 				}else {
 					zeron ="000"+code;
 				}
-				String codeName = nameCode+posNo+branArea + paymentManualBean.getPaytype()+dates+zeron;		
+				String codeName = nameCode+posNo+branArea + paymentManualBean.getDocType()+dates+zeron;		
 				paymentBean.setDocumentNo(codeName);
 
 			
