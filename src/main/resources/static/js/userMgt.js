@@ -16,7 +16,7 @@ function search() {
 	tUser.clear().draw();
 	var data = '';
 	var dataSend = { "username": $('#name').val() };
-	
+	HoldOn.open();
 	$.ajax({
         type: "POST",
         url: "/userManageMent/search",
@@ -30,7 +30,7 @@ function search() {
                 }
         }
 	})
-	
+	HoldOn.close();
 }
 
 function createRow(data, seq) {
