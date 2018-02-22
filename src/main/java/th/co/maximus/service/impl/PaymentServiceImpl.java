@@ -58,6 +58,7 @@ public class PaymentServiceImpl implements PaymentService{
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 				paymentBean.setDocumentNo(code);
 
+
 			paymentId = paymentManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
