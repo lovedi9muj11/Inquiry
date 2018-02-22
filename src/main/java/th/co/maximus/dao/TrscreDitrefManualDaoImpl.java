@@ -1,7 +1,11 @@
 package th.co.maximus.dao;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,11 +13,15 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrscreDitrefManualBean;
+
 @Repository("TrscreDitrefManualDao")
 public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public TrscreDitrefManualDaoImpl(DataSource dataSource) {
+		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 	
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
@@ -24,6 +32,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId());
 		
 	}
+	
 	private static final class TrscreDitrefManualJoin implements RowMapper<TrscreDitrefManualBean> {
 
 		@Override
@@ -44,6 +53,14 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 			return manualBean;
 		}
 
+	}
+	
+	@Override
+	public List<TrscreDitrefManualBean> trscreDitrefManualFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from trscreditref_manual trscreditref_m where trscreditref_m.ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString(), new TrscreDitrefManualJoin());
 	}
 
 }

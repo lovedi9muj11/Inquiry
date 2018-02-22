@@ -36,9 +36,15 @@ public class PaymentInvoiceManualBean {
 	private  String incometype;       
 	private  BigDecimal discountbeforvat;
 	private  BigDecimal discountspecial;
-	private  String amounttype;   
+	private  String amounttype; 
+	private String accountSubNo;
 	
-	
+	public String getAccountSubNo() {
+		return accountSubNo;
+	}
+	public void setAccountSubNo(String accountSubNo) {
+		this.accountSubNo = accountSubNo;
+	}
 	public Integer getQuantity() {
 		return quantity;
 	}

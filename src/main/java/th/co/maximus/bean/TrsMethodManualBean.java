@@ -25,8 +25,22 @@ public class TrsMethodManualBean {
 	private  Timestamp  updateDate;
 	private  String  recordStatus;
 	private  Long  manualId;
+	private long refId;
+	private long deductionManualId;
 	
 	
+	public long getRefId() {
+		return refId;
+	}
+	public void setRefId(long refId) {
+		this.refId = refId;
+	}
+	public long getDeductionManualId() {
+		return deductionManualId;
+	}
+	public void setDeductionManualId(long deductionManualId) {
+		this.deductionManualId = deductionManualId;
+	}
 	public String getCreateBy() {
 		return createBy;
 	}

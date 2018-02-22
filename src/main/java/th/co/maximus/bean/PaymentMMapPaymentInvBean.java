@@ -29,8 +29,17 @@ public class PaymentMMapPaymentInvBean {
 	private String paidDateStr;
 	private String createDateStr;
 	
+	private String statusCancelPayment;
 	
 	
+	public String getStatusCancelPayment() {
+		return statusCancelPayment;
+	}
+
+	public void setStatusCancelPayment(String statusCancelPayment) {
+		this.statusCancelPayment = statusCancelPayment;
+	}
+
 	public String getCustomerName() {
 		return customerName;
 	}

@@ -34,8 +34,7 @@
 		<ul class="list-inline">
 			<li id="li1">ค้นหาข้อมูลการชำระบริการ</li> >>
 			<li id="li2">ระบุเหตุผลการยกเลิกชำระ</li> >>
-			<li id="li3">สรุปการยกเลิกชำระ</li> >>
-			<li id="li4">ผลการยกเลิกการชำระ</li>
+			<li id="li3">ผลการยกเลิกการชำระ</li>
 		</ul>
 
 		<div class="panel" id="panel1">
@@ -62,8 +61,8 @@
 				<div class="row">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="search" name="search" class="btn btn-primary">Search</button>
-						<button id="clear" name="clear" class="btn btn-danger">Clear</button>
+						<button id="search" name="search" class="btn btn-primary" onclick="search()">ค้นหา</button>
+						<button id="clear" name="clear" class="btn btn-danger" onclick="clearCriteria()">ลบ</button>
 					</div>
 				</div>
 			</div>
@@ -100,32 +99,37 @@
 		</div>
 
 		<div class="panel panel-primary" id="panel2">
-			<div class="panel-heading">ระบุเหตุผลการยกเลิกชำระ</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" id="receiptNo" name="receiptNo" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" id="invoiceNo" name="invoiceNo" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-2">
-						<button id="search" name="search" class="btn btn-primary">Search</button>
-						<button id="clear" name="clear" class="btn btn-danger">Clear</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="panel panel-primary" id="panel3">
 			<div class="panel-heading">สรุปการยกเลิกชำระ</div>
 			<div class="panel-body">
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
+						<div class="col-md-4">
+							<select class="form-control" id="problemCancel"
+								name="userGroup">
+								<option value="">== เลือก ==</option>
+								<option value="01">ลิมไปแล้ว</option>
+								<option value="02">พิมพ์ผิด</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="addressInput">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label text-right">ที่อยู่ลูกค้า</label>
+						<div class="col-md-4">
+							<textarea id="address" name="address" class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="box-footer">
+					<div class="row">
+						<!-- Button -->
+						<div class="col-md-12 text-center">
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary">ตกลง</button>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="box box-solid">
@@ -146,7 +150,8 @@
 							                <th style="text-align: center;">สถานที่รับชำระ</th>
 							                <th style="text-align: center;">ผู้รับชำระ</th>
 							                <th style="text-align: center;">สถานนะ</th>
-							                <th style="text-align: center;"></th>					             
+							                <th style="text-align: center;">ภาษี</th>
+							                <th style="text-align: center;">จำนวนทั้งหมด</th>			             
 								        </tr>
 							    	</thead>
 								</table>
@@ -157,8 +162,7 @@
 			</div>
 		</div>
 		
-
-		<div class="panel panel-primary" id="panel4">
+		<div class="panel panel-primary" id="panel3">
 			<div class="panel-heading">ผลการยกเลิกการชำระ</div>
 			<div class="panel-body">
 				<div class="row">

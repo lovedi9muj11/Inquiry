@@ -2,6 +2,7 @@ package th.co.maximus.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrsChequeRefManualBean;
+
 @Repository("TrsChequeRefManualDao")
 public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 	@Autowired
@@ -53,6 +55,14 @@ public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 			return trsChequeRefManualBean;
 		}
 
+	}
+
+	@Override
+	public List<TrsChequeRefManualBean> findTrachequeFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select * from trschequeref_manual trschequeref_m where trschequeref_m.ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString() , new TrsChequeRefManualJoin());
 	}
 
 }

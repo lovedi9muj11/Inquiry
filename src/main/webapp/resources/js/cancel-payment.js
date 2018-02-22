@@ -1,6 +1,7 @@
 var tableInit;
 var tableSelect;
 var dataSelect;
+var idRow;
 $(document).ready(function () {
     console.log("ready!");
     $("#error").hide();
@@ -21,8 +22,14 @@ $(document).ready(function () {
     
     $('#cancelPaymentTB tbody').on( 'click', '#btn-confirm', function () {
     	 $("#mi-modal").modal('show');
-    	 dataSelect = tableInit.row( $(this).parents('tr') ).data();
+    	 	var data = tableInit.row( $(this).parents('tr') ).data();
+    	 	idRow = data[0];
+       	 	console.log(idRow);
+//    	 dataSelect = tableInit.row( $(this).parents('tr') ).data();
         
+    });
+    $('#btn2').click(function(){
+    	console.log("sssssssssssssssssssssssssss");
     });
     
     $('#cancelPaymentTB tbody').on('click', '#btn', function () {
@@ -69,45 +76,8 @@ $(document).ready(function () {
     	    $("#mi-modal").modal('hide');
     	  });
     	};
-
-    	modalConfirm(function(confirm){
-    	  if(confirm){
-    			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
-    			$.ajax({
-    		        type: "POST",
-    		        url: "/cancelPayment/checkAuthentication",
-    		        data: JSON.stringify(dataSend),
-    		        dataType: "json",
-    		        async: false,
-    		        contentType: "application/json; charset=utf-8",
-    		        success: function (res) {
-    		        	console.log(res);
-    		        	if(!res){
-    		        		createRowSelectCCPayment(dataSelect);
-    		        	}else{
-    		        		$("#error").show();
-    		        	}
-    		        	$('#userName').val('');
-    		        	$('#password').val('');
-    		        }
-    			});
-    	  }else{
-    	    //Acciones si el usuario no confirma
-    		  
-    	  }
-    	});
-    	
+   	
    function createRowSelectCCPayment(data) {
-    		cancelPaymentTB = $('#selectCancelPaymentTB').DataTable({
-    			"filter" : false,
-    			"info" : false,
-    			"columnDefs": [ {
-    				"searchable": false,
-    				"orderable": false,
-//    				"targets": [1,12]
-    			} ]
-    		});
-    		
     		console.log(data);
     		no = data[0];
     		receiptNoManual = data[1];
@@ -120,7 +90,7 @@ $(document).ready(function () {
     		branchCode = data[8];
     		createBy = data[9];
     		recordStatus = data[10];
-    		colBotton = "<button id='btn2' name='btn2' class='btn btn-info'>รายละเอียด</button>";
+    		colBotton = "<button id='btn2' name='btn2' class='btn btn-info' >รายละเอียด</button>";
     		vatAmount = data[12];
     		sumTotal = data[13];
     		
@@ -129,14 +99,101 @@ $(document).ready(function () {
     	    $(rowNode).find('td').eq(0).addClass('left');
     	    $(rowNode).find('td').eq(1).addClass('left');
     	    
-    	    hidePanel();
-    	    showPanel("3");
-    	    removeCssLi();
-    	    addCssLi('3');
+    	
 
     	};
+    	modalConfirm(function(confirm){
+      	  if(confirm){
+      		cancelPaymentTB.clear().draw();
+      			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
+      			$.ajax({
+      		        type: "POST",
+      		        url: "/cancelPayment/checkAuthentication",
+      		        data: JSON.stringify(dataSend),
+      		        dataType: "json",
+      		        async: false,
+      		        contentType: "application/json; charset=utf-8",
+      		        success: function (res) {
+      		        	console.log(res);
+      		        	if(res){
+      		        		$('#selectCancelPaymentTB').DataTable({
+      		        			"filter" : false,
+      		        			"info" : false,
+      		        			"columnDefs": [ {
+      		        				"searchable": false,
+      		        				"orderable": false,
+//      		        				"targets": [1,12]
+      		        			} ]
+      		        		});
+      		        	var dataSend2 = { "manualId": idRow};
+      		     			$.ajax({
+      		     		        type: "POST",
+      		     		        url: "/cancelPayment/findFromId",
+      		     		        data: JSON.stringify(dataSend2),
+      		     		        dataType: "json",
+      		     		        async: false,
+      		     		        contentType: "application/json; charset=utf-8",
+      		     		        success: function (res) {
+      		     		        	for (var i = 0; i < res.length; i++) {
+      		     		        		createRowSelect(res[i], i, "selectCancelPaymentTB");
+      		     		            }
+      		     		        }
+      		     			});
+      		     			showTableSelect();
+      		     			$("#addressInput").hide();
+      		     			$('#submitCancelPM').prop('disabled', true);
+      		        	}else{
+      		        		$("#error").show();
+      		        	    hidePanel()
+      		        	    showPanel('1');
+      		        	    removeCssLi();
+      		        	    addCssLi('1');
+      		        	    search();
+      		        	}
+      		        	$('#userName').val('');
+      		        	$('#password').val('');
+      		        }
+      			});
+      			
+
+      	  }else{
+      		  
+      	  }           	
+      });
+    	$("#address" ).change(function() {
+    		if($('#address').val() != ''){
+    			$('#submitCancelPM').prop('disabled', false);
+    		}else{
+    			$('#submitCancelPM').prop('disabled', true);
+    		}
+    	}); 
+    	
+	$( "#problemCancel" ).change(function() {
+		var valueSelect =  $('#problemCancel').val();
+		if(valueSelect == "02"){
+			$("#addressInput").show();
+			$('#submitCancelPM').prop('disabled', true);
+		}else if(valueSelect == ''){
+			$("#addressInput").hide();
+			$('#address').val("");
+			$('#submitCancelPM').prop('disabled', true);
+		}else if(valueSelect == '01'){
+			$("#addressInput").hide();
+			$('#address').val("");
+			$('#submitCancelPM').prop('disabled', false);
+		}
+		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+$('#problemCancel').val());
+	}); 	
     
 });
+
+
+function showTableSelect(){
+    hidePanel();
+    showPanel("2");
+    removeCssLi();
+    addCssLi('2');
+};
 //function showDetail(){
 //    var tr = $(this).closest('tr');
 //    var row = tableSelect.row(tr);
@@ -156,7 +213,7 @@ $(document).ready(function () {
 function search() {
 	cancelPaymentTB.clear().draw();
 	var data = '';
-	var dataSend = { "receiptNoManual": $('#receiptNo').val(), "invoiceNo": $('#invoiceNo').val() };
+	var dataSend = { "receiptNoManual": $('#billNumber').val(), "invoiceNo": $('#receiptNumber').val() };
 	$.ajax({
         type: "POST",
         url: "/cancelPayment/find",
@@ -166,14 +223,20 @@ function search() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	for (var i = 0; i < res.length; i++) {
-                    createRow(res[i], i);
+                    createRow(res[i], i, "cancelPaymentTB");
                 }
         }
 	})
 };
 
+function clearCriteria(){
+	$('#billNumber').val('');
+	$('#receiptNumber').val('');
+	search();
+};
+
 function createRow(data, seq, table) {
-	no = seq + 1
+	no = data.manualId
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr;
 	dateMake = data.createDateStr;
@@ -188,12 +251,35 @@ function createRow(data, seq, table) {
 	vatAmount = formatDouble(data.vatAmount,2);
 	sumTotal =  data.amount + data.vatAmount;
 	
-	tableInit = $('#cancelPaymentTB').DataTable();
+	tableInit = $('#'+table).DataTable();
     var rowNode = tableInit.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, colBotton, vatAmount, sumTotal]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('left');
     $(rowNode).find('td').eq(1).addClass('left');
 
 };
+
+function createRowSelect(data, seq, table) {
+	no = data.manualId
+	receiptNoManual = data.receiptNoManual;
+	createDate = data.createDateStr;
+	dateMake = data.createDateStr;
+	invoiceNo = data.invoiceNo;
+	customer = data.customerName;
+	payType = data.payType;
+	amount = formatDouble(data.amount,2);
+	branchCode = data.branchCode;
+	createBy = data.createBy;
+	recordStatus = data.recordStatus;
+	vatAmount = formatDouble(data.vatAmount,2);
+	sumTotal =  data.amount + data.vatAmount;
+	tableSelect = $('#'+table).DataTable();
+    var rowNode = tableSelect.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
+    $(rowNode).find('td').eq(0).addClass('left');
+    $(rowNode).find('td').eq(1).addClass('left');
+
+};
+
+
 
 function format(d) {
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
