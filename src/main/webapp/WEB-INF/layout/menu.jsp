@@ -10,7 +10,7 @@
 				<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
 
-			        <li class="active"><a href="/">หน้าจอหลัก<span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-home">
+			        <li class=""><a href="/">หน้าจอหลัก<span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-home">
 			        </span></a></li>
 
 					<c:if test="${pageContext.request.userPrincipal.name == 'admins'}">

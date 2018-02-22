@@ -44,7 +44,6 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		paymentInvoiceManualBean.setUpdateBy("ADMIN");
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
-		paymentInvoiceManualBean.setAmounttype(paymentBean.getVatRadio());
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getInputCustomerTaxNo());
 		paymentInvoiceManualBean.setCustomerName(paymentBean.getInputCustomerName());
 		paymentInvoiceManualBean.setCustomerAddress(paymentBean.getInputCustomerAddress());
@@ -64,6 +63,7 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setDiscountspecial(paymentBillBean.getInputSpecialDiscount());
 				paymentInvoiceManualBean.setDepartment(paymentBillBean.getInputServiceDepartment());
 				paymentInvoiceManualBean.setVatRate(paymentBillBean.getVatrate());
+				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getVatRadio());
 				
 				
 

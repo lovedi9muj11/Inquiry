@@ -160,6 +160,7 @@ function submitForm(){
 			"inputServiceDeduction" : resultBill[c][8],
 			"inputSpecialDiscount" : resultBill[c][9],
 			"inputServiceAmount" : resultBill[c][10],
+			"vatRadio" : resultBill[c][11]
 			}
 			
 		
@@ -193,7 +194,7 @@ function submitForm(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res.length > 0){
-        		window.location.href = "xxx?idUser=" +res;
+        		window.location.href = "payOtherSuccess?idUser=" +res;
         	}
         }
 	})
@@ -608,12 +609,21 @@ function buttonAddBillingList() {
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDeduction = $("#inputServiceDeduction").val();
 	var vatrate = $("#vatrate").val();
+	var radioButtons = document.getElementsByName("vatRadio");
+	var radioResult = "";
+	
+	
+	for (var z = 0; z < radioButtons.length; z++) {
+		if (radioButtons[z].checked) {
+			radioResult = radioButtons[z].value;
+		}
+	}
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceDeduction+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceDeduction+ "</td><td>"+ radioResult+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
 	

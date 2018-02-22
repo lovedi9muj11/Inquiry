@@ -47,6 +47,20 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else{
 				paymentManualBean.setPaytype("P");
 			}
+			
+			if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
+				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+					paymentManualBean.setDocType("F");
+				}else {
+					paymentManualBean.setDocType("S");
+				}
+			}else if(paymentBean.getUserGroup().equals("03")) {
+				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+					paymentManualBean.setDocType("F");
+				}else {
+					paymentManualBean.setDocType("S");
+				}
+			}
 
 			
 			try {

@@ -15,7 +15,16 @@ public class PaymentBillBean implements Serializable{
 	private double inputServiceAmount;
 	private BigDecimal inputServiceDeduction;
 	private Integer vatrate;
+	private String vatRadio;
 	
+	
+	
+	public String getVatRadio() {
+		return vatRadio;
+	}
+	public void setVatRadio(String vatRadio) {
+		this.vatRadio = vatRadio;
+	}
 	private double inputsumWt;
 	
 	public double getInputsumWt() {

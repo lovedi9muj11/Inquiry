@@ -175,8 +175,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="radio col-sm-2 col-sm-offset-2">
-                                        <label><input type="radio" name="vatRadio" value="exclude" checked><b>ก่อน vat</b></label>
-                                        <label><input type="radio" name="vatRadio" value="include"><b>หลัง vat</b> </label>
+                                        <label><input type="radio" name="vatRadio" id="vatRadio" value="exclude" ><b>ก่อน vat</b></label>
+                                        <label><input type="radio" name="vatRadio" id="vatRadio" value="include"><b>หลัง vat</b> </label>
                                     </div>
                                 </div>
                             </div>
@@ -206,6 +206,7 @@
                                     <th >ภาษีหัก ณ ที่จ่าย</th>
                                     <th >ส่วนลดพิเศษ</th>
                                     <th >ยอดเงินรวม</th>
+                                    <th >ประเภท vat</th>
                                 </tr>
                                 </thead>
                                 <tbody>
