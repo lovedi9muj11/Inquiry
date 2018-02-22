@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
@@ -25,25 +26,24 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 		Date date = new Date();
 		int userId=0;
 		if(StringUtils.isNotBlank(paymentBean.getInputCustomerBillNo())){
-			//paymentManualBean.setInvoiceNo(paymentBean.getInputCustomerBillNo());
-			paymentManualBean.setReceiptNoManual(paymentBean.getInputCustomerBranch());
-			paymentManualBean.setBrancharea("CAT นนทบุรี");
+			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
+			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode("001");
 			paymentManualBean.setPaidAmount(paymentBean.getSummaryTax());
-			paymentManualBean.setSource("OFFLINE");
+			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getInputAdditionalRemark());
-			paymentManualBean.setCreateBy("ADMIN");
+			paymentManualBean.setCreateBy(Constants.dataUser.NAME_USER);
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-			paymentManualBean.setUpdateBy("ADMIN");
+			paymentManualBean.setUpdateBy(Constants.dataUser.NAME_USER);
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setAccountNo(paymentBean.getInputCustomerBillNo());
 			
 			if(paymentBean.getBalanceSummary()>= paymentBean.getBalanceSummary()){
-				paymentManualBean.setPaytype("เต็มจำนวน");
+				paymentManualBean.setPaytype("F");
 			}else{
-				paymentManualBean.setPaytype("ไม่เต็มจำนวน");
+				paymentManualBean.setPaytype("P");
 			}
 			
 			try {
