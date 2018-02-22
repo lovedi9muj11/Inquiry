@@ -25,8 +25,7 @@ public class PaymentController {
 	private PaymentService paymentService;
 
 	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
-	public String registration(Model model) {
-		// model.addAttribute("userForm", new User());
+	public String registration() {
 
 		return "payment";
 	}

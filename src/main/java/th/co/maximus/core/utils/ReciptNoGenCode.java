@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,12 +12,26 @@ import org.springframework.stereotype.Repository;
 public class ReciptNoGenCode {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	public int genCodeRecipt() {
+	@Value("${text.prefix}")
+	private String nameCode;
+	@Value("${text.posno}")
+	private String posNo;
+	@Value("${text.branarea}")
+	private String branArea;
+	
+	public String genCodeRecipt(String docType) {
 		StringBuilder sql = new StringBuilder();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
 		String date = sdf.format(new Date());
+		
+		
 		int result = 0;
+		
+		
+		SimpleDateFormat datea = new SimpleDateFormat("yyMMdd");
+		String dateS = datea.format(new Date());
+		
+		String dates=convertDateString(dateS);
 		try {
 
 			sql.append(" SELECT COUNT(pm.RECEIPT_NO_MANUAL) AS ReciptCount FROM payment_manual pm ");
@@ -27,10 +41,23 @@ public class ReciptNoGenCode {
 					.append(" 23:59:59.999999' ");
 			result = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
 		} catch (Exception e) {
-			return result;
+			String zeron = "";
+			if(result >9) {
+				zeron ="00"+result;
+			}else {
+				zeron ="000"+result;
+			}
+			String codeName = nameCode+posNo+branArea + docType+dates+zeron;		
+			return codeName;
 		}
-
-		return result;
+		String zeron = "";
+		if(result >9) {
+			zeron ="00"+result;
+		}else {
+			zeron ="000"+result;
+		}
+		String codeName = nameCode+posNo+branArea + docType+dates+zeron;		
+		return codeName;
 	}
 
 	public static final String convertDateString(String str) {

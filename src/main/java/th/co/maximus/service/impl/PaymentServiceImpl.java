@@ -38,7 +38,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {
 		int paymentId =0;
-		int code = reciptNoGenCode.genCodeRecipt();
+		
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
 				
@@ -55,26 +55,9 @@ public class PaymentServiceImpl implements PaymentService{
 						paymentManualBean.setDocType("S");
 					}
 				}
-				
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
-				String dateS = sdf.format(new Date());
-				
-				String dates=convertDateString(dateS);
+				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
+				paymentBean.setDocumentNo(code);
 
-				 
-				String zeron = "";
-				if(code >9) {
-					zeron ="00"+code;
-				}else {
-					zeron ="000"+code;
-				}
-				String codeName = nameCode+posNo+branArea + paymentManualBean.getDocType()+dates+zeron;		
-				paymentBean.setDocumentNo(codeName);
-
-			
-			
-			
 			paymentId = paymentManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
