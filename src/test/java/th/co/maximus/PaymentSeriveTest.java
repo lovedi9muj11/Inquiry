@@ -106,7 +106,6 @@ public class PaymentSeriveTest{
 	@Rollback
 	public void genCode() {
 		
-	reciptNoGenCode.genCodeRecipt();
 
 	}
 

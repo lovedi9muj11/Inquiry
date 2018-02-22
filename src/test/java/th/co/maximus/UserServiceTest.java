@@ -33,13 +33,12 @@ public class UserServiceTest {
 		User bean = userRepository.findByUsername("admin");
 		assertThat(bean).isNotNull();
 	}
-	@Ignore
+	
 	@Test
-	@Rollback
 	public void save() {
 		User bean = new User();
 		bean.setPassword("password");
-		bean.setUsername("admins");
+		bean.setUsername("epis11");
 		bean.setPasswordConfirm("password");
 		bean.setRoles(roleRepository.findAll());
 		userService.save(bean);
