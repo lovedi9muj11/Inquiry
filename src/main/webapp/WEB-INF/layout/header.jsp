@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../commons/sMainStyles.jsp"></jsp:include>
 
-<script src="lib/holdon/HoldOn.js"></script>
-
 <div id="wrapper">
 	<nav class="navbar navbar-inverse top-bar navbar-fixed-top" style="background-color: #ee7600;">
 	    <div class="container-fluid">
