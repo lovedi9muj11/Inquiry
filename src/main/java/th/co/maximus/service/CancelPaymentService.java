@@ -11,6 +11,6 @@ public interface CancelPaymentService {
 	
 	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo);
 	
-	public void insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
+	public boolean insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
 	
 }

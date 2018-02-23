@@ -76,12 +76,6 @@ public class CancelPaymentController {
 	@RequestMapping(value = {"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
-		boolean result = false;
-		if ("01".equals(creteria.getStatusCancelPayment())) {
-			//update
-		} else if ("02".equals(creteria.getStatusCancelPayment())) {
-			
-		}
-		return result;
+		return cancelPaymentService.insertAndUpdateCancelPayment(creteria);
 	}
 }

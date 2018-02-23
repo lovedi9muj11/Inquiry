@@ -30,8 +30,17 @@ public class PaymentMMapPaymentInvBean {
 	private String createDateStr;
 	
 	private String statusCancelPayment;
+	private String addressNewCancelPayment;
 	
 	
+	public String getAddressNewCancelPayment() {
+		return addressNewCancelPayment;
+	}
+
+	public void setAddressNewCancelPayment(String addressNewCancelPayment) {
+		this.addressNewCancelPayment = addressNewCancelPayment;
+	}
+
 	public String getStatusCancelPayment() {
 		return statusCancelPayment;
 	}

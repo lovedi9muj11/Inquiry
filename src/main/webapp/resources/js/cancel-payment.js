@@ -4,7 +4,7 @@ var dataSelect;
 var idRow;
 $(document).ready(function () {
     console.log("ready!");
-    $("#error").hide();
+
 	cancelPaymentTB = $('#cancelPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
@@ -14,6 +14,8 @@ $(document).ready(function () {
 //			"targets": [1,12]
 		} ]
 	});
+    $("#error").hide();
+    $("#success").hide();
     hidePanel()
     showPanel('1');
     removeCssLi();
@@ -296,7 +298,7 @@ function format(d) {
 			    '<tr>'+
 			        '<th style="text-align: left;">'+'invoiceNo :'+d[4]+'</th>'+
 			        '<th style="text-align: right;">'+d[7]+'</th>'+
-			        '<th style="text-align: right;">'+d[0]+'</th>'+
+			        '<th style="text-align: right;">'+"-"+'</th>'+
 			        '<th style="text-align: right;">'+d[12]+'</th>'+
 			        '<th style="text-align: right;">'+d[13]+'</th>'+
 			    '</tr>'+
@@ -304,7 +306,33 @@ function format(d) {
 		'</table>';
 };
 
-
+function submitCancelPayment(){
+	var dataSet = {
+			"manualId" : idRow,
+			"statusCancelPayment":$('#problemCancel').val(),
+			"addressNewCancelPayment": $('#address').val()
+	};
+	$.ajax({
+	        type: "POST",
+	        url: "/cancelPayment/updateStatus",
+	        data: JSON.stringify(dataSet),
+	        dataType: "json",
+	        async: false,
+	        contentType: "application/json; charset=utf-8",
+	        success: function (res) {
+	        	if(res){
+	        		$("#success").show();
+	        	    hidePanel()
+	        	    showPanel('1');
+	        	    removeCssLi();
+	        	    addCssLi('1');
+	        		search();
+	        	}else{
+	        		$("#error").show();
+	        	}
+	        }
+		});
+};
 
 
 function addCssLi(select) {
@@ -327,6 +355,7 @@ function hidePanel(){
     $("#panel3").hide();
     $("#panel4").hide();
 };
+
 
 
 

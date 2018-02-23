@@ -31,6 +31,10 @@
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	    <strong>Error : </strong> รหัสผ่านไม่ถูกต้อง
 	  </div>
+	  <div name="success" id="success"  class="alert alert-success alert-dismissable fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    <strong>ยกเลิกรายการสำเร็จ</strong>
+	  </div>
 		<ul class="list-inline">
 			<li id="li1">ค้นหาข้อมูลการชำระบริการ</li> >>
 			<li id="li2">ระบุเหตุผลการยกเลิกชำระ</li> >>
@@ -126,7 +130,7 @@
 					<div class="row">
 						<!-- Button -->
 						<div class="col-md-12 text-center">
-							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary">ตกลง</button>
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary" onclick="submitCancelPayment()">ตกลง</button>
 						</div>
 					</div>
 				</div>

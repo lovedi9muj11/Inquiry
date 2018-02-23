@@ -32,7 +32,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A'");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A'");
 			
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
@@ -91,7 +91,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
-		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND payment_m.ACCOUNT_NO like ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND payment_m.ACCOUNT_NO like ");
 		sql.append("'%"+ accountNo+ "%'");
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
@@ -101,7 +101,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
-		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND ");
 		sql.append(" payment_m.MANUAL_ID  =  ");
 		sql.append(manual_id);
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
@@ -112,7 +112,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
-		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND ");
 		if(receiptNo != "" && "".equals(invoiceNo)) {
 			sql.append(" payment_m.RECEIPT_NO_MANUAL = ");
 			sql.append("'"+receiptNo+"'");
@@ -132,12 +132,12 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	}
 
 	@Override
-	public void updateRecodeStatusFromReceiptNo(String status, long receiptNo) {
+	public void updateRecodeStatusFromReceiptNo(String status, long manualId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" UPDATE payment_manual payment_m ");
 		sql.append(" SET payment_m.RECORD_STATUS =  ? ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
-		jdbcTemplate.update(sql.toString(), status, receiptNo);
+		jdbcTemplate.update(sql.toString(), status, manualId);
 		
 	}
 
@@ -186,6 +186,15 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			return paymentInvoice;
 		}
 
+	}
+
+	@Override
+	public void updateStatusPaymentInvoice(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" UPDATE payment_invoice_manual payment_m ");
+		sql.append(" SET payment_m.RECORD_STATUS =  'C' ");
+		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
+		jdbcTemplate.update(sql.toString(), manualId);
 	}
 
 }
