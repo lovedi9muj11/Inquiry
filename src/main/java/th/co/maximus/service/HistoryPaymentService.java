@@ -11,5 +11,5 @@ public interface HistoryPaymentService {
 	
 	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo);
 	
-	public PaymentMMapPaymentInvBean findPayOrder(HistorySubFindBean paymentInvBean);
+	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean);
 }

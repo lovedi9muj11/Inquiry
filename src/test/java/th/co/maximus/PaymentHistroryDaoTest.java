@@ -58,8 +58,8 @@ public class PaymentHistroryDaoTest {
 		historySubFindBean.setUser("ADMIN");
 		historySubFindBean.setVatRate(7);
 		historySubFindBean.setPayType("IBASS");
-		PaymentMMapPaymentInvBean result = paymentInvoiceManualDao.findPayOrder(historySubFindBean);
+		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPayOrder(historySubFindBean);
 		
-		assertThat(result).isNotNull();
+		assertThat(result).isNotEmpty();
 	}
 }

@@ -41,8 +41,8 @@ public class HistroryPaymentController {
 	  
 	  @RequestMapping(value = {"/histroryPayment/payOrder"}, method = RequestMethod.POST, produces = "application/json")
 	  @ResponseBody
-	    public PaymentMMapPaymentInvBean payOrder(@RequestBody HistorySubFindBean creteria) {
-		  PaymentMMapPaymentInvBean result = new PaymentMMapPaymentInvBean();
+	    public List<PaymentMMapPaymentInvBean> payOrder(@RequestBody HistorySubFindBean creteria) {
+		  List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		  if(creteria != null) {
 			  result = paymentManualService.findPayOrder(creteria);
 		  }

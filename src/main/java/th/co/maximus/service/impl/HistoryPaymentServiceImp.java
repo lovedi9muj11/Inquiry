@@ -43,8 +43,8 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	}
 
 	@Override
-	public PaymentMMapPaymentInvBean findPayOrder(HistorySubFindBean paymentInvBean) {
-		PaymentMMapPaymentInvBean result = new PaymentMMapPaymentInvBean();
+	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean) {
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		result = paymentInvoiceManualDao.findPayOrder(paymentInvBean);
 		return result;
 	}

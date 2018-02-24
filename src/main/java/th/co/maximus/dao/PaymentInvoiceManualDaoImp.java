@@ -160,7 +160,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	}
 
 	@Override
-	public PaymentMMapPaymentInvBean findPayOrder(HistorySubFindBean paymentInvBean) {
+	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual pm");
 		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
@@ -170,7 +170,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		sql.append("' and pim.VAT_RATE = "+paymentInvBean.getVatRate());
 		sql.append(" and pm.UPDATE_BY = '"+paymentInvBean.getUser());
 		sql.append("' and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
-		return jdbcTemplate.queryForObject(sql.toString() , new PaymentManual());
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
 	
 	private static final class PaymentInvoice implements RowMapper<PaymentInvoiceManualBean> {
