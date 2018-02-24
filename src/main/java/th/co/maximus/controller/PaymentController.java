@@ -2,6 +2,8 @@ package th.co.maximus.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,7 @@ public class PaymentController {
 	@RequestMapping(value = "/paymentSuccess", method = RequestMethod.GET)
 	public String paymentSuccess(Model model,int idUser,HttpServletRequest request) throws Exception {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
 		Utils utils = new Utils();
 		if(idUser>0){
 			paymentResultReq=	paymentService.findByid(idUser);
@@ -44,8 +47,20 @@ public class PaymentController {
 			}else {
 				paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
 			}
+			
+			
 			paymentResultReq.setBalancePrice(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setPeriod(utils.periodFormat(paymentResultReq.getPeriod()));
+			
+			Date date =  paymentResultReq.getInvoiceDate();
+			String invoiceDate = dt.format(date);
+			
+			Date dateLineDate =  paymentResultReq.getDateLine();
+			String dateLineSt = dt.format(dateLineDate);
+			
+			paymentResultReq.setInvoiceDateRS(invoiceDate);
+			paymentResultReq.setDateLineRS(dateLineSt);
+			
 			request.setAttribute("paymentResultReq",paymentResultReq);  
 		}
 		

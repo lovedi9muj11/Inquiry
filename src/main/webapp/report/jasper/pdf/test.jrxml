@@ -29,7 +29,7 @@
 			<staticText>
 				<reportElement x="33" y="0" width="485" height="23" uuid="8b6050d9-ff58-460f-bc70-a5831e924167"/>
 				<textElement textAlignment="Center">
-					<font fontName="FreesiaUPC"/>
+					<font fontName="FreesiaUPC" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี  HELLOW]]></text>
 			</staticText>

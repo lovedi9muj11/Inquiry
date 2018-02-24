@@ -18,7 +18,7 @@ public class PaymentTranPriceBean implements Serializable {
 	private String bankNo;
 	private String checkNo;
 	private String bankName;
-	private Date dateCheck;
+	private String dateCheck;
 	private String branchCheck;
 	private double moneyCheck;
 	public String getTypePayment() {
@@ -75,10 +75,12 @@ public class PaymentTranPriceBean implements Serializable {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-	public Date getDateCheck() {
+
+	
+	public String getDateCheck() {
 		return dateCheck;
 	}
-	public void setDateCheck(Date dateCheck) {
+	public void setDateCheck(String dateCheck) {
 		this.dateCheck = dateCheck;
 	}
 	public String getBranchCheck() {

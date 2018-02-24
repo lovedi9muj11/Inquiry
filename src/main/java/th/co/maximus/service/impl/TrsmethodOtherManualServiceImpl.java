@@ -80,6 +80,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+							Date date1 = new Date(paymentTranPriceBean.getDateCheck());
 							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
 							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
 							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());
@@ -87,7 +88,8 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 							trsChequeRefManualBean.setaMount(paymentTranPriceBean.getMoneyCheck());
 							trsChequeRefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 							trsChequeRefManualBean.setVersionStamp(1L);
-							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+//							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+							trsChequeRefManualBean.setCheDate(date1);
 							trsChequeRefManualBean.setMethodManualId(Long.valueOf(idTrsMethod));
 							
 							trsChequeRefManualDao.insert(trsChequeRefManualBean);

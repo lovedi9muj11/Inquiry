@@ -30,9 +30,11 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 	@Override
 	public int insertTrsmethodManual(PaymentFirstBean paymentBean,int userId) {
 		Date date = new Date();
+		
 		int idTrsMethod = 0;
 		if(paymentBean.getPaymentTranPrice().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
+				
 				PaymentTranPriceBean paymentTranPriceBean = new PaymentTranPriceBean();
 				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
 				TrscreDitrefManualBean trscreDitrefManualBean = new TrscreDitrefManualBean();
@@ -83,6 +85,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+							Date date1 = new Date(paymentTranPriceBean.getDateCheck());
 							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
 							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
 							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());
@@ -90,7 +93,8 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 							trsChequeRefManualBean.setaMount(paymentTranPriceBean.getMoneyCheck());
 							trsChequeRefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 							trsChequeRefManualBean.setVersionStamp(1L);
-							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+//							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
+							trsChequeRefManualBean.setCheDate(date1);
 							trsChequeRefManualBean.setMethodManualId(Long.valueOf(idTrsMethod));
 							
 							trsChequeRefManualDao.insert(trsChequeRefManualBean);

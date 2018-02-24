@@ -14,6 +14,7 @@
 <link href="css/payment.css" rel="stylesheet">
 <script src="js/utils.js"></script>
 <script src="js/payment.js"></script>
+<script src="lib/autoNumeric-1.7.4.js"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -82,8 +83,13 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">สาขา :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="custBrach"
-														name="custBrach" placeholder="สาขา">
+													<select class="form-control" id="custBrach"
+														name="custBrach">
+														<option value="">== เลือก ==</option>
+														<option value="นนทุบรี -แคราย">นนทุบรี -แคราย</option>
+														<option value="แจ้งวัฒนะ">แจ้งวัฒนะ</option>
+														<option value="เชียงราย">เชียงราย</option>
+													</select> 
 													<p id="scustBrach" style="color: red;"> คุณยังไม่ได้กรอก สาขา</p>
 												</div>
 
@@ -107,9 +113,14 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
 												<div class="col-sm-2">
-													<input type="text" id="typeahead" class="form-control"
-														style="width: 157%;" placeholder="หน่วยงานติดตามหนี้"
-														name="debtCollection ">
+														<select class="form-control" id="debtCollection"
+														name="debtCollection">
+														<option value="">== เลือก ==</option>
+														<option value="ตร.">ตร.</option>
+														<option value="กม.">กม.</option>
+														<option value="ปง.">ปง.</option>
+														<option value="ทต.">ทต.</option>
+													</select> 
 														<p id="sdebtCollection" style="color: red;"> คุณยังไม่ได้เลือก  หน่วยงานติดตามหนี้</p>
 
 												</div>
@@ -191,7 +202,7 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดก่อนภาษี :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text"
+													<input class="form-control numeric2point" type="text"
 														id="balanceBeforeTax" name="balanceBeforeTax" readonly="">
 												</div>
 											</div>
@@ -202,7 +213,7 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="vat" name="vat"
+													<input class="form-control numeric2point" type="text" id="vat" name="vat"
 														readonly="">
 												</div>
 											</div>
@@ -213,7 +224,7 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">จำนวนเงินรวมภาษี :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="balanceOfTax"
+													<input class="form-control numeric2point" type="text" id="balanceOfTax"
 														name="balanceOfTax" readonly="">
 
 												</div>
@@ -225,8 +236,8 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดชำระ :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="balanceSummary"
-														name="balanceSummary">
+													<input class="form-control numeric2point" type="text" id="balanceSummary"
+														name="balanceSummary" >
 												</div>
 											</div>
 										</div>
@@ -262,11 +273,11 @@
 													for="formGroupInputLarge">ประเภทภาษีหัก ณ ที่จ่าย :</label>
 												<div class="col-sm-6">
 													<label> <input type="radio" name="radioDed"
-														id="radioDedCD" value="69tv" checked> 69 ทวิ
+														id="radioDedCD" value="01" checked> 69 ทวิ
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCC" value="3d"> 3 เดรส
+														id="radioDedCC" value="02"> 3 เตรส
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCT" value="39tr"> 69 ดริ
+														id="radioDedCT" value="03"> 69 ดริ
 													</label>
 												</div>
 											</div>
@@ -286,7 +297,7 @@
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">จำนวนเงิน :</label>
 												<div class="col-sm-6">
-													<input class="form-control" type="text" id="moneyDed"
+													<input class="form-control numeric2point" type="text" id="moneyDed"
 														name="paymentTax.moneyDed" placeholder="จำนวนเงิน">
 												</div>
 											</div>
@@ -361,7 +372,7 @@
 													<label class="col-sm-8 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text"
+														<input class="form-control numeric2point" type="text"
 															placeholder="จำนวนเงิน" id="moneyTran"
 															name="paymentTranPrice.moneyTran">
 													</div>
@@ -385,7 +396,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่บัตร:</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="creditNo"
+														<input class="form-control" type="text" id="creditNo" maxlength="16"
 															name="paymentTranPrice.creditNo" placeholder="เลขที่บัตร">
 													</div>
 												</div>
@@ -404,11 +415,11 @@
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
-														for="formGroupInputLarge">จำนวเนเงิน :</label>
+														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="creditPrice"
+														<input class="form-control numeric2point" type="text" id="creditPrice"
 															name="paymentTranPrice.creditPrice"
-															placeholder="จำนวเนเงิน">
+															placeholder="จำนวนเงิน">
 													</div>
 												</div>
 											</div>
@@ -460,7 +471,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่เช็ค:</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="checkNo"
+														<input class="form-control" type="text" id="checkNo" maxlength="7"
 															name="paymentTranPrice.checkNo" placeholder="เลขที่เช็ค">
 													</div>
 												</div>
@@ -497,7 +508,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="moneyCheck"
+														<input class="form-control numeric2point" type="text" id="moneyCheck"
 															name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
 													</div>
@@ -640,6 +651,29 @@
 												</div>
 												<div class="col-sm-3"></div>
 												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด
+													:</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text"
+														id="beforeSale" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ส่วนลด :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id="sale"
+														readonly="" value="0.00" >
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
@@ -686,10 +720,39 @@
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดเงินที่ชำระ :</label>
+													for="formGroupInputLarge">ค่าธรรมเนียม :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="balanceSum"
-														readonly="">
+													<input class="form-control" type="text" id=""
+														name="" value="0.00" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ค่าปรับ :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id=""
+														name="" value="0.00" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+
+											<div class="form-group ">
+												<div class="col-sm-7"></div>
+												<div class="col-sm-1" align="right">
+													<input type="radio" id="radioButton" readonly="">
+													รับภาระภาษีเต็มจำนวน
+												</div>
+												<div class="col-sm-1" align="right">
+													<input type="radio" id="radioButtons" readonly="">
+													รับภาระภาษีบางส่วน
+												</div>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id="" name=""
+														value="0.00" readonly="">
 												</div>
 											</div>
 										</div>
@@ -708,10 +771,43 @@
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ยอดเงินรับมา :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id="balanceSum"
+														readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">เงินทอน :</label>
 												<div class="col-sm-3">
 													<input class="form-control" type="text"
 														id="change" readonly="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+
+											<div class="form-group ">
+												<div class="col-sm-6"></div>
+												<div class="col-sm-1" align="right">
+													<input type="radio" id="radioButton1" readonly="">
+													รายได้อื่นที่ไม่มีภาษี
+												</div>
+												<div class="col-sm-1" align="right">
+													<input type="radio" id="radioButton2" readonly="">
+													รายได้อื่นมีภาษี
+												</div>
+												<div class="col-sm-1" align="right">
+													<input type="radio" id="radioButton3" readonly="">
+													รับชำระล่วงหน้า
+												</div>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id="" name=""
+														value="0.00" readonly="">
 												</div>
 											</div>
 										</div>

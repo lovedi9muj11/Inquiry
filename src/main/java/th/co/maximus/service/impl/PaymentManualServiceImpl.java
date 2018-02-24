@@ -31,7 +31,14 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode("001");
-			paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()+paymentBean.getSummaryTax());
+			
+			double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
+			if(resRQ > paymentBean.getBalanceSum()) {
+				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum());
+			}else {
+				paymentManualBean.setPaidAmount(resRQ);
+			}
+			
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());

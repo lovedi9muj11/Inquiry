@@ -1,6 +1,7 @@
 package th.co.maximus.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class TrsChequeRefManualBean {
 	private  Long   Id;
@@ -18,6 +19,7 @@ public class TrsChequeRefManualBean {
 	private  Timestamp   reverseArDate;
 	private  String   bounceStatus;
 	private  Long   methodManualId;
+	private Date cheDate;
 	public Long getId() {
 		return Id;
 	}
@@ -109,6 +111,13 @@ public class TrsChequeRefManualBean {
 	public void setMethodManualId(Long methodManualId) {
 		this.methodManualId = methodManualId;
 	}
+	public Date getCheDate() {
+		return cheDate;
+	}
+	public void setCheDate(Date cheDate) {
+		this.cheDate = cheDate;
+	}
+
 	
 	
 }

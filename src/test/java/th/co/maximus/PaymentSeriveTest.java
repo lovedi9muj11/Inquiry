@@ -83,7 +83,7 @@ public class PaymentSeriveTest{
 		tbean.setBankNo("");
 		tbean.setBranchCheck("");
 		tbean.setCreditPrice(500);
-		tbean.setDateCheck(new Timestamp(date.getTime()));
+		//tbean.setDateCheck(new Timestamp(date.getTime()));
 		paymentTaxBean.setInvoiceNo("1234");
 		paymentTaxBean.setDocDed("DFDSF44");
 		paymentTaxBean.setMoneyDed(500);

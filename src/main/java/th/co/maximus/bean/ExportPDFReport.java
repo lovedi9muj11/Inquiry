@@ -19,6 +19,7 @@ public class ExportPDFReport {
 	private String paymentCode;
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
+	private String dateDocument;
 	public String getBranArea() {
 		return branArea;
 	}
@@ -108,6 +109,12 @@ public class ExportPDFReport {
 	}
 	public void setVat(BigDecimal vat) {
 		this.vat = vat;
+	}
+	public String getDateDocument() {
+		return dateDocument;
+	}
+	public void setDateDocument(String dateDocument) {
+		this.dateDocument = dateDocument;
 	}
 	
 	

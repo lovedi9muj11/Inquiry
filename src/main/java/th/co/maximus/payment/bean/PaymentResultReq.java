@@ -12,6 +12,8 @@ public class PaymentResultReq {
 	private String invoiceNo;
 	private Date invoiceDate;
 	private Date dateLine;
+	private String invoiceDateRS;
+	private String dateLineRS;
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
 	private BigDecimal balanceOfvat;
@@ -143,6 +145,22 @@ public class PaymentResultReq {
 
 	public void setPeriod(String period) {
 		this.period = period;
+	}
+
+	public String getInvoiceDateRS() {
+		return invoiceDateRS;
+	}
+
+	public void setInvoiceDateRS(String invoiceDateRS) {
+		this.invoiceDateRS = invoiceDateRS;
+	}
+
+	public String getDateLineRS() {
+		return dateLineRS;
+	}
+
+	public void setDateLineRS(String dateLineRS) {
+		this.dateLineRS = dateLineRS;
 	}
 	
 	

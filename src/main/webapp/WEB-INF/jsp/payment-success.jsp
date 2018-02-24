@@ -108,8 +108,8 @@
 										<tbody>
 											<tr align="center">
 												<td align="center">${paymentResultReq.invoiceNo}</td>
-												<td align="center">${paymentResultReq.invoiceDate}</td>
-												<td align="center">${paymentResultReq.dateLine}</td>
+												<td align="center">${paymentResultReq.invoiceDateRS}</td>
+												<td align="center">${paymentResultReq.dateLineRS}</td>
 												<td align="center">${paymentResultReq.beforeVat}</td>
 												<td align="center">${paymentResultReq.vat}</td>
 												<td align="center">${paymentResultReq.balanceOfvat}</td>

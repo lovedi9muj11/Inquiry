@@ -3,7 +3,9 @@ package th.co.maximus.report.controller;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +51,7 @@ public class EpisReportController {
 	@RequestMapping(value= {"/previewPaymentEpisOffline.pdf"}) 
 	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 //		String documentNo = "";
- 		String JASPER_JRXML_FILENAME = "test";
+ 		String JASPER_JRXML_FILENAME = "InvEpisPayment";
 		request.setAttribute("documentReport", "-1");
 		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineReportBean>collections= reportService.inqueryEpisOfflineJSONHandler(documentNo);
@@ -64,19 +66,21 @@ public class EpisReportController {
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean)collections.get(0);
 		ExportPDFReport exportPDFReport = new ExportPDFReport();
-		
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		Date date =  new Date();
+		String dateDocument = dt.format(date);
 		
 		exportPDFReport.setBranArea(invObject.getBranArea());
 		exportPDFReport.setBracnCode(invObject.getBracnCode());
-		
+		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setCustName(invObject.getCustName());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
-		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary());
+		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setCustomerAddress(invObject.getCustomerAddress());
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
-		
+		exportPDFReport.setDateDocument(dateDocument);
 
 		
 		BigDecimal total = invObject.getBalanceSummary();
@@ -85,12 +89,12 @@ public class EpisReportController {
 		
 		BigDecimal beforeVat = total.multiply(vatRate);
 		
-		BigDecimal beforeVats = beforeVat.divide(resVat,2,RoundingMode.HALF_UP);
+		BigDecimal vat = beforeVat.divide(resVat,2,RoundingMode.HALF_UP);
 		
-		BigDecimal vat = total.subtract(beforeVat);
+		BigDecimal beforeVats = total.subtract(vat);
 		
-		exportPDFReport.setBeforeVat(beforeVats);
-		exportPDFReport.setVat(vat);
+		exportPDFReport.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
+		exportPDFReport.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
 		
 		String nameService = "";
 		nameService = invObject.getBracnCode() + invObject.getBranArea()+ invObject.getSouce();
