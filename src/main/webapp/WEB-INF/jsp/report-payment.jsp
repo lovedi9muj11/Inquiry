@@ -181,6 +181,12 @@
 					</div>
 				</div>
 			</div>
+			<div class="row" style="padding-bottom: 10px;padding-right: 2px">
+				<div class="col-md-12 text-right">
+					<button id="search" name="search" class="btn btn-warning glyphicon glyphicon-print" style="width: 7%"> PDF</button>
+					<button id="clear" name="clear" class="btn btn-success glyphicon glyphicon-print" style="width: 7%"> Excel</button>
+				</div>
+			</div>
 
 
 			<div class="row">
