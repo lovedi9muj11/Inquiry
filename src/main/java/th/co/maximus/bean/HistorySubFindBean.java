@@ -13,7 +13,7 @@ public class HistorySubFindBean {
 	private Date payDate;
 	private Date payDateTo;
 	private String accountCode;
-	private String vatRate;
+	private int vatRate;
 	private String pos;
 	private String user;
 	private String payType;
@@ -23,12 +23,6 @@ public class HistorySubFindBean {
 	}
 	public void setAccountCode(String accountCode) {
 		this.accountCode = accountCode;
-	}
-	public String getVatRate() {
-		return vatRate;
-	}
-	public void setVatRate(String vatRate) {
-		this.vatRate = vatRate;
 	}
 	public String getPos() {
 		return pos;
@@ -61,6 +55,12 @@ public class HistorySubFindBean {
 	}
 	public void setPayDateTo(Date payDateTo) {
 		this.payDateTo = payDateTo;
+	}
+	public int getVatRate() {
+		return vatRate;
+	}
+	public void setVatRate(int vatRate) {
+		this.vatRate = vatRate;
 	}
 
 }

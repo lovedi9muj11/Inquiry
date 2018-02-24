@@ -39,12 +39,12 @@ public class HistroryPaymentController {
 	        return result;
 	    }
 	  
-	  @RequestMapping(value = {"/histroryPayment/findSub"}, method = RequestMethod.POST, produces = "application/json")
+	  @RequestMapping(value = {"/histroryPayment/payOrder"}, method = RequestMethod.POST, produces = "application/json")
 	  @ResponseBody
-	    public PaymentMMapPaymentInvBean findSub(@RequestBody HistorySubFindBean creteria) {
+	    public PaymentMMapPaymentInvBean payOrder(@RequestBody HistorySubFindBean creteria) {
 		  PaymentMMapPaymentInvBean result = new PaymentMMapPaymentInvBean();
 		  if(creteria != null) {
-			  paymentManualService.findSubHistory(creteria);
+			  result = paymentManualService.findPayOrder(creteria);
 		  }
 	        return result;
 	    }

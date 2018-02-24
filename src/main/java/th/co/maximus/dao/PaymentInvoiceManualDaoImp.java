@@ -160,15 +160,16 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	}
 
 	@Override
-	public PaymentMMapPaymentInvBean findHistorySubDescription(HistorySubFindBean paymentInvBean) {
+	public PaymentMMapPaymentInvBean findPayOrder(HistorySubFindBean paymentInvBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM payment_manual ");
-		sql.append(" where = ");
-		sql.append(" pm.PAID_DATE BETWEEN "+paymentInvBean.getPayDate());
-		sql.append(" and "+paymentInvBean.getPayDateTo());
-		sql.append(" and pim.VAT_RATE = "+paymentInvBean.getVatRate());
-		sql.append(" and pm.UPDATE_BY = "+paymentInvBean.getUser());
-		sql.append(" and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
+		sql.append(" SELECT * FROM payment_manual pm");
+		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
+		sql.append(" where ");
+		sql.append(" pm.PAID_DATE BETWEEN '"+paymentInvBean.getPayDate());
+		sql.append("' and '"+paymentInvBean.getPayDateTo());
+		sql.append("' and pim.VAT_RATE = "+paymentInvBean.getVatRate());
+		sql.append(" and pm.UPDATE_BY = '"+paymentInvBean.getUser());
+		sql.append("' and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
 		return jdbcTemplate.queryForObject(sql.toString() , new PaymentManual());
 	}
 	
