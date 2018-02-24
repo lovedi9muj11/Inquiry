@@ -65,8 +65,8 @@
 				<div class="row">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="search" name="search" class="btn btn-primary" onclick="search()">ค้นหา</button>
-						<button id="clear" name="clear" class="btn btn-danger" onclick="clearCriteria()">ลบ</button>
+						<button id="search" name="search" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
+						<button id="clear" name="clear" class="btn btn-danger" onclick="clearCriteria()" style="width: 7%">ลบ</button>
 					</div>
 				</div>
 			</div>
@@ -130,7 +130,7 @@
 					<div class="row">
 						<!-- Button -->
 						<div class="col-md-12 text-center">
-							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary" onclick="submitCancelPayment()">ตกลง</button>
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary" onclick="submitCancelPayment()" style="width: 7%">ตกลง</button>
 						</div>
 					</div>
 				</div>
@@ -161,30 +161,6 @@
 								</table>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="panel panel-primary" id="panel3">
-			<div class="panel-heading">ผลการยกเลิกการชำระ</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-5">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-2">
-						<button id="search" name="search" class="btn btn-primary">Search</button>
-						<button id="clear" name="clear" class="btn btn-danger">Clear</button>
 					</div>
 				</div>
 			</div>

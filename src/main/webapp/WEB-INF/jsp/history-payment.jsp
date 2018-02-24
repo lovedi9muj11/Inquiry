@@ -46,8 +46,8 @@
 				<div class="row" style="padding-bottom:10px">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="searchCriteria" name="searchCriteria" class="btn btn-primary" onclick="search()">ค้นหา</button>
-						<button id="clearCriteria" name="clearCriteria" class="btn btn-danger">ลบ</button>
+						<button id="searchCriteria" name="searchCriteria" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
+						<button id="clearCriteria" name="clearCriteria" class="btn btn-danger" style="width: 7%">ลบ</button>
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,6 @@
 					                <th style="text-align: center;;width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
 					                <th style="text-align: center;;width: 5%">สถานนะ</th>
 					                <th style="text-align: center;;width: 5%">หมายเหตุ</th>
-					                
 						        </tr>
 						    </thead>
 						</table>
