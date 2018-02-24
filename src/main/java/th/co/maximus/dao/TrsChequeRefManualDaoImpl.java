@@ -2,6 +2,7 @@ package th.co.maximus.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrsChequeRefManualBean;
+
 @Repository("TrsChequeRefManualDao")
 public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 	@Autowired
@@ -23,7 +25,7 @@ public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 	public void insert(TrsChequeRefManualBean trsChequeRefManualBean) {
 		String sql = "INSERT INTO trschequeref_manual ( CHEQUENO, PUBLISHERID, PUBLISHER, BRANCH, AMOUNT, UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, CHEQUEDATE, BOUNCE_CHEQUE_DATE, REVERSE_AR_DATE, BOUNCE_STATUS, METHOD_MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sql,  trsChequeRefManualBean.getChequeNo(), trsChequeRefManualBean.getPublisherId(),trsChequeRefManualBean.getPublisher(),trsChequeRefManualBean.getBranch(),trsChequeRefManualBean.getaMount(),
-				trsChequeRefManualBean.getUpdateDttm(),trsChequeRefManualBean.getUpdateSystem(),trsChequeRefManualBean.getUpdateUser(),trsChequeRefManualBean.getVersionStamp(),trsChequeRefManualBean.getChequeDate(),trsChequeRefManualBean.getBounceChequeDate(),
+				trsChequeRefManualBean.getUpdateDttm(),trsChequeRefManualBean.getUpdateSystem(),trsChequeRefManualBean.getUpdateUser(),trsChequeRefManualBean.getVersionStamp(),trsChequeRefManualBean.getCheDate(),trsChequeRefManualBean.getBounceChequeDate(),
 				trsChequeRefManualBean.getReverseArDate(),trsChequeRefManualBean.getBounceStatus(),trsChequeRefManualBean.getMethodManualId());
 		
 	}
@@ -53,6 +55,14 @@ public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 			return trsChequeRefManualBean;
 		}
 
+	}
+
+	@Override
+	public List<TrsChequeRefManualBean> findTrachequeFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select * from trschequeref_manual trschequeref_m where trschequeref_m.ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString() , new TrsChequeRefManualJoin());
 	}
 
 }
