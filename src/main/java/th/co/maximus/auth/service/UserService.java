@@ -2,14 +2,14 @@ package th.co.maximus.auth.service;
 
 import java.util.List;
 
-import th.co.maximus.auth.model.User;
+import th.co.maximus.auth.model.UserDto;
 
 public interface UserService {
 	
-    void save(User user);
+    void save(UserDto user);
 
-    User findByUsername(String username);
+    UserDto findByUsername(String username);
     
-    List<User> findAll();
+    List<UserDto> findAll();
     
 }

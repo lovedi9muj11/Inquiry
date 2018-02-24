@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import th.co.maximus.auth.model.User;
+import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.UserBean;
 
@@ -21,10 +21,10 @@ public class UserController {
 	
 	@RequestMapping(value = {"/userManageMent/search"}, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-    public List<UserBean> search(@RequestBody User user) {
+    public List<UserBean> search(@RequestBody UserDto user) {
 
-		User res = new User();
-		List<User> resList = new ArrayList<User>();
+		UserDto res = new UserDto();
+		List<UserDto> resList = new ArrayList<UserDto>();
 		List<UserBean> resultList = new ArrayList<UserBean>();
 		
 		if("".equals(user.getUsername())) {

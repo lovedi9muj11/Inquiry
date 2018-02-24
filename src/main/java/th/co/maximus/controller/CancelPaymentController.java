@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import th.co.maximus.auth.model.User;
+import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
@@ -63,7 +63,7 @@ public class CancelPaymentController {
 	public boolean checkAuthentication(@RequestBody UserBean user) {
 		boolean result = false;
 		if (user.getUserName() != "" && user.getPassword() != "") {
-			User resultUser = userService.findByUsername(user.getUserName());
+			UserDto resultUser = userService.findByUsername(user.getUserName());
 			if (resultUser != null) {
 				if (bCryptPasswordEncoder.matches(user.getPassword(), resultUser.getPassword())) {
 					result = true;

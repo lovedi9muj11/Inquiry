@@ -1,6 +1,7 @@
 package th.co.maximus.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import th.co.maximus.auth.model.Role;
-import th.co.maximus.auth.model.User;
+import th.co.maximus.auth.model.UserDto;
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.auth.repository.UserRepository;
 
 import java.util.HashSet;
@@ -20,17 +22,20 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
     @Autowired private UserRepository userRepository;
-
+	@Value("${text.posno}")
+	private String posNo;
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        UserDto user = userRepository.findByUsername(username);
         
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        UserProfile myUserDetails = new UserProfile(user.getUsername(), user.getPassword(), grantedAuthorities);
+        myUserDetails.setPos(posNo);
+        myUserDetails.setRoles(user.getRoles());
+        return myUserDetails;
     }
 }

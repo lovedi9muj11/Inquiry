@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
@@ -22,6 +24,8 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 	@Override
 	public void insertPaymentInvoiceManual(PaymentFirstBean paymentBean,int userId) {
 		String period = "";
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		if(paymentBean.getStartupDate() != null && paymentBean.getEndDate() != null) {
 		String[] sResult = paymentBean.getStartupDate().split("-");
 		String[] eResult = paymentBean.getEndDate().split("-");
@@ -52,9 +56,9 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");
 		paymentInvoiceManualBean.setRemark(paymentBean.getRemark());
-		paymentInvoiceManualBean.setCreateBy(paymentBean.getUserName());
+		paymentInvoiceManualBean.setCreateBy(profile.getUsername());
 		paymentInvoiceManualBean.setCreateDate(new Timestamp(date.getTime()));
-		paymentInvoiceManualBean.setUpdateBy(paymentBean.getUserName());
+		paymentInvoiceManualBean.setUpdateBy(profile.getUsername());
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
 		paymentInvoiceManualBean.setDepartment(paymentBean.getDebtCollection());

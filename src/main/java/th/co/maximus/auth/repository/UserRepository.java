@@ -3,10 +3,10 @@ package th.co.maximus.auth.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import th.co.maximus.auth.model.User;
+import th.co.maximus.auth.model.UserDto;
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserDto, Long> {
 	
-    User findByUsername(String username);
+    UserDto findByUsername(String username);
 }

@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserDto {
     private Long id;
     private String username;
     private String password;
