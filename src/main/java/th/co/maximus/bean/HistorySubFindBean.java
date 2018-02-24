@@ -1,27 +1,23 @@
 package th.co.maximus.bean;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import th.co.maximus.core.utils.converter.CustomDateTimeDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeSerializer;
+
 public class HistorySubFindBean {
 	
-	private String payDate;
-	private String payDateTo;
+	private Date payDate;
+	private Date payDateTo;
 	private String accountCode;
 	private String vatRate;
 	private String pos;
 	private String user;
 	private String payType;
 	
-	public String getPayDate() {
-		return payDate;
-	}
-	public void setPayDate(String payDate) {
-		this.payDate = payDate;
-	}
-	public String getPayDateTo() {
-		return payDateTo;
-	}
-	public void setPayDateTo(String payDateTo) {
-		this.payDateTo = payDateTo;
-	}
 	public String getAccountCode() {
 		return accountCode;
 	}
@@ -51,6 +47,20 @@ public class HistorySubFindBean {
 	}
 	public void setPayType(String payType) {
 		this.payType = payType;
+	}
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
+	public Date getPayDate() {
+		return payDate;
+	}
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
+	public void setPayDate(Date payDate) {
+		this.payDate = payDate;
+	}
+	public Date getPayDateTo() {
+		return payDateTo;
+	}
+	public void setPayDateTo(Date payDateTo) {
+		this.payDateTo = payDateTo;
 	}
 
 }

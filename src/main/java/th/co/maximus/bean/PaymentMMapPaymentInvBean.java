@@ -25,13 +25,10 @@ public class PaymentMMapPaymentInvBean {
 	private String accountNo;
 	private String payType;
 	private String customerName;
-	
 	private String paidDateStr;
 	private String createDateStr;
-	
 	private String statusCancelPayment;
 	private String addressNewCancelPayment;
-	
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
