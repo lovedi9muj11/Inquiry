@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.service.HistoryPaymentService;
 
@@ -34,6 +35,16 @@ public class HistroryPaymentController {
 		  }else {
 			  result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo());	
 			  
+		  }
+	        return result;
+	    }
+	  
+	  @RequestMapping(value = {"/histroryPayment/findSub"}, method = RequestMethod.POST, produces = "application/json")
+	  @ResponseBody
+	    public PaymentMMapPaymentInvBean findSub(@RequestBody HistorySubFindBean creteria) {
+		  PaymentMMapPaymentInvBean result = new PaymentMMapPaymentInvBean();
+		  if(creteria != null) {
+			  paymentManualService.findSubHistory(creteria);
 		  }
 	        return result;
 	    }

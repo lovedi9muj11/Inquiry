@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
@@ -149,8 +150,29 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		return jdbcTemplate.query(sql.toString() , new PaymentInvoice());
 	}
 	
+	@Override
+	public void updateStatusPaymentInvoice(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" UPDATE payment_invoice_manual payment_m ");
+		sql.append(" SET payment_m.RECORD_STATUS =  'C' ");
+		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
+		jdbcTemplate.update(sql.toString(), manualId);
+	}
+
+	@Override
+	public PaymentMMapPaymentInvBean findHistorySubDescription(HistorySubFindBean paymentInvBean) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual ");
+		sql.append(" where = ");
+		sql.append(" pm.PAID_DATE BETWEEN "+paymentInvBean.getPayDate());
+		sql.append(" and "+paymentInvBean.getPayDateTo());
+		sql.append(" and pim.VAT_RATE = "+paymentInvBean.getVatRate());
+		sql.append(" and pm.UPDATE_BY = "+paymentInvBean.getUser());
+		sql.append(" and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
+		return jdbcTemplate.queryForObject(sql.toString() , new PaymentManual());
+	}
+	
 	private static final class PaymentInvoice implements RowMapper<PaymentInvoiceManualBean> {
-		Utils utils = new Utils();
 
 		@Override
 		public PaymentInvoiceManualBean mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -186,15 +208,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			return paymentInvoice;
 		}
 
-	}
-
-	@Override
-	public void updateStatusPaymentInvoice(long manualId) {
-		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE payment_invoice_manual payment_m ");
-		sql.append(" SET payment_m.RECORD_STATUS =  'C' ");
-		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
-		jdbcTemplate.update(sql.toString(), manualId);
 	}
 
 }

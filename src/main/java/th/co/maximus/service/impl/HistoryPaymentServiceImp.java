@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.service.HistoryPaymentService;
@@ -39,5 +40,12 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		}
 		return result;
 
+	}
+
+	@Override
+	public PaymentMMapPaymentInvBean findSubHistory(HistorySubFindBean paymentInvBean) {
+		PaymentMMapPaymentInvBean result = new PaymentMMapPaymentInvBean();
+		result = paymentInvoiceManualDao.findHistorySubDescription(paymentInvBean);
+		return result;
 	}
 }

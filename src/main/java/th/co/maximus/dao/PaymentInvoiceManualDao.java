@@ -2,9 +2,9 @@ package th.co.maximus.dao;
 
 import java.util.List;
 
+import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
-import th.co.maximus.bean.UserBean;
 
 public interface PaymentInvoiceManualDao {
 	
@@ -24,7 +24,7 @@ public interface PaymentInvoiceManualDao {
 	
 	public List<PaymentInvoiceManualBean> findPaymentInvoiceFromManualId(long manualId);
 	
-	
+	PaymentMMapPaymentInvBean findHistorySubDescription(HistorySubFindBean paymentInvBean);
 	
 	
 	
