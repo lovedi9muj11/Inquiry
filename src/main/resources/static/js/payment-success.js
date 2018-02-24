@@ -14,7 +14,11 @@ function submti(){
 		$("#paymentFroms").attr("action", "/previewPaymentEpisOffline.pdf")
 		.attr("target", "_blank").submit();
 }
+function submtiTest(){
 
+	$("#paymentFroms").attr("action", "/previewPaymentEpisOfflineByInsale.pdf")
+	.attr("target", "_blank").submit();
+}
 
 //	$.ajax({
 //        type: "POST",

@@ -59,9 +59,9 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
 				trsMethodManualBean.setRemark(paymentBean.getRemark());
-				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateBy(paymentBean.getUserName());	
 				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
-				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateBy(paymentBean.getUserName());
 				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
 				trsMethodManualBean.setRecordStatus("A");
 				trsMethodManualBean.setManualId(Long.valueOf(userId));

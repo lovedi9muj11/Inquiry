@@ -52,9 +52,9 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");
 		paymentInvoiceManualBean.setRemark(paymentBean.getRemark());
-		paymentInvoiceManualBean.setCreateBy("ADMIN");
+		paymentInvoiceManualBean.setCreateBy(paymentBean.getUserName());
 		paymentInvoiceManualBean.setCreateDate(new Timestamp(date.getTime()));
-		paymentInvoiceManualBean.setUpdateBy("ADMIN");
+		paymentInvoiceManualBean.setUpdateBy(paymentBean.getUserName());
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
 		paymentInvoiceManualBean.setDepartment(paymentBean.getDebtCollection());

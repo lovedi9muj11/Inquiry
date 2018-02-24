@@ -42,9 +42,9 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());
-			paymentManualBean.setCreateBy(Constants.dataUser.NAME_USER);
+			paymentManualBean.setCreateBy(paymentBean.getUserName());
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-			paymentManualBean.setUpdateBy(Constants.dataUser.NAME_USER);
+			paymentManualBean.setUpdateBy(paymentBean.getUserName());
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());

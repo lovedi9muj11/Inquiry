@@ -27,7 +27,7 @@ public class PaymentController {
 	private PaymentService paymentService;
 
 	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
-	public String registration() {
+	public String gotoPayment() {
 
 		return "payment";
 	}

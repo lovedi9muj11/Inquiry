@@ -25,6 +25,7 @@ public class PaymentFirstBean implements Serializable{
 	private String userGroup;
 	private String debtCollection;
 	private String invoiceNo;
+	private String userName;
 	private String serviceNo;
 	private String startupDate;
 	private String endDate;
@@ -218,6 +219,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
 		this.paymentTranPrice = paymentTranPrice;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

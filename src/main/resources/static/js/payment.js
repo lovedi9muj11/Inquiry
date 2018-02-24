@@ -14,6 +14,9 @@ $(document).ready(function() {
 			$("#balanceSummary").keyup(function() {
 			    // keydown code
 				var bal = $("#balanceSummary").val();
+				if(bal == ""){
+					bal = parseFloat(0).toFixed(2);
+				}
 				var result = parseFloat(bal.replace(",", ""));
 				var vatq = $("#vatrate").val();
 				var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
@@ -297,6 +300,7 @@ function submitForm(){
 			 "endDate":$("#endDate").val() ,
 			 "deadlines":$("#deadlines").val() ,
 			 "invoiceDate":$("#invoiceDate").val() ,
+			 "userName":$("#userName").val() ,
 			 "vatrate":$("#vatrate").val() ,
 			 "balanceBeforeTax": parseFloat($("#balanceBeforeTax").val().replace(",", "")) ,
 			 "vat": parseFloat($("#vat").val().replace(",", "")) ,

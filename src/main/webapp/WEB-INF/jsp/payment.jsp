@@ -44,6 +44,7 @@
 				</div>
 
 				<div class="row" style="margin-top: 20px;">
+				<input type="hidden" id="userName"	name="userName" value="${pageContext.request.userPrincipal.name}">
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
@@ -85,7 +86,7 @@
 												<div class="col-sm-2">
 													<select class="form-control" id="custBrach"
 														name="custBrach">
-														<option value="">== เลือก ==</option>
+														<option value="">== กรุณาเลือก ==</option>
 														<option value="นนทุบรี -แคราย">นนทุบรี -แคราย</option>
 														<option value="แจ้งวัฒนะ">แจ้งวัฒนะ</option>
 														<option value="เชียงราย">เชียงราย</option>
@@ -103,19 +104,26 @@
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
 														name="userGroup">
-														<option value="">== เลือก ==</option>
-														<option value="01">บุคคลทั่วไป</option>
-														<option value="02">หน่วยงานรัฐ</option>
-														<option value="03">นิติบุคคล</option>
+														<option value="">== กรุณาเลือก  ==</option>
+														<option value="1">ธุรกิจทั่วไป</option>
+														<option value="2">หน่วยงานรัฐ</option>
+														<option value="3">บุคคลทั่วไป</option>
+														<option value="4">Carrier/Operator/NON POTs</option>
+														<option value="5">Mkt.Arm</option>
+														<option value="6">ISP</option>
+														<option value="7">Reseller/Agent</option>
+														<option value="8">ธุรกิจ กสท</option>
+														<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
 													</select>
-													<p id="suserGroup" style="color: red;"> คุณยังไม่ได้เลือก  กลุ่มผู้ใช้บริการ</p>
 												</div>
-												<label class="col-sm-2 control-label right"
+												<p id="suserGroup" style="color: red;">
+													คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
+											<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
 												<div class="col-sm-2">
 														<select class="form-control" id="debtCollection"
 														name="debtCollection">
-														<option value="">== เลือก ==</option>
+														<option value="">== กรุณาเลือก ==</option>
 														<option value="ตร.">ตร.</option>
 														<option value="กม.">กม.</option>
 														<option value="ปง.">ปง.</option>
