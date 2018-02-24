@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_INVOICE_MANUAL` (
   BEFOR_VAT decimal(14,4) ,
   VAT_AMOUNT decimal(14,4) ,
   AMOUNT decimal(14,4) ,
-  VAT_RATE varchar(10) ,
+  VAT_RATE varchar(10),
   CUSTOMER_NAME varchar(300),
   CUSTOMER_ADDRESS varchar(300) ,
   CUSTOMER_SEGMENT varchar(300),

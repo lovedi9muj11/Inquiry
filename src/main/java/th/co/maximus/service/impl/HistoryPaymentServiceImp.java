@@ -58,4 +58,5 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		
 		return result;
 	}
+	
 }

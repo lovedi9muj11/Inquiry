@@ -62,5 +62,6 @@ public class HistorySubFindBean {
 	public void setVatRate(String vatRate) {
 		this.vatRate = vatRate;
 	}
+	
 
 }
