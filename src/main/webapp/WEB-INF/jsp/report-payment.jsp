@@ -35,7 +35,7 @@
 						<label class="col-md-2 control-label text-right">วันที่ชำระ :</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
-								<input type='date' class="form-control" />
+								<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
 							</div>
 							<div class="col-md-3">
 								<select class="form-control" name="dateFromHour" id="dateFromHour">
@@ -69,10 +69,10 @@
 							<div class="col-md-3">
 								<select class="form-control" name="dateFromMinute" id="dateFromMinute">
 									<option value="00">00</option>
-									<option value="01">15</option>
-									<option value="02">30</option>
-									<option value="03">45</option>
-									<option value="03">59</option>
+									<option value="15">15</option>
+									<option value="30">30</option>
+									<option value="45">45</option>
+									<option value="59">59</option>
 								</select>
 							</div>
 							
@@ -82,7 +82,7 @@
 						<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
-								<input type='date' class="form-control" />
+								<input type='date' class="form-control" id="dateTo" name="dateTo"/>
 							</div>
 							<div class="col-md-3">
 								<select class="form-control" name="dateToHour" id="dateToHour">
@@ -115,10 +115,10 @@
 							<div class="col-md-3">
 								<select class="form-control" name="dateToMinute" id="dateToMinute">
 									<option value="00">00</option>
-									<option value="01">15</option>
-									<option value="02">30</option>
-									<option value="03">45</option>
-									<option value="03">59</option>
+									<option value="15">15</option>
+									<option value="30">30</option>
+									<option value="45">45</option>
+									<option value="59">59</option>
 								</select>
 							</div>
 							
@@ -177,7 +177,7 @@
 					<!-- Button -->
 					<div class="col-md-12 text-center">
 						<button id="search" name="search" class="btn btn-primary" style="width: 7%">ค้นหา</button>
-						<button id="clear" name="clear" class="btn btn-danger" style="width: 7%">ลบ</button>
+						<button id="clear" name="clear" class="btn btn-danger" style="width: 7%" onclick="initCriteria()">ลบ</button>
 					</div>
 				</div>
 			</div>
