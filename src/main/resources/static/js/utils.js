@@ -15,3 +15,7 @@ function changeMoney(changeRQ){
 	//var balanceSummary = $("#moneyTran").val();
 	 $("#change").val(changeRQ.toFixed(2));
 }
+
+function formetMon(value) {
+	return parseFloat(value.replace(",", ""));
+}

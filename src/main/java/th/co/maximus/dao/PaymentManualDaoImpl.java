@@ -4,18 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.payment.bean.PaymentResultReq;
+
 
 @Repository("PaymentManualDao")
 public class PaymentManualDaoImpl implements PaymentManualDao {
@@ -84,5 +88,45 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		}
 		return beanReReq;
 	}
+
+	@Override
+	public List<PaymentManualBean> findPaymentManualFromNanualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual payment_m  ");
+		sql.append(" WHERE payment_m.MANUAL_ID =  ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+	}
+	
+	private static final class PaymentManual implements RowMapper<PaymentManualBean> {
+
+		@Override
+		public PaymentManualBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentManualBean paymentManual = new PaymentManualBean();
+			paymentManual.setManualId(rs.getLong("MANUAL_ID"));
+			paymentManual.setPaymentId(rs.getLong("PAYMENT_ID"));
+			paymentManual.setInvoiceNo(rs.getString("INVOICE_NO"));
+			paymentManual.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
+			paymentManual.setPaidDate(rs.getTimestamp("PAID_DATE"));
+			paymentManual.setBrancharea(rs.getString("BRANCH_AREA"));
+			paymentManual.setBranchCode(rs.getString("BRANCH_CODE"));
+			paymentManual.setPaidAmount(rs.getLong("PAID_AMOUNT"));
+			paymentManual.setSource(rs.getString("SOURCE"));
+			paymentManual.setClearing(rs.getString("CLEARING"));
+			paymentManual.setRemark(rs.getString("REMARK"));
+			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
+			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			paymentManual.setUpdateBy(rs.getString("UPDATE_BY"));
+			paymentManual.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
+			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE)?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_AC);
+			paymentManual.setRefid(rs.getLong("REF_ID"));
+			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
+			paymentManual.setPaytype(rs.getString("PAY_TYPE"));
+			paymentManual.setDocType(rs.getString("DOCTYPE"));
+			return paymentManual;
+		}
+
+	}
+
 
 }

@@ -2,6 +2,7 @@ package th.co.maximus.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.DeductionManualBean;
+
 @Repository("DeductionManualDao")
 public class DeductionManualImpl implements DeductionManualDao{
 	
@@ -55,6 +57,14 @@ public class DeductionManualImpl implements DeductionManualDao{
 			return deductionManualBean;
 		}
 
+	}
+
+	@Override
+	public List<DeductionManualBean> findDeductionManualFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("  SELECT * FROM deduction_manual deduction_m where deduction_m.MANUAL_ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString(), new DeductionManualJoin());
 	}
 
 }

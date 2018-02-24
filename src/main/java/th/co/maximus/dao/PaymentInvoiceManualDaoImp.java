@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
-import th.co.maximus.bean.UserBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.Utils;
 
@@ -33,7 +32,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A'");
 			
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
@@ -92,9 +91,110 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
-		sql.append(" where payment_m.ACCOUNT_NO like ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND payment_m.ACCOUNT_NO like ");
 		sql.append("'%"+ accountNo+ "%'");
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
-	}	
+	}
+
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual payment_m ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND ");
+		sql.append(" payment_m.MANUAL_ID  =  ");
+		sql.append(manual_id);
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+	}
+
+	@Override
+	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual payment_m ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
+		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND ");
+		if(receiptNo != "" && "".equals(invoiceNo)) {
+			sql.append(" payment_m.RECEIPT_NO_MANUAL = ");
+			sql.append("'"+receiptNo+"'");
+		}
+		if(invoiceNo != "" && "".equals(receiptNo)) {
+			sql.append(" payment_m.INVOICE_NO = ");
+			sql.append("'"+invoiceNo+"'");
+		}
+		if(receiptNo != "" && invoiceNo != "") {
+			sql.append(" payment_m.RECEIPT_NO_MANUAL = ");
+			sql.append("'"+receiptNo+"'");
+			sql.append(" AND ");
+			sql.append(" payment_m.INVOICE_NO = ");
+			sql.append("'"+invoiceNo+"'");
+		}
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+	}
+
+	@Override
+	public void updateRecodeStatusFromReceiptNo(String status, long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" UPDATE payment_manual payment_m ");
+		sql.append(" SET payment_m.RECORD_STATUS =  ? ");
+		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
+		jdbcTemplate.update(sql.toString(), status, manualId);
+		
+	}
+
+	@Override
+	public List<PaymentInvoiceManualBean> findPaymentInvoiceFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_invoice_manual payment_invoice where payment_invoice.MANUAL_ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString() , new PaymentInvoice());
+	}
+	
+	private static final class PaymentInvoice implements RowMapper<PaymentInvoiceManualBean> {
+		Utils utils = new Utils();
+
+		@Override
+		public PaymentInvoiceManualBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentInvoiceManualBean paymentInvoice = new PaymentInvoiceManualBean();
+			paymentInvoice.setPaymentInvoiceManualId(rs.getLong("PAYMENT_INVOICE_MANUAL_ID"));
+			paymentInvoice.setManualId(rs.getLong("MANUAL_ID"));
+			paymentInvoice.setSource(rs.getString("SOURCE"));
+			paymentInvoice.setInvoiceNo(rs.getString("INVOICE_NO"));
+			paymentInvoice.setBeforVat(rs.getDouble("BEFOR_VAT"));
+			paymentInvoice.setAmount(rs.getDouble("AMOUNT"));
+			paymentInvoice.setVatRate(rs.getInt("VAT_RATE"));
+			paymentInvoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
+			paymentInvoice.setCustomerSegment(rs.getString("CUSTOMER_SEGMENT"));
+			paymentInvoice.setCustomerBranch(rs.getString("CUSTOMER_BRANCH"));
+			paymentInvoice.setTaxNo(rs.getString("TAXNO"));
+			paymentInvoice.setAccountSubNo(rs.getString("ACCOUNTSUBNO"));
+			paymentInvoice.setPeriod(rs.getString("PERIOD"));
+			paymentInvoice.setServiceType(rs.getString("SERVICE_TYPE"));
+			paymentInvoice.setClearing(rs.getString("CLEARING"));
+			paymentInvoice.setPrintReceipt(rs.getString("PRINT_RECEIPT"));
+			paymentInvoice.setRemark(rs.getString("REMARK"));
+			paymentInvoice.setCreateBy(rs.getString("CREATE_BY"));
+			paymentInvoice.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			paymentInvoice.setUpdateBy(rs.getString("UPDATE_BY"));
+			paymentInvoice.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
+			paymentInvoice.setRecordStatus(rs.getString("RECORD_STATUS"));
+			paymentInvoice.setQuantity(rs.getInt("QUANTITY"));
+			paymentInvoice.setIncometype(rs.getString("INCOMETYPE"));
+			paymentInvoice.setDiscountbeforvat(rs.getBigDecimal("DISCOUNTBEFORVAT"));
+			paymentInvoice.setDiscountspecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
+			paymentInvoice.setAmounttype(rs.getString("AMOUNTTYPE"));
+			paymentInvoice.setDepartment(rs.getString("DEPARTMENT"));
+			return paymentInvoice;
+		}
+
+	}
+
+	@Override
+	public void updateStatusPaymentInvoice(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" UPDATE payment_invoice_manual payment_m ");
+		sql.append(" SET payment_m.RECORD_STATUS =  'C' ");
+		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
+		jdbcTemplate.update(sql.toString(), manualId);
+	}
 
 }

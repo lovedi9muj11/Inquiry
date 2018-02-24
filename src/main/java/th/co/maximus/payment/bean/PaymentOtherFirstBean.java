@@ -20,18 +20,19 @@ public class PaymentOtherFirstBean implements Serializable{
 	private double vats;
 	private String inputAdditionalRemark;
 	private double summaryTax;
-	private String vatRadio;
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
+	private String documentNo;
 	
 	
 	
-	public String getVatRadio() {
-		return vatRadio;
+	
+	public String getDocumentNo() {
+		return documentNo;
 	}
-	public void setVatRadio(String vatRadio) {
-		this.vatRadio = vatRadio;
+	public void setDocumentNo(String documentNo) {
+		this.documentNo = documentNo;
 	}
 	public String getInputCustomerBillNo() {
 		return inputCustomerBillNo;

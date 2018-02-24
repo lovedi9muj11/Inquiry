@@ -2,18 +2,22 @@ package th.co.maximus.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrsMethodManualBean;
+
 @Repository("TrsMethodManualDao")
 public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 	@Autowired
@@ -54,6 +58,46 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
     	int newUserId= keyHolder.getKey().intValue();
     	return newUserId;
 		
+	}
+	@Override
+	public List<TrsMethodManualBean> findTrsMethodManualFromManualId(long manualId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM trsmethod_manual trsmethod_m where trsmethod_m.MANUAL_ID = ");
+		sql.append(manualId);
+		return jdbcTemplate.query(sql.toString(), new TrsMethodManual());
+	}
+	
+	private static final class TrsMethodManual implements RowMapper<TrsMethodManualBean> {
+
+		@Override
+		public TrsMethodManualBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			TrsMethodManualBean manualBean = new TrsMethodManualBean();
+			manualBean.setMethodManualId(rs.getLong("METHOD_MANUAL_ID"));
+			manualBean.setCode(rs.getString("CODE"));
+			manualBean.setName(rs.getString("NAME"));
+			manualBean.setChequeNo(rs.getString("CHEQUENO"));
+			manualBean.setCreditId(rs.getString("CREDITNO"));
+			manualBean.setAccountNo(rs.getString("ACCOUNTNO"));
+			manualBean.setAmount(rs.getDouble("AMOUNT"));
+			manualBean.setUpdateDttm(rs.getTimestamp("UPDATEDTTM"));
+			manualBean.setUpdateSystem(rs.getString("UPDATESYSTEM"));
+			manualBean.setUpdateUser(rs.getString("UPDATEUSER"));
+			manualBean.setVersionStamp(rs.getLong("VERSIONSTAMP"));
+			manualBean.setOffsetDocumentNo(rs.getString("OFFSET_DOCUMENT_NO"));
+			manualBean.setOffsetAccountCode(rs.getString("OFFSET_ACCOUNT_CODE"));
+			manualBean.setOffsetAccountName(rs.getString("OFFSET_ACCOUNT_NAME"));
+			manualBean.setRemark(rs.getString("REMARK"));
+			manualBean.setCreateBy(rs.getString("CREATE_BY"));
+			manualBean.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			manualBean.setUpdateBy(rs.getString("UPDATE_BY"));
+			manualBean.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
+			manualBean.setRecordStatus(rs.getString("RECORD_STATUS"));
+			manualBean.setRefId(rs.getLong("REF_ID"));
+			manualBean.setDeductionManualId(rs.getLong("DEDUCTION_MANUAL_ID"));
+			manualBean.setManualId(rs.getLong("MANUAL_ID"));
+			return manualBean;
+		}
+
 	}
 	
 }
