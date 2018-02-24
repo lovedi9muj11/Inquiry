@@ -1,4 +1,4 @@
-$(document).ready(
+$(document).ready( 
 		function() {
 			
 			findTypePayment();
@@ -27,8 +27,6 @@ function disBtn(){
 function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var radioVsts = document.getElementsByName("vatRadio");
-	var radioVat = "";
 	var inputCustomerBillNo = $("#inputCustomerBillNo").val();
 	var deductible = [];
 	var  resultDeductible = [];
@@ -43,12 +41,7 @@ function submitForm(){
 			radioResult = radioButtons[x].value;
 		}
 	}
-	// get radioVat 
-	for (var x = 0; x < radioVsts.length; x++) {
-		if (radioVsts[x].checked) {
-			radioVat = radioVsts[x].value;
-		}
-	}
+	
 //	ภาษี หัก ณ ที่จ่าย
 	var table = document.getElementById("sumDeductibleTable");
 	var rowLength = table.rows.length;
@@ -87,9 +80,8 @@ function submitForm(){
 	for (var a = 0; a < resultDeductible.length; a++) {
 		listpaymentTaxQ = []
 		listpaymentTaxQ = {"inputCustomerBillNo" : resultDeductible[a][1],
-			"docDed" : resultDeductible[a][2],
-			"radioDed" : resultDeductible[a][3],
-			"moneyDed" : resultDeductible[a][4]
+			"radioDed" : resultDeductible[a][2],
+			"moneyDed" : resultDeductible[a][3]
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -152,15 +144,13 @@ function submitForm(){
 			listpaymentAddBilling = {
 			"inputServiceType" : resultBill[c][1],
 			"inputServiceName" : resultBill[c][2],
-			"inputServiceMoreData" : resultBill[c][3],
-			"inputServiceDepartment" : resultBill[c][4],
+			"inputServiceDepartment" : resultBill[c][3],
+			"inputServiceMoreData" : resultBill[c][4],
 			"inputServiceAmount" : resultBill[c][5],
 			"inputServiceDiscount" : resultBill[c][6],
-			"vatrate" : resultBill[c][7],
-			"inputServiceDeduction" : resultBill[c][8],
-			"inputSpecialDiscount" : resultBill[c][9],
-			"inputServiceAmount" : resultBill[c][10],
-			"vatRadio" : resultBill[c][11]
+			"sumamountvat" : resultBill[c][7],
+			"inputSpecialDiscount" : resultBill[c][8],
+			"sumamount" : resultBill[c][9]
 			}
 			
 		
@@ -180,7 +170,6 @@ function submitForm(){
 			 "balanceSummary":$("#balanceSummary").val() ,
 			 "inputAdditionalRemark":$("#inputAdditionalRemark").val() ,
 			 "summaryTax":$("#summaryTax").val() ,
-			 "vatRadio":$("#vatRadio").val() ,
 			 "paymentBill":listpaymentAddBillingL,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	
@@ -256,14 +245,14 @@ function addRow() {
 		}
 	}
 
-	var docDed = $("#docDed").val();
+	//var docDed = $("#docDed").val();
 	var moneyDed = $("#moneyDed").val();
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputCustomerBillNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputCustomerBillNo+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed+ "</td><td><a onclick='myDeleteFunction("+ count+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -321,9 +310,9 @@ function addDataTableDed() {
 		}
 
 		var numberRun = number + i;
-		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+ result[4]+ "</td><td><a onclick='myDeleteDed("+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+ result[3]+ "</td><td><a onclick='myDeleteDed("+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showDeductibleTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + deduction	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + deduction	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
 	}
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
@@ -607,23 +596,22 @@ function buttonAddBillingList() {
 	var inputServiceUnit = $("#inputServiceUnit").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
-	var inputServiceDeduction = $("#inputServiceDeduction").val();
 	var vatrate = $("#vatrate").val();
-	var radioButtons = document.getElementsByName("vatRadio");
-	var radioResult = "";
-	
-	
-	for (var z = 0; z < radioButtons.length; z++) {
-		if (radioButtons[z].checked) {
-			radioResult = radioButtons[z].value;
-		}
+	if(vatrate == ""){
+		vatrate = parseFloat(0);
 	}
+	
+	var balance = parseFloat(parseFloat(parseFloat(parseFloat(inputServiceAmount*inputServiceMoreData)-inputServiceDiscount)-inputSpecialDiscount )) ;
+	var sumvat  = parseFloat(balance *  parseFloat(vatrate) );
+	var sumamountvat = parseFloat(parseFloat(sumvat) / parseFloat(107));
+	
+	var sumamount = parseFloat(inputServiceAmount*inputServiceMoreData);
 	var count = 1;
 
 	for (count; count < table; count++) {
 		count + table;
 	}
-	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceDepartment+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ vatrate+ "</td><td>"	+ inputServiceDeduction+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ inputServiceDeduction+ "</td><td>"+ radioResult+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+  inputServiceName+ "</td><td>"+inputServiceDepartment  + "</td><td>"+ inputServiceMoreData+ "</td><td>"+ inputServiceAmount+ "</td><td>"+ inputServiceDiscount+ "</td><td>"+ parseFloat(sumamountvat).toFixed(2)+ "</td><td>"+ inputSpecialDiscount+ "</td><td>"+ sumamount+ "</td><td><a onclick='myDeletebilling("+ count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#sumtableBillingList").find('tbody').append(markup);
 	
@@ -640,34 +628,6 @@ function buttonAddBillingList() {
 	$("#inputServiceAmount").val("");
 	$("#inputServiceDeduction").val("");
 };
-
-function buttonCalculateWt(){
-	
-	
-	
-	var amount = $("#inputServiceAmount").val();
-    var amountUnit = $("#inputServiceMoreData").val();
-    var discount = $("#inputServiceDiscount").val();
-    var specialDiscount = $("#inputSpecialDiscount").val();
-    var sumDisc = discount + specialDiscount;
-    if ($('input[name=vatRadio]:checked').val() == 'exclude') {
-        var total = multiply(amount, amountUnit, 2);
-        var wt = multiply(subtract(total, sumDisc, 2), 0.03, 2);
-    }else{
-       
-    	var vatrate = $("#vatrate").val();
-        var total = multiply(amount, amountUnit, 2);
-        var beforeVat = (total*100)/(100+vatrate);
-        var wt = multiply(subtract(beforeVat, sumDisc, 2), 0.03, 2);
-    }
-    $("#inputServiceDeduction").val(wt);
-    
-	
-	
-}
-
-window.subtract = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 - num2).toFixed(dec), 10); };
-window.multiply = function(num1, num2, dec){ if (!dec) dec = 2; return parseFloat((num1 * num2).toFixed(dec), 10); };
 
 
 

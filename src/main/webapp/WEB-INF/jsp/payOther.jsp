@@ -16,12 +16,13 @@
 <script type="text/javascript"
 	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script src="js/userMgt.js"></script>
+<script src="js/paymentother.js"></script>
 <title>PaymentOther</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 	<link href="css/payment.css" rel="stylesheet">
-<script src="js/paymentother.js"></script>
+
 
 </head>
 <body>
@@ -78,7 +79,7 @@
                                             <div class="col-sm-2">
                                                 <select class="form-control" id="userGroup"
 														name="userGroup">
-														<option value="">== เลือก ==</option>
+														<option value="">-- กรุณาเลือก --</option>
 														<option value="01">ธุรกิจทั่วไป</option>
 														<option value="02">บุคคลธรรดา</option>
 														<option value="03">เจ้าของธุรกิจ</option>
@@ -168,17 +169,11 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">จำนวนเงินต่อหน่วย :</label>
                                     <div class="col-sm-2"><input id="inputServiceAmount" name="inputServiceAmount" class="form-control"></div>
-                                    <label class="control-label col-sm-2">ภาษีหัก ณ ที่จ่าย :</label>
-                                    <div class="col-sm-2"><input id="inputServiceDeduction" class="form-control "></div>
-                                    <div class="col-sm-1"><input type="button" id="buttonCalculateWt" onclick="buttonCalculateWt()"  name="buttonCalculateWt" class="btn btn-info" value="คำนวณ"></div>
+                                    
+                                    
                                     <div class="col-sm-2 col-sm-offset-1"><a id="buttonAddBillingList" onclick="buttonAddBillingList()" class="btn btn-info"> <span class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการรับชำระ</a></div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="radio col-sm-2 col-sm-offset-2">
-                                        <label><input type="radio" name="vatRadio" id="vatRadio" value="exclude" ><b>ก่อน vat</b></label>
-                                        <label><input type="radio" name="vatRadio" id="vatRadio" value="include"><b>หลัง vat</b> </label>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <br /> <br />
 						<div class="row">
@@ -203,10 +198,9 @@
                                     <th >จำนวนเงินต่อหน่วย </th>
                                     <th >เงินส่วนลดก่อน vat</th>
                                     <th >ภาษีมูลค่าเพิ่ม</th>
-                                    <th >ภาษีหัก ณ ที่จ่าย</th>
                                     <th >ส่วนลดพิเศษ</th>
                                     <th >ยอดเงินรวม</th>
-                                    <th >ประเภท vat</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -255,16 +249,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="form-group ">
-												<label class="col-sm-4 control-label right"
-													for="formGroupInputLarge">เลขที่เอกสาร :</label>
-												<div class="col-sm-6">
-													<input class="form-control" type="text" id="docDed"
-														name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
-												</div>
-											</div>
-										</div>
+										
 										<div class="row">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
@@ -293,7 +278,6 @@
 															<tr>
 																<th>#</th>
 																<th>เลขที่ลูกค้า</th>
-																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
 															</tr>
