@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -165,11 +166,19 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		sql.append(" SELECT * FROM payment_manual pm");
 		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
 		sql.append(" where ");
-		sql.append(" pm.PAID_DATE BETWEEN '"+paymentInvBean.getPayDate());
-		sql.append("' and '"+paymentInvBean.getPayDateTo());
-		sql.append("' and pim.VAT_RATE = "+paymentInvBean.getVatRate());
-		sql.append(" and pm.UPDATE_BY = '"+paymentInvBean.getUser());
-		sql.append("' and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
+		if(paymentInvBean.getPayDate() != null && paymentInvBean.getPayDateTo() != null) {
+			sql.append(" pm.PAID_DATE BETWEEN '"+paymentInvBean.getPayDate()+"'");
+			sql.append(" and '"+paymentInvBean.getPayDateTo()+"'");
+		}if(StringUtils.isNotBlank(paymentInvBean.getVatRate())) {
+			sql.append(" and pim.VAT_RATE = '"+paymentInvBean.getVatRate()+"'");
+		}else{
+			sql.append(" and pim.VAT_RATE like '%"+paymentInvBean.getVatRate()+"%'");
+		}if(StringUtils.isNotBlank(paymentInvBean.getUser())) {
+			sql.append(" and pm.UPDATE_BY = '"+paymentInvBean.getUser()+"'");
+		}if(StringUtils.isNotBlank(paymentInvBean.getPayType())) {
+			sql.append(" and pim.SERVICE_TYPE like '%"+paymentInvBean.getPayType()+"%'");
+		}
+		
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
 	

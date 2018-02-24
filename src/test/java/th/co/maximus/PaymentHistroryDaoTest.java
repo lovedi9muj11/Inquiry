@@ -49,15 +49,16 @@ public class PaymentHistroryDaoTest {
 	@Test
 	public void findHistorySub() throws ParseException {
 		HistorySubFindBean historySubFindBean = new HistorySubFindBean();
-		String date_s = "20-02-2018 00:00:00.0";
-		String date_e = "25-02-2018 00:00:00.0";
-		SimpleDateFormat smp = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
-		Date dateTo = smp.parse(date_e);
-		historySubFindBean.setPayDate(new java.sql.Date(smp.parse(date_s).getTime()));
+		String date_s = "20/02/2018 00:00:00.0";
+		String date_e = "25/02/2018 00:00:00.0";
+		SimpleDateFormat smpA = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		SimpleDateFormat smp = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		Date dateTo = new java.sql.Date (smp.parse(smp.format(smpA.parse(date_e))).getTime());
+		historySubFindBean.setPayDate(new java.sql.Date(smp.parse(smp.format(smpA.parse(date_s))).getTime()));
 		historySubFindBean.setPayDateTo(new java.sql.Date(dateTo.getTime()));
-		historySubFindBean.setUser("ADMIN");
-		historySubFindBean.setVatRate(7);
-		historySubFindBean.setPayType("IBASS");
+		historySubFindBean.setUser("");
+		historySubFindBean.setVatRate("");
+		historySubFindBean.setPayType("");
 		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPayOrder(historySubFindBean);
 		
 		assertThat(result).isNotEmpty();

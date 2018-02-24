@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,16 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean) {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
-		result = paymentInvoiceManualDao.findPayOrder(paymentInvBean);
+		SimpleDateFormat smp = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		
+		try {
+			paymentInvBean.setPayDateTo(new java.sql.Date (smp.parse(smp.format((paymentInvBean.getPayDateTo()))).getTime()));
+			paymentInvBean.setPayDate(new java.sql.Date (smp.parse(smp.format((paymentInvBean.getPayDate()))).getTime()));
+			result = paymentInvoiceManualDao.findPayOrder(paymentInvBean);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 }
