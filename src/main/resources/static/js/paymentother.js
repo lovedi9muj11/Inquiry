@@ -88,7 +88,7 @@ function submitForm(){
 	
 	// list TranPrice
 	
-	var listpaymentTranPriceQ = [];addRow()
+	var listpaymentTranPriceQ = [];
 	var listpaymentTranPriceRQ = [];
 	
 	for (var b = 0; b < resultTotalPrice.length; b++) {
@@ -182,7 +182,7 @@ function submitForm(){
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	if(res.length > 0){
+        	if(res > 0){
         		window.location.href = "payOtherSuccess?idUser=" +res;
         	}
         }

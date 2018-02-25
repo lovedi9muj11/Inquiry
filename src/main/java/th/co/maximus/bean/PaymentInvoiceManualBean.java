@@ -38,7 +38,17 @@ public class PaymentInvoiceManualBean {
 	private  BigDecimal discountspecial;
 	private  String amounttype; 
 	private String accountSubNo;
+	private String serviceName;
 	
+	
+	
+	
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
 	public String getAccountSubNo() {
 		return accountSubNo;
 	}

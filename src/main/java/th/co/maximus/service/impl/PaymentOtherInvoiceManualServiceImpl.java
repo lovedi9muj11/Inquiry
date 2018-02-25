@@ -25,7 +25,6 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 	@Override
 	public void insertPaymentInvoiceManual(PaymentOtherFirstBean paymentBean,int userId) {
 		String period = "";
-		int payBill = 0;
 		
 		Date date = new Date();
 		if(!paymentBean.getInputCustomerBillNo().equals("")){
@@ -50,13 +49,11 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 		paymentInvoiceManualBean.setRemark(paymentBean.getInputAdditionalRemark());
 		paymentInvoiceManualBean.setCustomerBranch(paymentBean.getInputCustomerBranch());
 		
+		
 		if(paymentBean.getPaymentBill().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentBill().size();i++){
-				//PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 				PaymentBillBean paymentBillBean = new PaymentBillBean();
 				paymentBillBean = paymentBean.getPaymentBill().get(i);
-				//paymentInvoiceManualBean.setAmount(paymentBillBean.getInputServiceAmount());
-				//paymentInvoiceManualBean.setVatAmount(paymentBillBean.getInputsumWt());
 				paymentInvoiceManualBean.setQuantity(paymentBillBean.getInputServiceMoreData());
 				paymentInvoiceManualBean.setIncometype(paymentBillBean.getInputServiceType());
 				paymentInvoiceManualBean.setDiscountbeforvat(paymentBillBean.getInputServiceDiscount());
@@ -64,10 +61,10 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setDepartment(paymentBillBean.getInputServiceDepartment());
 				paymentInvoiceManualBean.setVatAmount(paymentBillBean.getSumamountvat());
 				paymentInvoiceManualBean.setAmount(paymentBillBean.getSumamount());
+				paymentInvoiceManualBean.setServiceName(paymentBillBean.getInputServiceName());
 				
 
 			}
-			//paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 			}
 		
 		

@@ -66,8 +66,8 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao{
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE , pim.BEFOR_VAT , pim.VAT_AMOUNT ,pim.AMOUNT,dud.AMOUNT , py.PAID_AMOUNT , pim.PERIOD ");
 			sqlStmt.append(" FROM payment_manual py ");
-			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
-			sqlStmt.append(" INNER JOIN deduction_manual dud ON dud.MANUAL_ID =  py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO ");
+			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID  ");
+			sqlStmt.append(" INNER JOIN deduction_manual dud ON dud.MANUAL_ID =  py.MANUAL_ID  ");
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
 			
 			

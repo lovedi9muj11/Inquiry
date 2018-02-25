@@ -2,6 +2,8 @@ package th.co.maximus.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,9 +60,10 @@ public class PayOtherController {
 	 @RequestMapping(value = "/payOtherSuccess", method = RequestMethod.GET)
 		public String paymentSuccess(Model model,int idUser,HttpServletRequest request) throws Exception {
 			PaymentResultReq paymentResultReq = new PaymentResultReq();
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
 			Utils utils = new Utils();
 			if(idUser>0){
-				paymentResultReq=	paymentService.findByid(idUser);
+				paymentResultReq=	paymentOtherService.findByid(idUser);
 				paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 				paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
 				paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
@@ -70,12 +73,24 @@ public class PayOtherController {
 				}else {
 					paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
 				}
+				
+				
 				paymentResultReq.setBalancePrice(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
 				paymentResultReq.setPeriod(utils.periodFormat(paymentResultReq.getPeriod()));
+				
+				Date date =  paymentResultReq.getInvoiceDate();
+				String invoiceDate = dt.format(date);
+				
+				Date dateLineDate =  paymentResultReq.getDateLine();
+				String dateLineSt = dt.format(dateLineDate);
+				
+				paymentResultReq.setInvoiceDateRS(invoiceDate);
+				paymentResultReq.setDateLineRS(dateLineSt);
+				
 				request.setAttribute("paymentResultReq",paymentResultReq);  
 			}
 			
-			return "payment-success";
+			return "payOther_1";
 		}
 	 
 }

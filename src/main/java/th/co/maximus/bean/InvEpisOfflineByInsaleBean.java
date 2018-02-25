@@ -19,15 +19,17 @@ public class InvEpisOfflineByInsaleBean {
 	private String paymentCode;
 	private String vatRate;
 	private BigDecimal discountSpecial;
+	private String serviceName;
+	private BigDecimal amount;
+	private BigDecimal discountbeforvat;
 	
 	
 	public InvEpisOfflineByInsaleBean() {}
 	
-	public InvEpisOfflineByInsaleBean(String branArea,String bracnCode,String souce,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal discountSpecial) {
+	public InvEpisOfflineByInsaleBean(String branArea,String bracnCode,String serviceName,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
+			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal discountSpecial,BigDecimal amount,BigDecimal discountbeforvat) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
-		this.souce = souce;
 		this.custNo = custNo;
 		this.custName = custName;
 		this.documentNo = documentNo;
@@ -40,7 +42,9 @@ public class InvEpisOfflineByInsaleBean {
 		this.paymentCode = paymentCode;
 		this.vatRate = vatRate;
 		this.discountSpecial = discountSpecial;
-		
+		this.serviceName = serviceName;
+		this.amount = amount;
+		this.discountbeforvat = discountbeforvat;
 	}
 	
 	
@@ -137,6 +141,30 @@ public class InvEpisOfflineByInsaleBean {
 
 	public void setDiscountSpecial(BigDecimal discountSpecial) {
 		this.discountSpecial = discountSpecial;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getDiscountbeforvat() {
+		return discountbeforvat;
+	}
+
+	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
+		this.discountbeforvat = discountbeforvat;
 	}
 
 

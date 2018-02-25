@@ -22,6 +22,18 @@ public class ExportPDFByInsaleReport {
 	private String dateDocument;
 	private BigDecimal discountSpecial;
 	private BigDecimal balanceBefore;
+	private String serviceName;
+	private BigDecimal amount;
+	private BigDecimal discountbeforvat;
+	
+	
+	
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
 	public String getBranArea() {
 		return branArea;
 	}
@@ -129,6 +141,18 @@ public class ExportPDFByInsaleReport {
 	}
 	public void setBalanceBefore(BigDecimal balanceBefore) {
 		this.balanceBefore = balanceBefore;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public BigDecimal getDiscountbeforvat() {
+		return discountbeforvat;
+	}
+	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
+		this.discountbeforvat = discountbeforvat;
 	}
 	
 	
