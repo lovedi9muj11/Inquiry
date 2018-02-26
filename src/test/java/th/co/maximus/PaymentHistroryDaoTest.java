@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class PaymentHistroryDaoTest {
 	
 	
 	@Test
+	@Ignore
 	public void findPamentMMapPaymentInV() {
 		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPaymentMuMapPaymentInV();
 		
@@ -40,6 +42,7 @@ public class PaymentHistroryDaoTest {
 	
 	
 	@Test
+	@Ignore
 	public void findPaymentManualFromManualId() {
 		List<PaymentManualBean> result = paymentManualDao.findPaymentManualFromNanualId(1);
 		
@@ -47,6 +50,7 @@ public class PaymentHistroryDaoTest {
 	}
 	
 	@Test
+	@Ignore
 	public void findHistorySub() throws ParseException {
 		HistorySubFindBean historySubFindBean = new HistorySubFindBean();
 		String date_s = "20/02/2018 00:00:00.0";
