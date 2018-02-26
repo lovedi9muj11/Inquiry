@@ -170,7 +170,7 @@
                                     <label class="control-label col-sm-2">จำนวนเงินต่อหน่วย :</label>
                                     <div class="col-sm-2"><input id="inputServiceAmount" name="inputServiceAmount" class="form-control"></div>
                                     
-                                    
+                                    <div class="col-sm-5"></div>
                                     <div class="col-sm-2 col-sm-offset-1"><a id="buttonAddBillingList" onclick="buttonAddBillingList()" class="btn btn-info"> <span class="glyphicon glyphicon-plus-sign"></span> เพิ่มรายการรับชำระ</a></div>
                                 </div>
                                 

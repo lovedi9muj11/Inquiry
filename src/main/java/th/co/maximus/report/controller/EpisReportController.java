@@ -125,7 +125,7 @@ public class EpisReportController {
 	
 	@RequestMapping(value= {"/previewPaymentEpisOfflineByInsale.pdf"}) 
 	public void previewPaymentEpisOfflineByInsale(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-//		String documentNo = "";
+		//String documentNo = "";
  		String JASPER_JRXML_FILENAME = "InvEpisPaymentByInsale";
 		request.setAttribute("documentReport", "-1");
 		String documentNo = request.getParameter("documentNo");
@@ -161,9 +161,9 @@ public class EpisReportController {
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
-		
-
-		
+		exportPDFReport.setServiceName(invObject.getServiceName());
+		exportPDFReport.setAmount(invObject.getAmount());
+		exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat());
 		
 		exportPDFReport.setBalanceBefore(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		
