@@ -62,3 +62,9 @@ function updateData(id) {
 function deleteData(id) {
 	alert(id);
 }
+
+function report() {
+	
+	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();
+	
+}
