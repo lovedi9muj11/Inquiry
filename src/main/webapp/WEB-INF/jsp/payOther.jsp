@@ -61,17 +61,25 @@
                                     <div class="form-horizontal">
                                         <div class="form-group">
                                             <label class="control-label col-sm-2">เลขที่ลูกค้า :</label>
-                                            <div class="col-sm-2"><input id="inputCustomerBillNo" class="form-control" placeholder="เลขที่ลูกค้า"></div>
+                                            <div class="col-sm-2"><input id="inputCustomerBillNo" class="form-control" placeholder="เลขที่ลูกค้า">
+                                            <p id="sinputCustomerBillNo" style="color: red;"> คุณยังไม่ได้กรอกเลขที่ลูกค้า</p>
+                                            </div>
                                             <label class="control-label col-sm-2">ชื่อลูกค้า :</label>
-                                            <div class="col-sm-5"><input id="inputCustomerName" class="form-control" placeholder="ชื่อลูกค้า"></div>
+                                            <div class="col-sm-5"><input id="inputCustomerName" class="form-control" placeholder="ชื่อลูกค้า">
+                                            <p id="sinputCustomerName" style="color: red;"> คุณยังไม่ได้กรอกชื่อลูกค้า</p>
+                                            </div>
                                             <input type="hidden" id="inputCustomerType">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-2">Tax ID :</label>
-                                            <div class="col-sm-2"><input id="inputCustomerTaxNo" maxlength="13" class="form-control" placeholder="Tax Id"></div>
+                                            <div class="col-sm-2"><input id="inputCustomerTaxNo" maxlength="13" class="form-control" placeholder="Tax Id">
+                                            <p id="sinputCustomerTaxNo" style="color: red;"> คุณยังไม่ได้กรอกTax ID</p>
+                                            </div>
                                             <label class="control-label col-sm-2">สาขา :</label>
-                                            <div class="col-sm-2"><input id="inputCustomerBranch" maxlength="5" class="form-control" placeholder="สาขา"></div>
+                                            <div class="col-sm-2"><input id="inputCustomerBranch" maxlength="5" class="form-control" placeholder="สาขา">
+                                            <p id="sinputCustomerBranch" style="color: red;"> คุณยังไม่ได้กรอกสาขา</p>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -90,21 +98,25 @@
 														<option>เจ้าของธุรกิจ</option>
 														<option>เจ้าของธุรกิจ</option>
 													</select>
+													<p id="suserGroup" style="color: red;"> คุณยังไม่ได้กรอกกลุ่มผู้ใช้บริการ</p>
                                             </div>
                                             <label class="control-label col-sm-2">VAT Rate :</label>
                                             <div class="col-sm-1">
                                                 <select id="vatrate" class="form-control" >
-                                                	<option></option>
+                                                	<option value="">-- กรุณาเลือก --</option>
                                                     <option value="7">7</option>
                                                     <option value="3">3</option>
                                                     <option value="0">0</option>
-                                                    <option value="Non VAT">Non VAT</option>
+                                                    <option value="N">Non VAT</option>
                                                 </select>
+                                                <p id="svatrate" style="color: red;"> คุณยังไม่ได้กรอกVAT Rate</p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-2">ที่อยู่ :</label>
-                                            <div class="col-sm-6"><textarea id="inputCustomerAddress" class="form-control" placeholder="ที่อยู่"></textarea></div>
+                                            <div class="col-sm-6"><textarea id="inputCustomerAddress" class="form-control" placeholder="ที่อยู่"></textarea>
+                                            <p id="sinputCustomerAddress" style="color: red;"> คุณยังไม่ได้กรอกที่อยู่</p>
+                                            </div>
                                             
                                         </div>
                                     </div>
@@ -125,7 +137,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ประเภทรายได้ :</label>
                                     <div class="col-sm-2" ><select id="inputServiceType" name="inputServiceType"  class="form-control">
-                                    <option >   </option>
+                                    <option value="" >-- กรุณาเลือก --</option>
                                     <option value="ประเภทรายได้ 1"> ประเภทรายได้ 1 </option>
                                     <option value="ประเภทรายได้ 2"> ประเภทรายได้ 2 </option>
                                     <option value="ประเภทรายได้ 3"> ประเภทรายได้ 3 </option>
@@ -135,7 +147,7 @@
                                     <label class="control-label col-sm-2">หน่วยงานรับรายได้ :</label>
                                     <div class="col-sm-2" >
                                         <select id="inputServiceDepartment" class="form-control">
-                                        <option >  </option>
+                                        <option value="">-- กรุณาเลือก --</option>
                                         <option value="หน่วยงานรับรายได้ 1"> หน่วยงานรับรายได้ 1  </option>
                                     <option value="หน่วยงานรับรายได้ 2"> หน่วยงานรับรายได้ 2  </option>
                                     <option value="หน่วยงานรับรายได้  3"> หน่วยงานรับรายได้  3</option>
@@ -149,7 +161,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">ชื่อบริการ :</label>
                                     <div class="col-sm-2" ><select class="form-control" id="inputServiceName" name="inputServiceName">
-                                    <option >   </option>
+                                    <option value="">-- กรุณาเลือก --</option>
                                      <option value="ชื่อบริการ 1"> ชื่อบริการ 1  </option>
                                     <option value=" ชื่อบริการ 2"> ชื่อบริการ 2  </option>
                                     <option value="ชื่อบริการ  3"> ชื่อบริการ  3</option>
@@ -158,11 +170,11 @@
                                     </select></div>
                                     <label class="control-label col-sm-2">จำนวนรายการ :</label>
                                     <div class="col-sm-2"><input id="inputServiceMoreData" name="inputServiceMoreData" class="form-control "></div>
-                                    <div class="col-sm-1"><select id="inputServiceUnit" name="inputServiceUnit" class="form-control">
+                                    <!-- <div class="col-sm-1"><select id="inputServiceUnit" name="inputServiceUnit" class="form-control">
                                     <option >   </option>
                                     <option value="เลือก"> เลือก  </option>
-                                    <option value="ไม่เลือก"> ไม่เลือก  </option>
-                                    </select></div>
+                                    <option value="ไม่เลือก"> ไม่เลือก  </option> 
+                                    </select></div>-->
                                     <label class="control-label col-sm-1"><input type="checkbox" hidden="hidden" name="checkboxAdditionalDiscount"><span class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลดพิเศษ :</label>
                                     <div class="col-sm-2"><input id="inputSpecialDiscount"  name="inputSpecialDiscount"class="form-control " ></div>
                                 </div>
@@ -614,14 +626,14 @@
 								<label class="control-label col-sm-10">ส่วนลด :</label>
 								<div class="col-sm-2">
 									<input id="itemsDiscount" class="form-control "
-										disabled="disabled">
+										disabled="disabled" value="0.00">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-10">ส่วนลดพิเศษ :</label>
 								<div class="col-sm-2">
 									<input id="discount" class="form-control "
-										disabled="disabled">
+										disabled="disabled" value="0.00">
 								</div>
 							</div>
 

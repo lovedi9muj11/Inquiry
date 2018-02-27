@@ -93,30 +93,23 @@
 									<table class="table " id="showResultTableRQ">
 										<thead align="center">
 											<tr align="center">
-												<!-- <th style='text-align: center;'>เลขที่ใบแจ้งค่าใช้บริการ</th> -->
-												<th style='text-align: center;'>วันที่จัดทำใบแจ้งค่าใช้บริการ</th>
-												<th style='text-align: center;'>วันที่ครบกำหนด</th>
+												
 												<th style='text-align: center;'>ยอดก่อนภาษี</th>
 												<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th>
 												<th style='text-align: center;'>ยอดเงินรวมภาษี</th>
 												<th style='text-align: center;'>ยอดชำระ</th>
 												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
-												<th style='text-align: center;'>จำนวนเงินคงค้าง</th>
-												<!-- <th style='text-align: center;'>รอบการใช้งาน</th> -->
+												
 											</tr>
 										</thead>
 										<tbody>
 											<tr align="center">
-												<%-- <td align="center">${paymentResultReq.invoiceNo}</td> --%>
-												<td align="center">${paymentResultReq.invoiceDateRS}</td>
-												<td align="center">${paymentResultReq.dateLineRS}</td>
+												
 												<td align="center">${paymentResultReq.beforeVat}</td>
 												<td align="center">${paymentResultReq.vat}</td>
 												<td align="center">${paymentResultReq.balanceOfvat}</td>
 												<td align="center">${paymentResultReq.balanceSummary}</td>
 												<td align="center">${paymentResultReq.deduction}</td>
-												<td align="center">${ paymentResultReq.balancePrice}</td>
-												<%-- <td align="center">${paymentResultReq.period}</td> --%>
 											</tr>
 										</tbody>
 									</table>

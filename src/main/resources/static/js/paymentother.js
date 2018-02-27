@@ -7,7 +7,7 @@ $(document).ready(
 			summaryTax();
 			summaryTranPrice();
 			disBtn();
-			
+			hideShowdat();
 			
 			
 		});
@@ -24,6 +24,19 @@ function disBtn(){
 		$('button#submitFormPayment').prop('disabled', true);
 	}
 }
+
+function hideShowdat(){
+	 $("#sinputCustomerBillNo").hide();
+	 $("#sinputCustomerName").hide();
+	 $("#sinputCustomerTaxNo").hide();
+	 $("#sinputCustomerBranch").hide();
+	 $("#suserGroup").hide();
+	 $("#svatrate").hide();
+	 $("#sinputCustomerAddress").hide();
+	 
+}
+
+
 function submitForm(){
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -155,6 +168,35 @@ function submitForm(){
 			
 		
 			listpaymentAddBillingL.push(listpaymentAddBilling);
+	}
+	
+	if($("#inputCustomerBillNo").val() == ""){
+		$("#sinputCustomerBillNo").show();
+		return $("#inputCustomerBillNo").focus();
+	}
+	if($("#inputCustomerName").val() == ""){
+		$("#sinputCustomerName").show();
+		return $("#inputCustomerName").focus();
+	}
+	if($("#inputCustomerTaxNo").val() == ""){
+		$("#sinputCustomerTaxNo").show();
+		return $("#inputCustomerTaxNo").focus();
+	}
+	if($("#inputCustomerBranch").val() == ""){
+		$("#sinputCustomerBranch").show();
+		return $("#inputCustomerBranch").focus();
+	}
+	if($("#userGroup").val() == ""){
+		$("#suserGroup").show();
+		return $("#userGroup").focus();
+	}
+	if($("#vatrate").val() == ""){
+		$("#svatrate").show();
+		return $("#vatrate").focus();
+	}
+	if($("#inputCustomerAddress").val() == ""){
+		$("#sinputCustomerAddress").show();
+		return $("#inputCustomerAddress").focus();
 	}
 	
 	var dataSend = {
@@ -346,7 +388,11 @@ function addDataTableMoneyTranPrice() {
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 
 		$("#moneyTran").val("");
+		
+		
 		summaryTranPrice();
+		
+		
 	}
 }
 
@@ -472,6 +518,9 @@ function addDataTablecreditTranPrice() {
 
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
+	
+	
+	
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {
@@ -544,7 +593,7 @@ function summaryTranPrice() {
 	var vatRq = parseFloat(0);
 	var itemsDiscount = parseFloat(0);
 	var discount = parseFloat(0);
-
+	
 
 	for (var i = 1; i < rowLength; i++) {
 		var oCells = table.rows.item(i).cells;
@@ -572,6 +621,8 @@ function summaryTranPrice() {
 	if (summary < 0) {
 		summary = parseFloat(0);
 	}
+	
+	
 	$("#balanceSummary").val(summary.toFixed(2));
 	$("#balanceSummarys").val(summary.toFixed(2));
 	$("#balanceBeforeTax").val(summarybeforeVat.toFixed(2));
@@ -580,9 +631,9 @@ function summaryTranPrice() {
 	$("#vats").val(summaryvat.toFixed(2));
 	$("#balanceOfTax").val(summaryTVat.toFixed(2));
 	$("#balanceOfTaxs").val(summaryTVat.toFixed(2));
-	$("#itemsDiscount").val(summaryTVat.toFixed(2))
-	$("#itemsDiscount").val(itemsDiscount.toFixed(2));
-	$("#discount").val(discount.toFixed(2));
+	//$("#itemsDiscount").val(summaryTVat.toFixed(2))
+//	$("#itemsDiscount").val(itemsDiscount.toFixed(2));
+//	$("#discount").val(discount.toFixed(2));
 	
 }
 
@@ -618,8 +669,8 @@ function buttonAddBillingList() {
 	$("#itemsDiscount").val(inputServiceDiscount);
 	$("#discount").val(inputSpecialDiscount);
 	 
-	$("inputServiceType").val("");
-	 $("inputServiceDepartment").val("");
+	 $("#inputServiceType").val("");
+	 $("#inputServiceDepartment").val("");
 	 $("#inputServiceDiscount").val("");
 	 $("#inputServiceName").val("");
 	 $("#inputServiceMoreData").val("");
