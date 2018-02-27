@@ -235,6 +235,5 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		}
 
 	}
-
 	
 }
