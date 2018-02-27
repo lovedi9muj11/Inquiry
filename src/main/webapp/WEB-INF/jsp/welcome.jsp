@@ -25,7 +25,7 @@
 		<div id="" class="row">
 			<div class="col-lg-12">
 				<div class="col-md-12">
-					<font color="black">Test Offline</font>
+					<font color="black">EPIS Offline</font>
 				</div>
 			</div>
 		</div>

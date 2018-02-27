@@ -62,3 +62,10 @@ function updateData(id) {
 function deleteData(id) {
 	alert(id);
 }
+
+function report() {
+	
+	$('#rptCode').val('RPTxxx');
+	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();
+	
+}

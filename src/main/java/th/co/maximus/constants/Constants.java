@@ -23,6 +23,8 @@ public class Constants {
 	
 	public static class report{
 		public static final String repotPathc = "/report/jasper/pdf";
+		public static final String XXX = "RPTxxx";
+		public final static String RPT_EXCEL = "EXCEL";
 	}
 	public static class dataUser{
 		public static final String BRANCHAREA = "CAT นนทบุรี";

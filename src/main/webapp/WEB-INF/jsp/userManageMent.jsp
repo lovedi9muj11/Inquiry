@@ -25,7 +25,9 @@
 <jsp:include page="../layout/menu.jsp"></jsp:include>
 	<header class="header_page"></header>
 
+<form id="reportFrom" method="post" class="form-horizontal" role="form" >
 	<div id="page-content-wrapper">
+	<input name="rptCode" id="rptCode" value="${paymentResultReq.rptCode}" type="hidden">
 		<br />
 		<div class="container-fluid">
 		<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>
@@ -40,6 +42,7 @@
 						</div>
 						<div class="col-md-2 left">
 							<button type="button" id="search" class="btn btn-primary " onclick="search()">ค้นหา</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
+							<button type="button" id="search" class="btn btn-primary " onclick="report()">Report Excel</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
 						</div>
 					</div>
 				</div>
@@ -70,6 +73,7 @@
 		</div>
 		</div>
 	</div>
+</form>
 </div>
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

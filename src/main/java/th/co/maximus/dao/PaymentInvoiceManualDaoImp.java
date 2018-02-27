@@ -165,8 +165,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual pm");
 		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
-		sql.append(" where ");
 		if(paymentInvBean.getPayDate() != null && paymentInvBean.getPayDateTo() != null) {
+			sql.append(" where ");
 			sql.append(" pm.PAID_DATE BETWEEN '"+paymentInvBean.getPayDate()+"'");
 			sql.append(" and '"+paymentInvBean.getPayDateTo()+"'");
 		}if(StringUtils.isNotBlank(paymentInvBean.getVatRate())) {
