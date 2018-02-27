@@ -27,6 +27,7 @@
 
 <form id="reportFrom" method="post" class="form-horizontal" role="form" >
 	<div id="page-content-wrapper">
+	<input name="rptCode" id="rptCode" value="${paymentResultReq.rptCode}" type="hidden">
 		<br />
 		<div class="container-fluid">
 		<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>

@@ -23,12 +23,11 @@ public class ReportController {
 
 	@Autowired
 	ReportService reportService;
-
 	
 	@RequestMapping(value = { "/printReport.xls" }, method = RequestMethod.POST)
 	public void payOther(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String rptCode = "RPTxxx";
+		String rptCode = request.getParameter("rptCode");
 		String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + rptCode + ".xls");
 		FileInputStream input_document = new FileInputStream(new File(pathFile));
 		Workbook workbook = new HSSFWorkbook(input_document);
