@@ -2,6 +2,7 @@ package th.co.maximus.service.report;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,6 +31,8 @@ public class ReportService {
 		if (rptCode.equals(Constants.report.XXX)) {
 			bean.setReportId(1L);
 			bean.setName("Ae");
+			bean.setPayDate(new Date());
+			bean.setPayDateTo(new Date());
 			List<ReportBean> entity = xxx(bean);
 			workbook = reportExcelService.getReportRptxxx(workbook, entity, bean);
 		} 
