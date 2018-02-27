@@ -11,11 +11,15 @@
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
-<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script src="js/report-tax.js"></script>
 <title>รานงานการชำระ</title>
 
@@ -28,11 +32,13 @@
 		<h1 class="page-header"></h1>
 		<div class="panel" id="panel1">
 			<div class="panel-heading">ค้นหาการงานการชำระเงิน</div>
-			<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}"/>
+			<input type="hidden" name="userName" id="userName"
+				value="${pageContext.request.userPrincipal.name}" />
 			<div class="panel-body">
 				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="col-md-2 control-label text-right">วันที่ชำระ :</label>
+					<div class="form-group col-md-4">
+						<label class="col-md-2 control-label text-right">วันที่ชำระ
+							:</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
 								<input type='date' class="form-control" />
@@ -64,23 +70,24 @@
 									<option value="22">22</option>
 									<option value="23">23</option>
 								</select>
-								
+
 							</div>
 							<div class="col-md-3">
 								<select class="form-control">
 									<option value="00">00</option>
-									<option value="01">15</option>
-									<option value="02">30</option>
-									<option value="03">45</option>
-									<option value="03">59</option>
+									<option value="15">15</option>
+									<option value="30">30</option>
+									<option value="45">45</option>
+									<option value="59">59</option>
 								</select>
 							</div>
-							
+
 						</div>
 					</div>
-					
-					<div class="form-group col-md-6">
-						<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
+
+					<div class="form-group col-md-4">
+						<label class="col-md-2 control-label text-right">ถึงวันที่
+							:</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
 								<input type='date' class="form-control" />
@@ -116,58 +123,68 @@
 							<div class="col-md-3">
 								<select class="form-control">
 									<option value="00">00</option>
-									<option value="01">15</option>
-									<option value="02">30</option>
-									<option value="03">45</option>
-									<option value="03">59</option>
+									<option value="15">15</option>
+									<option value="30">30</option>
+									<option value="45">45</option>
+									<option value="59">59</option>
 								</select>
 							</div>
-							
+
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<label class="col-md-3 control-label text-right">ประเภทใบเสร็จ	:</label>
+						<div class="col-md-9">
+								<select class="form-control">
+									<option value="F">รายการภาษีแบบเต็ม</option>
+									<option value="S">รายการภาษีแบบย่อ</option>
+								</select>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="box-footer" style="padding-bottom: 20px">
+				<div class="box-footer" style="padding-bottom: 20px">
+					<div class="row">
+						<!-- Button -->
+						<div class="col-md-12 text-center">
+							<button id="search" name="search" class="btn btn-primary"
+								style="width: 7%">ค้นหา</button>
+							<button id="clear" name="clear" class="btn btn-danger"
+								style="width: 7%">ลบ</button>
+						</div>
+					</div>
+				</div>
+
+
 				<div class="row">
-					<!-- Button -->
-					<div class="col-md-12 text-center">
-						<button id="search" name="search" class="btn btn-primary" style="width: 7%">ค้นหา</button>
-						<button id="clear" name="clear" class="btn btn-danger" style="width: 7%">ลบ</button>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="box box-solid">
-						<!--<div class="box-header"></div>
+					<div class="col-md-12">
+						<div class="box box-solid">
+							<!--<div class="box-header"></div>
 						 /.box-header -->
-						<div class="box-body">
-							<table id="cancelPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<th style="text-align: center;">ลำดับที่</th>
-										<th style="text-align: center;">วันเดือนปี</th>
-										<th style="text-align: center;">เลขที่ใบกำกับภาษี</th>
-										<th style="text-align: center;">ชื่อผู้ซื้อบริการ/ผู้รับบริการ</th>
-										<th style="text-align: center;">TAX ID</th>
-										<th style="text-align: center;">สาขาที่</th>
-										<th style="text-align: center;">มูลค่าสินค้าหรือบริการ</th>
-										<th style="text-align: center;">จำนวนเงินภาษีมูลค่าเพิ่ม</th>
-										<th style="text-align: center;">จำนวนเงินรวม</th>
-										<th style="text-align: center;">สถานะ</th>
-									</tr>
-								</thead>
-							</table>
+							<div class="box-body">
+								<table id="reportTax" class="table table-bordered"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th style="text-align: center;">ลำดับที่</th>
+											<th style="text-align: center;">วันเดือนปี</th>
+											<th style="text-align: center;">เลขที่ใบกำกับภาษี</th>
+											<th style="text-align: center;">ชื่อผู้ซื้อบริการ/ผู้รับบริการ</th>
+											<th style="text-align: center;">TAX ID</th>
+											<th style="text-align: center;">สาขาที่</th>
+											<th style="text-align: center;">มูลค่าสินค้าหรือบริการ</th>
+											<th style="text-align: center;">จำนวนเงินภาษีมูลค่าเพิ่ม</th>
+											<th style="text-align: center;">จำนวนเงินรวม</th>
+											<th style="text-align: center;">สถานะ</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 </html>
