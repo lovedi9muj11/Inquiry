@@ -25,4 +25,6 @@ public interface PaymentInvoiceManualDao {
 	public List<PaymentInvoiceManualBean> findPaymentInvoiceFromManualId(long manualId);
 	
 	List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean historySubFindBean);
+	
+	List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean historySubFindBean);
 }

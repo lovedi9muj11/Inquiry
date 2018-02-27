@@ -29,6 +29,7 @@ function search() {
         }
 	})
 };
+
 function createRow(data, seq, table) {
 	no = data.manualId
 	receiptNoManual = data.receiptNoManual;
@@ -50,3 +51,10 @@ function createRow(data, seq, table) {
     $(rowNode).find('td').eq(1).addClass('left');
 
 };
+
+function report() {
+	
+//	$('#rptCode').val('RPTxxx');
+	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();
+	
+}

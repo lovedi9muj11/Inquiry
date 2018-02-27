@@ -59,4 +59,20 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		return result;
 	}
 	
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean paymentInvBean) {
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
+		SimpleDateFormat smp = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		
+		try {
+			paymentInvBean.setPayDateTo(new java.sql.Date (smp.parse(smp.format((paymentInvBean.getPayDateTo()))).getTime()));
+			paymentInvBean.setPayDate(new java.sql.Date (smp.parse(smp.format((paymentInvBean.getPayDate()))).getTime()));
+			result = paymentInvoiceManualDao.findPayOrderFulln(paymentInvBean);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 }

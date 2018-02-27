@@ -182,6 +182,22 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
 	
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean paymentInvBean) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM payment_manual pm");
+		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
+		if(paymentInvBean.getPayDate() != null && paymentInvBean.getPayDateTo() != null) {
+			sql.append(" where ");
+			sql.append(" pm.PAID_DATE BETWEEN '"+paymentInvBean.getPayDate()+"'");
+			sql.append(" and '"+paymentInvBean.getPayDateTo()+"'");
+		}if(StringUtils.isNotBlank(paymentInvBean.getPayType())) {
+			sql.append(" and pm.PAY_TYPE like '%"+paymentInvBean.getPayType()+"%'");
+		}
+		
+		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+	}
+	
 	private static final class PaymentInvoice implements RowMapper<PaymentInvoiceManualBean> {
 
 		@Override

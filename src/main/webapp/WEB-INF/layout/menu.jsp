@@ -50,14 +50,4 @@
 			    </div>	
 				</nav>
 			</div>
-			<!-- /#sidebar -->
-			<!-- main panel -->
-<!-- 			<div id="page-content-wrapper"> -->
-				
-<!-- 				<div id="header-wrapper"> -->
-<!-- 				</div> -->
-				
-<!-- 				<div id="content-wrapper" class="container-fluid"> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 		</div>
