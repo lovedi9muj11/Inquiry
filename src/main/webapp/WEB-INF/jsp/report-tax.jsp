@@ -41,10 +41,10 @@
 							:</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
-								<input type='date' class="form-control" />
+								<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
 							</div>
 							<div class="col-md-3">
-								<select class="form-control">
+								<select class="form-control" name="dateFromHour" id="dateFromHour">
 									<option value="00">00</option>
 									<option value="01">01</option>
 									<option value="02">02</option>
@@ -73,7 +73,7 @@
 
 							</div>
 							<div class="col-md-3">
-								<select class="form-control">
+								<select class="form-control" name="dateFromMinute" id="dateFromMinute">
 									<option value="00">00</option>
 									<option value="15">15</option>
 									<option value="30">30</option>
@@ -90,10 +90,10 @@
 							:</label>
 						<div class="col-md-10">
 							<div class='col-md-6'>
-								<input type='date' class="form-control" />
+								<input type='date' class="form-control" id="dateTo" name="dateTo"/>
 							</div>
 							<div class="col-md-3">
-								<select class="form-control">
+								<select class="form-control" name="dateToHour" id="dateToHour">
 									<option value="00">00</option>
 									<option value="01">01</option>
 									<option value="02">02</option>
@@ -121,7 +121,7 @@
 								</select>
 							</div>
 							<div class="col-md-3">
-								<select class="form-control">
+								<select class="form-control" name="dateToMinute" id="dateToMinute">
 									<option value="00">00</option>
 									<option value="15">15</option>
 									<option value="30">30</option>
@@ -135,7 +135,7 @@
 					<div class="form-group col-md-4">
 						<label class="col-md-3 control-label text-right">ประเภทใบเสร็จ	:</label>
 						<div class="col-md-9">
-								<select class="form-control">
+								<select class="form-control" id="typePrint" name="typePrint">
 									<option value="F">รายการภาษีแบบเต็ม</option>
 									<option value="S">รายการภาษีแบบย่อ</option>
 								</select>
@@ -147,14 +147,19 @@
 					<div class="row">
 						<!-- Button -->
 						<div class="col-md-12 text-center">
-							<button id="search" name="search" class="btn btn-primary"
+							<button id="search" name="search" class="btn btn-primary" onclick="search()"
 								style="width: 7%">ค้นหา</button>
 							<button id="clear" name="clear" class="btn btn-danger"
 								style="width: 7%">ลบ</button>
 						</div>
 					</div>
 				</div>
-
+			<div class="row" style="padding-bottom: 10px;padding-right: 2px">
+				<div class="col-md-12 text-right">
+					<button id="search" name="search" class="btn btn-warning glyphicon glyphicon-print" style="width: 7%"> PDF</button>
+					<button id="clear" name="clear" class="btn btn-success glyphicon glyphicon-print" style="width: 7%"> Excel</button>
+				</div>
+			</div>
 
 				<div class="row">
 					<div class="col-md-12">

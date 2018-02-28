@@ -67,6 +67,8 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 				}else {
 					paymentManualBean.setDocType("S");
 				}
+			}else {
+				paymentManualBean.setDocType("F");
 			}
 
 			

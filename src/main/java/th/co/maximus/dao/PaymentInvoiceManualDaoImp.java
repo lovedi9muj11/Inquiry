@@ -1,7 +1,10 @@
 package th.co.maximus.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,7 +15,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
+import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
@@ -23,6 +29,8 @@ import th.co.maximus.core.utils.Utils;
 @Repository("PaymentInvoiceManualDao")
 public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	
+	@Autowired
+	DataSource dataSource;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -235,5 +243,54 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		}
 
 	}
+
+	@Override
+	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException {
+		List<HistoryPaymentRS> collections = new ArrayList<HistoryPaymentRS>();
+		Connection connect = dataSource.getConnection();
+		
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE");
+			sql.append(" FROM payment_manual py");
+			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+			sql.append(" WHERE  ");
+			sql.append(" py.DOCTYPE = ? ");
+			if(StringUtils.isNoneEmpty(historyRpt.getDateFrom()) && StringUtils.isNoneEmpty(historyRpt.getDateFromHour()) && StringUtils.isNoneEmpty(historyRpt.getDateFromMinute())) {
+				
+				String dateFrom = convertDateString(historyRpt.getDateFrom())+ " " + historyRpt.getDateFromHour()+ ":"+historyRpt.getDateFromMinute() +":"+"00"+":" +"000000"; 
+				sql.append(" AND py.CREATE_DATE >= '").append(" "+dateFrom+" ' ");
+				
+			}
+			
+			if(StringUtils.isNoneEmpty( convertDateString(historyRpt.getDateTo())) && StringUtils.isNoneEmpty(historyRpt.getDateToHour()) && StringUtils.isNoneEmpty(historyRpt.getDateToMinute())) {
+				String dateTo = historyRpt.getDateTo()+ " "  + historyRpt.getDateToHour()+ ":"+historyRpt.getDateToMinute() +":"+"59"+":" +"999999"; 
+				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
+			}
+			
+
+			
+			//sql.append(" GROUP BY tm.NAME ");
+			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
+			preparedStatement.setString(1, historyRpt.getTypePrint());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				//collections.add(new HistoryPaymen)	;
+				collections.add(new HistoryPaymentRS(resultSet.getDate(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7),resultSet.getBigDecimal(8),resultSet.getInt(9)));
+						
+			}
+		} finally {
+			connect.close();
+		}
+
+	
+		
+		return collections;
+	}
+
+	public static final String convertDateString(String str) {
+		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
+
+	} 
 	
 }
