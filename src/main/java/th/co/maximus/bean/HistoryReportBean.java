@@ -8,6 +8,8 @@ public class HistoryReportBean {
 	private String dateToHour;
 	private String dateToMinute;
 	private String typePrint;
+	private String rptCode;
+	
 	public String getDateFrom() {
 		return dateFrom;
 	}
@@ -50,8 +52,11 @@ public class HistoryReportBean {
 	public void setTypePrint(String typePrint) {
 		this.typePrint = typePrint;
 	}
+	public String getRptCode() {
+		return rptCode;
+	}
+	public void setRptCode(String rptCode) {
+		this.rptCode = rptCode;
+	}
 	
-	
-	
-
 }

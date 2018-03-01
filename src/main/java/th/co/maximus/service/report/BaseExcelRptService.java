@@ -215,7 +215,7 @@ public class BaseExcelRptService {
 		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);
-		cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+		cellStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());
 		cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		cellStyle.setFont(font);
 

@@ -12,7 +12,7 @@ $(document).ready(function() {
 });
 
 
-function search() {
+function searchClick() {
 	tUser.clear().draw();
 	var data = '';
 	var dataSend = { "username": $('#name').val() };
@@ -63,7 +63,7 @@ function deleteData(id) {
 	alert(id);
 }
 
-function report() {
+function reportClick() {
 	
 	$('#rptCode').val('RPTxxx');
 	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();

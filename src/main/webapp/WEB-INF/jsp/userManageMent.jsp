@@ -41,8 +41,8 @@
 							<input type="text" id="name" class="form-control"></input>
 						</div>
 						<div class="col-md-2 left">
-							<button type="button" id="search" class="btn btn-primary " onclick="search()">ค้นหา</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
-							<button type="button" id="search" class="btn btn-primary " onclick="report()">Report Excel</button> <!-- <i class="fa fa-plus fa-fw"></i> -->
+							<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button>
+							<button type="button" id="report" class="btn btn-primary " onclick="reportClick()">Report Excel</button>
 						</div>
 					</div>
 				</div>

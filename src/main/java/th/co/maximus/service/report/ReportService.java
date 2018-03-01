@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
 import th.co.maximus.constants.Constants;
 
@@ -25,7 +27,6 @@ public class ReportService {
 	Locale localeEN = new Locale("en", "EN");
 
 	SimpleDateFormat formateYearTH = new SimpleDateFormat("yyyy", localeTH);
-
 
 	public Workbook controlAllReports(Workbook workbook, String rptCode, ReportBean bean) throws Exception {
 		if (rptCode.equals(Constants.report.XXX)) {
@@ -43,6 +44,13 @@ public class ReportService {
 		List<ReportBean> result = new ArrayList<ReportBean>();
 		result.add(bean);
 		return result;
+	}
+	
+	public Workbook controlAllReport(Workbook workbook, String rptCode, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception {
+		if (rptCode.equals(Constants.report.EXCELFULL)) {
+			workbook = reportExcelService.getReportRptFull(workbook, entity, bean);
+		} 
+		return workbook;
 	}
 
 }
