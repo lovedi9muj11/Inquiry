@@ -119,9 +119,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell4.setCellValue("");
 			sumCell5.setCellValue("");
 			sumCell6.setCellValue("");
-			sumCell7.setCellFormula("SUM(G2:G"+(rowNum-1)+")");
-			sumCell8.setCellFormula("SUM(H2:H"+(rowNum-1)+")");
-			sumCell9.setCellFormula("SUM(I2:I"+(rowNum-1)+")");
+			sumCell7.setCellValue("");
+			sumCell8.setCellValue("");
+			sumCell9.setCellValue("");
 			sumCell10.setCellValue("");
 			
 			sumCell1.setCellStyle(summary);
@@ -157,9 +157,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell24.setCellValue("");
 			sumCell25.setCellValue("");
 			sumCell26.setCellValue("");
-			sumCell27.setCellValue("");
-			sumCell28.setCellValue("");
-			sumCell29.setCellValue("");
+			sumCell27.setCellFormula("SUM(G2:G"+(rowNum-2)+")");
+			sumCell28.setCellFormula("SUM(H2:H"+(rowNum-2)+")");
+			sumCell29.setCellFormula("SUM(I2:I"+(rowNum-2)+")");
 			sumCell210.setCellValue("");
 			
 			sumCell21.setCellStyle(summary);
@@ -195,9 +195,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell34.setCellValue("");
 			sumCell35.setCellValue("");
 			sumCell36.setCellValue("");
-			sumCell37.setCellValue("");
-			sumCell38.setCellValue("");
-			sumCell39.setCellValue("");
+			sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+			sumCell38.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+			sumCell39.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
 			sumCell310.setCellValue("");
 			
 			sumCell31.setCellStyle(summary);
