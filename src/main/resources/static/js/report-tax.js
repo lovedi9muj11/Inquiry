@@ -85,4 +85,4 @@ function initCriteria(){
 	$('#dateToMinute').val('59');
 	$('#vat').val('');
 	$('#categoryPayment').val('');
-};
+}
