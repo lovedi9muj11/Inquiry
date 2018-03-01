@@ -1,5 +1,8 @@
 package th.co.maximus.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.service.HistoryPaymentService;
@@ -45,6 +50,40 @@ public class HistroryPaymentController {
 		  List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
 		  if(creteria != null) {
 			  result = paymentManualService.findPayOrder(creteria);
+		  }
+	        return result;
+	    }
+	  
+	  @RequestMapping(value = {"/histroryPayment/paymentPrint"}, method = RequestMethod.POST, produces = "application/json")
+	  @ResponseBody
+	    public List<HistoryPaymentRS> paymentPrint(@RequestBody HistoryReportBean creteria) throws SQLException {
+		  List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
+		  List<HistoryPaymentRS> result = new ArrayList<HistoryPaymentRS>();
+		  if(creteria != null) {
+			  
+			  resultRQ = paymentManualService.findPaymentOrder(creteria);
+			  
+			  if(resultRQ.size() > 0) {
+				  for(int i=0; i< resultRQ.size();i++) {
+					  HistoryPaymentRS hisPay = resultRQ.get(i);
+					  BigDecimal reVat = new BigDecimal(107);
+					  
+					  BigDecimal amount = hisPay.getPaidAmount();
+					  BigDecimal vatRQ = amount.multiply(new BigDecimal(hisPay.getVatRate()));
+					  BigDecimal vat = vatRQ.divide(reVat,2,RoundingMode.HALF_UP);
+					  
+					  BigDecimal beforeVat = amount.subtract(vat);
+					  
+					  hisPay.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
+					  hisPay.setBeforeVat(beforeVat.setScale(2, RoundingMode.HALF_DOWN));
+					  hisPay.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
+					  hisPay.setNumberRun(String.valueOf(i+1));
+					  
+					  result.add(hisPay);
+					  
+				  }
+				  
+			  }
 		  }
 	        return result;
 	    }

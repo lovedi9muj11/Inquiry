@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
@@ -71,6 +74,14 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		return result;
+	}
+
+	@Override
+	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException {
+		List<HistoryPaymentRS> result = new ArrayList<HistoryPaymentRS>();
+		result = paymentInvoiceManualDao.findPaymentOrder(historyRpt);
 		
 		return result;
 	}
