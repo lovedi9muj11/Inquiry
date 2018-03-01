@@ -9,12 +9,16 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
+import th.co.maximus.bean.InvPaymentOrderTaxBean;
 @Repository("ReportDao")
 public class ReportDaoImpl implements ReportDao{
 	@Autowired
@@ -80,4 +84,49 @@ public class ReportDaoImpl implements ReportDao{
 		return collections;
 	}
 
+
+
+	@Override
+	public List<InvPaymentOrderTaxBean> inqueryInvPaymentOrderTaxBeanJSONHandler(HistoryReportBean creteria)
+			throws SQLException {
+		Connection connect = dataSource.getConnection();
+		List<InvPaymentOrderTaxBean> collections = new ArrayList<InvPaymentOrderTaxBean>();
+		
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME,py.CREATE_BY, pim.TAXNO ,py.INVOICE_NO , py.BRANCH_AREA, py.BRANCH_CODE ,py.PAID_AMOUNT,py.RECORD_STATUS,pim.VAT_RATE");
+			sql.append(" FROM payment_manual py");
+			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+			sql.append(" WHERE  ");
+			sql.append(" py.DOCTYPE = ? ");
+			if(StringUtils.isNoneEmpty(creteria.getDateFrom())) {
+				
+				String dateFrom = convertDateString(creteria.getDateFrom())+ " " + creteria.getDateFromHour()+ ":"+creteria.getDateFromMinute() +":"+"00"+":" +"000000"; 
+				sql.append(" AND py.CREATE_DATE >= '").append(" "+dateFrom+" ' ");
+				
+			}
+			if(StringUtils.isNoneEmpty( convertDateString(creteria.getDateTo()))) {
+				String dateTo = creteria.getDateTo()+ " "  + creteria.getDateToHour()+ ":"+creteria.getDateToMinute() +":"+"59"+":" +"999999"; 
+				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
+			}
+			
+
+			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
+			preparedStatement.setString(1, creteria.getTypePrint());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				//collections.add(new HistoryPaymen)	;
+				collections.add(new InvPaymentOrderTaxBean(resultSet.getDate(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getBigDecimal(9), resultSet.getString(10), resultSet.getInt(11)));
+						
+			}
+		} finally {
+			connect.close();
+		}
+		return collections;
+	}
+
+	public static final String convertDateString(String str) {
+		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
+
+	} 
 }

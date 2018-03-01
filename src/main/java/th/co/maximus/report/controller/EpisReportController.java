@@ -29,8 +29,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import th.co.maximus.bean.ExportPDFByInsaleReport;
 import th.co.maximus.bean.ExportPDFReport;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
+import th.co.maximus.bean.InvPaymentOrderTaxBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.service.ReportService;
 
@@ -38,6 +40,7 @@ import th.co.maximus.service.ReportService;
 public class EpisReportController {
 	@Autowired
 	ReportService reportService;
+
 	
 	private ServletContext context;
 
@@ -208,5 +211,112 @@ public class EpisReportController {
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 //        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 	}
+	
+	 @RequestMapping(value = {"previewPaymentPrintOrder.pdf"})
+	    public void paymentPrint(HistoryReportBean creteria,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		  if(creteria != null) {
+			  String JASPER_JRXML_FILENAME = "InvPaymentOrderTax";
+			  List<InvPaymentOrderTaxBean> collections = reportService.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
+			  if(collections != null) {
+				  previewPaymentPrintOrder(request, response, collections, JASPER_JRXML_FILENAME,creteria);
+				}
+			  
+		  }
+	      
+	    }
+	 
+	 private void previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response, List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME,HistoryReportBean creteria) throws Exception {
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			List<InvPaymentOrderTaxBean> printCollections = new ArrayList<InvPaymentOrderTaxBean>();
+			InvPaymentOrderTaxBean invObject = (InvPaymentOrderTaxBean)collections.get(0);
+			InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
+			
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+			Date date =  new Date();
+			String dateDocument = dt.format(date);
+			String dateFrom = convertDateString(creteria.getDateFrom())+ " " + creteria.getDateFromHour()+ ":"+creteria.getDateFromMinute(); 
+			String dateTo = creteria.getDateTo()+ " "  + creteria.getDateToHour()+ ":"+creteria.getDateToMinute(); 
+			
+			if(creteria.getTypePrint().equals("F")) {
+				exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
+			}else {
+				exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ");
+			}
+			
+			exportPDFReport.setDateForm(dateFrom);
+			exportPDFReport.setDateTo(dateTo);
+			exportPDFReport.setPrintDate(dateDocument);
+			exportPDFReport.setBranchArea(invObject.getBranchArea());
+			exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
+			exportPDFReport.setBranchCodeEmp(invObject.getBranchCode());
+			exportPDFReport.setVatRate(invObject.getVatRate());
+			exportPDFReport.setEmpSummaryName(invObject.getEmpName());
+			
+			
+			BigDecimal beforeVatRq = new BigDecimal(0);
+			BigDecimal vatRq = new BigDecimal(0);
+			BigDecimal summarySummary = new BigDecimal(0);
+			for(int i=0; i<collections.size(); i++) {
+				InvPaymentOrderTaxBean colles = new InvPaymentOrderTaxBean();
+				colles = collections.get(i);
+				colles.setAutoNumber(i+1);
+				colles.setDocumentDate(colles.getDocumentDate());
+				colles.setDocumentNo(colles.getDocumentNo());
+				colles.setCustName(colles.getCustName());
+				colles.setEmpName(colles.getEmpName());
+				colles.setTaxId(colles.getTaxId());
+				colles.setBranchCode(colles.getBranchCode());
+				colles.setSummary(colles.getSummary().setScale(2, RoundingMode.HALF_DOWN));
+				
+				// BeforeVat and Vat 
+				BigDecimal total = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
+				BigDecimal vatRate = new BigDecimal(colles.getVatRate());
+				BigDecimal resVat = new BigDecimal(107);
+				BigDecimal beforeVat = total.multiply(vatRate);				
+				BigDecimal vat = beforeVat.divide(resVat,2,RoundingMode.HALF_UP);
+				
+				BigDecimal beforeVats = total.subtract(vat);
+				
+				
+				colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
+				colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
+				if(colles.getPayType().equals("A")) {
+					colles.setPayType("ปกติ");
+				}else {
+					colles.setPayType("ยกเลิก");
+				}
+				beforeVatRq = beforeVats.setScale(2, RoundingMode.HALF_DOWN);
+				vatRq = vat.setScale(2, RoundingMode.HALF_DOWN);
+				summarySummary = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
+				
+				colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
+				colles.setDocumentDateReport(String.valueOf(colles.getDocumentDate().toString()));	
+				colles.setBeforeVatReport(String.valueOf(colles.getBeforeVat()));
+				colles.setVatReport(String.valueOf(colles.getVat()));
+				colles.setSummaryReport(String.valueOf(colles.getSummary()));
+				printCollections.add(colles);
 
+			}
+			
+			exportPDFReport.setBeforeVatRq(beforeVatRq);
+			exportPDFReport.setVatRq(vatRq);
+			exportPDFReport.setSummaryRq(summarySummary);
+			exportPDFReport.setBeforeVatSummary(beforeVatRq);
+			exportPDFReport.setVatSummary(vatRq);
+			exportPDFReport.setSummarySummary(summarySummary);
+			
+			parameters.put("ReportSource", exportPDFReport);
+			
+			response.setContentType("application/pdf");
+			response.setCharacterEncoding("UTF-8");
+			JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
+			JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
+	        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,jrDataSource);
+	        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		}
+
+	 public static final String convertDateString(String str) {
+			return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
+
+		} 
 }

@@ -70,6 +70,12 @@ function reportPDF() {
 	$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
 	
 }
+function reportPDF() {
+	
+	$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
+	
+}
+
 
 function initCriteria(){
 	var now = new Date();
