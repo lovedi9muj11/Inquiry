@@ -24,7 +24,7 @@
 <title>รานงานการชำระ</title>
 
 </head>
-
+ 
 <body>
 	<header class="header_page"></header>
 	<!-- main panel -->

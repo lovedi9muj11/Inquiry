@@ -71,7 +71,6 @@ function reportPDF() {
 	
 }
 
-
 function initCriteria(){
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
