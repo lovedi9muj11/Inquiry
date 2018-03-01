@@ -59,10 +59,9 @@ function createRow(data, seq, table) {
 
 };
 
-function report() {
+function reportExcel() {
 	
-//	$('#rptCode').val('RPTxxx');
-	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();
+	$("#reportTaxForm").attr("action", "paymentPrintOrder").attr("target", "_blank").submit();
 	
 }
 

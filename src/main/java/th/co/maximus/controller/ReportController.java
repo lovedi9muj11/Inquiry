@@ -3,6 +3,9 @@ package th.co.maximus.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +16,13 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.HistoryPaymentRS;
+import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 //import scala.annotation.meta.setter;
@@ -59,5 +66,16 @@ public class ReportController {
 		response.getOutputStream().write(bytes);
 		response.getOutputStream().flush();
 	}
+	
+	 @RequestMapping(value = {"paymentPrintOrder"})
+	    public List<HistoryPaymentRS> paymentPrint(HistoryReportBean creteria) throws SQLException {
+		  List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
+		  if(creteria != null) {
+			  
+			  resultRQ = paymentManualService.findPaymentOrder(creteria);
+			  
+		  }
+	        return resultRQ;
+	    }
 
 }
