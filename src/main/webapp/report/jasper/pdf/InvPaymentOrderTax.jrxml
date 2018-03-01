@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="1100" pageHeight="595" orientation="Landscape" columnWidth="1045" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" isTitleNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
+	<style name="Cat_Ct_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
+	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFReport"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<pageHeader>
+		<band height="143">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="956" y="29" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="10" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="995" y="29" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="10" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["จาก    " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="0" y="47" width="180" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[บริษัท กสท โทรคมนาคม จำกัด (มหาชน)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="327" y="47" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65"/>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ประจำวันที่ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="47" width="116" height="23" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getDateForm()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="921" y="47" width="124" height="23" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getDateDocument()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="552" y="47" width="120" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getDateTo()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="841" y="47" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[วันเวลาที่พิมพ์ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="1" y="82" width="90" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ชื่อสถานประกอบการ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="91" y="82" width="151" height="23" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBranchArea()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="357" y="82" width="116" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="473" y="82" width="174" height="23" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getInvoiceNo()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="116" width="99" height="23" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="0" y="116" width="43" height="23" uuid="33926f71-4de2-4588-9429-97b162038670"/>
+				<textElement>
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[สาขาที่  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="1" y="2" width="1044" height="27" uuid="ca69c0bb-e4a3-464b-908d-1e25b8b3ee17"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="20" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[$P{ReportSource}.getHeadName()]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="523" y="47" width="29" height="23" uuid="dd48c13c-f6f4-463e-8942-f5eaca0ee2b6"/>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ถึง :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33">
+			<frame>
+				<reportElement x="0" y="0" width="1045" height="30" uuid="6005dfe4-5659-4cd7-83c1-3b685b2dc25c"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="530" y="0" width="83" height="30" uuid="30c74415-5cef-42f2-bc25-228109f2114e"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[TAX ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="43" height="30" uuid="f37b7d58-2ff4-415f-ac8f-f1b87cd14af9"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[ลำดับ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="43" y="0" width="136" height="30" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[วันเดือนปี]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="180" y="0" width="174" height="30" uuid="df12d27a-58c4-4a5f-a5f1-ecc9db116b53"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[เลขที่ใบกำกับภาษี]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="355" y="0" width="175" height="30" uuid="9731d79f-7887-4400-b547-bf3bb04fbee6">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[ชื่อผู้ซื้อสินค้า/ผู้รับบริการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="613" y="0" width="83" height="30" uuid="8c2fef07-c7da-4298-b4e2-c84d6f8dc8d7"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[สาขาที่]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="696" y="0" width="91" height="30" uuid="fd736542-b917-4b9e-b121-0f20a453edba"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[มูลค่าสินค้าหรือบริการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="787" y="0" width="91" height="30" uuid="0e848784-dff6-481f-bd75-3ef510e8db76"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินภาษีมูลค่าเพิ่ม]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="878" y="0" width="91" height="30" uuid="feccf5c7-34f3-4c07-8987-82d5692cd5c7"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวม]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="969" y="0" width="76" height="30" uuid="f7d0cc0c-fc4b-40e2-919a-16c6349742e4"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[สถานะ]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Immediate">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="43" y="0" width="136" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSouce()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="0" width="175" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="105" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement>
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="31" width="1044" height="1" uuid="ea661817-b0f0-4ec2-8874-c9fa6e1c7081"/>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="42" height="20" uuid="0cabca96-0da6-43bf-b5ba-908b14520f80"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVat()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="68" height="20" uuid="4a9b57e5-ef37-498b-a026-ca740ac952ce"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="530" y="0" width="83" height="20" uuid="81fe1ddd-7284-4e7c-856e-3a83b7d10d39"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="613" y="0" width="83" height="20" uuid="1399fec9-1dfe-4cd6-a1cf-3e6abc9bb3c0"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="696" y="0" width="91" height="20" uuid="617a1f67-b1d3-4574-9fda-d6e1d66ca443"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="787" y="0" width="91" height="20" uuid="cf5a96d0-5b63-4b5e-a128-6393bff22d24"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="878" y="0" width="91" height="20" uuid="47886bfb-8e1c-4ec2-9601-0ebe1b32df7a"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="969" y="0" width="76" height="20" uuid="e58c11f3-8285-4783-8480-e111e6ac7f54"/>
+				<box>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="128">
+			<frame>
+				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="70" height="30" uuid="c301d1d0-0d35-4ec9-9f19-f0c4df14eba7"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[รวมตาม UserID ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="70" y="0" width="99" height="30" uuid="a502be11-1ea6-4043-9edb-7598bdefb1d4"/>
+					<textElement>
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="42" height="30" uuid="ba2b071a-1adc-4299-b602-a7c0a1ed75cf"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[รวมอัตรา]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="42" y="0" width="27" height="30" uuid="5fd5de72-1a15-4b5e-84fe-bc9727d4d76d"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="69" y="0" width="21" height="30" uuid="ea444e42-053d-49cd-bad7-2f69f349ae34"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="877" y="0" width="91" height="30" uuid="4632707f-8294-4f20-a907-da824b501ae6"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="786" y="0" width="91" height="30" uuid="5100f70f-2ddd-4085-95bf-5291f9974049"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="695" y="0" width="91" height="30" uuid="8e2d00cc-3da2-434c-a127-ca801d1d670d"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="60" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="42" height="30" uuid="1c0c9fd4-b192-488a-9fb5-465ff867531f"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[รวมอัตรา]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="42" y="0" width="27" height="30" uuid="6faf48af-deee-49f5-b268-ab7359498791"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="69" y="0" width="21" height="30" uuid="48330e44-a76c-47a7-937e-88413a6455cb"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="878" y="0" width="91" height="30" uuid="e8c6317b-8d40-49f7-94de-015ab04d18dc"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="787" y="0" width="91" height="30" uuid="2f1c8b8e-d961-4df4-801a-7c9a686dcaee"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="696" y="0" width="91" height="30" uuid="bf350d50-cbeb-4665-9b39-76968576f441"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="1" y="90" width="1045" height="30" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="42" height="30" uuid="64572ed5-9a0e-4952-9cc2-364bb303d173"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[รวมทั้งสิ้น]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="695" y="0" width="91" height="30" uuid="220ba5ad-e32c-49d7-b1e9-834772e7f600"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="786" y="0" width="91" height="30" uuid="0a7ed7ed-c11d-497c-a844-f6b38b5d7580"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="877" y="0" width="91" height="30" uuid="39e8b512-a8dc-4e9b-b51e-b6b3645a02a9"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH Sarabun New" isBold="false" pdfFontName="C:\EPISOffline\Epis-Offlines\src\main\webapp\WEB-INF\font\THSarabun.ttf" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchCode()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement x="1" y="123" width="1044" height="1" uuid="0722a10f-16a8-4fb7-a0cf-169ea84abc17"/>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
