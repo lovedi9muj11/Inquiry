@@ -33,10 +33,10 @@
 		<div class="panel" id="panel1">
 			
 				<div class="panel-heading">ค้นหาการงานการชำระเงิน</div>
-				<input type="hidden" name="userName" id="userName"
-					value="${pageContext.request.userPrincipal.name}" />
+				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
 				<form name="reportTaxForm" id="reportTaxForm"  class="form-horizontal" role="form">
+				<input name="rptCode" id="rptCode" value="ExcelFull" type="hidden">
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label class="col-md-2 control-label text-right">วันที่ชำระ
@@ -150,12 +150,12 @@
 							</div>
 						</div>
 					</div>
-
+				</form>
 					<div class="box-footer" style="padding-bottom: 20px">
 						<div class="row">
 							<!-- Button -->
 							<div class="col-md-12 text-center">
-								<button id="search" name="search" class="btn btn-primary"
+								<button id="search" name="search" class="btn btn-primary" 
 									onclick="search()" style="width: 7%">ค้นหา</button>
 								<button id="clear" name="clear" class="btn btn-danger"
 									style="width: 7%">ลบ</button>
@@ -164,8 +164,8 @@
 					</div>
 					<div class="row" style="padding-bottom: 10px; padding-right: 2px">
 						<div class="col-md-12 text-right">
-							<button id="search" name="search"
-								class="btn btn-warning glyphicon glyphicon-print" type="submit"
+							<button 
+								class="btn btn-warning glyphicon glyphicon-print"  onclick="reportPDF()"
 								style="width: 7%">PDF</button>
 							<button id="excel" name="excel"   onclick="reportExcel()" 
 								class="btn btn-success glyphicon glyphicon-print"
@@ -200,9 +200,9 @@
 							</div>
 						</div>
 					</div>
-</form>
+
 				</div>
-			
+<!-- 			</form> -->
 		</div>
 	</div>
 </body>
