@@ -35,6 +35,7 @@ function search() {
 	})
 };
 
+
 function createRow(data, seq, table) {
 	no = data.numberRun
 	invoice = data.invoice;
@@ -64,6 +65,12 @@ function reportExcel() {
 	$("#reportTaxForm").attr("action", "paymentPrintOrder").attr("target", "_blank").submit();
 	
 }
+function reportPDF() {
+	
+	$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
+	
+}
+
 
 function initCriteria(){
 	var now = new Date();
