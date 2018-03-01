@@ -220,7 +220,7 @@ public class BaseExcelRptService {
 		cellStyle.setFont(font);
 
 		return cellStyle;
-	}
+	} 
 
 	protected CellStyle createCellStyleForTextLeftBorderBgGrey25Percent(Workbook workbook, Font font,
 			boolean warpText) {

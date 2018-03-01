@@ -11,7 +11,6 @@ import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
 
-
 @Service("reportExcelService")
 public class ReportExcelService extends BaseExcelRptService {
 
