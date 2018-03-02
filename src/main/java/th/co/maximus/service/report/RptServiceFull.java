@@ -213,6 +213,44 @@ public class RptServiceFull extends BaseExcelRptService{
 			
 			CellRangeAddress mergedCell2 = new CellRangeAddress(rowNum, rowNum, 0, 1);
 			borderMergs(mergedCell2, sh, workbook);
+			
+			rowNum+=2;
+			Row sumRow3 = sh.createRow(rowNum);
+			Cell sumCell41 = sumRow3.createCell(0);
+			Cell sumCell42 = sumRow3.createCell(1);
+			Cell sumCell43 = sumRow3.createCell(2);
+			Cell sumCell44 = sumRow3.createCell(3);
+			Cell sumCell45 = sumRow3.createCell(4);
+			Cell sumCell46 = sumRow3.createCell(5);
+			Cell sumCell47 = sumRow3.createCell(6);
+			Cell sumCell48 = sumRow3.createCell(7);
+			Cell sumCell49 = sumRow3.createCell(8);
+			Cell sumCell410 = sumRow3.createCell(9);
+			
+			sumCell41.setCellValue("รวมทั้งสิ้น");
+			sumCell42.setCellValue("");
+			sumCell43.setCellValue("");
+			sumCell44.setCellValue("");
+			sumCell45.setCellValue("");
+			sumCell46.setCellValue("");
+			sumCell47.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+			sumCell48.setCellFormula("SUM(H"+(rowNum)+":H"+(rowNum-3)+")");
+			sumCell49.setCellFormula("SUM(I"+(rowNum)+":I"+(rowNum-3)+")");
+			sumCell410.setCellValue("");
+			
+			sumCell41.setCellStyle(summary);
+			sumCell42.setCellStyle(summary);
+			sumCell43.setCellStyle(summary);
+			sumCell44.setCellStyle(summary);
+			sumCell45.setCellStyle(summary);
+			sumCell46.setCellStyle(summary);
+			sumCell47.setCellStyle(summary);
+			sumCell48.setCellStyle(summary);
+			sumCell49.setCellStyle(summary);
+			sumCell410.setCellStyle(summary);
+			
+			CellRangeAddress mergedCell3 = new CellRangeAddress(rowNum, rowNum, 0, 1);
+			borderMergs(mergedCell3, sh, workbook);
 		}
 		return workbook;
 	}
