@@ -12,6 +12,7 @@ public class InvPaymentOrderTaxBean {
 	private String branchArea;
 	private String invoiceNo;
 	private String branchCodeEmp;
+	private String reportStatus;
 	
 	// Detail Report
 	private int autoNumber;
@@ -259,6 +260,14 @@ public class InvPaymentOrderTaxBean {
 
 	public void setAutoNumberReport(String autoNumberReport) {
 		this.autoNumberReport = autoNumberReport;
+	}
+
+	public String getReportStatus() {
+		return reportStatus;
+	}
+
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
 	}
 	
 	

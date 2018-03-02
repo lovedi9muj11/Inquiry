@@ -3,7 +3,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.2100000000000009"/>
-	<property name="ireport.x" value="22"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -439,9 +439,11 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="128">
+		<band height="131">
 			<frame>
-				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449"/>
+				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -466,7 +468,9 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
+				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -523,7 +527,9 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="60" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497"/>
+				<reportElement x="0" y="60" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -596,11 +602,19 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement x="1" y="90" width="1045" height="30" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
+				<reportElement x="1" y="90" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
 				</box>
+				<line>
+					<reportElement x="1" y="32" width="1044" height="1" uuid="0722a10f-16a8-4fb7-a0cf-169ea84abc17"/>
+					<graphicElement>
+						<pen lineWidth="3.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
 				<staticText>
 					<reportElement x="0" y="0" width="42" height="30" uuid="64572ed5-9a0e-4952-9cc2-364bb303d173"/>
 					<box>
@@ -634,12 +648,6 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<line>
-				<reportElement x="1" y="123" width="1044" height="1" uuid="0722a10f-16a8-4fb7-a0cf-169ea84abc17"/>
-				<graphicElement>
-					<pen lineWidth="3.0" lineStyle="Double"/>
-				</graphicElement>
-			</line>
 		</band>
 	</summary>
 </jasperReport>

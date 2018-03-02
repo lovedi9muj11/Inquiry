@@ -239,6 +239,7 @@ public class EpisReportController {
 			
 			if(creteria.getTypePrint().equals("F")) {
 				exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
+				exportPDFReport.setReportStatus("1");
 			}else {
 				exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ");
 			}
