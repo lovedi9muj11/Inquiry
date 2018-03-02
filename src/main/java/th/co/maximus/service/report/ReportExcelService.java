@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
+import th.co.maximus.bean.ReportPaymentBean;
+import th.co.maximus.bean.ReportPaymentCriteria;
 
 @Service("reportExcelService")
 public class ReportExcelService extends BaseExcelRptService {
@@ -19,6 +21,7 @@ public class ReportExcelService extends BaseExcelRptService {
 
 	@Autowired private RptServicexxx rpt1Servicexxx;
 	@Autowired private RptServiceFull rptServiceFull;
+	@Autowired private PaymentReport paymentReport;
 
 	public Workbook getReportRptxxx(Workbook workbook, List<ReportBean> entity, ReportBean bean) throws Exception {
 		return rpt1Servicexxx.getReport(workbook, entity, bean);
@@ -27,5 +30,9 @@ public class ReportExcelService extends BaseExcelRptService {
 	public Workbook getReportRptFull(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception {
 		return rptServiceFull.getReport(workbook, entity, bean);
 	}
-
+	
+	public Workbook reportPaymentExcelService(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws Exception{
+		return paymentReport.generatePaymentReportExcel(workbook, criteria, result);
+		
+	}
 }

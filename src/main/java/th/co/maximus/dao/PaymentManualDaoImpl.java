@@ -17,6 +17,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.bean.ReportPaymentBean;
+import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
@@ -124,6 +126,52 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			paymentManual.setPaytype(rs.getString("PAY_TYPE"));
 			paymentManual.setDocType(rs.getString("DOCTYPE"));
 			return paymentManual;
+		}
+
+	}
+
+	@Override
+	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT *,  CASE PM.RECORD_STATUS WHEN 'A' THEN 'ปรกติ' WHEN 'N' THEN 'ชำระใหม่' ");
+		sql.append(" WHEN 'S' THEN 'ส่งออนไลน์สำเร็จ'  WHEN 'E' THEN 'เกิดข้อผิดพลาด' WHEN 'C' THEN 'ยกเลิกรายการ' ELSE '' END AS STATUS_NAME ");
+		sql.append(" FROM payment_manual PM ");
+		sql.append(" INNER JOIN payment_invoice_manual PIM ON PM.INVOICE_NO = PIM.INVOICE_NO ");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'"+criteria.getDateFrom()+"'").append("  AND PM.CREATE_DATE <= ").append("'"+criteria.getDateTo()+"'");
+		if(!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
+			sql.append(" AND PIM.VAT_RATE = ").append("'"+criteria.getVatRate()+"'");
+		}
+		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'"+criteria.getAccountId()+"'");
+		}
+		if(!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
+			sql.append(" AND PIM.SERVICE_TYPE = ").append("'"+criteria.getServiceType()+"'");
+		}
+		return jdbcTemplate.query(sql.toString() , new reportPaymentMapper());
+	}
+	
+	private static final class reportPaymentMapper implements RowMapper<ReportPaymentBean> {
+
+		@Override
+		public ReportPaymentBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ReportPaymentBean reportPayment = new ReportPaymentBean();
+			reportPayment.setManualId(rs.getLong("MANUAL_ID"));
+			reportPayment.setServiceType(rs.getString("SERVICE_TYPE"));
+			reportPayment.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
+			reportPayment.setAccountSubNo(rs.getString("ACCOUNTSUBNO"));
+			reportPayment.setCustomerName(rs.getString("CUSTOMER_NAME"));
+			reportPayment.setDepartment(rs.getString("DEPARTMENT"));
+			reportPayment.setInvoiceNo(rs.getString("INVOICE_NO"));
+			reportPayment.setServiceName(rs.getString("SERVICENAME"));
+			reportPayment.setCreateBy(rs.getString("CREATE_BY"));
+//			reportPayment.setNoRefer(rs.getString(""));
+			reportPayment.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
+			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
+			reportPayment.setVatAmount(rs.getBigDecimal("VAT_RATE"));
+			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
+			reportPayment.setStatusStr(rs.getString("STATUS_NAME"));
+		
+			return reportPayment;
 		}
 
 	}

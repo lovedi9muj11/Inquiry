@@ -4,6 +4,8 @@ package th.co.maximus.dao;
 import java.util.List;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.bean.ReportPaymentBean;
+import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
 public interface PaymentManualDao {
@@ -11,4 +13,6 @@ public interface PaymentManualDao {
 	public PaymentResultReq findById(int id)throws Exception;
 	
 	public List<PaymentManualBean> findPaymentManualFromNanualId(long manualId);
+	
+	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria);
 }

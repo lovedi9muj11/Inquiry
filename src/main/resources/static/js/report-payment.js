@@ -1,11 +1,24 @@
+var dateFromGlobal = "";
+var dateToGlobal = "";
 $(document).ready(function (){
 	var userName = $('#userName').val();
 	console.log("======================= Start report payment ======================");
+	reportPaymentTb = $('#reportPaymentTb').DataTable({
+		"filter" : false,
+		"info" : false,
+		"columnDefs": [ {
+			"searchable": false,
+			"orderable": false,
+//			"targets": [1,12]
+		} ]
+	});
 	initCriteria();
+	search();
 
 	
 });
 function initCriteria(){
+	
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -22,56 +35,66 @@ function initCriteria(){
 };
 
 function search(){
-	histroryTB.clear().draw();
+	reportPaymentTb.clear().draw();
+	var dateFrom = $('#dateFrom').val() +" "+ $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00";
+	var dateTo =$('#dateTo').val() +" "+ $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";
+	dateFromGlobal = dateFrom;
+	dateToGlobal = dateTo;
 	var data = '';
-	var dataSend = {
-			"dateFrom": $('#billAccount').val(),
-			"dateTo": $('#billAccount').val(),
-			"accountId": $('#accountId').val(),
-			"vat": $('#vat').val(),
-			"machinePaymentName": $('#machinePaymentName').val(),
-			"authorities": $('#authorities').val(),
-			"categoryPayment": $('#categoryPayment').val(),
+	var dataCritaria = {
+			"dateFrom": dateFrom,
+			"dateTo": dateTo,
+			"vatRate": $('#vat').val(),
+			"user":  $('#authorities').val(),
+			"serviceType": $('#serviceType').val(),
+			"accountId": $('#accountId').val()
 		};
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/find",
-        data: JSON.stringify(dataSend),
+        url: "/reportPayment",
+        data: JSON.stringify(dataCritaria),
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	for (var i = 0; i < res.length; i++) {
-                    createRow(res[i], i);
-                }
+	    	for (var i = 0; i < res.length; i++) {
+	                createRow(res[i], i);
+	            }
         }
 	})
 };
 
-function createRow(data, seq) {
-	no = seq + 1
-	paidDate = data.paidDateStr;
-	createDate = data.createDateStr;
-	invoiceNo = data.invoiceNo;
-	branchCode = data.brancharea;
-	createBy = data.createBy;
-	receiptNoManual = data.receiptNoManual;
-	period = data.period;
-	amount = formatDouble(data.amount,2);
-	source = data.source;
-	paidAmount = formatDouble(data.paidAmount,2);
-	vatAmount = formatDouble(data.vatAmount,2);
-	recordStatus = data.recordStatus;
+function clearCriteria(){
+	initCriteria();
+	search();
+};
 
-	if(data.remark == null || data.remark == ''){
-		remark = "-"
-	}else{
-		remark = data.remark;
-	}
-	accountNo = data.accountNo;
+function printReport(){
+	$('#dateFromHidden').val(dateFromGlobal);
+	$('#dateToHidden').val(dateToGlobal);
+	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
+	$('#accountIdHidden').val($('#accountId').val());
+	$('#authoritiesHidden').val($('#authorities').val());
+	$("#paymentFrom").attr("action", "/reportPaymentExcel").attr("target", "_blank").submit();
+};
+
+function createRow(data, seq) {
+	manualId = data.manualId
+	serviceType = data.serviceType;
+	receiptNo = data.receiptNoManual;
+	accountSubNo = data.accountSubNo;
+	customerName = data.customerName;
+	department = data.department;
+	invoiceNo = data.invoiceNo;
+	createBy = data.createBy;
+	noRefer = '-';
+	beforVat = data.beforVat;
+	vatAmount = data.vatAmount;
+	amount = data.amount;
+	statusStr = data.statusStr;
 	
-    var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([no, paidDate, createDate,invoiceNo, branchCode, createBy, receiptNoManual, period, amount, source, paidAmount, vatAmount, recordStatus, remark, accountNo
+    var t = $('#reportPaymentTb').DataTable();
+    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, invoiceNo, createBy ,noRefer , beforVat, vatAmount, amount, statusStr
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('left');
     $(rowNode).find('td').eq(1).addClass('left');
@@ -86,5 +109,4 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(10).addClass('right');
     $(rowNode).find('td').eq(11).addClass('right');
     $(rowNode).find('td').eq(12).addClass('left');
-    $(rowNode).find('td').eq(13).addClass('center');
 };

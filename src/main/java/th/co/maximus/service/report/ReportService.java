@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
+import th.co.maximus.bean.ReportPaymentBean;
+import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
 
 @Service("reportService")
@@ -52,5 +54,20 @@ public class ReportService {
 		} 
 		return workbook;
 	}
-
+	
+	public Workbook paymentReportServiceExcel(Workbook workbook, String rptCode, ReportBean bean) throws Exception {
+		if (rptCode.equals(Constants.report.XXX)) {
+			bean.setReportId(1L);
+			bean.setName("Ae");
+			bean.setPayDate(new Date());
+			bean.setPayDateTo(new Date());
+			List<ReportBean> entity = xxx(bean);
+			workbook = reportExcelService.getReportRptxxx(workbook, entity, bean);
+		} 
+		return workbook;
+	}
+	
+	public Workbook reportPayment(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws Exception {
+		return reportExcelService.reportPaymentExcelService(workbook, criteria, result);
+	} 
 }
