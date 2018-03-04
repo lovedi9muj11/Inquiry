@@ -29,10 +29,12 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 	@Autowired DeductionManualDao deductionManualDao;
 	@Override
 	public int insertTrsmethodManual(PaymentOtherFirstBean paymentBean,int userId) {
-		Date date = new Date();
+Date date = new Date();
+		
 		int idTrsMethod = 0;
 		if(paymentBean.getPaymentTranPrice().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
+				
 				PaymentTranPriceBean paymentTranPriceBean = new PaymentTranPriceBean();
 				TrsMethodManualBean trsMethodManualBean = new TrsMethodManualBean();
 				TrscreDitrefManualBean trscreDitrefManualBean = new TrscreDitrefManualBean();
@@ -40,23 +42,26 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 
 				paymentTranPriceBean = paymentBean.getPaymentTranPrice().get(i);
 				trsMethodManualBean.setCode(paymentTranPriceBean.getTypePayment());
-				trsMethodManualBean.setName(paymentTranPriceBean.getTypePayment());
 				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
-				//trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
 				if(paymentTranPriceBean.getTypePayment().equals("CD")){
+					
+					trsMethodManualBean.setName("บัตรเครดิต");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
 				}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+					trsMethodManualBean.setName("เช็ค");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
 				}else{
+					trsMethodManualBean.setName("เงินสด");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
 				}
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
-				//trsMethodManualBean.setRemark(paymentBean.getRemark());
-				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setCreateBy(paymentBean.getUserName());	
 				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
-				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateBy(paymentBean.getUserName());
 				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
 				trsMethodManualBean.setRecordStatus("A");
 				trsMethodManualBean.setManualId(Long.valueOf(userId));
@@ -115,12 +120,12 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 				trsMethodManualBean.setCode("DEDUC");
 				trsMethodManualBean.setName("ภาษีหัก ณ ที่จ่าย");
 				trsMethodManualBean.setChequeNo("");
-				//trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
+				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId("");
 				trsMethodManualBean.setAmount(paymentTaxBean.getMoneyDed());
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
-				//trsMethodManualBean.setRemark(paymentBean.getRemark());
+				trsMethodManualBean.setRemark(paymentBean.getRemark());
 				trsMethodManualBean.setCreateBy("ADMIN");	
 				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
 				trsMethodManualBean.setUpdateBy("ADMIN");
@@ -142,8 +147,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
 					deductionManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 					deductionManualBean.setVersionStamp(1L);
-					//deductionManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
-					//deductionManualBean.setRemark(paymentBean.getRemark());
+					deductionManualBean.setRemark(paymentBean.getRemark());
 					deductionManualBean.setCreateBy("ADMIN");
 					deductionManualBean.setCreateDate(new Timestamp(date.getTime()));
 					deductionManualBean.setUpdateBy("ADMIN");
@@ -158,6 +162,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 			}
 		}
 		return userId;
+		
 		
 	}
 	

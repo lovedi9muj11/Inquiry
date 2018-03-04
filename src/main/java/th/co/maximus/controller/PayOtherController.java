@@ -76,7 +76,6 @@ public class PayOtherController {
 				
 				
 				paymentResultReq.setBalancePrice(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
-				paymentResultReq.setPeriod(utils.periodFormat(paymentResultReq.getPeriod()));
 				
 				Date date =  paymentResultReq.getInvoiceDate();
 				String invoiceDate = dt.format(date);

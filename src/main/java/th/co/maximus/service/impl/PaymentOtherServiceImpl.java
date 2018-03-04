@@ -39,40 +39,39 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 	@Override
 	public int insert(PaymentOtherFirstBean paymentBean) {
 
-		int paymentId = 0;
-
+		int paymentId =0;
+		
 		try {
-			PaymentManualBean paymentManualBean = new PaymentManualBean();
+				PaymentManualBean paymentManualBean = new PaymentManualBean();
+				
+				if(paymentBean.getUserGroup().equals("1") || paymentBean.getUserGroup().equals("2") ) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
+				}else if(paymentBean.getUserGroup().equals("3")) {
+					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+						paymentManualBean.setDocType("F");
+					}else {
+						paymentManualBean.setDocType("S");
+					}
+				}else {
+					paymentManualBean.setDocType("F");
+				}
+				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
+				paymentBean.setDocumentNo(code);
 
-			if (paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02")) {
-				if (StringUtils.isNotBlank(paymentBean.getInputCustomerName())
-						|| StringUtils.isNotBlank(paymentBean.getInputCustomerAddress())) {
-					paymentManualBean.setDocType("F");
-				} else {
-					paymentManualBean.setDocType("S");
-				}
-			} else if (paymentBean.getUserGroup().equals("03")) {
-				if (StringUtils.isNotBlank(paymentBean.getInputCustomerName())
-						|| StringUtils.isNotBlank(paymentBean.getInputCustomerAddress())
-						|| StringUtils.isNotBlank(paymentBean.getInputCustomerTaxNo())
-						|| StringUtils.isNotBlank(paymentBean.getInputCustomerBranch())) {
-					paymentManualBean.setDocType("F");
-				} else {
-					paymentManualBean.setDocType("S");
-				}
-			}
-			String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
-			paymentBean.setDocumentNo(code);
 
 			paymentId = paymentOtherManualService.insertPaymentManual(paymentBean);
-			if (paymentId > 0) {
+			if(paymentId>0){
 				paymentOtherInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
 				trsmethodOtherManualService.insertTrsmethodManual(paymentBean, paymentId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return paymentId;
 	}
 

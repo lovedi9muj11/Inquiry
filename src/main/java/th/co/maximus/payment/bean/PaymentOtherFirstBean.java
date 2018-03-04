@@ -5,58 +5,66 @@ import java.util.List;
 
 public class PaymentOtherFirstBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String inputCustomerBillNo;
-	private String inputCustomerName;
-	private String inputCustomerTaxNo;
-	private String inputCustomerBranch;
+
+	private String custName;
+	private String custNo;
+	private String taxId;
+	private String documentNo;
+	private String custAddress;
+	private String custBrach;
 	private String userGroup;
-	private String inputCustomerAddress;
-	private double preItemsDiscount;
-	private double itemsDiscount;
-	private double discount;
+	private String userName;
+	private String custStatus;
+	private int vatrate;
 	private double balanceBeforeTax;
+	private double vat;
 	private double balanceOfTax;
 	private double balanceSummary;
+	private double balanceBeforeTaxs;
 	private double vats;
-	private String inputAdditionalRemark;
+	private double balanceOfTaxs;
+	private double balanceSummarys;
+	private double balanceSum;
+	private String remark;
 	private double summaryTax;
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
-	private String documentNo;
-	
-	
-	
-	
+	public String getCustName() {
+		return custName;
+	}
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+	public String getCustNo() {
+		return custNo;
+	}
+	public void setCustNo(String custNo) {
+		this.custNo = custNo;
+	}
+	public String getTaxId() {
+		return taxId;
+	}
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
 	public String getDocumentNo() {
 		return documentNo;
 	}
 	public void setDocumentNo(String documentNo) {
 		this.documentNo = documentNo;
 	}
-	public String getInputCustomerBillNo() {
-		return inputCustomerBillNo;
+	public String getCustAddress() {
+		return custAddress;
 	}
-	public void setInputCustomerBillNo(String inputCustomerBillNo) {
-		this.inputCustomerBillNo = inputCustomerBillNo;
+	public void setCustAddress(String custAddress) {
+		this.custAddress = custAddress;
 	}
-	public String getInputCustomerName() {
-		return inputCustomerName;
+	public String getCustBrach() {
+		return custBrach;
 	}
-	public void setInputCustomerName(String inputCustomerName) {
-		this.inputCustomerName = inputCustomerName;
-	}
-	public String getInputCustomerTaxNo() {
-		return inputCustomerTaxNo;
-	}
-	public void setInputCustomerTaxNo(String inputCustomerTaxNo) {
-		this.inputCustomerTaxNo = inputCustomerTaxNo;
-	}
-	public String getInputCustomerBranch() {
-		return inputCustomerBranch;
-	}
-	public void setInputCustomerBranch(String inputCustomerBranch) {
-		this.inputCustomerBranch = inputCustomerBranch;
+	public void setCustBrach(String custBrach) {
+		this.custBrach = custBrach;
 	}
 	public String getUserGroup() {
 		return userGroup;
@@ -64,35 +72,35 @@ public class PaymentOtherFirstBean implements Serializable{
 	public void setUserGroup(String userGroup) {
 		this.userGroup = userGroup;
 	}
-	public String getInputCustomerAddress() {
-		return inputCustomerAddress;
+	public String getUserName() {
+		return userName;
 	}
-	public void setInputCustomerAddress(String inputCustomerAddress) {
-		this.inputCustomerAddress = inputCustomerAddress;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public double getPreItemsDiscount() {
-		return preItemsDiscount;
+	public String getCustStatus() {
+		return custStatus;
 	}
-	public void setPreItemsDiscount(double preItemsDiscount) {
-		this.preItemsDiscount = preItemsDiscount;
+	public void setCustStatus(String custStatus) {
+		this.custStatus = custStatus;
 	}
-	public double getItemsDiscount() {
-		return itemsDiscount;
+	public int getVatrate() {
+		return vatrate;
 	}
-	public void setItemsDiscount(double itemsDiscount) {
-		this.itemsDiscount = itemsDiscount;
-	}
-	public double getDiscount() {
-		return discount;
-	}
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	public void setVatrate(int vatrate) {
+		this.vatrate = vatrate;
 	}
 	public double getBalanceBeforeTax() {
 		return balanceBeforeTax;
 	}
 	public void setBalanceBeforeTax(double balanceBeforeTax) {
 		this.balanceBeforeTax = balanceBeforeTax;
+	}
+	public double getVat() {
+		return vat;
+	}
+	public void setVat(double vat) {
+		this.vat = vat;
 	}
 	public double getBalanceOfTax() {
 		return balanceOfTax;
@@ -106,17 +114,41 @@ public class PaymentOtherFirstBean implements Serializable{
 	public void setBalanceSummary(double balanceSummary) {
 		this.balanceSummary = balanceSummary;
 	}
+	public double getBalanceBeforeTaxs() {
+		return balanceBeforeTaxs;
+	}
+	public void setBalanceBeforeTaxs(double balanceBeforeTaxs) {
+		this.balanceBeforeTaxs = balanceBeforeTaxs;
+	}
 	public double getVats() {
 		return vats;
 	}
 	public void setVats(double vats) {
 		this.vats = vats;
 	}
-	public String getInputAdditionalRemark() {
-		return inputAdditionalRemark;
+	public double getBalanceOfTaxs() {
+		return balanceOfTaxs;
 	}
-	public void setInputAdditionalRemark(String inputAdditionalRemark) {
-		this.inputAdditionalRemark = inputAdditionalRemark;
+	public void setBalanceOfTaxs(double balanceOfTaxs) {
+		this.balanceOfTaxs = balanceOfTaxs;
+	}
+	public double getBalanceSummarys() {
+		return balanceSummarys;
+	}
+	public void setBalanceSummarys(double balanceSummarys) {
+		this.balanceSummarys = balanceSummarys;
+	}
+	public double getBalanceSum() {
+		return balanceSum;
+	}
+	public void setBalanceSum(double balanceSum) {
+		this.balanceSum = balanceSum;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public double getSummaryTax() {
 		return summaryTax;
@@ -142,7 +174,6 @@ public class PaymentOtherFirstBean implements Serializable{
 	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
 		this.paymentTranPrice = paymentTranPrice;
 	}
-	
 	
 	
 	

@@ -38,6 +38,7 @@ public class PaymentController {
 		Utils utils = new Utils();
 		if(idUser>0){
 			paymentResultReq=	paymentService.findByid(idUser);
+			
 			paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 			paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
 			paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
