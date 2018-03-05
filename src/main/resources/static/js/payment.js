@@ -390,7 +390,7 @@ function addRow() {
 			}else if(radioResult =="02"){
 				radioResult = "3 เตรส";
 			}else if(radioResult == "03"){
-				radioResult = "69 ดริ";
+				radioResult = "69 ตรี";
 			}
 		}
 	}

@@ -319,7 +319,7 @@
 													</label> <label> <input type="radio" name="radioDed"
 														id="radioDedCC" value="02"> 3 เตรส
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCT" value="03"> 69 ดริ
+														id="radioDedCT" value="03"> 69 ตรี
 													</label>
 												</div>
 											</div>
