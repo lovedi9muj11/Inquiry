@@ -215,7 +215,7 @@ function showTableSelect(){
 function search() {
 	cancelPaymentTB.clear().draw();
 	var data = '';
-	var dataSend = { "receiptNoManual": $('#billNumber').val(), "invoiceNo": $('#receiptNumber').val() };
+	var dataSend = { "invoiceNo": $('#billNumber').val(), "receiptNoManual": $('#receiptNumber').val() };
 	$.ajax({
         type: "POST",
         url: "/cancelPayment/find",
@@ -244,7 +244,11 @@ function createRow(data, seq, table) {
 	dateMake = data.createDateStr;
 	invoiceNo = data.invoiceNo;
 	customer = data.customerName;
-	payType = data.payType;
+	if(data.payType == 'F'){
+		payType = 'เต็มจำนวน';
+	}else if(data.payType == 'P'){
+		payType = 'บางส่วน';
+	}
 	amount = formatDouble(data.amount,2);
 	branchCode = data.branchCode;
 	createBy = data.createBy;

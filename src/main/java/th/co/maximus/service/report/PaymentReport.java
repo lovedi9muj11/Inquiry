@@ -130,13 +130,7 @@ public class PaymentReport extends BaseExcelRptService {
 			 }
 		 }
 		 
-		
-		 Row headSummary = sh.createRow(indexRow+2);
-		 Cell cellHead = headSummary.createCell(2);
-		 cellHead.setCellValue("ผลรวมยอดตาม User");
-		 cellHead.setCellStyle(txtCenterTable);
-		 
-		 Row textTotalSummary = sh.createRow(indexRow+3);
+		 Row textTotalSummary = sh.createRow(indexRow+2);
 		 Cell cellTotalSummary = textTotalSummary.createCell(2);
 		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
 		 cellTotalSummary.setCellStyle(txtCenterTable);
@@ -151,7 +145,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 
 
 		 
-		 Row vat0 = sh.createRow(indexRow + 4);
+		 Row vat0 = sh.createRow(indexRow + 3);
 		 Cell cellvat0 = vat0.createCell(2);
 		 cellvat0.setCellValue("ผลรวม Vat 0%");
 		 cellvat0.setCellStyle(txtCenterTable);
@@ -161,7 +155,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 totalVat0.setCellStyle(txtCenterTable);
 		 
 		 
-		 Row vat3 = sh.createRow(indexRow + 5);
+		 Row vat3 = sh.createRow(indexRow + 4);
 		 Cell cellvat3 = vat3.createCell(2);
 		 cellvat3.setCellValue("ผลรวม Vat 3%");
 		 cellvat3.setCellStyle(txtCenterTable);
@@ -170,7 +164,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 totalVat3.setCellValue(sumVat3+"");
 		 totalVat3.setCellStyle(txtCenterTable);
 		 
-		 Row vat7 = sh.createRow(indexRow + 6);
+		 Row vat7 = sh.createRow(indexRow + 5);
 		 Cell cellvat7 = vat7.createCell(2);
 		 cellvat7.setCellValue("ผลรวม Vat 7%");
 		 cellvat7.setCellStyle(txtCenterTable);

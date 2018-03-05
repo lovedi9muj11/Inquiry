@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import th.co.maximus.service.HistoryPaymentService;
 
 @Service
 public class HistoryPaymentServiceImp implements HistoryPaymentService {
-	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	Locale localeTH = new Locale("th", "TH");
+	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss",localeTH);
 
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
