@@ -1,7 +1,10 @@
 package th.co.maximus.service.report;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -56,6 +59,14 @@ public class PaymentReport extends BaseExcelRptService {
 		 
 		 int indexRow = 6;
 		 int index = 1;
+		 double sumAllTotal = 0.00;
+		 double sumAllNoVat = 0.00;
+		 double sumVat0 = 0.00;
+		 double sumVat3 = 0.00;
+		 double sumVat7 = 0.00;
+		 DecimalFormat df2 = new DecimalFormat(".##");
+		 
+		 
 		 if(result.size() > 0 && !result.isEmpty()) {
 			 for(ReportPaymentBean resultReportPayment : result) {
 				 Row row = sh.createRow(indexRow);
@@ -102,11 +113,72 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell10.setCellStyle(txtCenterTable);
 				 cell11.setCellStyle(txtCenterDecimal);
 				 cell12.setCellStyle(txtCenterTable);
+				 String vatConverStr = resultReportPayment.getVatAmount()+"";
+				 
+				 if("0".equals(vatConverStr)) {
+					 sumVat0 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+				 }else if("3".equals(vatConverStr)) {
+					 sumVat3 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+				 }else if("7".equals(vatConverStr)) {
+					 sumVat7 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+				 }
+				 sumAllTotal += resultReportPayment.getAmount().doubleValue();
+				 sumAllNoVat += resultReportPayment.getBeforVat().doubleValue();
 				 
 				 index++;
 				 indexRow++;
 			 }
 		 }
+		 
+		
+		 Row headSummary = sh.createRow(indexRow+2);
+		 Cell cellHead = headSummary.createCell(2);
+		 cellHead.setCellValue("ผลรวมยอดตาม User");
+		 cellHead.setCellStyle(txtCenterTable);
+		 
+		 Row textTotalSummary = sh.createRow(indexRow+3);
+		 Cell cellTotalSummary = textTotalSummary.createCell(2);
+		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
+		 cellTotalSummary.setCellStyle(txtCenterTable);
+		 
+		 Cell totalSummaryNoVat = textTotalSummary.createCell(9);
+		 totalSummaryNoVat.setCellValue(sumAllNoVat+"");
+		 totalSummaryNoVat.setCellStyle(txtCenterTable);
+		 
+		 Cell totalSummary = textTotalSummary.createCell(11);
+		 totalSummary.setCellValue(sumAllTotal+"");
+		 totalSummary.setCellStyle(txtCenterTable);
+		 
+
+		 
+		 Row vat0 = sh.createRow(indexRow + 4);
+		 Cell cellvat0 = vat0.createCell(2);
+		 cellvat0.setCellValue("ผลรวม Vat 0%");
+		 cellvat0.setCellStyle(txtCenterTable);
+		
+		 Cell totalVat0 = vat0.createCell(10);
+		 totalVat0.setCellValue(sumVat0+"");
+		 totalVat0.setCellStyle(txtCenterTable);
+		 
+		 
+		 Row vat3 = sh.createRow(indexRow + 5);
+		 Cell cellvat3 = vat3.createCell(2);
+		 cellvat3.setCellValue("ผลรวม Vat 3%");
+		 cellvat3.setCellStyle(txtCenterTable);
+		
+		 Cell totalVat3 = vat3.createCell(10);
+		 totalVat3.setCellValue(sumVat3+"");
+		 totalVat3.setCellStyle(txtCenterTable);
+		 
+		 Row vat7 = sh.createRow(indexRow + 6);
+		 Cell cellvat7 = vat7.createCell(2);
+		 cellvat7.setCellValue("ผลรวม Vat 7%");
+		 cellvat7.setCellStyle(txtCenterTable);
+		
+		 Cell totalVat7 = vat7.createCell(10);
+		 totalVat7.setCellValue(df2.format(sumVat7)+"");
+		 totalVat7.setCellStyle(txtCenterTable);
+		 
 		 
 		
 		return workbook;
