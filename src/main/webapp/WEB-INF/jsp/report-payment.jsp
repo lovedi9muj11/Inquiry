@@ -32,7 +32,7 @@
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}"/>
 				<div class="panel-body">
 					<div class="row">
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">วันที่ชำระ :</label>
 							<div class="col-md-10">
 								<div class='col-md-6'>
@@ -79,7 +79,7 @@
 								
 							</div>
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
 							<div class="col-md-10">
 								<div class='col-md-6'>
@@ -125,13 +125,17 @@
 								
 							</div>
 						</div>
-						<div class="form-group col-md-4">
-							<div class="col-md-6">
-								<label class="col-md-4 control-label text-right">รหัสบัญชี:</label>
-								<div class="col-md-8">
-									<input type="text" id="accountId" name="accountId" value="${pageContext.request.userPrincipal.name}" class="form-control" disabled/>
-								</div>
+	
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="col-md-2 control-label text-right">รหัสบัญชี:</label>
+							<div class="col-md-10">
+								<input type="text" id="accountId" name="accountId" value="${pageContext.request.userPrincipal.name}" class="form-control" disabled/>
 							</div>
+
+						</div>
+						<div class="form-group col-md-6">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label text-right">Vat Rate:</label>
 								<div class="col-md-8">
@@ -143,31 +147,30 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-md-6">
+								<label class="col-md-5 control-label text-right">ประเภทการรับชำระ:</label>
+								<div class="col-md-7">
+									<select class="form-control" id="serviceType" name="serviceType">
+										<option value="">-- กรุณาเลือก --</option>
+										<option value="IBASS">ค่าบริหาร (Billing)</option>
+										<option value="etc">ค่าบริการอื่น ๆ</option>
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">เครื่องที่รับชำระ:</label>
 							<div class="col-md-10">
 								<input type="text" id="machinePaymentName" name="machinePaymentName" value="ศูนย์บริการลูกค้า นนทบุรี" class="form-control" disabled/>
 							</div>
 						</div>
 						
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label>
 							<div class="col-md-10">
 								<input type="text" id="authorities" name="authorities" value="${pageContext.request.userPrincipal.name}" class="form-control" disabled/>
-							</div>
-						</div>
-						
-						<div class="form-group col-md-4">
-							<label class="col-md-2 control-label text-right">ประเภทการรับชำระ:</label>
-							<div class="col-md-10">
-								<select class="form-control" id="serviceType" name="serviceType">
-									<option value="">-- กรุณาเลือก --</option>
-									<option value="IBASS">ค่าบริหาร (Billing)</option>
-									<option value="etc">ค่าบริการอื่น ๆ</option>
-								</select>
 							</div>
 						</div>
 					</div>
