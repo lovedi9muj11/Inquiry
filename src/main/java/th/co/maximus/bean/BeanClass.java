@@ -1,10 +1,14 @@
 package th.co.maximus.bean;
 
+import java.util.Date;
+
 public class BeanClass {
 	
 	private int id;
 	private String name;
 	private String sueName;
+	private String dateString;
+	private Date date;
 	
 	public int getId() {
 		return id;
@@ -23,6 +27,18 @@ public class BeanClass {
 	}
 	public void setSueName(String sueName) {
 		this.sueName = sueName;
+	}
+	public String getDateString() {
+		return dateString;
+	}
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }

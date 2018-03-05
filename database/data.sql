@@ -9,3 +9,8 @@ INSERT INTO `user` (`id`, `password`, `username`) VALUES ('3', '$2a$10$ZAtx9YUEB
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('3', '3');
+
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('N', 'NON_VAT', 'vat_rate');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('0', '0', 'vat_rate');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('3', '3', 'vat_rate');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('7', '7', 'vat_rate');

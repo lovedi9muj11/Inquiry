@@ -1,5 +1,6 @@
 package th.co.maximus;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import th.co.maximus.batch.CallEpisOnline;
 public class CallEpisOnlineTest {
 	
 	@Test
+	@Ignore
 	public void callRest() {
 		CallEpisOnline callEpisOnline = new CallEpisOnline();
 		callEpisOnline.testRestFul();
