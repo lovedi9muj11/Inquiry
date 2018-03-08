@@ -49,8 +49,13 @@ public class PaymentController {
 				paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
 			}
 			
+			BigDecimal price = paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 			
-			paymentResultReq.setBalancePrice(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+			if(price.compareTo(new BigDecimal("0.00")) < 0) {
+				price = new BigDecimal("0.00");
+			}
+			
+			paymentResultReq.setBalancePrice(price);
 			paymentResultReq.setPeriod(utils.periodFormat(paymentResultReq.getPeriod()));
 			
 			Date date =  paymentResultReq.getInvoiceDate();

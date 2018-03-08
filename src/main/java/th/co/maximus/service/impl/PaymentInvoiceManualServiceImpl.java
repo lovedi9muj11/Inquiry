@@ -62,6 +62,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setUpdateDate(new Timestamp(date.getTime()));
 		paymentInvoiceManualBean.setRecordStatus("A");
 		paymentInvoiceManualBean.setDepartment(paymentBean.getDebtCollection());
+		paymentInvoiceManualBean.setInvoiceDate(paymentBean.getInvoiceDate());
 		
 		paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 		}

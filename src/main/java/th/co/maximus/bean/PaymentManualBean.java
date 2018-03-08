@@ -24,6 +24,8 @@ public class PaymentManualBean {
 	private  String   accountNo;
 	private  String   paytype;
 	private String docType;
+	private double change;
+	
 	public Long getManualId() {
 		return manualId;
 	}
@@ -144,6 +146,12 @@ public class PaymentManualBean {
 	}
 	public void setDocType(String docType) {
 		this.docType = docType;
+	}
+	public double getChange() {
+		return change;
+	}
+	public void setChange(double change) {
+		this.change = change;
 	}
 
 	

@@ -42,6 +42,7 @@ public class PaymentFirstBean implements Serializable{
 	private double balanceOfTaxs;
 	private double balanceSummarys;
 	private double balanceSum;
+	private double chang;
 	private String remark;
 	private double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
@@ -225,6 +226,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public double getChang() {
+		return chang;
+	}
+	public void setChang(double chang) {
+		this.chang = chang;
 	}
 	
 	

@@ -67,8 +67,8 @@
 													for="formGroupInputLarge">Tax ID :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="taxId"
-														name="taxId" placeholder="Tax ID">
-														<p id="staxId" style="color: red;"> คุณยังไม่ได้กรอก TAX ID</p>
+														name="taxId" placeholder="Tax ID" maxlength="13">
+												
 												</div>
 											</div>
 										</div>
@@ -242,7 +242,7 @@
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดชำระ :</label>
+													for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้ :</label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceSummary"
 														name="balanceSummary" >
@@ -290,7 +290,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row hidden">
+										<div class="row">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">เลขที่เอกสาร :</label>
@@ -328,6 +328,7 @@
 															<tr>
 																<th>#</th>
 																<th>เลขที่ใบแจ้งค่าใช้บริการ</th>
+																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
 															</tr>
@@ -418,8 +419,9 @@
 														<select class="form-control" id="edcType"
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
-															<option value="paypal">Paypal</option>
-															<option value="7Eleven">7-Eleven</option>
+															<option value="001">ธนาคารกรุงไทย</option>
+															<option value="002">ธนาคารไทยพานิชย์</option>
+															<option value="003">ธนาคารกสิกรไทย</option>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -613,7 +615,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel">
-									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีการชำระเงิน</div>
 									<div class="panel-body">
 										<div style="display: none">
 											<table id="sumTotalPriceTable">
@@ -662,8 +664,12 @@
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="hidden"
 														id="beforeSale" readonly="">
+												</div>
+												<div class="col-sm-3">
+													<input class="form-control numeric2point" type="text"
+														id="beforeSaleShow" readonly="">
 												</div>
 											</div>
 										</div>
@@ -685,8 +691,12 @@
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="hidden"
 														id="balanceBeforeTaxs" readonly="">
+												</div>
+											<div class="col-sm-3">
+													<input class="form-control numeric2point" type="text"
+														id="balanceBeforeTaxsShow" readonly="">
 												</div>
 											</div>
 										</div>
@@ -696,7 +706,9 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="vats"
+													<input class="form-control" type="hidden" id="vats"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="vatsShow"
 														readonly="">
 												</div>
 											</div>
@@ -708,7 +720,9 @@
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระรวมภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="balanceOfTaxs"
+													<input class="form-control" type="hidden" id="balanceOfTaxs"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="balanceOfTaxsShow"
 														readonly="">
 												</div>
 											</div>
@@ -749,8 +763,10 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระ :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="hidden"
 														id="balanceSummarys" readonly="">
+														<input class="form-control numeric2point" type="text"
+														id="balanceSummaryShow" readonly="">
 												</div>
 											</div>
 										</div>
@@ -760,7 +776,9 @@
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินรับมา :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="balanceSum"
+													<input class="form-control" type="hidden" id="balanceSum"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="balanceSumShow"
 														readonly="">
 												</div>
 											</div>
