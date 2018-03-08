@@ -78,7 +78,7 @@
 													for="formGroupInputLarge">Tax ID :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="taxId"
-														name="taxId" placeholder="Tax ID">
+														name="taxId" placeholder="Tax ID" maxlength="13">
 													<p id="staxId" style="color: red;">คุณยังไม่ได้กรอก TAX
 														ID</p>
 												</div>
@@ -193,12 +193,7 @@
 											<p id="sinputServiceDepartment" style="color: red;">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
 										</div>
-										<label class="control-label col-sm-2">เงินส่วนลดก่อน
-											VAT :</label>
-										<div class="col-sm-2">
-											<input id="inputServiceDiscount" name="inputServiceDiscount"
-												class="form-control numeric2point">
-										</div>
+										
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">ชื่อบริการ :</label>
@@ -218,28 +213,21 @@
 										<label class="control-label col-sm-2">จำนวนรายการ :</label>
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" 
-												name="inputServiceMoreData" class="form-control">
+												name="inputServiceMoreData" class="form-control" value="1">
 											<p id="sinputServiceMoreData" style="color: red;">
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 
-										<label class="control-label col-sm-2"><input
-											type="checkbox" hidden="hidden"
-											name="checkboxAdditionalDiscount"><span
-											class="glyphicon glyphicon-lock"></span>&nbsp;ส่วนลดพิเศษ :</label>
-										<div class="col-sm-2">
-											<input id="inputSpecialDiscount" 
-												name="inputSpecialDiscount" class="form-control numeric2point">
-										</div>
+										
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">จำนวนเงินต่อหน่วย
+										<label class="control-label col-sm-2">จำนวนเงินต่อหน่วย ก่อน vat
 											:</label>
 										<div class="col-sm-2">
 											<input id="inputServiceAmount" 
 												name="inputServiceAmount" class="form-control numeric2point">
 											<p id="sinputServiceAmount" style="color: red;">
-												คุณยังไม่ได้กรอก จำนวนเงินต่อหน่วย</p>
+												คุณยังไม่ได้กรอก จำนวนเงินต่อหน่วย ก่อน vat</p>
 										</div>
 
 										<div class="col-sm-5"></div>
@@ -650,7 +638,7 @@
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel">
-									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีกาชำระเงิน</div>
+									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีการชำระเงิน</div>
 									<div class="panel-body">
 										<div style="display: none">
 											<table id="sumTotalPriceTable">
@@ -758,28 +746,6 @@
 												<div class="col-sm-3">
 													<input class="form-control" type="text" id="summaryTax"
 														name="summaryTax" readonly="">
-												</div>
-											</div>
-										</div>
-										<div class="form-horizontal">
-											<div class="col-sm-7"></div>
-											<div class="form-group ">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ค่าธรรมเนียม :</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
-										<div class="form-horizontal">
-											<div class="col-sm-7"></div>
-											<div class="form-group ">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ค่าปรับ :</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
 												</div>
 											</div>
 										</div>
