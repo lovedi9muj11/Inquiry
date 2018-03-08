@@ -91,7 +91,7 @@
 						                <th style="text-align: center;">จำนวนเงิน</th>
 						                <th style="text-align: center;">สถานที่รับชำระ</th>
 						                <th style="text-align: center;">ผู้รับชำระ</th>
-						                <th style="text-align: center;">สถานนะ</th>
+						                <th style="text-align: center;">สถานะ</th>
 						                <th style="text-align: center;"></th>					             
 							        </tr>
 						    	</thead>
@@ -112,8 +112,8 @@
 							<select class="form-control" id="problemCancel"
 								name="userGroup">
 								<option value="">== เลือก ==</option>
-								<option value="01">ลิมไปแล้ว</option>
-								<option value="02">พิมพ์ผิด</option>
+								<option value="01">รับชำระผิดบริการ </option>
+								<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option>
 							</select>
 						</div>
 					</div>
@@ -153,7 +153,7 @@
 							                <th style="text-align: center;">จำนวนเงิน</th>
 							                <th style="text-align: center;">สถานที่รับชำระ</th>
 							                <th style="text-align: center;">ผู้รับชำระ</th>
-							                <th style="text-align: center;">สถานนะ</th>
+							                <th style="text-align: center;">สถานะ</th>
 							                <th style="text-align: center;">ภาษี</th>
 							                <th style="text-align: center;">จำนวนทั้งหมด</th>			             
 								        </tr>

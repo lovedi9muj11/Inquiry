@@ -80,14 +80,17 @@ $(document).ready(function () {
     	};
    	
    function createRowSelectCCPayment(data) {
-    		console.log(data);
     		no = data[0];
     		receiptNoManual = data[1];
     		createDate = data[2];
     		dateMake = data[3];
     		invoiceNo = data[4];
     		customer =data[5];
-    		payType = data[6];
+    		if(data[6] == 'F'){
+    			payType = 'เต็มจำนวน';
+    		}else if(data[6] == 'P'){
+    			payType = 'บางส่วน';
+    		}
     		amount = data[7];
     		branchCode = data[8];
     		createBy = data[9];
@@ -271,7 +274,11 @@ function createRowSelect(data, seq, table) {
 	dateMake = data.createDateStr;
 	invoiceNo = data.invoiceNo;
 	customer = data.customerName;
-	payType = data.payType;
+	if(data.payType == 'F'){
+		payType = 'เต็มจำนวน';
+	}else if(data.payType == 'P'){
+		payType = 'บางส่วน';
+	}
 	amount = formatDouble(data.amount,2);
 	branchCode = data.branchCode;
 	createBy = data.createBy;

@@ -151,7 +151,7 @@
 								<label class="col-md-5 control-label text-right">ประเภทการรับชำระ:</label>
 								<div class="col-md-7">
 									<select class="form-control" id="serviceType" name="serviceType">
-										<option value="">-- กรุณาเลือก --</option>
+										<option value="">-- กรุณาเลือก  --</option>
 										<option value="IBASS">ค่าบริหาร (Billing)</option>
 										<option value="etc">ค่าบริการอื่น ๆ</option>
 									</select>
