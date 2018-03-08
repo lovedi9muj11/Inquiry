@@ -724,7 +724,10 @@
 												</div>
 											</div>
 										</div>
+<<<<<<< HEAD
 										
+=======
+>>>>>>> branch 'master' of https://github.com/lovedi9muj11/Epis-Offlines.git
 
 										<div class="row">
 

@@ -47,13 +47,13 @@
 				<div class="row" style="margin-top: 20px;">
 					<input type="hidden" id="userName" name="userName"
 						value="${pageContext.request.userPrincipal.name}">
-					<div class="col-md-12 col-sm-12">
-						<div class="form-group">
-							<div class="col-md-12 col-sm-12">
+					<!-- <div class="col-md-12 col-sm-12"> -->
+						<!-- <div class="form-group"> -->
+							<div class="col-md-12 col-sm-12"> 
 								<div class="panel">
 									<div class="panel-heading">เพิ่มใบรับชำระค่าบริการ</div>
 									<div class="panel-body">
-										<div class="row">
+										<div class="form-horizontal">
 										<input type="hidden" name="balanceSummary" id="balanceSummary">
 										<input type="hidden" name="balanceBeforeTax" id="balanceBeforeTax">
 										<input type="hidden" name="vat" id="vat">
@@ -84,7 +84,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group left">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :</label>
@@ -131,7 +131,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ที่อยู่ :</label>
@@ -147,10 +147,10 @@
 
 									</div>
 								</div>
-							</div>
+							 </div>
 
-						</div>
-					</div>
+						<!-- </div> -->
+					<!-- </div> -->
 
 				</div>
 				<div class="panel ">
@@ -254,7 +254,7 @@
 
 								</div>
 								<br /> <br />
-								<div class="row">
+								<div class="form-horizontal">
 									<div class="form-group">
 										<div style="display: none">
 											<table id="sumtableBillingListdata">
@@ -295,7 +295,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="form-horizontal">
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
@@ -324,7 +324,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row hidden">
+										<div class="form-horizontal hidden">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">เลขที่เอกสาร :</label>
@@ -334,7 +334,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -345,7 +345,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group">
 												<div class="col-sm-10 right">
 													<a onclick="addRow()" id="addRow" class="btn btn-warning"><span
@@ -355,7 +355,7 @@
 
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group">
 												<div class="col-sm-12">
 													<table class="table table-striped" id="deductibleTable">
@@ -374,7 +374,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group">
 												<div class="col-sm-12 right">
 													<button type="button" class="btn btn-primary"
@@ -410,7 +410,7 @@
 									</div>
 									<div class="panel-body">
 										<div id="money">
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-8 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -424,7 +424,7 @@
 											</div>
 										</div>
 										<div id="credit">
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ประเภทของบัตรเครดิต:</label>
@@ -445,7 +445,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ธนาคารเจ้าของเครื่อง
@@ -467,7 +467,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<div class="col-sm-12 right">
 														<button type="button" class="btn btn-warning"
@@ -477,7 +477,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<div class="col-sm-12">
 														<table class="table" id="creditTable">
@@ -499,7 +499,7 @@
 										</div>
 
 										<div id="check">
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รหัสธนาคาร:</label>
@@ -521,7 +521,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ชื่อธนาคาร :</label>
@@ -542,7 +542,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">สาขา :</label>
@@ -559,7 +559,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<div class="col-sm-12 right">
 														<button type="button" class="btn btn-warning"
@@ -569,7 +569,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
+											<div class="form-horizontal">
 												<div class="form-group">
 													<div class="col-sm-12">
 														<table class="table" id="checkTable">
@@ -595,7 +595,7 @@
 
 
 
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="form-group">
 												<div class="col-sm-12 right">
 													<button type="button" class="btn btn-primary"
@@ -685,7 +685,7 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปยอดเงินที่ต้องชำระ</div>
 									<div class="panel-body">
-										<div class="row">
+										<div class="form-horizontal">
 
 											<div class="form-group ">
 												<label class="col-sm-1 control-label right"
@@ -704,7 +704,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -715,7 +715,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -727,7 +727,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -738,7 +738,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -750,7 +750,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -761,7 +761,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -772,7 +772,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -783,7 +783,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 
 											<div class="form-group ">
 												<div class="col-sm-7"></div>
@@ -801,7 +801,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -812,7 +812,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -823,7 +823,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -834,7 +834,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="form-horizontal">
 
 											<div class="form-group ">
 												<div class="col-sm-6"></div>
