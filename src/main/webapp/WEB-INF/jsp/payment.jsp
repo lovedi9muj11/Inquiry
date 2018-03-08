@@ -724,28 +724,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-sm-7"></div>
-											<div class="form-group ">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ค่าธรรมเนียม :</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id=""
-														name="" value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-7"></div>
-											<div class="form-group ">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ค่าปรับ :</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id=""
-														name="" value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
+										
+
 										<div class="row">
 
 											<div class="form-group ">

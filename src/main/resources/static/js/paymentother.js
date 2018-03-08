@@ -469,7 +469,10 @@ function addRow() {
 		alert("กรุณากรอกใหม่ !");
 		return $("#moneyDed").focus();
 	}
-	
+	if(invoiceNo == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#invoiceNo").focus();
+	}
 	var moneyDed = parseFloat(dmoney.replace(",", ""));
 	var count = 1;
 	
@@ -840,14 +843,32 @@ function addDataTableCheck() {
 	for (count; count < table; count++) {
 		count
 	}
+	if(bankNo == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#bankNo").focus();
+	}
+	if(bankName == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#bankName").focus();
+	}
+	if(branchCheck == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#branchCheck").focus();
+	}
 	if(parseFloat(moneyCheck) < parseFloat(0)){
 		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
-		return $("#moneyCheck").focus();
+		return $("#bankName").focus();
 	}
 	if(checkNo == ""){
 		alert("กรุณากรอกใหม่ !");
 		return $("#checkNo").focus();
 	}
+	if(dateCheck == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#dateCheck").focus();
+	}
+	
+	
 	
 	if(bankNo == "001"){
 		bankName = "ธนาคารกรุงไทย";
@@ -898,6 +919,19 @@ function addDataTablecreditTranPrice() {
 	var count = parseInt(1);
 	for (count; count < table; count++) {
 		count
+	}
+	
+	if(creditType == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#creditType").focus();
+	}
+	if(edcType == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#edcType").focus();
+	}
+	if(creditNo == ""){
+		alert("กรุณากรอกใหม่ !");
+		return $("#creditNo").focus();
 	}
 
 	if(parseFloat(creditPrice) < parseFloat(0)){
