@@ -673,7 +673,7 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปยอดเงินที่ต้องชำระ</div>
 									<div class="panel-body">
-										<div class="form-horizontal">
+										<div class="row">
 
 											<div class="form-group ">
 												<label class="col-sm-1 control-label right"
@@ -687,58 +687,70 @@
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="beforeSale"
-														readonly="">
+													<input class="form-control" type="hidden"
+														id="beforeSale" readonly="">
+												</div>
+												<div class="col-sm-3">
+													<input class="form-control numeric2point" type="text"
+														id="beforeSaleShow" readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ส่วนลด :</label>
 												<div class="col-sm-3">
 													<input class="form-control" type="text" id="sale"
-														readonly="" value="0.00">
+														readonly="" value="0.00" >
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="hidden"
 														id="balanceBeforeTaxs" readonly="">
+												</div>
+											<div class="col-sm-3">
+													<input class="form-control numeric2point" type="text"
+														id="balanceBeforeTaxsShow" readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="vats"
+													<input class="form-control" type="hidden" id="vats"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="vatsShow"
 														readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระรวมภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="balanceOfTaxs"
+													<input class="form-control" type="hidden" id="balanceOfTaxs"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="balanceOfTaxsShow"
 														readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
@@ -749,7 +761,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+
+										<div class="row">
 
 											<div class="form-group ">
 												<div class="col-sm-7"></div>
@@ -767,40 +780,44 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระ :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="hidden"
 														id="balanceSummarys" readonly="">
+														<input class="form-control numeric2point" type="text"
+														id="balanceSummaryShow" readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินรับมา :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="balanceSum"
+													<input class="form-control" type="hidden" id="balanceSum"
+														readonly="">
+													<input class="form-control numeric2point" type="text" id="balanceSumShow"
 														readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">เงินทอน :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="change"
-														readonly="">
+													<input class="form-control" type="text"
+														id="change" readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal">
+										<div class="row">
 
 											<div class="form-group ">
 												<div class="col-sm-6"></div>
