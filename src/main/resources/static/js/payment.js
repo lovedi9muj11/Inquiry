@@ -44,12 +44,12 @@ $(document).ready(function() {
 				
 				// Summary
 				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
-				$("#balanceSummaryShow").val(result.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#balanceSummaryShow").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 				
-				$("#moneyTran").val(result.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#creditPrice").val(result.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#moneyCheck").val(result.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyTran").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#creditPrice").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyCheck").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 				
 				
@@ -760,7 +760,7 @@ function addDataSumCheckTranPrice() {
 			return ;
 		}
 		var numberRun = number + i;
-		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode1	+ "</td><td>"+ result[6].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode1	+ "</td><td>"+ result[6].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2]+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td><td>" + result[5] + "</td><td>" + result[6] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
@@ -915,7 +915,7 @@ function addDataTablecreditTranPrice() {
 			+ "</td><td>"
 			+ edcType
 			+ "</td><td>"
-			+ creditPrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ creditPrice.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 			+ "</td><td><a onclick='myDeletecreditTranPrice("
 			+ count
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
