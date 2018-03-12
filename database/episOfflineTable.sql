@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `ARCPRINCIPAL`;
 DROP TABLE IF EXISTS `DEDUCTION_MANUAL`;
 DROP TABLE IF EXISTS `CORRECEIPTDOCUMENT`;
 DROP TABLE IF EXISTS `PAYMENT_MANUAL`;
+DROP TABLE IF EXISTS `TMPINVOICE`;
 DROP TABLE IF EXISTS `MASTER_RECEIPT_HEADER_MAPPING`;
 DROP TABLE IF EXISTS `PAYMENT_INVOICE_MANUAL`;
 DROP TABLE IF EXISTS `TRSCREDITREF_MANUAL`;
@@ -105,6 +106,35 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_MANUAL` (
 	PAY_TYPE VARCHAR(20),
 	DOCTYPE VARCHAR(20),
 	CHANG DECIMAL(14,4), PRIMARY KEY (MANUAL_ID)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
+	INV_ID BIGINT NOT NULL AUTO_INCREMENT,
+	MANUAL_ID BIGINT,
+	INVOICE_NO varchar(30) ,
+	INVOICE_DATE timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+	DATE_LINE timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+	BEFOR_VAT decimal(14,4) ,
+  VAT_AMOUNT decimal(14,4) ,
+  AMOUNT decimal(14,4) ,
+  VAT_RATE varchar(10),
+  CUSTOMER_NAME varchar(300),
+  CUSTOMER_ADDRESS varchar(300) ,
+  CUSTOMER_SEGMENT varchar(300),
+  CUSTOMER_BRANCH varchar(300) ,
+  TAXNO varchar(25) ,
+  ACCOUNTSUBNO varchar(25) ,
+  PERIOD varchar(20) ,
+	SERVICENAME varchar(300) ,
+  SERVICE_TYPE varchar(45) ,
+	CHANG decimal(14,4)	,
+	CREATE_BY VARCHAR(20),
+	CREATE_DATE TIMESTAMP(6),
+	UPDATE_BY VARCHAR(20),
+	UPDATE_DATE TIMESTAMP(6),
+	RECORD_STATUS VARCHAR(20), 
+	PRIMARY KEY (INV_ID) 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`MASTER_RECEIPT_HEADER_MAPPING` (

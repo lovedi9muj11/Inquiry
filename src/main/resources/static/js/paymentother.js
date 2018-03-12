@@ -6,6 +6,7 @@ $(document).ready(function() {
 			hideShowdat();
 			hideDetailPayment();
 			disBtn();
+			vatAmount();
 			document.getElementById("radioButton").disabled = true;
 			document.getElementById("radioButton1").disabled = true;
 			document.getElementById("radioButton2").disabled = true;
@@ -16,6 +17,9 @@ $(document).ready(function() {
 			$("#moneyTran").val( parseFloat(0).toFixed(2));
 			$("#balanceBeforeTax").val(parseFloat(0).toFixed(2));
 			$("#vat").val(parseFloat(0).toFixed(2));
+			$("#change").val(parseFloat(0).toFixed(2));
+			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
+			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
 	
 		});
 
@@ -56,9 +60,14 @@ function vatAmount(){
 	
 	$("#balanceOfTaxs").val(summary.toFixed(2));
 	$("#beforeSale").val(beforeVat.toFixed(2));
+	$("#beforeSaleShow").val(beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#balanceOfTaxsShow").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	
 	$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
 	$("#vats").val(vat.toFixed(2));
+	
+	$("#balanceBeforeTaxsShow").val(beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#vatsShow").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 };
 
 function hideShowdat(){
@@ -402,12 +411,14 @@ function buttonAddBillingList(){
 	var money = parseFloat(moneyCC.replace(",", ""));
 	
 	money = parseFloat(money + amount);
-	vatRQ = parseFloat(vatRQ + vat);
-	balanceBeforeTaxRQ = parseFloat(balanceBeforeTaxRQ + beforeVat);
+	vatRQ = parseFloat(vat+vatRQ);
+	balanceBeforeTaxRQ = parseFloat(beforeVat+balanceBeforeTaxRQ);
 	
 	$("#moneyTran").val(money.toFixed(2));
 	$("#balanceSummarys").val(money.toFixed(2));
 	$("#balanceSummary").val(money.toFixed(2));
+	$("#balanceSummaryShow").val(money.toFixed(2));
+	
 	$("#balanceBeforeTax").val(balanceBeforeTaxRQ.toFixed(2));
 	$("#vat").val(vatRQ.toFixed(2));
 
@@ -423,7 +434,7 @@ function deleteTableSale(count) {
 		for (var i = 1; i <= table.rows.length; i++) {
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
-				var tbMoney = parseFloat(oCells[9].innerHTML);
+				var tbMoney = parseFloat(oCells[7].innerHTML);
 				var amounts = parseFloat(amount);
 				var vat = parseFloat((amounts*parseFloat(vatRate)) / parseFloat(107) );
 				var beforeVat = parseFloat(amounts - vat);
@@ -540,7 +551,7 @@ function myDeleteDed(count) {
 				var oCells = table.rows.item(i).cells;
 				var total = parseFloat(oCells[4].innerHTML);
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
-				if(balance > result){
+				if(balance < result){
 					balance = result;
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
@@ -1019,25 +1030,26 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		for (var i = 1; i < tablesumTotals.rows.length; i++) {
 			if (numberRun == i) {
 				var oCells = tablesumTotals.rows.item(i).cells;
-				var total = parseFloat(oCells[2].innerHTML);
+				var total = oCells[2].innerHTML.replace(",", "");
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
 				balanceSum = parseFloat(parseFloat(balanceSum) - parseFloat(total))
 				if(parseFloat(balanceSum) <0){
 					balanceSum = parseFloat(0);
 				}
-				if(parseFloat(sumPrice) < parseFloat(balance)){
-					balance = parseFloat(sumPrice);
-					$("#change").val(parseFloat(0).toFixed(2));
-				}
+
 				balance = parseFloat(balance) - parseFloat(summaryTax);
 				res = parseFloat(balance) + parseFloat(chen);
 				if(parseFloat(res) >= parseFloat(sumPrice)  ){
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
 				
+				if(parseFloat(sumPrice) < parseFloat(balance)){
+					balance = parseFloat(sumPrice);
+					$("#change").val(parseFloat(0).toFixed(2));
+				}
 				$("#balanceSummarys").val(balance.toFixed(2));
 				$("#balanceSum").val(balanceSum.toFixed(2));
-				$("#moneyTran").val(balance.toFixed(2));
+				$("#balanceSumShow").val(balanceSum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				vatAmount();
 				
 				tablesumTotals.deleteRow(numberRun);
