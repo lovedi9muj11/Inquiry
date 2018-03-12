@@ -484,7 +484,7 @@ function myDeleteDed(count) {
 				var oCells = table.rows.item(i).cells;
 				var total = parseFloat(oCells[4].innerHTML);
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
-				if(balance > result){
+				if(balance < result){
 					balance = result;
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
@@ -969,19 +969,21 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				if(parseFloat(balanceSum) <0){
 					balanceSum = parseFloat(0);
 				}
-				if(parseFloat(sumPrice) < parseFloat(balance)){
-					balance = parseFloat(sumPrice);
-					$("#change").val(parseFloat(0).toFixed(2));
-				}
+
 				balance = parseFloat(balance) - parseFloat(summaryTax);
 				res = parseFloat(balance) + parseFloat(chen);
 				if(parseFloat(res) >= parseFloat(sumPrice)  ){
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
 				
+				if(parseFloat(sumPrice) > parseFloat(balance)){
+					balance = parseFloat(sumPrice);
+					$("#change").val(parseFloat(0).toFixed(2));
+				}
+				
 				$("#balanceSummarys").val(balance.toFixed(2));
 				$("#balanceSum").val(balanceSum.toFixed(2));
-				$("#balanceSumShow").val(balanceSum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#balanceSumShow").val(balanceSum.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				vatAmount();
 				
 				tablesumTotals.deleteRow(numberRun);
