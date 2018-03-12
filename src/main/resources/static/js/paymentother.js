@@ -359,25 +359,25 @@ function buttonAddBillingList(){
 	var inputServiceName = $("#inputServiceName").val();
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
-	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
-	var inputServiceDiscount = $("#inputServiceDiscount").val();
+	//var inputSpecialDiscount = $("#inputSpecialDiscount").val();
+	//var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var vatRate = $("#vatrate").val();
 	
-	if(inputServiceDiscount == ""){
+	/*if(inputServiceDiscount == ""){
 		inputServiceDiscount = parseFloat(0).toFixed(2);
 	}
 	if(inputSpecialDiscount == ""){
 		inputSpecialDiscount = parseFloat(0).toFixed(2);
-	}
+	}*/
 	
-	var serviceDiscount = parseFloat(inputServiceDiscount.replace(",", "")); // ส่วนลด
+	//var serviceDiscount = parseFloat(inputServiceDiscount.replace(",", "")); // ส่วนลด
 	var serviceMoreData = parseFloat(inputServiceMoreData); // จำนวนรายการ
-	var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", "")); // สว่นลดพิเศษ
+	//var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", "")); // สว่นลดพิเศษ
 	var serviceAmount = parseFloat(inputServiceAmount.replace(",", "")); // จำนวนต่อหน่วย
 	
 
 	
-	var amount = parseFloat((serviceMoreData * serviceAmount)-(serviceDiscount + specialDiscount));
+	var amount = parseFloat((serviceMoreData * serviceAmount));
 	var vat = parseFloat((amount*parseFloat(vatRate)) / parseFloat(107) );
 	var beforeVat = parseFloat(amount - vat);
 	
@@ -385,7 +385,7 @@ function buttonAddBillingList(){
 		count =  parseFloat(count + parseFloat(table)) ;
 	
 	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+ inputServiceName+ "</td><td>"	+ inputServiceDepartment+ "</td><td>"+ serviceMoreData + "</td>" +
-			"<td>"+ parseFloat(serviceAmount).toFixed(2) + "</td><td>"+ parseFloat(serviceDiscount).toFixed(2) + "</td><td>"+ parseFloat(vat).toFixed(2) + "</td><td>"+ parseFloat(specialDiscount).toFixed(2) + "</td><td>"+ parseFloat(amount).toFixed(2) + "</td><td><a onclick='deleteTableSale("+  count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+			"<td>"+ parseFloat(serviceAmount).toFixed(2) + "</td><td>"+ parseFloat(vat).toFixed(2) + "</td><td>"+ parseFloat(amount).toFixed(2) + "</td><td><a onclick='deleteTableSale("+  count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#sumtableBillingList").find('tbody').append(markup);
 	
 	$("#inputServiceType").val(""); // หน่วยรับได้
@@ -465,14 +465,14 @@ function addRow() {
 	}
 	var docDed = $("#docDed").val();
 	var dmoney = $("#moneyDed").val();
-	if(invoiceNo == ""){
+	/*if(invoiceNo == ""){
 		alert(" กรุณากรอกใหม่ !");
 		return  $("#invoiceNo").focus();
 	}
 	if(docDed == ""){
 		alert("กรุณากรอกเลขที่เอกสาร  กรุณากรอกใหม่ !");
 		return  $("#docDed").focus();
-	}
+	}*/
 	if(dmoney == ""){
 		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
 		return $("#moneyDed").focus();
@@ -494,7 +494,7 @@ function addRow() {
 		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
 		return  $("#moneyDed").focus();
 	}
-	var markup = "<tr><td>"	+ tdAutoNumber()	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='myDeleteFunction("+  tdAutoNumber()+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ tdAutoNumber()	+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='myDeleteFunction("+  tdAutoNumber()+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
 	var moneyDed = $("#moneyDed").val("");
@@ -589,7 +589,7 @@ function addDataTableDed() {
 			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 			return ;
 		}
-		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+		var prict = result[3].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		var numberRun = number + i;
 		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ result[1]	+ "</td><td>"+ prict + "</td><td><a onclick='myDeleteDed("+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showDeductibleTable").find('tbody').append(markup);
