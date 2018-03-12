@@ -602,7 +602,7 @@
 					</div>
 				</div>
 				<!-- panel รายการหัก -->
-				<div class="row">
+				<div class="row col-sm-12">
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">

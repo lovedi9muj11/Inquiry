@@ -41,7 +41,7 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setCustomerSegment("1");
 				paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 				paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
-				paymentInvoiceManualBean.setServiceType("IBASS");
+				paymentInvoiceManualBean.setServiceType("OTHER");
 				paymentInvoiceManualBean.setClearing("N");
 				paymentInvoiceManualBean.setPrintReceipt("");
 				paymentInvoiceManualBean.setRemark(paymentBean.getRemark());

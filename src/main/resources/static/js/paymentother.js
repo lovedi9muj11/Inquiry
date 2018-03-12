@@ -102,7 +102,7 @@ function submitForm(){
 	hideShowdat();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
-	var invoiceNo = $("#invoiceNo").val();
+	//var invoiceNo = $("#invoiceNo").val();
 	var deductible = [];
 	var  resultDeductible = [];
 	var totalPrice = [];
@@ -168,10 +168,10 @@ function submitForm(){
 			"inputServiceDepartment" : resultTblSale[h][3],
 			"inputServiceMoreData" : resultTblSale[h][4],
 			"inputServiceAmount" : resultTblSale[h][5],
-			"inputServiceDiscount" : resultTblSale[h][6],
-			"vatSale" : resultTblSale[h][7],
-			"inputSpecialDiscount" : resultTblSale[h][8],
-			"summarySale" : resultTblSale[h][9]
+//			"inputServiceDiscount" : resultTblSale[h][6],
+			"vatSale" : resultTblSale[h][6],
+//			"inputSpecialDiscount" : resultTblSale[h][8],
+			"summarySale" : resultTblSale[h][7]
 		}
 		listpaymentSaleRQ.push(listpaymentSale);
 	}
@@ -182,10 +182,10 @@ function submitForm(){
 	
 	for (var a = 0; a < resultDeductible.length; a++) {
 		listpaymentTaxQ = []
-		listpaymentTaxQ = {"invoiceNo" : resultDeductible[a][1],
-			"docDed" : resultDeductible[a][2],
-			"radioDed" : resultDeductible[a][3],
-			"moneyDed" : resultDeductible[a][4]
+		listpaymentTaxQ = {
+			"docDed" : resultDeductible[a][1],
+			"radioDed" : resultDeductible[a][2],
+			"moneyDed" : resultDeductible[a][3]
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -397,13 +397,13 @@ function buttonAddBillingList(){
 			"<td>"+ parseFloat(serviceAmount).toFixed(2) + "</td><td>"+ parseFloat(vat).toFixed(2) + "</td><td>"+ parseFloat(amount).toFixed(2) + "</td><td><a onclick='deleteTableSale("+  count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#sumtableBillingList").find('tbody').append(markup);
 	
-	$("#inputServiceType").val(""); // หน่วยรับได้
+	/*$("#inputServiceType").val(""); // หน่วยรับได้
 	$("#inputServiceDepartment").val("");
 	$("#inputServiceName").val("");
 	$("#inputServiceMoreData").val("");
 	$("#inputServiceAmount").val("");
 	$("#inputSpecialDiscount").val("");
-	$("#inputServiceDiscount").val("");
+	$("#inputServiceDiscount").val("");*/
 	
 	var moneyCC = $("#moneyTran").val();
 	var balanceBeforeTaxRQ = $("#balanceBeforeTax").val();
