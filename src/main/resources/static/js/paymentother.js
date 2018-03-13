@@ -415,6 +415,8 @@ function buttonAddBillingList(){
 	balanceBeforeTaxRQ = parseFloat(beforeVat+balanceBeforeTaxRQ);
 	
 	$("#moneyTran").val(money.toFixed(2));
+	$("#creditNo").val(money.toFixed(2));
+	$("#checkNo").val(money.toFixed(2));
 	$("#balanceSummarys").val(money.toFixed(2));
 	$("#balanceSummary").val(money.toFixed(2));
 	$("#balanceSummaryShow").val(money.toFixed(2));
@@ -886,7 +888,7 @@ function addDataTableCheck() {
 		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 		return $("#bankName").focus();
 	}
-	if(checkNo == ""){
+	if(checkNo.length == "" || checkNo.length < 7 ){
 		alert("กรุณากรอกใหม่ !");
 		return $("#checkNo").focus();
 	}
@@ -958,7 +960,8 @@ function addDataTablecreditTranPrice() {
 		alert("กรุณากรอกใหม่ !");
 		return $("#edcType").focus();
 	}
-	if(creditNo == ""){
+	
+	if(creditNo.length == "" || creditNo.length < 16 ){
 		alert("กรุณากรอกใหม่ !");
 		return $("#creditNo").focus();
 	}
@@ -971,6 +974,7 @@ function addDataTablecreditTranPrice() {
 		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 		return $("#creditPrice").focus();
 	}
+	
 
 	
 	var markup = "<tr><td>"
