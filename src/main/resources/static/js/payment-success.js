@@ -20,6 +20,9 @@ function submitTest(){
 	.attr("target", "_blank").submit();
 }
 
+function backPaymentOther(){
+	window.location.href = "payOther";
+}
 
 
 //	$.ajax({

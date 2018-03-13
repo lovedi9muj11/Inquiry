@@ -415,8 +415,8 @@ function buttonAddBillingList(){
 	balanceBeforeTaxRQ = parseFloat(beforeVat+balanceBeforeTaxRQ);
 	
 	$("#moneyTran").val(money.toFixed(2));
-	$("#creditNo").val(money.toFixed(2));
-	$("#checkNo").val(money.toFixed(2));
+	$("#moneyCheck").val(money.toFixed(2));
+	$("#creditPrice").val(money.toFixed(2));
 	$("#balanceSummarys").val(money.toFixed(2));
 	$("#balanceSummary").val(money.toFixed(2));
 	$("#balanceSummaryShow").val(money.toFixed(2));

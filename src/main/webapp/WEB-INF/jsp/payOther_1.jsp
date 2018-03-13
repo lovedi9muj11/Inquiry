@@ -47,7 +47,7 @@
 									พิมพ์ใบเสร็จ</span>
 							</button>
 							<button name="submitFormPayment" type="button"
-								class="btn btn-danger btn-lg" onclick="backPayment()">
+								class="btn btn-danger btn-lg" onclick="backPaymentOther()">
 								<span class="glyphicon glyphicon-chevron-left">
 									กลับไปยังหน้าชำระ</span>
 							</button>
