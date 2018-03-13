@@ -125,7 +125,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					paymentInvoiceManualBean.setVatAmount(resultPaymentInvoice.get(0).getVatAmount());
 					paymentInvoiceManualBean.setAmount(resultPaymentInvoice.get(0).getAmount());
 					paymentInvoiceManualBean.setVatRate(resultPaymentInvoice.get(0).getVatRate());
-					paymentInvoiceManualBean.setCustomerName(resultPaymentInvoice.get(0).getCustomerName());
+					paymentInvoiceManualBean.setCustomerName(paymentMMapPaymentInvBean.getCustomerName());
 					paymentInvoiceManualBean.setCustomerAddress(paymentMMapPaymentInvBean.getAddressNewCancelPayment());
 					paymentInvoiceManualBean.setCustomerSegment(resultPaymentInvoice.get(0).getCustomerSegment());
 					paymentInvoiceManualBean.setCustomerBranch(resultPaymentInvoice.get(0).getCustomerBranch());

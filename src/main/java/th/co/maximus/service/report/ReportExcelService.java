@@ -1,12 +1,15 @@
 package th.co.maximus.service.report;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.sf.jasperreports.engine.JRException;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
@@ -21,8 +24,9 @@ public class ReportExcelService extends BaseExcelRptService {
 
 	@Autowired private RptServicexxx rpt1Servicexxx;
 	@Autowired private RptServiceFull rptServiceFull;
-	@Autowired private PaymentReport paymentReport;
+	@Autowired private PaymentReportPdf paymentReportPdf;
 
+	@Autowired private PaymentReport paymentReport;
 	public Workbook getReportRptxxx(Workbook workbook, List<ReportBean> entity, ReportBean bean) throws Exception {
 		return rpt1Servicexxx.getReport(workbook, entity, bean);
 	}
@@ -34,5 +38,8 @@ public class ReportExcelService extends BaseExcelRptService {
 	public Workbook reportPaymentExcelService(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws Exception{
 		return paymentReport.generatePaymentReportExcel(workbook, criteria, result);
 		
+	}
+	public byte [] generationPaymentPDFService(String fileName , List<ReportPaymentBean> date, Map<String, Object> params) throws JRException {
+		return paymentReportPdf.jasperGanarationPDF(fileName, date, params);
 	}
 }

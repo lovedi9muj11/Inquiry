@@ -166,11 +166,25 @@ $(document).ready(function () {
       	  }           	
       });
     	$("#address" ).change(function() {
-    		if($('#address').val() != ''){
-    			$('#submitCancelPM').prop('disabled', false);
+    		if($('#fullName').val() != ''){
+        		if($('#address').val() != ''){
+        			$('#submitCancelPM').prop('disabled', false);
+        		}else{
+        			$('#submitCancelPM').prop('disabled', true);
+        		}
     		}else{
     			$('#submitCancelPM').prop('disabled', true);
     		}
+
+    	}); 
+    	
+    	$("#fullName" ).change(function() {
+    		if($('#fullName').val() != '' && $('#address').val() != ''){
+        		$('#submitCancelPM').prop('disabled', false);
+    		}else{
+    			$('#submitCancelPM').prop('disabled', true);
+    		}
+
     	}); 
     	
 	$( "#problemCancel" ).change(function() {
@@ -185,6 +199,7 @@ $(document).ready(function () {
 		}else if(valueSelect == '01'){
 			$("#addressInput").hide();
 			$('#address').val("");
+			$('#fullName').val("");
 			$('#submitCancelPM').prop('disabled', false);
 		}
 		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+$('#problemCancel').val());
@@ -321,7 +336,8 @@ function submitCancelPayment(){
 	var dataSet = {
 			"manualId" : idRow,
 			"statusCancelPayment":$('#problemCancel').val(),
-			"addressNewCancelPayment": $('#address').val()
+			"addressNewCancelPayment": $('#address').val(),
+			"customerName": $('#fullName').val()
 	};
 	$.ajax({
 	        type: "POST",
@@ -366,6 +382,21 @@ function hidePanel(){
     $("#panel3").hide();
     $("#panel4").hide();
 };
+
+//$.confirm({
+//    buttons: {
+//        hey: function () {
+//            // here the button key 'hey' will be used as the text.
+//            $.alert('You clicked on "hey".');
+//        },
+//        heyThere: {
+//            text: 'hey there!', // With spaces and symbols
+//            action: function () {
+//                $.alert('You clicked on "heyThere"');
+//            }
+//        }
+//    }
+//});
 
 
 

@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +18,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+
+import com.itextpdf.text.pdf.codec.Base64.InputStream;
 
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
@@ -45,6 +52,9 @@ public class ReportController {
 	
 	@Autowired
 	private PaymentReportService paymentReportService;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 	
 	@RequestMapping(value = { "/printReport.xls" }, method = RequestMethod.POST)
 	public void payOther(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -132,6 +142,33 @@ public class ReportController {
 			
 			response.setContentType("application/vnd.ms-excel");
 			response.setHeader("Content-Disposition", "attachment;filename="+ fileName +".xlsx");
+			response.getOutputStream().write(bytes);
+			response.getOutputStream().flush();
+		}
+	 
+	 @RequestMapping(value = { "/reportPaymentPDF" }, method = RequestMethod.POST)
+		public void paymentReportPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			ReportPaymentCriteria critreia = new ReportPaymentCriteria();
+			critreia.setDateFrom(request.getParameter("dateFromHidden"));
+			critreia.setDateTo(request.getParameter("dateToHidden"));
+			critreia.setAccountId(request.getParameter("accountIdHidden"));
+			critreia.setUser(request.getParameter("authoritiesHidden"));
+			critreia.setServiceType(request.getParameter("serviceType"));
+			critreia.setVatRate(request.getParameter("vat"));
+			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));
+			 
+			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia);
+			
+			String pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
+			
+			byte[] bytes = reportService.ganeratePaymentPDF(pathFile, result, null);
+			
+			Locale TH = new Locale("th", "TH");
+			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy HH-mm", TH);
+			String fileName = "Payment-Report"+ dateFormate.format(new Date());
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment;filename="+ fileName +".pdf");
 			response.getOutputStream().write(bytes);
 			response.getOutputStream().flush();
 		}

@@ -15,6 +15,7 @@
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/Dialog/bootbox.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	
 <script type="text/javascript" src="${contextPath}/resources/js/cancel-payment.js"></script>
@@ -109,8 +110,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
 						<div class="col-md-4">
-							<select class="form-control" id="problemCancel"
-								name="userGroup">
+							<select class="form-control" id="problemCancel" name="userGroup">
 								<option value="">== เลือก ==</option>
 								<option value="01">รับชำระผิดบริการ </option>
 								<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option>
@@ -120,7 +120,13 @@
 				</div>
 				<div class="row" id="addressInput">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">ที่อยู่ลูกค้า</label>
+						<label class="col-md-4 control-label text-right">ชื่อ<span style="color: red"> *</span></label>
+						<div class="col-md-4">
+							<input type="text" name="fullName" id="fullName" class="form-control text-left">
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label text-right">ที่อยู่ลูกค้า <span style="color: red"> *</span></label>
 						<div class="col-md-4">
 							<textarea id="address" name="address" class="form-control" rows="5"></textarea>
 						</div>
@@ -130,7 +136,8 @@
 					<div class="row">
 						<!-- Button -->
 						<div class="col-md-12 text-center">
-							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary" onclick="submitCancelPayment()" style="width: 7%">ตกลง</button>
+						
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary example3" onclick="submitCancelPayment()" style="width: 7%">ตกลง</button>
 						</div>
 					</div>
 				</div>
