@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentByInsale" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -13,11 +14,11 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
-	<style name="Cat_Ct_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
+	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
+	<style name="Cat_Ct_Common" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
 	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFByInsaleReport"/>
 	<queryString>
 		<![CDATA[]]>
@@ -255,7 +256,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getRemark()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="519" y="48" width="156" height="23" uuid="79bb9148-9a0f-437e-9bb4-7e4f617e20b3"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="48" width="185" height="23" uuid="79bb9148-9a0f-437e-9bb4-7e4f617e20b3"/>
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
@@ -269,7 +270,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVat()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="519" y="71" width="156" height="23" uuid="a5d8565d-b953-4996-ba46-8b1313ebeda7"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="71" width="185" height="23" uuid="a5d8565d-b953-4996-ba46-8b1313ebeda7"/>
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
@@ -283,7 +284,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVat()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="519" y="94" width="156" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="94" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
@@ -297,7 +298,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="521" y="2" width="156" height="23" uuid="bffd37b3-7e43-4caa-8fce-811e7ff94610"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="2" width="187" height="23" uuid="bffd37b3-7e43-4caa-8fce-811e7ff94610"/>
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
@@ -311,7 +312,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceBefore()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="520" y="25" width="156" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="25" width="186" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284"/>
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
