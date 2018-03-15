@@ -22,9 +22,10 @@ public class PaymentReportPdf {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		JRPdfExporter exporter = new JRPdfExporter();
         JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(date));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JRBeanCollectionDataSource(date));
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);   
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
         exporter.exportReport();
 		return outputStream.toByteArray();
 	}
