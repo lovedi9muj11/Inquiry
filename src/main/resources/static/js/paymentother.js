@@ -275,6 +275,8 @@ function submitForm(){
 			 "balanceSum": parseFloat($("#balanceSum").val().replace(",", "")) ,
 			 "remark":$("#remark").val() ,
 			 "summaryTax": parseFloat($("#summaryTax").val().replace(",", "")) ,
+			 "change": $("#change").val() ,
+			 "sale": $("#sale").val() ,
 			 "paymentBill":listpaymentSaleRQ  ,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	 

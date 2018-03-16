@@ -15,6 +15,7 @@ public class PaymentBillBean implements Serializable{
 	private BigDecimal vatSale;
 	private BigDecimal inputSpecialDiscount;
 	private BigDecimal summarySale;
+	
 	public String getInputServiceType() {
 		return inputServiceType;
 	}

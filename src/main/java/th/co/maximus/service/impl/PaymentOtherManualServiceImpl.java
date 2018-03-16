@@ -64,6 +64,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setUpdateBy(paymentBean.getUserName());
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
+			paymentManualBean.setChange(paymentBean.getChange());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
 			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){

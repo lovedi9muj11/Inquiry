@@ -1,6 +1,7 @@
 package th.co.maximus.payment.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PaymentOtherFirstBean implements Serializable{
@@ -27,9 +28,25 @@ public class PaymentOtherFirstBean implements Serializable{
 	private double balanceSum;
 	private String remark;
 	private double summaryTax;
+	private double change;
+	private BigDecimal sale;
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
+	
+	
+	public BigDecimal getSale() {
+		return sale;
+	}
+	public void setSale(BigDecimal sale) {
+		this.sale = sale;
+	}
+	public double getChange() {
+		return change;
+	}
+	public void setChange(double change) {
+		this.change = change;
+	}
 	public String getCustName() {
 		return custName;
 	}
