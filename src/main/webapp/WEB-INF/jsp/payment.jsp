@@ -51,6 +51,7 @@
 								<div class="panel">
 									<div class="panel-heading">เพิ่มใบรับชำระค่าบริการ</div>
 									<div class="panel-body">
+									<div class="col-md-12 col-sm-12">
 										<div class="row">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:</label>
@@ -251,7 +252,7 @@
 										</div>
 
 
-
+</div>
 
 									</div>
 								</div>
@@ -275,6 +276,7 @@
 									<div class="panel-body">
 										<input name="paymentTax.invoiceNo" id="invoiceNoTax"
 											type="hidden">
+											<div class="col-md-12 col-sm-12">
 										<div class="row">
 											<div class="form-group">
 												<label class="col-sm-4 control-label right"
@@ -352,7 +354,7 @@
 										</div>
 
 
-
+</div>
 									</div>
 								</div>
 							</div>
@@ -374,8 +376,10 @@
 											<option value="check">เช็ค</option>
 										</select>
 									</div>
+									
 									<div class="panel-body">
 										<div id="money">
+										<div class="col-md-12 col-sm-12">
 											<div class="row">
 												<div class="form-group">
 													<label class="col-sm-8 control-label right"
@@ -559,7 +563,7 @@
 
 
 
-
+<div class="col-md-12 col-sm-12">
 										<div class="row">
 											<div class="form-group">
 												<div class="col-sm-12 right">
@@ -570,10 +574,11 @@
 												</div>
 											</div>
 										</div>
+										</div>
 									</div>
 								</div>
 							</div>
-
+</div>
 
 						</div>
 					</div>
@@ -586,6 +591,7 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
 									<div class="panel-body">
+									<div class="col-md-12 col-sm-12">
 										<div style="display: none">
 											<table id="sumDeductibleTable">
 												<thead>
@@ -608,6 +614,7 @@
 										</table>
 									</div>
 								</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -617,6 +624,7 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปวิธีการชำระเงิน</div>
 									<div class="panel-body">
+									<div class="col-md-12 col-sm-12">
 										<div style="display: none">
 											<table id="sumTotalPriceTable">
 												<thead>
@@ -639,6 +647,7 @@
 											</tbody>
 										</table>
 									</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -650,6 +659,7 @@
 								<div class="panel">
 									<div class="panel-heading" style="background-color: #ee7600;">สรุปยอดเงินที่ต้องชำระ</div>
 									<div class="panel-body">
+									<div class="col-md-12 col-sm-12">
 										<div class="row">
 
 											<div class="form-group ">
@@ -821,7 +831,7 @@
 							</div>
 						</div>
 					</div>
-
+</div>
 				</div>
 
 			</div>
