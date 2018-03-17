@@ -479,7 +479,7 @@ function addRow() {
 			}
 		}
 	}
-	var docDed = $("#docDed").val();
+	var docDed = "ภาษีหัก ณ ที่จ่าย";
 	var dmoney = $("#moneyDed").val();
 	/*if(invoiceNo == ""){
 		alert(" กรุณากรอกใหม่ !");
