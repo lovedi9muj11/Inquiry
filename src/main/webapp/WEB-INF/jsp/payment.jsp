@@ -368,7 +368,7 @@
 								<div class="panel">
 									<div class="panel-heading">
 										วิธีการรับชำระ <select class="form-control" id="typePayment"
-											name="paymentTranPrice.typePayment"
+											name="typePayment"
 											onchange="findTypePayment()"
 											style="display: inline; width: 30%; padding-left: 20px">
 											<option value="money">เงินสด</option>
@@ -378,8 +378,9 @@
 									</div>
 									
 									<div class="panel-body">
+									<div class="col-md-12 col-sm-12">
 										<div id="money">
-										<div class="col-md-12 col-sm-12">
+										
 											<div class="row">
 												<div class="form-group">
 													<label class="col-sm-8 control-label right"
@@ -392,7 +393,8 @@
 
 												</div>
 											</div>
-										</div>
+											</div>
+										
 										<div id="credit">
 											<div class="row">
 												<div class="form-group">
