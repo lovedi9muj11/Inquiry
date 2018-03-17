@@ -167,11 +167,11 @@ function submitForm(){
 			"inputServiceName" : resultTblSale[h][2],
 			"inputServiceDepartment" : resultTblSale[h][3],
 			"inputServiceMoreData" : resultTblSale[h][4],
-			"inputServiceAmount" : resultTblSale[h][5],
+			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
 //			"inputServiceDiscount" : resultTblSale[h][6],
 			"vatSale" : resultTblSale[h][6],
 //			"inputSpecialDiscount" : resultTblSale[h][8],
-			"summarySale" : resultTblSale[h][7]
+			"summarySale" : resultTblSale[h][7].replace(",", "")
 		}
 		listpaymentSaleRQ.push(listpaymentSale);
 	}
@@ -200,7 +200,7 @@ function submitForm(){
 		if(resultTotalPrice[b][1] == "CC"){
 			listpaymentTranPriceQ = {
 			"typePayment" : resultTotalPrice[b][1],
-			"moneyTran" : resultTotalPrice[b][2]
+			"moneyTran" : resultTotalPrice[b][2].replace(",", "")
 			}
 		}else if (resultTotalPrice[b][1] == "CD"){
 			listpaymentTranPriceQ = {
@@ -208,7 +208,7 @@ function submitForm(){
 					"creditType" : resultTotalPrice[b][2],
 					"creditNo" : resultTotalPrice[b][3],
 					"edcType" : resultTotalPrice[b][4],
-					"creditPrice" : resultTotalPrice[b][5]
+					"creditPrice" : resultTotalPrice[b][5].replace(",", "")
 					}
 		}else if (resultTotalPrice[b][1] == "CH"){
 			listpaymentTranPriceQ = {
@@ -218,7 +218,7 @@ function submitForm(){
 					"branchCheck" : resultTotalPrice[b][4],
 					"checkNo" : resultTotalPrice[b][5],
 					"dateCheck" : resultTotalPrice[b][6],
-					"moneyCheck" : resultTotalPrice[b][7]
+					"moneyCheck" : resultTotalPrice[b][7].replace(",", "")
 				}
 		}
 		
