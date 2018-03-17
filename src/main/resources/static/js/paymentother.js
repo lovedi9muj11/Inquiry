@@ -396,7 +396,7 @@ function buttonAddBillingList(){
 		count =  parseFloat(count + parseFloat(table)) ;
 	
 	var markup = "<tr><td>"	+ count	+ "</td><td>"+ inputServiceType+ "</td><td>"+ inputServiceName+ "</td><td>"	+ inputServiceDepartment+ "</td><td>"+ serviceMoreData + "</td>" +
-			"<td>"+ parseFloat(serviceAmount).toFixed(2) + "</td><td>"+ parseFloat(vat).toFixed(2) + "</td><td>"+ parseFloat(amount).toFixed(2) + "</td><td><a onclick='deleteTableSale("+  count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+			"<td>"+ serviceAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td>"+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td>"+ amount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='deleteTableSale("+  count + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#sumtableBillingList").find('tbody').append(markup);
 	
 	/*$("#inputServiceType").val(""); // หน่วยรับได้
@@ -416,12 +416,12 @@ function buttonAddBillingList(){
 	vatRQ = parseFloat(vat+vatRQ);
 	balanceBeforeTaxRQ = parseFloat(beforeVat+balanceBeforeTaxRQ);
 	
-	$("#moneyTran").val(money.toFixed(2));
-	$("#moneyCheck").val(money.toFixed(2));
-	$("#creditPrice").val(money.toFixed(2));
+	$("#moneyTran").val(money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyCheck").val(money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#creditPrice").val(money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(money.toFixed(2));
 	$("#balanceSummary").val(money.toFixed(2));
-	$("#balanceSummaryShow").val(money.toFixed(2));
+	$("#balanceSummaryShow").val(money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	
 	$("#balanceBeforeTax").val(balanceBeforeTaxRQ.toFixed(2));
 	$("#vat").val(vatRQ.toFixed(2));
@@ -438,8 +438,8 @@ function deleteTableSale(count) {
 		for (var i = 1; i <= table.rows.length; i++) {
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
-				var tbMoney = parseFloat(oCells[7].innerHTML);
-				var amounts = parseFloat(amount);
+				var tbMoney = parseFloat(oCells[7].innerHTML.replace(",", ""));
+				var amounts = parseFloat(tbMoney);
 				var vat = parseFloat((amounts*parseFloat(vatRate)) / parseFloat(107) );
 				var beforeVat = parseFloat(amounts - vat);
 				
@@ -451,6 +451,7 @@ function deleteTableSale(count) {
 				$("#balanceSummarys").val(reMoney.toFixed(2));
 				$("#balanceSummary").val(reMoney.toFixed(2));
 				$("#balanceBeforeTax").val(beforeSv.toFixed(2));
+				$("#balanceSummaryShow").val(reMoney.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#vat").val(vatSv.toFixed(2));
 				table.deleteRow(parseFloat(count));
 			}
