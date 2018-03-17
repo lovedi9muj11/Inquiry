@@ -3,6 +3,7 @@ package th.co.maximus.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,12 +24,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -163,20 +167,17 @@ public class ReportController {
 			
 			String pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
 			
-			byte[] bytes = reportService.ganeratePaymentPDF(pathFile, result, null);
+			byte[] bytes = reportService.ganeratePaymentPDF(pathFile, critreia,result);
 			
 			Locale TH = new Locale("th", "TH");
 			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy HH-mm", TH);
 			String fileName = "Payment-Report"+ dateFormate.format(new Date());
-			
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition", "attachment;filename="+ fileName +".pdf");
-//			response.getOutputStream().write(bytes);
-//			response.getOutputStream().flush();
-			 Map<String, Object> params = new HashMap<>();
-	        JasperReport jasperReport = JasperCompileManager.compileReport(pathFile);
-	        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,  params);
-	        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+			response.getOutputStream().write(bytes);
+			response.getOutputStream().flush();
+	   
+	        
 		}
 
 }

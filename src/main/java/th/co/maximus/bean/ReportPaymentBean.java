@@ -19,6 +19,11 @@ public class ReportPaymentBean {
 	private String status;
 	private String statusStr;
 	
+	private String manualIdStr;
+	private String beforVatStr;
+	private String amountStr;
+	private String vatAmountStr;
+	
 	
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -111,6 +116,29 @@ public class ReportPaymentBean {
 	public void setStatusStr(String statusStr) {
 		this.statusStr = statusStr;
 	}
-	
+	public String getManualIdStr() {
+		return manualIdStr;
+	}
+	public void setManualIdStr(String manualIdStr) {
+		this.manualIdStr = manualIdStr;
+	}
+	public String getBeforVatStr() {
+		return beforVatStr;
+	}
+	public void setBeforVatStr(String beforVatStr) {
+		this.beforVatStr = beforVatStr;
+	}
+	public String getAmountStr() {
+		return amountStr;
+	}
+	public void setAmountStr(String amountStr) {
+		this.amountStr = amountStr;
+	}
+	public String getVatAmountStr() {
+		return vatAmountStr;
+	}
+	public void setVatAmountStr(String vatAmountStr) {
+		this.vatAmountStr = vatAmountStr;
+	}
 	
 }
