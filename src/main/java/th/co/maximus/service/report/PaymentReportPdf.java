@@ -54,9 +54,9 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
 				reportPaymentBeanNew.setNoRefer("-");
-				reportPaymentBeanNew.setBeforVatStr(reportPaymentBean.getBeforVat()+"");
+				reportPaymentBeanNew.setBeforVatStr(df2.format(reportPaymentBean.getBeforVat())+"");
 				reportPaymentBeanNew.setVatAmountStr(reportPaymentBean.getVatAmount()+"");
-				reportPaymentBeanNew.setAmountStr(reportPaymentBean.getAmount()+"");
+				reportPaymentBeanNew.setAmountStr(df2.format(reportPaymentBean.getAmount())+"");
 				reportPaymentBeanNew.setStatus(reportPaymentBean.getStatusStr());
 				index++;
 				resultSource.add(reportPaymentBeanNew);
