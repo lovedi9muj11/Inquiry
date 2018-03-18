@@ -311,12 +311,37 @@ public class BaseExcelRptService {
 
 		return cellStyle;
 	}
+	
+	protected CellStyle createStyleCellLefRight(Workbook workbook, Font font, boolean warpText) {
+		// style for text
+		// font.setFontHeightInPoints((short)10);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setWrapText(warpText);
+		cellStyle.setFont(font);
+
+		return cellStyle;
+	}
 	protected CellStyle createStyleCellFormetDecimal(Workbook workbook, Font font, boolean warpText) {
 		// style for text
 		// font.setFontHeightInPoints((short)10);
 		font.setColor(IndexedColors.BLACK.getIndex());
 		CellStyle cellStyle = workbook.createCellStyle();
 		cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setWrapText(warpText);
+		cellStyle.setFont(font);
+		cellStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
+		return cellStyle;
+	}
+	protected CellStyle createStyleCellFormetDecimalRight(Workbook workbook, Font font, boolean warpText) {
+		// style for text
+		// font.setFontHeightInPoints((short)10);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);
 		cellStyle.setFont(font);

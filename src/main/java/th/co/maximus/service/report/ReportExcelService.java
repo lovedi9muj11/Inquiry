@@ -1,6 +1,8 @@
 package th.co.maximus.service.report;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +41,7 @@ public class ReportExcelService extends BaseExcelRptService {
 		return paymentReport.generatePaymentReportExcel(workbook, criteria, result);
 		
 	}
-	public byte [] generationPaymentPDFService(String fileName , List<ReportPaymentBean> date, Map<String, Object> params) throws JRException {
-		return paymentReportPdf.jasperGanarationPDF(fileName, date, params);
+	public byte [] generationPaymentPDFService(String fileName , ReportPaymentCriteria criteria, List<ReportPaymentBean> date) throws JRException, FileNotFoundException, ParseException {
+		return paymentReportPdf.jasperGanarationPDF(fileName, criteria, date);
 	}
 }

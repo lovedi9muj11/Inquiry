@@ -40,7 +40,9 @@ $(document).ready(function() {
 				
 				$("#balanceBeforeTax").val(beforeVat.toFixed(2));
 				$("#vat").val(vat.toFixed(2));
-				$("#balanceOfTax").val(summary.toFixed(2));
+				$("#balanceOfTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//				$("#balanceOfTaxPrice").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				
 				
 				// Summary
 				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
@@ -97,7 +99,7 @@ function findvatAmount(){
 	
 	$("#balanceBeforeTax").val(beforeVat.toFixed(2));
 	$("#vat").val(vat.toFixed(2));
-	$("#balanceOfTax").val(summary.toFixed(2));
+	$("#balanceOfTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	// Summary
 };
 
@@ -149,6 +151,11 @@ function hideShowdat(){
 	 $("#sendDate").hide();
 	 $("#sdeadlines").hide();
 	 $("#sinvoiceDate").hide(); 
+	 $("#sdocDed").hide();
+	 $("#smoneyDed").hide();
+	 $("#saddRow").hide();
+	 $("#addRowShow").hide();
+	 
 }
 function submitForm(){
 
@@ -324,6 +331,8 @@ function submitForm(){
 			 "balanceOfTaxs": parseFloat($("#balanceOfTaxs").val().replace(",", "")) ,
 			 "balanceSummarys": parseFloat($("#balanceSummarys").val().replace(",", "")) ,
 			 "balanceSum": parseFloat($("#balanceSum").val().replace(",", "")) ,
+			 "amountInvoice": parseFloat($("#balanceOfTaxPrice").val().replace(",", "")) ,
+			 
 			 "remark":$("#remark").val() ,
 			 "summaryTax": parseFloat($("#summaryTax").val().replace(",", "")) ,
 			 "paymentTax":listpaymentTaxRQ  ,
@@ -390,6 +399,7 @@ function findBankNo() {
 }
 
 function addRow() {
+	hideShowdat();
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -410,15 +420,15 @@ function addRow() {
 	var docDed = $("#docDed").val();
 	var dmoney = $("#moneyDed").val();
 	if(invoiceNo == ""){
-		alert(" กรุณากรอกใหม่ !");
+			$("#sinvoiceNo").show();
 		return  $("#invoiceNo").focus();
 	}
 	if(docDed == ""){
-		alert("กรุณากรอกเลขที่เอกสาร  กรุณากรอกใหม่ !");
+		$("#sdocDed").show();
 		return  $("#docDed").focus();
 	}
 	if(dmoney == ""){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		$("#smoneyDed").show();
 		return $("#moneyDed").focus();
 	}
 	
@@ -429,15 +439,6 @@ function addRow() {
 		count + table;
 	}
 
-	
-	if(parseFloat(moneyDed) < 0){
-		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
-		return  $("#moneyDed").focus();
-	}
-	if(moneyDed == ""){
-		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
-		return  $("#moneyDed").focus();
-	}
 	var markup = "<tr><td>"	+ tdAutoNumber()	+ "</td><td>"+ invoiceNo+ "</td><td>"+ docDed+ "</td><td>"	+ radioResult+ "</td><td>"+ moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td><td><a onclick='myDeleteFunction("+  tdAutoNumber()+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
@@ -530,8 +531,8 @@ function addDataTableDed() {
 		}
 		var plus = parseFloat(parseFloat(summaTax) + parseFloat(result[4])) ;
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
-			return ;
+			alert("กรุณาตรวจสอบรายการหักอีกครั้ง  ");
+			return $("#moneyDed").focus();
 		}
 		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		var numberRun = number + i;
@@ -929,6 +930,11 @@ function addDataTablecreditTranPrice() {
 
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
+//	document.getElementById("addRow").disabled = true;
+	 $('addRow').attr("disabled", "true");
+	 $("#addRow").hide();
+	$("#saddRow").show();
+	 $("#addRowShow").show();
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {
@@ -947,6 +953,13 @@ function myDeletecreditTranPrice(count) {
 function myDeleteSumCreditTranPrice(numberRun) {
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	var tablesumTotal = document.getElementById("sumTotalPriceTable");
+	
+	if(numberRun == "1"){
+		$("#saddRow").hide();
+		$("#addRow").show();
+		$("#addRowShow").hide();
+	}
+
 	
 	var summaryTa = parseFloat(0);
 	var banol = $("#balanceSummarys").val();
@@ -994,6 +1007,8 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		}
 
 	}
+	 
+	
 }
 
 function myDeleteCheckTranPrice(count) {

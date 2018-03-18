@@ -91,7 +91,14 @@ public class PaymentServiceImpl implements PaymentService{
 				tmpInvoiceBean.setInvoiceDate(paymentBean.getInvoiceDate());
 				tmpInvoiceBean.setBeforVat(new BigDecimal(paymentBean.getBalanceBeforeTax()));
 				tmpInvoiceBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
-				tmpInvoiceBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
+				
+				double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
+				if(resRQ > paymentBean.getBalanceSum()) {
+					tmpInvoiceBean.setPaidAmount(new BigDecimal(paymentBean.getBalanceSum()));
+				}else {
+					tmpInvoiceBean.setPaidAmount(new BigDecimal(resRQ));
+				}
+				tmpInvoiceBean.setAmount(new BigDecimal(paymentBean.getAmountInvoice()));
 				tmpInvoiceBean.setVatRate(paymentBean.getVatrate());
 				tmpInvoiceBean.setCustomerName(paymentBean.getCustName());
 				tmpInvoiceBean.setCustomerAddress(paymentBean.getCustAddress());

@@ -243,7 +243,19 @@
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้ :</label>
+													for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้:</label>
+												<div class="col-sm-2">
+													<input class="form-control numeric2point" type="text" id="balanceOfTaxPrice"
+														name="balanceOfTaxPrice" >
+
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-8"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ยอดที่ต้องชำระ:</label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceSummary"
 														name="balanceSummary" >
@@ -299,6 +311,7 @@
 												<div class="col-sm-6">
 													<input class="form-control" type="text" id="docDed"
 														name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
+														<p id="sdocDed" style="color: red;"> คุณยังไม่ได้กรอก เลขที่เอกสาร</p>
 												</div>
 											</div>
 										</div>
@@ -309,15 +322,21 @@
 												<div class="col-sm-6">
 													<input class="form-control numeric2point" type="text" id="moneyDed"
 														name="paymentTax.moneyDed" placeholder="จำนวนเงิน">
+														<p id="smoneyDed" style="color: red;"> คุณยังไม่ได้กรอก จำนวนเงิน</p>
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="form-group">
 												<div class="col-sm-10 right">
-													<a onclick="addRow()" id="addRow" class="btn btn-warning"><span
+													<a onclick="addRow()" id="addRow" name="addRow" class="btn btn-warning"><span
 														class="glyphicon glyphicon-plus">เพิ่มรายการภาษีหัก
-															ณ ที่จ่าย</span></a>
+															ณ ที่จ่าย</span></a> 
+															<button onclick="addRow()" id="addRowShow" disabled="disabled"
+															name="addRowShow" class="btn btn-warning"><span
+															class="glyphicon glyphicon-plus" >เพิ่มรายการภาษีหัก
+																ณ ที่จ่าย</span></button>
+														<p id="saddRow" style="color: red;"> ลบรายการรับชำระออกก่อน</p>
 												</div>
 
 											</div>

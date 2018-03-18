@@ -79,11 +79,11 @@ function printReport(){
 };
 
 function printReportPDF(){
-//	$('#dateFromHidden').val(dateFromGlobal);
-//	$('#dateToHidden').val(dateToGlobal);
-//	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
-//	$('#accountIdHidden').val($('#accountId').val());
-//	$('#authoritiesHidden').val($('#authorities').val());
+	$('#dateFromHidden').val(dateFromGlobal);
+	$('#dateToHidden').val(dateToGlobal);
+	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
+	$('#accountIdHidden').val($('#accountId').val());
+	$('#authoritiesHidden').val($('#authorities').val());
 	$("#paymentFrom").attr("action", "/reportPaymentPDF").attr("target", "_blank").submit();
 };
 

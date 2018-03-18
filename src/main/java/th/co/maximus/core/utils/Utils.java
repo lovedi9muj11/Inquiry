@@ -1,5 +1,9 @@
 package th.co.maximus.core.utils;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class Utils {
 	
 	public String periodFormat(String req) {
@@ -14,5 +18,10 @@ public class Utils {
 			result += req.substring(8, 12);
 		}
 		 return result;
+	}
+	
+	public String formatAmount(BigDecimal req) {
+		NumberFormat formatter = new DecimalFormat("#0,000.00");
+		return formatter.format(req);
 	}
 }

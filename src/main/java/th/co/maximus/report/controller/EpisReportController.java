@@ -209,7 +209,7 @@ public class EpisReportController {
 //		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "THSarabun.ttf"); JRProperties.setProperty("net.sf.jasperreports.default.pdf.encoding", "UTF-8"); JRProperties.setProperty("net.sf.jasperreports.default.pdf.embedded", "true");
 		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc) + File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty()) ? new JRBeanCollectionDataSource(printCollections) : new JREmptyDataSource();
-		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/THSarabunNew.ttf");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,jrDataSource);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 //        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");

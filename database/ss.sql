@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS `USER`;
 DROP TABLE IF EXISTS `USER_ROLE`;
 DROP TABLE IF EXISTS `MASTER_DATA`;
 
+
 CREATE TABLE IF NOT EXISTS `EPIS`.`MASOFFICER` (
 	OFFICERID BIGINT NOT NULL AUTO_INCREMENT,
 	PRINCIPALID BIGINT, 
@@ -87,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`CORRECEIPTDOCUMENT` (
 CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_MANUAL` (
 	MANUAL_ID BIGINT NOT NULL AUTO_INCREMENT,
 	PAYMENT_ID BIGINT,
-	INVOICE_NO VARCHAR(30),
 	RECEIPT_NO_MANUAL VARCHAR(30),
 	PAID_DATE TIMESTAMP(6),
 	BRANCH_AREA VARCHAR(100),
@@ -113,11 +113,9 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
 	MANUAL_ID BIGINT,
 	INVOICE_NO varchar(30) ,
 	INVOICE_DATE timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-	DATE_LINE timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
 	BEFOR_VAT decimal(14,4) ,
   VAT_AMOUNT decimal(14,4) ,
-  PAID_AMOUNT decimal(14,4) ,
-	AMOUNT decimal(14,4) ,
+  AMOUNT decimal(14,4) ,
   VAT_RATE varchar(10),
   CUSTOMER_NAME varchar(300),
   CUSTOMER_ADDRESS varchar(300) ,
@@ -126,8 +124,8 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
   TAXNO varchar(25) ,
   ACCOUNTSUBNO varchar(25) ,
   PERIOD varchar(20) ,
-	SERVICENAME varchar(300) ,
   SERVICE_TYPE varchar(45) ,
+  CLEARING varchar(20) ,
 	CHANG decimal(14,4)	,
 	CREATE_BY VARCHAR(20),
 	CREATE_DATE TIMESTAMP(6),
@@ -135,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
 	UPDATE_DATE TIMESTAMP(6),
 	RECORD_STATUS VARCHAR(20), 
 	PRIMARY KEY (INV_ID) 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    DECIMAL(14,4), PRIMARY KEY (INV_ID)
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`MASTER_RECEIPT_HEADER_MAPPING` (
@@ -182,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_INVOICE_MANUAL` (
   AMOUNTTYPE varchar(10) ,
   DEPARTMENT varchar(50) ,
   SERVICENAME varchar(300) ,
-  INVOICE_DATE TIMESTAMP(6),
+ 	INVOICE_DATE timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (PAYMENT_INVOICE_MANUAL_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -259,7 +257,10 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`USER` (
 CREATE TABLE IF NOT EXISTS `EPIS`.`USER_ROLE` (
 	`user_id` BIGINT(20) NOT NULL,
 	`role_id` BIGINT(20) NOT NULL,
-	PRIMARY KEY (`user_id`, `role_id`)
+	PRIMARY KEY (`user_id`, `role_id`),
+	INDEX `FKa68196081fvovjhkek5m97n3y` (`role_id`),
+	CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `USER` (`id`),
+	CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `ROLE` (`id`)
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`MASTER_DATA` (

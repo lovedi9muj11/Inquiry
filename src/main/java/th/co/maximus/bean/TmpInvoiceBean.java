@@ -12,6 +12,7 @@ public class TmpInvoiceBean {
 	private BigDecimal beforVat;
 	private BigDecimal amount;
 	private BigDecimal vatAmount;
+	private BigDecimal paidAmount;
 	private int vatRate;
 	private String customerName;
 	private String customerAddress;
@@ -160,6 +161,14 @@ public class TmpInvoiceBean {
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
 	}
+	public BigDecimal getPaidAmount() {
+		return paidAmount;
+	}
+	public void setPaidAmount(BigDecimal paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+	
+	
 	
 	
 
