@@ -19,11 +19,38 @@ public class PaymentResultReq {
 	private BigDecimal balanceOfvat;
 	private BigDecimal deduction;
 	private BigDecimal balancePrice;
+	private BigDecimal balanceAmount;
 	private String period;
+	
+	private String balanceSummaryStr;
+	private String beforeVatStr;
+	private String vatStr;
+	private String balanceOfvatStr;
+	private String deductionStr;
+	private String balancePriceStr;
 	
 	public PaymentResultReq() {
 	}
 	
+	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
+			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount) {
+		
+		this.custNo = custNo;
+		this.custName = custName;
+		this.documentNo = documentNo;
+		this.balanceSummary = balanceSummary;
+		this.invoiceNo = invoiceNo;
+		this.invoiceDate = invoiceDate;
+		this.dateLine = dateLine;
+		this.beforeVat = beforeVat;
+		this.vat = vat;
+		this.balanceOfvat = balanceOfvat;
+		this.deduction = deduction;
+		this.balancePrice = balancePrice;
+		this.period = period;
+		this.balanceAmount = balanceAmount;
+
+	}
 	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
 			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period) {
 		
@@ -162,6 +189,63 @@ public class PaymentResultReq {
 	public void setDateLineRS(String dateLineRS) {
 		this.dateLineRS = dateLineRS;
 	}
+
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+	public String getBalanceSummaryStr() {
+		return balanceSummaryStr;
+	}
+
+	public void setBalanceSummaryStr(String balanceSummaryStr) {
+		this.balanceSummaryStr = balanceSummaryStr;
+	}
+
+	public String getBeforeVatStr() {
+		return beforeVatStr;
+	}
+
+	public void setBeforeVatStr(String beforeVatStr) {
+		this.beforeVatStr = beforeVatStr;
+	}
+
+	public String getVatStr() {
+		return vatStr;
+	}
+
+	public void setVatStr(String vatStr) {
+		this.vatStr = vatStr;
+	}
+
+	public String getBalanceOfvatStr() {
+		return balanceOfvatStr;
+	}
+
+	public void setBalanceOfvatStr(String balanceOfvatStr) {
+		this.balanceOfvatStr = balanceOfvatStr;
+	}
+
+	public String getDeductionStr() {
+		return deductionStr;
+	}
+
+	public void setDeductionStr(String deductionStr) {
+		this.deductionStr = deductionStr;
+	}
+
+	public String getBalancePriceStr() {
+		return balancePriceStr;
+	}
+
+	public void setBalancePriceStr(String balancePriceStr) {
+		this.balancePriceStr = balancePriceStr;
+	}
+
 	
 	
 }
