@@ -21,6 +21,13 @@ public class PaymentResultReq {
 	private BigDecimal balancePrice;
 	private String period;
 	
+	private String balanceSummaryStr;
+	private String beforeVatStr;
+	private String vatStr;
+	private String balanceOfvatStr;
+	private String deductionStr;
+	private String balancePriceStr;
+	
 	public PaymentResultReq() {
 	}
 	
@@ -162,6 +169,55 @@ public class PaymentResultReq {
 	public void setDateLineRS(String dateLineRS) {
 		this.dateLineRS = dateLineRS;
 	}
+
+	public String getBalanceSummaryStr() {
+		return balanceSummaryStr;
+	}
+
+	public void setBalanceSummaryStr(String balanceSummaryStr) {
+		this.balanceSummaryStr = balanceSummaryStr;
+	}
+
+	public String getBeforeVatStr() {
+		return beforeVatStr;
+	}
+
+	public void setBeforeVatStr(String beforeVatStr) {
+		this.beforeVatStr = beforeVatStr;
+	}
+
+	public String getVatStr() {
+		return vatStr;
+	}
+
+	public void setVatStr(String vatStr) {
+		this.vatStr = vatStr;
+	}
+
+	public String getBalanceOfvatStr() {
+		return balanceOfvatStr;
+	}
+
+	public void setBalanceOfvatStr(String balanceOfvatStr) {
+		this.balanceOfvatStr = balanceOfvatStr;
+	}
+
+	public String getDeductionStr() {
+		return deductionStr;
+	}
+
+	public void setDeductionStr(String deductionStr) {
+		this.deductionStr = deductionStr;
+	}
+
+	public String getBalancePriceStr() {
+		return balancePriceStr;
+	}
+
+	public void setBalancePriceStr(String balancePriceStr) {
+		this.balancePriceStr = balancePriceStr;
+	}
+
 	
 	
 }

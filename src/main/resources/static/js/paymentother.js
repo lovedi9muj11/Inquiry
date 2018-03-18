@@ -238,10 +238,10 @@ function submitForm(){
 		$("#sCustNo").show();
 		return $("#custNo").focus();
 	}
-	if($("#taxId").val() == ""){
-		$("#staxId").show();
-		return $("#taxId").focus();
-	}
+//	if($("#taxId").val() == ""){
+//		$("#staxId").show();
+//		return $("#taxId").focus();
+//	}
 	if($("#custAddress").val() == ""){
 		$("#scustAddress").show();
 		return $("#custAddress").focus();

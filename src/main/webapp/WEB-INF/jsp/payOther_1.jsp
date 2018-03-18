@@ -85,7 +85,7 @@
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
 												<td align="center">${paymentResultReq.documentNo}</td>
-												<td align="center">${paymentResultReq.balanceSummary}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">บันทึกรายการเรียบร้อย</td>
 											</tr>
 										</tbody>
@@ -108,7 +108,7 @@
 												<td align="center">${paymentResultReq.beforeVat}</td>
 												<td align="center">${paymentResultReq.vat}</td>
 												<td align="center">${paymentResultReq.balanceOfvat}</td>
-												<td align="center">${paymentResultReq.balanceSummary}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">${paymentResultReq.deduction}</td>
 											</tr>
 										</tbody>

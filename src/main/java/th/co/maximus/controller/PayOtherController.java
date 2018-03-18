@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.core.utils.Utils;
-import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.PaymentOtherService;
@@ -61,10 +60,11 @@ public class PayOtherController {
 		public String paymentSuccess(Model model,int idUser,HttpServletRequest request) throws Exception {
 			PaymentResultReq paymentResultReq = new PaymentResultReq();
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
+			
 			Utils utils = new Utils();
 			if(idUser>0){
 				paymentResultReq=	paymentOtherService.findByid(idUser);
-				paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setBalanceSummaryStr(utils.formatAmount(paymentResultReq.getBalanceSummary()));
 				paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
 				paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
 				paymentResultReq.setBeforeVat(paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
