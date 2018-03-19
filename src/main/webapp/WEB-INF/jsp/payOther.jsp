@@ -91,7 +91,7 @@
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
 														name="userGroup">
-														<option value="">== กรุณาเลือก ==</option>
+														<option value="">-- กรุณาเลือก --</option>
 														<option value="1">ธุรกิจทั่วไป</option>
 														<option value="2">หน่วยงานรัฐ</option>
 														<option value="3">บุคคลทั่วไป</option>
@@ -111,7 +111,7 @@
 												<div class="col-sm-2">
 													<select class="form-control" id="custBrach"
 														name="custBrach">
-														<option value="">== กรุณาเลือก ==</option>
+														<option value="">-- กรุณาเลือก --</option>
 														<option value="นนทุบรี -แคราย">นนทุบรี -แคราย</option>
 														<option value="แจ้งวัฒนะ">แจ้งวัฒนะ</option>
 														<option value="เชียงราย">เชียงราย</option>
@@ -237,6 +237,11 @@
 												class="glyphicon glyphicon-plus-sign"></span>
 												เพิ่มรายการรับชำระ
 											</a>
+											<a id="buttonAddBillingListDis" disabled="disabled"
+												class="btn btn-info"> <span
+												class="glyphicon glyphicon-plus-sign"></span>
+												เพิ่มรายการรับชำระ
+											</a>
 										</div>
 									</div>
 
@@ -330,15 +335,20 @@
 													<input class="form-control numeric2point" type="text"
 														id="moneyDed" name="paymentTax.moneyDed"
 														placeholder="จำนวนเงิน">
+														<p id="moneyDedTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
 												</div>
 											</div>
 										</div>
 										<div class="form-horizontal">
 											<div class="form-group">
 												<div class="col-sm-10 right">
-													<a onclick="addRow()" id="addRow" class="btn btn-warning"><span
+													<a onclick="addRow()" id="addRow" name="addRow" class="btn btn-warning"><span
 														class="glyphicon glyphicon-plus">เพิ่มรายการภาษีหัก
-															ณ ที่จ่าย</span></a>
+															ณ ที่จ่าย</span></a> 
+															<button onclick="addRow()" id="addRowShow" disabled="disabled"
+															name="addRowShow" class="btn btn-warning"><span
+															class="glyphicon glyphicon-plus" >เพิ่มรายการภาษีหัก
+																ณ ที่จ่าย</span></button>
 												</div>
 
 											</div>
@@ -406,6 +416,7 @@
 														<input class="form-control numeric2point" type="text"
 															placeholder="จำนวนเงิน" id="moneyTran"
 															name="paymentTranPrice.moneyTran">
+															<p id="moneyTranTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
 													</div>
 
 												</div>
@@ -423,6 +434,7 @@
 															<option value="visa">VISA</option>
 															<option value="masterCard">MASTER-CARD</option>
 														</select>
+														<p id="creditTypeTxt" style="color: red;">คุณยังไม่ได้เลือก ประเภทของบัตรเครดิต</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่บัตร:</label>
@@ -430,6 +442,7 @@
 														<input class="form-control" type="text" id="creditNo"
 															maxlength="16" name="paymentTranPrice.creditNo"
 															placeholder="เลขที่บัตร">
+															<p id="creditNoTxt" style="color: red;">คุณยังไม่ได้กรอก เลขที่บัตร</p>
 													</div>
 												</div>
 											</div>
@@ -442,9 +455,12 @@
 														<select class="form-control" id="edcType"
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
-															<option value="paypal">Paypal</option>
-															<option value="7Eleven">7-Eleven</option>
+															<option value="ktb">ธนาคารกรุงไทย</option>
+															<option value="scb">ธนาคารไทยพานิชย์</option>
+															<option value="kbk">ธนาคารกสิกรไทย</option>
 														</select>
+														<p id="edcTypeTxt" style="color: red;">คุณยังไม่ได้เลือก ธนาคารเจ้าของเครื่อง
+														(EDC)</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -452,6 +468,7 @@
 														<input class="form-control numeric2point" type="text"
 															id="creditPrice" name="paymentTranPrice.creditPrice"
 															placeholder="จำนวนเงิน">
+															<p id="creditPriceTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
 													</div>
 												</div>
 											</div>
@@ -499,6 +516,7 @@
 															<option value="002">002</option>
 															<option value="003">003</option>
 														</select>
+														<p id="bankNoTxt" style="color: red;">คุณยังไม่ได้เลือก รหัสธนาคาร</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่เช็ค:</label>
@@ -506,6 +524,7 @@
 														<input class="form-control" type="text" id="checkNo"
 															maxlength="7" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
+															<p id="checkNoTxt" style="color: red;">คุณยังไม่ได้กรอก เลขที่เช็ค</p>
 													</div>
 												</div>
 											</div>
@@ -521,12 +540,14 @@
 															<option value="scb">ธนาคารไทยพานิชย์</option>
 															<option value="kbk">ธนาคารกสิกรไทย</option>
 														</select>
+														<p id="bankNameTxt" style="color: red;">คุณยังไม่ได้เลือก ชื่อธนาคาร </p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="date" id="dateCheck"
 															name="paymentTranPrice.dateCheck">
+															<p id="dateCheckTxt" style="color: red;">คุณยังไม่ได้เลือก วันที่หน้าเช็ค</p>
 													</div>
 												</div>
 											</div>
@@ -537,6 +558,7 @@
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="branchCheck"
 															name="paymentTranPrice.branchCheck" placeholder="สาขา">
+															<p id="branchCheckTxt" style="color: red;">คุณยังไม่ได้กรอก สาขา</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -544,6 +566,7 @@
 														<input class="form-control numeric2point" type="text"
 															id="moneyCheck" name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
+															<p id="moneyCheckTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
 													</div>
 												</div>
 											</div>

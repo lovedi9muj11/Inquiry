@@ -84,6 +84,9 @@ function hideShowdat(){
 	 $("#sendDate").hide();
 	 $("#sdeadlines").hide();
 	 $("#sinvoiceDate").hide(); 
+	 $("#addRowShow").hide();
+	 $("#buttonAddBillingListDis").hide();
+	 
 }
 
 function hideDetailPayment(){
@@ -92,6 +95,23 @@ function hideDetailPayment(){
 	 $("#sinputServiceName").hide();
 	 $("#sinputServiceMoreData").hide();
 	 $("#sinputServiceAmount").hide();
+	 $("#moneyDedTxt").hide();
+	 
+	 $("#creditTypeTxt").hide();
+	 $("#edcTypeTxt").hide();
+	 $("#creditNoTxt").hide();
+	 $("#creditPriceTxt").hide();
+	 $("#creditPriceTxt").hide();
+	 
+	 $("#bankNoTxt").hide();
+	 $("#bankNameTxt").hide();
+	 $("#branchCheckTxt").hide();
+	 $("#bankNameTxt").hide();
+	 $("#checkNoTxt").hide();
+	 $("#dateCheckTxt").hide();moneyCheckTxt
+	 $("#moneyCheckTxt").hide();
+	 
+	 $("#moneyTranTxt").hide();
 	 
 }
 
@@ -462,6 +482,7 @@ function deleteTableSale(count) {
 }
 
 function addRow() {
+	hideDetailPayment();
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -490,7 +511,7 @@ function addRow() {
 		return  $("#docDed").focus();
 	}*/
 	if(dmoney == ""){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		$("#moneyDedTxt").show();
 		return $("#moneyDed").focus();
 	}
 	
@@ -625,6 +646,7 @@ function addDataTableDed() {
 }
 // เงินสด
 function addDataTableMoneyTranPrice() {
+	hideDetailPayment();
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var number = parseFloat(table - parseFloat(1));
 	var count = parseInt(1);
@@ -637,11 +659,11 @@ function addDataTableMoneyTranPrice() {
 	var money = parseFloat(moneyss.replace(",", ""));
 	
 	if(money == ""){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		$("#moneyTranTxt").show();
 		return $("#moneyTran").focus();
 	}
 	if(money < 0){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		$("#moneyTranTxt").show();
 		return $("#moneyTran").focus();
 	}
 	var nameMode = "CC";
@@ -876,27 +898,27 @@ function addDataTableCheck() {
 		count
 	}
 	if(bankNo == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#bankNoTxt").show();
 		return $("#bankNo").focus();
 	}
 	if(bankName == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#bankNameTxt").show();
 		return $("#bankName").focus();
 	}
 	if(branchCheck == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#branchCheckTxt").show();
 		return $("#branchCheck").focus();
 	}
 	if(parseFloat(moneyCheck) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		$("#bankNameTxt").show();
 		return $("#bankName").focus();
 	}
 	if(checkNo.length == "" || checkNo.length < 7 ){
-		alert("กรุณากรอกใหม่ !");
+		$("#checkNoTxt").show();
 		return $("#checkNo").focus();
 	}
 	if(dateCheck == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#dateCheckTxt").show();
 		return $("#dateCheck").focus();
 	}
 	
@@ -911,11 +933,11 @@ function addDataTableCheck() {
 	}
 	
 	if(parseFloat(moneyCheck) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		$("#moneyCheckTxt").show();
 		return $("#moneyCheck").focus();
 	}
 	if(moneyCheck == ""){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		$("#moneyCheckTxt").show();
 		return $("#moneyCheck").focus();
 	}
 
@@ -929,6 +951,7 @@ function addDataTableCheck() {
 }
 
 function addDataTablecreditTranPrice() {
+	hideDetailPayment();
 	var table = document.getElementById("creditTable").rows.length;
 	var creditType = document.getElementById("creditType").value;
 	var edcType = document.getElementById("edcType").value;
@@ -956,25 +979,25 @@ function addDataTablecreditTranPrice() {
 	}
 	
 	if(creditType == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#creditTypeTxt").show();
 		return $("#creditType").focus();
 	}
 	if(edcType == ""){
-		alert("กรุณากรอกใหม่ !");
+		$("#edcTypeTxt").show();
 		return $("#edcType").focus();
 	}
 	
 	if(creditNo.length == "" || creditNo.length < 16 ){
-		alert("กรุณากรอกใหม่ !");
+		$("#creditNoTxt").show();
 		return $("#creditNo").focus();
 	}
 
 	if(parseFloat(creditPrice) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		$("#creditPriceTxt").show();
 		return $("#creditPrice").focus();
 	}
 	if(creditPrice == ""){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		$("#creditPriceTxt").show();
 		return $("#creditPrice").focus();
 	}
 	
@@ -1003,6 +1026,14 @@ function addDataTablecreditTranPrice() {
 
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
+	$('addRow').attr("disabled", "true");
+	 $("#addRow").hide();
+	 $("#addRowShow").show();
+	 
+	 $('buttonAddBillingListDis').attr("disabled", "true");
+	 $("#buttonAddBillingList").hide();
+	 $("#buttonAddBillingListDis").show();
+	 
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {
@@ -1021,6 +1052,15 @@ function myDeletecreditTranPrice(count) {
 function myDeleteSumCreditTranPrice(numberRun) {
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	var tablesumTotal = document.getElementById("sumTotalPriceTable");
+	
+	if(numberRun == "1"){
+		
+		$("#addRow").show();
+		$("#addRowShow").hide();
+		
+		 $("#buttonAddBillingList").show();
+		 $("#buttonAddBillingListDis").hide();
+	}
 	
 	var summaryTa = parseFloat(0);
 	var banol = $("#balanceSummarys").val();
