@@ -105,11 +105,11 @@
 										<tbody>
 											<tr align="center">
 												
-												<td align="center">${paymentResultReq.beforeVat}</td>
-												<td align="center">${paymentResultReq.vat}</td>
-												<td align="center">${paymentResultReq.balanceOfvat}</td>
+												<td align="center">${paymentResultReq.beforeVatStr}</td>
+												<td align="center">${paymentResultReq.vatStr}</td>
+												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
 												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">${paymentResultReq.deduction}</td>
+												<td align="center">${paymentResultReq.deductionStr}</td>
 											</tr>
 										</tbody>
 									</table>
