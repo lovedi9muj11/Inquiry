@@ -531,7 +531,7 @@ function addDataTableDed() {
 		}
 		var plus = parseFloat(parseFloat(summaTax) + parseFloat(result[4])) ;
 		if(plus > parseFloat(branSum)){
-			alert("กรุณาตรวจสอบรายการหักอีกครั้ง  ");
+			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ ");
 			return $("#moneyDed").focus();
 		}
 		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
@@ -687,7 +687,7 @@ function addDataSumCreditTranPrice() {
 		var plus = parseFloat(result[4].toString().replace(",", ""))  ;
 		
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ");
 			return ;
 		}
 
@@ -757,7 +757,7 @@ function addDataSumCheckTranPrice() {
 		}
 		var plus = parseFloat(result[6].toString().replace(",", "")) ;
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ");
 			return ;
 		}
 		var numberRun = number + i;
@@ -805,15 +805,15 @@ function addDataTableCheck() {
 		count
 	}
 	if(bankNo == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณาเลือกเลขที่ธนาคารใหม่ !");
 		return $("#bankNo").focus();
 	}
 	if(bankName == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณาเลือกชื่อธนาคารใหม่!");
 		return $("#bankName").focus();
 	}
 	if(branchCheck == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณากรอกสาขาใหม่อีกรอบ !");
 		return $("#branchCheck").focus();
 	}
 	if(parseFloat(moneyCheck) < parseFloat(0)){
@@ -821,11 +821,11 @@ function addDataTableCheck() {
 		return $("#bankName").focus();
 	}
 	if(checkNo == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณากรอกเลขที่เช้คใหม่อีกรอบ !");
 		return $("#checkNo").focus();
 	}
 	if(dateCheck == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณาเลือกวันที่เช็ค!");
 		return $("#dateCheck").focus();
 	}
 	
@@ -840,11 +840,11 @@ function addDataTableCheck() {
 	}
 	
 	if(parseFloat(moneyCheck) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ !");
 		return $("#moneyCheck").focus();
 	}
 	if(moneyCheck == ""){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ !");
 		return $("#moneyCheck").focus();
 	}
 
@@ -885,24 +885,24 @@ function addDataTablecreditTranPrice() {
 	}
 	
 	if(creditType == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณาเลือกประเภทบัตรเครดิต !");
 		return $("#creditType").focus();
 	}
 	if(edcType == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณากรอกEDCอีกรอบ !");
 		return $("#edcType").focus();
 	}
 	if(creditNo == ""){
-		alert("กรุณากรอกใหม่ !");
+		alert("กรุณากรอกเลขบัตรเครดิต !");
 		return $("#creditNo").focus();
 	}
 
 	if(parseFloat(creditPrice) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่อีกรอบ");
 		return $("#creditPrice").focus();
 	}
 	if(creditPrice == ""){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
 		return $("#creditPrice").focus();
 	}
 
