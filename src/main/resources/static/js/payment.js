@@ -518,10 +518,10 @@ function myDeleteDed(count) {
 
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
-				var total = parseFloat(oCells[4].innerHTML);
+				var total = parseFloat(oCells[4].innerHTML.replace(",", ""));
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
 				if(balance < result){
-					balance = result;
+					//balance = result;
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
 				

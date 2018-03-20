@@ -48,7 +48,7 @@ public class PaymentController {
 				paymentResultReq.setDeductionStr("0.00");
 			}else {
 				paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
-				paymentResultReq.setDeductionStr(utils.formatAmount(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN)));
+				paymentResultReq.setDeductionStr(String.format("%,.2f",paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN)));
 			}
 			
 			BigDecimal price = paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
