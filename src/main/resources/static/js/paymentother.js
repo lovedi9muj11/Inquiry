@@ -86,6 +86,7 @@ function hideShowdat(){
 	 $("#sinvoiceDate").hide(); 
 	 $("#addRowShow").hide();
 	 $("#buttonAddBillingListDis").hide();
+	 $("#addDataTableDedDis").hide();
 	 
 }
 
@@ -254,10 +255,20 @@ function submitForm(){
 		$("#sCustName").show();
 		return $("#custName").focus();
 	}
-	if($("#custNo").val() == ""){
-		$("#sCustNo").show();
-		return $("#custNo").focus();
+	if($("#userGroup").val() == ""){
+		$("#suserGroup").show();
+		return $("#userGroup").focus();
 	}
+	if($("#custBrach").val() == ""){
+		$("#scustBrach").show();
+		return $("#custBrach").focus();
+	}
+	
+//	if($("#custNo").val() == ""){
+//		$("#sCustNo").show();
+//		return $("#custNo").focus();
+//	}
+	
 //	if($("#taxId").val() == ""){
 //		$("#staxId").show();
 //		return $("#taxId").focus();
@@ -266,14 +277,7 @@ function submitForm(){
 		$("#scustAddress").show();
 		return $("#custAddress").focus();
 	}
-	if($("#custBrach").val() == ""){
-		$("#scustBrach").show();
-		return $("#custBrach").focus();
-	}
-	if($("#userGroup").val() == ""){
-		$("#suserGroup").show();
-		return $("#userGroup").focus();
-	}
+	
 	
 	var dataSend = {
 			 "custName":$("#custName").val() ,
@@ -877,6 +881,7 @@ function addDataSumCheckTranPrice() {
 }
 
 function addDataTableCheck() {
+	hideDetailPayment()
 	var summaryTax = $("#summaryTax").val();
 	var table = document.getElementById("checkTable").rows.length;
 	var bankNo = document.getElementById("bankNo").value;
@@ -1030,6 +1035,10 @@ function sumTranPrice() {
 	 $("#addRow").hide();
 	 $("#addRowShow").show();
 	 
+	 $('addDataTableDed').attr("disabled", "true");
+	 $("#addDataTableDed").hide();
+	 $("#addDataTableDedDis").show();
+	 
 	 $('buttonAddBillingListDis').attr("disabled", "true");
 	 $("#buttonAddBillingList").hide();
 	 $("#buttonAddBillingListDis").show();
@@ -1060,8 +1069,11 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		
 		 $("#buttonAddBillingList").show();
 		 $("#buttonAddBillingListDis").hide();
+		 
+		 $("#addDataTableDed").show();
+		 $("#addDataTableDedDis").hide();
 	}
-	
+    
 	var summaryTa = parseFloat(0);
 	var banol = $("#balanceSummarys").val();
 	var balance = parseFloat(banol.replace(",", ""));
@@ -1094,6 +1106,10 @@ function myDeleteSumCreditTranPrice(numberRun) {
 					balance = parseFloat(sumPrice);
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
+				$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				
 				$("#balanceSummarys").val(balance.toFixed(2));
 				$("#balanceSum").val(balanceSum.toFixed(2));
 				$("#balanceSumShow").val(balanceSum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

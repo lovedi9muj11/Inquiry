@@ -64,14 +64,14 @@ public class PayOtherController {
 			Utils utils = new Utils();
 			if(idUser>0){
 				paymentResultReq=	paymentOtherService.findByid(idUser);
-				paymentResultReq.setBalanceSummaryStr(utils.formatAmount(paymentResultReq.getBalanceSummary()));
-				paymentResultReq.setBalanceOfvatStr(utils.formatAmount(paymentResultReq.getBalanceOfvat()));
-				paymentResultReq.setVatStr(utils.formatAmount(paymentResultReq.getVat()));
-				paymentResultReq.setBeforeVatStr(utils.formatAmount(paymentResultReq.getBeforeVat()));
+				paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setBeforeVat(paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
 				if(paymentResultReq.getDeduction() == null) {
-					paymentResultReq.setDeduction(new BigDecimal(0));
+					paymentResultReq.setDeduction(new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN));
 				}else {
-					paymentResultReq.setDeductionStr(utils.formatAmount(paymentResultReq.getDeduction()));
+					paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
 				}
 				
 				
@@ -88,6 +88,8 @@ public class PayOtherController {
 				
 				request.setAttribute("paymentResultReq",paymentResultReq);  
 			}
+			
+			
 			
 			return "payOther_1";
 		}

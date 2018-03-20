@@ -376,7 +376,10 @@
 											<div class="form-group">
 												<div class="col-sm-12 right">
 													<button type="button" class="btn btn-primary"
-														onclick="addDataTableDed()">
+														onclick="addDataTableDed()" id="addDataTableDed">
+														<span class="glyphicon glyphicon-plus">เพิ่มรายการหัก</span>
+													</button>
+													<button type="button" class="btn btn-primary" id="addDataTableDedDis" disabled="disabled">
 														<span class="glyphicon glyphicon-plus">เพิ่มรายการหัก</span>
 													</button>
 												</div>
