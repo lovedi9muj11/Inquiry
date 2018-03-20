@@ -159,13 +159,15 @@
 													<input class="form-control" type="date" id="startupDate"
 														name="startupDate">
 														<p id="sstartupDate" style="color: red;"> คุณยังไม่ได้เลือก รอบการใช้งานเริ่มต้น</p>
+														<p id="sstartupDate1" style="color: red;"> กรุณาเลือกรอบการใช้งานเริ่มต้นให้น้อยกว่า "รอบใช้งานสิ้นสุด"</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">รอบการใช้งานสิ้นสุด :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="endDate"
-														name="endDate">
+														name="endDate" onchange="datePriod()">
 														<p id="sendDate" style="color: red;"> คุณยังไม่ได้เลือก รอบการใช้งานสิ้นสุด</p>
+														<p id="sendDate1" style="color: red;"> กรุณาเลือกรอบการใช้งานสิ้นสุดให้มากกว่า "รอบใช้งานเริ่มต้น"</p>
 												</div>
 											</div>
 										</div>
@@ -364,10 +366,14 @@
 										<div class="row">
 											<div class="form-group">
 												<div class="col-sm-12 right">
-													<button type="button" class="btn btn-primary"
+													<button type="button" class="btn btn-primary" id="btnAddprice"
 														onclick="addDataTableDed()">
 														<span class="glyphicon glyphicon-plus">เพิ่มรายการหัก</span>
 													</button>
+													<button onclick="addRow()" id="addRowShow1" disabled="disabled"
+															name="addRowShow1" class="btn btn-primary"><span
+															class="glyphicon glyphicon-plus" >เพิ่มรายการหัก</span></button>
+															<p id="saddRow1" style="color: red;"> ลบรายการรับชำระออกก่อน</p>
 												</div>
 											</div>
 										</div>

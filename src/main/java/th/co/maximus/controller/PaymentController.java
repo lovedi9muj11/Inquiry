@@ -45,8 +45,10 @@ public class PaymentController {
 			paymentResultReq.setBeforeVat(paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
 			if(paymentResultReq.getDeduction() == null) {
 				paymentResultReq.setDeduction(new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setDeductionStr("0.00");
 			}else {
 				paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setDeductionStr(utils.formatAmount(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN)));
 			}
 			
 			BigDecimal price = paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
@@ -66,6 +68,12 @@ public class PaymentController {
 			
 			paymentResultReq.setInvoiceDateRS(invoiceDate);
 			paymentResultReq.setDateLineRS(dateLineSt);
+			
+			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+			paymentResultReq.setBeforeVatStr(String.format("%,.2f",paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+			paymentResultReq.setVatStr(String.format("%,.2f",paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+			paymentResultReq.setBalanceOfvatStr(String.format("%,.2f",paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+			paymentResultReq.setBalancePriceStr(String.format("%,.2f",price));
 			
 			request.setAttribute("paymentResultReq",paymentResultReq);  
 		}

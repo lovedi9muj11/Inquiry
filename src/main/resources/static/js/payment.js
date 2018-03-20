@@ -103,7 +103,25 @@ function findvatAmount(){
 	// Summary
 };
 
+function datePriod(){
+	var dateS = document.getElementById('startupDate');
+	var dateE = document.getElementById('endDate');
 
+	var res = dateS.value.split("-");
+	var res1 = dateE.value.split("-");
+	
+	var dateSt = res[0]+res[1]+res[2];
+	var dateEn = res1[0]+res1[1]+res1[2];
+	
+	if(parseFloat(dateSt) > parseFloat(dateEn)){
+		 $("#sstartupDate1").show();
+		 $("#sendDate1").show();
+	}else{
+		 $("#sstartupDate1").hide();
+		 $("#sendDate1").hide();
+	}
+	
+}
 
 function vatAmount(){
 	var result = $("#balanceSum").val();
@@ -154,7 +172,12 @@ function hideShowdat(){
 	 $("#sdocDed").hide();
 	 $("#smoneyDed").hide();
 	 $("#saddRow").hide();
+	 $("#saddRow1").hide();
 	 $("#addRowShow").hide();
+	 $("#addRowShow1").hide();
+	 $("#sstartupDate1").hide();
+	 $("#sendDate1").hide();
+	 
 	 
 }
 function submitForm(){
@@ -302,6 +325,18 @@ function submitForm(){
 	if($("#invoiceDate").val() == ""){
 		$("#sinvoiceDate").show();
 		return $("#invoiceDate").focus();
+	}
+	
+	var dateS = document.getElementById('startupDate');
+	var dateE = document.getElementById('endDate');
+	var res = dateS.value.split("-");
+	var res1 = dateE.value.split("-");
+	var dateSt = res[0]+res[1]+res[2];
+	var dateEn = res1[0]+res1[1]+res1[2];
+	if(parseFloat(dateSt) > parseFloat(dateEn)){
+			 $("#sstartupDate1").show();
+			 $("#sendDate1").show();
+		return $("#startupDate").focus();
 	}
 	
 	var dataSend = {
@@ -932,9 +967,13 @@ function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
 //	document.getElementById("addRow").disabled = true;
 	 $('addRow').attr("disabled", "true");
+	 $('btnAddprice').attr("disabled", "true");
 	 $("#addRow").hide();
+	 $("#btnAddprice").hide();
 	$("#saddRow").show();
+	$("#saddRow1").show();
 	 $("#addRowShow").show();
+	 $("#addRowShow1").show();
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {
@@ -956,8 +995,13 @@ function myDeleteSumCreditTranPrice(numberRun) {
 	
 	if(numberRun == "1"){
 		$("#saddRow").hide();
+		$("#saddRow1").hide();
 		$("#addRow").show();
+		$("#addRow").show();
+		$("#btnAddprice").show();
+		
 		$("#addRowShow").hide();
+		$("#addRowShow1").hide();
 	}
 
 	
@@ -990,7 +1034,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				}
 				
 				if(parseFloat(sumPrice) > parseFloat(balance)){
-					balance = parseFloat(sumPrice);
+					//balance = parseFloat(sumPrice);
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
 				
