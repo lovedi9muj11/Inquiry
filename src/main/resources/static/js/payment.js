@@ -356,7 +356,7 @@ function submitForm(){
 			 "invoiceDate":$("#invoiceDate").val() ,
 			 "userName":$("#userName").val() ,
 			 "vatrate":$("#vatrate").val() ,
-			 "change":$("#change").val() ,
+			 "change":parseFloat($("#change").val().replace(",", "")) ,
 			 "balanceBeforeTax": parseFloat($("#balanceBeforeTax").val().replace(",", "")) ,
 			 "vat": parseFloat($("#vat").val().replace(",", "")) ,
 			 "balanceOfTax": parseFloat($("#balanceOfTax").val().replace(",", "")) ,
@@ -502,6 +502,8 @@ function tdAutoNumber() {
     return txt;
 }
 function myDeleteDed(count) {
+	var bas = $("#balanceSummarys").val();
+	var balance = parseFloat(bas.replace(",", ""));
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
 	var erq = $("#balanceSummary").val();
@@ -509,8 +511,7 @@ function myDeleteDed(count) {
 	var st = $("#summaryTax").val();
 	var summaryTax = parseFloat(st.replace(",", ""));
 	var summaryTa = parseFloat(0);
-	var bas = $("#balanceSummarys").val();
-	var balance = parseFloat(bas.replace(",", ""));
+
 
 	if (table.rows.length > 0) {
 		for (var i = 1; i < tableDed.rows.length; i++) {
@@ -519,14 +520,15 @@ function myDeleteDed(count) {
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
 				var total = parseFloat(oCells[4].innerHTML.replace(",", ""));
-				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
-				if(balance < result){
+				var balances =	parseFloat(parseFloat(balance) + parseFloat(total));
+				if(balances < result){
 					//balance = result;
-					$("#change").val(parseFloat(0).toFixed(2));
+					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 				
 				
 				$("#balanceSummarys").val(balance.toFixed(2));
+				//$("#balanceSummaryShow").val(balance.toFixed(2));
 				 
 				vatAmount();
 				tableDed.deleteRow(count);
@@ -1030,12 +1032,12 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				balance = parseFloat(balance) - parseFloat(summaryTax);
 				res = parseFloat(balance) + parseFloat(chen);
 				if(parseFloat(res) >= parseFloat(sumPrice)  ){
-					$("#change").val(parseFloat(0).toFixed(2));
+					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 				
 				if(parseFloat(sumPrice) > parseFloat(balance)){
 					//balance = parseFloat(sumPrice);
-					$("#change").val(parseFloat(0).toFixed(2));
+					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 				
 				$("#balanceSummarys").val(balance.toFixed(2));
@@ -1081,7 +1083,7 @@ function summaryTax() {
 		summary = parseFloat(0);
 	}
 	
-	$("#summaryTax").val(summary.toFixed(2));
+	$("#summaryTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	vatAmount();
 }
 
