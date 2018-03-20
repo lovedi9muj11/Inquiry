@@ -898,7 +898,7 @@ function addDataTablecreditTranPrice() {
 	}
 
 	if(parseFloat(creditPrice) < parseFloat(0)){
-		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
+		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
 		return $("#creditPrice").focus();
 	}
 	if(creditPrice == ""){
