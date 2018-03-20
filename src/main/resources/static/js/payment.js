@@ -435,6 +435,10 @@ function findBankNo() {
 
 function addRow() {
 	hideShowdat();
+	var sq = $("#summaryTax").val();
+	var basu = $("#balanceSummarys").val();
+	var branSum = parseFloat(basu.replace(",", ""));
+	var summaTax = parseFloat(sq.replace(",", ""));
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -466,8 +470,18 @@ function addRow() {
 		$("#smoneyDed").show();
 		return $("#moneyDed").focus();
 	}
+	if(branSum == ""){
+		branSum = parseFloat(0);
+	}
+
 	
 	var moneyDed = parseFloat(dmoney.replace(",", ""));
+	
+	var plus = parseFloat(parseFloat(summaTax) + parseFloat(moneyDed)) ;
+	if(plus > parseFloat(branSum)){
+		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ");
+		return $("#moneyDed").focus();
+	}
 	var count = 1;
 	
 	for (count; count < table; count++) {
