@@ -169,7 +169,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 //			reportPayment.setNoRefer(rs.getString(""));
 			reportPayment.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
-			reportPayment.setVatAmount(rs.getBigDecimal("VAT_RATE"));
+			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
 			reportPayment.setStatusStr(rs.getString("STATUS_NAME"));
 		
