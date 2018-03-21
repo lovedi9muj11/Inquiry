@@ -100,7 +100,12 @@ function createRow(data, seq) {
 	beforVat = data.beforVat;
 	vatAmount = data.vatAmount;
 	amount = data.amount;
-	statusStr = data.statusStr;
+	if (data.status == 'C'){
+		statusStr = data.statusStr;
+	}else{
+		statusStr = ''
+	}
+	
 	
     var t = $('#reportPaymentTb').DataTable();
     var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, invoiceNo, createBy ,noRefer , beforVat, vatAmount, amount, statusStr
