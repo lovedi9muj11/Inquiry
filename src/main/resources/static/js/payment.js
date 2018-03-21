@@ -605,6 +605,18 @@ function addDataTableDed() {
 }
 // เงินสด
 function addDataTableMoneyTranPrice() {
+	var balanceSumss = $("#balanceSummary").val();
+	
+	if(balanceSumss == ""){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
+	if(parseFloat(balanceSumss) < parseFloat(0)){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
+	
+	
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var number = parseFloat(table - parseFloat(1));
 	var count = parseInt(1);
@@ -692,6 +704,7 @@ function addDataTableMoneyTranPrice() {
 		vatAmount();
 		disBtn();
 		changeMoney(changeRQ);
+		validateCheck();
 }
 
 // add ข้อมูลลง เครดิต
@@ -767,6 +780,7 @@ function addDataSumCreditTranPrice() {
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
 		document.getElementById("creditTable").deleteRow(i - 1);
 	}
+	validateCheck();
 	
 }
 function addDataSumCheckTranPrice() {
@@ -831,7 +845,7 @@ function addDataSumCheckTranPrice() {
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
 		document.getElementById("checkTable").deleteRow(i - 1);
 	}
-	
+	validateCheck();
 }
 
 function addDataTableCheck() {
@@ -978,10 +992,7 @@ function addDataTablecreditTranPrice() {
 	$("#edcType").val("");
 	$("#creditType").val("");
 }
-
-function sumTranPrice() {
-	var result = document.getElementById("typePayment").value;
-//	document.getElementById("addRow").disabled = true;
+function validateCheck(){
 	 $('addRow').attr("disabled", "true");
 	 $('btnAddprice').attr("disabled", "true");
 	 $("#addRow").hide();
@@ -990,6 +1001,11 @@ function sumTranPrice() {
 	$("#saddRow1").show();
 	 $("#addRowShow").show();
 	 $("#addRowShow1").show();
+}
+function sumTranPrice() {
+	var result = document.getElementById("typePayment").value;
+//	document.getElementById("addRow").disabled = true;
+
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {
