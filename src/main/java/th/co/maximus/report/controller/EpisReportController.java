@@ -143,7 +143,7 @@ public class EpisReportController {
 	
 	private void previewEpisOffilneprintByInsale(HttpServletRequest request, HttpServletResponse response, List<InvEpisOfflineByInsaleBean> collections, final String JASPER_JRXML_FILENAME) throws Exception {
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		List<InvEpisOfflineByInsaleBean> printCollections = new ArrayList<InvEpisOfflineByInsaleBean>();
+		List<InvEpisOfflineByInsaleBean> printCollections = collections;
 		InvEpisOfflineByInsaleBean invObject = (InvEpisOfflineByInsaleBean)collections.get(0);
 		ExportPDFByInsaleReport exportPDFReport = new ExportPDFByInsaleReport();
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
@@ -199,6 +199,13 @@ public class EpisReportController {
 		}
 		for(int f = 0; f<result.size();f++) {
 			payCode += "-"+ result.get(f);
+		}
+		
+		for(int f =0; f< printCollections.size(); f++) {
+			printCollections.get(f).setRunnumber(String.valueOf(f+1));
+			printCollections.get(f).setAmountStr(String.format("%,.2f", printCollections.get(f).getAmount()));
+			printCollections.get(f).setBeforeDiscount(String.format("%,.2f", printCollections.get(f).getAmount()));
+			
 		}
 		exportPDFReport.setPaymentCode(payCode);
 		exportPDFReport.setSouce(nameService);

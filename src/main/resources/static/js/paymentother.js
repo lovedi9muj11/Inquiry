@@ -13,13 +13,14 @@ $(document).ready(function() {
 			document.getElementById("radioButton3").disabled = true;
 			document.getElementById("radioButtons").disabled = true;
 			$("#change").val(parseFloat(0).toFixed(2));
-			$("#balanceSummarys").val( parseFloat(0).toFixed(2));
-			$("#moneyTran").val( parseFloat(0).toFixed(2));
-			$("#balanceBeforeTax").val(parseFloat(0).toFixed(2));
-			$("#vat").val(parseFloat(0).toFixed(2));
-			$("#change").val(parseFloat(0).toFixed(2));
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
-			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
+			$("#balanceSummarys").val( parseFloat(0).toFixed(2));
+			
+			
+			$("#moneyTran").val( parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#balanceBeforeTax").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#vat").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	
 		});
 
@@ -563,6 +564,8 @@ function tdAutoNumber() {
     return txt;
 }
 function myDeleteDed(count) {
+	var bas = $("#balanceSummarys").val();
+	var balance = parseFloat(bas.replace(",", ""));
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
 	var erq = $("#balanceSummary").val();
@@ -570,8 +573,7 @@ function myDeleteDed(count) {
 	var st = $("#summaryTax").val();
 	var summaryTax = parseFloat(st.replace(",", ""));
 	var summaryTa = parseFloat(0);
-	var bas = $("#balanceSummarys").val();
-	var balance = parseFloat(bas.replace(",", ""));
+
 
 	if (table.rows.length > 0) {
 		for (var i = 1; i < tableDed.rows.length; i++) {
@@ -579,15 +581,16 @@ function myDeleteDed(count) {
 
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
-				var total = parseFloat(oCells[4].innerHTML);
-				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
-				if(balance < result){
-					balance = result;
-					$("#change").val(parseFloat(0).toFixed(2));
+				var total = parseFloat(oCells[3].innerHTML.replace(",", ""));
+				var balances =	parseFloat(parseFloat(balance) + parseFloat(total));
+				if(balances < result){
+					//balance = result;
+					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 				
 				
 				$("#balanceSummarys").val(balance.toFixed(2));
+				//$("#balanceSummaryShow").val(balance.toFixed(2));
 				 
 				vatAmount();
 				tableDed.deleteRow(count);
@@ -1035,8 +1038,8 @@ function sumTranPrice() {
 	 $("#addRow").hide();
 	 $("#addRowShow").show();
 	 
-	 $('addDataTableDed').attr("disabled", "true");
-	 $("#addDataTableDed").hide();
+	 $('addDataTableDedShow').attr("disabled", "true");
+	 $("#addDataTableDedShow").hide();
 	 $("#addDataTableDedDis").show();
 	 
 	 $('buttonAddBillingListDis').attr("disabled", "true");
@@ -1070,7 +1073,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		 $("#buttonAddBillingList").show();
 		 $("#buttonAddBillingListDis").hide();
 		 
-		 $("#addDataTableDed").show();
+		 $("#addDataTableDedShow").show();
 		 $("#addDataTableDedDis").hide();
 	}
     
@@ -1106,6 +1109,12 @@ function myDeleteSumCreditTranPrice(numberRun) {
 					balance = parseFloat(sumPrice);
 					$("#change").val(parseFloat(0).toFixed(2));
 				}
+				
+				if(parseFloat(sumPrice) >= parseFloat(res)){
+					var totalChange = parseFloat(chen) - parseFloat(total);
+					$("#change").val(parseFloat(totalChange).toFixed(2));
+				}
+				
 				$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

@@ -13,7 +13,13 @@ function formatDouble(num, scale) {
 
 function changeMoney(changeRQ){
 	//var balanceSummary = $("#moneyTran").val();
-	 $("#change").val(changeRQ.toFixed(2).toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
+	
+	 var change = $("#change").val();
+	 if(change == ""){
+		 change = parseFloat(0);
+	 }
+	 change = parseFloat(change) + parseFloat(changeRQ);
+	 $("#change").val(change.toFixed(2).toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
 }
 
 function formetMon(value) {

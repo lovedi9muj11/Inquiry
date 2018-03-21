@@ -23,6 +23,10 @@ public class InvEpisOfflineByInsaleBean {
 	private BigDecimal amount;
 	private BigDecimal discountbeforvat;
 	
+	private String amountStr;
+	private String beforeDiscount;
+	private String runnumber;
+	
 	
 	public InvEpisOfflineByInsaleBean() {}
 	
@@ -165,6 +169,30 @@ public class InvEpisOfflineByInsaleBean {
 
 	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
 		this.discountbeforvat = discountbeforvat;
+	}
+
+	public String getAmountStr() {
+		return amountStr;
+	}
+
+	public void setAmountStr(String amountStr) {
+		this.amountStr = amountStr;
+	}
+
+	public String getBeforeDiscount() {
+		return beforeDiscount;
+	}
+
+	public void setBeforeDiscount(String beforeDiscount) {
+		this.beforeDiscount = beforeDiscount;
+	}
+
+	public String getRunnumber() {
+		return runnumber;
+	}
+
+	public void setRunnumber(String runnumber) {
+		this.runnumber = runnumber;
 	}
 
 
