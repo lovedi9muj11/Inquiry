@@ -142,8 +142,8 @@
 									<select class="form-control" id="vat" name="vat">
 										<option value="">-- กรุณาเลือก --</option>
 										<option value="0">0%</option>
-										<option value="7">3%</option>
-										<option value="3">7%</option>
+										<option value="3">3%</option>
+										<option value="7">7%</option>
 									</select>
 								</div>
 							</div>
