@@ -41,10 +41,10 @@ function createRow(data, seq) {
 	no = seq + 1
 	paidDate = data.paidDateStr;
 	createDate = data.createDateStr;
-	invoiceNo = data.invoiceNo;
+	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;
 	createBy = data.createBy;
-	receiptNoManual = data.receiptNoManual;
+	invoiceNo = data.invoiceNo;
 	period = data.period;
 	amount = formatDouble(data.amount,2);
 	source = data.source;
@@ -60,7 +60,7 @@ function createRow(data, seq) {
 	accountNo = data.accountNo;
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([no, paidDate, createDate,invoiceNo, branchCode, createBy, receiptNoManual, period, amount, source, paidAmount, vatAmount, recordStatus, remark, accountNo
+    var rowNode = t.row.add([no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, accountNo
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('left');
     $(rowNode).find('td').eq(1).addClass('left');
