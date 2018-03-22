@@ -166,10 +166,10 @@
 						<div class="col-md-12 text-right">
 							<button 
 								class="btn btn-warning glyphicon glyphicon-print"  onclick="reportPDF()"
-								style="width: 7%">PDF</button>
+								style="width: 7%"> PDF</button>
 							<button id="excel" name="excel"   onclick="reportExcel()" 
 								class="btn btn-success glyphicon glyphicon-print"
-								 style="width: 7%">Excel</button>
+								 style="width: 7%"> Excel</button>
 						</div>
 					</div>
 

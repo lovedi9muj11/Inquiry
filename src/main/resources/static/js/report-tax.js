@@ -53,10 +53,17 @@ function createRow(data, seq, table) {
 		recordStatus = "ยกเลิก";
 	}
 	
+	var str = documentDate;
+	var res = str.split("-");
+	var date = res[2] +"/"+res[1]+ "/"+res[0];
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([no, documentDate, invoice, custName, taxId, branCode,beforeVat, vat, paidAmount, recordStatus]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
-    $(rowNode).find('td').eq(1).addClass('left');
+    var rowNode = tableInit.row.add([no, date, invoice, custName, taxId, branCode,beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), paidAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), recordStatus]).draw(true).node();
+    $(rowNode).find('td').eq(0).addClass('center');
+    $(rowNode).find('td').eq(1).addClass('center');
+    $(rowNode).find('td').eq(6).addClass('right');
+    $(rowNode).find('td').eq(7).addClass('right');
+    $(rowNode).find('td').eq(8).addClass('right');
+    $(rowNode).find('td').eq(9).addClass('center');
 
 };
 
