@@ -528,7 +528,7 @@ function deleteTableSale(count) {
 			}
 		}
 	}
-
+	replaseIndexV4(table);
 }
 
 function addRow() {
@@ -1332,7 +1332,7 @@ function replaseIndexV2(str) {
 				continue;
 			}
 			cells[0].innerHTML = i;
-			cells[4].innerHTML = "<a onclick='myDeleteDed("+ i+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
+			cells[4].innerHTML = "<a onclick='myDeleteFunction("+ i+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
 }
@@ -1348,6 +1348,23 @@ function replaseIndexV3(str) {
 			}
 			cells[0].innerHTML = i;
 			cells[3].innerHTML = "<a onclick='myDeleteDed("+ i+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
+		}
+	}
+}
+
+
+function replaseIndexV4(str) {
+
+	rows = str.getElementsByTagName('tr')
+	if (rows.length > 1) {
+		var i, j, cells, customerId;
+		for (i = 0, j = rows.length; i < j; ++i) {
+			cells = rows[i].getElementsByTagName('td');
+			if (!cells.length) {
+				continue;
+			}
+			cells[0].innerHTML = i;
+			cells[8].innerHTML = "<a onclick='deleteTableSale("+ i+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
 }
