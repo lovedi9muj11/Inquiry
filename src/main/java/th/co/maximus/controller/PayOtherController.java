@@ -2,6 +2,7 @@ package th.co.maximus.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -64,14 +65,14 @@ public class PayOtherController {
 			Utils utils = new Utils();
 			if(idUser>0){
 				paymentResultReq=	paymentOtherService.findByid(idUser);
-				paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
-				paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
-				paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
-				paymentResultReq.setBeforeVat(paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
+				paymentResultReq.setBalanceSummaryStr(commaformatter(paymentResultReq.getBalanceSummary()));
+				paymentResultReq.setBalanceOfvatStr(String.format("%,.2f", paymentResultReq.getBalanceOfvat()));
+				paymentResultReq.setVatStr(String.format("%,.2f",paymentResultReq.getVat()));
+				paymentResultReq.setBeforeVatStr(String.format("%,.2f",paymentResultReq.getBeforeVat()));
 				if(paymentResultReq.getDeduction() == null) {
-					paymentResultReq.setDeduction(new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN));
+					paymentResultReq.setDeductionStr(String.format("%,.2f",new BigDecimal(0)));
 				}else {
-					paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
+					paymentResultReq.setDeductionStr(String.format("%,.2f",paymentResultReq.getDeduction()));
 				}
 				
 				
@@ -93,5 +94,15 @@ public class PayOtherController {
 			
 			return "payOther_1";
 		}
+	 
+	public String commaformatter(BigDecimal bigDecimal) {
+		
+		
+		DecimalFormat formatter = new DecimalFormat("#,###.00");
+		String moneyformat = formatter.format(bigDecimal) ;
+		
+		
+		return moneyformat; 
+	}
 	 
 }

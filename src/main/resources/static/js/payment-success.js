@@ -8,6 +8,10 @@ function backPayment(){
 function openTable(){
 	document.getElementById("showResultTableRQ").style.display="table";
 }
+function openTableSumOther(){
+	//document.getElementById("showResultTableRQ").style.display="table";
+	$("#showResultTableRQ").toggle();
+}
 
 function submti(){
 

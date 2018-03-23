@@ -78,14 +78,14 @@
 										</thead>
 										<tbody align="center">
 											<tr align="center">
-												<td><a onclick="openTable()"> <span
+												<td><a onclick="openTableSumOther()"> <span
 														class="glyphicon glyphicon-plus"></span>
 												</a></td>
 												<td align="center">1</td>
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
 												<td align="center">${paymentResultReq.documentNo}</td>
-												<td align="center">${paymentResultReq.balanceSummary}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">บันทึกรายการเรียบร้อย</td>
 											</tr>
 										</tbody>
@@ -105,11 +105,11 @@
 										<tbody>
 											<tr align="center">
 												
-												<td align="center">${paymentResultReq.beforeVat}</td>
-												<td align="center">${paymentResultReq.vat}</td>
-												<td align="center">${paymentResultReq.balanceOfvat}</td>
-												<td align="center">${paymentResultReq.balanceSummary}</td>
-												<td align="center">${paymentResultReq.deduction}</td>
+												<td align="center">${paymentResultReq.beforeVatStr}</td>
+												<td align="center">${paymentResultReq.vatStr}</td>
+												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
+												<td align="center">${paymentResultReq.deductionStr}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -121,5 +121,7 @@
 			</div>
 	</form>
 </body>
+
+
 <jsp:include page="../layout/footer.jsp"></jsp:include>
 </html>
