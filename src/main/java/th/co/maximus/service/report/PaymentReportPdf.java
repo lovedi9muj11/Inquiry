@@ -93,7 +93,7 @@ public class PaymentReportPdf {
         JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
         JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-        JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/THSarabunNew.ttf");
+//        JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/THSarabunNew.ttf");
 		return JasperExportManager.exportReportToPdf(jasperPrint);
 	}
 	
