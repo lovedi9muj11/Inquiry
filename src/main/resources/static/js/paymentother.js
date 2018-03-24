@@ -170,8 +170,12 @@ function submitForm() {
 		slae = [];
 		var oCellss = tblSale.rows.item(v).cells;
 		for (var fv = 0; fv < oCellss.length; fv++) {
-
-			slae.push(oCellss[fv].innerHTML);
+			if(oCellss[fv].lastChild.value){
+				slae.push(oCellss[fv].lastChild.value);
+			}else{
+				
+				slae.push(oCellss[fv].innerHTML);
+			}
 		}
 		resultTblSale.push(slae);
 
@@ -425,12 +429,13 @@ function buttonAddBillingList() {
 	var serviceMoreData = parseFloat(inputServiceMoreData); // จำนวนรายการ
 	// var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", ""));
 	// // สว่นลดพิเศษ
-	var serviceAmount = parseFloat(inputServiceAmount.replace(",", "")); // จำนวนต่อหน่วย
+
+	var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount); // จำนวนต่อหน่วย
 
 	var amount = parseFloat((serviceMoreData * serviceAmount));
 	var vat = parseFloat((amount * parseFloat(vatRate)) / parseFloat(107));
 	var beforeVat = parseFloat(amount - vat);
-
+	var sumamount = parseFloat(amount + vat );
 	var count = parseFloat(0);
 	count = parseFloat(count + parseFloat(table));
 
@@ -439,7 +444,7 @@ function buttonAddBillingList() {
 			+ "</td><td>"
 			+ inputServiceType
 			+ "</td><td>"
-			+ inputServiceName
+			+ 	"<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"+inputServiceName+"' />"
 			+ "</td><td>"
 			+ inputServiceDepartment
 			+ "</td><td>"
@@ -452,7 +457,7 @@ function buttonAddBillingList() {
 			+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 					"$1,")
 			+ "</td><td>"
-			+ amount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+			+ sumamount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 					"$1,")
 			+ "</td><td><a onclick='deleteTableSale("
 			+ count
@@ -728,7 +733,7 @@ function addDataTableMoneyTranPrice() {
 	if (moneyss == "") {
 		moneyss = parseFloat(0).toFixed(2);
 	}
-	var money = parseFloat(moneyss.replace(",", ""));
+	var money =FormatMoneyShowToNumber(moneyss);
 
 	if (money == "") {
 		$("#moneyTranTxt").show();
@@ -1156,6 +1161,11 @@ function sumTranPrice() {
 	} else if (result == 'check') {
 		addDataSumCheckTranPrice();
 	}
+	var  s = replaseIndex(tablesumTotals);
+	$("#balanceSum").val(s.toFixed(2));
+	$("#balanceSumShow").val(
+			s.toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 function myDeletecreditTranPrice(count) {
 	var tablesumTotal = document.getElementById("creditTable");
@@ -1231,10 +1241,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 				$("#balanceSummarys").val(balance.toFixed(2));
-				$("#balanceSum").val(balanceSum.toFixed(2));
-				$("#balanceSumShow").val(
-						balanceSum.toString().replace(
-								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				
 				vatAmount();
 
 				tablesumTotals.deleteRow(numberRun);
@@ -1244,7 +1251,11 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		}
 
 	}
-	replaseIndex('#showTotalPriceTable .tr');
+	var  s = replaseIndex(tablesumTotals);
+	$("#balanceSum").val(s.toFixed(2));
+	$("#balanceSumShow").val(
+			s.toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 
 function myDeleteCheckTranPrice(count) {
@@ -1297,14 +1308,27 @@ function removeTax() {
 }
 
 function replaseIndex(str) {
+	var suminputmon = 0 ;
 
-	i = 0;
-	if ($(str).length > 1) {
-		$(str).each(function() {
-			var customerId = $(this).find("td").eq(0);
-			customerId.text(i++);
-		});
+	rows = str.getElementsByTagName('tr');
+	if (rows.length > 1) {
+		var i, j, cells, customerId;
+		for (i = 0, j = rows.length; i < j; ++i) {
+			cells = rows[i].getElementsByTagName('td');
+			if (!cells.length) {
+				continue;
+			}
+			cells[0].innerHTML = i;
+			if(cells[2].innerHTML){
+				console.log(suminputmon)
+				console.log(cells[2].innerHTML)
+	
+				suminputmon= suminputmon +   FormatMoneyShowToNumber(cells[2].innerHTML);
+			}
+			cells[3].innerHTML = "<a onclick='myDeleteSumCreditTranPrice("+ i + ")'><span class='glyphicon glyphicon-trash'></span></a>";
+		}
 	}
+	return parseFloat(suminputmon);
 };
 function replaseIndexV1(str) {
 

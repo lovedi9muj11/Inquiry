@@ -23,5 +23,15 @@ function changeMoney(changeRQ){
 }
 
 function formetMon(value) {
-	return parseFloat(value.replace(",", ""));
+	var a = str.replace(/,/g , "");
+	return parseFloat(a);
+}
+
+function  NumberFormatToMoneyShow(str){
+	
+}
+
+function  FormatMoneyShowToNumber(str){
+	var a = str.replace(/,/g , "");
+	return parseFloat(a);
 }
