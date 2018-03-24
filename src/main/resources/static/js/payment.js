@@ -411,26 +411,15 @@ function findTypePayment() {
 
 function findBank() {
 	var bankNo = document.getElementById("bankNo").value;
-	var bankName = document.getElementById("bankName").value;
-	if (bankNo == "001") {
-		$('#bankName').val("ktb");
-	} else if (bankNo == "002") {
-		$('#bankName').val("scb");
-	} else if (bankNo == "003") {
-		$('#bankName').val("kbk");
-	}
+		$('#bankName').val(bankNo);
+		$('#bankNo').val(bankNo);
 }
 
 function findBankNo() {
-	var bankNo = document.getElementById("bankNo").value;
 	var bankName = document.getElementById("bankName").value;
-	if (bankName == "ktb") {
-		$('#bankNo').val("001");
-	} else if (bankName == "scb") {
-		$('#bankNo').val("002");
-	} else if (bankName == "kbk") {
-		$('#bankNo').val("003");
-	}
+		$('#bankNo').val(bankName);
+		$('#bankName').val(bankName);
+
 }
 
 function addRow() {
@@ -895,14 +884,7 @@ function addDataTableCheck() {
 	}
 	
 	
-	
-	if(bankNo == "001"){
-		bankName = "ธนาคารกรุงไทย";
-	}else if(bankNo == "002"){
-		bankName = "ธนาคารไทยพานิชย์";
-	}else if(bankNo == "003"){
-		bankName = "ธนาคารกสิกรไทย";
-	}
+	var bankName =document.getElementById('bankName').options[document.getElementById('bankName').selectedIndex].text;
 	
 	if(parseFloat(moneyCheck) < parseFloat(0)){
 		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !");

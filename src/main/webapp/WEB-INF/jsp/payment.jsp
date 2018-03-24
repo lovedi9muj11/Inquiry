@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/menu.jsp"></jsp:include>
-
+<%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="java.util.List"%>
 <html>
 <head>
 <script src="lib/jquery-3.3.1.min.js"></script>
@@ -15,6 +16,14 @@
 <script src="js/utils.js"></script>
 <script src="js/payment.js"></script>
 <script src="lib/autoNumeric-1.7.4.js"></script>
+<% 
+List<MasterDataBean> masterBankCode = null;
+List<MasterDataBean> masterBankName = null;
+%>
+<% 
+masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
+masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
+%>
 </head>
 <body>
 	<div class="container-fluid">
@@ -450,9 +459,9 @@
 														<select class="form-control" id="edcType"
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
-															<option value="001">ธนาคารกรุงไทย</option>
-															<option value="002">ธนาคารไทยพานิชย์</option>
-															<option value="003">ธนาคารกสิกรไทย</option>
+															<%for(int i=0; i<masterBankName.size(); i++){ %>
+																<option  value="<%=masterBankName.get(i).getText() %>"><%=masterBankName.get(i).getText() %></option>
+															<%} %>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -504,9 +513,9 @@
 														<select class="form-control" id="bankNo"
 															name="paymentTranPrice.bankNo" onchange="findBank()">
 															<option value="">กรุณาเลือก</option>
-															<option value="001">001</option>
-															<option value="002">002</option>
-															<option value="003">003</option>
+															<%for(int i=0; i<masterBankCode.size(); i++){ %>
+																<option value="<%=masterBankCode.get(i).getValue() %>"><%=masterBankCode.get(i).getText() %></option>
+															<%} %>
 														</select>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -525,10 +534,12 @@
 														<select class="form-control" id="bankName"
 															name="paymentTranPrice.bankName" onchange="findBankNo()">
 															<option value="">กรุณาเลือก</option>
-															<option value="ktb">ธนาคารกรุงไทย</option>
-															<option value="scb">ธนาคารไทยพานิชย์</option>
-															<option value="kbk">ธนาคารกสิกรไทย</option>
+															<%for(int i=0; i<masterBankName.size(); i++){ %>
+																<option id="nameBank"  value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText() %></option>
+															<%} %>
 														</select>
+														
+														
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
