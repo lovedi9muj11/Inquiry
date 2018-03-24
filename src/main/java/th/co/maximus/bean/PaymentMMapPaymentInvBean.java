@@ -29,6 +29,7 @@ public class PaymentMMapPaymentInvBean {
 	private String createDateStr;
 	private String statusCancelPayment;
 	private String addressNewCancelPayment;
+	private String customerAddress;
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
@@ -230,4 +231,12 @@ public class PaymentMMapPaymentInvBean {
 		this.vatAmount = vatAmount;
 	}
 
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
+	}
+	
 }
