@@ -2,6 +2,8 @@ var tableInit;
 var tableSelect;
 var dataSelect;
 var idRow;
+var userFullName = '';
+var customerAddress = '';
 $(document).ready(function () {
     console.log("ready!");
 
@@ -146,7 +148,7 @@ $(document).ready(function () {
       		     			});
       		     			showTableSelect();
       		     			$("#addressInput").hide();
-      		     			$('#submitCancelPM').prop('disabled', true);
+//      		     			$('#submitCancelPM').prop('disabled', true);
       		        	}else{
       		        		$("#error").show();
       		        	    hidePanel()
@@ -164,47 +166,7 @@ $(document).ready(function () {
       	  }else{
       		  
       	  }           	
-      });
-    	$("#address" ).change(function() {
-    		if($('#fullName').val() != ''){
-        		if($('#address').val() != ''){
-        			$('#submitCancelPM').prop('disabled', false);
-        		}else{
-        			$('#submitCancelPM').prop('disabled', true);
-        		}
-    		}else{
-    			$('#submitCancelPM').prop('disabled', true);
-    		}
-
-    	}); 
-    	
-    	$("#fullName" ).change(function() {
-    		if($('#fullName').val() != '' && $('#address').val() != ''){
-        		$('#submitCancelPM').prop('disabled', false);
-    		}else{
-    			$('#submitCancelPM').prop('disabled', true);
-    		}
-
-    	}); 
-    	
-	$( "#problemCancel" ).change(function() {
-		var valueSelect =  $('#problemCancel').val();
-		if(valueSelect == "02"){
-			$("#addressInput").show();
-			$('#submitCancelPM').prop('disabled', true);
-		}else if(valueSelect == ''){
-			$("#addressInput").hide();
-			$('#address').val("");
-			$('#submitCancelPM').prop('disabled', true);
-		}else if(valueSelect == '01'){
-			$("#addressInput").hide();
-			$('#address').val("");
-			$('#fullName').val("");
-			$('#submitCancelPM').prop('disabled', false);
-		}
-		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+$('#problemCancel').val());
-	}); 	
-    
+      }); 
 });
 
 
@@ -283,6 +245,8 @@ function createRow(data, seq, table) {
 };
 
 function createRowSelect(data, seq, table) {
+	customerAddress = data.customerAddress;
+	userFullName = data.customerName;
 	no = data.manualId
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr;
@@ -332,6 +296,7 @@ function format(d) {
 		'</table>';
 };
 
+//action Controller
 function submitCancelPayment(){
 	var dataSet = {
 			"manualId" : idRow,
@@ -383,20 +348,32 @@ function hidePanel(){
     $("#panel4").hide();
 };
 
-//$.confirm({
-//    buttons: {
-//        hey: function () {
-//            // here the button key 'hey' will be used as the text.
-//            $.alert('You clicked on "hey".');
-//        },
-//        heyThere: {
-//            text: 'hey there!', // With spaces and symbols
-//            action: function () {
-//                $.alert('You clicked on "heyThere"');
-//            }
-//        }
-//    }
-//});
+function showReasonCancel(){
+	if($('#problemCancel').val() != ''){
+		if($('#problemCancel').val() == '02'){
+			 $("#fullName").val(userFullName);
+			 $("#address").val(customerAddress);
+			$("#reason-cancel").modal('show');
+		}else{
+			$("#reason-cancel").modal('hide');
+			submitCancelPayment();
+		}
+	}else{
+		alert("โปรดระบุตัวเลือก");
+	}
+};
+
+function modalConfirmReason(callback){
+	if(callback){
+		submitCancelPayment();
+		$("#reason-cancel").modal('hide');
+	}else{
+		$("#reason-cancel").modal('hide');
+	}
+
+};
+
+
 
 
 

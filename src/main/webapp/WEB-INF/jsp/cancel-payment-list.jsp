@@ -108,7 +108,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
+						<label class="col-md-4 control-label text-right">โปรดระบุตัวเลือก <span style="color: red"> *</span></label>
 						<div class="col-md-4">
 							<select class="form-control" id="problemCancel" name="userGroup">
 								<option value="">== เลือก ==</option>
@@ -118,26 +118,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" id="addressInput">
-					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">ชื่อ<span style="color: red"> *</span></label>
-						<div class="col-md-4">
-							<input type="text" name="fullName" id="fullName" class="form-control text-left">
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">ที่อยู่ลูกค้า <span style="color: red"> *</span></label>
-						<div class="col-md-4">
-							<textarea id="address" name="address" class="form-control" rows="5"></textarea>
-						</div>
-					</div>
-				</div>
+
 				<div class="box-footer">
 					<div class="row">
 						<!-- Button -->
 						<div class="col-md-12 text-center">
 						
-							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary example3" onclick="submitCancelPayment()" style="width: 7%">ตกลง</button>
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary example3" onclick="showReasonCancel()" style="width: 7%">ตกลง</button>
 						</div>
 					</div>
 				</div>
@@ -181,7 +168,7 @@
 	      <div class="modal-header">
 	        <h4 class="modal-title" id="myModalLabel">Authentication</h4>
 	      </div>
-			<div class="modal-body">
+	      	<div class="modal-body">
 				<div class="row">
 					<div class="form-group col-md-12">
 						<label class="col-md-3 control-label">user name</label>
@@ -200,6 +187,37 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="modal-btn-si">ตกลง</button>
 	        <button type="button" class="btn btn-danger" id="modal-btn-no">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="reason-cancel" >
+	  <div class="modal-dialog modal-sm" style="width:650px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Edit User Detail</h4>
+	      </div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-label text-right">ชื่อ<span style="color: red"> *</span></label>
+					<div class="col-md-9">
+						<input type="text" name="fullName" id="fullName" class="form-control text-left">
+					</div>
+				</div>
+				<div class="form-group col-md-12" id="addressShow" name="addressShow">
+					<label class="col-md-3 control-label text-right">ที่อยู่ลูกค้า <span style="color: red"> *</span></label>
+					<div class="col-md-9">
+						<textarea id="address" name="address" class="form-control" rows="5"></textarea>
+					</div>
+				</div>
+			</div>
+     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-reason-yes" onclick="modalConfirmReason(true)">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-reason-no" onclick="modalConfirmReason(false)">ยกเลิก</button>
 	      </div>
 	    </div>
 	  </div>
