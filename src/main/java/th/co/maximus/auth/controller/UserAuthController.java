@@ -67,6 +67,10 @@ public class UserAuthController {
     public String usermgt(Model model) {
         return "userManageMent";
     }
+    @RequestMapping(value = {"/masterData"}, method = RequestMethod.GET)
+    public String masterData(Model model) {
+        return "master-data";
+    }
    
     public void addUserSession(UserBean user, HttpSession session) {
     	session.setAttribute("userRole", user.getRoleCode());

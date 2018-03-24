@@ -18,6 +18,7 @@
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-file-text-o"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="/userManageMent">UsermanageMent</a></li>
+				            <li><a href="/masterData">Master Data</a></li>
 				          </ul>
 				        </li>
 					</c:if>

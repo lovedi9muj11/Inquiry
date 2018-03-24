@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.UserBean;
 
 @RestController
 public class UserController {
+	
+	private List<GroupTypeDropdown> groupTypeDropdown;
 	
 	@Autowired private UserService userService;
 	
@@ -46,5 +49,21 @@ public class UserController {
 		}
 		
       return resultList;
+    }
+	
+	@RequestMapping(value = {"/masterData/selectAll"}, method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+    public List<GroupTypeDropdown> masterData() {
+		groupTypeDropdown = new ArrayList<GroupTypeDropdown>();
+    	GroupTypeDropdown arg0 = new GroupTypeDropdown();
+    	GroupTypeDropdown arg1 = new GroupTypeDropdown();
+    	arg0.setName("กรุณาเลือก");
+    	arg0.setValue("");
+    	arg1.setName("Test");
+    	arg1.setValue("T");
+    	groupTypeDropdown.add(arg0);
+    	groupTypeDropdown.add(arg1);
+
+      return groupTypeDropdown;
     }
 }
