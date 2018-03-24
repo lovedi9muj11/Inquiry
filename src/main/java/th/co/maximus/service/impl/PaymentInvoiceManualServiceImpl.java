@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.service.PaymentInvoiceManualService;
@@ -52,7 +53,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
 		paymentInvoiceManualBean.setSubNo(paymentBean.getServiceNo());
 		paymentInvoiceManualBean.setPeriod(period);
-		paymentInvoiceManualBean.setServiceType("IBASS");
+		paymentInvoiceManualBean.setServiceType(Constants.Service.SERVICE_TYPE_IBACSS);
 		paymentInvoiceManualBean.setClearing("N");
 		paymentInvoiceManualBean.setPrintReceipt("");
 		paymentInvoiceManualBean.setRemark(paymentBean.getRemark());

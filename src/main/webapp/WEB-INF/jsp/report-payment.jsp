@@ -28,7 +28,7 @@
 		<div style="padding: 30px 10px 50px 50px">
 			<h1 class="page-header"></h1>
 			<div class="panel" id="panel1">
-				<div class="panel-heading">ค้นหาการงานการชำระเงิน</div>
+				<div class="panel-heading">ค้นหารายงานการชำระเงิน</div>
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}"/>
 				<div class="panel-body">
 					<div class="row">
@@ -152,7 +152,7 @@
 								<div class="col-md-7">
 									<select class="form-control" id="serviceType" name="serviceType">
 										<option value="">-- กรุณาเลือก  --</option>
-										<option value="IBASS">ค่าบริหาร (Billing)</option>
+										<option value="IBASS">ค่าบริการ (IBACSS)</option>
 										<option value="etc">ค่าบริการอื่น ๆ</option>
 									</select>
 								</div>

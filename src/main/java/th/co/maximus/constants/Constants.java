@@ -35,5 +35,9 @@ public class Constants {
 		public static final String SOURCE = "OFFLINE";
 		public static final String NAME_USER = "ADMIN";
 	}
+	
+	public static class Service{
+		public static final String SERVICE_TYPE_IBACSS = "IBACSS";
+	}
 
 }

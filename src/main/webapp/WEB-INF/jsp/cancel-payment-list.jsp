@@ -108,7 +108,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">โปรดระบุตัวเลือก <span style="color: red"> *</span></label>
+						<label class="col-md-4 control-label text-right">เหตุผลยกเลิกรับชำระ<span style="color: red"> *</span></label>
 						<div class="col-md-4">
 							<select class="form-control" id="problemCancel" name="userGroup">
 								<option value="">== เลือก ==</option>

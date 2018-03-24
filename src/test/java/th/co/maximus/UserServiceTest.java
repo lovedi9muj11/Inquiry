@@ -2,6 +2,10 @@ package th.co.maximus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
