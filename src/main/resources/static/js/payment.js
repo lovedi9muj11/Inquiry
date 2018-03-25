@@ -773,6 +773,16 @@ function addDataSumCreditTranPrice() {
 	
 }
 function addDataSumCheckTranPrice() {
+	var balanceSumss = $("#balanceSummary").val();
+	
+	if(balanceSumss == ""){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
+	if(parseFloat(balanceSumss) < parseFloat(0)){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var oTable = document.getElementById('checkTable');
 	var result = [];
@@ -838,6 +848,16 @@ function addDataSumCheckTranPrice() {
 }
 
 function addDataTableCheck() {
+	var balanceSumss = $("#balanceSummary").val();
+	
+	if(balanceSumss == ""){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
+	if(parseFloat(balanceSumss) < parseFloat(0)){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
 	var summaryTax = $("#summaryTax").val();
 	var table = document.getElementById("checkTable").rows.length;
 	var bankNo = document.getElementById("bankNo").value;
@@ -905,6 +925,16 @@ function addDataTableCheck() {
 }
 
 function addDataTablecreditTranPrice() {
+	var balanceSumss = $("#balanceSummary").val();
+	
+	if(balanceSumss == ""){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
+	if(parseFloat(balanceSumss) < parseFloat(0)){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		return $("#balanceSummary").focus();
+	}
 	var table = document.getElementById("creditTable").rows.length;
 	var creditType = document.getElementById("creditType").value;
 	var edcType = document.getElementById("edcType").value;
