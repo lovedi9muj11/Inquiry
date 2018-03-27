@@ -1341,11 +1341,20 @@ function replaseIndex(str) {
 			cells[3].innerHTML = "<a onclick='myDeleteSumCreditTranPrice(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
+		$("#balanceSum").val(suminputmon.toFixed(2));
+		$("#balanceSummarys").val(suminputmon.toFixed(2));
+		$("#balanceSumShow").val(
+				suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	}else{
+		
+		var defualt =  FormatMoneyShowToNumber($("#balanceOfTaxsShow").val());
+		$("#balanceSum").val(defualt.toFixed(2));
+		$("#balanceSummarys").val(defualt.toFixed(2));
+		$("#balanceSumShow").val(
+				defualt.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		
 	}
-	$("#balanceSum").val(suminputmon.toFixed(2));
-	$("#balanceSummarys").val(suminputmon.toFixed(2));
-	$("#balanceSumShow").val(
-			suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	
 	totalSum();
 };
 function replaseIndexV1(str) {
