@@ -16,9 +16,10 @@ $(document).ready(
 			$("#change").val(parseFloat(0).toFixed(2));
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
 			$("#balanceSummarys").val(parseFloat(0).toFixed(2));
-			$("#beforeSaleShow").val(parseFloat(0).toFixed(2).replace(
-					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-			
+			$("#beforeSaleShow").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
 			$("#moneyTran").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -28,10 +29,23 @@ $(document).ready(
 			$("#vat").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#vatsShow").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#vats").val(parseFloat(0).toFixed(2));
 			$("#balanceSummaryShow").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-
+			$("#balanceOfTaxsShow").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#balanceOfTaxs").val(parseFloat(0).toFixed(2));
+			$("#balanceBeforeTaxsShow").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			
+			
+			
 		});
 
 function disBtn() {
@@ -66,22 +80,22 @@ function vatAmount() {
 	beforeVat = parseFloat(result - vat);
 	summary = parseFloat(beforeVat + vat);
 
-	$("#balanceOfTaxs").val(summary.toFixed(2));
+//	$("#balanceOfTaxs").val(summary.toFixed(2));
 	$("#beforeSale").val(beforeVat.toFixed(2));
-
-	$("#balanceOfTaxsShow").val(
-			summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-					"$1,"));
+//
+//	$("#balanceOfTaxsShow").val(
+//			summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+//					"$1,"));
 
 	$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
-	$("#vats").val(vat.toFixed(2));
+//	$("#vats").val(vat.toFixed(2));
 
-	$("#balanceBeforeTaxsShow").val(
-			beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-					"$1,"));
-	$("#vatsShow").val(
-			vat.toFixed(2).toString()
-					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//	$("#balanceBeforeTaxsShow").val(
+//			beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+//					"$1,"));
+//	$("#vatsShow").val(
+//			vat.toFixed(2).toString()
+//					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 };
 
 function hideShowdat() {
@@ -489,14 +503,12 @@ function buttonAddBillingList() {
 			money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 					"$1,"));
 
-
 	$("#balanceBeforeTax").val(balanceBeforeTaxRQ.toFixed(2));
 	$("#vat").val(vatRQ.toFixed(2));
 
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
 
-	
 }
 
 function deleteTableSale(count) {
@@ -521,7 +533,7 @@ function deleteTableSale(count) {
 						- beforeVat);
 
 				$("#moneyTran").val(reMoney.toFixed(2));
-				$("#balanceSummarys").val(reMoney.toFixed(2));
+// $("#balanceSummarys").val(reMoney.toFixed(2));
 				$("#balanceSummary").val(reMoney.toFixed(2));
 				$("#balanceBeforeTax").val(beforeSv.toFixed(2));
 				$("#balanceSummaryShow").val(
@@ -645,10 +657,10 @@ function myDeleteDed(count) {
 									/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 
-				$("#balanceSummarys").val(balance.toFixed(2));
+// $("#balanceSummarys").val(balance.toFixed(2));
 				// $("#balanceSummaryShow").val(balance.toFixed(2));
 
-//				vatAmount();
+				// vatAmount();
 				tableDed.deleteRow(count);
 				table.deleteRow(count);
 				removeTax();
@@ -717,8 +729,8 @@ function addDataTableDed() {
 	}
 	$("#balanceSummarys").val(parseFloat(balance).toFixed(2).replace(",", ""));
 
-//	summaryTax();
-//	vatAmount();
+	// summaryTax();
+	// vatAmount();
 	replaseIndexV3(tableDed);
 }
 // เงินสด
@@ -807,7 +819,7 @@ function addDataTableMoneyTranPrice() {
 	if (parseFloat(sumPrice) < parseFloat(balanceS)) {
 		// sumPrice = parseFloat(sumPrice) + parseFloat(money)
 		balanceS = balanceS - summaryTax;
-		$("#balanceSum").val(parseFloat(balanceS).toFixed(2));
+		$("#balanceSum").val(balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSumShow").val(
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	} else {
@@ -1161,10 +1173,11 @@ function sumTranPrice() {
 	} else if (result == 'check') {
 		addDataSumCheckTranPrice();
 	}
-	var s = replaseIndex(tablesumTotals);
-	$("#balanceSum").val(s.toFixed(2));
-	$("#balanceSumShow").val(
-			s.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	var tablesumTotals = document.getElementById("showTotalPriceTable");
+	replaseIndex(tablesumTotals);
+//	$("#balanceSum").val(s.toFixed(2));
+//	$("#balanceSumShow").val(
+//			s.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 function myDeletecreditTranPrice(count) {
 	var tablesumTotal = document.getElementById("creditTable");
@@ -1214,20 +1227,23 @@ function myDeleteSumCreditTranPrice(numberRun) {
 
 				balance = parseFloat(balance) - parseFloat(summaryTax);
 				res = parseFloat(balance) + parseFloat(chen);
-				if (parseFloat(res) >= parseFloat(sumPrice)) {
-					$("#change").val(parseFloat(0).toFixed(2));
-				}
-
-				if (parseFloat(sumPrice) < parseFloat(balance)) {
-					balance = parseFloat(sumPrice);
-					$("#change").val(parseFloat(0).toFixed(2));
-				}
-
-				if (parseFloat(sumPrice) >= parseFloat(res)) {
-					var totalChange = parseFloat(balanceSum)
-							- parseFloat(sumPrice);
-					$("#change").val(parseFloat(totalChange).toFixed(2));
-				}
+				// if (parseFloat(res) >= parseFloat(sumPrice)) {
+				// $("#change").val(parseFloat(0).toFixed(2));
+				// }
+				//
+				// if (parseFloat(sumPrice) < parseFloat(balance)) {
+				// balance = parseFloat(sumPrice);
+				// $("#change").val(parseFloat(0).toFixed(2));
+				// }
+				//
+				// if (parseFloat(sumPrice) >= parseFloat(res)) {
+				// var totalChange = parseFloat(balanceSum)-
+				// parseFloat(sumPrice);
+				// if(totalChange > 0){
+				// $("#change").val(parseFloat(totalChange).toFixed(2));
+				// }
+				//				
+				// }
 
 				$("#moneyTran").val(
 						balance.toFixed(2).toString().replace(
@@ -1239,8 +1255,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 						balance.toFixed(2).toString().replace(
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
-				$("#balanceSummarys").val(balance.toFixed(2));
-
+				
 				vatAmount();
 
 				tablesumTotals.deleteRow(numberRun);
@@ -1250,10 +1265,9 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		}
 
 	}
-	var s = replaseIndex(tablesumTotals);
-	$("#balanceSum").val(s.toFixed(2));
-	$("#balanceSumShow").val(
-			s.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	replaseIndex(tablesumTotals);
+
+	
 }
 
 function myDeleteCheckTranPrice(count) {
@@ -1328,7 +1342,11 @@ function replaseIndex(str) {
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
-	return parseFloat(suminputmon);
+	$("#balanceSum").val(suminputmon.toFixed(2));
+	$("#balanceSummarys").val(suminputmon.toFixed(2));
+	$("#balanceSumShow").val(
+			suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	totalSum();
 };
 function replaseIndexV1(str) {
 
@@ -1345,6 +1363,7 @@ function replaseIndexV1(str) {
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
+	totalSum();
 }
 function replaseIndexV2(str) {
 
@@ -1361,9 +1380,10 @@ function replaseIndexV2(str) {
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
+	totalSum();
 }
 function replaseIndexV3(str) {
-  var sumdect = 0;
+	var sumdect = 0;
 	rows = str.getElementsByTagName('tr')
 	if (rows.length > 1) {
 		var i, j, cells, customerId;
@@ -1375,24 +1395,31 @@ function replaseIndexV3(str) {
 			cells[0].innerHTML = i;
 			cells[3].innerHTML = "<a onclick='myDeleteDed(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
-			sumdect = sumdect+  FormatMoneyShowToNumber(cells[2].innerHTML);
+			sumdect = sumdect + FormatMoneyShowToNumber(cells[2].innerHTML);
 		}
 	}
 	var sumtableBillingList = document.getElementById("sumtableBillingList");
 	replaseIndexV4(sumtableBillingList);
-	$("#summaryTax").val(sumdect.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#summaryTax").val(
+			sumdect.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+					"$1,"));
 	var balanceOfTaxs = $("#balanceOfTaxs").val();
-	if(balanceOfTaxs  >  0 ){
-	   var sumtotal = 	balanceOfTaxs -  sumdect;
+	if (balanceOfTaxs > 0) {
+		var sumtotal = balanceOfTaxs - sumdect;
 		$("#balanceSummarys").val(sumtotal);
-		$("#balanceSummaryShow").val(sumtotal.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
-//		var sumtableBillingList = document.getElementById("sumtableBillingList");
-//		replaseIndexV4(sumtableBillingList);
-	}else{
+		$("#balanceSummaryShow").val(
+				sumtotal.toFixed(2).toString().replace(
+						/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		// var sumtableBillingList =
+		// document.getElementById("sumtableBillingList");
+		// replaseIndexV4(sumtableBillingList);
+	} else {
 		$("#balanceSummarys").val(0.00);
-		var sumtableBillingList = document.getElementById("sumtableBillingList");
+		var sumtableBillingList = document
+				.getElementById("sumtableBillingList");
 		replaseIndexV4(sumtableBillingList);
 	}
+	totalSum();
 
 }
 
@@ -1408,27 +1435,67 @@ function replaseIndexV4(str) {
 			if (!cells.length) {
 				continue;
 			}
-			sumInputmon = sumInputmon + FormatMoneyShowToNumber(cells[7].innerHTML);
-			beforeSaleShow = beforeSaleShow	+ FormatMoneyShowToNumber(cells[5].innerHTML);
-			vat = vat	+ FormatMoneyShowToNumber(cells[6].innerHTML);
+			sumInputmon = sumInputmon
+					+ FormatMoneyShowToNumber(cells[7].innerHTML);
+			beforeSaleShow = beforeSaleShow
+					+ FormatMoneyShowToNumber(cells[5].innerHTML);
+			vat = vat + FormatMoneyShowToNumber(cells[6].innerHTML);
 			cells[0].innerHTML = i;
 			cells[8].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
-	$("#moneyTran").val(sumInputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyTran").val(
+			sumInputmon.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(sumInputmon.toFixed(2));
 	$("#balanceSummary").val(sumInputmon.toFixed(2));
-	
-	$("#balanceSummaryShow").val(sumInputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
-	$("#beforeSaleShow").val(sumInputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
-	$("#balanceBeforeTaxsShow").val(beforeSaleShow.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+
+	$("#balanceSummaryShow").val(
+			sumInputmon.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#beforeSaleShow").val(
+			beforeSaleShow.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#balanceBeforeTaxsShow").val(
+			beforeSaleShow.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#vats").val(vat);
-	$("#vatsShow").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+	$("#vatsShow").val(
+			vat.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 	$("#balanceOfTaxs").val(sumInputmon);
-	$("#balanceOfTaxsShow").val(sumInputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
-	
-	
+	$("#balanceOfTaxsShow").val(
+			sumInputmon.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+	totalSum();
 	return sumInputmon;
+}
+function totalSum() {
+	var sumtotal = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
+	var income = FormatMoneyShowToNumber($("#balanceSumShow").val());
+//	var change = FormatMoneyShowToNumber($("#change").val());
+	if(income > 0){
+		var result = sumtotal - (income)
+		if (result > 0) {
+			$("#balanceSummaryShow").val(result.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#balanceSummarys").val(result.toFixed(2).toString()
+			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			var  a = 0;
+			$("#change").val(a.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		} else {
+			var notnevite = result * (-1);
+			var  a = 0;
+			$("#balanceSummaryShow").val(a.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#balanceSummarys").val(a.toFixed(2).toString()
+			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#change").val(	notnevite.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		}
+	}
 }
