@@ -333,7 +333,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVat()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="71" width="185" height="23" uuid="a5d8565d-b953-4996-ba46-8b1313ebeda7"/>
@@ -347,7 +347,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getVat()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="94" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
@@ -361,7 +361,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="2" width="187" height="23" uuid="bffd37b3-7e43-4caa-8fce-811e7ff94610"/>
@@ -375,7 +375,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceBefore()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceBeforeStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="25" width="186" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284"/>
@@ -389,7 +389,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountSpecial()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountSpecialStr()]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

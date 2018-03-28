@@ -27,6 +27,13 @@ public class ExportPDFByInsaleReport {
 	private BigDecimal discountbeforvat;
 	
 	
+	private String discountSpecialStr;
+	private String balanceBeforeStr;
+	private String beforeVatStr;
+	private String vatStr;
+	private String balanceSummaryStr;
+	
+	
 	
 	public String getServiceName() {
 		return serviceName;
@@ -154,6 +161,37 @@ public class ExportPDFByInsaleReport {
 	public void setDiscountbeforvat(BigDecimal discountbeforvat) {
 		this.discountbeforvat = discountbeforvat;
 	}
+	public String getDiscountSpecialStr() {
+		return discountSpecialStr;
+	}
+	public void setDiscountSpecialStr(String discountSpecialStr) {
+		this.discountSpecialStr = discountSpecialStr;
+	}
+	public String getBalanceBeforeStr() {
+		return balanceBeforeStr;
+	}
+	public void setBalanceBeforeStr(String balanceBeforeStr) {
+		this.balanceBeforeStr = balanceBeforeStr;
+	}
+	public String getBeforeVatStr() {
+		return beforeVatStr;
+	}
+	public void setBeforeVatStr(String beforeVatStr) {
+		this.beforeVatStr = beforeVatStr;
+	}
+	public String getVatStr() {
+		return vatStr;
+	}
+	public void setVatStr(String vatStr) {
+		this.vatStr = vatStr;
+	}
+	public String getBalanceSummaryStr() {
+		return balanceSummaryStr;
+	}
+	public void setBalanceSummaryStr(String balanceSummaryStr) {
+		this.balanceSummaryStr = balanceSummaryStr;
+	}
+	
 	
 	
 }
