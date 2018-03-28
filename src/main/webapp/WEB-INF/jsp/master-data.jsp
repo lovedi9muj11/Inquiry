@@ -2,21 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
-<script src="lib/select2.min.js"></script>
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/lib/select2.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
-<script src="js/master-data.js"></script>
-<script src="lib/holdon/HoldOn.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+<script src="${contextPath}/resources/js/master-data.js"></script>
+<script src="${contextPath}/resources/js/HoldOn.js"></script>
 <title>Menu</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
