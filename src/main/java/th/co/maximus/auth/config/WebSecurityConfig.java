@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@ImportResource({ "classpath:applicationContext.xml" })
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Autowired private UserDetailsService userDetailsService;
@@ -22,24 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean("freesiaUPC")
-//	public net.sf.jasperreports.engine.fonts.SimpleFontFamily freesiaUPC() {
-//    	net.sf.jasperreports.engine.fonts.SimpleFontFamily  simpleFontFamily = new net.sf.jasperreports.engine.fonts.SimpleFontFamily();
-//		simpleFontFamily.setName("FreesiaUPC");
-//		
-//		simpleFontFamily.setNormal("th/co/maximus/report/font/newFL.ttf");
-//		simpleFontFamily.setBold("th/co/maximus/report/font/newFB.ttf");
-//		simpleFontFamily.setItalic("th/co/maximus/report/font/newFI.ttf");
-//		simpleFontFamily.setBoldItalic("th/co/maximus/report/font/newFBI.ttf");
-//		simpleFontFamily.setNormalPdfFont("th/co/maximus/report/font/newFL.ttf");
-//		simpleFontFamily.setItalicPdfFont("th/co/maximus/report/font/newFB.ttf");
-//		simpleFontFamily.setBoldPdfFont("th/co/maximus/report/font/newFBI.ttf");
-//		simpleFontFamily.setPdfEmbedded(true);
-//		simpleFontFamily.setPdfEncoding("Identity-H");
-//		
-//		return simpleFontFamily;
-//		
-//	}
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
