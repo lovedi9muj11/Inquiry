@@ -1348,11 +1348,13 @@ function replaseIndex(str) {
 	}else{
 		
 		var defualt =  FormatMoneyShowToNumber($("#balanceOfTaxsShow").val());
-		$("#balanceSum").val(defualt.toFixed(2));
-		$("#balanceSummarys").val(defualt.toFixed(2));
+		$("#balanceSum").val(suminputmon.toFixed(2));
 		$("#balanceSumShow").val(
+				suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#balanceSummarys").val(defualt.toFixed(2));
+		$("#balanceSummaryShow").val(
 				defualt.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-		
+
 	}
 	
 	totalSum();
