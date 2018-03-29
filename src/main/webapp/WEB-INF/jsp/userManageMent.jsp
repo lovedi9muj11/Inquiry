@@ -8,12 +8,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
-<script src="js/userMgt.js"></script>
-<script src="lib/holdon/HoldOn.js"></script>
+<script src="${contextPath}/resources/js/userMgt.js"></script>
+<script src="${contextPath}/resources/js/HoldOn.js"></script>
 <title>Menu</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">

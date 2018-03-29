@@ -1,20 +1,23 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html >
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/menu.jsp"></jsp:include>
 
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
 <script type="text/javascript" src="js/typeahead.bundle.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="css/payment.css" rel="stylesheet">
-<script src="js/utils.js"></script>
-<script src="js/paymentother.js"></script>
-<script src="lib/autoNumeric-1.7.4.js"></script>
+<link href="${contextPath}/resources/css/payment.css" rel="stylesheet">
+<script src="${contextPath}/resources/js/utils.js"></script>
+<script src="${contextPath}/resources/js/paymentother.js"></script>
+<script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
 </head>
 <body>
 	<div class="container-fluid">

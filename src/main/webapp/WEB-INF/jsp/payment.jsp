@@ -7,10 +7,10 @@
 <html>
 <head>
 <script src="lib/jquery-3.3.1.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
 <script type="text/javascript" src="js/typeahead.bundle.js"></script>
-<link href="${contextPath}/resources/css/bootstrap.min.css"
+<link href="resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="css/payment.css" rel="stylesheet">
 <script src="js/utils.js"></script>

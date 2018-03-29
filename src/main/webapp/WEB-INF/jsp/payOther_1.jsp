@@ -9,17 +9,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Menu</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="css/payment.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/payment.css" rel="stylesheet">
 
-<script src="js/payment-success.js"></script>
+<script src="${contextPath}/resources/js/payment-success.js"></script>
 
-	<script src="js/utils.js" type="text/javascript"></script>
+	<script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
 <%=request.getAttribute("paymentResultReq")%>
 </head>
 <body>

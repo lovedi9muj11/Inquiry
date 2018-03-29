@@ -28,6 +28,7 @@ public class InvEpisOfflineByInsaleBean {
 	private String runnumber;
 	
 	
+	
 	public InvEpisOfflineByInsaleBean() {}
 	
 	public InvEpisOfflineByInsaleBean(String branArea,String bracnCode,String serviceName,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
