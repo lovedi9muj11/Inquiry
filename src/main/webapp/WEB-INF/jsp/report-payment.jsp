@@ -16,7 +16,7 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
-<script src="js/report-payment.js"></script>
+<script src="${contextPath}/resources/js/report-payment.js"></script>
 <title>รานงานการชำระ</title>
 
 </head>

@@ -11,7 +11,7 @@
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
-<script type="text/javascript" src="js/typeahead.bundle.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/typeahead.bundle.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${contextPath}/resources/css/payment.css" rel="stylesheet">

@@ -20,7 +20,7 @@
 	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
-<script src="js/report-tax.js"></script>
+<script src="${contextPath}/resources/js/report-tax.js"></script>
 <title>รานงานการชำระ</title>
 
 </head>

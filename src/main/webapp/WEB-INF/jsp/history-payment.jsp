@@ -17,8 +17,9 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	
-<script src="js/histrory-payment.js" type="text/javascript"></script>
-<script src="js/utils.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/histrory-payment.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/autoNumeric-1.7.4.js"></script>
 
 <title>Menu</title>
 
