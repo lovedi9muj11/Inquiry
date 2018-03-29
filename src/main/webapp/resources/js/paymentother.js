@@ -222,7 +222,7 @@ function submitForm() {
 			"inputServiceMoreData" : resultTblSale[h][4],
 			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
 			// "inputServiceDiscount" : resultTblSale[h][6],
-			"vatSale" : resultTblSale[h][6],
+			"vatSale" : resultTblSale[h][6].replace(",", ""),
 			// "inputSpecialDiscount" : resultTblSale[h][8],
 			"summarySale" : resultTblSale[h][7].replace(",", "")
 		}
