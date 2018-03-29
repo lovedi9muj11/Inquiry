@@ -3,15 +3,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/menu.jsp"></jsp:include>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <script src="lib/jquery-3.3.1.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Menu</title>
 
-<link href="resources/css/bootstrap.min.css"
+<link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="css/payment.css" rel="stylesheet">
 

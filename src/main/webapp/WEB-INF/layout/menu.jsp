@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="../commons/includes.jsp"></jsp:include>
 <jsp:include page="../commons/sMainStyles.jsp"></jsp:include>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 		<!-- sidebar -->
 		<div id="wrapper">
 			<div id="sidebar-wrapper">
@@ -27,7 +27,7 @@
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ชำระค่าบริการ<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
-				            <li><a href="/gotoPayment">ชำระค่าบริการ</a></li>
+				            <li><a href="${contextPath}/gotoPayment">ชำระค่าบริการ</a></li>
 				            <li><a href="/payOther">ชำระค่าบริการอื่นๆ</a></li>
 				          </ul>
 				        </li>

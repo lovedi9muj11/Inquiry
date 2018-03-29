@@ -10,14 +10,14 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<link href="resources/css/bootstrap.min.css"
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/css/maximus.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
 <script type="text/javascript"
-	src="resources/css/styles/DataTables/datatables.min.js"></script>
+	src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript"
-	src="resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script src="js/report-tax.js"></script>

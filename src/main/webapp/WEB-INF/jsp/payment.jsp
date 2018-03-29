@@ -4,18 +4,21 @@
 <jsp:include page="../layout/menu.jsp"></jsp:include>
 <%@ page import="th.co.maximus.bean.MasterDataBean"%>
 <%@ page import="java.util.List"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-<script src="lib/jquery-3.3.1.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
+
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
-<script type="text/javascript" src="js/typeahead.bundle.js"></script>
-<link href="resources/css/bootstrap.min.css"
+<script type="text/javascript" src="${contextPath}/resources/js/typeahead.bundle.js"></script>
+
+<link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="css/payment.css" rel="stylesheet">
-<script src="js/utils.js"></script>
-<script src="js/payment.js"></script>
-<script src="lib/autoNumeric-1.7.4.js"></script>
+<link href="${contextPath}/resources/css/payment.css" rel="stylesheet">
+<script src="${contextPath}/resources/js/utils.js"></script>
+<script src="${contextPath}/resources/js/payment.js"></script>
+<script src="${contextPath}/resources/js/autoNumeric-1.7.4.js"></script>
 <% 
 List<MasterDataBean> masterBankCode = null;
 List<MasterDataBean> masterBankName = null;
