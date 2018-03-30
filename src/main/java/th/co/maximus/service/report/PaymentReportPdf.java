@@ -33,7 +33,7 @@ public class PaymentReportPdf {
 	
 	public byte[] jasperGanarationPDF(String fileName , ReportPaymentCriteria criteria, List<ReportPaymentBean> date) throws JRException, ParseException {
 		 List<ReportPaymentBean> resultSource = new ArrayList();
-		 DecimalFormat df2 = new DecimalFormat("#0.00");
+//		 DecimalFormat df2 = new DecimalFormat("#0.00");
 		 double sumAllTotal = 0.00;
 		 double sumAllTotalNoVat = 0.00;
 		 double sumAllVat0 = 0.00;
@@ -54,9 +54,9 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
 				reportPaymentBeanNew.setNoRefer("-");
-				reportPaymentBeanNew.setBeforVatStr(df2.format(reportPaymentBean.getBeforVat())+"");
-				reportPaymentBeanNew.setVatAmountStr(reportPaymentBean.getVatAmount()+"");
-				reportPaymentBeanNew.setAmountStr(df2.format(reportPaymentBean.getAmount())+"");
+				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
+				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
+				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
 				reportPaymentBeanNew.setStatus(reportPaymentBean.getStatusStr());
 				index++;
 				resultSource.add(reportPaymentBeanNew);
@@ -69,7 +69,7 @@ public class PaymentReportPdf {
 				 }else if("7".equals(vatConverStr)) {
 					 sumAllVat7 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
 				 }
-				 sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+				 sumAllTotal +=  reportPaymentBean.getAmount().doubleValue();
 				 sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
 			}
 		 }
@@ -83,17 +83,17 @@ public class PaymentReportPdf {
 		parameters.put("dateTo", convertDateFormat(criteria.getDateTo()));
 		parameters.put("staff",  criteria.getUser());
 		
-		parameters.put("summaryVat0", df2.format(sumAllVat0)+"");
-		parameters.put("summaryVat3",  df2.format(sumAllVat3)+"");
-		parameters.put("summaryVat7",  df2.format(sumAllVat7)+"");
-		parameters.put("summaryAllVat",  df2.format(sumAllTotal)+"");
-		parameters.put("summaryAllNotVat",  df2.format(sumAllTotalNoVat)+"");
+		parameters.put("summaryVat0",  String.format("%,.2f", sumAllVat0));
+		parameters.put("summaryVat3",  String.format("%,.2f", sumAllVat3));
+		parameters.put("summaryVat7",  String.format("%,.2f", sumAllVat7));
+		parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+		parameters.put("summaryAllNotVat",  String.format("%,.2f", sumAllTotalNoVat));
 		
 		//read and export pdf
         JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
         JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-//        JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/THSarabunNew.ttf");
+        JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/THSarabunNew.ttf");
 		return JasperExportManager.exportReportToPdf(jasperPrint);
 	}
 	

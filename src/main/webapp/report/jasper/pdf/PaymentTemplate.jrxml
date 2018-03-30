@@ -370,56 +370,56 @@
 			<staticText>
 				<reportElement x="154" y="32" width="100" height="20" uuid="e25c06e3-3bb8-44ee-807c-8750533d2f68"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New" isBold="true"/>
+					<font fontName="TH Sarabun New" isBold="true" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผลรวม vat 0%]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="154" y="52" width="100" height="20" uuid="05e8be22-da36-49a5-bf55-d372a344ca91"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New" isBold="true"/>
+					<font fontName="TH Sarabun New" isBold="true" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผลรวม vat 3%]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="154" y="72" width="100" height="20" uuid="fa295e47-1509-4488-bd7e-50599261b4c0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New" isBold="true"/>
+					<font fontName="TH Sarabun New" isBold="true" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผลรวม vat 7%]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="804" y="12" width="98" height="20" uuid="a24551d8-e2b0-4bc7-837d-ff6fd279a65e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New"/>
+					<font fontName="TH Sarabun New" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryAllNotVat}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="967" y="12" width="82" height="20" uuid="eb9d8d3b-035a-4b25-97b9-bfbe0abcd858"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New"/>
+					<font fontName="TH Sarabun New" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryAllVat}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="875" y="32" width="100" height="20" uuid="a3f6b488-d661-4669-bd32-53cd3928f610"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New"/>
+					<font fontName="TH Sarabun New" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVat0}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="875" y="52" width="100" height="20" uuid="764d78ab-db69-4702-aa1c-33a41d5de934"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New"/>
+					<font fontName="TH Sarabun New" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVat3}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="875" y="74" width="100" height="20" uuid="d9f64fac-1ecb-4cbb-a132-2ba84e4f1003"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="TH Sarabun New"/>
+					<font fontName="TH Sarabun New" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVat7}]]></textFieldExpression>
 			</textField>
