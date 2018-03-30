@@ -98,8 +98,8 @@ function createRow(data, seq) {
 	createBy = data.createBy;
 	noRefer = '-';
 	beforVat = data.beforVat;
-	vatAmount = data.vatAmount;
-	amount = data.amount;
+	vatAmount =  formatDouble(data.vatAmount,2);
+	amount =  formatDouble(data.amount,2);
 	if (data.status == 'C'){
 		statusStr = data.statusStr;
 	}else{
