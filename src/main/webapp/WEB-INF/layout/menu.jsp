@@ -17,8 +17,8 @@
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs showopacity fa fa-file-text-o"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
-				            <li><a href="/userManageMent">UsermanageMent</a></li>
-				            <li><a href="/masterData">Master Data</a></li>
+				            <li><a href="${contextPath}/userManageMent">UsermanageMent</a></li>
+				            <li><a href="${contextPath}/masterData">Master Data</a></li>
 				          </ul>
 				        </li>
 					</c:if>
@@ -28,21 +28,21 @@
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ชำระค่าบริการ<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="${contextPath}/gotoPayment">ชำระค่าบริการ</a></li>
-				            <li><a href="/payOther">ชำระค่าบริการอื่นๆ</a></li>
+				            <li><a href="${contextPath}/payOther">ชำระค่าบริการอื่นๆ</a></li>
 				          </ul>
 				        </li>
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ยกเลิกชำระค่าบริการ<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
-				            <li><a href="/cancalPayment">ยกเลิกชำระค่าบริการ</a></li>
-				            <li><a href="/gotoHistroryPayment">ประวัติการชำระค่าบริการ</a></li>
+				            <li><a href="${contextPath}/cancalPayment">ยกเลิกชำระค่าบริการ</a></li>
+				            <li><a href="${contextPath}/gotoHistroryPayment">ประวัติการชำระค่าบริการ</a></li>
 				          </ul>
 				        </li>
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">รายงานชำระเงิน<span class="caret"></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-file"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
-				            <li><a href="/reportPayment">รายการชำระ</a></li>
-				            <li><a href="/reportPaymentTax">รายการภาษีขายแบบย่อ/แบบเต็ม</a></li>
+				            <li><a href="${contextPath}/reportPayment">รายการชำระ</a></li>
+				            <li><a href="${contextPath}/reportPaymentTax">รายการภาษีขายแบบย่อ/แบบเต็ม</a></li>
 				          </ul>
 				        </li>
 					</c:if>
