@@ -98,9 +98,9 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell6.setCellValue(resultReportPayment.getInvoiceNo());
 				 cell7.setCellValue(resultReportPayment.getCreateBy());
 				 cell8.setCellValue("-");
-				 cell9.setCellValue(df2.format(resultReportPayment.getBeforVat())+"");
+				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
 				 cell10.setCellValue(resultReportPayment.getVatAmount()+"");
-				 cell11.setCellValue(df2.format(resultReportPayment.getAmount())+"");
+				 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
 				 cell12.setCellValue(resultReportPayment.getStatusStr());
 				 
 				 
@@ -141,11 +141,11 @@ public class PaymentReport extends BaseExcelRptService {
 		 cellTotalSummary.setCellStyle(txtCenterTable);
 		 
 		 Cell totalSummaryNoVat = textTotalSummary.createCell(9);
-		 totalSummaryNoVat.setCellValue(sumAllNoVat+"");
+		 totalSummaryNoVat.setCellValue(String.format("%,.2f", sumAllNoVat));
 		 totalSummaryNoVat.setCellStyle(txtCenterTable);
 		 
 		 Cell totalSummary = textTotalSummary.createCell(11);
-		 totalSummary.setCellValue(sumAllTotal+"");
+		 totalSummary.setCellValue(String.format("%,.2f", sumAllTotal));
 		 totalSummary.setCellStyle(txtCenterTable);
 		 
 
@@ -156,7 +156,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 cellvat0.setCellStyle(txtCenterTable);
 		
 		 Cell totalVat0 = vat0.createCell(10);
-		 totalVat0.setCellValue(sumVat0+"");
+		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
 		 totalVat0.setCellStyle(txtCenterTable);
 		 
 		 
@@ -166,7 +166,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 cellvat3.setCellStyle(txtCenterTable);
 		
 		 Cell totalVat3 = vat3.createCell(10);
-		 totalVat3.setCellValue(sumVat3+"");
+		 totalVat3.setCellValue(String.format("%,.2f", sumVat3));
 		 totalVat3.setCellStyle(txtCenterTable);
 		 
 		 Row vat7 = sh.createRow(indexRow + 5);
@@ -175,7 +175,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 cellvat7.setCellStyle(txtCenterTable);
 		
 		 Cell totalVat7 = vat7.createCell(10);
-		 totalVat7.setCellValue(df2.format(sumVat7)+"");
+		 totalVat7.setCellValue(String.format("%,.2f", sumVat7));
 		 totalVat7.setCellStyle(txtCenterTable);
 		 
 		 
