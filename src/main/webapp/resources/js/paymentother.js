@@ -1487,9 +1487,10 @@ function replaseIndexV4(str) {
 function totalSum() {
 	var sumtotal = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
 	var income = FormatMoneyShowToNumber($("#balanceSumShow").val());
-//	var change = FormatMoneyShowToNumber($("#change").val());
+	var summaryTax = FormatMoneyShowToNumber($("#summaryTax").val());
+	var total =  (sumtotal-summaryTax);
 	if(income > 0){
-		var result = sumtotal - (income)
+		var result = total - (income)
 		if (result > 0) {
 			$("#balanceSummaryShow").val(result.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -1501,12 +1502,21 @@ function totalSum() {
 		} else {
 			var notnevite = result * (-1);
 			var  a = 0;
-			$("#balanceSummaryShow").val(a.toFixed(2).toString()
+			$("#balanceSummaryShow").val(total.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-			$("#balanceSummarys").val(a.toFixed(2).toString()
+			$("#balanceSummarys").val(total.toFixed(2).toString()
 			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#change").val(	notnevite.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}
+	}else{
+		$("#balanceSummaryShow").val(total.toFixed(2).toString()
+				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#balanceSummarys").val(total.toFixed(2).toString()
+				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyTran").val(total.toFixed(2).toString()
+				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		
+		
 	}
 }
