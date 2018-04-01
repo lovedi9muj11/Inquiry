@@ -21,3 +21,4 @@ function searchClick() {
 function addClick() {
 	alert("xxx");
 }
+
