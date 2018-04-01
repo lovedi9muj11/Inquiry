@@ -3,6 +3,9 @@ package th.co.maximus.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.service.MasterDataService;
 
 import th.co.maximus.bean.MasterDataBean;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import th.co.maximus.auth.model.GroupTypeDropdown;
-import th.co.maximus.service.MasterDataService;
 
 
 @Controller
@@ -41,9 +40,17 @@ public class MasterDataController {
 	    }
 	 @RequestMapping(value = "/insertMasterdata", method = RequestMethod.POST)
 		@ResponseBody
-		public String payment(Model model, @RequestBody MasterDataBean paymentBean,HttpServletRequest request, HttpServletResponse response) throws Exception {
-			
-			return "";
+		public String payment(Model model, @RequestBody MasterDataBean masterDataBean ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 int paymentId = 0;
+			try {
+				 paymentId = masterDataService.insert(masterDataBean);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		
+		 
+		 
+		 return String.valueOf(paymentId);
 		}
 	
 }

@@ -26,7 +26,7 @@
 		<jsp:include page="../layout/menu.jsp"></jsp:include>
 		<header class="header_page"></header>
 
-		<form id="masterFrom" method="post" class="form-horizontal"
+		<form id="createmasterFrom" method="post" class="form-horizontal"
 			role="form">
 			<div id="page-content-wrapper">
 				<br />
@@ -59,7 +59,7 @@
 
 								<div class="form-group">
 									<div class="col-md-12 center ">
-										<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">บันทึก</button>
+										<button type="button" id="search" class="btn btn-primary " onclick="submitMaterdata()">บันทึก</button>
 									</div>
 								</div>
 							</div>
