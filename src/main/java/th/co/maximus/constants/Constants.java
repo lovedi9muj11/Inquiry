@@ -39,5 +39,9 @@ public class Constants {
 	public static class Service{
 		public static final String SERVICE_TYPE_IBACSS = "IBACSS";
 	}
+	
+	public static class MasterData{
+		public static final String SELECT_DROPDOWN = "กรุณาเลือก";
+	}
 
 }

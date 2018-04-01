@@ -1,12 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `EPIS`; USE `EPIS`;
-DROP TABLE IF EXISTS `MASOFFICER`;
-DROP TABLE IF EXISTS `ARCUSERAUTHNTICN`;
-DROP TABLE IF EXISTS `ARCPRINCIPAL`;
 DROP TABLE IF EXISTS `DEDUCTION_MANUAL`;
-DROP TABLE IF EXISTS `CORRECEIPTDOCUMENT`;
 DROP TABLE IF EXISTS `PAYMENT_MANUAL`;
 DROP TABLE IF EXISTS `TMPINVOICE`;
-DROP TABLE IF EXISTS `MASTER_RECEIPT_HEADER_MAPPING`;
 DROP TABLE IF EXISTS `PAYMENT_INVOICE_MANUAL`;
 DROP TABLE IF EXISTS `TRSCREDITREF_MANUAL`;
 DROP TABLE IF EXISTS `TRSCHEQUEREF_MANUAL`;
@@ -16,44 +11,6 @@ DROP TABLE IF EXISTS `ROLE`;
 DROP TABLE IF EXISTS `USER`;
 DROP TABLE IF EXISTS `USER_ROLE`;
 DROP TABLE IF EXISTS `MASTER_DATA`;
-
-CREATE TABLE IF NOT EXISTS `EPIS`.`MASOFFICER` (
-	OFFICERID BIGINT NOT NULL AUTO_INCREMENT,
-	PRINCIPALID BIGINT, 
-	SESSIONID BIGINT, 
-	USERNAME VARCHAR(40),
-	OFFICERCODE VARCHAR(50), 
-	OFFICERGIVENNAME VARCHAR(200), 
-	OFFICERFAMILYNAME VARCHAR(200), 
-	PERMISSION VARCHAR(50), 
-	ISPOSITIVE BIGINT, 
-	DESCRIPTION VARCHAR(200), 
-	UPDATEDTTM TIMESTAMP (6), 
-	UPDATESYSTEM CHAR(3), 
-	UPDATEUSER VARCHAR(32), 
-	VERSIONSTAMP BIGINT, 
-	VERIFY_FLAG CHAR(1), 
-	VERIFY_KEY VARCHAR(64), PASSWORD VARCHAR(64), PRIMARY KEY (OFFICERID)
-)DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `EPIS`.`ARCUSERAUTHNTICN` (
-	USERAUTHNTICNID BIGINT NOT NULL AUTO_INCREMENT,
-	OFFICERID BIGINT, PASSWORD VARCHAR(64), 
-	UPDATEDTTM DATE, 
-	UPDATESYSTEM CHAR(3), 
-	UPDATEUSER VARCHAR(32), 
-	VERSIONSTAMP BIGINT, PRIMARY KEY (USERAUTHNTICNID)
-)DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `EPIS`.`ARCPRINCIPAL` (
-	PRINCIPALID BIGINT NOT NULL AUTO_INCREMENT, 
-	NAME VARCHAR(64), 
-	DESCRIPTION VARCHAR(200), 
-	UPDATEDTTM TIMESTAMP(6), 
-	UPDATESYSTEM CHAR(3), 
-	UPDATEUSER VARCHAR(32), 
-	VERSIONSTAMP BIGINT, PRIMARY KEY (PRINCIPALID)
-)DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`DEDUCTION_MANUAL` (
 	DEDUCTION_MANUAL_ID BIGINT NOT NULL AUTO_INCREMENT,
@@ -73,15 +30,6 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`DEDUCTION_MANUAL` (
 	UPDATE_DATE TIMESTAMP(6),
 	RECORD_STATUS VARCHAR(20),
 	MANUAL_ID BIGINT, PRIMARY KEY (DEDUCTION_MANUAL_ID)
-)DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `EPIS`.`CORRECEIPTDOCUMENT` (
-	RECEIPTDOCUMENTID BIGINT NOT NULL AUTO_INCREMENT,
-	RECEIPTDOCUMENTTYPE VARCHAR(10),
-	RECEIPTHEADER VARCHAR(5),
-	BRANCHAREA VARCHAR(10),
-	DATETEXT VARCHAR(20),
-	DOCUMENTCOUNT BIGINT, PRIMARY KEY (RECEIPTDOCUMENTID)
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_MANUAL` (
@@ -136,18 +84,6 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
 	RECORD_STATUS VARCHAR(20), 
 	PRIMARY KEY (INV_ID) 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-)DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `EPIS`.`MASTER_RECEIPT_HEADER_MAPPING` (
-	ID BIGINT NOT NULL AUTO_INCREMENT,
-	RECEIPT_HEADER_MAPPING VARCHAR(50),
-	RECEIPT_HEADER VARCHAR(50),
-	REMARK VARCHAR(100),
-	CREATE_DATE TIMESTAMP(6),
-	CREATE_BY VARCHAR(100),
-	UPDATE_DATE TIMESTAMP(6),
-	UPDATE_BY VARCHAR(100),
-	RECORD_STATUS VARCHAR(20), PRIMARY KEY (ID)
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_INVOICE_MANUAL` (

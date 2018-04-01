@@ -39,6 +39,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
+	@Override
+	public List<MasterDataBean> findAll() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.group = 'INITVALUE' ");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	
 
 
 	private static final class masterData implements RowMapper<MasterDataBean> {

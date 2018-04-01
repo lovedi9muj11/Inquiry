@@ -1,4 +1,4 @@
-﻿INSERT INTO `role` (`id`, `name`) VALUES ('1', 'admin');
+INSERT INTO `role` (`id`, `name`) VALUES ('1', 'admin');
 INSERT INTO `role` (`id`, `name`) VALUES ('2', 'sup');
 INSERT INTO `role` (`id`, `name`) VALUES ('3', 'user');
 
@@ -10,10 +10,10 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('3', '3');
 
-INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('N', 'NON_VAT', 'vat_rate');
-INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('0', '0', 'vat_rate');
-INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('3', '3', 'vat_rate');
-INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('7', '7', 'vat_rate');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('N', 'NON_VAT', 'VAT_RATE');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('0', '0', 'VAT_RATE');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('3', '3', 'VAT_RATE');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('7', '7', 'VAT_RATE');
 
 INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('001', '001', 'BANK_CODE');
 INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('002', '002', 'BANK_CODE');
@@ -112,3 +112,6 @@ INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('071', 'ธนา�
 INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('073', 'ธนาคารแลนด์ แอนด์ เฮ้าส์ จำกัด(มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('079', 'ธนาคารเอเอ็นแซด (ไทย) จำกัด(มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('098', 'ธ.ขนาดกลางและขนาดย่อมแห่งประเทศไทย', 'BANK_NAME');
+
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('BANK_NAME', 'BANK_NAME', 'INITVALUE');
+INSERT INTO `MASTER_DATA` (`value`, `text`, `group`) VALUES ('VAT_RATE', 'VAT_RATE', 'INITVALUE');
