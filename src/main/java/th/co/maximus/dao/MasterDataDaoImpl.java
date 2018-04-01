@@ -1,5 +1,7 @@
 package th.co.maximus.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,7 +10,10 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.MasterDataBean;
@@ -39,6 +44,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
+	@Override
+	public List<MasterDataBean> findAll() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.group = 'INITVALUE' ");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	
 
 
 	private static final class masterData implements RowMapper<MasterDataBean> {
@@ -54,5 +67,24 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			return masterDataBean;
 		}
 
+	}
+
+
+
+	@Override
+	public int insertMasterdata(MasterDataBean masterDataBean) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String sql = "INSERT INTO master_data (valueKey, text, groupType)  VALUES (?,?,?)";
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
+				pst.setString(1, masterDataBean.getValue());
+				pst.setString(2, masterDataBean.getText());
+				pst.setString(3, masterDataBean.getGroup());
+				return pst;
+			}
+		}, keyHolder);
+		int newUserId = keyHolder.getKey().intValue();
+		return newUserId;
 	}
 }

@@ -22,3 +22,26 @@ function addClick() {
 	alert("xxx");
 }
 
+function submitMaterdata() {
+	
+	var dataSend = {
+			"value" : $("#value").val(),
+			"text" : $("#text").val(),
+			"group" : $("#groupType").val()
+		}
+
+		$.ajax({
+			type : "POST",
+			url : "insertMasterdata",
+			data : JSON.stringify(dataSend),
+			dataType : "json",
+			async : false,
+			contentType : "application/json; charset=utf-8",
+			success : function(res) {
+				
+			}
+		})
+	
+	
+	
+}
