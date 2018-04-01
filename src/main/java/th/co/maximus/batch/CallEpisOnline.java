@@ -1,13 +1,13 @@
 package th.co.maximus.batch;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.BeanClass;
 
-@ConfigurationProperties
+@Controller
 public class CallEpisOnline {
 	
 	@Value("${url.online}")
@@ -19,11 +19,12 @@ public class CallEpisOnline {
 		restTemplate = new RestTemplate();
 	}
 	
-	public void testRestFul(){
+	public void callOnline(){
 		try {
-			String postUrl = "http://localhost:8080".concat("/Maximus/Test");
+			String postUrl = url.concat("/Maximus/Test"); // /offline/insertPayment
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
 			System.out.println("Response for Post Request: " + postResponse.getBody());
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

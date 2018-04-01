@@ -32,7 +32,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByBankCode() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.group = 'BANK_CODE' ");
+		sql.append(" WHERE ms.groupType = 'BANK_CODE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
@@ -40,7 +40,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByBankName() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.group = 'BANK_NAME' ");
+		sql.append(" WHERE ms.groupType = 'BANK_NAME' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -48,7 +48,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAll() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.group = 'INITVALUE' ");
+		sql.append(" WHERE ms.groupType = 'INITVALUE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -60,9 +60,9 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		public MasterDataBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MasterDataBean masterDataBean = new MasterDataBean();
 			masterDataBean.setId(rs.getInt("id"));
-			masterDataBean.setValue(rs.getString("value"));
+			masterDataBean.setValue(rs.getString("valueKey"));
 			masterDataBean.setText(rs.getString("text"));
-			masterDataBean.setGroup(rs.getString("group"));
+			masterDataBean.setGroup(rs.getString("groupType"));
 			
 			return masterDataBean;
 		}
