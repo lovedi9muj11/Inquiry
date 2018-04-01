@@ -33,14 +33,6 @@ public class MasterDataController {
 	        return "create-master-data";
 	    }
 	
-
-	 @RequestMapping(value = {"/masterData/selectAll"}, method = RequestMethod.GET, produces = "application/json")
-		@ResponseBody
-	    public List<GroupTypeDropdown> masterData() {
-			
-	      return masterDataService.findAll();
-	    }
-	
 	 @RequestMapping(value = {"/masterData/selectAll"}, method = RequestMethod.GET, produces = "application/json")
 		@ResponseBody
 	    public List<GroupTypeDropdown> masterData() {
