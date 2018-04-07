@@ -87,12 +87,13 @@ public class MasterDataServiceImpl implements MasterDataService{
 		int masterId =0;
 		
 		MasterDataBean bean = new MasterDataBean();
-		bean.setValue(masterDataBean.getMasterdataGroup());
+		bean.setValue(masterDataBean.getValue());
+		bean.setText(masterDataBean.getValue());
 		
 		
 		try {
 				
-			masterId = masterDataDao.insertMasterdata(masterDataBean);
+			masterId = masterDataDao.insertMasterdataGroup(masterDataBean);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

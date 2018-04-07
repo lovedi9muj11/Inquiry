@@ -28,8 +28,12 @@ public class MasterDataController {
 	MasterDataService masterDataService;
 	
 	 @RequestMapping(value = {"/create-master-data"}, method = RequestMethod.GET)
-	    public String payOther(Model model) {
+	    public String createmasterData(Model model) {
 	        return "create-master-data";
+	    }
+	 @RequestMapping(value = {"/create-master-data-group"}, method = RequestMethod.GET)
+	    public String createGroup(Model model) {
+	        return "create-master-data-group";
 	    }
 	
 	 @RequestMapping(value = {"/masterData/selectAll"}, method = RequestMethod.GET, produces = "application/json")

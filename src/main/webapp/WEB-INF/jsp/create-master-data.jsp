@@ -39,7 +39,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label right">value : </label>
 									<div class="col-md-2 right">
-										<input type="text" id="value" class="form-control"></input>
+										<input type="text" id="valueKey" class="form-control"></input>
 									</div>
 									
 								</div>

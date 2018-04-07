@@ -96,8 +96,8 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
-				pst.setString(1, masterDataBean.getMasterdataGroup());
-				pst.setString(2, masterDataBean.getMasterdataGroup());
+				pst.setString(1, masterDataBean.getValue());
+				pst.setString(2, masterDataBean.getValue());
 				pst.setString(3, Constants.MasterData.MASTERDATA_GROUP);
 				return pst;
 			}

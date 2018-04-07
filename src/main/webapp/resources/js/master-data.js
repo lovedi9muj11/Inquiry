@@ -25,7 +25,7 @@ function addClick() {
 function submitMaterdata() {
 	
 	var dataSend = {
-			"value" : $("#value").val(),
+			"value" : $("#valueKey").val(),
 			"text" : $("#text").val(),
 			"group" : $("#groupType").val()
 		}
@@ -49,7 +49,7 @@ function submitMaterdata() {
 function submitMaterdataGroup() {
 	
 	var dataSend = {
-			"mastergroup" : $("#mastergroup").val()
+			"value" : $("#valueKey").val()
 		}
 
 		$.ajax({
