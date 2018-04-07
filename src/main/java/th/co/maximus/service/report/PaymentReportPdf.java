@@ -61,14 +61,14 @@ public class PaymentReportPdf {
 				index++;
 				resultSource.add(reportPaymentBeanNew);
 				
-				String vatConverStr = reportPaymentBean.getVatAmount()+"";
-				 if("0".equals(vatConverStr)) {
+//				String vatConverStr = reportPaymentBean.getVatAmount()+"";
+//				 if("0".equals(vatConverStr)) {
 					 sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-				 }else if("3".equals(vatConverStr)) {
-					 sumAllVat3 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-				 }else if("7".equals(vatConverStr)) {
-					 sumAllVat7 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-				 }
+//				 }else if("3".equals(vatConverStr)) {
+//					 sumAllVat3 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+//				 }else if("7".equals(vatConverStr)) {
+//					 sumAllVat7 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+//				 }
 				 sumAllTotal +=  reportPaymentBean.getAmount().doubleValue();
 				 sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
 			}
@@ -84,8 +84,8 @@ public class PaymentReportPdf {
 		parameters.put("staff",  criteria.getUser());
 		
 		parameters.put("summaryVat0",  String.format("%,.2f", sumAllVat0));
-		parameters.put("summaryVat3",  String.format("%,.2f", sumAllVat3));
-		parameters.put("summaryVat7",  String.format("%,.2f", sumAllVat7));
+//		parameters.put("summaryVat3",  String.format("%,.2f", sumAllVat3));
+//		parameters.put("summaryVat7",  String.format("%,.2f", sumAllVat7));
 		parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 		parameters.put("summaryAllNotVat",  String.format("%,.2f", sumAllTotalNoVat));
 		
