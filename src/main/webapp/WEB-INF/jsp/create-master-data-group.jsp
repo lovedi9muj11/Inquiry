@@ -37,7 +37,7 @@
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
 								<div class="form-group">
-									<label class="col-md-2 control-label right">masterdataGroup : </label>
+									<label class="col-md-2 control-label right">Group Name : </label>
 									<div class="col-md-2 right">
 										<input type="text" id=valueKey class="form-control"></input>
 									</div>
