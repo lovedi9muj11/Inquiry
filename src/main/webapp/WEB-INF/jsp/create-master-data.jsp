@@ -52,9 +52,11 @@
 									
 								</div>
 								<div class="form-group">
-									<label class="col-md-2 control-label right">ประเภท : </label> 
-									<select class="groupType col-md-2 " name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
+									<label class="col-md-2 control-label right">ประเภท : </label>
+									<div class="col-sm-6">
+									<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
 									</select>
+									</div>
 								</div>
 
 								<div class="form-group">
