@@ -162,7 +162,7 @@
 		</div>
 	</div>
 	
-	<!-- dialog confirm authentication -->
+	<!-- dialog confirm authentication.. -->
 	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >
 	  <div class="modal-dialog modal-sm" style="width:450px">
 	    <div class="modal-content">
