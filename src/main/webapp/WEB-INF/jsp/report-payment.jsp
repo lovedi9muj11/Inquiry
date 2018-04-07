@@ -141,7 +141,7 @@
 								<label class="col-md-4 control-label text-right">Vat Rate:</label>
 								<div class="col-md-8">
 									<select class="form-control" id="vat" name="vat">
-										<option value="">-- กรุณาเลือก --</option>
+										<option value="">ทั้งหมด</option>
 										<option value="0">0%</option>
 										<option value="3">3%</option>
 										<option value="7">7%</option>
@@ -152,7 +152,7 @@
 								<label class="col-md-5 control-label text-right">ประเภทการรับชำระ:</label>
 								<div class="col-md-7">
 									<select class="form-control" id="serviceType" name="serviceType">
-										<option value="">-- กรุณาเลือก  --</option>
+										<option value="">ทั้งหมด</option>
 										<option value="IBASS">ค่าบริการ (IBACSS)</option>
 										<option value="etc">ค่าบริการอื่น ๆ</option>
 									</select>
