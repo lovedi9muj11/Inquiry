@@ -13,5 +13,6 @@ public interface MasterDataDao {
 	public List<MasterDataBean> findAllByBankName() ;
 	List<MasterDataBean> findAll();
 	public int insertMasterdata(MasterDataBean masterDataBean);
+	public int insertMasterdataGroup(MasterDataBean masterDataBean);
 
 }

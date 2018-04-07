@@ -81,5 +81,24 @@ public class MasterDataServiceImpl implements MasterDataService{
 		
 		return masterId;
 	}
+	@Override
+	public int insertGroup(MasterDataBean masterDataBean) {
+
+		int masterId =0;
+		
+		MasterDataBean bean = new MasterDataBean();
+		bean.setValue(masterDataBean.getMasterdataGroup());
+		
+		
+		try {
+				
+			masterId = masterDataDao.insertMasterdata(masterDataBean);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterId;
+	}
 
 }

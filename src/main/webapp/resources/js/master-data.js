@@ -45,3 +45,25 @@ function submitMaterdata() {
 	
 	
 }
+
+function submitMaterdataGroup() {
+	
+	var dataSend = {
+			"mastergroup" : $("#mastergroup").val()
+		}
+
+		$.ajax({
+			type : "POST",
+			url : "insertMasterdataGroup",
+			data : JSON.stringify(dataSend),
+			dataType : "json",
+			async : false,
+			contentType : "application/json; charset=utf-8",
+			success : function(res) {
+				window.location.href = "masterData";
+			}
+		})
+	
+	
+	
+}

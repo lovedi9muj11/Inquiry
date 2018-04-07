@@ -52,5 +52,20 @@ public class MasterDataController {
 		 
 		 return String.valueOf(paymentId);
 		}
+		
+		 @RequestMapping(value = "/insertMasterdataGroup", method = RequestMethod.POST)
+		@ResponseBody
+		public String insertMasterdataGroup(Model model, @RequestBody MasterDataBean masterDataBean ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 int paymentId = 0;
+			try {
+				 paymentId = masterDataService.insertGroup(masterDataBean);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		
+		 
+		 
+		 return String.valueOf(paymentId);
+		}
 	
 }

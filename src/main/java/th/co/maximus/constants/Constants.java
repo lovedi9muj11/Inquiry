@@ -44,5 +44,5 @@ public class Constants {
 		public static final String SELECT_DROPDOWN = "กรุณาเลือก";
 		public static final String MASTERDATA_GROUP = "INITVALUE";
 	}
-
+	
 }

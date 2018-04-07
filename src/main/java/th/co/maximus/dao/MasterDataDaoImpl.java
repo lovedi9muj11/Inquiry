@@ -81,6 +81,23 @@ public class MasterDataDaoImpl implements MasterDataDao{
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
 				pst.setString(1, masterDataBean.getValue());
 				pst.setString(2, masterDataBean.getText());
+				pst.setString(3, masterDataBean.getGroup());
+				return pst;
+			}
+		}, keyHolder);
+		int newUserId = keyHolder.getKey().intValue();
+		return newUserId;
+	}
+	
+	@Override
+	public int insertMasterdataGroup(MasterDataBean masterDataBean) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String sql = "INSERT INTO master_data (valueKey, text, groupType)  VALUES (?,?,?)";
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
+				pst.setString(1, masterDataBean.getMasterdataGroup());
+				pst.setString(2, masterDataBean.getMasterdataGroup());
 				pst.setString(3, Constants.MasterData.MASTERDATA_GROUP);
 				return pst;
 			}
