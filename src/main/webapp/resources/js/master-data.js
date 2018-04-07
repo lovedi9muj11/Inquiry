@@ -38,7 +38,7 @@ function submitMaterdata() {
 			async : false,
 			contentType : "application/json; charset=utf-8",
 			success : function(res) {
-				
+				window.location.href = "masterData";
 			}
 		})
 	
