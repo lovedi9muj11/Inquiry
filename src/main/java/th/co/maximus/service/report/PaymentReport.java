@@ -29,10 +29,12 @@ public class PaymentReport extends BaseExcelRptService {
 		CellStyle txtCenterBor = createStyleCellLeft(workbook, fontNormal, true);
 		
 		Font fontTable = createFontTHSarabanPSK(workbook, 10, false);
-		CellStyle txtCenterTable = createStyleCellLeft(workbook, fontTable, true);
+		CellStyle txtCenterTable = createStyleCellLeftBorder(workbook, fontTable, true);
 		CellStyle txtCenterTableRight = createStyleCellLefRight(workbook, fontTable, true);
 									
 		CellStyle txtCenterDecimalRight = createStyleCellFormetDecimalRight(workbook, fontTable, true);
+		
+		CellStyle borderCell = createBorderCellStyle(workbook, fontTable);
 		
 		
 		
@@ -67,9 +69,9 @@ public class PaymentReport extends BaseExcelRptService {
 		 double sumAllTotal = 0.00;
 		 double sumAllNoVat = 0.00;
 		 double sumVat0 = 0.00;
-		 double sumVat3 = 0.00;
-		 double sumVat7 = 0.00;
-		 DecimalFormat df2 = new DecimalFormat("#0.00");
+//		 double sumVat3 = 0.00;
+//		 double sumVat7 = 0.00;
+//		 DecimalFormat df2 = new DecimalFormat("#0.00");
 		 
 		 
 		 if(result.size() > 0 && !result.isEmpty()) {
@@ -88,6 +90,7 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell10 = row.createCell(10);
 				 Cell cell11 = row.createCell(11);
 				 Cell cell12 = row.createCell(12);
+				 Cell cell13 = row.createCell(13);
 				 
 				 cell.setCellValue(index);
 				 cell1.setCellValue(resultReportPayment.getServiceType());
@@ -99,9 +102,10 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell7.setCellValue(resultReportPayment.getCreateBy());
 				 cell8.setCellValue("-");
 				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
-				 cell10.setCellValue(resultReportPayment.getVatAmount()+"");
+				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
 				 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
 				 cell12.setCellValue(resultReportPayment.getStatusStr());
+				 cell13.setCellValue(resultReportPayment.getCreateBy());
 				 
 				 
 				 
@@ -118,15 +122,16 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell10.setCellStyle(txtCenterTableRight);
 				 cell11.setCellStyle(txtCenterDecimalRight);
 				 cell12.setCellStyle(txtCenterTable);
-				 String vatConverStr = resultReportPayment.getVatAmount()+"";
+				 cell13.setCellStyle(txtCenterTable);
+//				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
-				 if("0".equals(vatConverStr)) {
+//				 if("0".equals(vatConverStr)) {
 					 sumVat0 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-				 }else if("3".equals(vatConverStr)) {
-					 sumVat3 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-				 }else if("7".equals(vatConverStr)) {
-					 sumVat7 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-				 }
+//				 }else if("3".equals(vatConverStr)) {
+//					 sumVat3 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+//				 }else if("7".equals(vatConverStr)) {
+//					 sumVat7 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+//				 }
 				 sumAllTotal += resultReportPayment.getAmount().doubleValue();
 				 sumAllNoVat += resultReportPayment.getBeforVat().doubleValue();
 				 
@@ -135,49 +140,54 @@ public class PaymentReport extends BaseExcelRptService {
 			 }
 		 }
 		 
-		 Row textTotalSummary = sh.createRow(indexRow+2);
-		 Cell cellTotalSummary = textTotalSummary.createCell(2);
-		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
-		 cellTotalSummary.setCellStyle(txtCenterTable);
+		 Row textTotalSummary = sh.createRow(indexRow);
+//		 Cell cellTotalSummary = textTotalSummary.createCell(2);
+//		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
+//		 cellTotalSummary.setCellStyle(txtCenterTable);
 		 
 		 Cell totalSummaryNoVat = textTotalSummary.createCell(9);
 		 totalSummaryNoVat.setCellValue(String.format("%,.2f", sumAllNoVat));
 		 totalSummaryNoVat.setCellStyle(txtCenterTable);
+		 totalSummaryNoVat.setCellStyle(borderCell);
+		 
+		 Cell totalVat0 = textTotalSummary.createCell(10);
+		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
+		 totalVat0.setCellStyle(borderCell);
 		 
 		 Cell totalSummary = textTotalSummary.createCell(11);
 		 totalSummary.setCellValue(String.format("%,.2f", sumAllTotal));
-		 totalSummary.setCellStyle(txtCenterTable);
+		 totalSummary.setCellStyle(borderCell);
 		 
 
 		 
-		 Row vat0 = sh.createRow(indexRow + 3);
-		 Cell cellvat0 = vat0.createCell(2);
-		 cellvat0.setCellValue("ผลรวม Vat 0%");
-		 cellvat0.setCellStyle(txtCenterTable);
-		
-		 Cell totalVat0 = vat0.createCell(10);
-		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
-		 totalVat0.setCellStyle(txtCenterTable);
+//		 Row vat0 = sh.createRow(indexRow++);
+//		 Cell cellvat0 = vat0.createCell(2);
+//		 cellvat0.setCellValue("ผลรวม Vat 0%");
+//		 cellvat0.setCellStyle(txtCenterTable);
+//		 Cell totalVat0 = vat0.createCell(10);
+//		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
+//		 totalVat0.setCellStyle(txtCenterTable);
+
 		 
 		 
-		 Row vat3 = sh.createRow(indexRow + 4);
-		 Cell cellvat3 = vat3.createCell(2);
-		 cellvat3.setCellValue("ผลรวม Vat 3%");
-		 cellvat3.setCellStyle(txtCenterTable);
-		
-		 Cell totalVat3 = vat3.createCell(10);
-		 totalVat3.setCellValue(String.format("%,.2f", sumVat3));
-		 totalVat3.setCellStyle(txtCenterTable);
-		 
-		 Row vat7 = sh.createRow(indexRow + 5);
-		 Cell cellvat7 = vat7.createCell(2);
-		 cellvat7.setCellValue("ผลรวม Vat 7%");
-		 cellvat7.setCellStyle(txtCenterTable);
-		
-		 Cell totalVat7 = vat7.createCell(10);
-		 totalVat7.setCellValue(String.format("%,.2f", sumVat7));
-		 totalVat7.setCellStyle(txtCenterTable);
-		 
+//		 Row vat3 = sh.createRow(indexRow + 3);
+//		 Cell cellvat3 = vat3.createCell(2);
+//		 cellvat3.setCellValue("ผลรวม Vat 3%");
+//		 cellvat3.setCellStyle(txtCenterTable);
+//		
+//		 Cell totalVat3 = vat3.createCell(10);
+//		 totalVat3.setCellValue(String.format("%,.2f", sumVat3));
+//		 totalVat3.setCellStyle(txtCenterTable);
+//		 
+//		 Row vat7 = sh.createRow(indexRow + 4);
+//		 Cell cellvat7 = vat7.createCell(2);
+//		 cellvat7.setCellValue("ผลรวม Vat 7%");
+//		 cellvat7.setCellStyle(txtCenterTable);
+//		
+//		 Cell totalVat7 = vat7.createCell(10);
+//		 totalVat7.setCellValue(String.format("%,.2f", sumVat7));
+//		 totalVat7.setCellStyle(txtCenterTable);
+//		 
 		 
 		
 		return workbook;
