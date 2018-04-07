@@ -17,6 +17,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.constants.Constants;
 @Repository
 public class MasterDataDaoImpl implements MasterDataDao{
 	@Autowired
@@ -80,7 +81,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
 				pst.setString(1, masterDataBean.getValue());
 				pst.setString(2, masterDataBean.getText());
-				pst.setString(3, masterDataBean.getGroup());
+				pst.setString(3, Constants.MasterData.MASTERDATA_GROUP);
 				return pst;
 			}
 		}, keyHolder);
