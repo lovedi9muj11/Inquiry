@@ -14,56 +14,37 @@ $(document).ready(function() {
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
 			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
 			
-			$("#balanceSummary").keyup(function() {
-			    // keydown code
-				var bal = $("#balanceSummary").val();
-				if(bal == ""){
-					bal = parseFloat(0).toFixed(2);
-				}
-				var result = parseFloat(bal.replace(",", ""));
-				var vatq = $("#vatrate").val();
-				var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
-				var beforeVat = parseFloat(0);
-				var vat = parseFloat(0);
-				var summary = parseFloat(0);
-				var summaryT = parseFloat(0);
-				var vatCo = parseFloat(107);
-				var vatRq = parseFloat(0);
-				
-				summaryT = parseFloat(result * parseFloat(vatRQ));
-				vat = parseFloat(summaryT / vatCo);
-				
-				
-				beforeVat = parseFloat(result - vat);
-				summary = parseFloat(beforeVat + vat);
-				
-				
-				$("#balanceBeforeTax").val(beforeVat.toFixed(2));
-				$("#vat").val(vat.toFixed(2));
-				$("#balanceOfTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
-//				$("#balanceOfTaxPrice").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
-				
-				// Summary
-				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
-				$("#balanceSummaryShow").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
-				
-				$("#moneyTran").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#creditPrice").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#moneyCheck").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
-				
-				
-//				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
-//				$("#vats").val(vat.toFixed(2));
-//				$("#balanceOfTaxs").val(summary.toFixed(2));
-				
-			});
+			
 			
 		});
 
-
+function onChangeReady(){
+		var bal = $("#balanceSummary").val();
+		if(bal == ""){
+			bal = parseFloat(0).toFixed(2);
+		}
+		var result = parseFloat(bal.replace(",", ""));
+		var vatq = $("#vatrate").val();
+		var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
+		var beforeVat = parseFloat(0);
+		var vat = parseFloat(0);
+		var summary = parseFloat(0);
+		var summaryT = parseFloat(0);
+		var vatCo = parseFloat(107);
+		var vatRq = parseFloat(0);
+		summaryT = parseFloat(result * parseFloat(vatRQ));
+		vat = parseFloat(summaryT / vatCo);
+		beforeVat = parseFloat(result - vat);
+		summary = parseFloat(beforeVat + vat);
+		$("#balanceBeforeTax").val(beforeVat.toFixed(2));
+		$("#vat").val(vat.toFixed(2));
+		$("#balanceOfTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+		$("#balanceSummarys").val( parseFloat(result).toFixed(2));
+		$("#balanceSummaryShow").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyTran").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#creditPrice").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyCheck").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+}
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
 	var rowLength = table.rows.length;

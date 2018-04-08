@@ -13,7 +13,10 @@
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
 <script type="text/javascript" src="${contextPath}/resources/js/typeahead.bundle.js"></script>
-
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/Dialog/bootbox.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script> -->
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${contextPath}/resources/css/payment.css" rel="stylesheet">
@@ -67,22 +70,20 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 									<div class="col-md-12 col-sm-12">
 										<div class="row">
 											<div class="form-group">
-												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:</label>
+												<label class="col-sm-2 control-label right"	for="custNo">เลขที่ลูกค้า :<span style="color: red;">*</span></label>
+													<div class="col-sm-2">
+														<input class="form-control" type="text" id="custNo"name="custNo" placeholder="เลขที่ลูกค้า">
+														<p id="sCustNo" style="color: red;"> คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
+													</div>
+												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
-												<input class="form-control" type="text" id="custName"	name="custName" placeholder="ชื่อ">
-												<p id="sCustName" style="color: red;"> คุณยังไม่ได้กรอกชื่อ</p>
-												</div>
-												<label class="col-sm-2 control-label right"	for="custNo">เลขที่ลูกค้า :</label>
-												<div class="col-sm-2">
-												<input class="form-control" type="text" id="custNo"name="custNo" placeholder="เลขที่ลูกค้า">
-												<p id="sCustNo" style="color: red;"> คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
+													<input class="form-control" type="text" id="custName"	name="custName" placeholder="ชื่อ">
+													<p id="sCustName" style="color: red;"> คุณยังไม่ได้กรอกชื่อ</p>
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">Tax ID :</label>
 												<div class="col-sm-2">
-													<input class="form-control" type="text" id="taxId"
-														name="taxId" placeholder="Tax ID" maxlength="13">
-												
+													<input class="form-control" type="text" id="taxId"name="taxId" placeholder="Tax ID" maxlength="13">
 												</div>
 											</div>
 										</div>
@@ -93,19 +94,11 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												<div class="col-sm-6">
 													<textarea class="form-control" rows="3" id="custAddress"
 														name="custAddress"></textarea>
-														<p id="scustAddress" style="color: red;"> คุณยังไม่ได้กรอก ที่อยู่</p>
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">สาขา :</label>
+													for="formGroupInputLarge">สาขา : </label>
 												<div class="col-sm-2">
-													<select class="form-control" id="custBrach"
-														name="custBrach">
-														<option value="">== กรุณาเลือก ==</option>
-														<option value="นนทุบรี -แคราย">นนทุบรี -แคราย</option>
-														<option value="แจ้งวัฒนะ">แจ้งวัฒนะ</option>
-														<option value="เชียงราย">เชียงราย</option>
-													</select> 
-													<p id="scustBrach" style="color: red;"> คุณยังไม่ได้กรอก สาขา</p>
+													<input class="form-control" type="text" id="custBrach"	name="custBrach" placeholder="สาขา" maxlength="5">
 												</div>
 
 											</div>
@@ -114,7 +107,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<div class="row">
 											<div class="form-group left">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :</label>
+													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
 														name="userGroup">
@@ -133,7 +126,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												<p id="suserGroup" style="color: red;">
 													คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
 											<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :</label>
+													for="formGroupInputLarge">หน่วยงานติดตามหนี้ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 														<select class="form-control" id="debtCollection"
 														name="debtCollection">
@@ -147,7 +140,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="invoiceNo">เลขที่ใบแจ้ง :</label>
+													for="invoiceNo">เลขที่ใบแจ้ง :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="invoiceNo"
 														name="c" placeholder="เลขที่ใบแจ้ง">
@@ -160,14 +153,14 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<div class="row">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">หมายเลขบริการ :</label>
+													for="formGroupInputLarge">หมายเลขบริการ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="serviceNo"
 														name="serviceNo" placeholder="หมายเลขบริการ">
 														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p>
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :</label>
+													for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="startupDate"
 														name="startupDate">
@@ -175,7 +168,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 														<p id="sstartupDate1" style="color: red;"> กรุณาเลือกรอบการใช้งานเริ่มต้นให้น้อยกว่า "รอบใช้งานสิ้นสุด"</p>
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">รอบการใช้งานสิ้นสุด :</label>
+													for="formGroupInputLarge">รอบการใช้งานสิ้นสุด : <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="endDate"
 														name="endDate" onchange="datePriod()">
@@ -187,7 +180,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<div class="row">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">วันครบกำหนด :</label>
+													for="formGroupInputLarge">วันครบกำหนด :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="deadlines"
 														name="deadlines">
@@ -195,7 +188,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">วันจัดทำใบแจ้งค่าใช้บริการ
-													:</label>
+													: <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="date" id="invoiceDate"
 														name="invoiceDate">
@@ -209,12 +202,12 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">VAT RATE :</label>
+													for="formGroupInputLarge">VAT RATE : <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="vatrate" name="vatrate" onchange="findvatAmount()">
 														<option value="7">7%</option>
 														<option value="0">0%</option>
-														<option value="3">3%</option>
+														<option value="0">NAN%</option>
 
 													</select>
 												</div>
@@ -224,7 +217,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดก่อนภาษี :</label>
+													for="formGroupInputLarge">ยอดก่อนภาษี : <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text"
 														id="balanceBeforeTax" name="balanceBeforeTax" readonly="">
@@ -235,7 +228,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม :</label>
+													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม : <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="vat" name="vat"
 														readonly="">
@@ -246,7 +239,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">จำนวนเงินรวมภาษี :</label>
+													for="formGroupInputLarge">จำนวนเงินรวมภาษี : <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceOfTax"
 														name="balanceOfTax" readonly="">
@@ -258,7 +251,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้:</label>
+													for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้: <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceOfTaxPrice"
 														name="balanceOfTaxPrice" >
@@ -270,10 +263,11 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดที่ต้องชำระ:</label>
+													for="formGroupInputLarge">ยอดที่ต้องชำระ: <span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceSummary"
 														name="balanceSummary" >
+														<p id="sBalanceSummary" style="color: red;"> คุณกรอกยอดที่ต้องชำระ มากกว่ายอดใบแจ้งหนี้</p>
 												</div>
 											</div>
 										</div>
@@ -449,7 +443,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">เลขที่บัตร:</label>
 													<div class="col-sm-4">
-														<input class="form-control" type="text" id="creditNo" maxlength="16"
+														<input class="form-control" type="text" id="creditNo" maxlength="16" 
 															name="paymentTranPrice.creditNo" placeholder="เลขที่บัตร">
 													</div>
 												</div>
@@ -804,8 +798,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													รับภาระภาษีบางส่วน
 												</div>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
+													<input class="form-control numeric2point" type="text" id="taxOnly" name="taxOnly">
 												</div>
 											</div>
 										</div>
@@ -841,43 +834,72 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">เงินทอน :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control" type="text" name="change"
 														id="change" readonly="">
 												</div>
 											</div>
 										</div>
-										<div class="row">
+<!-- 										<div class="row"> -->
 
-											<div class="form-group ">
-												<div class="col-sm-6"></div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton1" readonly="">
-													รายได้อื่นที่ไม่มีภาษี
-												</div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton2" readonly="">
-													รายได้อื่นมีภาษี
-												</div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton3" readonly="">
-													รับชำระล่วงหน้า
-												</div>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
+<!-- 											<div class="form-group "> -->
+<!-- 												<div class="col-sm-6"></div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButton1" readonly=""> -->
+<!-- 													รายได้อื่นที่ไม่มีภาษี -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButton2" readonly=""> -->
+<!-- 													รายได้อื่นมีภาษี -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButton3" readonly=""> -->
+<!-- 													รับชำระล่วงหน้า -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control" type="text" id="" name="" -->
+<!-- 														value="0.00" readonly=""> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-</div>
+					</div>
 				</div>
 
 			</div>
-
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >
+	  <div class="modal-dialog modal-sm" style="width:450px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Authentication</h4>
+	      </div>
+	      	<div class="modal-body">
+	      	
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">user name</label>
+						<div class="col-md-9">
+							<input type="text" id="userName" name="userName" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">password</label>
+						<div class="col-md-9">
+							<input type="password" id="password" name="password" class="form-control">
+						</div>
+					</div>
+				</div>
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-no">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 		</form>
 	</div>
 

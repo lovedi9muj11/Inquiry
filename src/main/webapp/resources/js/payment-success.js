@@ -1,12 +1,21 @@
 $(document).ready(function() {
 	document.getElementById("showResultTableRQ").style.display ="none" ;
+	$("#remove").hide();
 });
 function backPayment(){
 	window.location.href = "gotoPayment";
 }
 
 function openTable(){
+	$("#plus").hide();
+	$("#remove").show();
 	document.getElementById("showResultTableRQ").style.display="table";
+}
+function removeTable(){
+	
+	$("#remove").hide();
+	$("#plus").show();
+	document.getElementById("showResultTableRQ").style.display="none";
 }
 function openTableSumOther(){
 	//document.getElementById("showResultTableRQ").style.display="table";

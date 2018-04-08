@@ -28,7 +28,7 @@
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">
-						<li><a href="#">รับชำระค่าบริการ ></a></li>
+						<li><a href="#">ผลการรับชำระเงิน </a></li>
 						<li class="active"><a href="#">ผลการรับชำระ </a></li>
 					</ul>
 				</div>
@@ -76,9 +76,8 @@
 										</thead>
 										<tbody align="center">
 											<tr align="center">
-												<td><a onclick="openTable()"> <span
-														class="glyphicon glyphicon-plus"></span>
-												</a></td>
+												<td id="plus"><a onclick="openTable()"><span  class="glyphicon glyphicon-plus"></span></a></td>
+												<td id="remove"><a onclick="removeTable()"><span  class="glyphicon glyphicon-minus"></span></a></td>
 												<td align="center">1</td>
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
@@ -99,7 +98,7 @@
 												<th style='text-align: center;'>ยอดเงินรวมภาษี</th>
 												<th style='text-align: center;'>ยอดชำระ</th>
 												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
-												<th style='text-align: center;'>จำนวนเงินคงค้าง</th>
+<!-- 												<th style='text-align: center;'>จำนวนเงินคงค้าง</th> -->
 												<th style='text-align: center;'>รอบการใช้งาน</th>
 											</tr>
 										</thead>
@@ -113,7 +112,7 @@
 												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
 												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">${paymentResultReq.deductionStr}</td>
-												<td align="center">${ paymentResultReq.balancePriceStr}</td>
+<%-- 												<td align="center">${ paymentResultReq.balancePriceStr}</td> --%>
 												<td align="center">${paymentResultReq.period}</td>
 											</tr>
 										</tbody>
