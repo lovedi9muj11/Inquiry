@@ -13,5 +13,6 @@ public interface MasterDataService {
 	public List<MasterDataBean> findAllByBankName() ;
 	List<GroupTypeDropdown> findAll();
 	public int insert(MasterDataBean masterDataBean);
+	public int insertGroup(MasterDataBean masterDataBean);
 	
 }

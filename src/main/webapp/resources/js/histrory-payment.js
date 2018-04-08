@@ -2,9 +2,10 @@ $(document).ready(function () {
 	histroryTB = $('#histroryPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
+		"order": [[ 0, 'desc' ]],
 		"columnDefs": [ {
 			"searchable": false,
-			"orderable": false
+//			"orderable": false
 //			"targets": [0,2]
 		} ]
 		});

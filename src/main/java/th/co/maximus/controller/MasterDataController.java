@@ -28,8 +28,12 @@ public class MasterDataController {
 	MasterDataService masterDataService;
 	
 	 @RequestMapping(value = {"/create-master-data"}, method = RequestMethod.GET)
-	    public String payOther(Model model) {
+	    public String createmasterData(Model model) {
 	        return "create-master-data";
+	    }
+	 @RequestMapping(value = {"/create-master-data-group"}, method = RequestMethod.GET)
+	    public String createGroup(Model model) {
+	        return "create-master-data-group";
 	    }
 	
 	 @RequestMapping(value = {"/masterData/selectAll"}, method = RequestMethod.GET, produces = "application/json")
@@ -44,6 +48,21 @@ public class MasterDataController {
 		 int paymentId = 0;
 			try {
 				 paymentId = masterDataService.insert(masterDataBean);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		
+		 
+		 
+		 return String.valueOf(paymentId);
+		}
+		
+		 @RequestMapping(value = "/insertMasterdataGroup", method = RequestMethod.POST)
+		@ResponseBody
+		public String insertMasterdataGroup(Model model, @RequestBody MasterDataBean masterDataBean ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 int paymentId = 0;
+			try {
+				 paymentId = masterDataService.insertGroup(masterDataBean);
 			}catch (Exception e) {
 				// TODO: handle exception
 			}

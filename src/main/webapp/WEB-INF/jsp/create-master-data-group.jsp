@@ -36,37 +36,20 @@
 						<br />
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
-							
 								<div class="form-group">
-									<label class="col-md-2 control-label right">value : </label>
+									<label class="col-md-2 control-label right">Group Name : </label>
 									<div class="col-md-2 right">
-										<input type="text" id="valueKey" class="form-control"></input>
+										<input type="text" id=valueKey class="form-control"></input>
 									</div>
 									
 								</div>
-								<div class="form-group">
-									
-									<label class="col-md-2 control-label right">text : </label>
-									<div class="col-md-2 right">
-										<input type="text" id="text" class="form-control"></input>
-									</div>
-									
-								</div>
-								<div class="form-group">
-									<label class="col-md-2 control-label right">ประเภท : </label>
-									<div class="col-sm-6">
-										<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
-										</select>
-										<a class="btn btn-success" href="${contextPath}/create-master-data-group">สร้างประเภท</a>
-									</div>
-								</div>
-
+								
 								<div class="form-group">
 									<div class="col-md-12 center ">
-										<button type="button" id="search" class="btn btn-primary " onclick="submitMaterdata()">บันทึก</button>
-<%-- 										<a class="btn btn-success " href="${contextPath}/create-master-data-group">สร้างประเภท</a> --%>
+										<button type="button" id="search" class="btn btn-primary " onclick="submitMaterdataGroup()">บันทึก</button>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 					</div>

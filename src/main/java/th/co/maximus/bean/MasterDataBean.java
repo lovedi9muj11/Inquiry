@@ -6,6 +6,9 @@ public class MasterDataBean {
 	private String value;
 	private String text;
 	private String group;
+	private String masterdataGroup;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -29,6 +32,12 @@ public class MasterDataBean {
 	}
 	public void setGroup(String group) {
 		this.group = group;
+	}
+	public String getMasterdataGroup() {
+		return masterdataGroup;
+	}
+	public void setMasterdataGroup(String masterdataGroup) {
+		this.masterdataGroup = masterdataGroup;
 	}
 	
 	

@@ -32,7 +32,7 @@
 		<h1 class="page-header"></h1>
 		<div class="panel" id="panel1">
 			
-				<div class="panel-heading">ค้นหาการงานการชำระเงิน</div>
+				<div class="panel-heading">ค้นหารายงานภาษีขาย</div>
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
 				<form name="reportTaxForm" id="reportTaxForm"  class="form-horizontal" role="form">

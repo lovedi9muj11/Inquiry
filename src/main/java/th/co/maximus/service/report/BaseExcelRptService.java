@@ -312,11 +312,32 @@ public class BaseExcelRptService {
 		return cellStyle;
 	}
 	
+	protected CellStyle createStyleCellLeftBorder(Workbook workbook, Font font, boolean warpText) {
+		// style for text
+		// font.setFontHeightInPoints((short)10);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+		cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setWrapText(warpText);
+		cellStyle.setFont(font);
+
+		return cellStyle;
+	}
+	
 	protected CellStyle createStyleCellLefRight(Workbook workbook, Font font, boolean warpText) {
 		// style for text
 		// font.setFontHeightInPoints((short)10);
 		font.setColor(IndexedColors.BLACK.getIndex());
 		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
 		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);
@@ -343,6 +364,10 @@ public class BaseExcelRptService {
 		CellStyle cellStyle = workbook.createCellStyle();
 		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
 		cellStyle.setWrapText(warpText);
 		cellStyle.setFont(font);
 		cellStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
@@ -590,6 +615,17 @@ public class BaseExcelRptService {
 		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);
+		cellStyle.setFont(font);
+		return cellStyle;
+	}
+	protected CellStyle createBorderCellStyle(Workbook workbook , Font font) {
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
 		cellStyle.setFont(font);
 		return cellStyle;
 	}

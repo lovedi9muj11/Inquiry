@@ -25,7 +25,7 @@ function addClick() {
 function submitMaterdata() {
 	
 	var dataSend = {
-			"value" : $("#value").val(),
+			"value" : $("#valueKey").val(),
 			"text" : $("#text").val(),
 			"group" : $("#groupType").val()
 		}
@@ -38,7 +38,29 @@ function submitMaterdata() {
 			async : false,
 			contentType : "application/json; charset=utf-8",
 			success : function(res) {
-				
+				window.location.href = "masterData";
+			}
+		})
+	
+	
+	
+}
+
+function submitMaterdataGroup() {
+	
+	var dataSend = {
+			"value" : $("#valueKey").val()
+		}
+
+		$.ajax({
+			type : "POST",
+			url : "insertMasterdataGroup",
+			data : JSON.stringify(dataSend),
+			dataType : "json",
+			async : false,
+			contentType : "application/json; charset=utf-8",
+			success : function(res) {
+				window.location.href = "masterData";
 			}
 		})
 	
