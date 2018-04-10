@@ -5,6 +5,7 @@ $(document).ready(function() {
 			summaryTax();
 			hideShowdat();
 			disBtn();
+			autoSelect();
 			document.getElementById("taxOnly").readOnly = true;
 			
 //			document.getElementById("radioButton").disabled = true;
@@ -132,8 +133,12 @@ $(document).ready(function() {
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
 	var rowLength = table.rows.length;
-	
+	var money = $("#moneyTran").val();
+	if(money == ""){
+		money = parseFloat(0);
+	}
 	if(rowLength > 1){
+
 		
 		$('button#submitFormPayment').prop('disabled', false);
 	}else{
@@ -143,7 +148,7 @@ function disBtn(){
 
 function balanceSum(){
 	var balan = $("#balanceSum").val();
-	var balanceSummary = $("#balanceSummary").val();
+	var balanceSummary = $("#balanceSummarys").val();
 	
 	
 	if(balan == ""){
@@ -153,11 +158,10 @@ function balanceSum(){
 		balanceSummary = parseFloat(0);
 	}
 	
-	var total = parseFloat(FormatMoneyShowToNumber(balanceSummary) - FormatMoneyShowToNumber(balan));
-	
-	$("#moneyTran").val(total.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#creditPrice").val(total.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#moneyCheck").val(total.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//	var total = parseFloat(FormatMoneyShowToNumber(balanceSummary) - FormatMoneyShowToNumber(balan));
+	$("#moneyTran").val(FormatMoneyShowToNumber(balanceSummary).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#creditPrice").val(FormatMoneyShowToNumber(balanceSummary).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyCheck").val(FormatMoneyShowToNumber(balanceSummary).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	
 	
 	
@@ -288,7 +292,13 @@ function hideShowdat(){
 	 
 }
 function submitForm(){
-
+	var result = $("#balanceSummarys").val();
+	if(parseFloat(result) > 0){
+		
+		alert("ยอดที่ต้องชำระยังจ่ายไม่ครบ กรุณาตรวจสอบใหม่");
+		
+		return $("#balanceSummary").focus();
+	}
 	hideShowdat();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -506,6 +516,19 @@ function findTypePayment() {
 		credit.style.display = "none";
 		check.style.display = "block";
 		money.style.display = "none";
+	}
+}
+
+function autoSelect(){
+	var event = $("#userGroup").val();
+	
+	if(event == "1"){
+		// 69 ทริ
+		radiobtn = document.getElementById("radioDedCD");
+		radiobtn.checked = true;
+	}else{
+		radiobtns = document.getElementById("radioDedCC");
+		radiobtns.checked = true;
 	}
 }
 
@@ -1178,7 +1201,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 	var bansum = $("#balanceSum").val();
 	var balanceSum = parseFloat(bansum.replace(",", ""));
 	var sumTax = $("#summaryTax").val();
-	var summaryTax = parseFloat(sumTax.replace(",", ""));
+	var summaryTax = sumTax.replace(",", "");
 	var res = parseFloat(0);
 	var chen = $("#change").val();
 	if (tablesumTotals.rows.length > 0) {
@@ -1191,8 +1214,8 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				if(parseFloat(balanceSum) <0){
 					balanceSum = parseFloat(0);
 				}
-
-				balance = parseFloat(balance) - parseFloat(summaryTax);
+//				var res = summaryTax.split("-");
+				balance = parseFloat(balance);
 				res = parseFloat(balance) + parseFloat(chen);
 				if(parseFloat(res) >= parseFloat(sumPrice)  ){
 					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

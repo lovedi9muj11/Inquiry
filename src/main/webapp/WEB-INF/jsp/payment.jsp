@@ -110,7 +110,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
-														name="userGroup">
+														name="userGroup" onchange="autoSelect()">
 														<option value="">== กรุณาเลือก  ==</option>
 														<option value="1">ธุรกิจทั่วไป</option>
 														<option value="2">หน่วยงานรัฐ</option>
