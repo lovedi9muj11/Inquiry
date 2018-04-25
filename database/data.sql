@@ -115,3 +115,8 @@ INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('098', 'ธ.
 
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('BANK_NAME', 'BANK_NAME', 'INITVALUE');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('VAT_RATE', 'VAT_RATE', 'INITVALUE');
+
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, groupType`,`serviceType`,`serviceDepartment`,`serviceName`,`category`) VALUES ('001', 'ธนาคารแห่งประเทศไทย', 'INITVALUE','serviceType','serviceDepartment','serviceName','category');
+
+
+

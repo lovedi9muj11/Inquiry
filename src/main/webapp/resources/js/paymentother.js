@@ -121,6 +121,7 @@ function hideShowdat() {
 function hideDetailPayment() {
 	$("#sinputServiceType").hide();
 	$("#sinputServiceDepartment").hide();
+	$("#sinputAmountbeforVat1").hide();
 	$("#sinputServiceName").hide();
 	$("#sinputServiceMoreData").hide();
 	$("#sinputServiceAmount").hide();
@@ -408,6 +409,10 @@ function buttonAddBillingList() {
 	if ($("#inputServiceDepartment").val() == "") {
 		$("#sinputServiceDepartment").show();
 		return $("#inputServiceDepartment").focus();
+	}
+	if ($("#inputAmountbeforVat1").val() == "") {
+		$("#sinputAmountbeforVat1").show();
+		return $("#inputAmountbeforVat1").focus();
 	}
 	if ($("#inputServiceName").val() == "") {
 		$("#sinputServiceName").show();

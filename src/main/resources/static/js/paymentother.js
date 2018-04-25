@@ -124,6 +124,7 @@ function hideDetailPayment() {
 	$("#sinputServiceName").hide();
 	$("#sinputServiceMoreData").hide();
 	$("#sinputServiceAmount").hide();
+	$("#sinputAmountbeforVat1").hide();
 	$("#moneyDedTxt").hide();
 
 	$("#creditTypeTxt").hide();
@@ -138,7 +139,7 @@ function hideDetailPayment() {
 	$("#bankNameTxt").hide();
 	$("#checkNoTxt").hide();
 	$("#dateCheckTxt").hide();
-	moneyCheckTxt
+	//moneyCheckTxt
 	$("#moneyCheckTxt").hide();
 
 	$("#moneyTranTxt").hide();
@@ -408,6 +409,10 @@ function buttonAddBillingList() {
 	if ($("#inputServiceDepartment").val() == "") {
 		$("#sinputServiceDepartment").show();
 		return $("#inputServiceDepartment").focus();
+	}
+	if ($("#inputAmountbeforVat1").val() == "") {
+		$("#sinputAmountbeforVat1").show();
+		return $("#inputAmountbeforVat1").focus();
 	}
 	if ($("#inputServiceName").val() == "") {
 		$("#sinputServiceName").show();
@@ -1146,10 +1151,10 @@ function addDataTablecreditTranPrice() {
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#creditTable").find('tbody').append(markup);
 
-	$("#creditNo").val("");
-	$("#creditPrice").val("");
-	$("#edcType").val("");
-	$("#creditType").val("");
+//	$("#creditNo").val("");
+//	$("#creditPrice").val("");
+//	$("#edcType").val("");
+//	$("#creditType").val("");
 }
 
 function sumTranPrice() {

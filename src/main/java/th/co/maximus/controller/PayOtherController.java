@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.core.utils.Utils;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentOtherService;
 import th.co.maximus.service.PaymentService;
 @Controller
@@ -29,10 +33,20 @@ public class PayOtherController {
 	private PaymentOtherService paymentOtherService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	MasterDataService masterDataService;
 
 	
 	 @RequestMapping(value = {"/payOther"}, method = RequestMethod.GET)
 	    public String payOther(Model model) {
+		 List<MasterDataBean> bankCodeList = new ArrayList<>();
+			List<MasterDataBean> bankNameList = new ArrayList<>();
+		 
+			bankCodeList = masterDataService.findAllByBankCode();
+			bankNameList = masterDataService.findAllByBankName();
+			
+			model.addAttribute("bankCode", bankCodeList);
+			model.addAttribute("bankName", bankNameList);
 	        return "payOther";
 	    }
 	 

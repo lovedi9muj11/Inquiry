@@ -1,6 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html >
 <jsp:include page="../layout/header.jsp"></jsp:include>
@@ -18,6 +20,16 @@
 <script src="${contextPath}/resources/js/utils.js"></script>
 <script src="${contextPath}/resources/js/paymentother.js"></script>
 <script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
+
+<% 
+List<MasterDataBean> masterBankCode = null;
+List<MasterDataBean> masterBankName = null;
+%>
+<% 
+masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
+masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
+%>
+
 </head>
 <body>
 	<div class="container-fluid">
@@ -62,14 +74,14 @@
 										<input type="hidden" name="vat" id="vat">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า
-													:</label>
+													:<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="custNo"
 														name="custNo" placeholder="เลขที่ลูกค้า">
 													<p id="sCustNo" style="color: red;">คุณยังไม่ได้กรอก
 														เลขที่ลูกค้า</p>
 												</div>
-												<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
+												<label class="col-sm-2 control-label right" for="custName">ชื่อ:<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="custName"
 														name="custName" placeholder="ชื่อ">
@@ -90,7 +102,7 @@
 										<div class="form-horizontal">
 											<div class="form-group left">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :</label>
+													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
 														name="userGroup">
@@ -110,25 +122,20 @@
 													คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
 
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">สาขา :</label>
+													for="formGroupInputLarge">สาขา :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
-													<select class="form-control" id="custBrach"
-														name="custBrach">
-														<option value="">-- กรุณาเลือก --</option>
-														<option value="นนทุบรี -แคราย">นนทุบรี -แคราย</option>
-														<option value="แจ้งวัฒนะ">แจ้งวัฒนะ</option>
-														<option value="เชียงราย">เชียงราย</option>
-													</select>
+													<input class="form-control" id="custBrach"
+														name="custBrach" type="text" maxlength="5">
 													<p id="scustBrach" style="color: red;">
 														คุณยังไม่ได้กรอก สาขา</p>
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">VAT RATE :</label>
+													for="formGroupInputLarge">VAT RATE :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="vatrate" name="vatrate">
 														<option value="7">7%</option>
 														<option value="0">0%</option>
-														<option value="3">3%</option>
+														<option value="Non VAT">Non VAT</option>
 
 													</select>
 												</div>
@@ -137,7 +144,7 @@
 										<div class="form-horizontal">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ที่อยู่ :</label>
+													for="formGroupInputLarge">ที่อยู่ :<span style="color: red;">*</span></label>
 												<div class="col-sm-6">
 													<textarea class="form-control" rows="3" id="custAddress"
 														name="custAddress"></textarea>
@@ -163,7 +170,7 @@
 							<div role="tabpanel" class="tab-pane active" id="tab_1">
 								<div class="form-horizontal">
 									<div class="form-group">
-										<label class="control-label col-sm-2">ประเภทรายได้ :</label>
+										<label class="control-label col-sm-2">ประเภทรายได้ :<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select id="inputServiceType" name="inputServiceType"
 												class="form-control">
@@ -178,7 +185,7 @@
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
-											:</label>
+											:<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select id="inputServiceDepartment" class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
@@ -196,10 +203,19 @@
 											<p id="sinputServiceDepartment" style="color: red;">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
 										</div>
+										<label class="control-label col-sm-2">เงินส่วนลดก่อน VAT :</label>
+										<div class="col-sm-2">
+										<div class="input-group">
+     									<div class="input-group-addon">฿</div>
+										<input id="inputAmountbeforVat1" name="inputAmountbeforVat1" class="form-control" >
+										</div>
+												<p id="sinputAmountbeforVat1" style="color: red;">
+												คุณยังไม่ได้กรอก เงินส่วนลดก่อน VAT </p>
+										</div>
 										
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">ชื่อบริการ :</label>
+										<label class="control-label col-sm-2">ชื่อบริการ :<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
@@ -213,19 +229,37 @@
 											<p id="sinputServiceName" style="color: red;">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>
 										</div>
-										<label class="control-label col-sm-2">จำนวนรายการ :</label>
+										<label class="control-label col-sm-2">จำนวนรายการ :<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" 
 												name="inputServiceMoreData" class="form-control" value="1">
 											<p id="sinputServiceMoreData" style="color: red;">
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
+										<div class="col-sm-1">
+											<select class="form-control" id=""
+												name="">
+												<option value="ไม่เลือก">ไม่เลือก</option>
+												<option value="ชุด">ชุด</option>
+												<option value="ครั้ง">ครั้ง</option>
+												<option value="เล่ม">เล่ม</option>
+											</select>
+										</div>
+										<label class="control-label col-sm-1">ส่วนลดพิเศษ :</label>
+										<div class="col-sm-2">
+										<div class="input-group">
+     									<div class="input-group-addon">฿</div>
+										<input id="" name="" class="form-control" >
+											
+												</div>
+											
+										</div>
 
 										
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">จำนวนเงินต่อหน่วย ก่อน vat
-											:</label>
+											:<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceAmount" 
 												name="inputServiceAmount" class="form-control numeric2point">
@@ -333,6 +367,15 @@
 										<div class="form-horizontal">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
+													for="formGroupInputLarge">เลขที่เอกสาร:</label>
+												<div class="col-sm-6">
+													<input class="form-control numeric2point" type="text"
+														id="#" name="#"
+														placeholder="เลขที่เอกสาร">
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">จำนวนเงิน :</label>
 												<div class="col-sm-6">
 													<input class="form-control numeric2point" type="text"
@@ -427,6 +470,7 @@
 												</div>
 											</div>
 										</div>
+										
 										<div id="credit">
 											<div class="form-horizontal">
 												<div class="form-group">
@@ -460,9 +504,9 @@
 														<select class="form-control" id="edcType"
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
-															<option value="ktb">ธนาคารกรุงไทย</option>
-															<option value="scb">ธนาคารไทยพานิชย์</option>
-															<option value="kbk">ธนาคารกสิกรไทย</option>
+															<%for(int i=0; i<masterBankName.size(); i++){ %>
+																<option  value="<%=masterBankName.get(i).getText() %>"><%=masterBankName.get(i).getText() %></option>
+															<%} %>
 														</select>
 														<p id="edcTypeTxt" style="color: red;">คุณยังไม่ได้เลือก ธนาคารเจ้าของเครื่อง
 														(EDC)</p>
@@ -507,7 +551,7 @@
 												</div>
 											</div>
 										</div>
-
+										
 										<div id="check">
 											<div class="form-horizontal">
 												<div class="form-group">
@@ -517,9 +561,9 @@
 														<select class="form-control" id="bankNo"
 															name="paymentTranPrice.bankNo" onchange="findBank()">
 															<option value="">กรุณาเลือก</option>
-															<option value="001">001</option>
-															<option value="002">002</option>
-															<option value="003">003</option>
+															<%for(int i=0; i<masterBankCode.size(); i++){ %>
+																<option value="<%=masterBankCode.get(i).getValue() %>"><%=masterBankCode.get(i).getText() %></option>
+															<%} %>
 														</select>
 														<p id="bankNoTxt" style="color: red;">คุณยังไม่ได้เลือก รหัสธนาคาร</p>
 													</div>
@@ -541,9 +585,9 @@
 														<select class="form-control" id="bankName"
 															name="paymentTranPrice.bankName" onchange="findBankNo()">
 															<option value="">กรุณาเลือก</option>
-															<option value="ktb">ธนาคารกรุงไทย</option>
-															<option value="scb">ธนาคารไทยพานิชย์</option>
-															<option value="kbk">ธนาคารกสิกรไทย</option>
+															<%for(int i=0; i<masterBankName.size(); i++){ %>
+																<option id="nameBank"  value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText() %></option>
+															<%} %>
 														</select>
 														<p id="bankNameTxt" style="color: red;">คุณยังไม่ได้เลือก ชื่อธนาคาร </p>
 													</div>
@@ -739,6 +783,17 @@
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
+													for="formGroupInputLarge">ส่วนลดพิเศษ :</label>
+												<div class="col-sm-3">
+													<input class="form-control" type="text" id="salespacial"
+														readonly="" value="0.00" >
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-7"></div>
+											<div class="form-group ">
+												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
@@ -790,7 +845,7 @@
 											</div>
 										</div>
 
-										<div class="row">
+										<div class="row" style="display: none;">
 
 											<div class="form-group ">
 												<div class="col-sm-7"></div>
@@ -845,7 +900,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="row" style="display: none;">
 
 											<div class="form-group ">
 												<div class="col-sm-6"></div>
