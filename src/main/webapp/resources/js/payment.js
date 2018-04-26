@@ -20,6 +20,10 @@ $(document).ready(function() {
 			$("#balanceSummary").keyup(function() {
 			    // keydown code
 				var result = FormatMoneyShowToNumber($("#balanceSummary").val());
+				var bable = parseFloat(result.toFixed(2).replace(",", ""));
+				if(bable < 0 || !bable){
+					bable = 0;
+				}
 //				if(bal == ""){
 //					bal = parseFloat(0).toFixed(2);
 //				}
@@ -33,11 +37,11 @@ $(document).ready(function() {
 				var vatCo = parseFloat(107);
 				var vatRq = parseFloat(0);
 				
-				summaryT = parseFloat(result * parseFloat(vatRQ));
+				summaryT = parseFloat(bable * parseFloat(vatRQ));
 				vat = parseFloat(summaryT / vatCo);
 				
 				
-				beforeVat = parseFloat(result - vat);
+				beforeVat = parseFloat(bable - vat);
 				summary = parseFloat(beforeVat + vat);
 				
 				
@@ -52,13 +56,13 @@ $(document).ready(function() {
 				$("#vatsShow").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 				// Summary
-				$("#balanceSummarys").val( parseFloat(result).toFixed(2));
-				$("#balanceSummaryShow").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#balanceSummarys").val( parseFloat(bable).toFixed(2));
+				$("#balanceSummaryShow").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 				
-				$("#moneyTran").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#creditPrice").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				$("#moneyCheck").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyTran").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#creditPrice").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyCheck").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 				
 				
@@ -72,7 +76,7 @@ $(document).ready(function() {
 				}
 				
 				
-				if(balanOfTax < result){
+				if(balanOfTax < bable){
 //					alert("ยอดที่ต้องชำระมากกว่า ยอดใบแจ้งหนี้ กรุณากรอกใหม่");
 					$("#sBalanceSummary").show();
 					return $("#balanceSummary").focus();
@@ -148,12 +152,15 @@ $(document).ready(function() {
 			  
 			  $("#taxOnly").keyup(function() {
 					var result = FormatMoneyShowToNumber($("#taxOnly").val());
-					
+					var bable = parseFloat(result.toFixed(2).replace(",", ""));
+					if(bable < 0 || !bable){
+						bable = 0;
+					}
 					
 					var balanSum = FormatMoneyShowToNumber($("#balanceSummary").val());
 					var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
 					
-					var total = balanSum - result;
+					var total = balanSum - bable;
 					
 					$("#balanceSummarys").val(total);
 					$("#balanceSummaryShow").val(total.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -302,7 +309,6 @@ function vatAmount(){
 
 function hideShowdat(){
 	 $("#sCustName").hide();
-	 $("#sCustNo").hide();
 	 $("#suserGroup").hide();
 	 $("#sdebtCollection").hide();
 	 $("#sinvoiceNo").hide();
@@ -320,6 +326,7 @@ function hideShowdat(){
 	 $("#sstartupDate1").hide();
 	 $("#sendDate1").hide();
 	 $("#sBalanceSummary").hide();
+	 $("#sCustNo").hide();
 	 
 	 
 }
@@ -426,14 +433,11 @@ function submitForm(){
 	}
 	
 	
-	if($("#custName").val() == ""){
-		$("#sCustName").show();
-		return $("#custName").focus();
-	}
 	if($("#custNo").val() == ""){
 		$("#sCustNo").show();
 		return $("#custNo").focus();
 	}
+
 
 
 	if($("#userGroup").val() == ""){
@@ -1193,7 +1197,18 @@ function validateCheck(){
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
 //	document.getElementById("addRow").disabled = true;
-
+	var balanceOfTaxPrice = document.getElementById("balanceOfTaxPrice").value;
+	var balanceSummary = document.getElementById("balanceSummary").value;
+	var balance = parseFloat(balanceOfTaxPrice.replace(",", ""));
+	var summary =  parseFloat(balanceSummary.replace(",", ""));
+	
+	
+	if(balance < summary){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+		$("#sBalanceSummary").hide();
+		return $("#balanceSummary").focus();
+	}
+	
 	if (result == 'credit') {
 		addDataSumCreditTranPrice();
 	} else if (result == 'money') {

@@ -75,10 +75,10 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 														<input class="form-control" type="text" id="custNo"name="custNo" placeholder="เลขที่ลูกค้า">
 														<p id="sCustNo" style="color: red;"> คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
 													</div>
-												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:<span style="color: red;">*</span></label>
+												<label class="col-sm-2 control-label right"	for="custName">ชื่อ:</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="custName"	name="custName" placeholder="ชื่อ">
-													<p id="sCustName" style="color: red;"> คุณยังไม่ได้กรอกชื่อ</p>
+													
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">Tax ID :</label>
@@ -202,7 +202,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">VAT RATE : <span style="color: red;">*</span></label>
+													for="formGroupInputLarge">VAT RATE : </label>
 												<div class="col-sm-2">
 													<select class="form-control" id="vatrate" name="vatrate" onchange="findvatAmount()">
 														<option value="7">7%</option>
@@ -705,31 +705,31 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													<input class="form-control" type="text" id="remark"
 														name="remark">
 												</div>
-												<div class="col-sm-3"></div>
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด
-													:</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="hidden"
-														id="beforeSale" readonly="">
-												</div>
-												<div class="col-sm-3">
-													<input class="form-control numeric2point" type="text"
-														id="beforeSaleShow" readonly="">
-												</div>
+<!-- 												<div class="col-sm-3"></div> -->
+<!-- 												<label class="col-sm-2 control-label right" -->
+<!-- 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด -->
+<!-- 													:</label> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control" type="hidden" -->
+<!-- 														id="beforeSale" readonly=""> -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control numeric2point" type="text" -->
+<!-- 														id="beforeSaleShow" readonly=""> -->
+<!-- 												</div> -->
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-sm-7"></div>
-											<div class="form-group ">
-												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ส่วนลด :</label>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="sale"
-														readonly="" value="0.00" >
-												</div>
-											</div>
-										</div>
+<!-- 										<div class="row"> -->
+<!-- 											<div class="col-sm-7"></div> -->
+<!-- 											<div class="form-group "> -->
+<!-- 												<label class="col-sm-2 control-label right" -->
+<!-- 													for="formGroupInputLarge">ส่วนลด :</label> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control" type="text" id="sale" -->
+<!-- 														readonly="" value="0.00" > -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
@@ -790,11 +790,11 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="form-group ">
 												<div class="col-sm-7"></div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton" readonly="">
+													<input type="radio" id="radioButton" readonly="" name="radioButton">
 													รับภาระภาษีเต็มจำนวน
 												</div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButtons" readonly="">
+													<input type="radio" id="radioButtons" readonly="" name="radioButton">
 													รับภาระภาษีบางส่วน
 												</div>
 												<div class="col-sm-3">

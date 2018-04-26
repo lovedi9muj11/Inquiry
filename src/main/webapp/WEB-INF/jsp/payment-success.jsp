@@ -60,7 +60,7 @@
 					<div class="form-group">
 						<div class="col-md-12 col-sm-12">
 							<div class="panel">
-								<div class="panel-heading" style="background-color: #ee7600;">สรุปรายการหัก</div>
+								<div class="panel-heading" style="background-color: #ee7600;">ผลการรับชำระ</div>
 								<div class="panel-body" align="center">
 									<table class="table" id="showResultTable" align="center">
 										<thead align="center">
