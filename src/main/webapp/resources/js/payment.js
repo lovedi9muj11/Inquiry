@@ -81,7 +81,39 @@ $(document).ready(function() {
 				}
 				
 			});
-			  $('input:radio').change(function() {
+			  $('#radioButton').change(function() {
+				  $("#mi-modal").modal('show');
+				  $("#modal-btn-si").on("click", function(){
+					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
+					  $.ajax({
+		      		        type: "POST",
+		      		        url: "/cancelPayment/checkAuthentication",
+		      		        data: JSON.stringify(dataSend),
+		      		        dataType: "json",
+		      		        async: false,
+		      		        contentType: "application/json; charset=utf-8",
+		      		        success: function (res) {
+		      		        	if(res){
+		      		        		document.getElementById("taxOnly").readOnly = false;
+		      		        		document.getElementById("radioButton").disabled = true;
+		      		        		document.getElementById("radioButtons").disabled = true;
+		      		        	}else{
+		      		        		
+		      		        		alert("กรุณาตรวจสอบข้อมูลของท่านใหม่");
+		      		        	}
+		      		        	
+		      		        }
+					  });
+					    $("#mi-modal").modal('hide');
+					  });
+					  
+					  $("#modal-btn-no").on("click", function(){
+//					    callback(false);
+					    $("#mi-modal").modal('hide');
+					 });
+					  $("input:radio").removeAttr("checked");
+			    });
+			  $('#radioButtons').change(function() {
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
