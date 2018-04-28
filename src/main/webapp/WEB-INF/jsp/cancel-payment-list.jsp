@@ -80,10 +80,12 @@
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table id="cancelPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
+							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true" cellspacing="0" width="100%">
 								<thead>
 							        <tr>
-							         	<th style="text-align: center;">#</th>  				                         
+							         	<th style="text-align: center;"></th>  
+								        <th style="text-align: center;"></th>  
+								        <th style="text-align: center;">#</th>   				                         
 						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
 						                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
 						                <th style="text-align: center;">วันที่ทำรายการ</th>
@@ -94,7 +96,6 @@
 						                <th style="text-align: center;">สถานที่รับชำระ</th>
 						                <th style="text-align: center;">ผู้รับชำระ</th>
 						                <th style="text-align: center;">สถานะ</th>
-						                <th style="text-align: center;"></th>					             
 							        </tr>
 						    	</thead>
 							</table>

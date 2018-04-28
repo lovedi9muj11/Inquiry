@@ -25,19 +25,26 @@ $(document).ready(function () {
     addCssLi('1');
     search();
     
-    $('#cancelPaymentTB tbody').on( 'click', '#btn-confirm', function () {
-    	 $("#mi-modal").modal('show');
-    	 	var data = tableInit.row( $(this).parents('tr') ).data();
-    	 	idRow = data[0];
-       	 	console.log(idRow);
+    $('#cancelPaymentTB tbody').on('change', ':radio', function() {
+    	 	$("#mi-modal").modal('show');
+            idRow = parseInt($('input[name="select"]:checked').val());
+    	 	//var data = tableInit.data();
+       	 	//console.log(idRow);
+//       	 $.each( tableInit.data(), function(key, value) {
+//       		 if(valueOfRadio == value[3]){
+//       			idRow = tableInit.data()[key];
+//          		 console.log(key);
+//           		 console.log(value);
+//       		 }
+//
+//       	 });
 //    	 dataSelect = tableInit.row( $(this).parents('tr') ).data();
         
     });
     $('#btn2').click(function(){
     	console.log("sssssssssssssssssssssssssss");
     });
-    
-    $('#cancelPaymentTB tbody').on('click', '#btn', function () {
+    function clickInvoiceDetail(){
         var tr = $(this).closest('tr');
         var row = tableInit.row(tr);
 
@@ -49,6 +56,26 @@ $(document).ready(function () {
         else {
             // Open this row
             row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    	
+    };
+    $('#cancelPaymentTB tbody').on('click', '#invoice', function () {
+        var tr = $(this).closest('tr');
+        var row = tableInit.row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            $("#icon").removeClass("glyphicon glyphicon-minus");
+            $("#icon").addClass("glyphicon glyphicon-plus");
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child(format(row.data())).show();
+            $("#icon").removeClass("glyphicon glyphicon-plus");
+            $("#icon").addClass("glyphicon glyphicon-minus");
             tr.addClass('shown');
         }
     });
@@ -219,7 +246,9 @@ function clearCriteria(){
 };
 
 function createRow(data, seq, table) {
-	no = data.manualId
+	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'">'
+	invoice =  '<a name="invoice" id="invoice"><span name="icon'+seq+'" id="icon'+seq+'" class="glyphicon glyphicon-plus"></a>'
+	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr;
 	dateMake = data.createDateStr;
@@ -239,7 +268,7 @@ function createRow(data, seq, table) {
 	sumTotal =  data.amount + data.vatAmount;
 	
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, colBotton, vatAmount, sumTotal]).draw(true).node();
+    var rowNode = tableInit.row.add([radioSelect, invoice, no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal, colBotton]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('left');
     $(rowNode).find('td').eq(1).addClass('left');
 
@@ -248,7 +277,7 @@ function createRow(data, seq, table) {
 function createRowSelect(data, seq, table) {
 	customerAddress = data.customerAddress;
 	userFullName = data.customerName;
-	no = data.manualId
+	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr;
 	dateMake = data.createDateStr;
