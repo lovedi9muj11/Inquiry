@@ -14,5 +14,9 @@ public interface MasterDataService {
 	List<GroupTypeDropdown> findAll();
 	public int insert(MasterDataBean masterDataBean);
 	public int insertGroup(MasterDataBean masterDataBean);
+	public List<MasterDataBean> findAllByServiceType();
+	public List<MasterDataBean> findAllByServiceDepartment();
+	public List<MasterDataBean> findAllByServiceName();
+	public List<MasterDataBean> findAllByCategory();
 	
 }

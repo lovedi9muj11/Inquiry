@@ -101,5 +101,26 @@ public class MasterDataServiceImpl implements MasterDataService{
 		
 		return masterId;
 	}
+	
+	@Override
+	public List<MasterDataBean> findAllByServiceType() {
+		List<MasterDataBean> masterDataList = masterDataDao.findAllByServiceType();
+		return masterDataList;
+	}
+	@Override
+	public List<MasterDataBean> findAllByServiceDepartment() {
+		List<MasterDataBean> masterDataList = masterDataDao.findAllByServiceDepartment();
+		return masterDataList;
+	}
+	@Override
+	public List<MasterDataBean> findAllByServiceName() {
+		List<MasterDataBean> masterDataList = masterDataDao.findAllByServiceName();
+		return masterDataList;
+	}
+	@Override
+	public List<MasterDataBean> findAllByCategory() {
+		List<MasterDataBean> masterDataList = masterDataDao.findAllByCategory();
+		return masterDataList;
+	}
 
 }

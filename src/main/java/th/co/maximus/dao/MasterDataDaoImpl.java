@@ -105,4 +105,35 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		int newUserId = keyHolder.getKey().intValue();
 		return newUserId;
 	}
+	
+	@Override
+	public List<MasterDataBean> findAllByServiceType() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.groupType = 'SERVICETYPE'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	
+	@Override
+	public List<MasterDataBean> findAllByServiceDepartment() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.groupType = 'SERVICEDEPARTMENT'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	
+	@Override
+	public List<MasterDataBean> findAllByServiceName() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.groupType = 'SERVICENAME'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	@Override
+	public List<MasterDataBean> findAllByCategory() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.groupType = 'CATEGORY'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
 }

@@ -14,5 +14,9 @@ public interface MasterDataDao {
 	List<MasterDataBean> findAll();
 	public int insertMasterdata(MasterDataBean masterDataBean);
 	public int insertMasterdataGroup(MasterDataBean masterDataBean);
+	public List<MasterDataBean> findAllByServiceType();
+	public List<MasterDataBean> findAllByServiceDepartment();
+	public List<MasterDataBean> findAllByServiceName();
+	public List<MasterDataBean> findAllByCategory();
 
 }

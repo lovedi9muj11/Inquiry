@@ -41,12 +41,25 @@ public class PayOtherController {
 	    public String payOther(Model model) {
 		 List<MasterDataBean> bankCodeList = new ArrayList<>();
 			List<MasterDataBean> bankNameList = new ArrayList<>();
+			List<MasterDataBean> categoryList = new ArrayList<>();
+			List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
+			List<MasterDataBean> serviceNameList = new ArrayList<>();
+			List<MasterDataBean> serviceTypeList = new ArrayList<>();
 		 
 			bankCodeList = masterDataService.findAllByBankCode();
 			bankNameList = masterDataService.findAllByBankName();
+			categoryList = masterDataService.findAllByCategory();
+			serviceDepartmentList = masterDataService.findAllByServiceDepartment();
+			serviceNameList = masterDataService.findAllByServiceName();
+			serviceTypeList = masterDataService.findAllByServiceType();
 			
+			System.out.println("[Ae] xx : "+serviceTypeList.get(0).getText());
 			model.addAttribute("bankCode", bankCodeList);
 			model.addAttribute("bankName", bankNameList);
+			model.addAttribute("serviceType", serviceTypeList);
+			model.addAttribute("serviceName", serviceNameList);
+			model.addAttribute("serviceDepartment", serviceDepartmentList);
+			model.addAttribute("category", categoryList);
 	        return "payOther";
 	    }
 	 
