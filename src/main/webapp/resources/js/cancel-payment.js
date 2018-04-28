@@ -28,17 +28,6 @@ $(document).ready(function () {
     $('#cancelPaymentTB tbody').on('change', ':radio', function() {
     	 	$("#mi-modal").modal('show');
             idRow = parseInt($('input[name="select"]:checked').val());
-    	 	//var data = tableInit.data();
-       	 	//console.log(idRow);
-//       	 $.each( tableInit.data(), function(key, value) {
-//       		 if(valueOfRadio == value[3]){
-//       			idRow = tableInit.data()[key];
-//          		 console.log(key);
-//           		 console.log(value);
-//       		 }
-//
-//       	 });
-//    	 dataSelect = tableInit.row( $(this).parents('tr') ).data();
         
     });
     $('#btn2').click(function(){
