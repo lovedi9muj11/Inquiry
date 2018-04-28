@@ -24,10 +24,18 @@
 <% 
 List<MasterDataBean> masterBankCode = null;
 List<MasterDataBean> masterBankName = null;
+List<MasterDataBean> masterServicetype = null; 
+List<MasterDataBean> masterServiceDepartment = null; 
+List<MasterDataBean> masterServiceName = null; 
+List<MasterDataBean> masterCategory = null; 
 %>
 <% 
 masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
 masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
+masterServicetype = (List<MasterDataBean>) request.getAttribute("serviceType"); 
+masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment"); 
+masterServiceName = (List<MasterDataBean>) request.getAttribute("serviceName"); 
+masterCategory = (List<MasterDataBean>) request.getAttribute("category"); 
 %>
 
 </head>
@@ -135,7 +143,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													<select class="form-control" id="vatrate" name="vatrate">
 														<option value="7">7%</option>
 														<option value="0">0%</option>
-														<option value="Non VAT">Non VAT</option>
+														<option value="0">Non VAT</option>
 
 													</select>
 												</div>
@@ -175,11 +183,9 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<select id="inputServiceType" name="inputServiceType"
 												class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
-												<option value="ประเภทรายได้ 1">ประเภทรายได้ 1</option>
-												<option value="ประเภทรายได้ 2">ประเภทรายได้ 2</option>
-												<option value="ประเภทรายได้ 3">ประเภทรายได้ 3</option>
-												<option value="ประเภทรายได้ 4">ประเภทรายได้ 4</option>
-												<option value="ประเภทรายได้ 5">ประเภทรายได้ 5</option>
+												<%for(int i=0; i<masterServicetype.size(); i++){ %>
+																<option  value="<%=masterServicetype.get(i).getText() %>"><%=masterServicetype.get(i).getText() %></option>
+															<%} %>
 											</select>
 											<p id="sinputServiceType" style="color: red;">
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
@@ -187,18 +193,11 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
 											:<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
-											<select id="inputServiceDepartment" class="form-control">
+											<select id="inputServiceDepartment"  name="inputServiceDepartment" class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
-												<option value="หน่วยงานรับรายได้ 1">
-													หน่วยงานรับรายได้ 1</option>
-												<option value="หน่วยงานรับรายได้ 2">
-													หน่วยงานรับรายได้ 2</option>
-												<option value="หน่วยงานรับรายได้  3">
-													หน่วยงานรับรายได้ 3</option>
-												<option value="หน่วยงานรับรายได้  4">
-													หน่วยงานรับรายได้ 4</option>
-												<option value="หน่วยงานรับรายได้ 5">
-													หน่วยงานรับรายได้ 5</option>
+												<%for(int i=0; i<masterServiceDepartment.size(); i++){ %>
+																<option  value="<%=masterServiceDepartment.get(i).getText() %>"><%=masterServiceDepartment.get(i).getText() %></option>
+															<%} %>
 											</select>
 											<p id="sinputServiceDepartment" style="color: red;">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
@@ -207,10 +206,9 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<div class="col-sm-2">
 										<div class="input-group">
      									<div class="input-group-addon">฿</div>
-										<input id="inputAmountbeforVat1" name="inputAmountbeforVat1" class="form-control" >
+										<input id="inputServiceDiscount" name="inputServiceDiscount" class="form-control" />
 										</div>
-												<p id="sinputAmountbeforVat1" style="color: red;">
-												คุณยังไม่ได้กรอก เงินส่วนลดก่อน VAT </p>
+												
 										</div>
 										
 									</div>
@@ -220,11 +218,9 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
 												<option value="">-- กรุณาเลือก --</option>
-												<option value="ชื่อบริการ 1">ชื่อบริการ 1</option>
-												<option value=" ชื่อบริการ 2">ชื่อบริการ 2</option>
-												<option value="ชื่อบริการ  3">ชื่อบริการ 3</option>
-												<option value="ชื่อบริการ  4">ชื่อบริการ 4</option>
-												<option value="ชื่อบริการ  5">ชื่อบริการ 5</option>
+												<%for(int i=0; i<masterServiceName.size(); i++){ %>
+																<option  value="<%=masterServiceName.get(i).getText() %>"><%=masterServiceName.get(i).getText() %></option>
+															<%} %>
 											</select>
 											<p id="sinputServiceName" style="color: red;">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>
@@ -239,20 +235,17 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 										<div class="col-sm-1">
 											<select class="form-control" id=""
 												name="">
-												<option value="ไม่เลือก">ไม่เลือก</option>
-												<option value="ชุด">ชุด</option>
-												<option value="ครั้ง">ครั้ง</option>
-												<option value="เล่ม">เล่ม</option>
+												<%for(int i=0; i<masterCategory.size(); i++){ %>
+																<option  value="<%=masterCategory.get(i).getText() %>"><%=masterCategory.get(i).getText() %></option>
+															<%} %>
 											</select>
 										</div>
 										<label class="control-label col-sm-1">ส่วนลดพิเศษ :</label>
 										<div class="col-sm-2">
 										<div class="input-group">
      									<div class="input-group-addon">฿</div>
-										<input id="" name="" class="form-control" >
-											
-												</div>
-											
+										<input id="inputSpecialDiscount" name="inputSpecialDiscount" class="form-control" />
+										</div>
 										</div>
 
 										
@@ -301,14 +294,12 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 														<th>#</th>
 														<th>ประเภทบริการ</th>
 														<th>ชื่อบริการ</th>
-														<th>หน่วยรับรายได้</th>
 														<th>จำนวนรายการ</th>
-														<th>จำนวนเงินต่อหน่วย ก่อน vat</th>
-														<!-- <th>เงินส่วนลดก่อน vat</th> -->
+														<th>จำนวนเงินต่อหน่วย (ก่อน vat)</th>
+														<th>เงินส่วนลดก่อน VAT </th>
+														<th>ส่วนลดพิเศษ </th>
 														<th>ภาษีมูลค่าเพิ่ม</th>
-														<!-- <th>ส่วนลดพิเศษ</th> -->
 														<th>ยอดเงินรวม</th>
-
 													</tr>
 												</thead>
 												<tbody>
@@ -354,7 +345,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												</div>
 											</div>
 										</div>
-										<div class="form-horizontal hidden">
+										<div class="form-horizontal ">
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">เลขที่เอกสาร :</label>
@@ -365,15 +356,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											</div>
 										</div>
 										<div class="form-horizontal">
-											<div class="form-group ">
-												<label class="col-sm-4 control-label right"
-													for="formGroupInputLarge">เลขที่เอกสาร:</label>
-												<div class="col-sm-6">
-													<input class="form-control numeric2point" type="text"
-														id="#" name="#"
-														placeholder="เลขที่เอกสาร">
-												</div>
-											</div>
+											
 											<div class="form-group ">
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -882,7 +865,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินรับมา :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden" id="balanceSum"
+													<input class="form-control " type="hidden" id="balanceSum"
 														readonly="">
 													<input class="form-control numeric2point" type="text" id="balanceSumShow"
 														readonly="">

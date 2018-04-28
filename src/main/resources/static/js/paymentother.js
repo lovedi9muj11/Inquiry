@@ -410,10 +410,7 @@ function buttonAddBillingList() {
 		$("#sinputServiceDepartment").show();
 		return $("#inputServiceDepartment").focus();
 	}
-	if ($("#inputAmountbeforVat1").val() == "") {
-		$("#sinputAmountbeforVat1").show();
-		return $("#inputAmountbeforVat1").focus();
-	}
+	
 	if ($("#inputServiceName").val() == "") {
 		$("#sinputServiceName").show();
 		return $("#inputServiceName").focus();
@@ -433,8 +430,8 @@ function buttonAddBillingList() {
 	var inputServiceName = $("#inputServiceName").val();
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
-	// var inputSpecialDiscount = $("#inputSpecialDiscount").val();
-	// var inputServiceDiscount = $("#inputServiceDiscount").val();
+	var inputAmountbeforVat1 = $("#inputAmountbeforVat1").val();
+	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var vatRate = $("#vatrate").val();
 
 	/*
@@ -458,32 +455,35 @@ function buttonAddBillingList() {
 	var count = parseFloat(0);
 	count = parseFloat(count + parseFloat(table));
 
-	var markup = "<tr><td>"
-			+ count
-			+ "</td><td>"
-			+ inputServiceType
-			+ "</td><td>"
-			+ "<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"
-			+ inputServiceName
-			+ "' />"
-			+ "</td><td>"
-			+ inputServiceDepartment
-			+ "</td><td>"
-			+ serviceMoreData
-			+ "</td>"
-			+ "<td>"
-			+ serviceAmount.toFixed(2).toString().replace(
-					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-			+ "</td><td>"
-			+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-					"$1,")
-			+ "</td><td>"
-			+ sumamount.toFixed(2).toString().replace(
-					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-			+ "</td><td><a onclick='deleteTableSale("
-			+ count
-			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
-	$("#sumtableBillingList").find('tbody').append(markup);
+//	var markup = "<tr><td>"
+//			+ count
+//			+ "</td><td>"
+//			+ inputServiceType
+//			+ "</td><td>"
+//			+ "<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"
+//			+ inputServiceName
+//			+ "' />"
+//			+ "</td><td>"
+//			+ serviceMoreData
+//			+ "</td><td>"
+//			+ serviceAmount.toFixed(2).toString().replace(
+//					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+//			+ "</td>"
+//			+ "<td>"
+//			+ inputAmountbeforVat1
+//			+ "</td>" 
+//			+"<td>" 
+//			+inputServiceDiscount
+//			+"</td>"
+//			+ "<td>"vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+//					"$1,")
+//			+ "</td><td>"
+//			+ sumamount.toFixed(2).toString().replace(
+//					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+//			+ "</td><td><a onclick='deleteTableSale("
+//			+ count
+//			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+//	$("#sumtableBillingList").find('tbody').append(markup);
 
 	/*
 	 * $("#inputServiceType").val(""); // หน่วยรับได้
