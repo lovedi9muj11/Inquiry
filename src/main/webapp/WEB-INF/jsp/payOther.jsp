@@ -89,7 +89,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													<p id="sCustNo" style="color: red;">คุณยังไม่ได้กรอก
 														เลขที่ลูกค้า</p>
 												</div>
-												<label class="col-sm-2 control-label right" for="custName">ชื่อ:<span style="color: red;">*</span></label>
+												<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="custName"
 														name="custName" placeholder="ชื่อ">
@@ -130,7 +130,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
 
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">สาขา :<span style="color: red;">*</span></label>
+													for="formGroupInputLarge">สาขา :</label>
 												<div class="col-sm-2">
 													<input class="form-control" id="custBrach"
 														name="custBrach" type="text" maxlength="5">
@@ -152,7 +152,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 										<div class="form-horizontal">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ที่อยู่ :<span style="color: red;">*</span></label>
+													for="formGroupInputLarge">ที่อยู่ :</label>
 												<div class="col-sm-6">
 													<textarea class="form-control" rows="3" id="custAddress"
 														name="custAddress"></textarea>
@@ -390,6 +390,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 															<tr>
 																<th>#</th>
 																<th>รายการหัก</th>
+																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
 															</tr>

@@ -294,32 +294,24 @@ function submitForm() {
 		$("#sCustNo").show();
 		return $("#custNo").focus();
 	}
-	if ($("#custName").val() == "") {
-		$("#sCustName").show();
-		return $("#custName").focus();
-	}
+//	if ($("#custName").val() == "") {
+//		$("#sCustName").show();
+//		return $("#custName").focus();
+//	}
 	if ($("#userGroup").val() == "") {
 		$("#suserGroup").show();
 		return $("#userGroup").focus();
 	}
-	if ($("#custBrach").val() == "") {
-		$("#scustBrach").show();
-		return $("#custBrach").focus();
-	}
+//	if ($("#custBrach").val() == "") {
+//		$("#scustBrach").show();
+//		return $("#custBrach").focus();
+//	}
 
-	// if($("#custNo").val() == ""){
-	// $("#sCustNo").show();
-	// return $("#custNo").focus();
-	// }
-
-	// if($("#taxId").val() == ""){
-	// $("#staxId").show();
-	// return $("#taxId").focus();
-	// }
-	if ($("#custAddress").val() == "") {
-		$("#scustAddress").show();
-		return $("#custAddress").focus();
-	}
+	
+//	if ($("#custAddress").val() == "") {
+//		$("#scustAddress").show();
+//		return $("#custAddress").focus();
+//	}
 
 	var dataSend = {
 		"custName" : $("#custName").val(),
@@ -582,11 +574,16 @@ function addRow() {
 	}
 	var docDed = $("#docDed").val();
 	var dmoney = $("#moneyDed").val();
+	var custNo = $("#custNo").val();
 	/*
 	 * if(invoiceNo == ""){ alert(" กรุณากรอกใหม่ !"); return
 	 * $("#invoiceNo").focus(); } if(docDed == ""){ alert("กรุณากรอกเลขที่เอกสาร
 	 * กรุณากรอกใหม่ !"); return $("#docDed").focus(); }
 	 */
+	if (custNo == "") {
+		$("#scustNo").show();
+		return $("#custNo").focus();
+	}
 	if (dmoney == "") {
 		$("#moneyDedTxt").show();
 		return $("#moneyDed").focus();
@@ -609,6 +606,8 @@ function addRow() {
 	}
 	var markup = "<tr><td>"
 			+ tdAutoNumber()
+			+ "</td><td>"
+			+ custNo
 			+ "</td><td>"
 			+ docDed
 			+ "</td><td>"
@@ -718,7 +717,7 @@ function addDataTableDed() {
 			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 			return;
 		}
-		var prict = result[3].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 				"$1,")
 		var numberRun = number + i;
 		var markup = "<tr><td>"
@@ -1448,9 +1447,15 @@ function replaseIndexV3(str) {
 		$("#balanceSummaryShow").val(
 				sumtotal.toFixed(2).toString().replace(
 						/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-		// var sumtableBillingList =
-		// document.getElementById("sumtableBillingList");
-		// replaseIndexV4(sumtableBillingList);
+		$("#creditPrice").val(
+				sumtotal.toFixed(2).toString().replace(
+						/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyCheck").val(
+				sumtotal.toFixed(2).toString().replace(
+						/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//		 var sumtableBillingList =
+//		 document.getElementById("sumtableBillingList");
+//		 replaseIndexV4(sumtableBillingList);
 	} else {
 		$("#balanceSummarys").val(0.00);
 		var sumtableBillingList = document
