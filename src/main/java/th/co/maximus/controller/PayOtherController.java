@@ -53,7 +53,6 @@ public class PayOtherController {
 			serviceNameList = masterDataService.findAllByServiceName();
 			serviceTypeList = masterDataService.findAllByServiceType();
 			
-			System.out.println("[Ae] xx : "+serviceTypeList.get(0).getText());
 			model.addAttribute("bankCode", bankCodeList);
 			model.addAttribute("bankName", bankNameList);
 			model.addAttribute("serviceType", serviceTypeList);

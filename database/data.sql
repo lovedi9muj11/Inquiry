@@ -117,6 +117,31 @@ INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('BANK_NAME',
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('VAT_RATE', 'VAT_RATE', 'INITVALUE');
 
 
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('001', 'ประเภทรับรายได้1', 'SERVICETYPE');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'ประเภทรับรายได้2', 'SERVICETYPE');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('003', 'ประเภทรับรายได้3', 'SERVICETYPE');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('004', 'ประเภทรับรายได้4', 'SERVICETYPE');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('005', 'ประเภทรับรายได้5', 'SERVICETYPE');
 
+
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('001', 'หน่วยรับรายได้1', 'SERVICEDEPARTMENT');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'หน่วยรับรายได้2', 'SERVICEDEPARTMENT');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('003', 'หน่วยรับรายได้3', 'SERVICEDEPARTMENT');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('004', 'หน่วยรับรายได้4', 'SERVICEDEPARTMENT');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('005', 'หน่วยรับรายได้5', 'SERVICEDEPARTMENT');
+
+
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('001', 'ชื่อบริการ1', 'SERVICENAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'ชื่อบริการ2', 'SERVICENAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('003', 'ชื่อบริการ3', 'SERVICENAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('004', 'ชื่อบริการ4', 'SERVICENAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('005', 'ชื่อบริการ5', 'SERVICENAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('006', 'ชื่อบริการ6', 'SERVICENAME');
+
+
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('001', 'ไม่เลือก', 'CATEGORY');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'ชุด', 'CATEGORY');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('003', 'เล่ม', 'CATEGORY');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('004', 'ครั้ง', 'CATEGORY');
 
 

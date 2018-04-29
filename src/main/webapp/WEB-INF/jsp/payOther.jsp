@@ -756,9 +756,13 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ส่วนลด :</label>
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control numeric2point" type="text" id="sales" -->
+<!-- 														readonly="" > -->
+<!-- 												</div> -->
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="sale"
-														readonly="" value="0.00" >
+													<input class="form-control numeric2point " type="text" id="sale"
+														readonly="" >
 												</div>
 											</div>
 										</div>
@@ -767,9 +771,13 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ส่วนลดพิเศษ :</label>
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control numeric2point" type="text" id="salespacials" -->
+<!-- 														readonly=""  > -->
+<!-- 												</div> -->
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="salespacial"
-														readonly="" value="0.00" >
+													<input class="form-control numeric2point" type="text"
+														id="salespacial" readonly="" >
 												</div>
 											</div>
 										</div>

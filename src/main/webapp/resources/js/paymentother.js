@@ -43,6 +43,12 @@ $(document).ready(
 			$("#balanceBeforeTaxsShow").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#sale").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#salespacial").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			
 			
 			
@@ -335,6 +341,7 @@ function submitForm() {
 		"summaryTax" : parseFloat($("#summaryTax").val().replace(",", "")),
 		"change" : $("#change").val(),
 		"sale" : $("#sale").val(),
+		"salespacial": $("#salespacial").val(),
 		"paymentBill" : listpaymentSaleRQ,
 		"paymentTax" : listpaymentTaxRQ,
 		"paymentTranPrice" : listpaymentTranPriceRQ
@@ -1440,6 +1447,8 @@ function replaseIndexV4(str) {
 	var sumInputmon = 0;
 	var beforeSaleShow = 0;
 	var vat = 0;
+	var spacial = 0;
+	var sale =0;
 	rows = str.getElementsByTagName('tr')
 	if (rows.length > 1) {
 		var i, j, cells, customerId;
@@ -1456,6 +1465,8 @@ function replaseIndexV4(str) {
 			cells[0].innerHTML = i;
 //			cells[9].innerHTML = "<a onclick='deleteTableSale(" + i
 //					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
+			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML);
+			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
 		}
 	}
 	$("#moneyTran").val(
@@ -1487,6 +1498,12 @@ function replaseIndexV4(str) {
 	$("#balanceOfTaxs").val(sumInputmon);
 	$("#balanceOfTaxsShow").val(
 			sumInputmon.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#sale").val(
+			sale.toFixed(2).toString().replace(
+					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#salespacial").val(
+			spacial.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 	totalSum();

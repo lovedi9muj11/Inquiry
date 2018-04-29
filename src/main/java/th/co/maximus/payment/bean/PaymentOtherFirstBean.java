@@ -30,11 +30,20 @@ public class PaymentOtherFirstBean implements Serializable{
 	private double summaryTax;
 	private double change;
 	private BigDecimal sale;
+	private BigDecimal salespacial;
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	
 	
+	
+	
+	public BigDecimal getSalespacial() {
+		return salespacial;
+	}
+	public void setSalespacial(BigDecimal salespacial) {
+		this.salespacial = salespacial;
+	}
 	public BigDecimal getSale() {
 		return sale;
 	}
