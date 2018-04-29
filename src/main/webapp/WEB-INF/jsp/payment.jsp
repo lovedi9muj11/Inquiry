@@ -267,7 +267,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceSummary"
 														name="balanceSummary" >
-														<p id="sBalanceSummary" style="color: red;"> คุณกรอกยอดที่ต้องชำระ มากกว่ายอดใบแจ้งหนี้</p>
+														<p id="sBalanceSummary" style="color: red;"> ยอดเงินของคุณ เกินยอดชำระจากใบแจ้งหนี้</p>
 												</div>
 											</div>
 										</div>
