@@ -619,8 +619,8 @@ function addRow() {
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
-	var moneyDed = $("#moneyDed").val("");
-	var docDed = $("#docDed").val("");
+//	var moneyDed = $("#moneyDed").val("");
+//	var docDed = $("#docDed").val("");
 };
 
 function myDeleteFunction(count) {
