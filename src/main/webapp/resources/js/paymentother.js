@@ -1171,10 +1171,10 @@ function addDataTablecreditTranPrice() {
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#creditTable").find('tbody').append(markup);
 
-	$("#creditNo").val("");
-	$("#creditPrice").val("");
-	$("#edcType").val("");
-	$("#creditType").val("");
+//	$("#creditNo").val("");
+//	$("#creditPrice").val("");
+//	$("#edcType").val("");
+//	$("#creditType").val("");
 }
 
 function sumTranPrice() {
