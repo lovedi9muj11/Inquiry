@@ -23,6 +23,12 @@ $(document).ready(
 			$("#moneyTran").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#creditPrice").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#moneyCheck").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#balanceBeforeTax").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -504,12 +510,12 @@ $("#sumtableBillingList").find('tbody').append(markup);
 	vatRQ = parseFloat(vat + vatRQ);
 	balanceBeforeTaxRQ = parseFloat(beforeVat + balanceBeforeTaxRQ);
 
-	$("#moneyCheck").val(
-			money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-					"$1,"));
-	$("#creditPrice").val(
-			money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-					"$1,"));
+//	$("#moneyCheck").val(
+//			money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+//					"$1,"));
+//	$("#creditPrice").val(
+//			money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+//					"$1,"));
 
 	$("#balanceBeforeTax").val(balanceBeforeTaxRQ.toFixed(2));
 	$("#vat").val(vatRQ.toFixed(2));
@@ -804,6 +810,7 @@ function addDataTableMoneyTranPrice() {
 	$("#sumTotalPriceTable").find('tbody').append(markup1);
 
 	$("#moneyTran").val("");
+	
 	var beq = $("#balanceSummarys").val();
 	var balan = parseFloat(beq.replace(",", ""));
 	var ceq = $("#balanceSummarys").val();
@@ -822,7 +829,9 @@ function addDataTableMoneyTranPrice() {
 	var sumPrice = parseFloat(sop.replace(",", ""));
 
 	$("#balanceSummarys").val(balan.toFixed(2));
-
+	$("#moneyTran").val(balan.toFixed(2));
+	$("#creditPrice").val(balan.toFixed(2));
+	$("#moneyCheck").val(balan.toFixed(2));
 	balanceS = parseFloat(balanceS + money + summaryTax);
 
 	if (parseFloat(sumPrice) < parseFloat(balanceS)) {
@@ -836,6 +845,8 @@ function addDataTableMoneyTranPrice() {
 		$("#balanceSumShow").val(
 				money.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	}
+	
+	
 
 	vatAmount();
 	disBtn();
@@ -912,6 +923,9 @@ function addDataSumCreditTranPrice() {
 
 		balan = parseFloat(balan) - price;
 		$("#balanceSummarys").val(balan.toFixed(2));
+		$("#moneyTran").val(balan.toFixed(2));
+		$("#creditPrice").val(balan.toFixed(2));
+		$("#moneyCheck").val(balan.toFixed(2));
 		balanceS = parseFloat(balanceS) + parseFloat(price);
 		$("#balanceSum").val(balanceS.toFixed(2));
 		$("#balanceSumShow").val(
@@ -990,6 +1004,9 @@ function addDataSumCheckTranPrice() {
 		var price = result[6].replace(",", "")
 		balan = parseFloat(balan) - parseFloat(price);
 		$("#balanceSummarys").val(balan.toFixed(2));
+		$("#moneyTran").val(balan.toFixed(2));
+		$("#creditPrice").val(balan.toFixed(2));
+		$("#moneyCheck").val(balan.toFixed(2));
 		balanceS = parseFloat(parseFloat(balanceS) + parseFloat(price));
 		$("#balanceSum").val(balanceS.toFixed(2));
 		$("#balanceSumShow").val(
@@ -1184,6 +1201,7 @@ function sumTranPrice() {
 	}
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	replaseIndex(tablesumTotals);
+	
 //	$("#balanceSum").val(s.toFixed(2));
 //	$("#balanceSumShow").val(
 //			s.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
