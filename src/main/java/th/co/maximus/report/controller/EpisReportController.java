@@ -161,7 +161,7 @@ public class EpisReportController {
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setCustName(invObject.getCustName());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
-		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN).add(exportPDFReport.getDiscountSpecial().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f",invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN).add(exportPDFReport.getDiscountSpecial().setScale(2, RoundingMode.HALF_DOWN))));
 		exportPDFReport.setCustomerAddress(invObject.getCustomerAddress());
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
@@ -183,8 +183,8 @@ public class EpisReportController {
 		
 		BigDecimal beforeVats = total.subtract(vat);
 		
-		exportPDFReport.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
-		exportPDFReport.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
+		exportPDFReport.setBeforeVatStr(String.format("%,.2f",beforeVats.setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setVatStr(String.format("%,.2f",vat.setScale(2, RoundingMode.HALF_DOWN)));
 		
 		String nameService = "";
 		nameService = invObject.getBracnCode() + invObject.getBranArea()+ invObject.getSouce();
@@ -210,9 +210,9 @@ public class EpisReportController {
 		
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", invObject.getDiscountSpecial()));
-		exportPDFReport.setVatStr(String.format("%,.2f", invObject.getVatRate()));
-		exportPDFReport.setBeforeVatStr(String.format("%,.2f", invObject.getVatRate()));
-		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f", invObject.getBalanceSummary()));
+//		exportPDFReport.setVatStr(String.format("%,.2f", invObject.getVatRate()));
+//		exportPDFReport.setBeforeVatStr(String.format("%,.2f", invObject.getVatRate()));
+//		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		
 		exportPDFReport.setPaymentCode(payCode);
 		exportPDFReport.setSouce(nameService);
