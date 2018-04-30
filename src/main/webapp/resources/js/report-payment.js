@@ -14,6 +14,7 @@ $(document).ready(function (){
 	});
 	initCriteria();
 	search();
+	dropdownUser();
 
 	
 });
@@ -123,4 +124,25 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(10).addClass('right');
     $(rowNode).find('td').eq(11).addClass('right');
     $(rowNode).find('td').eq(12).addClass('left');
+};
+
+function dropdownUser(){
+	var dataSend = { "username": "" };
+	$.ajax({
+        type: "POST",
+        url: "/userManageMent/search",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	  var $el = $("#authorities");
+              $el.empty();
+              $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
+              for(var a = 0, value = res.length; value>a ; a++){
+            	  $el.append($("<option>").attr('value',res[a].userName).text(res[a].userName));
+              }
+            	
+        }
+	})
 };

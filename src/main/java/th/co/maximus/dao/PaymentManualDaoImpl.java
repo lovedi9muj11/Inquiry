@@ -143,8 +143,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if(!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
 			sql.append(" AND PIM.VAT_RATE = ").append("'"+criteria.getVatRate()+"'");
 		}
-		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
-			sql.append(" AND PM.CREATE_BY = ").append("'"+criteria.getAccountId()+"'");
+		if(!"".equals(criteria.getUser()) && criteria.getUser() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'"+criteria.getUser()+"'");
 		}
 		if(!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
 			sql.append(" AND PIM.SERVICE_TYPE = ").append("'"+criteria.getServiceType()+"'");

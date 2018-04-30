@@ -171,7 +171,8 @@
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label>
 							<div class="col-md-10">
-								<input type="text" id="authorities" name="authorities" value="${pageContext.request.userPrincipal.name}" class="form-control" disabled/>
+								<select class="form-control" id="authorities" name="authorities"></select>
+								
 							</div>
 						</div>
 					</div>
