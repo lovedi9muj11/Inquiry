@@ -252,14 +252,26 @@ function createRow(data, seq, table) {
 	branchCode = data.branchCode;
 	createBy = data.createBy;
 	recordStatus = data.recordStatus;
-	colBotton = "<button id='btn' name='btn' class='btn btn-info'>รายละเอียด</button>   <button class='btn btn-default' id='btn-confirm' name='btn-confirm'>เลือก</button>";
+	//colBotton = "<button id='btn' name='btn' class='btn btn-info'>รายละเอียด</button>   <button class='btn btn-default' id='btn-confirm' name='btn-confirm'>เลือก</button>";
 	vatAmount = formatDouble(data.vatAmount,2);
 	sumTotal =  data.amount + data.vatAmount;
 	
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([radioSelect, invoice, no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal, colBotton]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
-    $(rowNode).find('td').eq(1).addClass('left');
+    var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
+    $(rowNode).find('td').eq(0).addClass('center').width('5px');
+    $(rowNode).find('td').eq(1).addClass('center').width('5px');
+    $(rowNode).find('td').eq(2).addClass('center').width('40px');
+    $(rowNode).find('td').eq(3).addClass('center').width('5px');
+    $(rowNode).find('td').eq(4).addClass('center').width('5px');
+    $(rowNode).find('td').eq(5).addClass('center').width('5px');
+    $(rowNode).find('td').eq(6).addClass('center').width('50px');
+    $(rowNode).find('td').eq(7).addClass('center').width('5px');
+    $(rowNode).find('td').eq(8).addClass('center').width('5px');
+    $(rowNode).find('td').eq(9).addClass('center').width('5px');
+    $(rowNode).find('td').eq(10).addClass('center').width('10px');
+    $(rowNode).find('td').eq(11).addClass('center').width('20px');
+    $(rowNode).find('td').eq(12).addClass('center').width('5px');
+    $(rowNode).find('td').eq(13).addClass('center').width('5px');
 
 };
 
@@ -285,8 +297,8 @@ function createRowSelect(data, seq, table) {
 	sumTotal =  data.amount + data.vatAmount;
 	tableSelect = $('#'+table).DataTable();
     var rowNode = tableSelect.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
-    $(rowNode).find('td').eq(1).addClass('left');
+    $(rowNode).find('td').eq(0).addClass('center');
+    $(rowNode).find('td').eq(1).addClass('center');
 
 };
 

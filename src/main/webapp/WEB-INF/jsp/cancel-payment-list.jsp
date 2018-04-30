@@ -83,8 +83,8 @@
 							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true" cellspacing="0" width="100%">
 								<thead>
 							        <tr>
-							         	<th style="text-align: center;"></th>  
-								        <th style="text-align: center;"></th>  
+							         	<th></th>  
+								        <th></th>  
 								        <th style="text-align: center;">#</th>   				                         
 						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
 						                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
