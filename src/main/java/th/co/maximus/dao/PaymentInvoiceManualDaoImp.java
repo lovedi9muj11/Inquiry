@@ -42,7 +42,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM payment_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A'");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' ORDER BY payment_m.CREATE_DATE DESC");
 			
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
