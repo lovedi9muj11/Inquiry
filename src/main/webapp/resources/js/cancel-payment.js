@@ -302,6 +302,8 @@ function createRowSelect(data, seq, table) {
 
 
 function format(d) {
+	sprintStr =  d[9].split(",");
+	invoice = parseFloat(sprintStr[0]+sprintStr[1]) - parseFloat(d[13])
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
 			    '<thead>'+
 			    '<tr>'+
@@ -315,10 +317,10 @@ function format(d) {
 			'<tbody>'+
 			    '<tr>'+
 			        '<th style="text-align: left;">'+'invoiceNo :'+d[4]+'</th>'+
-			        '<th style="text-align: right;">'+d[7]+'</th>'+
+			        '<th style="text-align: right;">'+invoice +'</th>'+
 			        '<th style="text-align: right;">'+"-"+'</th>'+
-			        '<th style="text-align: right;">'+d[12]+'</th>'+
 			        '<th style="text-align: right;">'+d[13]+'</th>'+
+			        '<th style="text-align: right;">'+d[9]+'</th>'+
 			    '</tr>'+
 			'</tbody>'
 		'</table>';
