@@ -416,21 +416,6 @@ function converDateToString(value){
 
 return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 };
-function dropdownUser(){
-	var dataSend = { "username": "" };
-	HoldOn.open();
-	$.ajax({
-        type: "POST",
-        url: "/userManageMent/search",
-        data: JSON.stringify(dataSend),
-        dataType: "json",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-        	console.log(res);
-        }
-	})
-};
 
 
 
