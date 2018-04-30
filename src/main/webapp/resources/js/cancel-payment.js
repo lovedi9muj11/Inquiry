@@ -10,7 +10,7 @@ $(document).ready(function () {
 	cancelPaymentTB = $('#cancelPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
-		"order": [[ 3, 'desc' ]],
+		"order": [[ 5, 'desc' ]],
 		"columnDefs": [ {
 			"searchable": false,
 //			"orderable": false,
@@ -56,15 +56,11 @@ $(document).ready(function () {
         if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
-            $("#icon").removeClass("glyphicon glyphicon-minus");
-            $("#icon").addClass("glyphicon glyphicon-plus");
             tr.removeClass('shown');
         }
         else {
             // Open this row
             row.child(format(row.data())).show();
-            $("#icon").removeClass("glyphicon glyphicon-plus");
-            $("#icon").addClass("glyphicon glyphicon-minus");
             tr.addClass('shown');
         }
     });
@@ -226,6 +222,7 @@ function search() {
                 }
         }
 	})
+	
 };
 
 function clearCriteria(){
@@ -239,8 +236,8 @@ function createRow(data, seq, table) {
 	invoice =  '<a name="invoice" id="invoice"><span name="icon'+seq+'" id="icon'+seq+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
-	createDate = data.createDateStr;
-	dateMake = data.createDateStr;
+	createDate = converDateToString(data.createDate);
+	dateMake = converDateToString(data.createDate);
 	invoiceNo = data.invoiceNo;
 	customer = data.customerName;
 	if(data.payType == 'F'){
@@ -280,8 +277,8 @@ function createRowSelect(data, seq, table) {
 	userFullName = data.customerName;
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
-	createDate = data.createDateStr;
-	dateMake = data.createDateStr;
+	createDate =converDateToString(data.createDate);
+	dateMake = converDateToString(data.createDate);
 	invoiceNo = data.invoiceNo;
 	customer = data.customerName;
 	if(data.payType == 'F'){
@@ -403,6 +400,20 @@ function modalConfirmReason(callback){
 	}
 
 };
+function converDateToString(value){
+	var d = new Date(value)
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear(),
+    hours = d.getHours(),
+    minutes = d.getMinutes(),
+    seconds = d.getSeconds();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
+}
 
 
 
