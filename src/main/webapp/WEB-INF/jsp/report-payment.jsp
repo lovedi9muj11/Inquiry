@@ -24,7 +24,7 @@
 
 <body>
 	<header class="header_page"></header>
-		
+		<input type="hidden" value="${pageContext.request.userPrincipal.name}" name="userLogin" id="userLogin">
 		<!-- main panel -->
 		<div style="padding: 30px 10px 50px 50px">
 			<h1 class="page-header"></h1>
@@ -172,7 +172,6 @@
 							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label>
 							<div class="col-md-10">
 								<select class="form-control" id="authorities" name="authorities"></select>
-								
 							</div>
 						</div>
 					</div>

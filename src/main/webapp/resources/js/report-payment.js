@@ -128,21 +128,25 @@ function createRow(data, seq) {
 
 function dropdownUser(){
 	var dataSend = { "username": "" };
-	$.ajax({
-        type: "POST",
-        url: "/userManageMent/search",
-        data: JSON.stringify(dataSend),
-        dataType: "json",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-        	  var $el = $("#authorities");
-              $el.empty();
-              $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
-              for(var a = 0, value = res.length; value>a ; a++){
-            	  $el.append($("<option>").attr('value',res[a].userName).text(res[a].userName));
-              }
-            	
-        }
-	})
+	var userLogin = $("#userLogin").val();
+	  var $el = $("#authorities");
+      $el.empty();
+     // $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
+      $el.append($("<option>").attr('value',userLogin).text(userLogin));
+      $el.prop( "disabled", true );
+//	$.ajax({
+//        type: "POST",
+//        url: "/userManageMent/search",
+//        data: JSON.stringify(dataSend),
+//        dataType: "json",
+//        async: false,
+//        contentType: "application/json; charset=utf-8",
+//        success: function (res) {
+//	        $el.empty();
+//	        $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
+//	        for(var a = 0, value = res.length; value>a ; a++){
+//	      	  $el.append($("<option>").attr('value',res[a].userName).text(res[a].userName));
+//	        }
+//        }
+//	})
 };
