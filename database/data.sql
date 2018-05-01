@@ -5,6 +5,7 @@ INSERT INTO `role` (`id`, `name`) VALUES ('3', 'user');
 INSERT INTO `user` (`id`, `password`, `username`) VALUES ('1', '$2a$10$ZAtx9YUEBQa0un9/DRuM2.EJ5HzISAdASZP7beScbgqw2LX846QhK', 'admins');
 INSERT INTO `user` (`id`, `password`, `username`) VALUES ('2', '$2a$10$ZAtx9YUEBQa0un9/DRuM2.EJ5HzISAdASZP7beScbgqw2LX846QhK', 'Epis1');
 INSERT INTO `user` (`id`, `password`, `username`) VALUES ('3', '$2a$10$ZAtx9YUEBQa0un9/DRuM2.EJ5HzISAdASZP7beScbgqw2LX846QhK', 'Epis11');
+INSERT INTO `user` (`id`, `password`, `username`) VALUES ('4', '$2a$10$ZAtx9YUEBQa0un9/DRuM2.EJ5HzISAdASZP7beScbgqw2LX846QhK', 'Epis12');
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
