@@ -132,7 +132,7 @@
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">รหัสบัญชี:</label>
 							<div class="col-md-10">
-								<input type="text" id="accountId" name="accountId" value="${pageContext.request.userPrincipal.name}" class="form-control" disabled/>
+								<select class="form-control" id="accountId" name="accountId"></select>
 							</div>
 
 						</div>

@@ -15,6 +15,7 @@ $(document).ready(function (){
 	initCriteria();
 	search();
 	dropdownUser();
+	deopdownAccount();
 
 	
 });
@@ -153,14 +154,34 @@ function dropdownUser(){
 	        	}
 	        }
         }
-	})
+	});
 	
 };
+function deopdownAccount(){
+	$.ajax({
+        type: "POST",
+        url: "/findGL_AccountMaster",
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	var $el = $("#accountId");
+            $el.empty();
+            $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
+	        for(var a = 0, s = res.length; s>a ; a++){
+	        	$el.append($("<option>").attr('value',res[a].value).text(res[a].text));
+	        }
+        }
+	});
+	
+}
 function generateDropDown(value){
 	var $el = $("#authorities");
     $el.empty();
     $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
     for(var a = 0, s = value.length; s>a ; a++){
-    	$el.append($("<option>").attr('value',value[a].userName).text(value[a].userName));
+    	if(value[a].roleCode == 'user '){
+    		$el.append($("<option>").attr('value',value[a].userName).text(value[a].userName));
+    	}
     }
 };
