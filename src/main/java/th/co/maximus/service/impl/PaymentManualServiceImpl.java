@@ -33,8 +33,8 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setBranchCode("001");
 			
 			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
-			if(resRQ > paymentBean.getBalanceSum()) {
-				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum());
+			if(resRQ > paymentBean.getBalanceOfTax()) {
+				paymentManualBean.setPaidAmount(paymentBean.getBalanceOfTax());
 			}else {
 				paymentManualBean.setPaidAmount(resRQ);
 			}
@@ -50,7 +50,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setChange(paymentBean.getChang());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
-			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
+			if(resRQ>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");
 			}else{
 				paymentManualBean.setPaytype("P");

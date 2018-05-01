@@ -92,12 +92,13 @@ public class PaymentServiceImpl implements PaymentService{
 				tmpInvoiceBean.setBeforVat(new BigDecimal(paymentBean.getBalanceBeforeTax()));
 				tmpInvoiceBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
 				
-				double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
-				if(resRQ > paymentBean.getBalanceSum()) {
-					tmpInvoiceBean.setPaidAmount(new BigDecimal(paymentBean.getBalanceSum()));
+				double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
+				if(resRQ > paymentBean.getBalanceOfTax()) {
+					tmpInvoiceBean.setPaidAmount(new BigDecimal(paymentBean.getBalanceOfTax()));
 				}else {
 					tmpInvoiceBean.setPaidAmount(new BigDecimal(resRQ));
 				}
+				tmpInvoiceBean.setChange(new BigDecimal(paymentBean.getChang()));
 				tmpInvoiceBean.setAmount(new BigDecimal(paymentBean.getAmountInvoice()));
 				tmpInvoiceBean.setVatRate(paymentBean.getVatrate());
 				tmpInvoiceBean.setCustomerName(paymentBean.getCustName());
@@ -112,7 +113,11 @@ public class PaymentServiceImpl implements PaymentService{
 				tmpInvoiceBean.setUpdateBy(profile.getUsername());
 				tmpInvoiceBean.setUpdateDate(new Timestamp(date.getTime()));
 				tmpInvoiceBean.setRecordStatus("A");
-				
+				if(paymentBean.getTaxOnly() == null) {
+					tmpInvoiceBean.setDiscount(0.00);
+				}else {
+					tmpInvoiceBean.setDiscount(paymentBean.getTaxOnly());
+				}
 				
 				tmpInvoiceService.insertTmpInvoice(tmpInvoiceBean);
 			}

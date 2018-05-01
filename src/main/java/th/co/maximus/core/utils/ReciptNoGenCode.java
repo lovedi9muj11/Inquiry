@@ -2,6 +2,7 @@ package th.co.maximus.core.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,7 @@ public class ReciptNoGenCode {
 	
 	public String genCodeRecipt(String docType) {
 		StringBuilder sql = new StringBuilder();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd", new Locale("en", "US" ));
 		String date = sdf.format(new Date());
 		
 		
@@ -34,7 +35,7 @@ public class ReciptNoGenCode {
 		String dates=convertDateString(dateS);
 		try {
 
-			sql.append(" SELECT COUNT(pm.RECEIPT_NO_MANUAL) AS ReciptCount FROM payment_manual pm ");
+			sql.append(" SELECT COUNT(pm.RECEIPT_NO_MANUAL) AS ReciptCount FROM receipt_manual pm ");
 			sql.append(" WHERE pm.CREATE_DATE >= ' ").append(convertDateString(date.toString()))
 					.append(" 00:00:00.000000' ");
 			sql.append(" AND pm.CREATE_DATE <= ' ").append(convertDateString(date.toString()))

@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `EPIS`; USE `EPIS`;
 DROP TABLE IF EXISTS `DEDUCTION_MANUAL`;
-DROP TABLE IF EXISTS `PAYMENT_MANUAL`;
-DROP TABLE IF EXISTS `TMPINVOICE`;
+DROP TABLE IF EXISTS `RECEIPT_MANUAL`;
+DROP TABLE IF EXISTS `PAYMENT_INVOICE`;
 DROP TABLE IF EXISTS `PAYMENT_INVOICE_MANUAL`;
 DROP TABLE IF EXISTS `TRSCREDITREF_MANUAL`;
 DROP TABLE IF EXISTS `TRSCHEQUEREF_MANUAL`;
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`DEDUCTION_MANUAL` (
 	MANUAL_ID BIGINT, PRIMARY KEY (DEDUCTION_MANUAL_ID)
 )DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_MANUAL` (
+CREATE TABLE IF NOT EXISTS `EPIS`.`RECEIPT_MANUAL` (
 	MANUAL_ID BIGINT NOT NULL AUTO_INCREMENT,
 	PAYMENT_ID BIGINT,
 	INVOICE_NO VARCHAR(30),
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_MANUAL` (
 	CHANG DECIMAL(14,4), PRIMARY KEY (MANUAL_ID)
 )DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
+CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_INVOICE` (
 	INV_ID BIGINT NOT NULL AUTO_INCREMENT,
 	MANUAL_ID BIGINT,
 	INVOICE_NO varchar(30) ,
@@ -81,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`TMPINVOICE` (
 	CREATE_DATE TIMESTAMP(6),
 	UPDATE_BY VARCHAR(20),
 	UPDATE_DATE TIMESTAMP(6),
-	RECORD_STATUS VARCHAR(20), 
+	RECORD_STATUS VARCHAR(20),
+	DISCOUNT decimal(14,4) ,
 	PRIMARY KEY (INV_ID) 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 )DEFAULT CHARSET=utf8;

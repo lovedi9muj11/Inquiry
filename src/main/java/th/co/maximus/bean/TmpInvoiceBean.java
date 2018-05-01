@@ -27,6 +27,7 @@ public class TmpInvoiceBean {
 	private String updateBy;
 	private Date updateDate;
 	private String recordStatus;
+	private Double discount;
 	public int getInvId() {
 		return invId;
 	}
@@ -166,6 +167,12 @@ public class TmpInvoiceBean {
 	}
 	public void setPaidAmount(BigDecimal paidAmount) {
 		this.paidAmount = paidAmount;
+	}
+	public Double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 	
 	

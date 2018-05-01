@@ -32,6 +32,7 @@ public class PaymentFirstBean implements Serializable{
 	private Date deadlines;
 	private Date invoiceDate;
 	private String custStatus;
+	private Double taxOnly;
 	private int vatrate;
 	private double balanceBeforeTax;
 	private double vat;
@@ -239,6 +240,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setAmountInvoice(double amountInvoice) {
 		this.amountInvoice = amountInvoice;
+	}
+	public Double getTaxOnly() {
+		return taxOnly;
+	}
+	public void setTaxOnly(Double taxOnly) {
+		this.taxOnly = taxOnly;
 	}
 	
 	
