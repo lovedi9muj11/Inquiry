@@ -421,28 +421,40 @@ function findTypePayment() {
 	}
 }
 
+//function findBank() {
+//	var bankNo = document.getElementById("bankNo").value;
+//	var bankName = document.getElementById("bankName").value;
+//	if (bankNo == "001") {
+//		$('#bankName').val("ktb");
+//	} else if (bankNo == "002") {
+//		$('#bankName').val("scb");
+//	} else if (bankNo == "003") {
+//		$('#bankName').val("kbk");
+//	}
+//}
+//
+//function findBankNo() {
+//	var bankNo = document.getElementById("bankNo").value;
+//	var bankName = document.getElementById("bankName").value;
+//	if (bankName == "ktb") {
+//		$('#bankNo').val("001");
+//	} else if (bankName == "scb") {
+//		$('#bankNo').val("002");
+//	} else if (bankName == "kbk") {
+//		$('#bankNo').val("003");
+//	}
+//}
 function findBank() {
 	var bankNo = document.getElementById("bankNo").value;
-	var bankName = document.getElementById("bankName").value;
-	if (bankNo == "001") {
-		$('#bankName').val("ktb");
-	} else if (bankNo == "002") {
-		$('#bankName').val("scb");
-	} else if (bankNo == "003") {
-		$('#bankName').val("kbk");
-	}
+		$('#bankName').val(bankNo);
+		$('#bankNo').val(bankNo);
 }
 
 function findBankNo() {
-	var bankNo = document.getElementById("bankNo").value;
 	var bankName = document.getElementById("bankName").value;
-	if (bankName == "ktb") {
-		$('#bankNo').val("001");
-	} else if (bankName == "scb") {
-		$('#bankNo').val("002");
-	} else if (bankName == "kbk") {
-		$('#bankNo').val("003");
-	}
+		$('#bankNo').val(bankName);
+		$('#bankName').val(bankName);
+
 }
 
 function buttonAddBillingList() {
