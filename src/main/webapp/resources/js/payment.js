@@ -857,22 +857,31 @@ function addDataTableMoneyTranPrice() {
 		if(changeRQ < 0){
 			changeRQ = parseFloat(0);
 		}
+		if(summaryTax ==""){
+			summaryTax = parseFloat(0);
+		}
 		
 		var sop = $("#balanceSummary").val();
 		var sumPrice = parseFloat(sop.replace(",", ""));
 		
 		$("#balanceSummarys").val(balan.toFixed(2));
 		
-		balanceS = parseFloat(balanceS + money +summaryTax);
+		balanceS = parseFloat(balanceS + money + (summaryTax *-1));
 		
 		if(parseFloat(sumPrice) < parseFloat(balanceS)){
 			//sumPrice = parseFloat(sumPrice) + parseFloat(money)
-			balanceS = balanceS - summaryTax;
+			balanceS = balanceS - (summaryTax *-1);
 			$("#balanceSum").val(parseFloat(balanceS).toFixed(2));
 			$("#balanceSumShow").val(balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}else{
-			$("#balanceSum").val(parseFloat(money).toFixed(2));
-			$("#balanceSumShow").val(money.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			var sumba = $("#balanceSum").val();
+			if(sumba == "" || sumba == 0){
+				sumba = parseFloat(0);
+			}
+			sumba = parseFloat(sumba) + parseFloat(money);
+			
+			$("#balanceSum").val(parseFloat(sumba).toFixed(2));
+			$("#balanceSumShow").val(sumba.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}
 		
 		
