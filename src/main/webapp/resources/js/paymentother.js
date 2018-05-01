@@ -1449,7 +1449,7 @@ function replaseIndexV1(str) {
 				continue;
 			}
 			cells[0].innerHTML = i;
-			cells[4].innerHTML = "<a onclick='myDeleteFunction(" + i
+			cells[5].innerHTML = "<a onclick='myDeleteFunction(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 	}
