@@ -958,6 +958,28 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 	    </div>
 	  </div>
 	</div>
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal-notauthen" >
+	  <div class="modal-dialog modal-sm" style="width:450px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Authentication</h4>
+	      </div>
+	      	<div class="modal-body">
+	      	
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-9 control-label">กรุณาตรวจสอบข้อมูลของท่านใหม่</label>
+						
+					</div>
+					
+				</div>
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-ok">ตกลง</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 			
 
 		</form>

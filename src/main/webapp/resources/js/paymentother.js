@@ -71,28 +71,26 @@ $(document).ready(
 		      		        success: function (res) {
 		      		        	if(res){
 		      		        		document.getElementById("inputSpecialDiscount").readOnly = false;
-		      		        		$("#userName").val("");
-		    					    $("#password").val("");
 		      		        	}else{
-		      		        		
-		      		        		alert("กรุณาตรวจสอบข้อมูลของท่านใหม่");
-		      		        		$("#userName").val("");
-		    					    $("#password").val("");
+		      		        		$("#mi-modal").modal('hide');
+		      		        		$("#mi-modal-notauthen").modal('show');
+		      		        	
 		      		        	}
 		      		        	
 		      		        }
 					  });
-					  $("#userName").val("");
-					    $("#password").val("");
 					    $("#mi-modal").modal('hide');
 					   
 					    
 					  });
 					  
 					  $("#modal-btn-no").on("click", function(){
-						  $("#userName").val("");
-						    $("#password").val("");
 					    $("#mi-modal").modal('hide');
+					    
+					    
+					 });
+					 $("#modal-btn-ok").on("click", function(){
+					    $("#mi-modal-notauthen").modal('hide');
 					    
 					    
 					 });
