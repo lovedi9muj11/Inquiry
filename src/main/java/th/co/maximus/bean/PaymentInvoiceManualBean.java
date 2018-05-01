@@ -32,7 +32,7 @@ public class PaymentInvoiceManualBean {
 	private Date invoiceDate;
 
 	private String 	department;
-	
+	private String serviceCode;
 	private  Integer quantity;           
 	private  String incometype;       
 	private  BigDecimal discountbeforvat;
@@ -43,7 +43,12 @@ public class PaymentInvoiceManualBean {
 	
 	
 	
-	
+	public String getServiceCode() {
+		return serviceCode;
+	}
+	public void setServiceCode(String serviceCode) {
+		this.serviceCode = serviceCode;
+	}
 	public String getServiceName() {
 		return serviceName;
 	}

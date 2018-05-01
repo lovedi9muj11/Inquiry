@@ -219,7 +219,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												name="inputServiceName">
 												<option value="">-- กรุณาเลือก --</option>
 												<%for(int i=0; i<masterServiceName.size(); i++){ %>
-																<option  value="<%=masterServiceName.get(i).getText() %>"><%=masterServiceName.get(i).getText() %></option>
+																<option  value="<%=masterServiceName.get(i).getValue() %>"><%=masterServiceName.get(i).getText() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceName" style="color: red;">

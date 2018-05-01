@@ -189,7 +189,6 @@ function hideDetailPayment() {
 	$("#bankNameTxt").hide();
 	$("#checkNoTxt").hide();
 	$("#dateCheckTxt").hide();
-	moneyCheckTxt
 	$("#moneyCheckTxt").hide();
 
 	$("#moneyTranTxt").hide();
@@ -269,6 +268,7 @@ function submitForm() {
 		listpaymentSale = {
 			"inputServiceType" : resultTblSale[h][1],
 			"inputServiceName" : resultTblSale[h][2],
+			"inputServiceCode" : resultTblSale[h][2],
 			"inputServiceMoreData" : resultTblSale[h][3],
 			"inputServiceAmount" : resultTblSale[h][4].replace(",", ""),
 			 "inputServiceDiscount" : resultTblSale[h][5],
@@ -482,7 +482,8 @@ function buttonAddBillingList() {
 	var table = document.getElementById("sumtableBillingList").rows.length;
 	var inputServiceType = $("#inputServiceType").val(); // หน่วยรับได้
 	var inputServiceDepartment = $("#inputServiceDepartment").val();
-	var inputServiceName = $("#inputServiceName").val();
+	var inputServiceCode = $("#inputServiceName").val();
+	var inputServiceName = $("#inputServiceName option:selected").text();
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
@@ -520,6 +521,9 @@ function buttonAddBillingList() {
 		+ "</td><td>"
 		+ "<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"
 		+ inputServiceName
+		+ "' />"
+		+ "<input class='form-control' type='text' id='serviceCodetxt'	name='serviceCodetxt'value='"
+		+ inputServiceCode
 		+ "' />"
 		+ "</td><td>"
 		+ serviceMoreData

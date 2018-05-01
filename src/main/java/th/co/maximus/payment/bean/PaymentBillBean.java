@@ -8,6 +8,7 @@ public class PaymentBillBean implements Serializable{
 
 	private String inputServiceType;
 	private String inputServiceName;
+	private String inputServiceCode;
 	private String inputServiceDepartment;
 	private int inputServiceMoreData;
 	private BigDecimal inputServiceAmount;
@@ -16,6 +17,12 @@ public class PaymentBillBean implements Serializable{
 	private BigDecimal inputSpecialDiscount;
 	private BigDecimal summarySale;
 	
+	public String getInputServiceCode() {
+		return inputServiceCode;
+	}
+	public void setInputServiceCode(String inputServiceCode) {
+		this.inputServiceCode = inputServiceCode;
+	}
 	public String getInputServiceType() {
 		return inputServiceType;
 	}

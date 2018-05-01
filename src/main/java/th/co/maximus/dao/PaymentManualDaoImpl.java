@@ -135,10 +135,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT *,  CASE PM.RECORD_STATUS WHEN 'A' THEN 'ปรกติ' WHEN 'N' THEN 'ชำระใหม่' ");
+		sql.append(" SELECT *,  CASE PM.RECORD_STATUS WHEN 'A' THEN 'ปกติ' WHEN 'N' THEN 'ชำระใหม่' ");
 		sql.append(" WHEN 'S' THEN 'ส่งออนไลน์สำเร็จ'  WHEN 'E' THEN 'เกิดข้อผิดพลาด' WHEN 'C' THEN 'ยกเลิกรายการ' ELSE '' END AS STATUS_NAME ");
 		sql.append(" FROM receipt_manual PM ");
-		sql.append(" INNER JOIN payment_invoice_manual PIM ON PM.INVOICE_NO = PIM.INVOICE_NO ");
+		sql.append(" INNER JOIN payment_invoice_manual PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'"+criteria.getDateFrom()+"'").append("  AND PM.CREATE_DATE <= ").append("'"+criteria.getDateTo()+"'");
 		if(!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
 			sql.append(" AND PIM.VAT_RATE = ").append("'"+criteria.getVatRate()+"'");
@@ -152,6 +152,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
 			sql.append(" AND PIM.SERVICECODE = ").append("'"+criteria.getAccountId()+"'");
 		}
+		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ");
 		return jdbcTemplate.query(sql.toString() , new reportPaymentMapper());
 	}
 	
