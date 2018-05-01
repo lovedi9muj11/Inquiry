@@ -145,4 +145,7 @@ INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'ช�
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('003', 'เล่ม', 'CATEGORY');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('004', 'ครั้ง', 'CATEGORY');
 
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('001', 'IBACSS', 'GL_ACCOUNT');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('002', 'Other', 'GL_ACCOUNT');
+
 

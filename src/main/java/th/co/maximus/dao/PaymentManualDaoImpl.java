@@ -150,7 +150,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			sql.append(" AND PIM.SERVICE_TYPE = ").append("'"+criteria.getServiceType()+"'");
 		}
 		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
-			sql.append(" AND PIM.SERVICENAME = ").append("'"+criteria.getAccountId()+"'");
+			sql.append(" AND PIM.SERVICECODE = ").append("'"+criteria.getAccountId()+"'");
 		}
 		return jdbcTemplate.query(sql.toString() , new reportPaymentMapper());
 	}
