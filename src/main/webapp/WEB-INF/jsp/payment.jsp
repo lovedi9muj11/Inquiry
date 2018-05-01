@@ -892,6 +892,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 						</div>
 					</div>
 				</div>
+				<p id="messError" style="color: red;"> กรุณาตรวจสอบความถูกต้อง</p>
 	     	</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="modal-btn-si">ตกลง</button>
