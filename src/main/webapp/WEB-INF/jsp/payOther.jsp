@@ -240,7 +240,11 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 															<%} %>
 											</select>
 										</div>
-										<label class="control-label col-sm-1">ส่วนลดพิเศษ :</label>
+										<div class="control-label col-sm-1" >
+													<i id="rbSpecialDiscount" class="glyphicon glyphicon-lock"></i>
+													<label class="control-label ">ส่วนลดพิเศษ :</label>
+												</div>
+										
 										<div class="col-sm-2">
 										<div class="input-group">
      									<div class="input-group-addon">฿</div>
@@ -923,6 +927,38 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 				</div>
 
 			</div>
+			
+			<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >
+	  <div class="modal-dialog modal-sm" style="width:450px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Authentication</h4>
+	      </div>
+	      	<div class="modal-body">
+	      	
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">user name</label>
+						<div class="col-md-9">
+							<input type="text" id="userName" name="userName" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label">password</label>
+						<div class="col-md-9">
+							<input type="password" id="password" name="password" class="form-control">
+						</div>
+					</div>
+				</div>
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-no">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+			
 
 		</form>
 	</div>

@@ -246,7 +246,7 @@ function createRow(data, seq, table) {
 		payType = 'บางส่วน';
 	}
 	amount = formatDouble(data.amount,2);
-	branchCode = data.branchCode;
+	branchCode = data.brancharea;
 	createBy = data.createBy;
 	recordStatus = data.recordStatus;
 	//colBotton = "<button id='btn' name='btn' class='btn btn-info'>รายละเอียด</button>   <button class='btn btn-default' id='btn-confirm' name='btn-confirm'>เลือก</button>";
@@ -287,7 +287,7 @@ function createRowSelect(data, seq, table) {
 		payType = 'บางส่วน';
 	}
 	amount = formatDouble(data.amount,2);
-	branchCode = data.branchCode;
+	branchCode = data.brancharea;
 	createBy = data.createBy;
 	recordStatus = data.recordStatus;
 	vatAmount = formatDouble(data.vatAmount,2);
@@ -316,7 +316,7 @@ function format(d) {
 			'</thead>'+
 			'<tbody>'+
 			    '<tr>'+
-			        '<th style="text-align: left;">'+'invoiceNo :'+d[4]+'</th>'+
+			        '<th style="text-align: left;">'+'invoiceNo :'+d[6]+'</th>'+
 			        '<th style="text-align: right;">'+invoice +'</th>'+
 			        '<th style="text-align: right;">'+"-"+'</th>'+
 			        '<th style="text-align: right;">'+d[13]+'</th>'+
@@ -415,7 +415,7 @@ function converDateToString(value){
 	if (day.length < 2) day = '0' + day;
 
 return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
-}
+};
 
 
 

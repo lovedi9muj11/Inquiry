@@ -99,7 +99,7 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell4.setCellValue(resultReportPayment.getCustomerName());
 				 cell5.setCellValue(resultReportPayment.getDepartment());
 				 cell6.setCellValue(resultReportPayment.getInvoiceNo());
-				 cell7.setCellValue(resultReportPayment.getCreateBy());
+				 cell7.setCellValue("");
 				 cell8.setCellValue("-");
 				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
 				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
