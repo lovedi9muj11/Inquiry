@@ -71,28 +71,26 @@ $(document).ready(
 		      		        success: function (res) {
 		      		        	if(res){
 		      		        		document.getElementById("inputSpecialDiscount").readOnly = false;
-		      		        		$("#userName").val("");
-		    					    $("#password").val("");
 		      		        	}else{
-		      		        		
-		      		        		alert("กรุณาตรวจสอบข้อมูลของท่านใหม่");
-		      		        		$("#userName").val("");
-		    					    $("#password").val("");
+		      		        		$("#mi-modal").modal('hide');
+		      		        		$("#mi-modal-notauthen").modal('show');
+		      		        	
 		      		        	}
 		      		        	
 		      		        }
 					  });
-					  $("#userName").val("");
-					    $("#password").val("");
 					    $("#mi-modal").modal('hide');
 					   
 					    
 					  });
 					  
 					  $("#modal-btn-no").on("click", function(){
-						  $("#userName").val("");
-						    $("#password").val("");
 					    $("#mi-modal").modal('hide');
+					    
+					    
+					 });
+					 $("#modal-btn-ok").on("click", function(){
+					    $("#mi-modal-notauthen").modal('hide');
 					    
 					    
 					 });
@@ -985,6 +983,7 @@ function addDataSumCreditTranPrice() {
 
 		vatAmount();
 		disBtn();
+		changeMoney(changeRQ);
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
 		document.getElementById("creditTable").deleteRow(i - 1);
@@ -1065,6 +1064,7 @@ function addDataSumCheckTranPrice() {
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		vatAmount();
 		disBtn();
+		changeMoney(changeRQ);
 	}
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
 		document.getElementById("checkTable").deleteRow(i - 1);
