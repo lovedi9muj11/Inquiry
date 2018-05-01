@@ -56,7 +56,48 @@ $(document).ready(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			
-			
+			document.getElementById("inputSpecialDiscount").readOnly = true;
+			$('#rbSpecialDiscount').click(function() {
+				  $("#mi-modal").modal('show');
+				  $("#modal-btn-si").on("click", function(){
+					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
+					  $.ajax({
+		      		        type: "POST",
+		      		        url: "/cancelPayment/checkAuthentication",
+		      		        data: JSON.stringify(dataSend),
+		      		        dataType: "json",
+		      		        async: false,
+		      		        contentType: "application/json; charset=utf-8",
+		      		        success: function (res) {
+		      		        	if(res){
+		      		        		document.getElementById("inputSpecialDiscount").readOnly = false;
+		      		        		$("#userName").val("");
+		    					    $("#password").val("");
+		      		        	}else{
+		      		        		
+		      		        		alert("กรุณาตรวจสอบข้อมูลของท่านใหม่");
+		      		        		$("#userName").val("");
+		    					    $("#password").val("");
+		      		        	}
+		      		        	
+		      		        }
+					  });
+					  $("#userName").val("");
+					    $("#password").val("");
+					    $("#mi-modal").modal('hide');
+					   
+					    
+					  });
+					  
+					  $("#modal-btn-no").on("click", function(){
+						  $("#userName").val("");
+						    $("#password").val("");
+					    $("#mi-modal").modal('hide');
+					    
+					    
+					 });
+					 
+			    });
 			
 		});
 
