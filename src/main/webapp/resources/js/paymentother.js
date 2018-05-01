@@ -983,6 +983,7 @@ function addDataSumCreditTranPrice() {
 
 		vatAmount();
 		disBtn();
+		changeMoney(changeRQ);
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
 		document.getElementById("creditTable").deleteRow(i - 1);
@@ -1063,6 +1064,7 @@ function addDataSumCheckTranPrice() {
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		vatAmount();
 		disBtn();
+		changeMoney(changeRQ);
 	}
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
 		document.getElementById("checkTable").deleteRow(i - 1);
