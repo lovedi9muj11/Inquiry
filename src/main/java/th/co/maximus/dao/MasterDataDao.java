@@ -18,5 +18,6 @@ public interface MasterDataDao {
 	public List<MasterDataBean> findAllByServiceDepartment();
 	public List<MasterDataBean> findAllByServiceName();
 	public List<MasterDataBean> findAllByCategory();
+	public List<MasterDataBean> findAllByGropType(String groupType);
 
 }

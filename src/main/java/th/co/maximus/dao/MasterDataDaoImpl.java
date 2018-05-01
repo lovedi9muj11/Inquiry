@@ -136,4 +136,13 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		sql.append(" WHERE ms.groupType = 'CATEGORY'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
+
+	@Override
+	public List<MasterDataBean> findAllByGropType(String groupType) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" WHERE ms.groupType = ");
+		sql.append("'"+groupType+"'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
 }

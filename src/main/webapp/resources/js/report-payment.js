@@ -15,6 +15,7 @@ $(document).ready(function (){
 	initCriteria();
 	search();
 	dropdownUser();
+	deopdownAccount();
 
 	
 });
@@ -89,7 +90,7 @@ function printReportPDF(){
 };
 
 function createRow(data, seq) {
-	manualId = data.manualId
+	manualId = seq+1;
 	serviceType = data.serviceType;
 	receiptNo = data.receiptNoManual;
 	accountSubNo = data.accountSubNo;
@@ -129,24 +130,58 @@ function createRow(data, seq) {
 function dropdownUser(){
 	var dataSend = { "username": "" };
 	var userLogin = $("#userLogin").val();
-	  var $el = $("#authorities");
-      $el.empty();
-     // $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
-      $el.append($("<option>").attr('value',userLogin).text(userLogin));
-      $el.prop( "disabled", true );
-//	$.ajax({
-//        type: "POST",
-//        url: "/userManageMent/search",
-//        data: JSON.stringify(dataSend),
-//        dataType: "json",
-//        async: false,
-//        contentType: "application/json; charset=utf-8",
-//        success: function (res) {
-//	        $el.empty();
-//	        $el.append($("<option></option>").attr("value", '').text('กรุณาเลือก'));
-//	        for(var a = 0, value = res.length; value>a ; a++){
-//	      	  $el.append($("<option>").attr('value',res[a].userName).text(res[a].userName));
-//	        }
-//        }
-//	})
+	var supervisor = false;
+
+	$.ajax({
+        type: "POST",
+        url: "/userManageMent/search",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+	        for(var a = 0, value = res.length; value>a ; a++){
+	        	if(userLogin == res[a].userName){
+	        		if(res[a].roleCode == 'sup '){
+	        			generateDropDown(res);
+	        		}else{
+	        		  var $el = $("#authorities");
+	        	      $el.empty();
+	        	      $el.append($("<option>").attr('value',userLogin).text(userLogin));
+	        	      $el.prop( "disabled", true );
+	        		}
+	        		break;
+	        	}
+	        }
+        }
+	});
+	
+};
+function deopdownAccount(){
+	$.ajax({
+        type: "POST",
+        url: "/findGL_AccountMaster",
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	var $el = $("#accountId");
+            $el.empty();
+            $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
+	        for(var a = 0, s = res.length; s>a ; a++){
+	        	$el.append($("<option>").attr('value',res[a].value).text(res[a].text));
+	        }
+        }
+	});
+	
+}
+function generateDropDown(value){
+	var $el = $("#authorities");
+    $el.empty();
+    $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
+    for(var a = 0, s = value.length; s>a ; a++){
+    	if(value[a].roleCode == 'user '){
+    		$el.append($("<option>").attr('value',value[a].userName).text(value[a].userName));
+    	}
+    }
 };

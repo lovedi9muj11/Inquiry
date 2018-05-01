@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.service.PaymentReportService;
 
 @Controller
@@ -19,6 +22,8 @@ public class ReportPaymentController {
 	
 	@Autowired
 	private PaymentReportService paymentReportService;
+	@Autowired
+	private MasterDataDao masterDataDao;
 
 	@RequestMapping(value = { "/reportPayment" }, method = RequestMethod.GET)
 	public String reportPayment(Model model) {
@@ -34,6 +39,12 @@ public class ReportPaymentController {
 	@ResponseBody
 	public List<ReportPaymentBean> reportPaymentCriteria(@RequestBody ReportPaymentCriteria creteria) {
 		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria);
+		return result;
+	}
+	@RequestMapping(value = { "/findGL_AccountMaster" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findDropdownAccountMaster() {
+		List<MasterDataBean> result = masterDataDao.findAllByGropType("GL_ACCOUNT");
 		return result;
 	}
 }
