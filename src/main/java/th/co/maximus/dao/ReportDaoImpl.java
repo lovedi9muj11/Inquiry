@@ -69,7 +69,7 @@ public class ReportDaoImpl implements ReportDao{
 			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" INNER JOIN trsmethod_manual tm ON tm.MANUAL_ID = py.MANUAL_ID");
 			sql.append(" WHERE py.RECEIPT_NO_MANUAL = ?");
-			sql.append(" GROUP BY pim.SERVICENAME ");
+			//sql.append(" GROUP BY pim.SERVICENAME ");
 			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
 			preparedStatement.setString(1, documentNo);
 			ResultSet resultSet = preparedStatement.executeQuery();

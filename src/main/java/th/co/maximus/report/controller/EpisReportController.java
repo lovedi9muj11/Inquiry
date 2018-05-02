@@ -207,6 +207,7 @@ public class EpisReportController {
 			printCollections.get(f).setBeforeDiscount(String.format("%,.2f", printCollections.get(f).getAmount()));
 			printCollections.get(f).setServiceNameStr(String.format( printCollections.get(f).getServiceName()));
 			printCollections.get(f).setDiscountbeforvatStr(String.format("%,.2f", printCollections.get(f).getDiscountbeforvat()));
+
 			
 		}
 		
