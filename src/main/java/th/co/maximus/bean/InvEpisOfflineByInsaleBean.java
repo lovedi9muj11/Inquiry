@@ -26,6 +26,8 @@ public class InvEpisOfflineByInsaleBean {
 	private String amountStr;
 	private String beforeDiscount;
 	private String runnumber;
+	private String discountbeforvatStr;
+	private String serviceNameStr;
 	
 	
 	
@@ -50,6 +52,8 @@ public class InvEpisOfflineByInsaleBean {
 		this.serviceName = serviceName;
 		this.amount = amount;
 		this.discountbeforvat = discountbeforvat;
+		
+		
 	}
 	
 	
@@ -195,6 +199,23 @@ public class InvEpisOfflineByInsaleBean {
 	public void setRunnumber(String runnumber) {
 		this.runnumber = runnumber;
 	}
+
+	public String getDiscountbeforvatStr() {
+		return discountbeforvatStr;
+	}
+
+	public void setDiscountbeforvatStr(String discountbeforvatStr) {
+		this.discountbeforvatStr = discountbeforvatStr;
+	}
+
+	public String getServiceNameStr() {
+		return serviceNameStr;
+	}
+
+	public void setServiceNameStr(String serviceNameStr) {
+		this.serviceNameStr = serviceNameStr;
+	}
+	
 
 
 	

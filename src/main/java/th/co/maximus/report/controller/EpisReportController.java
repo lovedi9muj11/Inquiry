@@ -166,9 +166,9 @@ public class EpisReportController {
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
-		exportPDFReport.setServiceName(invObject.getServiceName());
+		//exportPDFReport.setServiceName(invObject.getServiceName());
 		exportPDFReport.setAmount(invObject.getAmount());
-		exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat().setScale(2, RoundingMode.HALF_DOWN));
+		//exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat().setScale(2, RoundingMode.HALF_DOWN));
 		
 		exportPDFReport.setBalanceBefore(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		
@@ -205,14 +205,13 @@ public class EpisReportController {
 			printCollections.get(f).setRunnumber(String.valueOf(f+1));
 			printCollections.get(f).setAmountStr(String.format("%,.2f", printCollections.get(f).getAmount()));
 			printCollections.get(f).setBeforeDiscount(String.format("%,.2f", printCollections.get(f).getAmount()));
+			printCollections.get(f).setServiceNameStr(String.format( printCollections.get(f).getServiceName()));
+			printCollections.get(f).setDiscountbeforvatStr(String.format("%,.2f", printCollections.get(f).getDiscountbeforvat()));
 			
 		}
 		
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", invObject.getDiscountSpecial()));
-//		exportPDFReport.setVatStr(String.format("%,.2f", invObject.getVatRate()));
-//		exportPDFReport.setBeforeVatStr(String.format("%,.2f", invObject.getVatRate()));
-//		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		
 		exportPDFReport.setPaymentCode(payCode);
 		exportPDFReport.setSouce(nameService);

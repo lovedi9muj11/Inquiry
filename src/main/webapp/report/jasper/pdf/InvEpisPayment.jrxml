@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -13,11 +14,11 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
-	<style name="Cat_Ct_Common" isDefault="true" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
+	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
+	<style name="Cat_Ct_Common" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
 	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFReport"/>
 	<queryString>
 		<![CDATA[]]>
@@ -161,7 +162,7 @@
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงิน]]></text>
@@ -172,7 +173,7 @@
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<text><![CDATA[ลำดับ]]></text>
@@ -183,7 +184,7 @@
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<text><![CDATA[ชื่อบริการ]]></text>
@@ -194,7 +195,7 @@
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงินก่อนหักส่วนลด]]></text>
@@ -208,7 +209,7 @@
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<text><![CDATA[ส่วนลด]]></text>
@@ -228,7 +229,7 @@
 					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
 					<rightPen lineStyle="Dotted"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getSouce()]]></textFieldExpression>
@@ -241,7 +242,7 @@
 					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
 					<rightPen lineStyle="Dotted"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
@@ -254,21 +255,21 @@
 					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
 					<rightPen lineStyle="Dotted"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummary()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="0" y="0" width="124" height="20" uuid="f55d139b-fc60-4d6f-b6e3-39304743df9a"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="553" y="0" width="122" height="20" uuid="d2fd5ce4-9880-4f97-8164-4c722c262a67"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[0.00]]></text>

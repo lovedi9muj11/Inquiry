@@ -26,6 +26,9 @@
 	<field name="serviceName" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
 	</field>
+	<field name="serviceNameStr" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceNameStr]]></fieldDescription>
+	</field>
 	<field name="amountStr" class="java.lang.String">
 		<fieldDescription><![CDATA[amountStr]]></fieldDescription>
 	</field>
@@ -34,6 +37,9 @@
 	</field>
 	<field name="runnumber" class="java.lang.String">
 		<fieldDescription><![CDATA[runnumber]]></fieldDescription>
+	</field>
+	<field name="discountbeforvatStr" class="java.lang.String">
+		<fieldDescription><![CDATA[discountbeforvatStr]]></fieldDescription>
 	</field>
 	<pageHeader>
 		<band height="164">
@@ -245,7 +251,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="TH Sarabun New" size="14" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{serviceName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{serviceNameStr}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="399" y="1" width="149" height="23" backcolor="#FFFFFF" uuid="35314463-9e9b-46d9-9304-eb9535762185"/>
@@ -273,7 +279,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="TH Sarabun New" size="14" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountbeforvat()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{discountbeforvatStr}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
