@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -53,9 +54,13 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
 			if(resRQ > paymentBean.getBalanceSum()) {
 				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum());
+				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
 			}else {
 				paymentManualBean.setPaidAmount(resRQ);
+				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
+			paymentManualBean.setVatRate(0);
+			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());

@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
@@ -31,14 +33,15 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode("001");
-			
+			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
 			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
 			if(resRQ > paymentBean.getBalanceOfTax()) {
-				paymentManualBean.setPaidAmount(paymentBean.getBalanceOfTax());
+				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()));
 			}else {
-				paymentManualBean.setPaidAmount(resRQ);
+				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
-			
+			paymentManualBean.setVatRate(paymentBean.getVatrate());
+			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());

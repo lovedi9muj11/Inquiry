@@ -522,7 +522,7 @@ function buttonAddBillingList() {
 		+ "<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"
 		+ inputServiceName
 		+ "' />"
-		+ "<input class='form-control' type='text' id='serviceCodetxt'	name='serviceCodetxt'value='"
+		+ "<input class='form-control' type='hidden' id='serviceCodetxt'	name='serviceCodetxt'value='"
 		+ inputServiceCode
 		+ "' />"
 		+ "</td><td>"
