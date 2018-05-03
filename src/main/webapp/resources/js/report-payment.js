@@ -34,6 +34,10 @@ function initCriteria(){
 	$('#dateToMinute').val('59');
 	$('#vat').val('');
 	$('#categoryPayment').val('');
+	$("#authorities").val('');
+	$("#serviceType").val('');
+	$("#accountId").val('');
+	
 };
 
 function search(){

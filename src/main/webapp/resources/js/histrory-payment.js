@@ -40,8 +40,8 @@ function search(){
 function createRow(data, seq) {
 
 	no = seq + 1
-	paidDate = data.paidDateStr;
-	createDate = data.createDateStr;
+	paidDate = converDateToString(data.paidDate);
+	createDate = converDateToString(data.createDate);
 	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;
 	createBy = data.createBy;
@@ -77,5 +77,19 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(11).addClass('right');
     $(rowNode).find('td').eq(12).addClass('left');
     $(rowNode).find('td').eq(13).addClass('center');
+};
+function converDateToString(value){
+	var d = new Date(value)
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear(),
+    hours = d.getHours(),
+    minutes = d.getMinutes(),
+    seconds = d.getSeconds();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 };
 
