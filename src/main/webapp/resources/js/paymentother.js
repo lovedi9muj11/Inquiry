@@ -985,14 +985,14 @@ function addDataSumCreditTranPrice() {
 		$("#balanceSumShow").val(
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
-		vatAmount();
-		disBtn();
-		changeMoney(changeRQ);
+		
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
 		document.getElementById("creditTable").deleteRow(i - 1);
 	}
-
+	vatAmount();
+	disBtn();
+	changeMoney(changeRQ);
 }
 function addDataSumCheckTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
@@ -1066,13 +1066,14 @@ function addDataSumCheckTranPrice() {
 		$("#balanceSum").val(balanceS.toFixed(2));
 		$("#balanceSumShow").val(
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-		vatAmount();
-		disBtn();
-		changeMoney(changeRQ);
+		
 	}
 	for (var i = document.getElementById("checkTable").rows.length; i > 1; i--) {
 		document.getElementById("checkTable").deleteRow(i - 1);
 	}
+	vatAmount();
+	disBtn();
+	changeMoney(changeRQ);
 
 }
 
