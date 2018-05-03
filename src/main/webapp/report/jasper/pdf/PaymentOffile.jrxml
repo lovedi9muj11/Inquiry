@@ -19,7 +19,7 @@
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="25" y="11" width="485" height="23" uuid="01303cbb-7e66-4a61-9b1b-69f655189906"/>
 				<textElement textAlignment="Center">
-					<font fontName="TH Sarabun New" size="14" isBold="false" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="FreesiaUPC" size="14" isBold="false" />
 				</textElement>
 				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี HELLO WORLD]]></text>
 			</staticText>
