@@ -207,7 +207,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 													<select class="form-control" id="vatrate" name="vatrate" onchange="findvatAmount()">
 														<option value="7">7%</option>
 														<option value="0">0%</option>
-														<option value="0">NON%</option>
+														<option value="0">NON VAT</option>
 
 													</select>
 												</div>
