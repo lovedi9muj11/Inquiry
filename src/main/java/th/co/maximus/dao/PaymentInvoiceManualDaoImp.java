@@ -104,6 +104,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO ");
 		sql.append(" WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' AND payment_m.ACCOUNT_NO like ");
 		sql.append("'%"+ accountNo+ "%'");
+		sql.append("ORDER BY payment_m.CREATE_DATE DESC");
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
 
@@ -139,6 +140,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			sql.append(" payment_m.INVOICE_NO = ");
 			sql.append("'"+invoiceNo+"'");
 		}
+		sql.append(" ORDER BY payment_m.RECEIPT_NO_MANUAL DESC ");
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
 	}
 

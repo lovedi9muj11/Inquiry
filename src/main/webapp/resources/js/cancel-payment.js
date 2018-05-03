@@ -10,7 +10,7 @@ $(document).ready(function () {
 	cancelPaymentTB = $('#cancelPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
-		"order": [[ 5, 'desc' ]],
+		"order": [[ 2, 'asc' ]],
 		"columnDefs": [ {
 			"searchable": false,
 //			"orderable": false,
