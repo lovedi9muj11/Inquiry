@@ -77,7 +77,7 @@ INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('010', 'ธ�
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('011', 'ธ.ทหารไทย จำกัด (มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('012', 'ธ.ดีบีเอส ไทยทนุ จำกัด (มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('013', 'ธ.มหานคร (จำกัด)', 'BANK_NAME');
-INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('014', 'ธ.ไทยยพาณิชย์ จำกัด(มหาชน)', 'BANK_NAME');
+INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('014', 'ธ.ไทยพาณิชย์ จำกัด(มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('015', 'ธ.นครหลวงไทย จำกัด(มหาชน)', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('016', 'ธ.ซิตี้แบงค์,เอ็น.เอ.', 'BANK_NAME');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('017', 'ธ.ซูมิโตโม - มิตซุย แบงกิ้ง คอร์ปอเรชั่น', 'BANK_NAME');
