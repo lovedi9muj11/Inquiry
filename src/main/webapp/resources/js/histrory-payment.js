@@ -2,7 +2,7 @@ $(document).ready(function () {
 	histroryTB = $('#histroryPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
-		"order": [[ 2, 'asc' ]],
+//		"order": [[ 2, 'asc' ]],
 		"columnDefs": [ {
 			"searchable": false,
 //			"orderable": false
