@@ -718,7 +718,7 @@ function myDeleteDed(count) {
 				var oCells = table.rows.item(i).cells;
 				var total = parseFloat(oCells[3].innerHTML.replace(",", ""));
 				var balances = parseFloat(parseFloat(balance)
-						+ parseFloat(total));
+						+ parseFloat(total ));
 				if (balances < result) {
 					// balance = result;
 					$("#change").val(
@@ -790,7 +790,7 @@ function addDataTableDed() {
 				+ "</td><td>" + result[4] + "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
 		var prict1 = prict.replace(",", "");
-		balance = parseFloat(balance) - parseFloat(prict1);
+		balance = parseFloat(balance) - parseFloat(prict1 );
 
 	}
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
@@ -798,7 +798,7 @@ function addDataTableDed() {
 	}
 	$("#balanceSummarys").val(parseFloat(balance).toFixed(2).replace(",", ""));
 
-	// summaryTax();
+	 summaryTax();
 	// vatAmount();
 	replaseIndexV3(tableDed);
 }
@@ -886,11 +886,11 @@ function addDataTableMoneyTranPrice() {
 	$("#moneyTran").val(balan.toFixed(2));
 	$("#creditPrice").val(balan.toFixed(2));
 	$("#moneyCheck").val(balan.toFixed(2));
-	balanceS = parseFloat(balanceS + money + summaryTax);
+	balanceS = parseFloat(balanceS + money + (summaryTax));
 
 	if (parseFloat(sumPrice) < parseFloat(balanceS)) {
 		// sumPrice = parseFloat(sumPrice) + parseFloat(money)
-		balanceS = balanceS - summaryTax;
+		balanceS = balanceS - (summaryTax);
 		$("#balanceSum").val(balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSumShow").val(
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -974,6 +974,8 @@ function addDataSumCreditTranPrice() {
 		var ba3a = $("#balanceSummarys").val();
 		var balan = parseFloat(ba3a.replace(",", ""));
 		var price = result[4].replace(",", "")
+		
+		
 
 		balan = parseFloat(balan) - price;
 		$("#balanceSummarys").val(balan.toFixed(2));
@@ -984,7 +986,7 @@ function addDataSumCreditTranPrice() {
 		$("#balanceSum").val(balanceS.toFixed(2));
 		$("#balanceSumShow").val(
 				balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-
+		
 		
 	}
 	for (var i = document.getElementById("creditTable").rows.length; i > 1; i--) {
@@ -992,7 +994,8 @@ function addDataSumCreditTranPrice() {
 	}
 	vatAmount();
 	disBtn();
-	changeMoney(changeRQ);
+	
+	
 }
 function addDataSumCheckTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
@@ -1073,7 +1076,7 @@ function addDataSumCheckTranPrice() {
 	}
 	vatAmount();
 	disBtn();
-	changeMoney(changeRQ);
+	
 
 }
 
@@ -1303,8 +1306,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				var oCells = tablesumTotals.rows.item(i).cells;
 				var total = oCells[2].innerHTML.replace(",", "");
 				balance = parseFloat(parseFloat(balance) + parseFloat(total));
-				balanceSum = parseFloat(parseFloat(balanceSum)
-						- parseFloat(total))
+				balanceSum = parseFloat(parseFloat(balanceSum)- parseFloat(total))
 				if (parseFloat(balanceSum) < 0) {
 					balanceSum = parseFloat(0);
 				}
@@ -1328,16 +1330,16 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				// }
 				//				
 				// }
-
-				$("#moneyTran").val(
-						balance.toFixed(2).toString().replace(
-								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#moneyCheck").val(
 						balance.toFixed(2).toString().replace(
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#creditPrice").val(
 						balance.toFixed(2).toString().replace(
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				$("#moneyTran").val(
+						balance.toFixed(2).toString().replace(
+								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				
 
 				
 				vatAmount();
