@@ -10,6 +10,7 @@ INSERT INTO `user` (`id`, `password`, `username`) VALUES ('4', '$2a$10$ZAtx9YUEB
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('3', '3');
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('4', '3');
 
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('N', 'NON_VAT', 'VAT_RATE');
 INSERT INTO `MASTER_DATA` (`valueKey`, `text`, `groupType`) VALUES ('0', '0', 'VAT_RATE');
