@@ -4,6 +4,7 @@ var dataSelect;
 var idRow;
 var userFullName = '';
 var customerAddress = '';
+var clearing;
 $(document).ready(function () {
     console.log("ready!");
 
@@ -19,6 +20,7 @@ $(document).ready(function () {
 	});
     $("#error").hide();
     $("#success").hide();
+    $("#notClear").hide();
     hidePanel()
     showPanel('1');
     removeCssLi();
@@ -28,6 +30,7 @@ $(document).ready(function () {
     $('#cancelPaymentTB tbody').on('change', ':radio', function() {
     	 	$("#mi-modal").modal('show');
             idRow = parseInt($('input[name="select"]:checked').val());
+            clearing = $('input[name="clearing"]').val();
         
     });
     $('#btn2').click(function(){
@@ -123,7 +126,10 @@ $(document).ready(function () {
 
     	};
     	modalConfirm(function(confirm){
-      	  if(confirm){
+    	    $("#error").hide();
+    	    $("#success").hide();
+    	    $("#notClear").hide();
+      	  if(confirm && clearing != 'Y'){
       		cancelPaymentTB.clear().draw();
       			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
       			$.ajax({
@@ -170,15 +176,21 @@ $(document).ready(function () {
       		        	    addCssLi('1');
       		        	    search();
       		        	}
-      		        	$('#userName').val('');
-      		        	$('#password').val('');
+      		        	
       		        }
       			});
       			
 
       	  }else{
-      		  
-      	  }           	
+      		$("#notClear").show();
+      	    hidePanel()
+      	    showPanel('1');
+      	    removeCssLi();
+      	    addCssLi('1');
+      	    search();
+      	  }
+      	$('#userName').val('');
+      	$('#password').val('');
       }); 
 });
 
@@ -232,7 +244,7 @@ function clearCriteria(){
 };
 
 function createRow(data, seq, table) {
-	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'">'
+	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
 	invoice =  '<a name="invoice" id="invoice"><span name="icon'+seq+'" id="icon'+seq+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
@@ -248,7 +260,11 @@ function createRow(data, seq, table) {
 	amount = formatDouble(data.amount,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
-	recordStatus = data.recordStatus;
+	if(data.recordStatus == 'A'){
+		recordStatus = 'ปรกติ';
+	}else if(data.recordStatus == 'C'){
+		recordStatus = 'ยกเลิก';
+	}
 	//colBotton = "<button id='btn' name='btn' class='btn btn-info'>รายละเอียด</button>   <button class='btn btn-default' id='btn-confirm' name='btn-confirm'>เลือก</button>";
 	vatAmount = formatDouble(data.vatAmount,2);
 	sumTotal =  data.amount + data.vatAmount;
