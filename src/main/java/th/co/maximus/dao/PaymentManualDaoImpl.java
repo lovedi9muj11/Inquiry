@@ -130,6 +130,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
 			paymentManual.setPaytype(rs.getString("PAY_TYPE"));
 			paymentManual.setDocType(rs.getString("DOCTYPE"));
+			paymentManual.setChange(rs.getDouble("CHANG"));
+			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
+			paymentManual.setVatRate(rs.getInt("VAT_RATE"));
+			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			return paymentManual;
 		}
 

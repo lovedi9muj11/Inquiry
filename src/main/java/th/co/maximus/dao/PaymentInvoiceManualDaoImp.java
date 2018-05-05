@@ -226,6 +226,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentInvoice.setSource(rs.getString("SOURCE"));
 			paymentInvoice.setInvoiceNo(rs.getString("INVOICE_NO"));
 			paymentInvoice.setBeforVat(rs.getDouble("BEFOR_VAT"));
+			paymentInvoice.setVatAmount(rs.getInt("VAT_AMOUNT"));
 			paymentInvoice.setAmount(rs.getDouble("AMOUNT"));
 			paymentInvoice.setVatRate(rs.getInt("VAT_RATE"));
 			paymentInvoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
@@ -249,6 +250,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentInvoice.setDiscountspecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
 			paymentInvoice.setAmounttype(rs.getString("AMOUNTTYPE"));
 			paymentInvoice.setDepartment(rs.getString("DEPARTMENT"));
+			paymentInvoice.setServiceName(rs.getString("SERVICENAME"));
+			paymentInvoice.setServiceCode(rs.getString("SERVICECODE"));
+			paymentInvoice.setInvoiceDate(rs.getDate("INVOICE_DATE"));
 			return paymentInvoice;
 		}
 

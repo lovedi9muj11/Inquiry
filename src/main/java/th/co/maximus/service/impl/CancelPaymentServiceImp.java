@@ -97,6 +97,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 						paymentManualBean.setAccountNo(resultPaymentManual.getAccountNo());
 						paymentManualBean.setPaytype(resultPaymentManual.getPaytype());
 						paymentManualBean.setDocType(resultPaymentManual.getDocType());
+						paymentManualBean.setChange(resultPaymentManual.getChange());
+						paymentManualBean.setAmount(resultPaymentManual.getAmount());
+						paymentManualBean.setVatRate(resultPaymentManual.getVatRate());
+						paymentManualBean.setVatAmount(resultPaymentManual.getVatAmount());
 						manualID =  paymentManualDao.insertPayment(paymentManualBean);
 					}
 				}
@@ -130,6 +134,8 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					paymentInvoiceManualBean.setDiscountspecial(resultPaymentInvoice.get(0).getDiscountspecial());
 					paymentInvoiceManualBean.setAmounttype(resultPaymentInvoice.get(0).getAmounttype());
 					paymentInvoiceManualBean.setDepartment(resultPaymentInvoice.get(0).getDepartment());
+					paymentInvoiceManualBean.setServiceName(resultPaymentInvoice.get(0).getServiceName());
+					paymentInvoiceManualBean.setServiceCode(resultPaymentInvoice.get(0).getServiceCode());
 					paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 				}		
 			}
