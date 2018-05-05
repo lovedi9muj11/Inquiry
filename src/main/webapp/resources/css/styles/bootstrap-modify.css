@@ -266,9 +266,9 @@ label {font-weight: normal !important;}
     }
 
     nav.sidebar{
-      width: 200px;
+      width: 250px;
       height: 100%;
-      margin-left: -160px;
+      margin-left: -200px;
       float: left;
       margin-bottom: 0px;
     }

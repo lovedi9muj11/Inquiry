@@ -25,26 +25,26 @@
 					
 					<c:if test="${pageContext.request.userPrincipal.name != 'admins'}">
 						<li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ชำระค่าบริการ <span class="caret"></span><span class=""></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ชำระค่าบริการ <span class="caret"></span> <span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-usd"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="${contextPath}/gotoPayment">ชำระค่าบริการ</a></li>
 				            <li><a href="${contextPath}/payOther">ชำระค่าบริการอื่นๆ</a></li>
 				          </ul>
 				        </li>
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ยกเลิกชำระค่าบริการ <span class="caret"></span><span class=""></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ยกเลิกชำระค่าบริการ <span class="caret"></span> <span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="${contextPath}/cancalPayment">ยกเลิกชำระค่าบริการ</a></li>
 				          </ul>
 				        </li>
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ประวัติการชำระค่าบริการ <span class="caret"><span class=""></span></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-list-alt"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">ประวัติการชำระค่าบริการ <span class="caret"> </span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-list-alt"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="${contextPath}/gotoHistroryPayment">ประวัติการชำระค่าบริการ</a></li>
 				          </ul>
 				        </li>
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> รายงานชำระเงิน <span class="caret"></span><span class=""></span><span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-file"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">รายงานชำระเงิน <span class="caret"></span> <span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-file"></span></a>
 				          <ul class="dropdown-menu forAnimate" role="menu">
 				            <li><a href="${contextPath}/reportPayment">รายการชำระ</a></li>
 				            <li><a href="${contextPath}/reportPaymentTax">รายการภาษีขายแบบย่อ/แบบเต็ม</a></li>
