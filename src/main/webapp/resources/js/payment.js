@@ -610,6 +610,16 @@ function findBankNo() {
 }
 
 function addRow() {
+
+	var balanceOfTaxPrice = document.getElementById("balanceOfTaxPrice").value;
+	var balanceSummary = document.getElementById("balanceSummary").value;
+	var balance = parseFloat(balanceOfTaxPrice.replace(",", ""));
+	var summary =  parseFloat(balanceSummary.replace(",", ""));
+	if(balance < summary){
+		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+//		`$("#sBalanceSummary").hide();
+		return $("#balanceSummary").focus();
+	}
 	hideShowdat();
 	var sq = $("#summaryTax").val();
 	var basu = $("#balanceSummarys").val();
@@ -1246,7 +1256,7 @@ function sumTranPrice() {
 	
 	if(balance < summary){
 		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
-		$("#sBalanceSummary").hide();
+//		$("#sBalanceSummary").hide();
 		return $("#balanceSummary").focus();
 	}
 	
