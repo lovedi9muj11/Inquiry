@@ -295,7 +295,7 @@ function createRowSelect(data, seq, table) {
 	receiptNoManual = data.receiptNoManual;
 	createDate =converDateToString(data.createDate);
 	dateMake = converDateToString(data.createDate);
-	invoiceNo = data.invoiceNo;
+	accountNo = data.accountNo;
 	customer = data.customerName;
 	if(data.payType == 'F'){
 		payType = 'เต็มจำนวน';
@@ -309,7 +309,7 @@ function createRowSelect(data, seq, table) {
 	vatAmount = formatDouble(data.vatAmount,2);
 	sumTotal =  data.amount + data.vatAmount;
 	tableSelect = $('#'+table).DataTable();
-    var rowNode = tableSelect.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
+    var rowNode = tableSelect.row.add([no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
 
