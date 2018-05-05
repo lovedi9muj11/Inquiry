@@ -21,7 +21,7 @@ public class CallEpisOnline {
 	
 	public void callOnline(){
 		try {
-			String postUrl = url.concat("/Maximus/Test"); // /offline/insertPayment
+			String postUrl = url; // /offline/insertPayment
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
 			System.out.println("Response for Post Request: " + postResponse.getBody());
 			
