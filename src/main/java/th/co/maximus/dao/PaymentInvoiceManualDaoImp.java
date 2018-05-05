@@ -42,7 +42,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.INVOICE_NO = paument_inv.INVOICE_NO  WHERE payment_m.RECORD_STATUS = 'A' AND paument_inv.RECORD_STATUS = 'A' ORDER BY payment_m.CREATE_DATE DESC");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		return jdbcTemplate.query(sql.toString() , PaymentManual);
 	}
 	
@@ -65,12 +65,12 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setRemark(rs.getString("REMARK"));
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
-			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE)?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_AC);
+			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS"));
 			paymentManual.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
-			paymentManual.setPeriod(utils.periodFormat(rs.getString("PERIOD")));
+			paymentManual.setPeriod(rs.getString("PERIOD"));
 			paymentManual.setPayType((rs.getString("PAY_TYPE")));
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));

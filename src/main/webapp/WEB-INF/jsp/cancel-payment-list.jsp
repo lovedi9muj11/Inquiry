@@ -37,6 +37,10 @@
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	    <strong>ยกเลิกรายการสำเร็จ</strong>
 	  </div>
+	  <div name="notClear" id="notClear"  class="alert alert-warning alert-dismissable fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    <strong>ไม่สามารถทำการยกเลิก</strong>
+	  </div>
 		<ul class="list-inline">
 			<li id="li1">ค้นหาข้อมูลการชำระบริการ</li> >>
 			<li id="li2">ระบุเหตุผลการยกเลิกชำระ</li> >>
