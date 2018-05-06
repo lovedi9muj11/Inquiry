@@ -56,7 +56,13 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(long manualId) {
-		return paymentInvoiceManualDao.findPaymentMuMapPaymentInVFromId(manualId);
+		List<PaymentMMapPaymentInvBean>  result = new ArrayList<>();
+		for(PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVFromId(manualId)) {
+			if("N".equals(bean.getClearing()) && "A".equals(bean.getRecordStatus())) {
+				result.add(bean);
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -90,7 +96,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 						paymentManualBean.setClearing(resultPaymentManual.getClearing());
 						paymentManualBean.setRemark(resultPaymentManual.getRemark());
 						paymentManualBean.setCreateBy(resultPaymentManual.getCreateBy());
-						paymentManualBean.setCreateDate(resultPaymentManual.getCreateDate());
+						//paymentManualBean.setCreateDate(resultPaymentManual.getCreateDate());
 						paymentManualBean.setUpdateBy(resultPaymentManual.getUpdateBy());
 						//paymentManualBean.setUpdateDate(resultPaymentManual.getUpdateDate());
 						paymentManualBean.setRecordStatus("A");

@@ -47,32 +47,61 @@
 			<li id="li3">ผลการยกเลิกการชำระ</li>
 		</ul>
 
-		<div class="panel" id="panel1">
-			<div class="panel-heading">ค้นหาข้อมูล</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
-						<div class="col-md-6">
-							<input type="text" id="billNumber" class="form-control text-left">
+		<div class="panel">
+			<div id="panel1">
+				<div class="panel-heading" >ค้นหาข้อมูล</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
+							<div class="col-md-6">
+								<input type="text" id="billNumber" class="form-control text-left">
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="col-md-4 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
+							<div class="col-md-6">
+								<input type="text" id="receiptNumber" class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="form-group col-md-6">
-						<label class="col-md-4 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
-						<div class="col-md-6">
-							<input type="text" id="receiptNumber" class="form-control">
+	
+				</div>
+				
+				<div class="box-footer">
+					<div class="row">
+						<!-- Button -->
+						<div class="col-md-12 text-center">
+							<button id="search" name="search" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
+							<button id="clear" name="clear" class="btn btn-danger" onclick="clearCriteria()" style="width: 7%">ลบ</button>
 						</div>
 					</div>
 				</div>
-
 			</div>
-			
-			<div class="box-footer">
-				<div class="row">
-					<!-- Button -->
-					<div class="col-md-12 text-center">
-						<button id="search" name="search" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
-						<button id="clear" name="clear" class="btn btn-danger" onclick="clearCriteria()" style="width: 7%">ลบ</button>
+
+			<div id="panel2">
+				<div class="panel-heading">เหตุผลการยกเลิก</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-4 control-label text-right">เหตุผลยกเลิกรับชำระ<span style="color: red"> *</span></label>
+							<div class="col-md-4">
+								<select class="form-control" id="problemCancel" name="userGroup">
+									<option value="">== เลือก ==</option>
+									<option value="01">รับชำระผิดบริการ </option>
+									<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="box-footer">
+					<div class="row">
+						<!-- Button -->
+						<div class="col-md-12 text-center">
+							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary example3" onclick="showReasonCancel()" style="width: 7%">ตกลง</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -87,8 +116,8 @@
 							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true" cellspacing="0" width="100%">
 								<thead>
 							        <tr>
-							         	<th></th>  
-								        <th></th>  
+							         	<th id="formate"></th>  
+								        <th id="radioSelect"></th>  
 								        <th style="text-align: center;">#</th>   				                         
 						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
 						                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
@@ -108,64 +137,8 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="panel panel-primary" id="panel2">
-			<div class="panel-heading">สรุปการยกเลิกชำระ</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">เหตุผลยกเลิกรับชำระ<span style="color: red"> *</span></label>
-						<div class="col-md-4">
-							<select class="form-control" id="problemCancel" name="userGroup">
-								<option value="">== เลือก ==</option>
-								<option value="01">รับชำระผิดบริการ </option>
-								<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option>
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="box-footer">
-					<div class="row">
-						<!-- Button -->
-						<div class="col-md-12 text-center">
-						
-							<button id="submitCancelPM" name="submitCancelPM" class="btn btn-primary example3" onclick="showReasonCancel()" style="width: 7%">ตกลง</button>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="box box-solid">
-							<!--<div class="box-header"></div>
-							 /.box-header -->
-							<div class="box-body">
-								<table id="selectCancelPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
-									<thead>
-								        <tr>
-								         	<th style="text-align: center;">#</th>  				                         
-							                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
-							                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
-							                <th style="text-align: center;">วันที่ทำรายการ</th>
-							                <th style="text-align: center;">เลขที่ลูกค้า</th>
-							                <th style="text-align: center;">ชื่อลูกค้า</th>
-							                <th style="text-align: center;">วิธีการชำระ</th>
-							                <th style="text-align: center;">จำนวนเงิน</th>
-							                <th style="text-align: center;">สถานที่รับชำระ</th>
-							                <th style="text-align: center;">ผู้รับชำระ</th>
-							                <th style="text-align: center;">สถานะ</th>
-							                <th style="text-align: center;">ภาษี</th>
-							                <th style="text-align: center;">จำนวนทั้งหมด</th>			             
-								        </tr>
-							    	</thead>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
+
 	
 	<!-- dialog confirm authentication.. -->
 	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >
