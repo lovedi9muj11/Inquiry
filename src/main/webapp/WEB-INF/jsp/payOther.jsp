@@ -233,8 +233,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 										<div class="col-sm-1">
-											<select class="form-control" id=""
-												name="">
+											<select class="form-control" >
 												<%for(int i=0; i<masterCategory.size(); i++){ %>
 																<option  value="<%=masterCategory.get(i).getText() %>"><%=masterCategory.get(i).getText() %></option>
 															<%} %>
@@ -561,7 +560,6 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 														<input class="form-control" type="text" id="checkNo"
 															maxlength="7" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
-															<p id="checkNoTxt" style="color: red;">คุณยังไม่ได้กรอก เลขที่เช็ค</p>
 													</div>
 												</div>
 											</div>
@@ -577,7 +575,6 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 																<option id="nameBank"  value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText() %></option>
 															<%} %>
 														</select>
-														<p id="bankNameTxt" style="color: red;">คุณยังไม่ได้เลือก ชื่อธนาคาร </p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
@@ -841,24 +838,24 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											</div>
 										</div>
 
-										<div class="row" style="display: none;">
+<!-- 										<div class="row" style="display: none;"> -->
 
-											<div class="form-group ">
-												<div class="col-sm-7"></div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton" readonly="">
-													รับภาระภาษีเต็มจำนวน
-												</div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButtons" readonly="">
-													รับภาระภาษีบางส่วน
-												</div>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
+<!-- 											<div class="form-group "> -->
+<!-- 												<div class="col-sm-7"></div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButton" readonly=""> -->
+<!-- 													รับภาระภาษีเต็มจำนวน -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButtons" readonly=""> -->
+<!-- 													รับภาระภาษีบางส่วน -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control" type="text" id="" name="" -->
+<!-- 														value="0.00" readonly=""> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">
