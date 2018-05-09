@@ -20,5 +20,17 @@ public class CallEpisOnlineTest {
 	public void callRest() {
 		callEpisOnline.callOnline();
 	}
+	
+	@Test
+	@Ignore
+	public void callRestGet() {
+		callEpisOnline.callOnlineSyncMasterData();
+	}
+	
+	@Test
+	@Ignore
+	public void callRestGetGL() {
+		callEpisOnline.callOnlineSyncMapGL();
+	}
 
 }

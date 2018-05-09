@@ -173,7 +173,7 @@ function deopdownAccount(){
             $el.empty();
             $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
 	        for(var a = 0, s = res.length; s>a ; a++){
-	        	$el.append($("<option>").attr('value',res[a].value).text(res[a].text));
+	        	$el.append($("<option>").attr('value',res[a].glCode).text(res[a].glCode));
 	        }
         }
 	});

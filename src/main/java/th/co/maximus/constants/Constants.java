@@ -1,8 +1,12 @@
 package th.co.maximus.constants;
 
+import java.util.Locale;
+
 public class Constants {
 	
 	public static final String TEST = "TEST";
+	public static final Locale localeTH = new Locale("th", "TH");
+	public static final Locale localeEN = new Locale("en", "EN");
 	
 	
 	public static class DateTime {
@@ -43,6 +47,12 @@ public class Constants {
 	public static class MasterData{
 		public static final String SELECT_DROPDOWN = "กรุณาเลือก";
 		public static final String MASTERDATA_GROUP = "INITVALUE";
+		public static final String STATUS_SUCCESS = "SUCCESS";
+		public static final String STATUS_FAIL = "FAIL";
+		public static final String BANK_TYPE = "BANK_TYPE";
+		public static final String OTHER = "OTHER";
+		public static final String BUSINESS_AREA = "BUSINESS_AREA";
+		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
 	}
 	
 }

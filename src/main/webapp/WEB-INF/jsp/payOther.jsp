@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="th.co.maximus.bean.MapGLBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html >
@@ -24,17 +25,17 @@
 <% 
 List<MasterDataBean> masterBankCode = null;
 List<MasterDataBean> masterBankName = null;
-List<MasterDataBean> masterServicetype = null; 
+List<MapGLBean> masterServicetype = null; 
 List<MasterDataBean> masterServiceDepartment = null; 
-List<MasterDataBean> masterServiceName = null; 
+List<MapGLBean> mapGLServiceName = null; 
 List<MasterDataBean> masterCategory = null; 
 %>
 <% 
 masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
 masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
-masterServicetype = (List<MasterDataBean>) request.getAttribute("serviceType"); 
+masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType"); 
 masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment"); 
-masterServiceName = (List<MasterDataBean>) request.getAttribute("serviceName"); 
+mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName"); 
 masterCategory = (List<MasterDataBean>) request.getAttribute("category"); 
 %>
 
@@ -184,7 +185,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
 												<%for(int i=0; i<masterServicetype.size(); i++){ %>
-																<option  value="<%=masterServicetype.get(i).getText() %>"><%=masterServicetype.get(i).getText() %></option>
+																<option  value="<%=masterServicetype.get(i).getRevenueTypeCode() %>"><%=masterServicetype.get(i).getRevenueTypeName() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceType" style="color: red;">
@@ -218,8 +219,8 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
 												<option value="">-- กรุณาเลือก --</option>
-												<%for(int i=0; i<masterServiceName.size(); i++){ %>
-																<option  value="<%=masterServiceName.get(i).getValue() %>"><%=masterServiceName.get(i).getText() %></option>
+												<%for(int i=0; i<mapGLServiceName.size(); i++){ %>
+																<option  value="<%=mapGLServiceName.get(i).getServiceCode() %>"><%=mapGLServiceName.get(i).getServiceName() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceName" style="color: red;">

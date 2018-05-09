@@ -19,22 +19,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
-import th.co.maximus.core.utils.Utils;
+import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MapGLDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentOtherService;
-import th.co.maximus.service.PaymentService;
+
 @Controller
 public class PayOtherController {
 	
 	@Autowired
 	private PaymentOtherService paymentOtherService;
-	@Autowired
-	private PaymentService paymentService;
+	
 	@Autowired
 	MasterDataService masterDataService;
+	
+	@Autowired
+	private MapGLDao mapGLDao;
 
 	
 	 @RequestMapping(value = {"/payOther"}, method = RequestMethod.GET)
@@ -43,15 +47,16 @@ public class PayOtherController {
 			List<MasterDataBean> bankNameList = new ArrayList<>();
 			List<MasterDataBean> categoryList = new ArrayList<>();
 			List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
-			List<MasterDataBean> serviceNameList = new ArrayList<>();
-			List<MasterDataBean> serviceTypeList = new ArrayList<>();
 		 
 			bankCodeList = masterDataService.findAllByBankCode();
 			bankNameList = masterDataService.findAllByBankName();
 			categoryList = masterDataService.findAllByCategory();
 			serviceDepartmentList = masterDataService.findAllByServiceDepartment();
-			serviceNameList = masterDataService.findAllByServiceName();
-			serviceTypeList = masterDataService.findAllByServiceType();
+//			serviceNameList = masterDataService.findAllByServiceName();
+//			serviceTypeList = masterDataService.findAllByServiceType();
+			
+			List<MapGLBean> serviceNameList = mapGLDao.findAll();
+			List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 			
 			model.addAttribute("bankCode", bankCodeList);
 			model.addAttribute("bankName", bankNameList);
@@ -88,7 +93,6 @@ public class PayOtherController {
 			PaymentResultReq paymentResultReq = new PaymentResultReq();
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
 			
-			Utils utils = new Utils();
 			if(idUser>0){
 				paymentResultReq=	paymentOtherService.findByid(idUser);
 				paymentResultReq.setBalanceSummaryStr(commaformatter(paymentResultReq.getBalanceSummary()));
