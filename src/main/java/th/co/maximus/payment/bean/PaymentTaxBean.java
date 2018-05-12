@@ -11,6 +11,7 @@ public class PaymentTaxBean implements Serializable {
 	private String radioDed;
 	private String docDed;
 	private double moneyDed;
+	
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}

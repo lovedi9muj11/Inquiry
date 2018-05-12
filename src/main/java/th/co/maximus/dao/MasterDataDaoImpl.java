@@ -1,6 +1,7 @@
 package th.co.maximus.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,31 +18,33 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.constants.Constants;
 @Repository
 public class MasterDataDaoImpl implements MasterDataDao{
+	
 	@Autowired
 	DataSource dataSource;
+	
 	private JdbcTemplate jdbcTemplate;
 
 	public MasterDataDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
-
 	}
 
 	@Override
 	public List<MasterDataBean> findAllByBankCode() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.groupType = 'BANK_CODE' ");
-		return jdbcTemplate.query(sql.toString() , new masterData());
+		sql.append(" WHERE ms.group_key = 'BANK_TYPE' ");
+		return jdbcTemplate.query(sql.toString() , new masterDataCode());
 	}
 
 	@Override
 	public List<MasterDataBean> findAllByBankName() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.groupType = 'BANK_NAME' ");
+		sql.append(" WHERE ms.group_key = 'BANK_TYPE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -53,25 +56,6 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
-
-
-	private static final class masterData implements RowMapper<MasterDataBean> {
-
-		@Override
-		public MasterDataBean mapRow(ResultSet rs, int rowNum) throws SQLException {
-			MasterDataBean masterDataBean = new MasterDataBean();
-			masterDataBean.setId(rs.getInt("id"));
-			masterDataBean.setValue(rs.getString("valueKey"));
-			masterDataBean.setText(rs.getString("text"));
-			masterDataBean.setGroup(rs.getString("groupType"));
-			
-			return masterDataBean;
-		}
-
-	}
-
-
-
 	@Override
 	public int insertMasterdata(MasterDataBean masterDataBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -109,8 +93,8 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByServiceType() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.groupType = 'SERVICETYPE'");
+		sql.append(" SELECT * FROM map_gl_service_type mg  ");
+		sql.append(" WHERE mg.SOURCE = '"+Constants.MasterData.OTHER+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -118,7 +102,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByServiceDepartment() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.groupType = 'SERVICEDEPARTMENT'");
+		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.BUSINESS_AREA+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -133,7 +117,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByCategory() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM master_data ms  ");
-		sql.append(" WHERE ms.groupType = 'CATEGORY'");
+		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.OTHER_PAYMENT_UNIT+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
@@ -145,4 +129,72 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		sql.append("'"+groupType+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
+
+	@Override
+	public void insertMasterDataSync(MasterDataSyncBean masterDataSyncBean) {
+		String sql = "INSERT INTO master_data (KEYCODE, VALUE, GROUP_KEY, TYPE, STATUS, ORDERED, PARENT_ID, REF_ID, PROPERTY_1, PROPERTY_2, PROPERTY_3, PROPERTY_4, PROPERTY_5, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		java.util.Date now = new java.util.Date();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
+				pst.setString(1, masterDataSyncBean.getKey());
+				pst.setString(2, masterDataSyncBean.getValue());
+				pst.setString(3, masterDataSyncBean.getGroupKey());
+				pst.setString(4, masterDataSyncBean.getType());
+				pst.setString(5, masterDataSyncBean.getStatus());
+				pst.setString(6, masterDataSyncBean.getOrdered());
+				pst.setString(7, masterDataSyncBean.getParentId());
+				pst.setString(8, masterDataSyncBean.getRefId());
+				pst.setString(9, masterDataSyncBean.getProperty1());
+				pst.setString(10, masterDataSyncBean.getProperty2());
+				pst.setString(11, masterDataSyncBean.getProperty3());
+				pst.setString(12, masterDataSyncBean.getProperty4());
+				pst.setString(13, masterDataSyncBean.getProperty5());
+//				pst.setString(14, masterDataSyncBean.getRemark());
+				pst.setString(14, masterDataSyncBean.getCreateBy());
+				pst.setDate(15, new Date(now.getTime()));
+				pst.setString(16, masterDataSyncBean.getUpdateBy());
+				pst.setDate(17, new Date(now.getTime()));
+//				pst.setString(19, masterDataSyncBean.getRecordStatus());
+				return pst;
+			}
+		});
+	}
+
+	@Override
+	public void deleteBeforInsertMS() {
+		String del = "delete from master_data";
+		jdbcTemplate.update(del);
+	}
+	
+	private static final class masterData implements RowMapper<MasterDataBean> {
+
+		@Override
+		public MasterDataBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MasterDataBean masterDataBean = new MasterDataBean();
+			masterDataBean.setId(rs.getInt("id"));
+			masterDataBean.setValue(rs.getString("KEYCODE"));
+			masterDataBean.setText(rs.getString("VALUE"));
+			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
+			
+			return masterDataBean;
+		}
+
+	}
+	
+	private static final class masterDataCode implements RowMapper<MasterDataBean> {
+
+		@Override
+		public MasterDataBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MasterDataBean masterDataBean = new MasterDataBean();
+			masterDataBean.setId(rs.getInt("id"));
+			masterDataBean.setValue(rs.getString("KEYCODE"));
+			masterDataBean.setText(rs.getString("KEYCODE"));
+			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
+			
+			return masterDataBean;
+		}
+
+	}
+	
 }

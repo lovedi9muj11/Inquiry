@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	document.getElementById("showResultTableRQ").style.display ="none" ;
 	$("#remove").hide();
+	$("#del").hide();
 });
 function backPayment(){
 	window.location.href = "gotoPayment";
@@ -18,8 +19,18 @@ function removeTable(){
 	document.getElementById("showResultTableRQ").style.display="none";
 }
 function openTableSumOther(){
-	//document.getElementById("showResultTableRQ").style.display="table";
-	$("#showResultTableRQ").toggle();
+	
+	$("#plus").hide();
+	$("#del").show();
+	document.getElementById("showResultTableRQ").style.display="table";
+	//$("#showResultTableRQ").toggle();
+}
+function closeTableSumOther(){
+	
+	$("#del").hide();
+	$("#plus").show();
+	document.getElementById("showResultTableRQ").style.display="none";
+	//$("#showResultTableRQ").toggle();
 }
 
 function submti(){

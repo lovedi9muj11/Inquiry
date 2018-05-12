@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="th.co.maximus.bean.MapGLBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html >
@@ -24,17 +25,17 @@
 <% 
 List<MasterDataBean> masterBankCode = null;
 List<MasterDataBean> masterBankName = null;
-List<MasterDataBean> masterServicetype = null; 
+List<MapGLBean> masterServicetype = null; 
 List<MasterDataBean> masterServiceDepartment = null; 
-List<MasterDataBean> masterServiceName = null; 
+List<MapGLBean> mapGLServiceName = null; 
 List<MasterDataBean> masterCategory = null; 
 %>
 <% 
 masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
 masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
-masterServicetype = (List<MasterDataBean>) request.getAttribute("serviceType"); 
+masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType"); 
 masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment"); 
-masterServiceName = (List<MasterDataBean>) request.getAttribute("serviceName"); 
+mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName"); 
 masterCategory = (List<MasterDataBean>) request.getAttribute("category"); 
 %>
 
@@ -184,7 +185,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
 												<%for(int i=0; i<masterServicetype.size(); i++){ %>
-																<option  value="<%=masterServicetype.get(i).getText() %>"><%=masterServicetype.get(i).getText() %></option>
+																<option  value="<%=masterServicetype.get(i).getRevenueTypeCode() %>"><%=masterServicetype.get(i).getRevenueTypeName() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceType" style="color: red;">
@@ -218,8 +219,8 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
 												<option value="">-- กรุณาเลือก --</option>
-												<%for(int i=0; i<masterServiceName.size(); i++){ %>
-																<option  value="<%=masterServiceName.get(i).getValue() %>"><%=masterServiceName.get(i).getText() %></option>
+												<%for(int i=0; i<mapGLServiceName.size(); i++){ %>
+																<option  value="<%=mapGLServiceName.get(i).getServiceCode() %>"><%=mapGLServiceName.get(i).getServiceName() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceName" style="color: red;">
@@ -233,8 +234,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 										<div class="col-sm-1">
-											<select class="form-control" id=""
-												name="">
+											<select class="form-control" >
 												<%for(int i=0; i<masterCategory.size(); i++){ %>
 																<option  value="<%=masterCategory.get(i).getText() %>"><%=masterCategory.get(i).getText() %></option>
 															<%} %>
@@ -561,7 +561,6 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 														<input class="form-control" type="text" id="checkNo"
 															maxlength="7" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
-															<p id="checkNoTxt" style="color: red;">คุณยังไม่ได้กรอก เลขที่เช็ค</p>
 													</div>
 												</div>
 											</div>
@@ -577,7 +576,6 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 																<option id="nameBank"  value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText() %></option>
 															<%} %>
 														</select>
-														<p id="bankNameTxt" style="color: red;">คุณยังไม่ได้เลือก ชื่อธนาคาร </p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันที่หน้าเช็ค :</label>
@@ -841,24 +839,24 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											</div>
 										</div>
 
-										<div class="row" style="display: none;">
+<!-- 										<div class="row" style="display: none;"> -->
 
-											<div class="form-group ">
-												<div class="col-sm-7"></div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton" readonly="">
-													รับภาระภาษีเต็มจำนวน
-												</div>
-												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButtons" readonly="">
-													รับภาระภาษีบางส่วน
-												</div>
-												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
-														value="0.00" readonly="">
-												</div>
-											</div>
-										</div>
+<!-- 											<div class="form-group "> -->
+<!-- 												<div class="col-sm-7"></div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButton" readonly=""> -->
+<!-- 													รับภาระภาษีเต็มจำนวน -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-1" align="right"> -->
+<!-- 													<input type="radio" id="radioButtons" readonly=""> -->
+<!-- 													รับภาระภาษีบางส่วน -->
+<!-- 												</div> -->
+<!-- 												<div class="col-sm-3"> -->
+<!-- 													<input class="form-control" type="text" id="" name="" -->
+<!-- 														value="0.00" readonly=""> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="row">
 											<div class="col-sm-7"></div>
 											<div class="form-group ">

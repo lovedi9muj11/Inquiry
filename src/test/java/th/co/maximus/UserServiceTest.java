@@ -45,7 +45,6 @@ public class UserServiceTest {
 	
 	@Rollback
 	@Test
-	@Ignore
 	public void login() {
 		UserDto bean = userRepository.findByUsername("admin");
 		assertThat(bean).isNotNull();

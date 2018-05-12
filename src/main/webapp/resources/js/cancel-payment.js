@@ -30,7 +30,6 @@ $(document).ready(function () {
     $('#cancelPaymentTB tbody').on('change', ':radio', function() {
     	 	$("#mi-modal").modal('show');
             idRow = parseInt($('input[name="select"]:checked').val());
-            clearing = $('input[name="clearing"]').val();
         
     });
     $('#btn2').click(function(){
@@ -97,39 +96,11 @@ $(document).ready(function () {
     	  });
     	};
    	
-   function createRowSelectCCPayment(data) {
-    		no = data[0];
-    		receiptNoManual = data[1];
-    		createDate = data[2];
-    		dateMake = data[3];
-    		invoiceNo = data[4];
-    		customer =data[5];
-    		if(data[6] == 'F'){
-    			payType = 'เต็มจำนวน';
-    		}else if(data[6] == 'P'){
-    			payType = 'บางส่วน';
-    		}
-    		amount = data[7];
-    		branchCode = data[8];
-    		createBy = data[9];
-    		recordStatus = data[10];
-    		colBotton = "<button id='btn2' name='btn2' class='btn btn-info' >รายละเอียด</button>";
-    		vatAmount = data[12];
-    		sumTotal = data[13];
-    		
-    		tableSelect = $('#selectCancelPaymentTB').DataTable();
-    	    var rowNode = tableSelect.row.add([no, receiptNoManual, createDate, dateMake, invoiceNo, customer, payType, amount, branchCode, createBy, recordStatus, colBotton, vatAmount, sumTotal]).draw(true).node();
-    	    $(rowNode).find('td').eq(0).addClass('left');
-    	    $(rowNode).find('td').eq(1).addClass('left');
-    	    
-    	
-
-    	};
     	modalConfirm(function(confirm){
     	    $("#error").hide();
     	    $("#success").hide();
     	    $("#notClear").hide();
-      	  if(confirm && clearing != 'Y'){
+      	  if(confirm){
       		cancelPaymentTB.clear().draw();
       			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
       			$.ajax({
@@ -160,13 +131,25 @@ $(document).ready(function () {
       		     		        async: false,
       		     		        contentType: "application/json; charset=utf-8",
       		     		        success: function (res) {
-      		     		        	for (var i = 0; i < res.length; i++) {
-      		     		        		createRowSelect(res[i], i, "selectCancelPaymentTB");
-      		     		            }
+      		     		        	if(res.length != 0){
+      		     		        		for (var i = 0; i < res.length; i++) {
+      		     		        			createRow(res[i], i, "cancelPaymentTB", false);
+      		     		        			
+          		     		            }
+	      		  		     			showTableSelect();
+	      		  		     			var $radios = $('input:radio[name=select]');
+	      		  		     		 	$radios.filter('[value="'+idRow+'"]').prop('checked', true);
+      		     		        	}else{
+	      		     		       		$("#notClear").show();
+	      		     		      	    hidePanel()
+	      		     		      	    showPanel('1');
+	      		     		      	    removeCssLi();
+	      		     		      	    addCssLi('1');
+	      		     		      	    search();
+      		     		        	}
+      		     		        	
       		     		        }
       		     			});
-      		     			showTableSelect();
-      		     			$("#addressInput").hide();
 //      		     			$('#submitCancelPM').prop('disabled', true);
       		        	}else{
       		        		$("#error").show();
@@ -181,13 +164,6 @@ $(document).ready(function () {
       			});
       			
 
-      	  }else{
-      		$("#notClear").show();
-      	    hidePanel()
-      	    showPanel('1');
-      	    removeCssLi();
-      	    addCssLi('1');
-      	    search();
       	  }
       	$('#userName').val('');
       	$('#password').val('');
@@ -230,7 +206,7 @@ function search() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	for (var i = 0; i < res.length; i++) {
-                    createRow(res[i], i, "cancelPaymentTB");
+                    createRow(res[i], i, "cancelPaymentTB", true);
                 }
         }
 	})
@@ -243,7 +219,7 @@ function clearCriteria(){
 	search();
 };
 
-function createRow(data, seq, table) {
+function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
 	invoice =  '<a name="invoice" id="invoice"><span name="icon'+seq+'" id="icon'+seq+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
@@ -265,12 +241,14 @@ function createRow(data, seq, table) {
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 	}
-	//colBotton = "<button id='btn' name='btn' class='btn btn-info'>รายละเอียด</button>   <button class='btn btn-default' id='btn-confirm' name='btn-confirm'>เลือก</button>";
 	vatAmount = formatDouble(data.vatAmount,2);
 	sumTotal =  data.amount + data.vatAmount;
 	
+	customerAddress = data.customerAddress;
+	userFullName = data.customerName;
+	
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
+	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center').width('5px');
     $(rowNode).find('td').eq(1).addClass('center').width('5px');
     $(rowNode).find('td').eq(2).addClass('center').width('40px');
@@ -401,8 +379,12 @@ function showReasonCancel(){
 			 $("#address").val(customerAddress);
 			$("#reason-cancel").modal('show');
 		}else{
-			$("#reason-cancel").modal('hide');
-			submitCancelPayment();
+			var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
+			if(r){
+				$("#reason-cancel").modal('hide');
+				submitCancelPayment();
+			}
+			
 		}
 	}else{
 		alert("โปรดระบุตัวเลือก");
@@ -411,8 +393,11 @@ function showReasonCancel(){
 
 function modalConfirmReason(callback){
 	if(callback){
-		submitCancelPayment();
-		$("#reason-cancel").modal('hide');
+		var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
+		if(r){
+			submitCancelPayment();
+			$("#reason-cancel").modal('hide');
+		}
 	}else{
 		$("#reason-cancel").modal('hide');
 	}

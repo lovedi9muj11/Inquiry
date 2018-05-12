@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.service.MasterDataService;
@@ -18,6 +19,7 @@ public class MasterDataServiceImpl implements MasterDataService{
 	
 	@Autowired
 	MasterDataDao masterDataDao;
+	
 	@Autowired
 	MasterDataService masterDataService;
 	
@@ -121,6 +123,22 @@ public class MasterDataServiceImpl implements MasterDataService{
 	public List<MasterDataBean> findAllByCategory() {
 		List<MasterDataBean> masterDataList = masterDataDao.findAllByCategory();
 		return masterDataList;
+	}
+
+	@Override
+	public String insertMasterDataSync(List<MasterDataSyncBean> masterDataSyncBean) {
+		String statusResult = "";
+		try {
+			statusResult = Constants.MasterData.STATUS_SUCCESS;
+			masterDataDao.deleteBeforInsertMS();
+			for(int i=0; i<masterDataSyncBean.size(); i++) {
+				masterDataDao.insertMasterDataSync(masterDataSyncBean.get(i));
+			} 
+		}catch (Exception e) {
+			statusResult = Constants.MasterData.STATUS_FAIL;
+			e.printStackTrace();
+		}
+		return statusResult;
 	}
 
 }

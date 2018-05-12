@@ -78,9 +78,8 @@
 										</thead>
 										<tbody align="center">
 											<tr align="center">
-												<td><a onclick="openTableSumOther()"> <span
-														class="glyphicon glyphicon-plus"></span>
-												</a></td>
+												<td id="plus"><a onclick="openTableSumOther()"> <span  class="glyphicon glyphicon-plus"></span></a></td>
+												<td id="del"><a onclick="closeTableSumOther()"> <span  class="glyphicon glyphicon-minus"></span></a></td>
 												<td align="center">1</td>
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
