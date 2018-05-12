@@ -21,8 +21,7 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
-import th.co.maximus.constants.Constants;
-import th.co.maximus.core.utils.Utils;
+import th.co.maximus.model.PaymentInvoiceEpisOffline;
 
 
 
@@ -47,7 +46,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	}
 	
 	private static final RowMapper<PaymentMMapPaymentInvBean> PaymentManual = new RowMapper<PaymentMMapPaymentInvBean>() {
-		Utils utils = new Utils();
+//		Utils utils = new Utils();
 
 		@Override
 		public PaymentMMapPaymentInvBean mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -304,6 +303,33 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public static final String convertDateString(String str) {
 		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
 
+	}
+
+	@Override
+	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId) throws SQLException {
+		Connection connect = dataSource.getConnection();
+		List<PaymentInvoiceEpisOffline> beanReReq = new ArrayList<PaymentInvoiceEpisOffline>();
+		PaymentInvoiceEpisOffline bean = new PaymentInvoiceEpisOffline();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,pim.VAT_RATE,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE ");
+			sqlStmt.append(" FROM payment_invoice_manual pim ");
+			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
+			
+			
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, manualId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				bean = new PaymentInvoiceEpisOffline(resultSet.getString(1), resultSet.getBigDecimal(2), resultSet.getBigDecimal(3), resultSet.getBigDecimal(4), resultSet.getBigDecimal(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getString(16), resultSet.getBigDecimal(17), resultSet.getBigDecimal(17), resultSet.getString(18), resultSet.getString(19), resultSet.getString(20), resultSet.getString(21), resultSet.getDate(22));
+				beanReReq.add(bean);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanReReq;
 	} 
 	
 }

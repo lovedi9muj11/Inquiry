@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -17,11 +18,15 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrsMethodManualBean;
+import th.co.maximus.model.TrsMethodEpisOffline;
 
 @Repository("TrsMethodManualDao")
 public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	DataSource dataSource;
 	
 	public TrsMethodManualDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -98,6 +103,33 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 			return manualBean;
 		}
 
+	}
+
+	@Override
+	public List<TrsMethodEpisOffline> findByManualId(long manualId) throws Exception {
+		Connection connect = dataSource.getConnection();
+		List<TrsMethodEpisOffline> beanReReq = new ArrayList<TrsMethodEpisOffline>();
+		TrsMethodEpisOffline bean = new TrsMethodEpisOffline();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID ");
+			sqlStmt.append(" FROM trsmethod_manual trm ");
+			sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
+			
+			
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, manualId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				bean = new TrsMethodEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),resultSet.getLong(7));
+				beanReReq.add(bean);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanReReq;
 	}
 	
 }

@@ -20,6 +20,7 @@ import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.model.ReceiptOfflineModel;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
 
@@ -187,6 +188,31 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			return reportPayment;
 		}
 
+	}
+
+	@Override
+	public ReceiptOfflineModel findByManualId(long manualId) throws SQLException{
+		Connection connect = dataSource.getConnection();
+		ReceiptOfflineModel beanReReq = new ReceiptOfflineModel();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID ");
+			sqlStmt.append(" FROM receipt_manual py ");
+			sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = 'A' ");
+			
+			
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, manualId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				beanReReq = new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanReReq; 
 	}
 
 

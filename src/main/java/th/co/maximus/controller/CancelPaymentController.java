@@ -16,7 +16,6 @@ import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
-import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.service.CancelPaymentService;
 
 @Controller

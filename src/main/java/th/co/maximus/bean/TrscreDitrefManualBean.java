@@ -7,7 +7,7 @@ public class TrscreDitrefManualBean {
 	private  String   creditNo;
 	private  String   publisherdec	;
 	private  String  cardType;
-	private  double   aMount;
+	private  Double   aMount;
 	private  Timestamp   updateDttm;
 	private  String   updateSystem;
 	private  String   updateUser;

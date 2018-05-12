@@ -1,8 +1,10 @@
 package th.co.maximus.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,11 +15,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.TrscreDitrefManualBean;
+import th.co.maximus.model.TrsCreditrefEpisOffline;
 
 @Repository("TrscreDitrefManualDao")
 public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	DataSource dataSource;
 	
 	public TrscreDitrefManualDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -61,6 +66,33 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 		sql.append("select * from trscreditref_manual trscreditref_m where trscreditref_m.ID = ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new TrscreDitrefManualJoin());
+	}
+
+	@Override
+	public List<TrsCreditrefEpisOffline> findByMethodId(long methodId) throws SQLException {
+		Connection connect = dataSource.getConnection();
+		List<TrsCreditrefEpisOffline> beanReReq = new ArrayList<TrsCreditrefEpisOffline>();
+		TrsCreditrefEpisOffline bean = new TrsCreditrefEpisOffline();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT tcm.CREDITNO ,tcm.PUBLISHERDEC,tcm.CARDTYPE,tcm.AMOUNT ");
+			sqlStmt.append(" FROM trscreditref_manual tcm ");
+			sqlStmt.append(" WHERE  tcm.METHOD_MANUAL_ID = ?  ");
+			
+			
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, methodId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				bean = new TrsCreditrefEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4));
+				beanReReq.add(bean);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanReReq;
 	}
 
 }

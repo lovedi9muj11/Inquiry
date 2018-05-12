@@ -1,20 +1,26 @@
 package th.co.maximus.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.DeductionManualBean;
+import th.co.maximus.model.DuductionEpisOffline;
 
 @Repository("DeductionManualDao")
 public class DeductionManualImpl implements DeductionManualDao{
-	
+	@Autowired
+	DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	
 	public DeductionManualImpl(DataSource dataSource) {
@@ -65,6 +71,32 @@ public class DeductionManualImpl implements DeductionManualDao{
 		sql.append("  SELECT * FROM deduction_manual deduction_m where deduction_m.MANUAL_ID = ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new DeductionManualJoin());
+	}
+	@Override
+	public List<DuductionEpisOffline> findDeductionManual(long manualId) throws Exception {
+		Connection connect = dataSource.getConnection();
+		List<DuductionEpisOffline> beanReReq = new ArrayList<DuductionEpisOffline>();
+		DuductionEpisOffline bean = new DuductionEpisOffline();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT ded.DEDUCTIONNO ,ded.DEDUCTIONTYPE,ded.AMOUNT,ded.PAYMENTDATE,ded.INVOICE_NO,ded.REMARK ");
+			sqlStmt.append(" FROM deduction_manual ded ");
+			sqlStmt.append(" WHERE  ded.MANUAL_ID = ?  ");
+			
+			
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, manualId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				bean = new DuductionEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getBigDecimal(3), resultSet.getDate(4), resultSet.getString(5), resultSet.getString(6));
+				beanReReq.add(bean);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanReReq;
 	}
 
 }

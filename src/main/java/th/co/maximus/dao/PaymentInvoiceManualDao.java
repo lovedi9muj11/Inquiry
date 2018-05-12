@@ -8,6 +8,7 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.model.PaymentInvoiceEpisOffline;
 
 public interface PaymentInvoiceManualDao {
 	
@@ -32,4 +33,6 @@ public interface PaymentInvoiceManualDao {
 	List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean historySubFindBean);
 	
 	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException;
+	
+	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId) throws SQLException;
 } 
