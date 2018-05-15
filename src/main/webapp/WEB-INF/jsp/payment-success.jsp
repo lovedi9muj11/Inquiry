@@ -96,6 +96,7 @@
 												<th style='text-align: center;'>ยอดก่อนภาษี</th>
 												<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th>
 												<th style='text-align: center;'>ยอดเงินรวมภาษี</th>
+												<th style='text-align: center;'>ส่วนลดหลังการขาย</th>
 												<th style='text-align: center;'>ยอดชำระ</th>
 												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
 <!-- 												<th style='text-align: center;'>จำนวนเงินคงค้าง</th> -->
@@ -110,6 +111,7 @@
 												<td align="center">${paymentResultReq.beforeVatStr}</td>
 												<td align="center">${paymentResultReq.vatStr}</td>
 												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
+												<td align="center">${paymentResultReq.discountStr}</td>
 												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">${paymentResultReq.deductionStr}</td>
 <%-- 												<td align="center">${ paymentResultReq.balancePriceStr}</td> --%>

@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.core.utils.Utils;
+import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
-import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentService;
 
 @Controller
@@ -30,18 +31,15 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	@Autowired
-	MasterDataService masterDataService;
+	private MasterDatasDao masterDatasDao;
 
 	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
 	public String registration(Model model) {
-		List<MasterDataBean> bankCodeList = new ArrayList<>();
-		List<MasterDataBean> bankNameList = new ArrayList<>();
+		 	List<MasterDatasBean> bankCodeList = new ArrayList<>();
 		
-		bankCodeList = masterDataService.findAllByBankCode();
-		bankNameList = masterDataService.findAllByBankName();
-		
-		model.addAttribute("bankCode", bankCodeList);
-		model.addAttribute("bankName", bankNameList);
+		bankCodeList = masterDatasDao.findByBankName();
+
+		model.addAttribute("bank", bankCodeList);
 	
 		return "payment";
 	}
@@ -83,11 +81,12 @@ public class PaymentController {
 			paymentResultReq.setInvoiceDateRS(invoiceDate);
 			paymentResultReq.setDateLineRS(dateLineSt);
 			
-			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setBeforeVatStr(String.format("%,.2f",paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setVatStr(String.format("%,.2f",paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setBalanceOfvatStr(String.format("%,.2f",paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setBalancePriceStr(String.format("%,.2f",price));
+			paymentResultReq.setDiscountStr(String.format("%,.2f",paymentResultReq.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
 			
 			request.setAttribute("paymentResultReq",paymentResultReq);  
 		}

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="th.co.maximus.bean.MapGLBean"%>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/menu.jsp"></jsp:include>
-<%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="th.co.maximus.bean.MasterDatasBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
@@ -24,12 +25,11 @@
 <script src="${contextPath}/resources/js/payment.js"></script>
 <script src="${contextPath}/resources/js/autoNumeric-1.7.4.js"></script>
 <% 
-List<MasterDataBean> masterBankCode = null;
-List<MasterDataBean> masterBankName = null;
+List<MasterDatasBean> masterBankCode = null;
 %>
 <% 
-masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode"); 
-masterBankName = (List<MasterDataBean>) request.getAttribute("bankName"); 
+masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank"); 
+%>
 %>
 </head>
 <body>
@@ -60,7 +60,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 				</div>
 
 				<div class="row" style="margin-top: 20px;">
-				<input type="hidden" id="userName"	name="userName" value="${pageContext.request.userPrincipal.name}">
+				<input type="hidden" id="userNames"	name="userNames" value="${pageContext.request.userPrincipal.name}">
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
 							<div class="col-md-12 col-sm-12">
@@ -217,7 +217,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ยอดก่อนภาษี : <span style="color: red;">*</span></label>
+													for="formGroupInputLarge">ยอดก่อนภาษี : </label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text"
 														id="balanceBeforeTax" name="balanceBeforeTax" readonly="">
@@ -228,7 +228,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม : <span style="color: red;">*</span></label>
+													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม : </label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="vat" name="vat"
 														readonly="">
@@ -239,7 +239,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 											<div class="col-sm-8"></div>
 											<div class="form-group ">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">จำนวนเงินรวมภาษี : <span style="color: red;">*</span></label>
+													for="formGroupInputLarge">จำนวนเงินรวมภาษี : </label>
 												<div class="col-sm-2">
 													<input class="form-control numeric2point" type="text" id="balanceOfTax"
 														name="balanceOfTax" readonly="">
@@ -457,8 +457,8 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 														<select class="form-control" id="edcType"
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
-															<%for(int i=0; i<masterBankName.size(); i++){ %>
-																<option  value="<%=masterBankName.get(i).getText() %>"><%=masterBankName.get(i).getText() %></option>
+															<%for(int i=0; i<masterBankCode.size(); i++){ %>
+																<option id="nameBank"  value="<%=masterBankCode.get(i).getKeyCode()%>"><%=masterBankCode.get(i).getValue() %></option>
 															<%} %>
 														</select>
 													</div>
@@ -512,7 +512,7 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 															name="paymentTranPrice.bankNo" onchange="findBank()">
 															<option value="">กรุณาเลือก</option>
 															<%for(int i=0; i<masterBankCode.size(); i++){ %>
-																<option value="<%=masterBankCode.get(i).getValue() %>"><%=masterBankCode.get(i).getText() %></option>
+																<option value="<%=masterBankCode.get(i).getKeyCode() %>"><%=masterBankCode.get(i).getKeyCode() %></option>
 															<%} %>
 														</select>
 													</div>
@@ -532,8 +532,8 @@ masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 														<select class="form-control" id="bankName"
 															name="paymentTranPrice.bankName" onchange="findBankNo()">
 															<option value="">กรุณาเลือก</option>
-															<%for(int i=0; i<masterBankName.size(); i++){ %>
-																<option id="nameBank"  value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText() %></option>
+															<%for(int i=0; i<masterBankCode.size(); i++){ %>
+																<option id="nameBank"  value="<%=masterBankCode.get(i).getKeyCode()%>"><%=masterBankCode.get(i).getValue() %></option>
 															<%} %>
 														</select>
 														

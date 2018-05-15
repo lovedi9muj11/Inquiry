@@ -41,7 +41,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
 			paymentManualBean.setVatRate(paymentBean.getVatrate());
-			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
+			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());

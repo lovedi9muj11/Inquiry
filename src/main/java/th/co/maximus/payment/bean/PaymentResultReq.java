@@ -21,6 +21,7 @@ public class PaymentResultReq {
 	private BigDecimal balancePrice;
 	private BigDecimal balanceAmount;
 	private String period;
+	private BigDecimal discount;
 	
 	private String balanceSummaryStr;
 	private String beforeVatStr;
@@ -28,12 +29,13 @@ public class PaymentResultReq {
 	private String balanceOfvatStr;
 	private String deductionStr;
 	private String balancePriceStr;
+	private String discountStr;
 	
 	public PaymentResultReq() {
 	}
 	
 	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
-			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount) {
+			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount,BigDecimal discount) {
 		
 		this.custNo = custNo;
 		this.custName = custName;
@@ -49,6 +51,8 @@ public class PaymentResultReq {
 		this.balancePrice = balancePrice;
 		this.period = period;
 		this.balanceAmount = balanceAmount;
+		this.discount = discount;
+		
 
 	}
 	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
@@ -67,6 +71,7 @@ public class PaymentResultReq {
 		this.deduction = deduction;
 		this.balancePrice = balancePrice;
 		this.period = period;
+		
 
 	}
 
@@ -244,6 +249,22 @@ public class PaymentResultReq {
 
 	public void setBalancePriceStr(String balancePriceStr) {
 		this.balancePriceStr = balancePriceStr;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public String getDiscountStr() {
+		return discountStr;
+	}
+
+	public void setDiscountStr(String discountStr) {
+		this.discountStr = discountStr;
 	}
 
 	

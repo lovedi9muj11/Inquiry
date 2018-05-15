@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.bean.TrsChequeRefManualBean;
 import th.co.maximus.bean.TrsMethodManualBean;
@@ -27,10 +29,11 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 	@Autowired TrscreDitrefManualDao trscreDitrefManualDao;
 	@Autowired TrsChequeRefManualDao trsChequeRefManualDao;
 	@Autowired DeductionManualDao deductionManualDao;
+	
 	@Override
 	public int insertTrsmethodManual(PaymentFirstBean paymentBean,int userId) {
 		Date date = new Date();
-		
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int idTrsMethod = 0;
 		if(paymentBean.getPaymentTranPrice().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
@@ -122,13 +125,15 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				trsMethodManualBean.setChequeNo("");
 				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId("");
-				trsMethodManualBean.setAmount(paymentTaxBean.getMoneyDed());
+				trsMethodManualBean.setAmount(paymentTaxBean.getMoneyDed() *-1);
+	
+				
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
 				trsMethodManualBean.setRemark(paymentBean.getRemark());
-				trsMethodManualBean.setCreateBy("ADMIN");	
+				trsMethodManualBean.setCreateBy(profile.getUsername());	
 				trsMethodManualBean.setCreateDate(new Timestamp(date.getTime()));
-				trsMethodManualBean.setUpdateBy("ADMIN");
+				trsMethodManualBean.setUpdateBy(profile.getUsername());
 				trsMethodManualBean.setUpdateDate(new Timestamp(date.getTime()));
 				trsMethodManualBean.setRecordStatus("A");
 				trsMethodManualBean.setManualId(Long.valueOf(userId));
@@ -143,15 +148,15 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				if(idTrsMethod >0){
 					deductionManualBean.setDeDuctionNo("ภาษีหัก ณ ที่จ่าย");
 					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
-					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed());
+					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed() *-1);
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
 					deductionManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 					deductionManualBean.setVersionStamp(1L);
 					deductionManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 					deductionManualBean.setRemark(paymentBean.getRemark());
-					deductionManualBean.setCreateBy("ADMIN");
+					deductionManualBean.setCreateBy(profile.getUsername());
 					deductionManualBean.setCreateDate(new Timestamp(date.getTime()));
-					deductionManualBean.setUpdateBy("ADMIN");
+					deductionManualBean.setUpdateBy(profile.getUsername());
 					deductionManualBean.setUpdateDate(new Timestamp(date.getTime()));
 					deductionManualBean.setRecordStatus("A");
 					deductionManualBean.setManualId(Long.valueOf(userId));
