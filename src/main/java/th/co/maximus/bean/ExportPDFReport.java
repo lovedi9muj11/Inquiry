@@ -20,6 +20,15 @@ public class ExportPDFReport {
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
 	private String dateDocument;
+	private Long methodId;
+	private String serviceNo;
+	private BigDecimal discount;
+	private BigDecimal amountPayment;
+	private String preiod;
+	private String checkBran;
+	private String checkDiscount;
+	
+	
 	public String getBranArea() {
 		return branArea;
 	}
@@ -116,6 +125,49 @@ public class ExportPDFReport {
 	public void setDateDocument(String dateDocument) {
 		this.dateDocument = dateDocument;
 	}
+	public Long getMethodId() {
+		return methodId;
+	}
+	public void setMethodId(Long methodId) {
+		this.methodId = methodId;
+	}
+	public String getServiceNo() {
+		return serviceNo;
+	}
+	public void setServiceNo(String serviceNo) {
+		this.serviceNo = serviceNo;
+	}
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+	public BigDecimal getAmountPayment() {
+		return amountPayment;
+	}
+	public void setAmountPayment(BigDecimal amountPayment) {
+		this.amountPayment = amountPayment;
+	}
+	public String getPreiod() {
+		return preiod;
+	}
+	public void setPreiod(String preiod) {
+		this.preiod = preiod;
+	}
+	public String getCheckBran() {
+		return checkBran;
+	}
+	public void setCheckBran(String checkBran) {
+		this.checkBran = checkBran;
+	}
+	public String getCheckDiscount() {
+		return checkDiscount;
+	}
+	public void setCheckDiscount(String checkDiscount) {
+		this.checkDiscount = checkDiscount;
+	}
+	
 	
 	
 }

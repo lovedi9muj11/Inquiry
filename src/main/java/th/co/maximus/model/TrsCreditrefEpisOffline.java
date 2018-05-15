@@ -10,7 +10,12 @@ public class TrsCreditrefEpisOffline {
 	private BigDecimal amount;
 	
 	public TrsCreditrefEpisOffline(){}
-	public TrsCreditrefEpisOffline(String creditNo,String publisherdec,String cardtype,BigDecimal amount){}
+	public TrsCreditrefEpisOffline(String creditNo,String publisherdec,String cardtype,BigDecimal amount){
+		this.creditNo = creditNo;
+		this.publisherdec = publisherdec;
+		this.cardtype = cardtype;
+		this.amount = amount;
+	}
 	public String getCreditNo() {
 		return creditNo;
 	}

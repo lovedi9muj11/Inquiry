@@ -35,13 +35,21 @@ import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.model.TrsChequerefEpisOffline;
+import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.service.ReportService;
+import th.co.maximus.service.TrsChequeRefManualService;
+import th.co.maximus.service.TrscreDitrefManualService;
 
 @Controller
 public class EpisReportController {
 	@Autowired
 	ReportService reportService;
-
+	
+	@Autowired
+	private TrscreDitrefManualService trscreDitrefManualService;
+	@Autowired
+	private TrsChequeRefManualService trsChequeRefManualService;
 	
 	private ServletContext context;
 
@@ -69,7 +77,7 @@ public class EpisReportController {
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean)collections.get(0);
 		ExportPDFReport exportPDFReport = new ExportPDFReport();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:ss");
 		Date date =  new Date();
 		String dateDocument = dt.format(date);
 		
@@ -84,37 +92,82 @@ public class EpisReportController {
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
-
+		exportPDFReport.setServiceNo(invObject.getServiceNo());
+		exportPDFReport.setBeforeVat(invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
+		exportPDFReport.setVat(invObject.getVat().setScale(2, RoundingMode.HALF_DOWN));
 		
-		BigDecimal total = invObject.getBalanceSummary();
-		BigDecimal vatRate = new BigDecimal(invObject.getVatRate());
-		BigDecimal resVat = new BigDecimal(107);
+		String preiod = "";
+//		nameService = invObject.getBracnCode() + invObject.getBranArea()+ invObject.getSouce();
+		if(invObject.getPreiod() != null) {
+			String preiods = invObject.getPreiod();
+			String yearFrist = preiods.substring(0, 4);
+			String mountFrist = preiods.substring(4, 6);
+			String dayFrist = preiods.substring(6, 8);
+			String yearEnd =  preiods.substring(8,12);
+			String mountEnd = preiods.substring(12, 14);
+			String dayEnd = preiods.substring(14, 16);
+			
+			preiod = dayFrist + "/" + mountFrist + "/" +yearFrist + "-" + dayEnd +"/"+mountEnd+"/"+ yearEnd;
+			exportPDFReport.setPreiod(preiod);
+		}else {
+			exportPDFReport.setPreiod(preiod);
+		}
 		
-		BigDecimal beforeVat = total.multiply(vatRate);
 		
-		BigDecimal vat = beforeVat.divide(resVat,2,RoundingMode.HALF_UP);
 		
-		BigDecimal beforeVats = total.subtract(vat);
-		
-		exportPDFReport.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
-		exportPDFReport.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
-		
-		String nameService = "";
-		nameService = invObject.getBracnCode() + invObject.getBranArea()+ invObject.getSouce();
-		
-		String payCode="";
+		String paymentCodeRes = "";
 		List<String> result = new ArrayList<>();
 		for(int i=0; i<collections.size();i++) {
+			String payCode="";
 			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean)collections.get(i);
 			
-			result.add(stockObject.getPaymentCode());
+			
+			if(stockObject.getPaymentCode().equals("CC")) {
+				payCode = "เงินสด";
+			}else if(stockObject.getPaymentCode().equals("DEDUC")) {
+				payCode = "WT";
+			}else if(stockObject.getPaymentCode().equals("CD")) {
+				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
+					String code = res.get(0).getCreditNo();
+					payCode = "บัตรเครดิต" +res.get(0).getCardtype() + "เลขที่ : ************" + code.substring(12, 16);
+			}else if(stockObject.getPaymentCode().equals("CH")) {
+				 List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());
+				 payCode = "เช็ค " +res.get(0).getPublisher() + "เลขที่ :" +res.get(0).getChequeNo();
+			}
+			
+			result.add(payCode);
 			
 		}
 		for(int f = 0; f<result.size();f++) {
-			payCode += "-"+ result.get(f);
+			if(f ==0) {
+				paymentCodeRes += result.get(f);
+			}else {
+				paymentCodeRes += " + "+ result.get(f);
+			}
+			
 		}
-		exportPDFReport.setPaymentCode(payCode);
-		exportPDFReport.setSouce(nameService);
+		
+		String bran = "";
+		if(invObject.getBracnCode().equals("0000")) {
+			bran = "สำนักงานใหญ่";
+			exportPDFReport.setCheckBran("N");
+		}else{
+			bran = invObject.getBracnCode();
+			exportPDFReport.setCheckBran("Y");
+		}
+		exportPDFReport.setPaymentCode(paymentCodeRes);
+		exportPDFReport.setSouce(bran);
+		if(invObject.getDiscount().signum() == 0) {
+			exportPDFReport.setDiscount(invObject.getDiscount());
+			exportPDFReport.setCheckDiscount("N");
+		}else {
+			exportPDFReport.setDiscount(invObject.getDiscount());
+			exportPDFReport.setCheckDiscount("Y");
+		}
+		exportPDFReport.setDiscount(invObject.getDiscount());
+		exportPDFReport.setAmountPayment(invObject.getAmountPayment());
+		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
+//		exportPDFReport.setSouce(nameService);
 		parameters.put("ReportSource", exportPDFReport);
 		
 		response.setContentType("application/pdf");

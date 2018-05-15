@@ -1,5 +1,6 @@
 package th.co.maximus.bean;
 
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -19,13 +20,21 @@ public class InvEpisOfflineReportBean {
 	private String remark;
 	private String paymentCode;
 	private String vatRate;
+	private BigDecimal vat;
+	private BigDecimal beforeVat;
+	private Long methodId;
+	private String serviceNo;
+	private BigDecimal discount;
+	private BigDecimal amountPayment;
+	private String preiod;
+	
 	
 	
 	
 	public InvEpisOfflineReportBean() {}
 	
 	public InvEpisOfflineReportBean(String branArea,String bracnCode,String souce,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate) {
+			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal vat,BigDecimal beforeVat,Long methodId,String serviceNo,BigDecimal discount,BigDecimal amountPayment,String preiod) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
 		this.souce = souce;
@@ -40,6 +49,13 @@ public class InvEpisOfflineReportBean {
 		this.remark = remark;
 		this.paymentCode = paymentCode;
 		this.vatRate = vatRate;
+		this.vat = vat;
+		this.beforeVat = beforeVat;
+		this.methodId = methodId;
+		this.serviceNo = serviceNo;
+		this.discount = discount;
+		this.amountPayment = amountPayment;
+		this.preiod = preiod;
 		
 	}
 	
@@ -129,6 +145,62 @@ public class InvEpisOfflineReportBean {
 
 	public void setVatRate(String vatRate) {
 		this.vatRate = vatRate;
+	}
+
+	public Long getMethodId() {
+		return methodId;
+	}
+
+	public void setMethodId(Long methodId) {
+		this.methodId = methodId;
+	}
+
+	public String getServiceNo() {
+		return serviceNo;
+	}
+
+	public void setServiceNo(String serviceNo) {
+		this.serviceNo = serviceNo;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public BigDecimal getAmountPayment() {
+		return amountPayment;
+	}
+
+	public void setAmountPayment(BigDecimal amountPayment) {
+		this.amountPayment = amountPayment;
+	}
+
+	public BigDecimal getVat() {
+		return vat;
+	}
+
+	public void setVat(BigDecimal vat) {
+		this.vat = vat;
+	}
+
+	public BigDecimal getBeforeVat() {
+		return beforeVat;
+	}
+
+	public void setBeforeVat(BigDecimal beforeVat) {
+		this.beforeVat = beforeVat;
+	}
+
+	public String getPreiod() {
+		return preiod;
+	}
+
+	public void setPreiod(String preiod) {
+		this.preiod = preiod;
 	}
 	
 	
