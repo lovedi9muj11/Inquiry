@@ -34,7 +34,10 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode("001");
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
-			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
+			if(paymentBean.getTaxOnly() == null ){
+				paymentBean.setTaxOnly(0.00);
+			}
+			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1) + paymentBean.getTaxOnly());
 			if(resRQ > paymentBean.getBalanceOfTax()) {
 				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()));
 			}else {
