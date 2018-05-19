@@ -50,6 +50,12 @@
 				            <li><a href="${contextPath}/reportPaymentTax">รายการภาษีขายแบบย่อ/แบบเต็ม</a></li>
 				          </ul>
 				        </li>
+				        <li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">MinusOnline <span class="caret"></span> <span style="font-size:18px;" class="pull-right hidden-xs glyphicon glyphicon-road"></span></a>
+				          <ul class="dropdown-menu forAnimate" role="menu">
+				            <li><a href="${contextPath}/minusOnline">ส่งหักล้าง</a></li>
+				          </ul>
+				        </li>
 					</c:if>
 					
 			      </ul>

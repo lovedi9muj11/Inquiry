@@ -38,6 +38,7 @@ public class CallEpisOnlineTest {
 	}
 	
 	@Test
+	@Ignore
 	public void test() throws Exception{
 		clearingPaymentEpisOffline.callOnlinePayment(1);
 	}
