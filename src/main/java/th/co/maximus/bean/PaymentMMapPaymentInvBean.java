@@ -30,6 +30,7 @@ public class PaymentMMapPaymentInvBean {
 	private String statusCancelPayment;
 	private String addressNewCancelPayment;
 	private String customerAddress;
+	private String paymentMethod;
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
@@ -237,6 +238,14 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
+	}
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 	
 }

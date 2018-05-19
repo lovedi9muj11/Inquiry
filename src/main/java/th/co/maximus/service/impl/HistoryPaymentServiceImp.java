@@ -6,15 +6,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import th.co.maximus.core.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
+import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
+import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.HistoryPaymentService;
 
 @Service
@@ -24,6 +29,9 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
+	
+	@Autowired
+	private TrsMethodManualDao trsMethodManualDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() {
@@ -32,8 +40,22 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	}
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo) {
-
+	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo) throws Exception {
+		List<PaymentMMapPaymentInvBean>  result = new ArrayList<>();
+		for(PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo)) {
+			if("N".equals(bean.getClearing()) && "A".equals(bean.getRecordStatus())) {
+				List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(bean.getManualId()));
+				StringBuffer paymentMethod = new StringBuffer();
+				for(TrsMethodEpisOffline method: methodResult) {
+				
+					paymentMethod.append(method.getName()+" ");
+				}
+				bean.setPeriod(Utils.periodFormat(bean.getPeriod()));
+				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
+				bean.setPaymentMethod(paymentMethod.toString());
+				result.add(bean);
+			}
+		}
 		return paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo);
 
 	}
@@ -76,6 +98,11 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		result = paymentInvoiceManualDao.findPaymentOrder(historyRpt);
 		
 		return result;
+	}
+
+	@Override
+	public PaymentInvoiceManualBean findInvoiceManuleByManualIdService(Long manualId) {
+		return paymentInvoiceManualDao.findInvoiceManualByManualId(manualId);
 	}
 
 }

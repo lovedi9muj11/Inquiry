@@ -1,5 +1,7 @@
 package th.co.maximus.dao;
 
+import static org.assertj.core.api.Assertions.in;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
+import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
@@ -41,7 +44,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
 		return jdbcTemplate.query(sql.toString() , PaymentManual);
 	}
 	
@@ -330,6 +333,76 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			e.printStackTrace();
 		}
 		return beanReReq;
+	}
+
+	@Override
+	public void insertInvoice(InvoiceBean invoice) {
+		StringBuilder sql = new StringBuilder();
+		 sql.append("INSERT INTO `payment_invoice` (`MANUAL_ID`, `INVOICE_NO`, `INVOICE_DATE`, `DATE_LINE`, `BEFOR_VAT`, `VAT_AMOUNT`, `PAID_AMOUNT`, `AMOUNT`, `VAT_RATE`, `CUSTOMER_NAME`, `CUSTOMER_ADDRESS`, `CUSTOMER_SEGMENT`, `CUSTOMER_BRANCH`, "
+		 		+ "`TAXNO`, `ACCOUNTSUBNO`, `PERIOD`, `SERVICENAME`, `SERVICE_TYPE`, `CHANG`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`, `DISCOUNT`) ");  
+		 sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
+		 
+		 jdbcTemplate.update(sql.toString(),  invoice.getManualId() ,invoice.getInvoiceNo() , invoice.getInvoiceDate(), invoice.getDateLine(), invoice.getBeforVat(), invoice.getVatAmount(),
+				 invoice.getPaidAmount(),invoice.getAmount(),invoice.getVatRate(), invoice.getCustomerName(), invoice.getCustometAddress(),invoice.getCustometSegment(), invoice.getCustomerBranch()
+				 ,invoice.getTaxNo(), invoice.getAccountSubNo(),invoice.getPeriod(), invoice.getServiceName(), invoice.getServiceType(), invoice.getChang(), invoice.getCreateBy(), invoice.getCreateDate(), invoice.getUpdateBy() ,invoice.getUpdateDate(),
+				 invoice.getRecordStatus(), invoice.getDiscount());
+		
 	} 
+	
+	private static final RowMapper<InvoiceBean> invoice = new RowMapper<InvoiceBean>() {
+
+		@Override
+		public InvoiceBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			InvoiceBean invoice = new InvoiceBean();
+			invoice.setInvoiceId(rs.getLong("INV_ID"));
+			invoice.setManualId(rs.getLong("MANUAL_ID"));
+			invoice.setInvoiceNo(rs.getString("INVOICE_NO"));
+			invoice.setInvoiceDate(rs.getTimestamp("INVOICE_DATE"));
+			invoice.setDateLine(rs.getTimestamp("DATE_LINE"));
+			invoice.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
+			invoice.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
+			invoice.setPaidAmount(rs.getBigDecimal("PAID_AMOUNT"));
+			invoice.setAmount(rs.getBigDecimal("AMOUNT"));
+			invoice.setVatRate(rs.getString("VAT_RATE"));
+			invoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
+			invoice.setCustometAddress(rs.getString("CUSTOMER_ADDRESS"));
+			invoice.setCustometSegment(rs.getString("CUSTOMER_SEGMENT"));
+			invoice.setCustomerBranch(rs.getString("CUSTOMER_BRANCH"));
+			invoice.setTaxNo(rs.getString("TAXNO"));
+			invoice.setAccountSubNo(rs.getString("ACCOUNTSUBNO"));
+			invoice.setPeriod(rs.getString("PERIOD"));
+			invoice.setServiceName(rs.getString("SERVICENAME"));
+			invoice.setServiceType(rs.getString("SERVICE_TYPE"));
+			invoice.setChang(rs.getBigDecimal("CHANG"));
+			invoice.setCreateBy(rs.getString("CREATE_BY"));
+			invoice.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			invoice.setUpdateBy(rs.getString("UPDATE_BY"));
+			invoice.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
+			invoice.setRecordStatus(rs.getString("RECORD_STATUS"));
+			invoice.setDiscount(rs.getBigDecimal("DISCOUNT"));
+			return invoice;
+		}
+
+	};
+
+	@Override
+	public InvoiceBean findInvoiceByManualId(Long manualId) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" SELECT * FROM payment_invoice invoice WHERE invoice.MANUAL_ID = ?");
+		param.add(manualId);
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.queryForObject(sql.toString(), paramArr, invoice);
+	}
+
+	@Override
+	public PaymentInvoiceManualBean findInvoiceManualByManualId(Long manualId) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" SELECT * FROM payment_invoice_manual invoice WHERE invoice.MANUAL_ID = ?");
+		param.add(manualId);
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.queryForObject(sql.toString(), paramArr, PaymentInvoice);
+	}
 	
 }

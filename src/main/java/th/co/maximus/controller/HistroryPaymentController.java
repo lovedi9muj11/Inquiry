@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
+import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.HistoryPaymentService;
 
 @Controller
@@ -26,6 +28,9 @@ public class HistroryPaymentController {
 	@Autowired
 	private HistoryPaymentService paymentManualService;
 	
+	@Autowired
+	private CancelPaymentService cancelPaymentService;
+	
 	  @RequestMapping(value = {"/gotoHistroryPayment"}, method = RequestMethod.GET)
 	    public String gotoHistroryPayment(Model model) {
 	        return "history-payment";
@@ -33,10 +38,10 @@ public class HistroryPaymentController {
 	  
 	  @RequestMapping(value = {"/histroryPayment/find"}, method = RequestMethod.POST, produces = "application/json")
 	  @ResponseBody
-	    public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) {
+	    public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		  if("".equals(creteria.getAccountNo())) {
-			  result = paymentManualService.servicePaymentHitrory();	
+			  result = cancelPaymentService.findAllCancelPayment();	
 		  }else {
 			  result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo());	
 			  
@@ -86,6 +91,11 @@ public class HistroryPaymentController {
 			  }
 		  }
 	        return result;
+	    }
+	  @RequestMapping(value = {"/histroryPayment/findInvoiceByManualId"}, method = RequestMethod.POST, produces = "application/json")
+	  @ResponseBody
+	    public PaymentInvoiceManualBean findInvoiceByManualId(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+	        return paymentManualService.findInvoiceManuleByManualIdService(creteria.getManualId());
 	    }
 
 }

@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 
 public class Utils {
 	
-	public String periodFormat(String req) {
+	public static String periodFormat(String req) {
 		String result = "";
 		if(req.length()==16) {
 			result += req.substring(6, 8).concat("/");

@@ -89,6 +89,26 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="remake_dialog">
+	  <div class="modal-dialog modal-sm" style="width:600px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">หมายเหตุ</h4>
+	      </div>
+	      	<div class="modal-body">
+				<div class="row">
+					<div class="form-group col-md-12">
+						<input type="text" id="remake" name="remake" class="form-control" disabled="disabled">
+					</div>
+				</div>
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="closeDialog()">ตกลง</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
 </body>

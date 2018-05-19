@@ -40,23 +40,23 @@ function search(){
 function createRow(data, seq) {
 
 	no = seq + 1
-	paidDate = converDateToString(data.paidDate);
-	createDate = converDateToString(data.createDate);
+	paidDate = data.paidDateStr;
+	createDate = data.createDateStr;
 	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;
 	createBy = data.createBy;
 	invoiceNo = data.invoiceNo;
 	period = data.period;
 	amount = formatDouble(data.amount,2);
-	source = data.source;
+	source = data.paymentMethod;
 	paidAmount = formatDouble(data.paidAmount,2);
 	vatAmount = formatDouble(data.vatAmount,2);
-	recordStatus = data.recordStatus;
-
-	if(data.remark == null || data.remark == ''){
+	if(data.recordStatus == 'A'){
+		recordStatus = 'ปกติ';
 		remark = "-"
-	}else{
-		remark = data.remark;
+	}else if(data.recordStatus == 'C'){
+		recordStatus = 'ยกเลิก';
+		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}
 	accountNo = data.accountNo;
 	
@@ -78,18 +78,22 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(12).addClass('left');
     $(rowNode).find('td').eq(13).addClass('center');
 };
-function converDateToString(value){
-	var d = new Date(value)
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear(),
-    hours = d.getHours(),
-    minutes = d.getMinutes(),
-    seconds = d.getSeconds();
-
-	if (month.length < 2) month = '0' + month;
-	if (day.length < 2) day = '0' + day;
-
-return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
+function dialogRemake(value){
+	$("#remake_dialog").modal('show');
+	var dataSend = {"manualId": value};
+	$.ajax({
+        type: "POST",
+        url: "/histroryPayment/findInvoiceByManualId",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	$("#remake").val(res.remark);
+        }
+	})
 };
+function closeDialog(){
+	$("#remake_dialog").modal('hide');
+}
 

@@ -95,28 +95,36 @@ function printReportPDF(){
 
 function createRow(data, seq) {
 	manualId = seq+1;
-	serviceType = data.serviceType;
+	if(data.serviceType = 'IBACSS'){
+		serviceType = 'รับชำระค่าใช้บริการ';
+	}else if(data.serviceType = 'OTHER'){
+		serviceType = 'รับชำระค่าใช้บริการอื่น ๆ';
+	}
 	receiptNo = data.receiptNoManual;
 	accountSubNo = data.accountSubNo;
 	customerName = data.customerName;
 	department = data.department;
 	invoiceNo = data.invoiceNo;
-	createBy = data.createBy;
+	createBy = data.paymentMethod;
 	noRefer = '-';
 	beforVat = data.beforVat;
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);
 	if (data.status == 'C'){
 		statusStr = data.statusStr;
+		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}else{
+		remake = "";
 		statusStr = ''
 	}
 	
 	
+	
+	
     var t = $('#reportPaymentTb').DataTable();
-    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, invoiceNo, createBy ,noRefer , beforVat, vatAmount, amount, statusStr
+    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, invoiceNo, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
     ]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
+    $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
     $(rowNode).find('td').eq(3).addClass('left');
@@ -128,7 +136,8 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(9).addClass('center');
     $(rowNode).find('td').eq(10).addClass('right');
     $(rowNode).find('td').eq(11).addClass('right');
-    $(rowNode).find('td').eq(12).addClass('left');
+    $(rowNode).find('td').eq(12).addClass('center');
+    $(rowNode).find('td').eq(13).addClass('center');
 };
 
 function dropdownUser(){
@@ -189,3 +198,22 @@ function generateDropDown(value){
     	}
     }
 };
+
+function dialogRemake(value){
+	$("#remake_dialog").modal('show');
+	var dataSend = {"manualId": value};
+	$.ajax({
+        type: "POST",
+        url: "/histroryPayment/findInvoiceByManualId",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	$("#remake").val(res.remark);
+        }
+	})
+};
+function closeDialog(){
+	$("#remake_dialog").modal('hide');
+}

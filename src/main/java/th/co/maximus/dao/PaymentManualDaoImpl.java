@@ -143,8 +143,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT *,  CASE PM.RECORD_STATUS WHEN 'A' THEN 'ปกติ' WHEN 'N' THEN 'ชำระใหม่' ");
-		sql.append(" WHEN 'S' THEN 'ส่งออนไลน์สำเร็จ'  WHEN 'E' THEN 'เกิดข้อผิดพลาด' WHEN 'C' THEN 'ยกเลิกรายการ' ELSE '' END AS STATUS_NAME ");
+		sql.append(" SELECT PM.*,PIM.* ");
 		sql.append(" FROM receipt_manual PM ");
 		sql.append(" INNER JOIN payment_invoice_manual PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'"+criteria.getDateFrom()+"'").append("  AND PM.CREATE_DATE <= ").append("'"+criteria.getDateTo()+"'");
@@ -178,13 +177,13 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setInvoiceNo(rs.getString("INVOICE_NO"));
 			reportPayment.setServiceName(rs.getString("SERVICENAME"));
 			reportPayment.setCreateBy(rs.getString("CREATE_BY"));
+			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			reportPayment.setRemake(rs.getString("REMARK"));
 //			reportPayment.setNoRefer(rs.getString(""));
 			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract( rs.getBigDecimal("VAT_AMOUNT")));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
 			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
-			reportPayment.setStatusStr(rs.getString("STATUS_NAME"));
-		
 			return reportPayment;
 		}
 

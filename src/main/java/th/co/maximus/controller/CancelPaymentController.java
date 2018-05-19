@@ -36,7 +36,7 @@ public class CancelPaymentController {
 
 	@RequestMapping(value = { "/cancelPayment/find" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<PaymentMMapPaymentInvBean> findAll(@RequestBody PaymentMMapPaymentInvBean creteria) {
+	public List<PaymentMMapPaymentInvBean> findAll(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		if (!"".equals(creteria.getReceiptNoManual()) || !"".equals(creteria.getInvoiceNo())) {
 			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(),
@@ -49,7 +49,7 @@ public class CancelPaymentController {
 
 	@RequestMapping(value = { "/cancelPayment/findFromId" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<PaymentMMapPaymentInvBean> findAllFromId(@RequestBody PaymentMMapPaymentInvBean creteria) {
+	public List<PaymentMMapPaymentInvBean> findAllFromId(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		if (!("").equals(creteria.getManualId())) {
 			result = cancelPaymentService.findAllCancelPaymentFromId(creteria.getManualId());

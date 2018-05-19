@@ -11,10 +11,12 @@ public class TrsMethodEpisOffline {
 	private String creditNo;
 	private String accountNo;
 	private BigDecimal amount;
+	private String versionStemp;
+	private String createBy;
 	private List<TrsCreditrefEpisOffline> trsCreditrefEpisOffline;
 	private List<TrsChequerefEpisOffline> trsChequerefEpisOffline;
 	public TrsMethodEpisOffline(){}
-	public TrsMethodEpisOffline(String code,String name,String creditNo,String chequeNo,String accountNo,BigDecimal amount,Long id){
+	public TrsMethodEpisOffline(String code,String name,String creditNo,String chequeNo,String accountNo,BigDecimal amount,Long id,String versionStemp,String createBy){
 		
 		this.code = code;
 		this.name = name;
@@ -23,6 +25,8 @@ public class TrsMethodEpisOffline {
 		this.accountNo = accountNo;
 		this.amount = amount;
 		this.id = id;
+		this.versionStemp = versionStemp;
+		this.createBy = createBy;
 	}
 	
 	public Long getId() {
@@ -79,9 +83,18 @@ public class TrsMethodEpisOffline {
 	public void setTrsChequerefEpisOffline(List<TrsChequerefEpisOffline> trsChequerefEpisOffline) {
 		this.trsChequerefEpisOffline = trsChequerefEpisOffline;
 	}
-
-
-	
+	public String getVersionStemp() {
+		return versionStemp;
+	}
+	public void setVersionStemp(String versionStemp) {
+		this.versionStemp = versionStemp;
+	}
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
 	
 	
 }

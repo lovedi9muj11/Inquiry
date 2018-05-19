@@ -5,12 +5,13 @@ import java.util.List;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 
 public interface CancelPaymentService {
-	public List<PaymentMMapPaymentInvBean> findAllCancelPayment();
+	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() throws Exception;
 	
-	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(long manualId);
+	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(long manualId) throws Exception;
 	
-	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo);
+	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) throws Exception;
 	
 	public boolean insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
+	
 	
 }

@@ -112,7 +112,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 		TrsMethodEpisOffline bean = new TrsMethodEpisOffline();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID ");
+			sqlStmt.append("SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID, trm.VERSIONSTAMP, trm.UPDATE_BY ");
 			sqlStmt.append(" FROM trsmethod_manual trm ");
 			sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
 			
@@ -121,7 +121,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 			preparedStatement.setLong(1, manualId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				bean = new TrsMethodEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),resultSet.getLong(7));
+				bean = new TrsMethodEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),resultSet.getLong(7),resultSet.getString(8),resultSet.getString(9));
 				beanReReq.add(bean);
 			}
 

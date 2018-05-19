@@ -176,7 +176,7 @@
 	  <div class="modal-dialog modal-sm" style="width:650px">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title" id="myModalLabel">Edit User Detail</h4>
+	        <h4 class="modal-title" id="myModalLabel">แก้ไขข้อมูลชื่อ - ที่อยู่</h4>
 	      </div>
 		<div class="modal-body">
 			<div class="row">

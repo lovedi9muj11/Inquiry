@@ -211,19 +211,20 @@
 								<table id="reportPaymentTb" class="table table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th style="text-align: center;">ลำดับที่</th>
-											<th style="text-align: center;">ประเภทค่าบริการ</th>
-											<th style="text-align: center;">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>
-											<th style="text-align: center;">เลขที่สัญญา</th>
-											<th style="text-align: center;">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
-											<th style="text-align: center;">หน่วยติดตามหนี้</th>
-											<th style="text-align: center;">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
-											<th style="text-align: center;">ชำระโดย</th>
-											<th style="text-align: center;">เลขที่อ้างอิง</th>
-											<th style="text-align: center;">ยอดเงินก่อนภาษี</th>
-											<th style="text-align: center;">ภาษีมูลค่าเพิ่ม</th>
-											<th style="text-align: center;">จำนวนเงินรวม</th>
-											<th style="text-align: center;">สถานะ</th>
+											<th style="text-align: center;width: 5%">ลำดับที่</th>
+											<th style="text-align: center;width: 10%">ประเภทค่าบริการ</th>
+											<th style="text-align: center;width: 13%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
+											<th style="text-align: center;width: 10%">เลขที่สัญญา</th>
+											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
+											<th style="text-align: center;width: 10%">หน่วยติดตามหนี้</th>
+											<th style="text-align: center;width: 15%">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
+											<th style="text-align: center;width: 5%">ชำระโดย</th>
+											<th style="text-align: center;width: 5%">เลขที่อ้างอิง</th>
+											<th style="text-align: center;width: 10%">ยอดเงินก่อนภาษี</th>
+											<th style="text-align: center;width: 10%">ภาษีมูลค่าเพิ่ม</th>
+											<th style="text-align: center;width: 10%">จำนวนเงินรวม</th>
+											<th style="text-align: center;width: 10%">สถานะ</th>
+											<th style="text-align: center;width: 3%">หมายเหตุ</th>
 										</tr>
 									</thead>
 								</table>
@@ -233,7 +234,26 @@
 				</div>
 			</div>
 		</div>
-	
+		
+		<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="remake_dialog">
+		  <div class="modal-dialog modal-sm" style="width:600px">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel">หมายเหตุ</h4>
+		      </div>
+		      	<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-md-12">
+							<input type="text" id="remake" name="remake" class="form-control" disabled="disabled">
+						</div>
+					</div>
+		     	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="closeDialog()">ตกลง</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 
 </body>

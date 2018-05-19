@@ -52,12 +52,17 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setCustomerName(reportPaymentBean.getCustomerName());
 				reportPaymentBeanNew.setDepartment(reportPaymentBean.getDepartment());
 				reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
-				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
+				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer("-");
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
-				reportPaymentBeanNew.setStatus(reportPaymentBean.getStatusStr());
+				 if("A".equals(reportPaymentBean.getStatus())) {
+					 reportPaymentBeanNew.setStatus("ยกเลิก");
+				 }else if("C".equals(reportPaymentBean.getStatus())) {
+					 reportPaymentBeanNew.setStatus("-");
+				 }
+				
 				index++;
 				resultSource.add(reportPaymentBeanNew);
 				

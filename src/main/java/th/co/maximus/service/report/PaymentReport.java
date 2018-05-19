@@ -93,18 +93,26 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell13 = row.createCell(13);
 				 
 				 cell.setCellValue(index);
-				 cell1.setCellValue(resultReportPayment.getServiceType());
+				 if("IBACSS".equals(resultReportPayment.getServiceType())) {
+					 cell1.setCellValue("รับชำระค่าใช้บริการ");
+				 }else if("OTHER".equals(resultReportPayment.getServiceType())) {
+					 cell1.setCellValue("รับชำระค่าใช้บริการอื่น ๆ ");
+				 }
 				 cell2.setCellValue(resultReportPayment.getReceiptNoManual());
 				 cell3.setCellValue(resultReportPayment.getAccountSubNo());
 				 cell4.setCellValue(resultReportPayment.getCustomerName());
 				 cell5.setCellValue(resultReportPayment.getDepartment());
 				 cell6.setCellValue(resultReportPayment.getInvoiceNo());
-				 cell7.setCellValue("");
+				 cell7.setCellValue(resultReportPayment.getPaymentMethod());
 				 cell8.setCellValue("-");
 				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
 				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
 				 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
-				 cell12.setCellValue(resultReportPayment.getStatusStr());
+				 if("A".equals(resultReportPayment.getStatus())) {
+					 cell12.setCellValue("ยกเลิก");
+				 }else if("C".equals(resultReportPayment.getStatus())) {
+					 cell12.setCellValue("-");
+				 }
 				 cell13.setCellValue(resultReportPayment.getCreateBy());
 				 
 				 

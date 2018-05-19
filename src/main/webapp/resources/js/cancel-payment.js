@@ -5,6 +5,7 @@ var idRow;
 var userFullName = '';
 var customerAddress = '';
 var clearing;
+var valueIcon = "";
 $(document).ready(function () {
     console.log("ready!");
 
@@ -58,11 +59,13 @@ $(document).ready(function () {
         if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
+            $('#'+valueIcon).addClass('glyphicon-plus').removeClass('glyphicon-minus');
             tr.removeClass('shown');
         }
         else {
             // Open this row
             row.child(format(row.data())).show();
+            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
             tr.addClass('shown');
         }
     });
@@ -74,12 +77,12 @@ $(document).ready(function () {
         if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
-            tr.removeClass('shown');
+            $('#'+valueIcon).addClass('glyphicon-plus').removeClass('glyphicon-minus');
         }
         else {
             // Open this row
             row.child(format(row.data())).show();
-            tr.addClass('shown');
+            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
         }
     });  
 	  
@@ -218,26 +221,24 @@ function clearCriteria(){
 	$('#receiptNumber').val('');
 	search();
 };
-
+function chaengIcon(value){
+	valueIcon= 'icon'+value;
+}
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
-	invoice =  '<a name="invoice" id="invoice"><span name="icon'+seq+'" id="icon'+seq+'" class="glyphicon glyphicon-plus"></a>'
+	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
-	createDate = converDateToString(data.createDate);
-	dateMake = converDateToString(data.createDate);
+	createDate = data.createDateStr
+	dateMake = data.createDateStr;
 	accountNo = data.accountNo;
 	customer = data.customerName;
-	if(data.payType == 'F'){
-		payType = 'เต็มจำนวน';
-	}else if(data.payType == 'P'){
-		payType = 'บางส่วน';
-	}
+	payType = data.paymentMethod;
 	amount = formatDouble(data.amount,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
 	if(data.recordStatus == 'A'){
-		recordStatus = 'ปรกติ';
+		recordStatus = 'ปกติ';
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 	}
@@ -271,15 +272,11 @@ function createRowSelect(data, seq, table) {
 	userFullName = data.customerName;
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
-	createDate =converDateToString(data.createDate);
-	dateMake = converDateToString(data.createDate);
+	createDate =data.createDateStr;
+	dateMake = data.createDateStr;
 	accountNo = data.accountNo;
 	customer = data.customerName;
-	if(data.payType == 'F'){
-		payType = 'เต็มจำนวน';
-	}else if(data.payType == 'P'){
-		payType = 'บางส่วน';
-	}
+	payType = data.paymentMethod;
 	amount = formatDouble(data.amount,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
@@ -414,6 +411,10 @@ function converDateToString(value){
 
 	if (month.length < 2) month = '0' + month;
 	if (day.length < 2) day = '0' + day;
+	
+	if (hours.length < 2) hours = '0' + hours;
+	if (minutes.length < 2) minutes = '0' + minutes;
+	if (seconds.length < 2) seconds = '0' + seconds;
 
 return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 };
