@@ -139,7 +139,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 														คุณยังไม่ได้กรอก สาขา</p>
 												</div>
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">VAT RATE :<span style="color: red;">*</span></label>
+													for="formGroupInputLarge">VAT RATE :</label>
 												<div class="col-sm-2">
 													<select class="form-control" id="vatrate" name="vatrate">
 														<option value="7">7%</option>
@@ -207,7 +207,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 										<div class="col-sm-2">
 										<div class="input-group">
      									<div class="input-group-addon">฿</div>
-										<input id="inputServiceDiscount" name="inputServiceDiscount" class="form-control" />
+										<input id="inputServiceDiscount" name="inputServiceDiscount" class="form-control right numeric2point" />
 										</div>
 												
 										</div>
@@ -248,7 +248,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 										<div class="col-sm-2">
 										<div class="input-group">
      									<div class="input-group-addon">฿</div>
-										<input id="inputSpecialDiscount" name="inputSpecialDiscount" class="form-control" />
+										<input id="inputSpecialDiscount" name="inputSpecialDiscount" class="form-control right numeric2point" />
 										</div>
 										</div>
 
@@ -259,12 +259,19 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											:<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceAmount" 
-												name="inputServiceAmount" class="form-control numeric2point">
+												name="inputServiceAmount" class="form-control numeric2point right">
 											<p id="sinputServiceAmount" style="color: red;">
 												คุณยังไม่ได้กรอก จำนวนเงินต่อหน่วย ก่อน vat</p>
 										</div>
+										<label class="control-label col-sm-2">ภาษีหัก ณ ที่จ่าย :</label>
+										<div class="col-sm-2">
+										<div class="input-group">
+     									<div class="input-group-addon">฿</div>
+											<input id="moneyDed1" name="moneyDed1" class="form-control numeric2point right">
+										</div>
+										</div>
 
-										<div class="col-sm-5"></div>
+										<div class="col-sm-1"><a  class="btn btn-info" onclick="calVat()" id="calVat">คำนวณ</a></div>
 										<div class="col-sm-2 col-sm-offset-1">
 											<a id="buttonAddBillingList" onclick="buttonAddBillingList()"
 												class="btn btn-info"> <span
@@ -277,6 +284,18 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												เพิ่มรายการรับชำระ
 											</a>
 										</div>
+									</div>
+									
+									<div class="form-group">
+										
+										<div class="col-sm-3" align="right">
+													<input type="radio"  name="radiovat" value="beforvat" checked>ก่อน vat
+													<input type="radio" name="radiovat" value="aftervat">หลัง vat
+												</div>
+												
+										
+
+										
 									</div>
 
 								</div>
@@ -303,6 +322,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 														<th>เงินส่วนลดก่อน VAT </th>
 														<th>ส่วนลดพิเศษ </th>
 														<th>ภาษีมูลค่าเพิ่ม</th>
+														<th>ภาษีหัก ณ ที่จ่าย</th>
 														<th>ยอดเงินรวม</th>
 													</tr>
 												</thead>
@@ -365,7 +385,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-4 control-label right"
 													for="formGroupInputLarge">จำนวนเงิน :</label>
 												<div class="col-sm-6">
-													<input class="form-control numeric2point" type="text"
+													<input class="form-control numeric2point right" type="text"
 														id="moneyDed" name="paymentTax.moneyDed"
 														placeholder="จำนวนเงิน">
 														<p id="moneyDedTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
@@ -449,7 +469,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													<label class="col-sm-8 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control numeric2point" type="text"
+														<input class="form-control numeric2point right" type="text"
 															placeholder="จำนวนเงิน" id="moneyTran"
 															name="paymentTranPrice.moneyTran">
 															<p id="moneyTranTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
@@ -502,7 +522,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control numeric2point" type="text"
+														<input class="form-control numeric2point right" type="text"
 															id="creditPrice" name="paymentTranPrice.creditPrice"
 															placeholder="จำนวนเงิน">
 															<p id="creditPriceTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
@@ -598,7 +618,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
 													<div class="col-sm-4">
-														<input class="form-control numeric2point" type="text"
+														<input class="form-control numeric2point right" type="text"
 															id="moneyCheck" name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
 															<p id="moneyCheckTxt" style="color: red;">คุณยังไม่ได้กรอก จำนวนเงิน</p>
@@ -745,11 +765,11 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนส่วนลด
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden"
+													<input class="form-control right" type="hidden"
 														id="beforeSale" readonly="">
 												</div>
 												<div class="col-sm-3">
-													<input class="form-control numeric2point" type="text"
+													<input class="form-control numeric2point right" type="text"
 														id="beforeSaleShow" readonly="">
 												</div>
 											</div>
@@ -764,7 +784,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 <!-- 														readonly="" > -->
 <!-- 												</div> -->
 												<div class="col-sm-3">
-													<input class="form-control numeric2point " type="text" id="sale"
+													<input class="form-control numeric2point right " type="text" id="sale"
 														readonly="" >
 												</div>
 											</div>
@@ -779,7 +799,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 <!-- 														readonly=""  > -->
 <!-- 												</div> -->
 												<div class="col-sm-3">
-													<input class="form-control numeric2point" type="text"
+													<input class="form-control numeric2point right" type="text"
 														id="salespacial" readonly="" >
 												</div>
 											</div>
@@ -791,11 +811,11 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระก่อนภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden"
+													<input class="form-control right" type="hidden"
 														id="balanceBeforeTaxs" readonly="">
 												</div>
 											<div class="col-sm-3">
-													<input class="form-control numeric2point" type="text"
+													<input class="form-control numeric2point right" type="text"
 														id="balanceBeforeTaxsShow" readonly="">
 												</div>
 											</div>
@@ -806,9 +826,9 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ภาษีมูลค่าเพิ่ม :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden" id="vats"
+													<input class="form-control right" type="hidden" id="vats"
 														readonly="">
-													<input class="form-control numeric2point" type="text" id="vatsShow"
+													<input class="form-control numeric2point right" type="text" id="vatsShow"
 														readonly="">
 												</div>
 											</div>
@@ -820,9 +840,9 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระรวมภาษีมูลค่าเพิ่ม
 													:</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden" id="balanceOfTaxs"
+													<input class="form-control right" type="hidden" id="balanceOfTaxs"
 														readonly="">
-													<input class="form-control numeric2point" type="text" id="balanceOfTaxsShow"
+													<input class="form-control numeric2point right" type="text" id="balanceOfTaxsShow"
 														readonly="">
 												</div>
 											</div>
@@ -833,7 +853,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ภาษีหัก ณ ที่จ่าย :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="summaryTax"
+													<input class="form-control right" type="text" id="summaryTax"
 														name="summaryTax" readonly="">
 												</div>
 											</div>
@@ -863,9 +883,9 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระ :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="hidden"
+													<input class="form-control right" type="hidden"
 														id="balanceSummarys" readonly="">
-														<input class="form-control numeric2point" type="text"
+														<input class="form-control numeric2point right" type="text"
 														id="balanceSummaryShow" readonly="">
 												</div>
 											</div>
@@ -876,9 +896,9 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">ยอดเงินรับมา :</label>
 												<div class="col-sm-3">
-													<input class="form-control " type="hidden" id="balanceSum"
+													<input class="form-control right " type="hidden" id="balanceSum"
 														readonly="">
-													<input class="form-control numeric2point" type="text" id="balanceSumShow"
+													<input class="form-control numeric2point right" type="text" id="balanceSumShow"
 														readonly="">
 												</div>
 											</div>
@@ -889,7 +909,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">เงินทอน :</label>
 												<div class="col-sm-3">
-													<input class="form-control" type="text"
+													<input class="form-control right" type="text"
 														id="change" readonly="">
 												</div>
 											</div>
@@ -899,11 +919,11 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 											<div class="form-group ">
 												<div class="col-sm-6"></div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton1" readonly="">
+													<input type="radio" id="radioButton1" readonly="" >
 													รายได้อื่นที่ไม่มีภาษี
 												</div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton2" readonly="">
+													<input type="radio" id="radioButton2" readonly="" >
 													รายได้อื่นมีภาษี
 												</div>
 												<div class="col-sm-1" align="right">
@@ -911,7 +931,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													รับชำระล่วงหน้า
 												</div>
 												<div class="col-sm-3">
-													<input class="form-control" type="text" id="" name=""
+													<input class="form-control right" type="text" id="" name=""
 														value="0.00" readonly="">
 												</div>
 											</div>

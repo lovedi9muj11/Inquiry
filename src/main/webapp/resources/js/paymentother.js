@@ -55,6 +55,15 @@ $(document).ready(
 			$("#salespacial").val(
 					parseFloat(0).toFixed(2).replace(
 							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#inputServiceDiscount").val(
+					parseFloat(0).toFixed(2).replace(
+							/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#inputSpecialDiscount").val(
+									parseFloat(0).toFixed(2).replace(
+											/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#inputServiceAmount").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));								
+			$("#moneyDed").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			
 			document.getElementById("inputSpecialDiscount").readOnly = true;
 			$('#rbSpecialDiscount').click(function() {
@@ -490,6 +499,7 @@ function buttonAddBillingList() {
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var vatRate = $("#vatrate").val();
+	var moneyDed1 = $("#moneyDed1").val();
 
 
 	 if(inputServiceDiscount == ""){ 
@@ -523,9 +533,6 @@ function buttonAddBillingList() {
 		+ "<input class='form-control' type='text' id='serviceNametxt'	name='serviceNametxt'value='"
 		+ inputServiceName
 		+ "' />"
-		+ "<input class='form-control' type='hidden' id='serviceCodetxt'	name='serviceCodetxt'value='"
-		+ inputServiceCode
-		+ "' />"
 		+ "</td><td>"
 		+ serviceMoreData
 		+ "</td><td>"
@@ -540,6 +547,8 @@ function buttonAddBillingList() {
 		+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 				"$1,")
 		+ "</td><td>"
+		+ moneyDed1
+		+"</td><td>"
 		+ sumamount.toFixed(2).toString().replace(
 				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		+ "</td><td><a onclick='deleteTableSale("
@@ -567,6 +576,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 
 	$("#balanceBeforeTax").val(balanceBeforeTaxRQ.toFixed(2));
 	$("#vat").val(vatRQ.toFixed(2));
+	$("#moneyDed").val(moneyDed1);
 
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
@@ -1526,6 +1536,7 @@ function replaseIndexV4(str) {
 	var vat = 0;
 	var spacial = 0;
 	var sale =0;
+	var summaryTax =0;
 	rows = str.getElementsByTagName('tr')
 	if (rows.length > 1) {
 		var i, j, cells, customerId;
@@ -1535,7 +1546,7 @@ function replaseIndexV4(str) {
 				continue;
 			}
 			sumInputmon = sumInputmon
-					+ FormatMoneyShowToNumber(cells[8].innerHTML);
+					+ FormatMoneyShowToNumber(cells[9].innerHTML);
 			beforeSaleShow = beforeSaleShow
 					+ FormatMoneyShowToNumber(cells[4].innerHTML);
 			vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
@@ -1544,6 +1555,7 @@ function replaseIndexV4(str) {
 //					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML);
 			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
+			summaryTax= summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML);
 		}
 	}
 	$("#moneyTran").val(
@@ -1582,6 +1594,7 @@ function replaseIndexV4(str) {
 	$("#salespacial").val(
 			spacial.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#summaryTax").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 	totalSum();
 	return sumInputmon;
@@ -1625,4 +1638,80 @@ function totalSum() {
 		
 		
 	}
+	
+	
 }
+
+function calVat() {
+	var userGroup = $("#userGroup").val();
+	var vatRate = $("#vatrate").val();
+	var inputServiceMoreData = $("#inputServiceMoreData").val();
+	var inputServiceAmount = $("#inputServiceAmount").val();
+	var inputServiceDiscount = $("#inputServiceDiscount").val();
+	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
+	var radiovat = document.getElementsByName("radiovat");
+	var radioResult = "";
+	for (var x = 0; x < radiovat.length; x++) {
+		if (radiovat[x].checked) {
+			radioResult = radiovat[x].value;
+		}
+	}
+	
+	if ($("#userGroup").val() == "") {
+		$("#suserGroup").show();
+		return $("#userGroup").focus();
+	}
+	 // ส่วนลด
+	var serviceMoreData = parseFloat(inputServiceMoreData); // จำนวนรายการ
+	 var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", ""));
+	// สว่นลดพิเศษ
+	var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount); // จำนวนต่อหน่วย
+	
+	var amount = parseFloat((serviceMoreData * serviceAmount));
+	var amountbefor = parseFloat(((amount - inputServiceDiscount )-inputSpecialDiscount));
+	
+	var vat = parseFloat((amount * parseFloat(vatRate)/100));
+	
+	var wt3 = parseFloat((amountbefor * parseFloat(3)/100));
+	var wt1 = parseFloat((amountbefor * parseFloat(1)/100));
+	
+	var sumamount = parseFloat(((amount - inputServiceDiscount )-inputSpecialDiscount));
+	var unvat = parseFloat(sumamount - vat);
+	var uwt3 = parseFloat((unvat * parseFloat(3)/100));
+	var uwt1 = parseFloat((unvat * parseFloat(1)/100));
+	
+	
+	if(userGroup == 2){
+		if(radioResult == "beforvat"){
+			$("#moneyDed1").val(wt1.toFixed(2));
+			
+			$("#suserGroup").hide();
+		}else if(radioResult == "aftervat"){
+			$("#moneyDed1").val(uwt1.toFixed(2));
+			alert(unvat);
+		}
+		
+	}else if(userGroup == 3){
+		
+		if(radioResult == "beforvat"){
+			$("#moneyDed1").val(wt3.toFixed(2));
+			$("#suserGroup").hide();
+		}else if(radioResult == "aftervat"){
+			$("#moneyDed1").val(uwt3.toFixed(2));
+			alert(unvat);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	//moneyDed1
+	
+	
+	
+	
+}
+
+

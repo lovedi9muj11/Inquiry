@@ -999,6 +999,12 @@ function addDataSumCheckTranPrice() {
 
 }
 
+function calVat(){
+	
+	alert("คำนวณ");
+	
+}
+
 function addDataTableCheck() {
 	hideDetailPayment()
 	var summaryTax = $("#summaryTax").val();
@@ -1515,3 +1521,6 @@ function totalSum() {
 		}
 	}
 }
+
+
+
