@@ -55,19 +55,24 @@ function search(){
 			"serviceType": $('#serviceType').val(),
 			"accountId": $('#accountId').val()
 		};
-	$.ajax({
-        type: "POST",
-        url: "/reportPayment",
-        data: JSON.stringify(dataCritaria),
-        dataType: "json",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-	    	for (var i = 0; i < res.length; i++) {
-	                createRow(res[i], i);
-	            }
-        }
-	})
+	if(validationSearchCriteria()){
+		$.ajax({
+	        type: "POST",
+	        url: "/reportPayment",
+	        data: JSON.stringify(dataCritaria),
+	        dataType: "json",
+	        async: false,
+	        contentType: "application/json; charset=utf-8",
+	        success: function (res) {
+		    	for (var i = 0; i < res.length; i++) {
+		                createRow(res[i], i);
+		            }
+	        }
+		});
+	}else{
+		alert("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด");
+	}
+
 };
 
 function clearCriteria(){
@@ -114,8 +119,12 @@ function createRow(data, seq) {
 		statusStr = data.statusStr;
 		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}else{
-		remake = "";
-		statusStr = ''
+		if(data.remake != ""){
+			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remake = '-';
+		}
+		statusStr = '';
 	}
 	
 	
@@ -216,4 +225,20 @@ function dialogRemake(value){
 };
 function closeDialog(){
 	$("#remake_dialog").modal('hide');
+}
+function validationSearchCriteria(){
+	var returnResult = true;
+	var dateFrom = $('#dateFrom').val();
+	var dateFromHour = $('#dateFromHour').val();
+	var dateFromMinute = $('#dateFromMinute').val()
+	var dateTo = $('#dateTo').val();
+	var dateToHour = $('#dateToHour').val();
+	var dateToMinute = $('#dateToMinute').val();
+	var dateFromFormate = dateFrom+" "+ dateFromHour+":"+ dateFromMinute;
+	var dateToFormate = dateTo+" "+dateToHour+":"+dateToMinute;
+	 if ((Date.parse(dateFromFormate) > Date.parse(dateToFormate))) {
+		 returnResult = false;
+	 }
+	 return returnResult;
+	
 }

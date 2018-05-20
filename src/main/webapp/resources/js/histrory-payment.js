@@ -53,11 +53,16 @@ function createRow(data, seq) {
 	vatAmount = formatDouble(data.vatAmount,2);
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
-		remark = "-"
+		if(data.remark != ""){
+			remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remark = '-';
+		}
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}
+	
 	accountNo = data.accountNo;
 	
     var t = $('#histroryPaymentTB').DataTable();
