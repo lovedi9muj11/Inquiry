@@ -404,5 +404,17 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.queryForObject(sql.toString(), paramArr, PaymentInvoice);
 	}
+
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVs(String clearing) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" SELECT * FROM receipt_manual payment_m ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
+		sql.append(" WHERE payment_m.CLEARING = ?");
+		param.add(clearing);
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.query(sql.toString(), paramArr ,PaymentManual);
+	}
 	
 }

@@ -119,7 +119,7 @@ public class ReportController {
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia);
 			
 			String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/Payment-Report.xlsx");
-			XSSFWorkbook workbook = new XSSFWorkbook(new File(pathFile));
+			XSSFWorkbook workbook = new XSSFWorkbook();
 			
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			

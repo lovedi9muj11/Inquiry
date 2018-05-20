@@ -14,6 +14,7 @@ import th.co.maximus.model.PaymentInvoiceEpisOffline;
 public interface PaymentInvoiceManualDao {
 	
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV();
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVs(String clearing);
 	
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean);
 

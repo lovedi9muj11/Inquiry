@@ -235,4 +235,29 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 		return resultReturn;
 	}
 
+	@Override
+	public List<PaymentMMapPaymentInvBean> findAllCancelPayments(String clearing) throws Exception {
+		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPaymentMuMapPaymentInVs(clearing);
+		for(PaymentMMapPaymentInvBean resultBean : result) {
+			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
+			StringBuffer paymentMethod = new StringBuffer();
+			for(TrsMethodEpisOffline method: methodResult) {
+			
+				paymentMethod.append(method.getName()+" ");
+			}
+			resultBean.setPaidDateStr(dt.format(resultBean.getCreateDate()));
+			resultBean.setPeriod(Utils.periodFormat(resultBean.getPeriod()));
+			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
+			resultBean.setPaymentMethod(paymentMethod.toString());
+		}
+		
+	     Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>(){
+				@Override
+				public int compare(PaymentMMapPaymentInvBean o1, PaymentMMapPaymentInvBean o2) {
+					return o2.getCreateDate().compareTo(o1.getCreateDate());
+				}
+	        });
+		return result;
+	}
+
 }

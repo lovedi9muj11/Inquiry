@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;

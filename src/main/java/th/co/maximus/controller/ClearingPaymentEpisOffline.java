@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.model.DuductionEpisOffline;
 import th.co.maximus.model.PaymentEpisOfflineDTO;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
@@ -16,7 +21,9 @@ import th.co.maximus.model.ReceiptOfflineModel;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
+import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
+import th.co.maximus.service.HistoryPaymentService;
 
 @Controller
 public class ClearingPaymentEpisOffline {
@@ -28,6 +35,12 @@ public class ClearingPaymentEpisOffline {
 	public ClearingPaymentEpisOffline() {
 		restTemplate = new RestTemplate();
 	}
+	
+	@Autowired
+	private HistoryPaymentService paymentManualService;
+	
+	@Autowired
+	private CancelPaymentService cancelPaymentService;
 	
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
@@ -92,4 +105,11 @@ public class ClearingPaymentEpisOffline {
 		}
 		
 	}
+	  @RequestMapping(value = {"/clearing/find"}, method = RequestMethod.POST, produces = "application/json")
+	  @ResponseBody
+	    public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+			  result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());	
+	        return result;
+	    }
 }

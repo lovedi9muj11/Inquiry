@@ -13,5 +13,7 @@ public interface CancelPaymentService {
 	
 	public boolean insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
 	
+	public List<PaymentMMapPaymentInvBean> findAllCancelPayments(String clearing) throws Exception;
+	
 	
 }
