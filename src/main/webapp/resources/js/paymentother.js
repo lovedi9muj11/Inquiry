@@ -547,7 +547,7 @@ function buttonAddBillingList() {
 		+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 				"$1,")
 		+ "</td><td>"
-		+ moneyDed1
+		+ "-"+moneyDed1
 		+"</td><td>"
 		+ sumamount.toFixed(2).toString().replace(
 				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
@@ -1317,23 +1317,23 @@ function myDeleteSumCreditTranPrice(numberRun) {
 
 				balance = parseFloat(balance) - parseFloat(summaryTax);
 				res = parseFloat(balance) + parseFloat(chen);
-				// if (parseFloat(res) >= parseFloat(sumPrice)) {
-				// $("#change").val(parseFloat(0).toFixed(2));
-				// }
-				//
-				// if (parseFloat(sumPrice) < parseFloat(balance)) {
-				// balance = parseFloat(sumPrice);
-				// $("#change").val(parseFloat(0).toFixed(2));
-				// }
-				//
-				// if (parseFloat(sumPrice) >= parseFloat(res)) {
-				// var totalChange = parseFloat(balanceSum)-
-				// parseFloat(sumPrice);
-				// if(totalChange > 0){
-				// $("#change").val(parseFloat(totalChange).toFixed(2));
-				// }
-				//				
-				// }
+				 if (parseFloat(res) >= parseFloat(sumPrice)) {
+				 $("#change").val(parseFloat(0).toFixed(2));
+				 }
+				
+				 if (parseFloat(sumPrice) < parseFloat(balance)) {
+				 balance = parseFloat(sumPrice);
+				 $("#change").val(parseFloat(0).toFixed(2));
+				 }
+				
+				 if (parseFloat(sumPrice) >= parseFloat(res)) {
+				 var totalChange = parseFloat(balanceSum)-
+				 parseFloat(sumPrice);
+				 if(totalChange > 0){
+				 $("#change").val(parseFloat(totalChange).toFixed(2));
+				 }
+								
+				 }
 				$("#moneyCheck").val(
 						balance.toFixed(2).toString().replace(
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
