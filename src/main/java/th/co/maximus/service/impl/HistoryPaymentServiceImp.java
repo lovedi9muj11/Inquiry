@@ -48,11 +48,11 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 				StringBuffer paymentMethod = new StringBuffer();
 				for(TrsMethodEpisOffline method: methodResult) {
 				
-					paymentMethod.append(method.getName()+" ");
+					paymentMethod.append("+ "+method.getName());
 				}
 				bean.setPeriod(Utils.periodFormat(bean.getPeriod()));
 				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
-				bean.setPaymentMethod(paymentMethod.toString());
+				bean.setPaymentMethod(paymentMethod.toString().substring(1));
 				result.add(bean);
 			}
 		}

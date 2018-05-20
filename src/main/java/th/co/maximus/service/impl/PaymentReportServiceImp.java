@@ -37,9 +37,9 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
 			for(TrsMethodEpisOffline method: methodResult) {
-				paymentMethod.append(method.getName()+" ");
+				paymentMethod.append("+ "+method.getName());
 			}
-			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 		}
 		
 	     Collections.sort(result, new Comparator<ReportPaymentBean>(){

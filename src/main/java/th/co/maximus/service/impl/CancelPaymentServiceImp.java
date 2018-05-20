@@ -64,14 +64,19 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			StringBuffer paymentMethod = new StringBuffer();
 			for(TrsMethodEpisOffline method: methodResult) {
 			
-				paymentMethod.append(method.getName()+" ");
+				paymentMethod.append("+"+method.getName());
 			}
 			resultBean.setPaidDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPeriod(Utils.periodFormat(resultBean.getPeriod()));
+			if("IBACSS".equals(resultBean.getServiceType())) {
+				resultBean.setPeriod(Utils.periodFormat(resultBean.getPeriod()));
+			}else if("OTHER".equals(resultBean.getServiceType())) {
+				resultBean.setPeriod("-");
+			}
+			
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 		}
-		
+		 
 	     Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>(){
 				@Override
 				public int compare(PaymentMMapPaymentInvBean o1, PaymentMMapPaymentInvBean o2) {
@@ -90,10 +95,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				StringBuffer paymentMethod = new StringBuffer();
 				for(TrsMethodEpisOffline method: methodResult) {
 				
-					paymentMethod.append(method.getName()+" ");
+					paymentMethod.append("+"+method.getName());
 				}
 				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
-				bean.setPaymentMethod(paymentMethod.toString());
+				bean.setPaymentMethod(paymentMethod.toString().substring(1));
 				result.add(bean);
 			}
 		}
@@ -109,10 +114,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			StringBuffer paymentMethod = new StringBuffer();
 			for(TrsMethodEpisOffline method: methodResult) {
 			
-				paymentMethod.append(method.getName()+" ");
+				paymentMethod.append("+"+method.getName());
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 		}
 		
 	     Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>(){
@@ -243,12 +248,12 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			StringBuffer paymentMethod = new StringBuffer();
 			for(TrsMethodEpisOffline method: methodResult) {
 			
-				paymentMethod.append(method.getName()+" ");
+				paymentMethod.append("+"+method.getName());
 			}
 			resultBean.setPaidDateStr(dt.format(resultBean.getCreateDate()));
 			resultBean.setPeriod(Utils.periodFormat(resultBean.getPeriod()));
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 		}
 		
 	     Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>(){

@@ -77,6 +77,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));
 			paymentManual.setCustomerAddress(rs.getString("CUSTOMER_ADDRESS"));
+			paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
 			
 			return paymentManual;
 		}

@@ -31,6 +31,7 @@ public class PaymentMMapPaymentInvBean {
 	private String addressNewCancelPayment;
 	private String customerAddress;
 	private String paymentMethod;
+	private String serviceType;
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
@@ -246,6 +247,14 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	public String getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
 	}
 	
 }
