@@ -798,7 +798,7 @@ masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 													รับภาระภาษีบางส่วน
 												</div>
 												<div class="col-sm-3">
-													<input class="form-control numeric2point" type="text" id="taxOnly" name="taxOnly">
+													<input class="form-control numeric2point" type="text" id="taxOnly" name="taxOnly" onchange="taxDiscount()">
 												</div>
 											</div>
 										</div>
@@ -839,28 +839,6 @@ masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 												</div>
 											</div>
 										</div>
-<!-- 										<div class="row"> -->
-
-<!-- 											<div class="form-group "> -->
-<!-- 												<div class="col-sm-6"></div> -->
-<!-- 												<div class="col-sm-1" align="right"> -->
-<!-- 													<input type="radio" id="radioButton1" readonly=""> -->
-<!-- 													รายได้อื่นที่ไม่มีภาษี -->
-<!-- 												</div> -->
-<!-- 												<div class="col-sm-1" align="right"> -->
-<!-- 													<input type="radio" id="radioButton2" readonly=""> -->
-<!-- 													รายได้อื่นมีภาษี -->
-<!-- 												</div> -->
-<!-- 												<div class="col-sm-1" align="right"> -->
-<!-- 													<input type="radio" id="radioButton3" readonly=""> -->
-<!-- 													รับชำระล่วงหน้า -->
-<!-- 												</div> -->
-<!-- 												<div class="col-sm-3"> -->
-<!-- 													<input class="form-control" type="text" id="" name="" -->
-<!-- 														value="0.00" readonly=""> -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
 									</div>
 								</div>
 							</div>

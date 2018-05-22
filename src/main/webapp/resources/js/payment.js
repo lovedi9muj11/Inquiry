@@ -171,33 +171,38 @@ $(document).ready(function() {
 					  $("input:radio").removeAttr("checked");
 			    });
 			  
-			  $("#taxOnly").change(function() {
-					var result = FormatMoneyShowToNumber($("#taxOnly").val());
-					var bable = parseFloat(result.toFixed(2).replace(",", ""));
-					var bas = $("#balanceSummarys").val();
-					var balance = parseFloat(bas.replace(",", ""));
-					if(bable < 0 || !bable){
-						bable = parseFloat(0);
-					}
-					
-					var balanSum = FormatMoneyShowToNumber($("#balanceSummary").val());
-					var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
-					if(bable > balanSum){
-						alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
-						$("#taxOnly").val(0);
-						return $("#taxOnly").focus();
-					}
-					balance =	parseFloat(balance) - parseFloat(bable);
-					$("#balanceSummarys").val(parseFloat(balance).toFixed(2));
-					$("#balanceSummaryShow").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-					$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-					$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-					$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				});
+			  
 
 		});
 
-
+function taxDiscount(){
+	var result = FormatMoneyShowToNumber($("#taxOnly").val());
+	var bable = parseFloat(result.toFixed(2).replace(",", ""));
+	var bas = $("#balanceSummarys").val();
+	var balance = parseFloat(bas.replace(",", ""));
+	
+	var sq = $("#summaryTax").val();
+	var summaryTax = parseFloat(sq.replace(",", ""));
+	if(bable < 0 || !bable){
+		bable = parseFloat(0);
+	}
+	if(bable > balance){
+		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+		$("#taxOnly").val(0);
+		return $("#taxOnly").focus();
+	}
+	
+	
+	var balanSum = FormatMoneyShowToNumber($("#balanceSummary").val());
+	var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
+	var total = parseFloat(balanSumShow) - parseFloat(summaryTax *-1);
+	balance =	parseFloat(balance) - parseFloat(bable);
+	$("#balanceSummarys").val(parseFloat(balance).toFixed(2));
+//	$("#balanceSummaryShow").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+};
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
 	var rowLength = table.rows.length;
@@ -1411,7 +1416,7 @@ function summaryTax() {
 	$("#summaryTax").val((summary.toFixed(2) * -1));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
-	$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	//$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -1452,7 +1457,7 @@ function removeTax() {
 	$("#summaryTax").val(tax.toFixed(2));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
-	$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	//$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

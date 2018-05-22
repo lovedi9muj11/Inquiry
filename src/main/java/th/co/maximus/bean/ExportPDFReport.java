@@ -27,6 +27,9 @@ public class ExportPDFReport {
 	private String preiod;
 	private String checkBran;
 	private String checkDiscount;
+	private String checkCustomerName;
+	private String checkAddress;
+	private String checkTaxId;
 	
 	
 	public String getBranArea() {
@@ -166,6 +169,24 @@ public class ExportPDFReport {
 	}
 	public void setCheckDiscount(String checkDiscount) {
 		this.checkDiscount = checkDiscount;
+	}
+	public String getCheckCustomerName() {
+		return checkCustomerName;
+	}
+	public void setCheckCustomerName(String checkCustomerName) {
+		this.checkCustomerName = checkCustomerName;
+	}
+	public String getCheckAddress() {
+		return checkAddress;
+	}
+	public void setCheckAddress(String checkAddress) {
+		this.checkAddress = checkAddress;
+	}
+	public String getCheckTaxId() {
+		return checkTaxId;
+	}
+	public void setCheckTaxId(String checkTaxId) {
+		this.checkTaxId = checkTaxId;
 	}
 	
 	
