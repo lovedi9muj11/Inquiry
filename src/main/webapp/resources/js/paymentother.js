@@ -64,6 +64,7 @@ $(document).ready(
 			$("#inputServiceAmount").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));								
 			$("#moneyDed").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+			$("#summaryTax").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			
 			document.getElementById("inputSpecialDiscount").readOnly = true;
 			$('#rbSpecialDiscount').click(function() {
@@ -284,7 +285,7 @@ function submitForm() {
 			 "inputSpecialDiscount" : resultTblSale[h][6],
 			"vatSale" : resultTblSale[h][7].replace(",", ""),
 			
-			"summarySale" : resultTblSale[h][8].replace(",", "")
+			"summaryinvoice" : resultTblSale[h][9].replace(",", "")
 		}
 		listpaymentSaleRQ.push(listpaymentSale);
 	}
@@ -547,7 +548,7 @@ function buttonAddBillingList() {
 		+ vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 				"$1,")
 		+ "</td><td>"
-		+ "-"+moneyDed1
+		+ moneyDed1
 		+"</td><td>"
 		+ sumamount.toFixed(2).toString().replace(
 				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
@@ -580,6 +581,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
+	
 
 }
 
@@ -805,7 +807,7 @@ function addDataTableDed() {
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
 		document.getElementById("deductibleTable").deleteRow(i - 1);
 	}
-	$("#balanceSummarys").val(parseFloat(balance).toFixed(2).replace(",", ""));
+	$("#balanceSummarys").val(parseFloat(balance *-1).toFixed(2).replace(",", ""));
 
 	 summaryTax();
 	// vatAmount();
@@ -1385,7 +1387,7 @@ function summaryTax() {
 		summary = parseFloat(0);
 	}
 
-	$("#summaryTax").val(summary.toFixed(2));
+	$("#summaryTax").val(summary.toFixed(2)*-1);
 	vatAmount();
 }
 
@@ -1533,6 +1535,7 @@ function replaseIndexV3(str) {
 function replaseIndexV4(str) {
 	var sumInputmon = 0;
 	var beforeSaleShow = 0;
+	var beforeSaleShow1 = 0;
 	var vat = 0;
 	var spacial = 0;
 	var sale =0;
@@ -1556,6 +1559,7 @@ function replaseIndexV4(str) {
 			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML);
 			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
 			summaryTax= summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML);
+			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML));
 		}
 	}
 	$("#moneyTran").val(
@@ -1577,7 +1581,7 @@ function replaseIndexV4(str) {
 			beforeSaleShow.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceBeforeTaxsShow").val(
-			beforeSaleShow.toFixed(2).toString().replace(
+			beforeSaleShow1.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#vats").val(vat);
 	$("#vatsShow").val(
@@ -1688,7 +1692,6 @@ function calVat() {
 			$("#suserGroup").hide();
 		}else if(radioResult == "aftervat"){
 			$("#moneyDed1").val(uwt1.toFixed(2));
-			alert(unvat);
 		}
 		
 	}else if(userGroup == 3){
@@ -1698,20 +1701,29 @@ function calVat() {
 			$("#suserGroup").hide();
 		}else if(radioResult == "aftervat"){
 			$("#moneyDed1").val(uwt3.toFixed(2));
-			alert(unvat);
 		}
 	}
 	
 	
+}
+
+function autoSelect(){
+	var event = $("#userGroup").val();
 	
-	
-	
-	
-	//moneyDed1
-	
-	
-	
-	
+	if(event == "1"){
+		// 69 ทริ
+		radiobtn = document.getElementById("radioDedCC");
+		radiobtn.checked = true;
+	}else if(event == "2"){
+		radiobtns = document.getElementById("radioDedCD");
+		radiobtns.checked = true;
+	}else if(event == "3"){
+		radiobtns = document.getElementById("radioDedCT");
+		radiobtns.checked = true;
+	}else{
+		radiobtns = document.getElementById("radioDedCD");
+		radiobtns.checked = true;
+	}
 }
 
 

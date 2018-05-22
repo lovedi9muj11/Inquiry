@@ -16,7 +16,15 @@ public class PaymentBillBean implements Serializable{
 	private BigDecimal vatSale;
 	private BigDecimal inputSpecialDiscount;
 	private BigDecimal summarySale;
+	private BigDecimal summaryinvoice;
 	
+	
+	public BigDecimal getSummaryinvoice() {
+		return summaryinvoice;
+	}
+	public void setSummaryinvoice(BigDecimal summaryinvoice) {
+		this.summaryinvoice = summaryinvoice;
+	}
 	public String getInputServiceCode() {
 		return inputServiceCode;
 	}

@@ -114,7 +114,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 													for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span style="color: red;">*</span></label>
 												<div class="col-sm-2">
 													<select class="form-control" id="userGroup"
-														name="userGroup">
+														name="userGroup" onchange="autoSelect()">
 														<option value="">-- กรุณาเลือก --</option>
 														<option value="1">ธุรกิจทั่วไป</option>
 														<option value="2">หน่วยงานรัฐ</option>
@@ -413,7 +413,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 														<thead>
 															<tr>
 																<th>#</th>
-																<th>รายการหัก</th>
+																<th>เลขที่ลูกค้า</th>
 																<th>เลขที่เอกสาร</th>
 																<th>ประเภทหัก ณ ที่จ่าย</th>
 																<th>จำนวนเงิน</th>
