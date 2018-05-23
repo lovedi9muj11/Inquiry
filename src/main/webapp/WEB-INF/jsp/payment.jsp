@@ -153,11 +153,11 @@ masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 										<div class="row">
 											<div class="form-group">
 												<label class="col-sm-2 control-label right"
-													for="formGroupInputLarge">หมายเลขบริการ :<span style="color: red;">*</span></label>
+													for="formGroupInputLarge">หมายเลขบริการ :</label>
 												<div class="col-sm-2">
 													<input class="form-control" type="text" id="serviceNo"
 														name="serviceNo" placeholder="หมายเลขบริการ">
-														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p>
+<!-- 														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p> -->
 												</div>
 												<label class="col-sm-2 control-label right"
 													for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :<span style="color: red;">*</span></label>
@@ -207,8 +207,7 @@ masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 													<select class="form-control" id="vatrate" name="vatrate" onchange="findvatAmount()">
 														<option value="7">7%</option>
 														<option value="0">0%</option>
-														<option value="0">NON VAT</option>
-
+														<option value="NON VAT">NON VAT</option>
 													</select>
 												</div>
 											</div>
@@ -703,7 +702,7 @@ masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 													for="formGroupInputLarge">เพิ่มเติม :</label>
 												<div class="col-sm-3">
 													<input class="form-control" type="text" id="remark"
-														name="remark">
+														name="remark" maxlength="100">
 												</div>
 <!-- 												<div class="col-sm-3"></div> -->
 <!-- 												<label class="col-sm-2 control-label right" -->

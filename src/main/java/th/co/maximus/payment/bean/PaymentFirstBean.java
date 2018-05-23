@@ -49,6 +49,10 @@ public class PaymentFirstBean implements Serializable{
 	private double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
+	private String nonVat;
+	
+	
+	
 	public String getCustName() {
 		return custName;
 	}
@@ -246,6 +250,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setTaxOnly(Double taxOnly) {
 		this.taxOnly = taxOnly;
+	}
+	public String getNonVat() {
+		return nonVat;
+	}
+	public void setNonVat(String nonVat) {
+		this.nonVat = nonVat;
 	}
 	
 	

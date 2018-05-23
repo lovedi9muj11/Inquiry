@@ -30,6 +30,8 @@ public class ExportPDFReport {
 	private String checkCustomerName;
 	private String checkAddress;
 	private String checkTaxId;
+	private String vatRate;
+	private String checkSubNo;
 	
 	
 	public String getBranArea() {
@@ -188,7 +190,20 @@ public class ExportPDFReport {
 	public void setCheckTaxId(String checkTaxId) {
 		this.checkTaxId = checkTaxId;
 	}
+	public String getVatRate() {
+		return vatRate;
+	}
+	public void setVatRate(String vatRate) {
+		this.vatRate = vatRate;
+	}
+	public String getCheckSubNo() {
+		return checkSubNo;
+	}
+	public void setCheckSubNo(String checkSubNo) {
+		this.checkSubNo = checkSubNo;
+	}
 	
 	
+
 	
 }

@@ -1,9 +1,6 @@
 package th.co.maximus.service.impl;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +43,13 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setBeforVat(paymentBean.getBalanceBeforeTax());
 		paymentInvoiceManualBean.setVatAmount(paymentBean.getVat());
 		paymentInvoiceManualBean.setAmount(paymentBean.getBalanceSummary());
-		paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
+		
+		if(paymentBean.getNonVat().equals("NON VAT")) {
+			paymentInvoiceManualBean.setVatRate(-1);
+		}else {
+			paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
+		}
+//		paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
 		paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
 		paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());
 		paymentInvoiceManualBean.setCustomerSegment("1");

@@ -91,8 +91,22 @@ public class EpisReportController {
 		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
+		
 		exportPDFReport.setServiceNo(invObject.getServiceNo());
+		if(StringUtils.isNotBlank(invObject.getServiceNo())) {
+			exportPDFReport.setCheckSubNo("Y");
+		}else {
+			exportPDFReport.setCheckSubNo("N");
+		}
+		
+		
 		exportPDFReport.setBeforeVat(invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
+		
+		if(Integer.parseInt(invObject.getVatRate()) < 0) {
+			exportPDFReport.setVatRate("(NON VAT)");
+		}else {
+			exportPDFReport.setVatRate("(VAT "+invObject.getVatRate()+"%)");
+		}
 		exportPDFReport.setVat(invObject.getVat().setScale(2, RoundingMode.HALF_DOWN));
 		
 		
@@ -147,7 +161,7 @@ public class EpisReportController {
 			} else if (stockObject.getPaymentCode().equals("CD")) {
 				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
 				String code = res.get(0).getCreditNo();
-				payCode = "บัตรเครดิต" + res.get(0).getCardtype() + "เลขที่ : ************" + code.substring(12, 16);
+				payCode = "บัตรเครดิต" +" " +res.get(0).getCardtype() +" "+ "เลขที่ : ************" + code.substring(12, 16);
 				result.add(payCode);
 			} else if (stockObject.getPaymentCode().equals("CH")) {
 				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());

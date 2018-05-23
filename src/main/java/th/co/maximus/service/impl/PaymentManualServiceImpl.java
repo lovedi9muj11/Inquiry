@@ -43,7 +43,12 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else {
 				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
-			paymentManualBean.setVatRate(paymentBean.getVatrate());
+			if(paymentBean.getNonVat().equals("NON VAT")) {
+				paymentManualBean.setVatRate(-1);
+			}else {
+				paymentManualBean.setVatRate(paymentBean.getVatrate());
+			}
+			
 			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");

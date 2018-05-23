@@ -1,3 +1,6 @@
+var vatRateResult = 0;
+var vatNanVat = "";
+
 $(document).ready(function() {		
 			findTypePayment();
 			findBank();
@@ -28,7 +31,13 @@ $(document).ready(function() {
 //					bal = parseFloat(0).toFixed(2);
 //				}
 //				var result = parseFloat(bal.replace(",", ""));
-				var vatq = $("#vatrate").val();
+				var vatq =0;
+				if(vatNanVat == "NON VAT"){
+					vatq = 0;
+				}else{
+					vatq = $("#vatrate").val();
+				}
+				
 				var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
 				var beforeVat = parseFloat(0);
 				var vat = parseFloat(0);
@@ -264,9 +273,24 @@ function DeletebalanceSum(){
 
 	
 function findvatAmount(){
+	checkNonVat();
+	var result = $("#balanceSummary").val();
+	
+	
+	if(result == ""){
+		return;
+	}
+	
+	var vatq = 0;
+	if(vatNanVat == "NON VAT"){
+		vatq = vatRateResult;
+	}else{
+		vatq = $("#vatrate").val();
+	}
+	
 	var bal = $("#balanceSummary").val();
 	var result = parseFloat(bal.replace(",", ""));
-	var vatq = $("#vatrate").val();
+	
 	var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
 	var beforeVat = parseFloat(0);
 	var vat = parseFloat(0);
@@ -346,7 +370,7 @@ function hideShowdat(){
 	 $("#suserGroup").hide();
 	 $("#sdebtCollection").hide();
 	 $("#sinvoiceNo").hide();
-	 $("#sserviceNo").hide();
+	 //$("#sserviceNo").hide();
 	 $("#sstartupDate").hide();
 	 $("#sendDate").hide();
 	 $("#sdeadlines").hide();
@@ -487,10 +511,10 @@ function submitForm(){
 		$("#sinvoiceNo").show();
 		return $("#invoiceNo").focus();
 	}
-	if($("#serviceNo").val() == ""){
-		$("#sserviceNo").show();
-		return $("#serviceNo").focus();
-	}
+//	if($("#serviceNo").val() == ""){
+//		$("#sserviceNo").show();
+//		return $("#serviceNo").focus();
+//	}
 	if($("#startupDate").val() == ""){
 		$("#sstartupDate").show();
 		return $("#startupDate").focus();
@@ -519,7 +543,11 @@ function submitForm(){
 			 $("#sendDate1").show();
 		return $("#startupDate").focus();
 	}
-	
+	var vatrate = 0;
+	if(vatNanVat == "NON VAT"){
+		$("#vatrate").val(parseFloat(0));
+	}
+
 	var dataSend = {
 			 "custName":$("#custName").val() ,
 			 "custNo":$("#custNo").val() ,
@@ -549,7 +577,7 @@ function submitForm(){
 			 "balanceSummarys": parseFloat($("#balanceSummarys").val().replace(",", "")) ,
 			 "balanceSum": parseFloat($("#balanceSum").val().replace(",", "")) ,
 			 "amountInvoice": parseFloat($("#balanceOfTaxPrice").val().replace(",", "")) ,
-			 
+			 "nonVat" :vatNanVat,
 			 "remark":$("#remark").val() ,
 			 "summaryTax": parseFloat($("#summaryTax").val().replace(",", "")) ,
 			 "paymentTax":listpaymentTaxRQ  ,
@@ -1546,4 +1574,15 @@ function replaseIndexPriceTotal(str) {
 		}
 	}
 	
+}
+
+function checkNonVat() {
+	var vatRate = $("#vatrate").val();
+	
+	if(vatRate === "NON VAT") {
+		vatRateResult = 0;
+		vatNanVat = "NON VAT";
+	}else{
+		vatRateResult = vatRate;
+	}
 }
