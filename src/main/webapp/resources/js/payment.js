@@ -54,12 +54,12 @@ $(document).ready(function() {
 				summary = parseFloat(beforeVat + vat);
 				
 				
-				$("#balanceBeforeTax").val(beforeVat.toFixed(2));
-				$("#vat").val(vat.toFixed(2));
+				$("#balanceBeforeTax").val(beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+				$("#vat").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				$("#balanceOfTax").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 //				$("#balanceOfTaxPrice").val(summary.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
-				$("#vats").val(vat.toFixed(2));
+				$("#vats").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				
 				$("#balanceBeforeTaxsShow").val(beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#vatsShow").val(vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -1441,7 +1441,7 @@ function summaryTax() {
 	}
 	
 	var moneyss = parseFloat(priceSum - summary); 
-	$("#summaryTax").val((summary.toFixed(2) * -1));
+	$("#summaryTax").val((summary.toFixed(2) * -1).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
 	//$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

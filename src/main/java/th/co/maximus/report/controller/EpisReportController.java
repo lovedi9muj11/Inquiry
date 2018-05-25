@@ -209,27 +209,17 @@ public class EpisReportController {
 		exportPDFReport.setDiscount(invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setAmountPayment(invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
-		// exportPDFReport.setSouce(nameService);
 		parameters.put("ReportSource", exportPDFReport);
 
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name",
-		// "THSarabun.ttf");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.encoding",
-		// "UTF-8");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.embedded",
-		// "true");
 		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
 				+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
 				? new JRBeanCollectionDataSource(printCollections)
 				: new JREmptyDataSource();
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name",
-		// "th/co/maximus/report/font/newFL.ttf");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-		// exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 	}
 
 	@RequestMapping(value = { "/previewPaymentEpisOfflineByInsale.pdf" })
