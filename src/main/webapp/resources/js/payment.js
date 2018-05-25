@@ -23,14 +23,14 @@ $(document).ready(function() {
 			$("#balanceSummary").keyup(function() {
 			    // keydown code
 				var result = FormatMoneyShowToNumber($("#balanceSummary").val());
-				var bable = parseFloat(result.toFixed(2).replace(",", ""));
+				var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
 				if(bable < 0 || !bable){
 					bable = 0;
 				}
 //				if(bal == ""){
 //					bal = parseFloat(0).toFixed(2);
 //				}
-//				var result = parseFloat(bal.replace(",", ""));
+//				var result = parseFloat(bal.replace(/,/g, ""));
 				var vatq =0;
 				if(vatNanVat == "NON VAT"){
 					vatq = 0;
@@ -38,7 +38,7 @@ $(document).ready(function() {
 					vatq = $("#vatrate").val();
 				}
 				
-				var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
+				var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(/,/g, ""));
 				var beforeVat = parseFloat(0);
 				var vat = parseFloat(0);
 				var summary = parseFloat(0);
@@ -186,12 +186,12 @@ $(document).ready(function() {
 
 function taxDiscount(){
 	var result = FormatMoneyShowToNumber($("#taxOnly").val());
-	var bable = parseFloat(result.toFixed(2).replace(",", ""));
+	var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
 	var bas = $("#balanceSummarys").val();
-	var balance = parseFloat(bas.replace(",", ""));
+	var balance = parseFloat(bas.replace(/,/g, ""));
 	
 	var sq = $("#summaryTax").val();
-	var summaryTax = parseFloat(sq.replace(",", ""));
+	var summaryTax = parseFloat(sq.replace(/,/g, ""));
 	if(bable < 0 || !bable){
 		bable = parseFloat(0);
 	}
@@ -289,9 +289,9 @@ function findvatAmount(){
 	}
 	
 	var bal = $("#balanceSummary").val();
-	var result = parseFloat(bal.replace(",", ""));
+	var result = parseFloat(bal.replace(/,/g, ""));
 	
-	var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(",", ""));
+	var vatRQ = parseFloat(parseFloat(vatq).toFixed(2).replace(/,/g, ""));
 	var beforeVat = parseFloat(0);
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
@@ -338,7 +338,7 @@ function vatAmount(){
 		result = FormatMoneyShowToNumber($("#balanceSummarys").val());
 	}
 	var vaq = $("#vatrate").val();
-	var vatRQ = parseFloat(parseFloat(vaq).toFixed(2).replace(",", ""));
+	var vatRQ = parseFloat(parseFloat(vaq).toFixed(2).replace(/,/g, ""));
 	var beforeVat = parseFloat(0);
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
@@ -451,7 +451,7 @@ function submitForm(){
 		listpaymentTaxQ = {"invoiceNo" : resultDeductible[a][1],
 			"docDed" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][3],
-			"moneyDed" : resultDeductible[a][4].replace(",", "")
+			"moneyDed" : resultDeductible[a][4].replace(/,/g, "")
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -466,7 +466,7 @@ function submitForm(){
 		if(resultTotalPrice[b][1] == "CC"){
 			listpaymentTranPriceQ = {
 			"typePayment" : resultTotalPrice[b][1],
-			"moneyTran" : resultTotalPrice[b][2].replace(",", "")
+			"moneyTran" : resultTotalPrice[b][2].replace(/,/g, "")
 			}
 		}else if (resultTotalPrice[b][1] == "CD"){
 			listpaymentTranPriceQ = {
@@ -474,7 +474,7 @@ function submitForm(){
 					"creditType" : resultTotalPrice[b][2],
 					"creditNo" : resultTotalPrice[b][3],
 					"edcType" : resultTotalPrice[b][4],
-					"creditPrice" :resultTotalPrice[b][5].replace(",", "")
+					"creditPrice" :resultTotalPrice[b][5].replace(/,/g, "")
 					}
 		}else if (resultTotalPrice[b][1] == "CH"){
 			listpaymentTranPriceQ = {
@@ -484,7 +484,7 @@ function submitForm(){
 					"branchCheck" : resultTotalPrice[b][4],
 					"checkNo" : resultTotalPrice[b][5],
 					"dateCheck" : resultTotalPrice[b][6],
-					"moneyCheck" : resultTotalPrice[b][7].replace(",", "")
+					"moneyCheck" : resultTotalPrice[b][7].replace(/,/g, "")
 				}
 		}
 		
@@ -566,20 +566,20 @@ function submitForm(){
 			 "userNames":$("#userNames").val() ,
 			 "taxOnly":$("#taxOnly").val() ,
 			 "vatrate":$("#vatrate").val() ,
-			 "chang":parseFloat($("#change").val().replace(",", "")) ,
-			 "balanceBeforeTax": parseFloat($("#balanceBeforeTax").val().replace(",", "")) ,
-			 "vat": parseFloat($("#vat").val().replace(",", "")) ,
-			 "balanceOfTax": parseFloat($("#balanceOfTax").val().replace(",", "")) ,
-			 "balanceSummary": parseFloat($("#balanceSummary").val().replace(",", "")),
-			 "balanceBeforeTaxs":  parseFloat($("#balanceBeforeTaxs").val().replace(",", ""))  ,
-			 "vats": parseFloat($("#vats").val().replace(",", ""))  ,
-			 "balanceOfTaxs": parseFloat($("#balanceOfTaxs").val().replace(",", "")) ,
-			 "balanceSummarys": parseFloat($("#balanceSummarys").val().replace(",", "")) ,
-			 "balanceSum": parseFloat($("#balanceSum").val().replace(",", "")) ,
-			 "amountInvoice": parseFloat($("#balanceOfTaxPrice").val().replace(",", "")) ,
+			 "chang":parseFloat($("#change").val().replace(/,/g, "")) ,
+			 "balanceBeforeTax": parseFloat($("#balanceBeforeTax").val().replace(/,/g, "")) ,
+			 "vat": parseFloat($("#vat").val().replace(/,/g, "")) ,
+			 "balanceOfTax": parseFloat($("#balanceOfTax").val().replace(/,/g, "")) ,
+			 "balanceSummary": parseFloat($("#balanceSummary").val().replace(/,/g, "")),
+			 "balanceBeforeTaxs":  parseFloat($("#balanceBeforeTaxs").val().replace(/,/g, ""))  ,
+			 "vats": parseFloat($("#vats").val().replace(/,/g, ""))  ,
+			 "balanceOfTaxs": parseFloat($("#balanceOfTaxs").val().replace(/,/g, "")) ,
+			 "balanceSummarys": parseFloat($("#balanceSummarys").val().replace(/,/g, "")) ,
+			 "balanceSum": parseFloat($("#balanceSum").val().replace(/,/g, "")) ,
+			 "amountInvoice": parseFloat($("#balanceOfTaxPrice").val().replace(/,/g, "")) ,
 			 "nonVat" :vatNanVat,
 			 "remark":$("#remark").val() ,
-			 "summaryTax": parseFloat($("#summaryTax").val().replace(",", "")) ,
+			 "summaryTax": parseFloat($("#summaryTax").val().replace(/,/g, "")) ,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	 
 	}
@@ -655,8 +655,8 @@ function addRow() {
 
 	var balanceOfTaxPrice = document.getElementById("balanceOfTaxPrice").value;
 	var balanceSummary = document.getElementById("balanceSummary").value;
-	var balance = parseFloat(balanceOfTaxPrice.replace(",", ""));
-	var summary =  parseFloat(balanceSummary.replace(",", ""));
+	var balance = parseFloat(balanceOfTaxPrice.replace(/,/g, ""));
+	var summary =  parseFloat(balanceSummary.replace(/,/g, ""));
 	if(balance < summary){
 		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
 //		`$("#sBalanceSummary").hide();
@@ -665,8 +665,8 @@ function addRow() {
 	hideShowdat();
 	var sq = $("#summaryTax").val();
 	var basu = $("#balanceSummarys").val();
-	var branSum = parseFloat(basu.replace(",", ""));
-	var summaTax = parseFloat(sq.replace(",", ""));
+	var branSum = parseFloat(basu.replace(/,/g, ""));
+	var summaTax = parseFloat(sq.replace(/,/g, ""));
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -699,7 +699,7 @@ function addRow() {
 	}
 
 	
-	var moneyDed = parseFloat(dmoney.replace(",", ""));
+	var moneyDed = parseFloat(dmoney.replace(/,/g, ""));
 	
 	var plus = parseFloat(parseFloat(summaTax) + parseFloat(moneyDed)) ;
 	if(plus > parseFloat(branSum)){
@@ -741,13 +741,13 @@ function tdAutoNumber() {
 }
 function myDeleteDed(count) {
 	var bas = $("#balanceSummarys").val();
-	var balance = parseFloat(bas.replace(",", ""));
+	var balance = parseFloat(bas.replace(/,/g, ""));
 	var tableDed = document.getElementById("showDeductibleTable");
 	var table = document.getElementById("sumDeductibleTable");
 	var erq = $("#balanceSummary").val();
-	var result = parseFloat(erq.replace(",", ""));
+	var result = parseFloat(erq.replace(/,/g, ""));
 	var st = $("#summaryTax").val();
-	var summaryTax = parseFloat(st.replace(",", ""));
+	var summaryTax = parseFloat(st.replace(/,/g, ""));
 	var summaryTa = parseFloat(0);
 
 
@@ -757,7 +757,7 @@ function myDeleteDed(count) {
 
 			if (count == i) {
 				var oCells = table.rows.item(i).cells;
-				var total = parseFloat(oCells[4].innerHTML.replace(",", ""));
+				var total = parseFloat(oCells[4].innerHTML.replace(/,/g, ""));
 				var balances =	parseFloat(parseFloat(balance) + parseFloat(total *-1));
 				if(balances < result){
 					//balance = result;
@@ -792,15 +792,15 @@ function addDataTableDed() {
 	var tableDed = document.getElementById("showDeductibleTable");
 	var result = [];
 //	var deq = $("#deduction").val();
-//	var deduction = parseFloat(deq.replace(",", ""));
+//	var deduction = parseFloat(deq.replace(/,/g, ""));
 	var rowLength = oTable.rows.length;
 	var number = parseFloat(tableDed.rows.length - parseFloat(1));
 	var bas = $("#balanceSummarys").val();
-	var balance = parseFloat(bas.replace(",", ""));
+	var balance = parseFloat(bas.replace(/,/g, ""));
 	var basu = $("#balanceSummarys").val();
-	var branSum = parseFloat(basu.replace(",", ""));
+	var branSum = parseFloat(basu.replace(/,/g, ""));
 	var sq = $("#summaryTax").val();
-	var summaTax = parseFloat(sq.replace(",", ""));
+	var summaTax = parseFloat(sq.replace(/,/g, ""));
 	for (var i = parseFloat(1); i < rowLength; i++) {
 		var oCells = oTable.rows.item(i).cells;
 		result = [];
@@ -827,7 +827,7 @@ function addDataTableDed() {
 		$("#showDeductibleTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + result[1]	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
-//		 var prict1 = prict.replace(",", "");
+//		 var prict1 = prict.replace(/,/g, "");
 //		balance =	parseFloat(balance) - parseFloat(prict1 *-1) ;
 		
 	}
@@ -836,7 +836,7 @@ function addDataTableDed() {
 	}
 	
 	
-//	$("#balanceSummarys").val(parseFloat(balance).toFixed(2).replace(",", ""));
+//	$("#balanceSummarys").val(parseFloat(balance).toFixed(2).replace(/,/g, ""));
 	
 	summaryTax();
 	//vatAmount();
@@ -865,7 +865,7 @@ function addDataTableMoneyTranPrice() {
 	if(moneyss == ""){
 		moneyss = parseFloat(0).toFixed(2);
 	}
-	var money = parseFloat(moneyss.replace(",", ""));
+	var money = parseFloat(moneyss.replace(/,/g, ""));
 	
 	if(money == ""){
 		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
@@ -882,13 +882,13 @@ function addDataTableMoneyTranPrice() {
 	if(sumx == ""){
 		sumx = parseFloat(0).toFixed(2);
 	}
-	var summaryTax = parseFloat(sumx.replace(",", ""));
+	var summaryTax = parseFloat(sumx.replace(/,/g, ""));
 
 	var ba2 = $("#balanceSum").val();
 	if(ba2 == ""){
 		ba2 = parseFloat(0).toFixed(2);
 	}
-	var balanceS = parseFloat(ba2.replace(",", ""));
+	var balanceS = parseFloat(ba2.replace(/,/g, ""));
 	if(balanceS == ""){
 		balanceS = parseFloat(0);
 	}
@@ -896,7 +896,7 @@ function addDataTableMoneyTranPrice() {
 	if(bag2 == ""){
 		bag2 = parseFloat(0).toFixed(2);
 	}
-	var branSum = parseFloat(bag2.replace(",", ""));
+	var branSum = parseFloat(bag2.replace(/,/g, ""));
 
 		var markup = "<tr><td>"	+ numberRun	+ "</td><td>"+ nameMode1+ "</td><td>"+ money.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+ "</td><td><a onclick='myDeleteSumCreditTranPrice("
 				+ numberRun+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
@@ -908,9 +908,9 @@ function addDataTableMoneyTranPrice() {
 
 		$("#moneyTran").val("");
 		var beq = $("#balanceSummarys").val(); 
-		var balan = parseFloat(beq.replace(",", ""));
+		var balan = parseFloat(beq.replace(/,/g, ""));
 		var ceq = $("#balanceSummarys").val(); 
-		var changeRQ = parseFloat(ceq.replace(",", ""));
+		var changeRQ = parseFloat(ceq.replace(/,/g, ""));
 		
 		
 		changeRQ =  parseFloat(money)- parseFloat(balan);
@@ -926,7 +926,7 @@ function addDataTableMoneyTranPrice() {
 		}
 		
 		var sop = $("#balanceSummary").val();
-		var sumPrice = parseFloat(sop.replace(",", ""));
+		var sumPrice = parseFloat(sop.replace(/,/g, ""));
 		
 		$("#balanceSummarys").val(balan.toFixed(2));
 		
@@ -970,7 +970,7 @@ function addDataSumCreditTranPrice() {
 	if(bas2 == ""){
 		bas2 = parseFloat(0).toFixed(2)
 	}
-	var balanceS = parseFloat(bas2.replace(",", ""));
+	var balanceS = parseFloat(bas2.replace(/,/g, ""));
 	
 
 	if(balanceS == ""){
@@ -983,13 +983,13 @@ function addDataSumCreditTranPrice() {
 			result.push(oCells[fs].innerHTML);
 		}
 		var ba23 = $("#balanceSummarys").val();
-		var branSum = parseFloat(ba23.replace(",", ""));
+		var branSum = parseFloat(ba23.replace(/,/g, ""));
 		
 		var bard = $("#balanceSum").val();
-		var brana = parseFloat(bard.replace(",", ""));
+		var brana = parseFloat(bard.replace(/,/g, ""));
 		
 		var stc = $("#summaryTax").val();
-		var summaTax = parseFloat(stc.replace(",", ""));
+		var summaTax = parseFloat(stc.replace(/,/g, ""));
 		
 		if(branSum == ""){
 			branSum = parseFloat(0);
@@ -997,7 +997,7 @@ function addDataSumCreditTranPrice() {
 		if(brana == ""){
 			brana = parseFloat(0);
 		}
-		var plus = parseFloat(result[4].toString().replace(",", ""))  ;
+		var plus = parseFloat(result[4].toString().replace(/,/g, ""))  ;
 		
 		if(plus > parseFloat(branSum)){
 			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
@@ -1014,8 +1014,8 @@ function addDataSumCreditTranPrice() {
 		
 		
 		var ba3a = $("#balanceSummarys").val(); 
-		var balan = parseFloat(ba3a.replace(",", ""));
-		var price = result[4].replace(",", "")
+		var balan = parseFloat(ba3a.replace(/,/g, ""));
+		var price = result[4].replace(/,/g, "")
 		
 		balan =parseFloat(balan)-price ;
 		$("#balanceSummarys").val(balan.toFixed(2));
@@ -1057,7 +1057,7 @@ function addDataSumCheckTranPrice() {
 		ba3d = parseFloat(0).toFixed(2)
 	}
 	
-	var balanceS = parseFloat(ba3d.replace(",", ""));
+	var balanceS = parseFloat(ba3d.replace(/,/g, ""));
 	if(balanceS == ""){
 		balanceS = parseFloat(0);
 	}
@@ -1068,11 +1068,11 @@ function addDataSumCheckTranPrice() {
 			result.push(oCells[fs].innerHTML);
 		}
 		var banSu = $("#balanceSummarys").val();
-		var branSum = parseFloat(banSu.replace(",", ""));
+		var branSum = parseFloat(banSu.replace(/,/g, ""));
 		var ssq = $("#balanceSum").val();
-		var brana = parseFloat(ssq.replace(",", ""));
+		var brana = parseFloat(ssq.replace(/,/g, ""));
 		var sumTax = $("#summaryTax").val();
-		var summaTax = parseFloat(sumTax.replace(",", ""));
+		var summaTax = parseFloat(sumTax.replace(/,/g, ""));
 		
 		if(branSum == ""){
 			branSum = parseFloat(0);
@@ -1080,7 +1080,7 @@ function addDataSumCheckTranPrice() {
 		if(brana == ""){
 			brana = parseFloat(0);
 		}
-		var plus = parseFloat(result[6].toString().replace(",", "")) ;
+		var plus = parseFloat(result[6].toString().replace(/,/g, "")) ;
 		if(plus > parseFloat(branSum)){
 			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
 			return ;
@@ -1091,9 +1091,9 @@ function addDataSumCheckTranPrice() {
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2]+ "</td><td>" + result[3] + "</td><td>" + result[4]	+ "</td><td>" + result[5] + "</td><td>" + result[6] + "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 		var balans = $("#balanceSummarys").val(); 
-		var balan = parseFloat(balans.replace(",", ""));
+		var balan = parseFloat(balans.replace(/,/g, ""));
 		
-		var price = result[6].replace(",", "")
+		var price = result[6].replace(/,/g, "")
 		balan = parseFloat(balan) - parseFloat(price);
 		$("#balanceSummarys").val(balan.toFixed(2));
 		balanceS = parseFloat(parseFloat(balanceS)+parseFloat(price));
@@ -1141,7 +1141,7 @@ function addDataTableCheck() {
 	if(moneyCa == ""){
 		moneyCa = parseFloat(0).toFixed(2);
 	}
-	var moneyCheck = parseFloat(moneyCa.replace(",", ""));
+	var moneyCheck = parseFloat(moneyCa.replace(/,/g, ""));
 	var count = parseInt(1);
 	for (count; count < table; count++) {
 		count
@@ -1216,10 +1216,10 @@ function addDataTablecreditTranPrice() {
 	if(crepi == ""){
 		crepi = parseFloat(0).toFixed(2);
 	}
-	var creditPrice = parseFloat(crepi.replace(",", ""));
+	var creditPrice = parseFloat(crepi.replace(/,/g, ""));
 	var nameMode = "บัตรเครดิต";
 	var sumTax = $("#summaryTax").val();
-	var summaryTax = parseFloat(sumTax.replace(",", ""));
+	var summaryTax = parseFloat(sumTax.replace(/,/g, ""));
 //	var moneyT = parseFloat(creditPrice - parseFloat(summaryTax));
 	if(edcType == "001"){
 		edcType = "ธนาคารกรุงไทย";
@@ -1292,8 +1292,8 @@ function sumTranPrice() {
 //	document.getElementById("addRow").disabled = true;
 	var balanceOfTaxPrice = document.getElementById("balanceOfTaxPrice").value;
 	var balanceSummary = document.getElementById("balanceSummary").value;
-	var balance = parseFloat(balanceOfTaxPrice.replace(",", ""));
-	var summary =  parseFloat(balanceSummary.replace(",", ""));
+	var balance = parseFloat(balanceOfTaxPrice.replace(/,/g, ""));
+	var summary =  parseFloat(balanceSummary.replace(/,/g, ""));
 	
 	
 	if(balance < summary){
@@ -1336,20 +1336,20 @@ function myDeleteSumCreditTranPrice(numberRun) {
 	
 	var summaryTa = parseFloat(0);
 	var banol = $("#balanceSummarys").val();
-	var balance = parseFloat(banol.replace(",", ""));
+	var balance = parseFloat(banol.replace(/,/g, ""));
 	var sump = $("#balanceSummary").val();
-	var sumPrice = parseFloat(sump.replace(",", ""));
+	var sumPrice = parseFloat(sump.replace(/,/g, ""));
 	var bansum = $("#balanceSum").val();
-	var balanceSum = parseFloat(bansum.replace(",", ""));
+	var balanceSum = parseFloat(bansum.replace(/,/g, ""));
 	var sumTax = $("#summaryTax").val();
-	var summaryTax = sumTax.replace(",", "");
+	var summaryTax = sumTax.replace(/,/g, "");
 	var res = parseFloat(0);
 	var chen = $("#change").val();
 	if (tablesumTotals.rows.length > 0) {
 		for (var i = 1; i < tablesumTotals.rows.length; i++) {
 			if (numberRun == i) {
 				var oCells = tablesumTotals.rows.item(i).cells;
-				var total = oCells[2].innerHTML.replace(",", "");
+				var total = oCells[2].innerHTML.replace(/,/g, "");
 				balance =	parseFloat(parseFloat(balance) + parseFloat(total));
 				balanceSum = parseFloat(parseFloat(balanceSum) - parseFloat(total))
 				if(parseFloat(balanceSum) <0){
@@ -1413,7 +1413,7 @@ function summaryTax() {
 	var summary = parseFloat(0);
 	for (var i = 1; i < rowLength; i++) {
 		var oCells = table.rows.item(i).cells;
-		var total = oCells[2].innerHTML.replace(",", "");
+		var total = oCells[2].innerHTML.replace(/,/g, "");
 		var res = total.split("-");
 		
 		summary += parseFloat(res[1]);
@@ -1430,14 +1430,14 @@ function summaryTax() {
 	if(sux == ""){
 		sux = parseFloat(0);
 	}else{
-		sux = parseFloat(sux.replace(",", ""));
+		sux = parseFloat(sux.replace(/,/g, ""));
 	}
 	
 	var priceSum = $("#balanceSummarys").val();
 	if(priceSum == ""){
 		priceSum = parseFloat(0);
 	}else{
-		priceSum = parseFloat(priceSum.replace(",", ""));
+		priceSum = parseFloat(priceSum.replace(/,/g, ""));
 	}
 	
 	var moneyss = parseFloat(priceSum - summary); 
@@ -1457,14 +1457,14 @@ function removeTax() {
 	if(moneyss == ""){
 		moneyss = parseFloat(0);
 	}else{
-		moneyss = parseFloat(moneyss.replace(",", ""));
+		moneyss = parseFloat(moneyss.replace(/,/g, ""));
 	}
 	var table = document.getElementById("showDeductibleTable");
 	var rowLength = table.rows.length;
 	var summary = parseFloat(0);
 	for (var i = 1; i < rowLength; i++) {
 		var oCells = table.rows.item(i).cells;
-		var total = oCells[2].innerHTML.replace(",", "");
+		var total = oCells[2].innerHTML.replace(/,/g, "");
 		var res = total.split("-");
 		
 		summary = parseFloat(res[1]);
@@ -1479,7 +1479,7 @@ function removeTax() {
 	
 	
 	var tax = $("#summaryTax").val();
-	tax = parseFloat(tax.replace(",", ""));
+	tax = parseFloat(tax.replace(/,/g, ""));
 	tax = parseFloat(tax - (summary*-1));
 	
 	$("#summaryTax").val(tax.toFixed(2));
