@@ -30,6 +30,7 @@ public class InvoiceBean {
 	private Timestamp updateDate;
 	private String recordStatus;
 	private BigDecimal discount;
+	private String value;
 
 	public Long getInvoiceId() {
 		return invoiceId;
@@ -237,6 +238,14 @@ public class InvoiceBean {
 
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 

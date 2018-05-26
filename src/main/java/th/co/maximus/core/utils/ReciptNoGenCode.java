@@ -48,7 +48,7 @@ public class ReciptNoGenCode {
 			}else {
 				zeron ="000"+result;
 			}
-			String codeName = nameCode+posNo+branArea + docType+dates+zeron;		
+			String codeName = nameCode+branArea+posNo + docType+dates+zeron;		
 			return codeName;
 		}
 		String zeron = "";
@@ -57,7 +57,7 @@ public class ReciptNoGenCode {
 		}else {
 			zeron ="000"+result;
 		}
-		String codeName = nameCode+posNo+branArea + docType+dates+zeron;		
+		String codeName = nameCode+branArea+posNo + docType+dates+zeron;		
 		return codeName;
 	}
 

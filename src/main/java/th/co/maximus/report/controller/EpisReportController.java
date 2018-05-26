@@ -83,7 +83,7 @@ public class EpisReportController {
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 
-		exportPDFReport.setBranArea(invObject.getBranArea());
+		exportPDFReport.setBranArea(invObject.getNameArea());
 		exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());

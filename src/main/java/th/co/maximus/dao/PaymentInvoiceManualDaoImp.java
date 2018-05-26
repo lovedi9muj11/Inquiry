@@ -1,7 +1,5 @@
 package th.co.maximus.dao;
 
-import static org.assertj.core.api.Assertions.in;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +46,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		return jdbcTemplate.query(sql.toString() , PaymentManual);
 	}
 	
-	private static final RowMapper<PaymentMMapPaymentInvBean> PaymentManual = new RowMapper<PaymentMMapPaymentInvBean>() {
+	private  final RowMapper<PaymentMMapPaymentInvBean> PaymentManual = new RowMapper<PaymentMMapPaymentInvBean>() {
 //		Utils utils = new Utils();
 
 		@Override
@@ -59,7 +57,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 			paymentManual.setInvoiceNo(rs.getString("INVOICE_NO"));
 			paymentManual.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
 			paymentManual.setPaidDate(rs.getTimestamp("PAID_DATE"));
-			paymentManual.setBrancharea(rs.getString("BRANCH_AREA"));
+			paymentManual.setBrancharea(findValueByKey(rs.getString("BRANCH_AREA")));
 			paymentManual.setBranchCode(rs.getString("BRANCH_CODE"));
 			paymentManual.setPaidAmount(rs.getLong("PAID_AMOUNT"));
 			paymentManual.setSource(rs.getString("SOURCE"));
@@ -417,5 +415,28 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao{
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr ,PaymentManual);
 	}
+
+	@Override
+	public String findValueByKey(String key) {
+		String resultValue = "";
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" select value from master_data where keycode = ? ");
+		param.add(key);
+		List<InvoiceBean> list = jdbcTemplate.query(sql.toString(), param.toArray() ,value);
+		resultValue = StringUtils.isNoneBlank(list.get(0).getValue())?list.get(0).getValue():"";
+		return resultValue;
+	}
+	
+	private static final RowMapper<InvoiceBean> value = new RowMapper<InvoiceBean>() {
+
+		@Override
+		public InvoiceBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			InvoiceBean invoice = new InvoiceBean();
+			invoice.setValue(rs.getString("value"));
+			return invoice;
+		}
+
+	};
 	
 }

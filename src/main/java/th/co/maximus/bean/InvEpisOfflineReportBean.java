@@ -27,6 +27,7 @@ public class InvEpisOfflineReportBean {
 	private BigDecimal discount;
 	private BigDecimal amountPayment;
 	private String preiod;
+	private String nameArea;
 	
 	
 	
@@ -34,7 +35,7 @@ public class InvEpisOfflineReportBean {
 	public InvEpisOfflineReportBean() {}
 	
 	public InvEpisOfflineReportBean(String branArea,String bracnCode,String souce,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal vat,BigDecimal beforeVat,Long methodId,String serviceNo,BigDecimal discount,BigDecimal amountPayment,String preiod) {
+			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal vat,BigDecimal beforeVat,Long methodId,String serviceNo,BigDecimal discount,BigDecimal amountPayment,String preiod,String nameArea) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
 		this.souce = souce;
@@ -56,6 +57,7 @@ public class InvEpisOfflineReportBean {
 		this.discount = discount;
 		this.amountPayment = amountPayment;
 		this.preiod = preiod;
+		this.nameArea = nameArea;
 		
 	}
 	
@@ -201,6 +203,14 @@ public class InvEpisOfflineReportBean {
 
 	public void setPreiod(String preiod) {
 		this.preiod = preiod;
+	}
+
+	public String getNameArea() {
+		return nameArea;
+	}
+
+	public void setNameArea(String nameArea) {
+		this.nameArea = nameArea;
 	}
 	
 	

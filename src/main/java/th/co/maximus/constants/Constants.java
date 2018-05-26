@@ -35,7 +35,7 @@ public class Constants {
 		public final static String RPT_EXCEL = "EXCEL";
 	}
 	public static class dataUser{
-		public static final String BRANCHAREA = "CAT นนทบุรี";
+		public static final String BRANCHAREA = "1704";
 		public static final String SOURCE = "OFFLINE";
 		public static final String NAME_USER = "ADMIN";
 	}

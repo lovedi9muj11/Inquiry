@@ -23,7 +23,6 @@ import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
-import th.co.maximus.service.HistoryPaymentService;
 
 @Controller
 public class ClearingPaymentEpisOffline {
@@ -35,9 +34,7 @@ public class ClearingPaymentEpisOffline {
 	public ClearingPaymentEpisOffline() {
 		restTemplate = new RestTemplate();
 	}
-	
-	@Autowired
-	private HistoryPaymentService paymentManualService;
+
 	
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
