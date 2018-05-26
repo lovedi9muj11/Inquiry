@@ -8,9 +8,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.PaymentManualDao;
@@ -30,6 +31,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	@Override
 	public int insertPaymentManual(PaymentFirstBean paymentBean) {
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Date date = new Date();
 		int userId=0;
 		if(StringUtils.isNotBlank(paymentBean.getInvoiceNo())){
@@ -58,9 +60,9 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());
-			paymentManualBean.setCreateBy(paymentBean.getUserName());
+			paymentManualBean.setCreateBy(profile.getUsername());
 			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-			paymentManualBean.setUpdateBy(paymentBean.getUserName());
+			paymentManualBean.setUpdateBy(profile.getUsername());
 			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setChange(paymentBean.getChang());
