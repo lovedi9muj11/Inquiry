@@ -43,4 +43,6 @@ public interface PaymentInvoiceManualDao {
 	public InvoiceBean findInvoiceByManualId(Long manualId);
 	
 	public PaymentInvoiceManualBean findInvoiceManualByManualId(Long manualId);
+	
+	String findValueByKey(String key);
 } 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +22,10 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	@Autowired
 	PaymentManualDao paymentManualDao;
 
+	@Value("${text.branCode}")
+	private String branCode;
+	@Value("${text.branarea}")
+	private String branArea;
 
 	@Override
 	public int insertPaymentManual(PaymentFirstBean paymentBean) {
@@ -31,8 +36,8 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
-			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
-			paymentManualBean.setBranchCode("001");
+			paymentManualBean.setBrancharea(branArea);
+			paymentManualBean.setBranchCode(branCode);
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
 			if(paymentBean.getTaxOnly() == null ){
 				paymentBean.setTaxOnly(0.00);

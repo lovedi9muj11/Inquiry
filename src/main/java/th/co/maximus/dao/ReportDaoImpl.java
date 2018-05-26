@@ -34,7 +34,7 @@ public class ReportDaoImpl implements ReportDao{
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, py.SOURCE ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pay.VAT_AMOUNT, ");
-			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,pay.PAID_AMOUNT,pim.PERIOD ");
+			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,pay.PAID_AMOUNT,pim.PERIOD,(SELECT i.VALUE FROM master_data i WHERE i.KEYCODE = py.BRANCH_AREA )");
 			sql.append(" FROM receipt_manual py");
 			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
 			sql.append(" INNER JOIN trsmethod_manual tm ON tm.MANUAL_ID = py.MANUAL_ID");
@@ -47,7 +47,7 @@ public class ReportDaoImpl implements ReportDao{
 			while (resultSet.next()) {
 				collections.add(new InvEpisOfflineReportBean(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBigDecimal(7), 
 						resultSet.getString(8), resultSet.getDate(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14), resultSet.getBigDecimal(15),
-						resultSet.getBigDecimal(16), resultSet.getLong(17), resultSet.getString(18), resultSet.getBigDecimal(19), resultSet.getBigDecimal(20),resultSet.getString(21)));		
+						resultSet.getBigDecimal(16), resultSet.getLong(17), resultSet.getString(18), resultSet.getBigDecimal(19), resultSet.getBigDecimal(20),resultSet.getString(21),resultSet.getString(22)));		
 						
 			}
 		} finally {
