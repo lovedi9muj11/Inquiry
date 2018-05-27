@@ -18,6 +18,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script src="${contextPath}/resources/js/report-payment.js"></script>
 <script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <title>รานงานการชำระ</title>
 
 </head>
@@ -37,7 +38,7 @@
 							<label class="col-md-2 control-label text-right">วันที่ชำระ :</label>
 							<div class="col-md-10">
 								<div class='col-md-6'>
-									<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
+									<input type='text' class="form-control" id="dateFrom" name="dateFrom" readonly="true"/>
 								</div>
 								<div class="col-md-3">
 									<select class="form-control" name="dateFromHour" id="dateFromHour">
@@ -84,7 +85,7 @@
 							<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
 							<div class="col-md-10">
 								<div class='col-md-6'>
-									<input type='date' class="form-control" id="dateTo" name="dateTo"/>
+									<input type='text' class="form-control" id="dateTo" name="dateTo" readonly="true"/>
 								</div>
 								<div class="col-md-3">
 									<select class="form-control" name="dateToHour" id="dateToHour">

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,9 +37,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	}
 
 	@Override
+	@Transactional
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO receipt_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_RATE,VAT_AMOUNT)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO receipt_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE, CLEARING, REMARK, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE, RECORD_STATUS, ACCOUNT_NO, PAY_TYPE, DOCTYPE, CHANG,AMOUNT,VAT_RATE,VAT_AMOUNT)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });

@@ -27,11 +27,18 @@
 <body>
 	<header class="header_page"></header>
 	<!-- main panel -->
+<form id="cancelPaymentForm" method="post" class="form-horizontal" role="form">
+	<input type="hidden" id="receiptNo" name="receiptNo">
+</form>
 	<div  style="padding: 30px 10px 50px 50px">
 		<h1 class="page-header"></h1>
 	  <div name="error" id="error"  class="alert alert-danger alert-dismissable fade in">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-	    <strong>Error : </strong> รหัสผ่านไม่ถูกต้อง
+	    <strong>Error : </strong> รหัสผ่านไม่ถูกต้อง 
+	  </div>
+	  <div name="errorSup" id="errorSup"  class="alert alert-danger alert-dismissable fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    <strong>Error : </strong> User name ต้องเป็น  role supervisor 
 	  </div>
 	  <div name="success" id="success"  class="alert alert-success alert-dismissable fade in">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -138,7 +145,6 @@
 			</div>
 		</div>
 	</div>
-
 	
 	<!-- dialog confirm authentication.. -->
 	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" >

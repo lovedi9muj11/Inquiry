@@ -28,11 +28,11 @@ import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.dao.TrscreDitrefManualDao;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
+import th.co.maximus.service.ReportService;
 
 @Service
 public class CancelPaymentServiceImp implements CancelPaymentService {
 	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-	
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
 	
@@ -54,7 +54,11 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	@Autowired
 	private TrsMethodManualDao trsMethodManualDao;
 	
-
+	@Autowired
+	ReportService reportService;
+	
+	
+	
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() throws Exception {
@@ -131,7 +135,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 	@Override
 	@Transactional
-	public boolean insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean) {
+	public int insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean) {
 		boolean resultReturn = true;
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 		String receiptId = "";
@@ -158,6 +162,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 						paymentManualBean.setClearing(resultPaymentManual.getClearing());
 						paymentManualBean.setRemark(resultPaymentManual.getRemark());
 						paymentManualBean.setCreateBy(resultPaymentManual.getCreateBy());
+						paymentManualBean.setRemark("ยกเลิกใบเก่าออกใบใหม่ อ้างอิงเลขที่ :" + receiptId);
 						//paymentManualBean.setCreateDate(resultPaymentManual.getCreateDate());
 						paymentManualBean.setUpdateBy(resultPaymentManual.getUpdateBy());
 						//paymentManualBean.setUpdateDate(resultPaymentManual.getUpdateDate());
@@ -230,14 +235,14 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				InvoiceBean resultInvoiceBean = paymentInvoiceManualDao.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
 				resultInvoiceBean.setManualId(Long.valueOf(manualID));
 				paymentInvoiceManualDao.insertInvoice(resultInvoiceBean);
-				
+				//report
 			}
 		}catch (Exception e) {
 			resultReturn = false;
 			e.printStackTrace();
 			
 		}
-		return resultReturn;
+		return manualID;
 	}
 
 	@Override

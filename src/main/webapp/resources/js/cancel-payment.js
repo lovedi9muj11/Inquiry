@@ -22,6 +22,7 @@ $(document).ready(function () {
     $("#error").hide();
     $("#success").hide();
     $("#notClear").hide();
+    $("#errorSup").hide();
     hidePanel()
     showPanel('1');
     removeCssLi();
@@ -103,6 +104,7 @@ $(document).ready(function () {
     	    $("#error").hide();
     	    $("#success").hide();
     	    $("#notClear").hide();
+    	    $("#errorSup").hide();
       	  if(confirm){
       		cancelPaymentTB.clear().draw();
       			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
@@ -115,7 +117,7 @@ $(document).ready(function () {
       		        contentType: "application/json; charset=utf-8",
       		        success: function (res) {
       		        	console.log(res);
-      		        	if(res){
+      		        	if(res == 0){
       		        		$('#selectCancelPaymentTB').DataTable({
       		        			"filter" : false,
       		        			"info" : false,
@@ -154,13 +156,20 @@ $(document).ready(function () {
       		     		        }
       		     			});
 //      		     			$('#submitCancelPM').prop('disabled', true);
-      		        	}else{
+      		        	}else if(res == 2){
       		        		$("#error").show();
       		        	    hidePanel()
       		        	    showPanel('1');
       		        	    removeCssLi();
       		        	    addCssLi('1');
       		        	    search();
+      		        	}else if(res == 1){
+      		      		$("#errorSup").show();
+  		        	    hidePanel()
+  		        	    showPanel('1');
+  		        	    removeCssLi();
+  		        	    addCssLi('1');
+  		        	    search();
       		        	}
       		        	
       		        }
@@ -332,17 +341,19 @@ function submitCancelPayment(){
 	        dataType: "json",
 	        async: false,
 	        contentType: "application/json; charset=utf-8",
-	        success: function (res) {
-	        	if(res){
-	        		$("#success").show();
-	        	    hidePanel()
-	        	    showPanel('1');
-	        	    removeCssLi();
-	        	    addCssLi('1');
-	        		search();
+	        success: function (data) {
+	        	if(data != 0){
+	        		$('#receiptNo').val(data);
+	        		$("#cancelPaymentForm").attr("action", "/reportCancelPaymentPDF").attr("target", "_blank").submit();
 	        	}else{
 	        		$("#error").show();
 	        	}
+	        	$("#success").show();
+        	    hidePanel()
+        	    showPanel('1');
+        	    removeCssLi();
+        	    addCssLi('1');
+        		search();
 	        }
 		});
 };

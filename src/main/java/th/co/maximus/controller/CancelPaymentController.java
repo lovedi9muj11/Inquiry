@@ -1,7 +1,11 @@
 package th.co.maximus.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,11 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.auth.model.Role;
 import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
+import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.bean.UserBean;
+import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.service.CancelPaymentService;
+import th.co.maximus.service.ReportService;
+import th.co.maximus.service.report.PaymentReport;
 
 @Controller
 public class CancelPaymentController {
@@ -28,6 +38,15 @@ public class CancelPaymentController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PaymentManualDao paymentManualDao;
+	
+	@Autowired
+	private PaymentReport paymentReport;
+	
+	@Autowired
+	ReportService reportService;
 
 	@RequestMapping(value = { "/cancalPayment" }, method = RequestMethod.GET)
 	public String usermgt(Model model) {
@@ -59,14 +78,25 @@ public class CancelPaymentController {
 
 	@RequestMapping(value = {"/cancelPayment/checkAuthentication" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean checkAuthentication(@RequestBody UserBean user) {
-		boolean result = false;
+	public int checkAuthentication(@RequestBody UserBean user) {
+		int result = 0;
+		boolean checkRole = false;
 		if (user.getUserName() != "" && user.getPassword() != "") {
 			UserDto resultUser = userService.findByUsername(user.getUserName());
-			if (resultUser != null) {
-				if (bCryptPasswordEncoder.matches(user.getPassword(), resultUser.getPassword())) {
-					result = true;
+			for(Role role :resultUser.getRoles()) {
+				if("sup".equals(role.getName())) {
+					checkRole = true;
+					break;
 				}
+			}
+			if (resultUser != null && checkRole) {
+				if (bCryptPasswordEncoder.matches(user.getPassword(), resultUser.getPassword())) {
+					result = 0;
+				}else {
+					result = 2;
+				}
+			}else {
+				result = 1;
 			}
 		}
 		return result;
@@ -74,7 +104,18 @@ public class CancelPaymentController {
 
 	@RequestMapping(value = {"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
+	public int cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
 		return cancelPaymentService.insertAndUpdateCancelPayment(creteria);
 	}
+	
+	@RequestMapping(value = { "/reportCancelPaymentPDF" }, method = RequestMethod.POST)
+		public void reportCancelPaymentPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 String JASPER_JRXML_FILENAME = "InvEpisPayment";
+			request.setAttribute("documentReport", "-1");
+			 List<PaymentManualBean> getReceiptNo = paymentManualDao.findPaymentManualFromNanualId(Long.valueOf(request.getParameter("receiptNo")));
+			 List<InvEpisOfflineReportBean> collections = reportService.inqueryEpisOfflineJSONHandler(getReceiptNo.get(0).getReceiptNoManual());
+			 paymentReport.previewEpisOffilneprint(request, response, collections, JASPER_JRXML_FILENAME);
+	        
+		}
+	
 }

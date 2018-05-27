@@ -1,7 +1,14 @@
 var dateFromGlobal = "";
 var dateToGlobal = "";
 $(document).ready(function (){
+	$("#dateFrom").datepicker({
+		dateFormat: "dd-mm-yy"
+	});
+	$("#dateTo").datepicker({
+		dateFormat: "dd-mm-yy"
+	});
 	var userName = $('#userName').val();
+	$('#authorities').val(userName);
 	console.log("======================= Start report payment ======================");
 	reportPaymentTb = $('#reportPaymentTb').DataTable({
 		"filter" : false,
@@ -24,7 +31,7 @@ function initCriteria(){
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day);
+	var today =(day)+"-"+(month)+"-"+ now.getFullYear();
 	
 	$('#dateFrom').val(today);
 	$('#dateTo').val(today);

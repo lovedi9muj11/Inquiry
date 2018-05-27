@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
+import th.co.maximus.bean.InvEpisOfflineReportBean;
+import th.co.maximus.bean.PaymentManualBean;
 //import scala.annotation.meta.setter;
 import th.co.maximus.bean.ReportBean;
 import th.co.maximus.bean.ReportPaymentBean;
@@ -119,7 +121,7 @@ public class ReportController {
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia);
 			
 			String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/Payment-Report.xlsx");
-			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFWorkbook workbook = new XSSFWorkbook(new File(pathFile));
 			
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			
@@ -164,5 +166,5 @@ public class ReportController {
 	   
 	        
 		}
-
+	 
 }
