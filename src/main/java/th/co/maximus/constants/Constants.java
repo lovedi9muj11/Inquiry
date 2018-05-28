@@ -8,6 +8,7 @@ public class Constants {
 	public static final Locale localeTH = new Locale("th", "TH");
 	public static final Locale localeEN = new Locale("en", "EN");
 	
+	
 	public static class DateTime {
 		public static final String LOCALE = "TH";
 		public static final String DATE_FORMAT = "dd/MM/yyyy";
