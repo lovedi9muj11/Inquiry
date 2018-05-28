@@ -99,23 +99,11 @@ public class PayOtherController {
 				paymentResultReq.setBalanceOfvatStr(String.format("%,.2f", paymentResultReq.getBalanceOfvat()));
 				paymentResultReq.setVatStr(String.format("%,.2f",paymentResultReq.getVat()));
 				paymentResultReq.setBeforeVatStr(String.format("%,.2f",paymentResultReq.getBeforeVat()));
-				if(paymentResultReq.getDeduction() == null) {
-					paymentResultReq.setDeductionStr(String.format("%,.2f",new BigDecimal(0)));
-				}else {
-					paymentResultReq.setDeductionStr(String.format("%,.2f",paymentResultReq.getDeduction()));
-				}
-				
-				
-				paymentResultReq.setBalancePrice(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN).subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
-				
-				Date date =  paymentResultReq.getInvoiceDate();
-				String invoiceDate = dt.format(date);
-				
-				Date dateLineDate =  paymentResultReq.getDateLine();
-				String dateLineSt = dt.format(dateLineDate);
-				
-				paymentResultReq.setInvoiceDateRS(invoiceDate);
-				paymentResultReq.setDateLineRS(dateLineSt);
+				paymentResultReq.setServiceName(paymentResultReq.getServiceName());
+				paymentResultReq.setServiceCode(paymentResultReq.getServiceCode());
+				paymentResultReq.setQuantity(paymentResultReq.getQuantity());
+				paymentResultReq.setPaid_amountStr(String.format("%,.2f",paymentResultReq.getPaid_amount()));
+				paymentResultReq.setDiscountspacalStr(String.format("%,.2f",paymentResultReq.getDiscountspacal()));
 				
 				request.setAttribute("paymentResultReq",paymentResultReq);  
 			}

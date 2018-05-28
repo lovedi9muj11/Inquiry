@@ -185,7 +185,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 												class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
 												<%for(int i=0; i<masterServicetype.size(); i++){ %>
-																<option  value="<%=masterServicetype.get(i).getRevenueTypeCode() %>"><%=masterServicetype.get(i).getRevenueTypeName() %></option>
+																<option  value="<%=masterServicetype.get(i).getRevenueTypeName() %>"><%=masterServicetype.get(i).getRevenueTypeName() %></option>
 															<%} %>
 											</select>
 											<p id="sinputServiceType" style="color: red;">

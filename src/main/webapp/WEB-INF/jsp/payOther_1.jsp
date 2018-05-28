@@ -72,8 +72,11 @@
 												<th style='text-align: center;'>เลขที่ลูกค้า</th>
 												<th style='text-align: center;'>ชื่อลูกค้า</th>
 												<th style='text-align: center;'>เลขที่ใบเสร็จรับเงิน/ใบกำกับภาษี</th>
-												<th style='text-align: center;'>จำนวนเงินที่ชำระ</th>
-												<th style='text-align: center;'>สถานะการรับชำระ</th>
+												<th style='text-align: center;'>จำนวนเงินที่รับชำระ</th>
+												<th style='text-align: center;'>ส่วนลดก่อน VAT</th>
+												<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th>
+												<th style='text-align: center;'>ส่วนลดพิเศษ</th>
+												<th style='text-align: center;'>สถานะ</th>
 											</tr>
 										</thead>
 										<tbody align="center">
@@ -85,7 +88,10 @@
 												<td align="center">${paymentResultReq.custName}</td>
 												<td align="center">${paymentResultReq.documentNo}</td>
 												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">บันทึกรายการเรียบร้อย</td>
+												<td align="center">${paymentResultReq.beforeVatStr}</td>
+												<td align="center">${paymentResultReq.vatStr}</td>
+												<td align="center">${paymentResultReq.discountspacalStr}</td>
+												<td align="center">บันทึกลงระบบสำเร็จ</td>
 											</tr>
 										</tbody>
 									</table>
@@ -93,22 +99,28 @@
 										<thead align="center">
 											<tr align="center">
 												
-												<th style='text-align: center;'>ยอดก่อนภาษี</th>
+												<th style='text-align: center;'>ประเภทบริการ</th>
+												<th style='text-align: center;'>ชื่อบริการ</th>
+												<th style='text-align: center;'>จำนวนรายการ</th>
+												<th style='text-align: center;'>จำนวนเงิน</th>
+												<th style='text-align: center;'>ส่วนลดก่อน  VAT</th>
 												<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th>
-												<th style='text-align: center;'>ยอดเงินรวมภาษี</th>
-												<th style='text-align: center;'>ยอดชำระ</th>
-												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
+												<th style='text-align: center;'>ส่วนลดพิเศษ</th>
+												<th style='text-align: center;'>ยอดเงินรวม</th>
 												
 											</tr>
 										</thead>
 										<tbody>
 											<tr align="center">
 												
+												<td align="center">${paymentResultReq.serviceCode}</td>
+												<td align="center">${paymentResultReq.serviceName}</td>
+												<td align="center">${paymentResultReq.quantity}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">${paymentResultReq.beforeVatStr}</td>
 												<td align="center">${paymentResultReq.vatStr}</td>
-												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
-												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">${paymentResultReq.deductionStr}</td>
+												<td align="center">${paymentResultReq.discountspacalStr}</td>
+												<td align="center">${paymentResultReq.paid_amountStr}</td>
 											</tr>
 										</tbody>
 									</table>

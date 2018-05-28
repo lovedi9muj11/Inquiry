@@ -22,6 +22,9 @@ public class PaymentResultReq {
 	private BigDecimal balanceAmount;
 	private String period;
 	private BigDecimal discount;
+	private String quantity;
+	private BigDecimal paid_amount;
+	private BigDecimal discountspacal;
 	
 	private String balanceSummaryStr;
 	private String beforeVatStr;
@@ -30,6 +33,10 @@ public class PaymentResultReq {
 	private String deductionStr;
 	private String balancePriceStr;
 	private String discountStr;
+	private String serviceName;
+	private String serviceCode;
+	private String paid_amountStr;
+	private String discountspacalStr;
 	
 	public PaymentResultReq() {
 	}
@@ -55,25 +62,30 @@ public class PaymentResultReq {
 		
 
 	}
-	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
-			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period) {
-		
-		this.custNo = custNo;
-		this.custName = custName;
-		this.documentNo = documentNo;
-		this.balanceSummary = balanceSummary;
-		this.invoiceNo = invoiceNo;
-		this.invoiceDate = invoiceDate;
-		this.dateLine = dateLine;
-		this.beforeVat = beforeVat;
-		this.vat = vat;
-		this.balanceOfvat = balanceOfvat;
-		this.deduction = deduction;
-		this.balancePrice = balancePrice;
-		this.period = period;
-		
-
-	}
+//	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
+//			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice ,BigDecimal paid_amount,BigDecimal discount ,String  serviceName, String serviceCode ,String quantity ) {
+//		
+//		this.custNo = custNo;
+//		this.custName = custName;
+//		this.documentNo = documentNo;
+//		this.balanceSummary = balanceSummary;
+//		this.invoiceNo = invoiceNo;
+//		this.invoiceDate = invoiceDate;
+//		this.dateLine = dateLine;
+//		this.beforeVat = beforeVat;
+//		this.vat = vat;
+//		this.balanceOfvat = balanceOfvat;
+//		this.deduction = deduction;
+//		this.balancePrice = balancePrice;
+//		this.paid_amount = paid_amount;
+//		this.discount = discount;
+//		this.serviceCode = serviceCode;
+//		this.serviceName = serviceName;
+//		this.quantity = quantity;
+//		
+//		
+//
+//	}
 
 	public String getCustNo() {
 		return custNo;
@@ -266,6 +278,68 @@ public class PaymentResultReq {
 	public void setDiscountStr(String discountStr) {
 		this.discountStr = discountStr;
 	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public String getServiceCode() {
+		return serviceCode;
+	}
+
+	public void setServiceCode(String serviceCode) {
+		this.serviceCode = serviceCode;
+	}
+
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+	
+
+	public String getPaid_amountStr() {
+		return paid_amountStr;
+	}
+
+	public void setPaid_amountStr(String paid_amountStr) {
+		this.paid_amountStr = paid_amountStr;
+	}
+
+	public BigDecimal getPaid_amount() {
+		return paid_amount;
+	}
+
+	public void setPaid_amount(BigDecimal paid_amount) {
+		this.paid_amount = paid_amount;
+	}
+
+	public BigDecimal getDiscountspacal() {
+		return discountspacal;
+	}
+
+	public void setDiscountspacal(BigDecimal discountspacal) {
+		this.discountspacal = discountspacal;
+	}
+
+	public String getDiscountspacalStr() {
+		return discountspacalStr;
+	}
+
+	public void setDiscountspacalStr(String discountspacalStr) {
+		this.discountspacalStr = discountspacalStr;
+	}
+
+	
+
+	
 
 	
 	

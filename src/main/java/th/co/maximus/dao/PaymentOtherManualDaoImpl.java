@@ -64,7 +64,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao{
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID = py.MANUAL_ID ) , py.PAID_AMOUNT , pim.PERIOD ");
+			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE ,  pim.BEFOR_VAT , pim.VAT_AMOUNT ,pim.AMOUNT, (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID = py.MANUAL_ID ) , pim.PERIOD , pim.DISCOUNTSPECIAL ,pim.SERVICENAME ,pim.SERVICECODE ,pim.QUANTITY ,pim.DISCOUNTBEFORVAT ");
 			sqlStmt.append(" FROM receipt_manual py ");
 			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID  ");
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
@@ -74,8 +74,21 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao{
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				beanReReq = new PaymentResultReq(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4), resultSet.getString(5), 
-						resultSet.getDate(6), resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9), resultSet.getBigDecimal(10), resultSet.getBigDecimal(11), resultSet.getBigDecimal(12), resultSet.getString(13));
+//				beanReReq = new PaymentResultReq(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4), resultSet.getString(5), 
+//						resultSet.getDate(6), resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9), resultSet.getBigDecimal(10), resultSet.getBigDecimal(11),  resultSet.getString(13), resultSet.getBigDecimal(14),
+//						resultSet.getString(15),resultSet.getString(16),resultSet.getString(17));
+				beanReReq = new PaymentResultReq();
+				beanReReq.setCustNo(resultSet.getString("ACCOUNT_NO"));
+				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
+				beanReReq.setDocumentNo(resultSet.getString("RECEIPT_NO_MANUAL"));
+				beanReReq.setBalanceSummary(resultSet.getBigDecimal("PAID_AMOUNT"));
+				beanReReq.setBeforeVat(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
+				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
+				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
+				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
+				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
+				beanReReq.setPaid_amount(resultSet.getBigDecimal("AMOUNT"));
 			}
 
 		} finally {
