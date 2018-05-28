@@ -87,7 +87,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	}
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(long manualId) throws Exception {
+	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(Long manualId) throws Exception {
 		List<PaymentMMapPaymentInvBean>  result = new ArrayList<>();
 		for(PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVFromId(manualId)) {
 			if("N".equals(bean.getClearing()) && "A".equals(bean.getRecordStatus())) {
