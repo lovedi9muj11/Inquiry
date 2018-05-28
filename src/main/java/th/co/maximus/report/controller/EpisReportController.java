@@ -209,6 +209,13 @@ public class EpisReportController {
 		exportPDFReport.setDiscount(invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setAmountPayment(invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
+		
+		exportPDFReport.setDiscountStr(String.format("%,.2f",invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setAmountPaymentStr(String.format("%,.2f",invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f",invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setBeforeVatStr(String.format("%,.2f",invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setVatStr(String.format("%,.2f",invObject.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+		
 		parameters.put("ReportSource", exportPDFReport);
 
 		response.setContentType("application/pdf");

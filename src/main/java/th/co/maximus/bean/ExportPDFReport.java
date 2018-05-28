@@ -33,6 +33,13 @@ public class ExportPDFReport {
 	private String vatRate;
 	private String checkSubNo;
 	
+	private String beforeVatStr;
+	private String vatStr;
+	private String discountStr;
+	private String balanceSummaryStr;
+	private String amountPaymentStr;
+	
+	
 	
 	public String getBranArea() {
 		return branArea;
@@ -201,6 +208,36 @@ public class ExportPDFReport {
 	}
 	public void setCheckSubNo(String checkSubNo) {
 		this.checkSubNo = checkSubNo;
+	}
+	public String getBeforeVatStr() {
+		return beforeVatStr;
+	}
+	public void setBeforeVatStr(String beforeVatStr) {
+		this.beforeVatStr = beforeVatStr;
+	}
+	public String getVatStr() {
+		return vatStr;
+	}
+	public void setVatStr(String vatStr) {
+		this.vatStr = vatStr;
+	}
+	public String getDiscountStr() {
+		return discountStr;
+	}
+	public void setDiscountStr(String discountStr) {
+		this.discountStr = discountStr;
+	}
+	public String getBalanceSummaryStr() {
+		return balanceSummaryStr;
+	}
+	public void setBalanceSummaryStr(String balanceSummaryStr) {
+		this.balanceSummaryStr = balanceSummaryStr;
+	}
+	public String getAmountPaymentStr() {
+		return amountPaymentStr;
+	}
+	public void setAmountPaymentStr(String amountPaymentStr) {
+		this.amountPaymentStr = amountPaymentStr;
 	}
 	
 	
