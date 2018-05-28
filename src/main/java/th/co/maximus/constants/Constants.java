@@ -59,5 +59,5 @@ public class Constants {
 	public static class GL_SERVICE{
 		public static final String OTHER = "OTHER";
 	}
-	
+
 }
