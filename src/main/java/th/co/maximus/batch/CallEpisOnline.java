@@ -1,7 +1,9 @@
 package th.co.maximus.batch;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import th.co.maximus.bean.BeanClass;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.bean.UserBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.service.MapGLService;
 import th.co.maximus.service.MasterDataService;
 
@@ -50,9 +54,14 @@ public class CallEpisOnline {
 		try {
 			MasterDataSyncBean masterDataSyncBean = new MasterDataSyncBean();
 			List<MasterDataSyncBean> list = new ArrayList<MasterDataSyncBean>();
-			String gettUrl = url.concat("/EpisWeb/offline/masterdatasync1.json"); // /offline/insertPayment
-			ResponseEntity<String> getResponse = restTemplate.getForEntity(gettUrl, String.class);
 			
+			Set<String> groupKeys = new HashSet<String>();
+			groupKeys.add(Constants.MasterData.BANK_TYPE);
+			groupKeys.add(Constants.MasterData.BUSINESS_AREA);
+			groupKeys.add(Constants.MasterData.OTHER_PAYMENT_UNIT);
+			
+			String gettUrl = url.concat("/EpisWeb/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
+			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, groupKeys, String.class);
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());
 			for(int i=0; i<jsonArray.length(); i++) {
 				masterDataSyncBean = new MasterDataSyncBean();
@@ -118,6 +127,27 @@ public class CallEpisOnline {
 			}
 			String respone = mapGLService.insertMapGL(list);
 			System.out.println(" Return Status for insert GL Data respone :: " + respone);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void callOnlineSyncUser(){
+		try {
+			UserBean userBean = new UserBean();
+			List<UserBean> list = new ArrayList<UserBean>();
+			String gettUrl = url.concat("/EpisWeb/offline/userSyncByArea.json");
+			ResponseEntity<String> getResponse = restTemplate.getForEntity(gettUrl, String.class);
+			
+			JSONArray jsonArray = new JSONArray(getResponse.getBody());
+			for(int i=0; i<jsonArray.length(); i++) {
+				userBean = new UserBean();
+//				glBean.setGlCode( jsonArray.getJSONObject(i).getString("glCode"));
+				list.add(userBean);
+			}
+//			String respone = mapGLService.insertMapGL(list);
+			System.out.println(" Return Status for insert User respone :: " + "respone");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,8 +1,6 @@
 package th.co.maximus;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -66,7 +64,6 @@ public class PaymentSeriveTest{
 	public void saveTrsMethod() {
 		PaymentFirstBean paymentBean = new PaymentFirstBean();
 		PaymentTaxBean paymentTaxBean = new PaymentTaxBean();
-		Date date = new Date();
 		List<PaymentTranPriceBean> result = new ArrayList<PaymentTranPriceBean>();
 		List<PaymentTaxBean> resultTaxBean = new ArrayList<PaymentTaxBean>();
 		PaymentTranPriceBean tbean = new PaymentTranPriceBean();

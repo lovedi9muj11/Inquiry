@@ -42,5 +42,10 @@ public class CallEpisOnlineTest {
 	public void test() throws Exception{
 		clearingPaymentEpisOffline.callOnlinePayment(1);
 	}
+	
+	@Test
+	public void callRestGetUser() throws Exception{
+		callEpisOnline.callOnlineSyncUser();
+	}
 
 }

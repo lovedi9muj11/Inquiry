@@ -35,7 +35,7 @@ public class Constants {
 		public final static String RPT_EXCEL = "EXCEL";
 	}
 	public static class dataUser{
-		public static final String BRANCHAREA = "CAT นนทบุรี";
+		public static final String BRANCHAREA = "1704";
 		public static final String SOURCE = "OFFLINE";
 		public static final String NAME_USER = "ADMIN";
 	}
@@ -53,6 +53,11 @@ public class Constants {
 		public static final String OTHER = "OTHER";
 		public static final String BUSINESS_AREA = "BUSINESS_AREA";
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
+		
+	}
+	
+	public static class GL_SERVICE{
+		public static final String OTHER = "OTHER";
 	}
 	
 }
