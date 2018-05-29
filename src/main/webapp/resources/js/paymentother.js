@@ -897,7 +897,7 @@ function addDataTableMoneyTranPrice() {
 	var sumPrice = parseFloat(sop.replace(",", ""));
 
 	$("#balanceSummarys").val(balan.toFixed(2));
-	$("#moneyTran").val(balan.toFixed(2));
+//	$("#moneyTran").val(balan.toFixed(2));
 	$("#creditPrice").val(balan.toFixed(2));
 	$("#moneyCheck").val(balan.toFixed(2));
 	balanceS = parseFloat(balanceS + money + (summaryTax));
@@ -1639,8 +1639,8 @@ function totalSum() {
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSummarys").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-		$("#moneyTran").val(total.toFixed(2).toString()
-				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//		$("#moneyTran").val(total.toFixed(2).toString()
+//				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#creditPrice").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#moneyCheck").val(total.toFixed(2).toString()

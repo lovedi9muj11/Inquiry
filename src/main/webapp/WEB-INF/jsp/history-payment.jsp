@@ -9,17 +9,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script> -->
 	
 <script src="${contextPath}/resources/js/histrory-payment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/js/autoNumeric-1.7.4.js"></script>
+<script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
 
 <title>Menu</title>
 
