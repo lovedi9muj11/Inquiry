@@ -209,6 +209,13 @@ public class EpisReportController {
 		exportPDFReport.setDiscount(invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setAmountPayment(invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
+		
+		exportPDFReport.setDiscountStr(String.format("%,.2f",invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setAmountPaymentStr(String.format("%,.2f",invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setBalanceSummaryStr(String.format("%,.2f",invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setBeforeVatStr(String.format("%,.2f",invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setVatStr(String.format("%,.2f",invObject.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+		
 		parameters.put("ReportSource", exportPDFReport);
 
 		response.setContentType("application/pdf");
@@ -247,20 +254,41 @@ public class EpisReportController {
 		String dateDocument = dt.format(date);
 		BigDecimal zro = new BigDecimal(0);
 		if (invObject.getDiscountSpecial() == null) {
-			exportPDFReport.setDiscountSpecial(zro.setScale(2, RoundingMode.HALF_DOWN));
+			exportPDFReport.setDiscountSpecialCheck("Y");
+			//exportPDFReport.setDiscountSpecial(zro.setScale(2, RoundingMode.HALF_DOWN));
 		} else {
 			exportPDFReport.setDiscountSpecial(invObject.getDiscountSpecial().setScale(2, RoundingMode.HALF_DOWN));
+			exportPDFReport.setDiscountSpecialCheck("N");
 		}
 		exportPDFReport.setBranArea(invObject.getBranArea());
 		exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
+		if(StringUtils.isNotBlank(invObject.getCustName())) {
+			exportPDFReport.setCustNameCheck("Y");
+		}else {
+			exportPDFReport.setCustNameCheck("N");
+		}
 		exportPDFReport.setCustName(invObject.getCustName());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
 		exportPDFReport.setBalanceSummaryStr(
 				String.format("%,.2f", invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
 						.add(exportPDFReport.getDiscountSpecial().setScale(2, RoundingMode.HALF_DOWN))));
+		
+		if(StringUtils.isNotBlank(invObject.getCustomerAddress())) {
+			exportPDFReport.setAddressCheck("Y");
+			
+		}else {
+			exportPDFReport.setAddressCheck("N");
+		}
 		exportPDFReport.setCustomerAddress(invObject.getCustomerAddress());
+		
+		
+		if(StringUtils.isNotBlank(invObject.getTaxId())) {
+			exportPDFReport.setTaxIdCheck("Y");
+		}else {
+			exportPDFReport.setTaxIdCheck("N");
+		}
 		exportPDFReport.setTaxId(invObject.getTaxId());
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
@@ -268,7 +296,13 @@ public class EpisReportController {
 		exportPDFReport.setAmount(invObject.getAmount());
 		// exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat().setScale(2,
 		// RoundingMode.HALF_DOWN));
-
+		if(invObject.getBalanceSummary().signum()==0) {
+			exportPDFReport.setBalanceBefore(invObject.getBalanceSummary());
+			exportPDFReport.setBalanceBeforeCheck("Y");
+		}else {
+			exportPDFReport.setBalanceBefore(invObject.getBalanceSummary());
+			exportPDFReport.setBalanceBeforeCheck("N");
+		}
 		exportPDFReport.setBalanceBefore(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 
 		BigDecimal total = invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
@@ -288,16 +322,57 @@ public class EpisReportController {
 		String nameService = "";
 		nameService = invObject.getBracnCode() + invObject.getBranArea() + invObject.getSouce();
 
-		String payCode = "";
+//		String payCode = "";
+//		List<String> result = new ArrayList<>();
+//		for (int i = 0; i < collections.size(); i++) {
+//			InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean) collections.get(i);
+//
+//			result.add(stockObject.getPaymentCode());
+//
+//		}
+//		for (int f = 0; f < result.size(); f++) {
+//			payCode += "-" + result.get(f);
+//		}
+		
+		String paymentCodeRes = "";
+		String checkWT = "";
 		List<String> result = new ArrayList<>();
 		for (int i = 0; i < collections.size(); i++) {
+			String payCode = "";
 			InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean) collections.get(i);
 
-			result.add(stockObject.getPaymentCode());
+			if (stockObject.getPaymentCode().equals("CC")) {
+				payCode = "เงินสด";
+				result.add(payCode);
+			} else if (stockObject.getPaymentCode().equals("CD")) {
+				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
+				String code = res.get(0).getCreditNo();
+				payCode = "บัตรเครดิต" +" " +res.get(0).getCardtype() +" "+ "เลขที่ : ************" + code.substring(12, 16);
+				result.add(payCode);
+			} else if (stockObject.getPaymentCode().equals("CH")) {
+				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());
+				payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
+				result.add(payCode);
+			}
+
+			
 
 		}
+		for (int i = 0; i < collections.size(); i++) {
+			InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean) collections.get(i);
+			if (stockObject.getPaymentCode().equals("DEDUC")) {
+				checkWT = "WT";
+				result.add(checkWT);
+			}
+			
+		}
 		for (int f = 0; f < result.size(); f++) {
-			payCode += "-" + result.get(f);
+			if (f == 0) {
+				paymentCodeRes += result.get(f);
+			} else {
+				paymentCodeRes += " + " + result.get(f);
+			}
+
 		}
 
 		for (int f = 0; f < printCollections.size(); f++) {
@@ -312,8 +387,10 @@ public class EpisReportController {
 
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", invObject.getDiscountSpecial()));
+		
+		
 
-		exportPDFReport.setPaymentCode(payCode);
+		exportPDFReport.setPaymentCode(paymentCodeRes);
 		exportPDFReport.setSouce(nameService);
 		parameters.put("ReportSource", exportPDFReport);
 
