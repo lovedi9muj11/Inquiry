@@ -44,6 +44,7 @@ public class CallEpisOnlineTest {
 	}
 	
 	@Test
+	@Ignore
 	public void callRestGetUser() throws Exception{
 		callEpisOnline.callOnlineSyncUser();
 	}
