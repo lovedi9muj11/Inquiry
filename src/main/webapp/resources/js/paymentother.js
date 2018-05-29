@@ -580,7 +580,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
-	
+	$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 }
 function calurateVatRate (amountDiscount ,vatRate){
