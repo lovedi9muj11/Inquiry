@@ -69,7 +69,7 @@ masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 				</div>
 
 				<div class="row" style="margin-top: 20px;">
-					<input type="hidden" id="userName" name="userName"
+					<input type="hidden" id="userName1" name="userName1"
 						value="${pageContext.request.userPrincipal.name}">
 					<!-- <div class="col-md-12 col-sm-12"> -->
 						<!-- <div class="form-group"> -->
