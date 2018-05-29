@@ -14,6 +14,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="false"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" mode="Opaque" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -65,21 +66,25 @@
 				<text><![CDATA[เลขที่ลูกค้า :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="47" width="99" height="23" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c"/>
+				<reportElement x="81" y="47" width="289" height="23" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNameCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ชื่อ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="70" width="99" height="23" backcolor="#FFFFFF" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f"/>
+				<reportElement x="81" y="70" width="289" height="23" backcolor="#FFFFFF" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNameCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
@@ -114,35 +119,43 @@
 				<text><![CDATA[เลขที่ :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="93" width="80" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="93" width="80" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getAddressCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ที่อยู่ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="93" width="251" height="23" backcolor="#FFFFFF" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec"/>
+				<reportElement stretchType="RelativeToBandHeight" x="81" y="93" width="489" height="23" backcolor="#FFFFFF" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getAddressCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustomerAddress()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="116" width="80" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="116" width="80" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<text><![CDATA[TAX ID :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="116" width="99" height="23" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff"/>
+				<reportElement x="81" y="116" width="489" height="23" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getTaxId()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="139" width="99" height="23" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
+				<reportElement x="81" y="139" width="489" height="23" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
@@ -296,14 +309,14 @@
 				</staticText>
 			</frame>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="30" y="241" width="256" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
+				<reportElement style="Cat_Hl_Common" x="30" y="241" width="340" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="523" y="241" width="233" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
+				<reportElement style="Cat_Hl_Common" x="440" y="241" width="315" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
@@ -368,28 +381,36 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="490" y="2" width="187" height="23" uuid="bffd37b3-7e43-4caa-8fce-811e7ff94610"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="2" width="187" height="23" uuid="bffd37b3-7e43-4caa-8fce-811e7ff94610">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getBalanceBeforeCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงินก่อนหักส่วนลดพิเศษ :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="678" y="2" width="100" height="23" backcolor="#FFFFFF" uuid="6b4e1f50-4265-4629-9b53-bcfd76536b85"/>
+					<reportElement x="678" y="2" width="100" height="23" backcolor="#FFFFFF" uuid="6b4e1f50-4265-4629-9b53-bcfd76536b85">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getBalanceBeforeCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceBeforeStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="490" y="25" width="186" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="25" width="186" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getDiscountSpecialCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[ส่วนลดพิเศษ :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="677" y="25" width="100" height="23" backcolor="#FFFFFF" uuid="705068e4-729d-4bd7-9111-dbcf5dfa169d"/>
+					<reportElement x="677" y="25" width="100" height="23" backcolor="#FFFFFF" uuid="705068e4-729d-4bd7-9111-dbcf5dfa169d">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getDiscountSpecialCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>

@@ -33,6 +33,11 @@ public class ExportPDFByInsaleReport {
 	private String vatStr;
 	private String balanceSummaryStr;
 	
+	private String addressCheck;
+	private String custNameCheck;
+	private String taxIdCheck;
+	private String balanceBeforeCheck;
+	private String discountSpecialCheck;
 	
 	
 	public String getServiceName() {
@@ -190,6 +195,36 @@ public class ExportPDFByInsaleReport {
 	}
 	public void setBalanceSummaryStr(String balanceSummaryStr) {
 		this.balanceSummaryStr = balanceSummaryStr;
+	}
+	public String getAddressCheck() {
+		return addressCheck;
+	}
+	public void setAddressCheck(String addressCheck) {
+		this.addressCheck = addressCheck;
+	}
+	public String getCustNameCheck() {
+		return custNameCheck;
+	}
+	public void setCustNameCheck(String custNameCheck) {
+		this.custNameCheck = custNameCheck;
+	}
+	public String getTaxIdCheck() {
+		return taxIdCheck;
+	}
+	public void setTaxIdCheck(String taxIdCheck) {
+		this.taxIdCheck = taxIdCheck;
+	}
+	public String getBalanceBeforeCheck() {
+		return balanceBeforeCheck;
+	}
+	public void setBalanceBeforeCheck(String balanceBeforeCheck) {
+		this.balanceBeforeCheck = balanceBeforeCheck;
+	}
+	public String getDiscountSpecialCheck() {
+		return discountSpecialCheck;
+	}
+	public void setDiscountSpecialCheck(String discountSpecialCheck) {
+		this.discountSpecialCheck = discountSpecialCheck;
 	}
 	
 	

@@ -22,6 +22,7 @@ public class InvEpisOfflineByInsaleBean {
 	private String serviceName;
 	private BigDecimal amount;
 	private BigDecimal discountbeforvat;
+	private Long methodId;
 	
 	private String amountStr;
 	private String beforeDiscount;
@@ -214,6 +215,14 @@ public class InvEpisOfflineByInsaleBean {
 
 	public void setServiceNameStr(String serviceNameStr) {
 		this.serviceNameStr = serviceNameStr;
+	}
+
+	public Long getMethodId() {
+		return methodId;
+	}
+
+	public void setMethodId(Long methodId) {
+		this.methodId = methodId;
 	}
 	
 
