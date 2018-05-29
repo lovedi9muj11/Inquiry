@@ -1,10 +1,12 @@
 package th.co.maximus.controller;
 
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
+import th.co.maximus.core.utils.Utils;
 import th.co.maximus.service.CancelPaymentService;
 
 @Controller
@@ -23,8 +26,8 @@ public class CancelPaymentController {
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	// @Autowired
+	// private Md5PasswordEncoder md5PasswordEncoder;
 
 	@Autowired
 	private UserService userService;
@@ -49,7 +52,8 @@ public class CancelPaymentController {
 
 	@RequestMapping(value = { "/cancelPayment/findFromId" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<PaymentMMapPaymentInvBean> findAllFromId(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+	public List<PaymentMMapPaymentInvBean> findAllFromId(@RequestBody PaymentMMapPaymentInvBean creteria)
+			throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		if (!("").equals(creteria.getManualId())) {
 			result = cancelPaymentService.findAllCancelPaymentFromId(creteria.getManualId());
@@ -57,14 +61,15 @@ public class CancelPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {"/cancelPayment/checkAuthentication" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {
+			"/cancelPayment/checkAuthentication" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean checkAuthentication(@RequestBody UserBean user) {
 		boolean result = false;
 		if (user.getUserName() != "" && user.getPassword() != "") {
 			UserDto resultUser = userService.findByUsername(user.getUserName());
 			if (resultUser != null) {
-				if (bCryptPasswordEncoder.matches(user.getPassword(), resultUser.getPassword())) {
+				if (Utils.check(user.getPassword(), resultUser.getPassword())) {
 					result = true;
 				}
 			}
@@ -72,9 +77,11 @@ public class CancelPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {
+			"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
 		return cancelPaymentService.insertAndUpdateCancelPayment(creteria);
 	}
+
 }

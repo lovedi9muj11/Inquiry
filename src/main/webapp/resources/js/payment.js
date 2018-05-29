@@ -321,7 +321,33 @@ function datePriod(){
 	
 	var dateSt = res[0]+res[1]+res[2];
 	var dateEn = res1[0]+res1[1]+res1[2];
+	if($("#startupDate").val() == ""){
+		$("#sstartupDate").show();
+		return $("#startupDate").focus();
+	}
+
+	if(parseFloat(dateSt) > parseFloat(dateEn)){
+		 $("#sstartupDate1").show();
+		 $("#sendDate1").show();
+	}else{
+		 $("#sstartupDate1").hide();
+		 $("#sendDate1").hide();
+	}
 	
+}
+function datePriod1(){
+	var dateS = document.getElementById('startupDate');
+	var dateE = document.getElementById('endDate');
+
+	var res = dateS.value.split("-");
+	var res1 = dateE.value.split("-");
+	
+	var dateSt = res[0]+res[1]+res[2];
+	var dateEn = res1[0]+res1[1]+res1[2];
+	if($("#endDate").val() == ""){
+		$("#sendDate").show();
+		return $("#endDate").focus();
+	}
 	if(parseFloat(dateSt) > parseFloat(dateEn)){
 		 $("#sstartupDate1").show();
 		 $("#sendDate1").show();
