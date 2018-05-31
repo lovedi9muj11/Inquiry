@@ -1736,5 +1736,3 @@ function autoSelect(){
 		radiobtns.checked = true;
 	}
 }
-
-
