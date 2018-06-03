@@ -38,6 +38,7 @@ public class ExportPDFByInsaleReport {
 	private String taxIdCheck;
 	private String balanceBeforeCheck;
 	private String discountSpecialCheck;
+	private String checkBran;
 	
 	
 	public String getServiceName() {
@@ -225,6 +226,12 @@ public class ExportPDFByInsaleReport {
 	}
 	public void setDiscountSpecialCheck(String discountSpecialCheck) {
 		this.discountSpecialCheck = discountSpecialCheck;
+	}
+	public String getCheckBran() {
+		return checkBran;
+	}
+	public void setCheckBran(String checkBran) {
+		this.checkBran = checkBran;
 	}
 	
 	

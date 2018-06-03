@@ -49,7 +49,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 //			}
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
-			paymentManualBean.setBranchCode("001");
+			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			
 			double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
 			if(resRQ > paymentBean.getBalanceSum()) {

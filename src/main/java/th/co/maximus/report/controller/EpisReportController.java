@@ -319,8 +319,8 @@ public class EpisReportController {
 		exportPDFReport.setBeforeVatStr(String.format("%,.2f", beforeVats.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setVatStr(String.format("%,.2f", vat.setScale(2, RoundingMode.HALF_DOWN)));
 
-		String nameService = "";
-		nameService = invObject.getBracnCode() + invObject.getBranArea() + invObject.getSouce();
+//		String nameService = "";
+//		nameService = invObject.getBracnCode() + invObject.getBranArea() + invObject.getSouce();
 
 //		String payCode = "";
 //		List<String> result = new ArrayList<>();
@@ -388,10 +388,17 @@ public class EpisReportController {
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", invObject.getBalanceSummary()));
 		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", invObject.getDiscountSpecial()));
 		
-		
+		String bran = "";
+		if (invObject.getBracnCode().equals("00000")) {
+			bran = "สำนักงานใหญ่";
+			exportPDFReport.setCheckBran("N");
+		} else {
+			bran = invObject.getBracnCode();
+			exportPDFReport.setCheckBran("Y");
+		}
 
 		exportPDFReport.setPaymentCode(paymentCodeRes);
-		exportPDFReport.setSouce(nameService);
+		exportPDFReport.setSouce(bran);
 		parameters.put("ReportSource", exportPDFReport);
 
 		response.setContentType("application/pdf");
