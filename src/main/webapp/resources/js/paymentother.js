@@ -300,7 +300,7 @@ function submitForm() {
 			"docDed" : resultDeductible[a][1],
 		"custNo" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][3],
-			"moneyDed" : resultDeductible[a][4]
+			"moneyDed" : resultDeductible[a][4]*-1
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -386,7 +386,7 @@ function submitForm() {
 				"")),
 		"balanceSum" : parseFloat($("#balanceSum").val().replace(",", "")),
 		"remark" : $("#remark").val(),
-		"summaryTax" : parseFloat(($("#summaryTax").val().replace(",", "")*-1)),
+		"summaryTax" : parseFloat(($("#summaryTax").val().replace(",", ""))),
 		"change" : $("#change").val(),
 		"sale" : $("#sale").val(),
 		"salespacial": $("#salespacial").val(),
