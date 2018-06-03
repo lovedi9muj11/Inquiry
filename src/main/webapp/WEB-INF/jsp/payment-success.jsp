@@ -17,13 +17,15 @@
 
 <script src="${contextPath}/resources/js/payment-success.js"></script>
 
-	<script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/utils.js"
+	type="text/javascript"></script>
 <%=request.getAttribute("paymentResultReq")%>
 </head>
 <body>
 	<header class="header_page"></header>
 
-	<form id="paymentFroms" method="post" class="form-horizontal" role="form">
+	<form id="paymentFroms" method="post" class="form-horizontal"
+		role="form">
 		<div id="page-content-wrapper">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -33,7 +35,8 @@
 					</ul>
 				</div>
 			</nav>
-			<input name="documentNo" id="documentNo" value="${paymentResultReq.documentNo}" type="hidden">
+			<input name="documentNo" id="documentNo"
+				value="${paymentResultReq.documentNo}" type="hidden">
 			<div class="row">
 
 				<div class="col-md-12 col-sm-12">
@@ -41,8 +44,7 @@
 						<div class="col-md-12 col-sm-12">
 							<button name="btnSubmit" id="btnSubmit" type="submit"
 								class="btn btn-info btn-lg" onclick="submti()">
-								<span class="glyphicon glyphicon-file">
-									พิมพ์ใบเสร็จ</span>
+								<span class="glyphicon glyphicon-file"> พิมพ์ใบเสร็จ</span>
 							</button>
 							<button name="submitFormPayment" type="button"
 								class="btn btn-danger btn-lg" onclick="backPayment()">
@@ -55,7 +57,7 @@
 			</div>
 			<!-- panel รายการหัก -->
 			<div class="row">
-			
+
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group">
 						<div class="col-md-12 col-sm-12">
@@ -76,8 +78,11 @@
 										</thead>
 										<tbody align="center">
 											<tr align="center">
-												<td id="plus"><a onclick="openTable()"><span  class="glyphicon glyphicon-plus"></span></a></td>
-												<td id="remove"><a onclick="removeTable()"><span  class="glyphicon glyphicon-minus"></span></a></td>
+												<td id="plus"><a
+													onclick='openTable(${paymentResultReq.manualId})'><span
+														class="glyphicon glyphicon-plus"></span></a></td>
+												<td id="remove"><a onclick="removeTable()"><span
+														class="glyphicon glyphicon-minus"></span></a></td>
 												<td align="center">1</td>
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
@@ -99,24 +104,24 @@
 												<th style='text-align: center;'>ส่วนลดหลังการขาย</th>
 												<th style='text-align: center;'>ยอดชำระ</th>
 												<th style='text-align: center;'>ภาษีหัก ณ ที่จ่าย</th>
-<!-- 												<th style='text-align: center;'>จำนวนเงินคงค้าง</th> -->
+												<!-- 												<th style='text-align: center;'>จำนวนเงินคงค้าง</th> -->
 												<th style='text-align: center;'>รอบการใช้งาน</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr align="center">
-												<td align="center">${paymentResultReq.invoiceNo}</td>
-												<td align="center">${paymentResultReq.invoiceDateRS}</td>
-												<td align="center">${paymentResultReq.dateLineRS}</td>
-												<td align="center">${paymentResultReq.beforeVatStr}</td>
-												<td align="center">${paymentResultReq.vatStr}</td>
-												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
-												<td align="center">${paymentResultReq.discountStr}</td>
-												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">${paymentResultReq.deductionStr}</td>
-<%-- 												<td align="center">${ paymentResultReq.balancePriceStr}</td> --%>
-												<td align="center">${paymentResultReq.period}</td>
-											</tr>
+											<!-- 											<tr align="center"> -->
+											<%-- 												<td align="center">${paymentResultReq.invoiceNo}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.invoiceDateRS}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.dateLineRS}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.beforeVatStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.vatStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.balanceOfvatStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.discountStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.balanceSummaryStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.deductionStr}</td> --%>
+											<%-- 											<td align="center">${ paymentResultReq.balancePriceStr}</td> --%>
+											<%-- 												<td align="center">${paymentResultReq.period}</td> --%>
+											<!-- 											</tr> -->
 										</tbody>
 									</table>
 								</div>
@@ -125,7 +130,7 @@
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
 	</form>
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PaymentResultReq {
-
+	private int manualId;
 	private String custNo;
 	private String custName;
 	private String documentNo;
@@ -62,6 +62,8 @@ public class PaymentResultReq {
 		
 
 	}
+	
+	
 //	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
 //			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice ,BigDecimal paid_amount,BigDecimal discount ,String  serviceName, String serviceCode ,String quantity ) {
 //		
@@ -86,6 +88,14 @@ public class PaymentResultReq {
 //		
 //
 //	}
+
+	public int getManualId() {
+		return manualId;
+	}
+
+	public void setManualId(int manualId) {
+		this.manualId = manualId;
+	}
 
 	public String getCustNo() {
 		return custNo;

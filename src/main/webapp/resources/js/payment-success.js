@@ -1,65 +1,79 @@
 $(document).ready(function() {
-	document.getElementById("showResultTableRQ").style.display ="none" ;
+	document.getElementById("showResultTableRQ").style.display = "none";
 	$("#remove").hide();
 	$("#del").hide();
 });
-function backPayment(){
+function backPayment() {
 	window.location.href = "gotoPayment";
 }
 
-function openTable(){
+function openTable(manualId) {
 	$("#plus").hide();
 	$("#remove").show();
-	document.getElementById("showResultTableRQ").style.display="table";
+	console.log(manualId);
+	$.ajax({
+		type : "GET",
+		url : "/getDetailBilling/" + manualId,
+		dataType : "json",
+		async : false,
+		contentType : "application/json; charset=utf-8",
+		success : function(res) {
+			console.log(res);
+//			if (res > 0) {
+////				window.location.href = "paymentSuccess?idUser=" + res;
+//			}
+		}
+	});
+	document.getElementById("showResultTableRQ").style.display = "table";
 }
-function removeTable(){
-	
+function removeTable() {
+
 	$("#remove").hide();
 	$("#plus").show();
-	document.getElementById("showResultTableRQ").style.display="none";
+
+	document.getElementById("showResultTableRQ").style.display = "none";
 }
-function openTableSumOther(){
-	
+function openTableSumOther() {
+
 	$("#plus").hide();
 	$("#del").show();
-	document.getElementById("showResultTableRQ").style.display="table";
-	//$("#showResultTableRQ").toggle();
+	document.getElementById("showResultTableRQ").style.display = "table";
+	// $("#showResultTableRQ").toggle();
 }
-function closeTableSumOther(){
-	
+function closeTableSumOther() {
+
 	$("#del").hide();
 	$("#plus").show();
-	document.getElementById("showResultTableRQ").style.display="none";
-	//$("#showResultTableRQ").toggle();
+	document.getElementById("showResultTableRQ").style.display = "none";
+	// $("#showResultTableRQ").toggle();
 }
 
-function submti(){
+function submti() {
 
-		$("#paymentFroms").attr("action", "/previewPaymentEpisOffline.pdf")
-		.attr("target", "_blank").submit();
+	$("#paymentFroms").attr("action", "/previewPaymentEpisOffline.pdf").attr(
+			"target", "_blank").submit();
 }
-function submitTest(){
+function submitTest() {
 
 	$("#paymentFroms").attr("action", "/previewPaymentEpisOfflineByInsale.pdf")
-	.attr("target", "_blank").submit();
+			.attr("target", "_blank").submit();
 }
 
-function backPaymentOther(){
+function backPaymentOther() {
 	window.location.href = "payOther";
 }
 
-
-//	$.ajax({
-//        type: "POST",
-//        url: "previewPaymentEpisOffline",
-//        data: JSON.stringify(dataSource),
+// $.ajax({
+// type: "POST",
+// url: "previewPaymentEpisOffline",
+// data: JSON.stringify(dataSource),
 //
-//        dataType: "json",
-//        async: false,
-//        contentType: "application/json; charset=utf-8",
-//        success: function (res) {
-//        	if(res > 0){
-//        		 window.location.href = "paymentSuccess?idUser=" +res;
-//        	}
-//        }
-//	})
+// dataType: "json",
+// async: false,
+// contentType: "application/json; charset=utf-8",
+// success: function (res) {
+// if(res > 0){
+// window.location.href = "paymentSuccess?idUser=" +res;
+// }
+// }
+// })
