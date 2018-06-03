@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -24,46 +24,49 @@ import th.co.maximus.model.TrsMethodEpisOffline;
 public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	DataSource dataSource;
-	
-	public TrsMethodManualDaoImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+
+	 @Autowired
+	 DataSource dataSource;
+	//
+	// public TrsMethodManualDaoImpl(DataSource dataSource) {
+	// jdbcTemplate = new JdbcTemplate(dataSource);
+	// }
+
 	@Override
 	public int insertTrsMethod(TrsMethodManualBean trsMethodManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
+
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO trsmethod_manual (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID,CREDITNO) ");
+		sql.append(
+				" INSERT INTO trsmethod_manual (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID,CREDITNO) ");
 		sql.append("  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
-		
-    	jdbcTemplate.update( new PreparedStatementCreator() { public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-        	            PreparedStatement pst =con.prepareStatement(sql.toString(), new String[] {"METHOD_MANUAL_ID"});
-        	            pst.setString(1, trsMethodManualBean.getCode());
-        	            pst.setString(2, trsMethodManualBean.getName());
-        	            pst.setString(3, trsMethodManualBean.getChequeNo());
-        	            pst.setString(4, trsMethodManualBean.getAccountNo());
-        	            pst.setDouble(5, trsMethodManualBean.getAmount());
-        	            pst.setTimestamp(6, trsMethodManualBean.getUpdateDttm());
-        	            pst.setLong(7, trsMethodManualBean.getVersionStamp());
-        	            pst.setString(8, trsMethodManualBean.getRemark());
-        	            pst.setString(9, trsMethodManualBean.getCreateBy());
-        	            pst.setTimestamp(10, trsMethodManualBean.getCreateDate());
-        	            pst.setString(11, trsMethodManualBean.getUpdateBy());
-        	            pst.setTimestamp(12, trsMethodManualBean.getUpdateDate());
-        	            pst.setString(13, trsMethodManualBean.getRecordStatus());
-        	            pst.setLong(14, trsMethodManualBean.getManualId());
-        	            pst.setString(15, trsMethodManualBean.getCreditId());
-        	            return pst;
-        	        }
-        	    },
-        	    keyHolder);
-    	int newUserId= keyHolder.getKey().intValue();
-    	return newUserId;
-		
+
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pst = con.prepareStatement(sql.toString(), new String[] { "METHOD_MANUAL_ID" });
+				pst.setString(1, trsMethodManualBean.getCode());
+				pst.setString(2, trsMethodManualBean.getName());
+				pst.setString(3, trsMethodManualBean.getChequeNo());
+				pst.setString(4, trsMethodManualBean.getAccountNo());
+				pst.setDouble(5, trsMethodManualBean.getAmount());
+				pst.setTimestamp(6, trsMethodManualBean.getUpdateDttm());
+				pst.setLong(7, trsMethodManualBean.getVersionStamp());
+				pst.setString(8, trsMethodManualBean.getRemark());
+				pst.setString(9, trsMethodManualBean.getCreateBy());
+				pst.setTimestamp(10, trsMethodManualBean.getCreateDate());
+				pst.setString(11, trsMethodManualBean.getUpdateBy());
+				pst.setTimestamp(12, trsMethodManualBean.getUpdateDate());
+				pst.setString(13, trsMethodManualBean.getRecordStatus());
+				pst.setLong(14, trsMethodManualBean.getManualId());
+				pst.setString(15, trsMethodManualBean.getCreditId());
+				return pst;
+			}
+		}, keyHolder);
+		int newUserId = keyHolder.getKey().intValue();
+		return newUserId;
+
 	}
+
 	@Override
 	public List<TrsMethodManualBean> findTrsMethodManualFromManualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
@@ -71,7 +74,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new TrsMethodManual());
 	}
-	
+
 	private static final class TrsMethodManual implements RowMapper<TrsMethodManualBean> {
 
 		@Override
@@ -107,29 +110,39 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 
 	@Override
 	public List<TrsMethodEpisOffline> findByManualId(long manualId) throws Exception {
-		Connection connect = dataSource.getConnection();
-		List<TrsMethodEpisOffline> beanReReq = new ArrayList<TrsMethodEpisOffline>();
-		TrsMethodEpisOffline bean = new TrsMethodEpisOffline();
-		try {
-			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID, trm.VERSIONSTAMP, trm.UPDATE_BY ");
-			sqlStmt.append(" FROM trsmethod_manual trm ");
-			sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
-			
-			
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, manualId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				bean = new TrsMethodEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),resultSet.getLong(7),resultSet.getString(8),resultSet.getString(9));
-				beanReReq.add(bean);
+		// Connection connect = dataSource.getConnection();
+		// List<TrsMethodEpisOffline> beanReReq = new ArrayList<TrsMethodEpisOffline>();
+		// TrsMethodEpisOffline bean = new TrsMethodEpisOffline();
+
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append(
+				"SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID, trm.VERSIONSTAMP, trm.UPDATE_BY ");
+		sqlStmt.append(" FROM trsmethod_manual trm ");
+		sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
+		//
+		// PreparedStatement preparedStatement =
+		// connect.prepareStatement(sqlStmt.toString());
+		// preparedStatement.setLong(1, manualId);
+		//
+		@SuppressWarnings("unchecked")
+		List<TrsMethodEpisOffline> beanReReq =  jdbcTemplate.query(sqlStmt.toString(),new Object[] { manualId }, new RowMapper() {
+			@Override
+			public TrsMethodEpisOffline mapRow(ResultSet rs, int rowNum) throws SQLException {
+				TrsMethodEpisOffline bean = new TrsMethodEpisOffline(rs.getString(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), rs.getString(5), rs.getBigDecimal(6), rs.getLong(7),
+						rs.getString(8), rs.getString(9));
+				return bean;
 			}
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		});
+//		getJdbcTemplate().setDataSource(dataSource);
+//		@SuppressWarnings("unchecked")
+//		List<TrsMethodEpisOffline> beanReReq = (ArrayList) getJdbcTemplate().queryForList(sqlStmt.toString(),
+//				new Object[] { manualId },
 		return beanReReq;
+
+		// connect.close();
+
 	}
-	
+
 }
