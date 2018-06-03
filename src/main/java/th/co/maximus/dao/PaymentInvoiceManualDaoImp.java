@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,8 +40,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		// sql.append(" ");
-		sql.append(" ORDER BY CREATE_BY DESC");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
 		return jdbcTemplate.query(sql.toString(), PaymentManual);
 	}
 
@@ -67,16 +64,16 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS"));
-			// paymentManual.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
+			paymentManual.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
-			// paymentManual.setPeriod(rs.getString("PERIOD"));
+			paymentManual.setPeriod(rs.getString("PERIOD"));
 			paymentManual.setPayType((rs.getString("PAY_TYPE")));
 			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
-			// paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));
-			// paymentManual.setCustomerAddress(rs.getString("CUSTOMER_ADDRESS"));
-			// paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
+			paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));
+			paymentManual.setCustomerAddress(rs.getString("CUSTOMER_ADDRESS"));
+			paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
 
 			return paymentManual;
 		}
@@ -116,9 +113,12 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
-		sql.append(" WHERE payment_m.ACCOUNT_NO like ?");
-		param.add("%" + accountNo + "%");
-		sql.append("ORDER BY payment_m.CREATE_DATE DESC");
+		sql.append(" WHERE 1 = 1");
+		if(accountNo != null && !accountNo.equals("") ) {
+			sql.append(" payment_m.ACCOUNT_NO like ?");
+			param.add("%" + accountNo + "%");
+		}
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
@@ -130,8 +130,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE  payment_m.MANUAL_ID  =  ?");
-		sql.append(" ORDER BY CREATE_BY DESC");
 		param.add(manual_id);
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
@@ -141,7 +141,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" WHERE 1 = 1");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" WHERE 1 = 1 ");
 		if (receiptNo != "" && "".equals(invoiceNo)) {
 			sql.append(" payment_m.RECEIPT_NO_MANUAL = ?");
 			param.add(receiptNo);
@@ -157,7 +158,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sql.append(" payment_m.INVOICE_NO = ?");
 			param.add(invoiceNo);
 		}
-		sql.append(" ORDER BY payment_m.RECEIPT_NO_MANUAL DESC ");
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.RECEIPT_NO_MANUAL DESC ");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
@@ -178,6 +179,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM payment_invoice_manual payment_invoice where payment_invoice.MANUAL_ID = ?");
 		param.add(manualId);
+		sql.append("  GROUP by payment_m.MANUAL_ID ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentInvoice);
 	}
@@ -212,7 +214,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		if (StringUtils.isNotBlank(paymentInvBean.getPayType())) {
 			sql.append(" and pim.SERVICE_TYPE like '%" + paymentInvBean.getPayType() + "%'");
 		}
-
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		return jdbcTemplate.query(sql.toString(), PaymentManual);
 	}
 
@@ -229,7 +231,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		if (StringUtils.isNotBlank(paymentInvBean.getPayType())) {
 			sql.append(" and pm.PAY_TYPE like '%" + paymentInvBean.getPayType() + "%'");
 		}
-
+		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		return jdbcTemplate.query(sql.toString(), PaymentManual);
 	}
 
@@ -306,7 +308,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" " + dateTo + " ' ");
 			}
 
-			sql.append(" GROUP BY py.RECEIPT_NO_MANUAL ");
+			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.CREATE_DATE DESC");
+			// sql.append(" GROUP BY tm.NAME ");
 			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
 			preparedStatement.setString(1, historyRpt.getTypePrint());
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -341,6 +344,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sqlStmt.append(" FROM payment_invoice_manual pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
+			sqlStmt.append(" GROUP by payment_m.MANUAL_ID ORDER BY payment_m.CREATE_DATE DESC");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
 			preparedStatement.setLong(1, manualId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -382,7 +386,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	}
 
 	private static final RowMapper<InvoiceBean> invoice = new RowMapper<InvoiceBean>() {
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 		@Override
 		public InvoiceBean mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -391,11 +394,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			invoice.setManualId(rs.getLong("MANUAL_ID"));
 			invoice.setInvoiceNo(rs.getString("INVOICE_NO"));
 			invoice.setInvoiceDate(rs.getTimestamp("INVOICE_DATE"));
-			// invoice.setin
-			Date date = invoice.getInvoiceDate();
-			String invoiceDate = dt.format(date);
-
-			invoice.setInvoiceDateRs(invoiceDate);
 			invoice.setDateLine(rs.getTimestamp("DATE_LINE"));
 			invoice.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
 			invoice.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
@@ -429,6 +427,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM payment_invoice invoice WHERE invoice.MANUAL_ID = ?");
 		param.add(manualId);
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.queryForObject(sql.toString(), paramArr, invoice);
 	}
@@ -439,6 +438,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM payment_invoice_manual invoice WHERE invoice.MANUAL_ID = ?");
 		param.add(manualId);
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.queryForObject(sql.toString(), paramArr, PaymentInvoice);
 	}
@@ -448,9 +448,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
+		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
 		sql.append(" WHERE payment_m.CLEARING = ?");
-		sql.append(" ORDER BY CREATE_BY DESC");
 		param.add(clearing);
+		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}

@@ -41,12 +41,12 @@ public class CancelPaymentController {
 	@ResponseBody
 	public List<PaymentMMapPaymentInvBean> findAll(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		if (!"".equals(creteria.getReceiptNoManual()) || !"".equals(creteria.getInvoiceNo())) {
+//		if (!"".equals(creteria.getReceiptNoManual()) || !"".equals(creteria.getInvoiceNo())) {
 			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(),
 					creteria.getInvoiceNo());
-		} else {
-			result = cancelPaymentService.findAllCancelPayment();
-		}
+//		} else {
+//			result = cancelPaymentService.findAllCancelPayment();
+//		}
 		return result;
 	}
 

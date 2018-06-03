@@ -40,12 +40,12 @@ public class HistroryPaymentController {
 	  @ResponseBody
 	    public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		  if("".equals(creteria.getAccountNo())) {
-			  result = cancelPaymentService.findAllCancelPayment();	
-		  }else {
+//		  if("".equals(creteria.getAccountNo())) {
+//			  result = cancelPaymentService.findAllCancelPayment();	
+//		  }else {
 			  result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo());	
 			  
-		  }
+//		  }
 	        return result;
 	    }
 	  

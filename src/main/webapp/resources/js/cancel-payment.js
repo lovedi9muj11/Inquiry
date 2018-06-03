@@ -63,10 +63,29 @@ $(document).ready(function () {
             tr.removeClass('shown');
         }
         else {
-            // Open this row
-            row.child(format(row.data())).show();
-            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
-            tr.addClass('shown');
+        	console.log(row.data()[15]);
+        	var url;
+            if(row.data()[15] == "IBACSS"){
+         	   url = "/getDetailBilling/"+row.data()[2];
+            }else{
+         	   url = "/payOtherDetail/"+row.data()[2];
+            }
+         	$.ajax({
+   		        type: "GET",
+   		        url: url,
+   		        dataType: "json",
+   		        async: false,
+   		        contentType: "application/json; charset=utf-8",
+   		        success: function (res) {
+   		        	console.log(res);
+   		         if(row.data()[15] == "IBACSS"){
+  		        	 row.child(format2(res)).show();
+  		           }else{
+  		        	 row.child(format(res)).show();
+  		           }
+   		            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
+   		        }
+         	});
         }
     });
     
@@ -80,9 +99,31 @@ $(document).ready(function () {
             $('#'+valueIcon).addClass('glyphicon-plus').removeClass('glyphicon-minus');
         }
         else {
-            // Open this row
-            row.child(format(row.data())).show();
-            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
+        	console.log(row.data()[15]);
+        	var url;
+           if(row.data()[15] == "IBACSS"){
+        	   url = "/getDetailBilling/"+row.data()[2];
+           }else{
+        	   url = "/payOtherDetail/"+row.data()[2];
+           }
+        	$.ajax({
+  		        type: "GET",
+  		        url: url,
+  		        dataType: "json",
+  		        async: false,
+  		        contentType: "application/json; charset=utf-8",
+  		        success: function (res) {
+  		        	console.log(res);
+  		          if(row.data()[15] == "IBACSS"){
+  		        	 row.child(format2(res)).show();
+  		           }else{
+  		        	 row.child(format(res)).show();
+  		           }
+  		        	
+  		            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
+  		        }
+        	});
+           
         }
     });  
 	  
@@ -225,7 +266,7 @@ function chaengIcon(value){
 	valueIcon= 'icon'+value;
 }
 function createRow(data, seq, table,check) {
-	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
+	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
 	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
@@ -249,7 +290,7 @@ function createRow(data, seq, table,check) {
 	userFullName = data.customerName;
 	
 	tableInit = $('#'+table).DataTable();
-	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal]).draw(true).node();
+	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center').width('5px');
     $(rowNode).find('td').eq(1).addClass('center').width('5px');
     $(rowNode).find('td').eq(2).addClass('center').width('40px');
@@ -264,6 +305,8 @@ function createRow(data, seq, table,check) {
     $(rowNode).find('td').eq(11).addClass('center').width('20px');
     $(rowNode).find('td').eq(12).addClass('center').width('5px');
     $(rowNode).find('td').eq(13).addClass('center').width('5px');
+    $(rowNode).find('td').eq(14).addClass('hidden').width('5px');
+    $(rowNode).find('td').eq(15).addClass('center').width('5px');
 
 };
 
@@ -293,8 +336,38 @@ function createRowSelect(data, seq, table) {
 
 
 function format(d) {
-	sprintStr =  d[9].split(",");
-	invoice = parseFloat(sprintStr[0]+sprintStr[1]) - parseFloat(d[13])
+//	sprintStr =  d[9].split(",");
+//	invoice = parseFloat(sprintStr[0]+sprintStr[1]) - parseFloat(d[13])
+	var txt="";
+	var i = 0;
+	for(i=0; i < d.length; i++){
+		txt = txt+ '<tr>'+
+			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
+			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountspacalStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
+			    '</tr>'
+	}
+
+    return '<table class="table table-bordered" cellspacing="0" width="100%">'+
+			    '<thead>'+
+			    '<tr>'+
+			        '<th style="text-align: left;">รายการ</th>'+
+			        '<th style="text-align: right;">จำนวน</th>'+
+			        '<th style="text-align: right;">ส่วนลด</th>'+
+			        '<th style="text-align: right;">ภาษีมูลค่าเพิ่ม</th>'+
+			        '<th style="text-align: right;">จำนวนเงิน</th>'+
+			    '</tr>'+
+			'</thead>'+
+			'<tbody>'+
+			txt +
+			'</tbody>'
+		'</table>';
+};
+function format2(d) {
+//	sprintStr =  d[9].split(",");
+//	invoice = parseFloat(sprintStr[0]+sprintStr[1]) - parseFloat(d[13])
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
 			    '<thead>'+
 			    '<tr>'+
@@ -307,11 +380,11 @@ function format(d) {
 			'</thead>'+
 			'<tbody>'+
 			    '<tr>'+
-			        '<th style="text-align: left;">'+'invoiceNo :'+d[6]+'</th>'+
-			        '<th style="text-align: right;">'+invoice +'</th>'+
-			        '<th style="text-align: right;">'+"-"+'</th>'+
-			        '<th style="text-align: right;">'+d[13]+'</th>'+
-			        '<th style="text-align: right;">'+d[9]+'</th>'+
+			        '<th style="text-align: left;">'+'invoiceNo :'+d.invoiceNo+'</th>'+
+			        '<th style="text-align: right;">'+d.balanceSummaryStr +'</th>'+
+			        '<th style="text-align: right;">'+d.discountStr+'</th>'+
+			        '<th style="text-align: right;">'+d.vatStr+'</th>'+
+			        '<th style="text-align: right;">'+d.balanceOfvatStr+'</th>'+
 			    '</tr>'+
 			'</tbody>'
 		'</table>';

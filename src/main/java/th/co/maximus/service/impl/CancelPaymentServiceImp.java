@@ -76,7 +76,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			}
 
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
+			resultBean.setPaymentMethod(paymentMethod.toString());
 		}
 
 //		Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>() {
@@ -106,7 +106,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 				}
 				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
-				bean.setPaymentMethod(paymentMethod.toString().substring(1));
+				bean.setPaymentMethod(paymentMethod.toString());
 				result.add(bean);
 			}
 		}
@@ -132,7 +132,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
+			resultBean.setPaymentMethod(paymentMethod.toString());
 		}
 
 //		Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>() {
@@ -280,7 +280,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				resultBean.setPeriod(Utils.periodFormat((resultBean.getPeriod())));
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
+			resultBean.setPaymentMethod(paymentMethod.toString());
 		}
 
 //		Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>() {
