@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -18,7 +20,7 @@ import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
 @Service
-public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao{
+public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 	@Autowired
 	DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
@@ -61,40 +63,90 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao{
 	@Override
 	public PaymentResultReq findById(int id) throws Exception {
 		Connection connect = dataSource.getConnection();
+		List<PaymentResultReq> bList = new ArrayList<>();
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,py.PAID_DATE ,  pim.BEFOR_VAT , pim.VAT_AMOUNT ,pim.AMOUNT, (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID = py.MANUAL_ID ) , pim.PERIOD , pim.DISCOUNTSPECIAL ,pim.SERVICENAME ,pim.SERVICECODE ,pim.QUANTITY ,pim.DISCOUNTBEFORVAT ");
-			sqlStmt.append(" FROM receipt_manual py ");
-			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID  ");
-			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
-			
-			
+			sqlStmt.append("SELECT py.ACCOUNT_NO,py.RECEIPT_NO_MANUAL,py.VAT_AMOUNT,py.PAID_AMOUNT ");
+			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE, py.PAID_DATE  ");
+			sqlStmt.append(
+					"  , (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID =  	py.MANUAL_ID )as DEDUCTION ");
+			sqlStmt.append(
+					" ,(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
+
+//			sqlStmt.append(
+//					",(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
+
+			sqlStmt.append(
+					",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
+
+			sqlStmt.append("  FROM receipt_manual py WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-//				beanReReq = new PaymentResultReq(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4), resultSet.getString(5), 
-//						resultSet.getDate(6), resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9), resultSet.getBigDecimal(10), resultSet.getBigDecimal(11),  resultSet.getString(13), resultSet.getBigDecimal(14),
-//						resultSet.getString(15),resultSet.getString(16),resultSet.getString(17));
+
 				beanReReq = new PaymentResultReq();
 				beanReReq.setCustNo(resultSet.getString("ACCOUNT_NO"));
-				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
 				beanReReq.setDocumentNo(resultSet.getString("RECEIPT_NO_MANUAL"));
 				beanReReq.setBalanceSummary(resultSet.getBigDecimal("PAID_AMOUNT"));
-				beanReReq.setBeforeVat(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+				beanReReq.setBalanceSummaryStr(String.format("%,.2f", resultSet.getBigDecimal("PAID_AMOUNT")));
+//				System.out.println(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
+				beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
 				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
-				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
-				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
-				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
-				beanReReq.setPaid_amount(resultSet.getBigDecimal("AMOUNT"));
+				beanReReq.setDiscountspacalStr(String.format("%,.2f",beanReReq.getDiscountspacal()));
+				beanReReq.setPaid_amount(resultSet.getBigDecimal("PAID_AMOUNT"));
+
 			}
 
 		} finally {
 			connect.close();
 		}
 		return beanReReq;
+	}
+
+	@Override
+	public List<PaymentResultReq> findListById(int id) throws Exception {
+		Connection connect = dataSource.getConnection();
+		List<PaymentResultReq> bList = new ArrayList<>();
+		PaymentResultReq beanReReq = new PaymentResultReq();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("SELECT py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
+			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , DISCOUNTBEFORVAT, DISCOUNTSPECIAL  ");
+
+			sqlStmt.append("    FROM payment_invoice_manual py  WHERE  py.MANUAL_ID = ?");
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+//				String.format("%,.2f", paymentResultReq.getBalanceOfvat())
+				beanReReq = new PaymentResultReq();
+				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
+				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
+				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
+				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
+				beanReReq.setAmount(resultSet.getBigDecimal("AMOUNT"));
+				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));
+				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
+				beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
+				beanReReq.setDiscountspacalStr(String.format("%,.2f", beanReReq.getDiscountspacal()));
+				beanReReq.setBeforeVat(resultSet.getBigDecimal("BEFOR_VAT"));
+				beanReReq.setBeforeVatStr(String.format("%,.2f", beanReReq.getBeforeVat()));
+				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+				beanReReq.setDiscountStr(String.format("%,.2f", beanReReq.getDiscount()));
+				bList.add(beanReReq);
+
+			}
+
+		} finally {
+			connect.close();
+		}
+		return bList;
 	}
 
 }

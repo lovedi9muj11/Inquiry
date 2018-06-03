@@ -81,14 +81,14 @@
 										</thead>
 										<tbody align="center">
 											<tr align="center">
-												<td id="plus"><a onclick="openTableSumOther()"> <span  class="glyphicon glyphicon-plus"></span></a></td>
+												<td id="plus"><a onclick="openTableSumOther(${paymentResultReq.manualId})"> <span  class="glyphicon glyphicon-plus"></span></a></td>
 												<td id="del"><a onclick="closeTableSumOther()"> <span  class="glyphicon glyphicon-minus"></span></a></td>
 												<td align="center">1</td>
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
 												<td align="center">${paymentResultReq.documentNo}</td>
 												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">${paymentResultReq.beforeVatStr}</td>
+												<td align="center">${paymentResultReq.discountStr}</td>
 												<td align="center">${paymentResultReq.vatStr}</td>
 												<td align="center">${paymentResultReq.discountspacalStr}</td>
 												<td align="center">บันทึกลงระบบสำเร็จ</td>
@@ -111,17 +111,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr align="center">
+<!-- 											<tr align="center"> -->
 												
-												<td align="center">${paymentResultReq.serviceCode}</td>
-												<td align="center">${paymentResultReq.serviceName}</td>
-												<td align="center">${paymentResultReq.quantity}</td>
-												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
-												<td align="center">${paymentResultReq.beforeVatStr}</td>
-												<td align="center">${paymentResultReq.vatStr}</td>
-												<td align="center">${paymentResultReq.discountspacalStr}</td>
-												<td align="center">${paymentResultReq.paid_amountStr}</td>
-											</tr>
+<%-- 												<td align="center">${paymentResultReq.serviceCode}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.serviceName}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.quantity}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.balanceSummaryStr}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.beforeVatStr}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.vatStr}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.discountspacalStr}</td> --%>
+<%-- 												<td align="center">${paymentResultReq.paid_amountStr}</td> --%>
+<!-- 											</tr> -->
 										</tbody>
 									</table>
 								</div>

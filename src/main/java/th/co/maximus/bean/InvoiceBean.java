@@ -31,6 +31,16 @@ public class InvoiceBean {
 	private String recordStatus;
 	private BigDecimal discount;
 	private String value;
+	String invoiceDateRs;
+	
+	
+	public String getInvoiceDateRs() {
+		return invoiceDateRs;
+	}
+
+	public void setInvoiceDateRs(String invoiceDateRs) {
+		this.invoiceDateRs = invoiceDateRs;
+	}
 
 	public Long getInvoiceId() {
 		return invoiceId;

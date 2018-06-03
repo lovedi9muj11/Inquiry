@@ -107,11 +107,59 @@ public class PaymentController {
 		return "payment-success";
 	}
 
-	@RequestMapping(value = "/getDetailBilling)", method = RequestMethod.GET)
+	@RequestMapping(value = "/getDetailBilling/{manualId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody PaymentResultReq getBillingDetail(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("manualId") int manualId) throws Exception {
+		Utils utils = new Utils();
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		PaymentResultReq paymentResultReq = new PaymentResultReq();
+		paymentResultReq = paymentService.findByid(manualId);
+		paymentResultReq.setBalanceSummary(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
+		paymentResultReq.setBalanceOfvat(paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN));
+		paymentResultReq.setVat(paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN));
+		paymentResultReq.setBeforeVat(paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
+		if (paymentResultReq.getDeduction() == null) {
+			paymentResultReq.setDeduction(new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN));
+			paymentResultReq.setDeductionStr("0.00");
+		} else {
+			paymentResultReq.setDeduction(paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN));
+			paymentResultReq.setDeductionStr(
+					String.format("%,.2f", paymentResultReq.getDeduction().setScale(2, RoundingMode.HALF_DOWN)));
+		}
 
-	public	@ResponseBody  InvoiceBean getBillingDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return paymentInvoiceManualDao.findInvoiceByManualId(new Long(0));
-	}	
+		BigDecimal price = paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)
+				.subtract(paymentResultReq.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
+
+		if (price.compareTo(new BigDecimal("0.00")) < 0) {
+			price = new BigDecimal("0.00");
+		}
+
+		paymentResultReq.setBalancePrice(price);
+		paymentResultReq.setPeriod(utils.periodFormat(paymentResultReq.getPeriod()));
+
+		Date date = paymentResultReq.getInvoiceDate();
+		String invoiceDate = dt.format(date);
+
+		Date dateLineDate = paymentResultReq.getDateLine();
+		String dateLineSt = dt.format(dateLineDate);
+
+		paymentResultReq.setInvoiceDateRS(invoiceDate);
+		paymentResultReq.setDateLineRS(dateLineSt);
+
+		paymentResultReq.setBalanceSummaryStr(
+				String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setBeforeVatStr(
+				String.format("%,.2f", paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq
+				.setVatStr(String.format("%,.2f", paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setBalanceOfvatStr(
+				String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setBalancePriceStr(String.format("%,.2f", price));
+		paymentResultReq.setDiscountStr(
+				String.format("%,.2f", paymentResultReq.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setManualId(manualId);
+		return paymentResultReq;
+	}
 
 	@RequestMapping(value = "/paymentService", method = RequestMethod.POST)
 	@ResponseBody

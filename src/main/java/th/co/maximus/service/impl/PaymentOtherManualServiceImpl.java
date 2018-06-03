@@ -71,6 +71,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setChange(paymentBean.getChange());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
+//			paymentBean.getc
 			
 			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");

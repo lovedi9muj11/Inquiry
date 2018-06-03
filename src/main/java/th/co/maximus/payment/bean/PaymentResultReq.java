@@ -22,10 +22,13 @@ public class PaymentResultReq {
 	private BigDecimal balanceAmount;
 	private String period;
 	private BigDecimal discount;
+//	private String discountStr;
 	private String quantity;
 	private BigDecimal paid_amount;
 	private BigDecimal discountspacal;
+	private BigDecimal amount;
 	
+	private String amountStr;
 	private String balanceSummaryStr;
 	private String beforeVatStr;
 	private String vatStr;
@@ -91,6 +94,22 @@ public class PaymentResultReq {
 
 	public int getManualId() {
 		return manualId;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public String getAmountStr() {
+		return amountStr;
+	}
+
+	public void setAmountStr(String amountStr) {
+		this.amountStr = amountStr;
 	}
 
 	public void setManualId(int manualId) {

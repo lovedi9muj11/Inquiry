@@ -1,5 +1,7 @@
 package th.co.maximus.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -88,8 +90,14 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 	}
 
 	@Override
-	public PaymentResultReq findByid(int id) throws Exception {
+	public  PaymentResultReq findByid(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return paymentOtherManualDao.findById(id);
+	}
+
+	@Override
+	public List<PaymentResultReq> findListByid(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return paymentOtherManualDao.findListById(id);
 	}
 }
