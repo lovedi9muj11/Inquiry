@@ -100,9 +100,9 @@ function printReportPDF(){
 
 function createRow(data, seq) {
 	manualId = seq+1;
-	if(data.serviceType = 'IBACSS'){
+	if(data.serviceType == "IBACSS"){
 		serviceType = 'รับชำระค่าใช้บริการ';
-	}else if(data.serviceType = 'OTHER'){
+	}else if(data.serviceType == "OTHER"){
 		serviceType = 'รับชำระค่าใช้บริการอื่น ๆ';
 	}
 	receiptNo = data.receiptNoManual;
@@ -116,7 +116,7 @@ function createRow(data, seq) {
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);
 	if (data.status == 'C'){
-		statusStr = data.statusStr;
+		statusStr = 'ยกเลิก';
 		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}else{
 		if(data.remake != ""){
@@ -124,7 +124,7 @@ function createRow(data, seq) {
 		}else {
 			remake = '-';
 		}
-		statusStr = '';
+		statusStr = 'ปกติ';
 	}
 	
 	

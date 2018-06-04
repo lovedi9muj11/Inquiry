@@ -153,8 +153,8 @@
 								<div class="col-md-7">
 									<select class="form-control" id="serviceType" name="serviceType">
 										<option value="">ทั้งหมด</option>
-										<option value="IBASS">ค่าบริการ (IBACSS)</option>
-										<option value="etc">ค่าบริการอื่น ๆ</option>
+										<option value="IBACSS">ค่าบริการ (IBACSS)</option>
+										<option value="OTHER">ค่าบริการอื่น ๆ</option>
 									</select>
 								</div>
 							</div>
