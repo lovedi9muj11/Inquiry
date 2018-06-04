@@ -115,7 +115,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
+			sqlStmt.append("SELECT  py.AMOUNTTYPE ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , DISCOUNTBEFORVAT, DISCOUNTSPECIAL  ");
 
 			sqlStmt.append("    FROM payment_invoice_manual py  WHERE  py.MANUAL_ID = ?");
@@ -128,6 +128,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
 				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
 				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
+				beanReReq.setAmountType(resultSet.getString("AMOUNTTYPE"));
 				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
 				beanReReq.setAmount(resultSet.getBigDecimal("AMOUNT"));
 				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));

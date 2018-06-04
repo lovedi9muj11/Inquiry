@@ -245,7 +245,13 @@ function submitForm() {
 		var oCellss = tblSale.rows.item(v).cells;
 		for (var fv = 0; fv < oCellss.length; fv++) {
 			if (oCellss[fv].lastChild.value) {
-				slae.push(oCellss[fv].lastChild.value);
+				if(oCellss[fv].children.length > 1){
+					slae.push(oCellss[fv].children[0].value);
+					slae.push(oCellss[fv].children[1].value);
+				}else{
+					slae.push(oCellss[fv].lastChild.value);
+				}
+			
 			} else {
 
 				slae.push(oCellss[fv].innerHTML);
@@ -278,14 +284,14 @@ function submitForm() {
 		listpaymentSale = {
 			"inputServiceType" : resultTblSale[h][1],
 			"inputServiceName" : resultTblSale[h][2],
-			"inputServiceCode" : resultTblSale[h][2],
-			"inputServiceMoreData" : resultTblSale[h][3],
-			"inputServiceAmount" : resultTblSale[h][4].replace(",", ""),
-			 "inputServiceDiscount" : resultTblSale[h][5],
-			 "inputSpecialDiscount" : resultTblSale[h][6],
-			"vatSale" : resultTblSale[h][7].replace(",", ""),
+			"inputServiceCode" : resultTblSale[h][3],
+			"inputServiceMoreData" : resultTblSale[h][4],
+			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
+			 "inputServiceDiscount" : resultTblSale[h][6],
+			 "inputSpecialDiscount" : resultTblSale[h][7],
+			"vatSale" : resultTblSale[h][8].replace(",", ""),
 			
-			"summaryinvoice" : resultTblSale[h][9].replace(",", "")
+			"summaryinvoice" : resultTblSale[h][10].replace(",", "")
 		}
 		listpaymentSaleRQ.push(listpaymentSale);
 	}
@@ -532,6 +538,9 @@ function buttonAddBillingList() {
 		+ "</td><td>"
 		+ "<input class='form-control' type='text'	name='serviceNametxt'value='"
 		+ inputServiceName
+		+ "' />"
+		+ "<input class='form-control' type='hidden'	name='serviceCodetxt'value='"
+		+ inputServiceCode
 		+ "' />"
 		+ "</td><td>"
 		+ serviceMoreData

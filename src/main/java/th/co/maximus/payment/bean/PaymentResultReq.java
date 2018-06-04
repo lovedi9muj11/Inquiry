@@ -27,7 +27,7 @@ public class PaymentResultReq {
 	private BigDecimal paid_amount;
 	private BigDecimal discountspacal;
 	private BigDecimal amount;
-	
+	private String amountType;
 	private String amountStr;
 	private String balanceSummaryStr;
 	private String beforeVatStr;
@@ -41,6 +41,16 @@ public class PaymentResultReq {
 	private String paid_amountStr;
 	private String discountspacalStr;
 	
+	
+	
+	public String getAmountType() {
+		return amountType;
+	}
+
+	public void setAmountType(String amountType) {
+		this.amountType = amountType;
+	}
+
 	public PaymentResultReq() {
 	}
 	
