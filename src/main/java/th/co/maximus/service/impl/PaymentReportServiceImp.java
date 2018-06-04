@@ -42,12 +42,12 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 		}
 		
-	     Collections.sort(result, new Comparator<ReportPaymentBean>(){
-				@Override
-				public int compare(ReportPaymentBean o1, ReportPaymentBean o2) {
-					return o2.getCreateDate().compareTo(o1.getCreateDate());
-				}
-	        });
+//	     Collections.sort(result, new Comparator<ReportPaymentBean>(){
+//				@Override
+//				public int compare(ReportPaymentBean o1, ReportPaymentBean o2) {
+//					return o2.getCreateDate().compareTo(o1.getCreateDate());
+//				}
+//	        });
 		return result;
 	}
 

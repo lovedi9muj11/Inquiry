@@ -159,7 +159,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
 			sql.append(" AND PIM.SERVICECODE = ").append("'"+criteria.getAccountId()+"'");
 		}
-		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ");
+		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString() , new reportPaymentMapper());
 	}
 	

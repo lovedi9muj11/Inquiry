@@ -123,7 +123,7 @@ public class ReportController {
 			
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			
-			
+			workbook.createSheet("Text1");
 			reportService.reportPayment(workbook, critreia, result).write(byteArrayOutputStream);
 			byte[] bytes = byteArrayOutputStream.toByteArray();
 			
