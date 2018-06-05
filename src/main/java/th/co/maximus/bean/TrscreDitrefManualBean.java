@@ -1,6 +1,7 @@
 package th.co.maximus.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class TrscreDitrefManualBean {
 	private  Long   Id;
@@ -13,6 +14,11 @@ public class TrscreDitrefManualBean {
 	private  String   updateUser;
 	private  Long   versionStamp;
 	private  String   methodManualId;
+	private String createBy;
+	private Date createDate;
+	private String updateBy;
+	private Date updateDate;
+	
 	public Long getId() {
 		return Id;
 	}
@@ -73,6 +79,33 @@ public class TrscreDitrefManualBean {
 	}
 	public void setMethodManualId(String methodManualId) {
 		this.methodManualId = methodManualId;
+	}
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public String getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public void setaMount(Double aMount) {
+		this.aMount = aMount;
 	}
 	
 	

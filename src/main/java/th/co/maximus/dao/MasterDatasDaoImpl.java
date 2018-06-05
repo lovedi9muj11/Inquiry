@@ -76,4 +76,12 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 		sql.append(" SELECT * FROM master_data WHERE GROUP_KEY = 'BANK_TYPE'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
+
+	@Override
+	public MasterDatasBean findByKey(String keyCode) {
+		StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM master_data WHERE KEYCODE = ? ");
+			MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { keyCode }, new masterData());
+			return master;
+	}
 }

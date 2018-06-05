@@ -33,7 +33,7 @@ public class ReportDaoImpl implements ReportDao{
 		
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, py.SOURCE ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pay.VAT_AMOUNT, ");
+			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, py.SOURCE ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,pim.AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pay.VAT_AMOUNT, ");
 			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,pay.PAID_AMOUNT,pim.PERIOD ");
 			sql.append(" FROM receipt_manual py");
 			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");

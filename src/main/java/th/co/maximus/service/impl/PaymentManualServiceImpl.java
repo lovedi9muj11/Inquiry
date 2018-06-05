@@ -34,7 +34,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
-			paymentManualBean.setBranchCode("001");
+			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
 			if(paymentBean.getTaxOnly() == null ){
 				paymentBean.setTaxOnly(0.00);
@@ -63,20 +63,19 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setChange(paymentBean.getChang());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
-			if(resRQ>= paymentBean.getBalanceSummary()){
+			if(resRQ>= paymentBean.getAmountInvoice()){
 				paymentManualBean.setPaytype("F");
 			}else{
 				paymentManualBean.setPaytype("P");
 			}
-			
 			if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
-				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+				if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
 					paymentManualBean.setDocType("F");
 				}else {
 					paymentManualBean.setDocType("S");
 				}
 			}else if(paymentBean.getUserGroup().equals("03")) {
-				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+				if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
 					paymentManualBean.setDocType("F");
 				}else {
 					paymentManualBean.setDocType("S");
@@ -84,7 +83,6 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else {
 				paymentManualBean.setDocType("F");
 			}
-
 			
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);

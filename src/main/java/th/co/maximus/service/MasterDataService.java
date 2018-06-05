@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.bean.MasterDatasBean;
 
 @Service
 public interface MasterDataService {
@@ -30,5 +31,7 @@ public interface MasterDataService {
 	public List<MasterDataBean> findAllByCategory();
 	
 	String insertMasterDataSync(List<MasterDataSyncBean> masterDataSyncBean);
+	
+	public MasterDatasBean findByKeyCode(String keyCode);
 	
 }
