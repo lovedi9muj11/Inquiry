@@ -6,6 +6,7 @@ var userFullName = '';
 var customerAddress = '';
 var clearing;
 var valueIcon = "";
+var IdSelected = "";
 $(document).ready(function () {
     console.log("ready!");
 
@@ -66,9 +67,9 @@ $(document).ready(function () {
         	console.log(row.data()[15]);
         	var url;
             if(row.data()[15] == "IBACSS"){
-         	   url = "/getDetailBilling/"+row.data()[2];
+         	   url = "/getDetailBilling/"+IdSelected;
             }else{
-         	   url = "/payOtherDetail/"+row.data()[2];
+         	   url = "/payOtherDetail/"+IdSelected;
             }
          	$.ajax({
    		        type: "GET",
@@ -102,9 +103,9 @@ $(document).ready(function () {
         	console.log(row.data()[15]);
         	var url;
            if(row.data()[15] == "IBACSS"){
-        	   url = "/getDetailBilling/"+row.data()[2];
+        	   url = "/getDetailBilling/"+IdSelected;
            }else{
-        	   url = "/payOtherDetail/"+row.data()[2];
+        	   url = "/payOtherDetail/"+IdSelected;
            }
         	$.ajax({
   		        type: "GET",
@@ -117,7 +118,7 @@ $(document).ready(function () {
   		          if(row.data()[15] == "IBACSS"){
   		        	 row.child(format2(res)).show();
   		           }else{
-  		        	 row.child(format(res)).show();
+  		        	 row.child(format(bas)).show();
   		           }
   		        	
   		            $('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
@@ -264,6 +265,7 @@ function clearCriteria(){
 };
 function chaengIcon(value){
 	valueIcon= 'icon'+value;
+	IdSelected = value;
 }
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
