@@ -35,9 +35,11 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.ReportService;
 import th.co.maximus.service.TrsChequeRefManualService;
 import th.co.maximus.service.TrscreDitrefManualService;
@@ -51,6 +53,9 @@ public class EpisReportController {
 	private TrscreDitrefManualService trscreDitrefManualService;
 	@Autowired
 	private TrsChequeRefManualService trsChequeRefManualService;
+	
+	@Autowired
+	private MasterDataService masterDataService;
 
 	private ServletContext context;
 
@@ -83,7 +88,9 @@ public class EpisReportController {
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 
-		exportPDFReport.setBranArea(invObject.getBranArea());
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
+		
+		exportPDFReport.setBranArea(valueBean.getValue());
 		exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
@@ -131,8 +138,6 @@ public class EpisReportController {
 		}
 
 		String preiod = "";
-		// nameService = invObject.getBracnCode() + invObject.getBranArea()+
-		// invObject.getSouce();
 		if (invObject.getPreiod() != null) {
 			String preiods = invObject.getPreiod();
 			String yearFrist = preiods.substring(0, 4);
@@ -168,9 +173,6 @@ public class EpisReportController {
 				payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
 				result.add(payCode);
 			}
-
-			
-
 		}
 		for (int i = 0; i < collections.size(); i++) {
 			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(i);

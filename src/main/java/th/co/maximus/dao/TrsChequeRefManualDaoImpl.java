@@ -29,10 +29,10 @@ public class TrsChequeRefManualDaoImpl implements TrsChequeRefManualDao {
 	DataSource dataSource;
 	@Override
 	public void insert(TrsChequeRefManualBean trsChequeRefManualBean) {
-		String sql = "INSERT INTO trschequeref_manual ( CHEQUENO, PUBLISHERID, PUBLISHER, BRANCH, AMOUNT, UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, CHEQUEDATE, BOUNCE_CHEQUE_DATE, REVERSE_AR_DATE, BOUNCE_STATUS, METHOD_MANUAL_ID)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO trschequeref_manual ( CHEQUENO, PUBLISHERID, PUBLISHER, BRANCH, AMOUNT, UPDATEDTTM, UPDATESYSTEM, UPDATEUSER, VERSIONSTAMP, CHEQUEDATE, BOUNCE_CHEQUE_DATE, REVERSE_AR_DATE, BOUNCE_STATUS, METHOD_MANUAL_ID,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sql,  trsChequeRefManualBean.getChequeNo(), trsChequeRefManualBean.getPublisherId(),trsChequeRefManualBean.getPublisher(),trsChequeRefManualBean.getBranch(),trsChequeRefManualBean.getaMount(),
 				trsChequeRefManualBean.getUpdateDttm(),trsChequeRefManualBean.getUpdateSystem(),trsChequeRefManualBean.getUpdateUser(),trsChequeRefManualBean.getVersionStamp(),trsChequeRefManualBean.getCheDate(),trsChequeRefManualBean.getBounceChequeDate(),
-				trsChequeRefManualBean.getReverseArDate(),trsChequeRefManualBean.getBounceStatus(),trsChequeRefManualBean.getMethodManualId());
+				trsChequeRefManualBean.getReverseArDate(),trsChequeRefManualBean.getBounceStatus(),trsChequeRefManualBean.getMethodManualId(),trsChequeRefManualBean.getCreateBy(),trsChequeRefManualBean.getCreateDate(),trsChequeRefManualBean.getUpdateBy(),trsChequeRefManualBean.getUpdateDate());
 		
 	}
 	

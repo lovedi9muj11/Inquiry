@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MasterDataDao;
+import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.service.MasterDataService;
 
 @Service
@@ -19,6 +21,9 @@ public class MasterDataServiceImpl implements MasterDataService{
 	
 	@Autowired
 	MasterDataDao masterDataDao;
+	
+	@Autowired
+	private MasterDatasDao masterDatasDao;
 	
 	@Autowired
 	MasterDataService masterDataService;
@@ -139,6 +144,12 @@ public class MasterDataServiceImpl implements MasterDataService{
 			e.printStackTrace();
 		}
 		return statusResult;
+	}
+
+	@Override
+	public MasterDatasBean findByKeyCode(String keyCode) {
+		// TODO Auto-generated method stub
+		return masterDatasDao.findByKey(keyCode);
 	}
 
 }

@@ -31,10 +31,10 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO trscreditref_manual ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID) ");
-		sql.append(" VALUES (?,?,?,?,?,?,?) ");
+		sql.append(" INSERT INTO trscreditref_manual ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID ,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE) ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?) ");
 		jdbcTemplate.update(sql.toString(),  trscreDitrefManualBean.getCreditNo(), trscreDitrefManualBean.getPublisherdec(),trscreDitrefManualBean.getCardType(),trscreDitrefManualBean.getaMount(),
-				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId());
+				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId(),trscreDitrefManualBean.getCreateBy(),trscreDitrefManualBean.getCreateDate(),trscreDitrefManualBean.getUpdateBy(),trscreDitrefManualBean.getUpdateDate());
 		
 	}
 	
