@@ -1448,16 +1448,16 @@ function replaseIndex(str) {
 		$("#balanceSum").val(suminputmon.toFixed(2));
 		$("#balanceSummarys").val(suminputmon.toFixed(2));
 		$("#balanceSumShow").val(
-				suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				suminputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	}else{
 		
 		var defualt =  FormatMoneyShowToNumber($("#balanceOfTaxsShow").val());
 		$("#balanceSum").val(suminputmon.toFixed(2));
 		$("#balanceSumShow").val(
-				suminputmon.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				suminputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSummarys").val(defualt.toFixed(2));
 		$("#balanceSummaryShow").val(
-				defualt.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				defualt.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 	}
 	
