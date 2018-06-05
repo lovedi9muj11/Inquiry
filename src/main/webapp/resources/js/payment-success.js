@@ -10,6 +10,7 @@ function backPayment() {
 function openTable(manualId) {
 	$("#plus").hide();
 	$("#remove").show();
+	$("#showResultTableRQ tbody")[0].innerHTML = "";
 	$.ajax({
 		type : "GET",
 		url : "/getDetailBilling/" + manualId,
@@ -19,20 +20,19 @@ function openTable(manualId) {
 		success : function(res) {
 			console.log(res);
 			var trE = $("<tr align='center' ></tr>");
-
 			var td1 = $("<td align='center' ></td>").text(res.invoiceNo);
 			var td2 = $("<td align='center' ></td>").text(res.invoiceDateRS);
 			var td3 = $("<td align='center' ></td>").text(res.dateLineRS);
-			var td3 = $("<td align='center' ></tr>").text(res.beforeVatStr);
-			var td4 = $("<td align='center' ></td>").text(res.vatStr);
-			var td5 = $("<td align='center' ></td>").text(res.balanceOfvatStr);
-			var td6 = $("<td align='center' ></td>").text(res.discountStr);
-			var td7 = $("<td align='center' ></td>")
+			var td4 = $("<td align='center' ></tr>").text(res.beforeVatStr);
+			var td5 = $("<td align='center' ></td>").text(res.vatStr);
+			var td6 = $("<td align='center' ></td>").text(res.balanceOfvatStr);
+			var td7 = $("<td align='center' ></td>").text(res.discountStr);
+			var td8 = $("<td align='center' ></td>")
 					.text(res.balanceSummaryStr);
-			var td8 = $("<td align='center' ></td>").text(res.deductionStr);
-			var td9 = $("<td align='center' ></td>").text(res.balancePriceStr);
-			var td10 = $("<td align='center' ></td>").text(res.period);
-			trE.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10);
+			var td9 = $("<td align='center' ></td>").text(res.deductionStr);
+			var td10 = $("<td align='center' ></td>").text(res.balancePriceStr);
+			var td11 = $("<td align='center' ></td>").text(res.period);
+			trE.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10,td11);
 			$("#showResultTableRQ tbody").append(trE);
 		}
 	});
@@ -50,6 +50,7 @@ function openTableSumOther(manualId) {
 	$("#plus").hide();
 	$("#del").show();
 	document.getElementById("showResultTableRQ").style.display = "table";
+	$("#showResultTableRQ tbody")[0].innerHTML = "";
 	var i = 0;
 	$.ajax({
 		type : "GET",
