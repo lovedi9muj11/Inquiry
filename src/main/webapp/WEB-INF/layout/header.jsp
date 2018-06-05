@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
-
 
 <div id="wrapper">
 	<nav class="navbar navbar-inverse top-bar navbar-fixed-top"
@@ -25,13 +23,3 @@
 			</div>
 		</div>
 	</nav>
-</div>
-<script>
-	$(document).ajaxStart(function() {
-		HoldOn.open();
-	});
-	$(document).ajaxStop(function() {
-		// hide the progress bar
-		HoldOn.close();
-	});
-</script>
