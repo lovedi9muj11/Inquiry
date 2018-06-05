@@ -528,6 +528,7 @@ function buttonAddBillingList() {
 		var amountDiscount = disDiscount(serviceAmount);
 		var amountBeforVat = disVat(amountDiscount,radioResult);
 		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
+		var vatamount = amountTotal- serviceAmount;
 		var count = parseFloat(0);
 		count = parseFloat(count + parseFloat(table));
 
@@ -553,7 +554,7 @@ function buttonAddBillingList() {
 		+ specialDiscount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 		"$1,")
 		+"</td><td>"
-		+ vatRate.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+		+ vatamount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
 				"$1,")
 		+ "</td><td>"
 		+ moneyDed1
@@ -1520,7 +1521,7 @@ function replaseIndexV3(str) {
 					"$1,"));
 	var balanceOfTaxs = $("#balanceOfTaxs").val();
 	if (balanceOfTaxs > 0) {
-		var sumtotal = balanceOfTaxs - sumdect;
+		var sumtotal = balanceOfTaxs - (sumdect*-1);
 		$("#balanceSummarys").val(sumtotal);
 		$("#balanceSummaryShow").val(
 				sumtotal.toFixed(2).toString().replace(
@@ -1575,7 +1576,7 @@ function replaseIndexV4(str) {
 			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML));
 		}
 	}
-	$("#moneyDed").val(moneyDed1);
+//	$("#moneyDed").val(summaryTax);
 	$("#moneyTran").val(
 			sumInputmon.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -1612,7 +1613,7 @@ function replaseIndexV4(str) {
 	$("#salespacial").val(
 			spacial.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#summaryTax").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//	$("#summaryTax").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 	totalSum();
@@ -1622,7 +1623,7 @@ function totalSum() {
 	var sumtotal = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
 	var income = FormatMoneyShowToNumber($("#balanceSumShow").val());
 	var summaryTax = FormatMoneyShowToNumber($("#summaryTax").val());
-	var total =  (sumtotal-(summaryTax *-1 ));
+	var total =  (sumtotal-summaryTax );
 	if(income > 0){
 		var result = total - (income)
 		if (result > 0) {
