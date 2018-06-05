@@ -1627,20 +1627,20 @@ function totalSum() {
 	if(income > 0){
 		var result = total - (income)
 		if (result > 0) {
-			$("#balanceSummaryShow").val(result.toFixed(2).toString()
-					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-			$("#balanceSummarys").val(result.toFixed(2).toString()
-			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//			$("#balanceSummaryShow").val(result.toFixed(2).toString()
+//					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//			$("#balanceSummarys").val(result.toFixed(2).toString()
+//			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			var  a = 0;
 			$("#change").val(a.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		} else {
 			var notnevite = result * (-1);
 			var  a = 0;
-			$("#balanceSummaryShow").val(total.toFixed(2).toString()
-					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-			$("#balanceSummarys").val(total.toFixed(2).toString()
-			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//			$("#balanceSummaryShow").val(total.toFixed(2).toString()
+//					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+//			$("#balanceSummarys").val(total.toFixed(2).toString()
+//			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#change").val(	notnevite.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}

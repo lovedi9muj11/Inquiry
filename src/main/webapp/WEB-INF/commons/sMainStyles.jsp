@@ -10,4 +10,4 @@
 <link href="${contextPath}/resources/css/styles/dashboard.css" rel="stylesheet" media="screen" type="text/css">
 <link href="${contextPath}/resources/css/styles/display-tag.css" rel="stylesheet" media="screen" type="text/css">
 <link href="${contextPath}/resources/css/styles/welcome.css" rel="stylesheet" media="screen" type="text/css">
-<link href="css/HoldOn.css" rel="stylesheet" >
+<link href="${contextPath}/resources/css/HoldOn.css" rel="stylesheet" >
