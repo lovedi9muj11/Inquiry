@@ -528,7 +528,7 @@ function buttonAddBillingList() {
 		var amountDiscount = disDiscount(serviceAmount);
 		var amountBeforVat = disVat(amountDiscount,radioResult);
 		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
-		var vatamount = amountTotal- serviceAmount;
+		var vatamount = amountTotal- amountDiscount;
 		if(vatamount < 0 ){
 			vatamount = vatamount*(-1);
 		}
