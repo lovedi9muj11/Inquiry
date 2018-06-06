@@ -106,6 +106,13 @@ $(document).ready(
 					 });
 					 
 			    });
+			$('#inputServiceAmount').change(function() {
+				$('#sinputServiceAmount').hide();
+			});
+			$('#inputServiceMoreData').change(function() {
+				$('#sinputServiceMoreData').hide();
+			});
+			
 			
 		});
 
@@ -497,6 +504,7 @@ function buttonAddBillingList() {
 	}
 
 	var table = document.getElementById("sumtableBillingList").rows.length;
+	var inputServiceTypeName = $("#inputServiceType option:selected").text(); // หน่วยรับได้
 	var inputServiceType = $("#inputServiceType").val(); // หน่วยรับได้
 	var inputServiceDepartment = $("#inputServiceDepartment").val();
 	var inputServiceCode = $("#inputServiceName").val();
@@ -538,7 +546,10 @@ function buttonAddBillingList() {
 	var markup = "<tr><td>"
 		+ count
 		+ "</td><td>"
+		+ inputServiceTypeName
+		+ "<input class='form-control' type='hidden'	name='inputServiceType'value='"
 		+ inputServiceType
+		+ "' />"
 		+ "</td><td>"
 		+ "<input class='form-control' type='text'	name='serviceNametxt'value='"
 		+ inputServiceName
@@ -1690,6 +1701,15 @@ function calVat() {
 	var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", ""));
 	
 	var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount); // จำนวนต่อหน่วย
+	if(serviceAmount == 0 || serviceAmount == ""){
+		$("#sinputServiceAmount").show();
+		if(serviceMoreData == 0 || serviceMoreData == ""){
+			$("#sinputServiceMoreData").show();
+			return false;
+		}
+		return false;
+	}
+	
 	var amountDiscount = disDiscount(serviceAmount);
 	var amountBeforVat = disVat(amountDiscount,radioResult);
 	var wt = calWT(amountBeforVat);

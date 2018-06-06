@@ -55,8 +55,8 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentBillBean = paymentBean.getPaymentBill().get(i);
 				paymentInvoiceManualBean.setQuantity(paymentBillBean.getInputServiceMoreData());
 				//paymentInvoiceManualBean.setIncometype(paymentBillBean.getInputServiceType());
-				paymentInvoiceManualBean.setDiscountbeforvat(paymentBean.getSale());
-				paymentInvoiceManualBean.setDiscountspecial(paymentBean.getSalespacial());
+				paymentInvoiceManualBean.setDiscountbeforvat(paymentBillBean.getInputServiceDiscount());
+				paymentInvoiceManualBean.setDiscountspecial(paymentBillBean.getInputSpecialDiscount());
 				paymentInvoiceManualBean.setDepartment(paymentBillBean.getInputServiceDepartment());
 				paymentInvoiceManualBean.setVatAmount(paymentBillBean.getVatSale().doubleValue());
 				paymentInvoiceManualBean.setAmount(paymentBillBean.getSummaryinvoice().doubleValue());
