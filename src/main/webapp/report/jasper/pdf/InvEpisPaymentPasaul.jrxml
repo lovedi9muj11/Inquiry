@@ -155,7 +155,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></text>
+				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="518" y="47" width="126" height="23" uuid="b0d1c781-c536-4805-a885-69956089b634"/>
@@ -278,7 +278,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="148" splitType="Immediate">
+		<band height="141" splitType="Immediate">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -328,7 +328,7 @@
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="41" width="783" height="103" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
+				<reportElement x="0" y="41" width="783" height="96" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">

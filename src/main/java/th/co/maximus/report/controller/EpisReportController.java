@@ -67,19 +67,18 @@ public class EpisReportController {
 	@RequestMapping(value = { "/previewPaymentEpisOffline.pdf" })
 	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model)
 			throws Exception {
-		// String documentNo = "";
-		String JASPER_JRXML_FILENAME = "InvEpisPayment";
 		request.setAttribute("documentReport", "-1");
 		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineReportBean> collections = reportService.inqueryEpisOfflineJSONHandler(documentNo);
 
 		if (collections != null) {
-			previewEpisOffilneprint(request, response, collections, JASPER_JRXML_FILENAME);
+			previewEpisOffilneprint(request, response, collections);
 		}
 	}
 
 	private void previewEpisOffilneprint(HttpServletRequest request, HttpServletResponse response,
-			List<InvEpisOfflineReportBean> collections, final String JASPER_JRXML_FILENAME) throws Exception {
+			List<InvEpisOfflineReportBean> collections) throws Exception {
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean) collections.get(0);
@@ -87,6 +86,22 @@ public class EpisReportController {
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:ss");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
+		String JASPER_JRXML_FILENAME = "";
+		if(invObject.getDocType().equals("F")) {
+			if(invObject.getDiscount().signum() == 0) {
+				JASPER_JRXML_FILENAME = "InvEpisPayment";
+			}else {
+				JASPER_JRXML_FILENAME = "InvEpisPaymentDiscount";
+			}
+		}else {
+			if(invObject.getDiscount().signum() == 0) {
+				JASPER_JRXML_FILENAME = "InvEpisPaymentPasaul";
+			}else {
+				JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaul";
+			}
+		}
+		
+		
 
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
 		
