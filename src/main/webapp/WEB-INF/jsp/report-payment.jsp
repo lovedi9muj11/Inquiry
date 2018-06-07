@@ -26,6 +26,7 @@
 <body>
 	<header class="header_page"></header>
 		<input type="hidden" value="${pageContext.request.userPrincipal.name}" name="userLogin" id="userLogin">
+<%-- 			<input type="hidden" value="${pageContext.request.userPrincipal.name}" name="roleLogin" id="roleLogin"> --%>
 		<!-- main panel -->
 		<div style="padding: 30px 10px 50px 50px">
 			<h1 class="page-header"></h1>

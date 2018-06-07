@@ -14,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -26,6 +28,8 @@ import th.co.maximus.model.PaymentInvoiceEpisOffline;
 
 @Repository("PaymentInvoiceManualDao")
 public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
+
+
 
 	@Autowired
 	DataSource dataSource;
@@ -38,10 +42,17 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
-		return jdbcTemplate.query(sql.toString(), PaymentManual);
+		if(!profile.getRoles().get(0).getName().equals("sup")) {
+			sql.append(" WHERE payment_m.CREATE_BY = ?");
+			param.add(profile.getUsername());
+		}
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
 
 	private static final RowMapper<PaymentMMapPaymentInvBean> PaymentManual = new RowMapper<PaymentMMapPaymentInvBean>() {
@@ -114,8 +125,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1");
-		if(accountNo != null && !accountNo.equals("") ) {
-			sql.append(" payment_m.ACCOUNT_NO like ?");
+		if (!accountNo.equals("")) {
+			sql.append(" AND payment_m.ACCOUNT_NO like ?");
 			param.add("%" + accountNo + "%");
 		}
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
@@ -140,24 +151,29 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		sql.append(" SELECT * FROM receipt_manual payment_m ");
 		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1 ");
 		if (receiptNo != "" && "".equals(invoiceNo)) {
-			sql.append(" payment_m.RECEIPT_NO_MANUAL = ?");
+			sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
 			param.add(receiptNo);
 		}
 		if (invoiceNo != "" && "".equals(receiptNo)) {
-			sql.append(" payment_m.INVOICE_NO = ?");
+			sql.append(" AND  payment_m.INVOICE_NO = ?");
 			param.add(invoiceNo);
 		}
-		if (receiptNo != "" && invoiceNo != "") {
-			sql.append(" payment_m.RECEIPT_NO_MANUAL = ?");
-			param.add(receiptNo);
-			sql.append(" AND ");
-			sql.append(" payment_m.INVOICE_NO = ?");
-			param.add(invoiceNo);
+		if(!profile.getRoles().get(0).getName().equals("sup")) {
+			sql.append(" AND payment_m.CREATE_BY = ?");
+			param.add(profile.getUsername());
 		}
+		// if (receiptNo != "" && invoiceNo != "") {
+		// sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
+		// param.add(receiptNo);
+		// sql.append(" AND ");
+		// sql.append(" payment_m.INVOICE_NO = ?");
+		// param.add(invoiceNo);
+		// }
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.RECEIPT_NO_MANUAL DESC ");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);

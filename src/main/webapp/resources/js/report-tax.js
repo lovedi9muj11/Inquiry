@@ -20,6 +20,10 @@ function search() {
 					,"dateTo": $('#dateTo').val(), "dateToHour": $('#dateToHour').val(), "dateToMinute": $('#dateToMinute').val() ,"typePrint": $('#typePrint').val()
 	
 	};
+	 if ((Date.parse(dataSend.dateFrom+" "+dataSend.dateFromHour+":"+dataSend.dateFromMinute) > Date.parse(dataSend.dateTo+" "+dataSend.dateToHour+":"+dataSend.dateToMinute))) {
+			alert("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด");
+		 	return;
+	 }
 	$.ajax({
         type: "POST",
         url: "/histroryPayment/paymentPrint",
