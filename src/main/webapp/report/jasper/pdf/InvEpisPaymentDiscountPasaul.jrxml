@@ -229,6 +229,7 @@
 					<reportElement style="Cat_Hl_Common" x="53" y="0" width="78" height="30" uuid="d4b2d719-aeff-4a27-a50d-e9f06e4aae38"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" isBold="true" isUnderline="false"/>
+						<paragraph lineSpacing="1_1_2"/>
 					</textElement>
 					<text><![CDATA[เลขที่ใบแจ้งค่าใช้ บริการ]]></text>
 				</staticText>
@@ -473,32 +474,29 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="121">
-			<frame>
-				<reportElement x="-1" y="18" width="565" height="49" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
-				<staticText>
-					<reportElement style="Cat_Hl_Common" x="20" y="0" width="545" height="46" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
-
-อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
-				</staticText>
-			</frame>
+		<band height="99">
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="31" y="98" width="288" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
+				<reportElement style="Cat_Hl_Common" x="21" y="75" width="288" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="500" y="98" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
+				<reportElement style="Cat_Hl_Common" x="500" y="75" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="19" y="0" width="545" height="46" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
+
+อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
 			</staticText>
 		</band>
 	</summary>
