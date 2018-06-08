@@ -40,7 +40,7 @@ function search(){
 function createRow(data, seq) {
 
 	no = seq + 1
-	paidDate = data.paidDateStr;
+	paidDate = data.createDateStr;
 	createDate = data.createDateStr;
 	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;

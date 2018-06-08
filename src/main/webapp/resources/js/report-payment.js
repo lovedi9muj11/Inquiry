@@ -1,5 +1,6 @@
 var dateFromGlobal = "";
 var dateToGlobal = "";
+var user;
 $(document).ready(function (){
 	var userName = $('#userName').val();
 	console.log("======================= Start report payment ======================");
@@ -16,6 +17,7 @@ $(document).ready(function (){
 	search();
 	dropdownUser();
 	deopdownAccount();
+//	user = ${pageContext.request.userPrincipal.name};
 
 	
 });

@@ -193,7 +193,7 @@
 													for (int i = 0; i < masterServicetype.size(); i++) {
 												%>
 												<option
-													value="<%=masterServicetype.get(i).getRevenueTypeName()%>"><%=masterServicetype.get(i).getRevenueTypeName()%></option>
+													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeName()%></option>
 												<%
 													}
 												%>

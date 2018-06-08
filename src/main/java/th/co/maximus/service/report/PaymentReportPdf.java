@@ -48,10 +48,27 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setManualIdStr(index+"");
 				reportPaymentBeanNew.setServiceType(reportPaymentBean.getServiceType());
 				reportPaymentBeanNew.setReceiptNoManual(reportPaymentBean.getReceiptNoManual());
-				reportPaymentBeanNew.setAccountSubNo(reportPaymentBean.getAccountSubNo());
-				reportPaymentBeanNew.setCustomerName(reportPaymentBean.getCustomerName());
-				reportPaymentBeanNew.setDepartment(reportPaymentBean.getDepartment());
-				reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
+				
+				if(null != reportPaymentBean.getAccountSubNo()) {
+					reportPaymentBeanNew.setAccountSubNo(reportPaymentBean.getAccountSubNo());
+				}else {
+					reportPaymentBeanNew.setAccountSubNo("-");
+				}
+				if(null != reportPaymentBean.getCustomerName()) {
+					reportPaymentBeanNew.setCustomerName(reportPaymentBean.getCustomerName());
+				}else {
+					reportPaymentBeanNew.setCustomerName("-");
+				}
+				if(null != reportPaymentBean.getDepartment()) {
+					reportPaymentBeanNew.setDepartment(reportPaymentBean.getDepartment());
+				}else {
+					reportPaymentBeanNew.setDepartment("-");
+				}
+				if(null != reportPaymentBean.getInvoiceNo()) {
+					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
+				}else {
+					reportPaymentBeanNew.setInvoiceNo("-");
+				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer("-");
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));

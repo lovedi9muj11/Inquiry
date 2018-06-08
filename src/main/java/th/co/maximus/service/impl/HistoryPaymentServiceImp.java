@@ -58,7 +58,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 				result.add(bean);
 			}
 		}
-		return paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo);
+		return result;
 
 	}
 

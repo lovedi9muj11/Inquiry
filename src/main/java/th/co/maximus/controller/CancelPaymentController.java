@@ -70,7 +70,10 @@ public class CancelPaymentController {
 			UserDto resultUser = userService.findByUsername(user.getUserName());
 			if (resultUser != null) {
 				if (Utils.check(user.getPassword(), resultUser.getPassword())) {
-					result = true;
+					if(resultUser.getRoles().get(0).getName().equals("sup")) {
+						result = true;
+					}
+					
 				}
 			}
 		}

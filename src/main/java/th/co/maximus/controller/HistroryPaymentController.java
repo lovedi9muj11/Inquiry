@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -43,6 +45,7 @@ public class HistroryPaymentController {
 //		  if("".equals(creteria.getAccountNo())) {
 //			  result = cancelPaymentService.findAllCancelPayment();	
 //		  }else {
+		
 			  result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo());	
 			  
 //		  }
@@ -64,6 +67,7 @@ public class HistroryPaymentController {
 	    public List<HistoryPaymentRS> paymentPrint(@RequestBody HistoryReportBean creteria) throws SQLException {
 		  List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
 		  List<HistoryPaymentRS> result = new ArrayList<HistoryPaymentRS>();
+		
 		  if(creteria != null) {
 			  
 			  resultRQ = paymentManualService.findPaymentOrder(creteria);
