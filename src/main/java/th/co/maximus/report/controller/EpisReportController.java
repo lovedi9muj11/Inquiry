@@ -278,7 +278,7 @@ public class EpisReportController {
 			exportPDFReport.setDiscountSpecialCheck("N");
 		}
 		exportPDFReport.setBranArea(invObject.getBranArea());
-		exportPDFReport.setBracnCode(invObject.getBracnCode());
+		//exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		if(StringUtils.isNotBlank(invObject.getCustName())) {
