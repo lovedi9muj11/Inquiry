@@ -155,7 +155,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></text>
+				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="518" y="47" width="126" height="23" uuid="b0d1c781-c536-4805-a885-69956089b634"/>
@@ -229,6 +229,7 @@
 					<reportElement style="Cat_Hl_Common" x="53" y="0" width="78" height="30" uuid="d4b2d719-aeff-4a27-a50d-e9f06e4aae38"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" isBold="true" isUnderline="false"/>
+						<paragraph lineSpacing="1_1_2"/>
 					</textElement>
 					<text><![CDATA[เลขที่ใบแจ้งค่าใช้ บริการ]]></text>
 				</staticText>
@@ -278,7 +279,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="148" splitType="Immediate">
+		<band height="163" splitType="Immediate">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -328,7 +329,7 @@
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="41" width="783" height="103" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
+				<reportElement x="0" y="41" width="783" height="122" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -365,19 +366,37 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="490" y="70" width="184" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
+					<reportElement style="Cat_Hl_Common" x="491" y="92" width="184" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงินรับชำระทั้งสิ้น (Total Charge) :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="676" y="70" width="106" height="23" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
+					<reportElement x="677" y="92" width="106" height="23" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getAmountPaymentStr()]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="677" y="70" width="106" height="23" uuid="925b2e1e-7217-40e6-99c5-2911073ee2b4">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getCheckDiscount() == "Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountStr()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Cat_Hl_Common" x="490" y="70" width="184" height="23" uuid="531e3310-8f2b-412f-9cba-43966c6a27f4">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getCheckDiscount() == "Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="FreesiaUPC" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ส่วนลดหลังการขาย (After Sale Discount) :]]></text>
+				</staticText>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="47" width="184" height="23" uuid="c9b4d999-dd75-4129-9e4e-93bae534f7b8"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -455,32 +474,29 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="121">
-			<frame>
-				<reportElement x="-1" y="18" width="565" height="49" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
-				<staticText>
-					<reportElement style="Cat_Hl_Common" x="20" y="0" width="545" height="46" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
-
-อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
-				</staticText>
-			</frame>
+		<band height="99">
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="31" y="98" width="288" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
+				<reportElement style="Cat_Hl_Common" x="21" y="75" width="288" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="500" y="98" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
+				<reportElement style="Cat_Hl_Common" x="500" y="75" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="19" y="0" width="545" height="46" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
+
+อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
 			</staticText>
 		</band>
 	</summary>

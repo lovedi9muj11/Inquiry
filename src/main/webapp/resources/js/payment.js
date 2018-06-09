@@ -173,10 +173,12 @@ $(document).ready(function() {
 function taxDiscount(){
 	var result = FormatMoneyShowToNumber($("#taxOnly").val());
 	var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
+	var vatq = FormatMoneyShowToNumber($("#vatrate").val());
 	var bas = parseFloat(0);
+	var vatDis = parseFloat(0);
 	if(document.getElementById("radioButtons").checked){
-		 bas = (result *7)/100;
-		 bas = result + parseFloat(bas);
+		vatDis = (result *vatq)/100;
+		 bas = result + parseFloat(vatDis);
 	}else{
 		bas = bable;
 	}
@@ -199,11 +201,15 @@ function taxDiscount(){
 	var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
 	var total = parseFloat(balanSumShow) - parseFloat(summaryTax *-1);
 	balance =	parseFloat(balance) - parseFloat(bas);
+	
+	result = result +vatDis;
+	
 	$("#balanceSummarys").val(parseFloat(balance).toFixed(2));
 	$("#balanceSummaryShow").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
 };
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
