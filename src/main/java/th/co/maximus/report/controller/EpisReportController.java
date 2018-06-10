@@ -83,7 +83,7 @@ public class EpisReportController {
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean) collections.get(0);
 		ExportPDFReport exportPDFReport = new ExportPDFReport();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:ss");
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:ss");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		String JASPER_JRXML_FILENAME = "";
@@ -106,7 +106,7 @@ public class EpisReportController {
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
 		
 		exportPDFReport.setBranArea(valueBean.getValue());
-		exportPDFReport.setBracnCode(invObject.getBracnCode());
+		exportPDFReport.setBracnCode(invObject.getBracnCode() + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
