@@ -14,9 +14,25 @@ $(document).ready(function() {
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
 			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
 			
-			$("#balanceSummary").keyup(function() {
-			    // keydown code
+			$("#balanceSummary").change(function() {
+				var dataCheck = parseFloat($("#balanceSumShow").val()).toFixed(2).replace(/,/g, "");
 				var result = FormatMoneyShowToNumber($("#balanceSummary").val());
+				
+				if(dataCheck > result){
+					alert("คุณต้องใส่จำนวนเงินให้ถูกต้อง");
+					return $("#balanceSummary").focus();
+				}
+				
+				if(dataCheck > 0){
+					result = result - 	dataCheck;
+				}
+				
+				
+				
+				
+				
+			    // keydown code
+				
 				var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
 				if(bable < 0 || !bable){
 					bable = 0;
