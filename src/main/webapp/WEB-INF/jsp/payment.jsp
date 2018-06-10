@@ -137,7 +137,7 @@
 															<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
 														</select>
 														<p id="suserGroup" style="color: red;">
-														คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
+															คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
 													</div>
 
 													<label class="col-sm-2 control-label right"
@@ -187,7 +187,7 @@
 														<p id="sstartupDate" style="color: red;">
 															คุณยังไม่ได้เลือก รอบการใช้งานเริ่มต้น</p>
 														<p id="sstartupDate1" style="color: red;">
-															รอบการใช้งานเริ่มต้นให้น้อยกว่า	"รอบใช้งานสิ้นสุด"</p>
+															รอบการใช้งานเริ่มต้นให้น้อยกว่า "รอบใช้งานสิ้นสุด"</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รอบการใช้งานสิ้นสุด : <span
@@ -760,6 +760,8 @@
 														<input class="form-control" type="text" id="remark"
 															name="remark" maxlength="100">
 													</div>
+												</div>
+											</div>
 											<div class="row">
 												<div class="col-sm-7"></div>
 												<div class="form-group ">
