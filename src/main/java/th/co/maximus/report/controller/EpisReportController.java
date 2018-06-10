@@ -106,7 +106,7 @@ public class EpisReportController {
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
 		
 		exportPDFReport.setBranArea(valueBean.getValue());
-		exportPDFReport.setBracnCode(invObject.getBracnCode() + " ");
+		exportPDFReport.setBracnCode(" " +invObject.getBracnCode() + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
@@ -207,13 +207,18 @@ public class EpisReportController {
 		}
 
 		String bran = "";
-		if (invObject.getBracnCode().equals("00000")) {
-			bran = "สำนักงานใหญ่";
+		if(StringUtils.isNotBlank(invObject.getBracnCode())) {
+			if (invObject.getBracnCode().equals("00000")) {
+				bran = "สำนักงานใหญ่";
+				exportPDFReport.setCheckBran("Y");
+			} else {
+				bran = invObject.getBracnCode();
+				exportPDFReport.setCheckBran("Y");
+			}
+		}else {
 			exportPDFReport.setCheckBran("N");
-		} else {
-			bran = invObject.getBracnCode();
-			exportPDFReport.setCheckBran("Y");
 		}
+		
 		exportPDFReport.setPaymentCode(paymentCodeRes);
 		exportPDFReport.setSouce(bran);
 		if (invObject.getDiscount().signum() == 0) {
