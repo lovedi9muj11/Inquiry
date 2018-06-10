@@ -207,7 +207,7 @@ public class EpisReportController {
 		}
 
 		String bran = "";
-		if (invObject.getBracnCode().equals("0000")) {
+		if (invObject.getBracnCode().equals("00000")) {
 			bran = "สำนักงานใหญ่";
 			exportPDFReport.setCheckBran("N");
 		} else {
