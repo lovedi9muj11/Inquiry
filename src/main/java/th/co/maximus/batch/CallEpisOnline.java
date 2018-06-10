@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import org.springframework.web.client.RestTemplate;
 import th.co.maximus.bean.BeanClass;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.bean.Principal;
 import th.co.maximus.bean.UserBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.service.MapGLService;
+import th.co.maximus.service.MasOfficerService;
 import th.co.maximus.service.MasterDataService;
 
 @Controller
@@ -31,6 +34,9 @@ public class CallEpisOnline {
 	
 	@Autowired
 	MapGLService mapGLService;
+	
+	@Autowired
+	MasOfficerService masOfficerService;
 
 	RestTemplate restTemplate;
 	
@@ -134,20 +140,33 @@ public class CallEpisOnline {
 	}
 	
 	public void callOnlineSyncUser(){
+		Set<String> branchArea = new HashSet<String>();
+		branchArea.add("1701");
+		
 		try {
 			UserBean userBean = new UserBean();
+			Principal principal = new Principal(); 
 			List<UserBean> list = new ArrayList<UserBean>();
 			String gettUrl = url.concat("/EpisWeb/offline/userSyncByArea.json");
-			ResponseEntity<String> getResponse = restTemplate.getForEntity(gettUrl, String.class);
+			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, branchArea, String.class);
 			
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());
-			for(int i=0; i<jsonArray.length(); i++) {
+			for(int i=0; i<10; i++) {
 				userBean = new UserBean();
-//				glBean.setGlCode( jsonArray.getJSONObject(i).getString("glCode"));
+				principal = new Principal();
+				userBean.setName(jsonArray.getJSONObject(i).getString("givenName"));
+				userBean.setSurName(jsonArray.getJSONObject(i).getString("familyName"));
+				userBean.setUserName(jsonArray.getJSONObject(i).getString("name"));
+				userBean.setPassword(jsonArray.getJSONObject(i).getString("password"));
+				
+				JSONObject object = jsonArray.getJSONObject(i).getJSONObject("principal");
+				principal.setName(object.getString("name"));
+				
+				userBean.setPrincipal(principal);
 				list.add(userBean);
 			}
-//			String respone = mapGLService.insertMapGL(list);
-			System.out.println(" Return Status for insert User respone :: " + "respone");
+			String respone = masOfficerService.insertMasOfficerUser(list);
+			System.out.println(" Return Status for insert User respone :: " + respone);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

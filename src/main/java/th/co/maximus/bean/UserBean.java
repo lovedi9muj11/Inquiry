@@ -9,6 +9,9 @@ public class UserBean {
 	private String password;
 	private String roleCode;
 	
+	// bean
+	private Principal principal;
+	
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +47,12 @@ public class UserBean {
 	}
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
+	}
+	public Principal getPrincipal() {
+		return principal;
+	}
+	public void setPrincipal(Principal principal) {
+		this.principal = principal;
 	}
 	
 }

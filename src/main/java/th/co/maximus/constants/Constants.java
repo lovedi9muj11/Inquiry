@@ -59,5 +59,19 @@ public class Constants {
 	public static class GL_SERVICE{
 		public static final String OTHER = "OTHER";
 	}
+	
+	public static class Role{
+		public static final String SUPPERVISOR = "sup";
+		public static final String ADMIN = "admin";
+		public static final String USER = "user";
+		
+		public static class RoleOnline{
+			public static final String SUPPERVISOR = "Suppervisor";
+			public static final String ADMIN = "ADMIN";
+			public static final String USER = "BACKOFFICE";
+			
+			
+		}
+	}
 
 }
