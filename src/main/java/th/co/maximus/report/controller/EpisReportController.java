@@ -282,7 +282,10 @@ public class EpisReportController {
 			exportPDFReport.setDiscountSpecial(invObject.getDiscountSpecial().setScale(2, RoundingMode.HALF_DOWN));
 			exportPDFReport.setDiscountSpecialCheck("N");
 		}
-		exportPDFReport.setBranArea(invObject.getBranArea());
+		
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
+		
+		exportPDFReport.setBranArea(valueBean.getValue());
 		//exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
@@ -392,7 +395,8 @@ public class EpisReportController {
 			if (f == 0) {
 				paymentCodeRes += result.get(f);
 			} else {
-				paymentCodeRes += " + " + result.get(f);
+				paymentCodeRes += paymentCodeRes.equals(result.get(f))?"":" + " + result.get(f);
+				//paymentCodeRes += " + " + result.get(f);
 			}
 
 		}

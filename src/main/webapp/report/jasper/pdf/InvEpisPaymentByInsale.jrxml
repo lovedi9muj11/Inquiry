@@ -45,14 +45,14 @@
 	<pageHeader>
 		<band height="162">
 			<textField>
-				<reportElement x="698" y="29" width="39" height="18" backcolor="#FFFFFF" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
+				<reportElement x="710" y="29" width="32" height="18" backcolor="#FFFFFF" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["หน้า : "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="732" y="29" width="50" height="18" backcolor="#FFFFFF" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
+				<reportElement x="738" y="29" width="32" height="18" backcolor="#FFFFFF" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>
@@ -73,7 +73,9 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="70" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNameCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
@@ -117,7 +119,9 @@
 				<text><![CDATA[เลขที่ :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="93" width="80" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="93" width="80" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getAddressCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
@@ -133,7 +137,9 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustomerAddress()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="116" width="80" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="116" width="80" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
@@ -181,7 +187,7 @@
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSouce()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBranArea()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -315,12 +321,12 @@
 	<lastPageFooter>
 		<band height="250">
 			<frame>
-				<reportElement x="1" y="160" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
+				<reportElement x="1" y="151" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="29" y="0" width="437" height="58" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-						<paragraph lineSpacing="Double"/>
+						<paragraph lineSpacing="Proportional" lineSpacingSize="3.0"/>
 					</textElement>
 					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
 อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
@@ -341,7 +347,7 @@
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="1" y="30" width="780" height="128" backcolor="#FFFFFF" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
+				<reportElement x="1" y="20" width="780" height="128" backcolor="#FFFFFF" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="0" y="90" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
 					<textElement textAlignment="Right">
