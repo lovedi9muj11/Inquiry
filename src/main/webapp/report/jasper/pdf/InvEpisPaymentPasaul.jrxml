@@ -229,6 +229,7 @@
 					<reportElement style="Cat_Hl_Common" x="53" y="0" width="78" height="30" uuid="d4b2d719-aeff-4a27-a50d-e9f06e4aae38"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" isBold="true" isUnderline="false"/>
+						<paragraph lineSpacing="1_1_2"/>
 					</textElement>
 					<text><![CDATA[เลขที่ใบแจ้งค่าใช้ บริการ]]></text>
 				</staticText>
