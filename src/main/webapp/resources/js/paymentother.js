@@ -1009,13 +1009,15 @@ function addDataSumCreditTranPrice() {
 				+ "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 
-		var ba3a = $("#balanceSummarys").val();
+		var ba3a = $("#balanceSummaryShow").val();
 		var balan = parseFloat(ba3a.replace(",", ""));
+		var baGet = $("balanceSumShow").val();
+		var balanget = parseFloat(baGet.replace(",", ""));
 		var price = result[4].replace(",", "")
 		
 		
 
-		balan = parseFloat(balan) - price;
+		balan = (parseFloat(balan) - parseFloat(balanget) ) - price;
 		$("#balanceSummarys").val(balan.toFixed(2));
 		$("#moneyTran").val(balan.toFixed(2));
 		$("#creditPrice").val(balan.toFixed(2));
@@ -1096,9 +1098,11 @@ function addDataSumCheckTranPrice() {
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 		var balans = $("#balanceSummarys").val();
 		var balan = parseFloat(balans.replace(",", ""));
+		var baGet = $("balanceSumShow").val();
+		var balanget = parseFloat(baGet.replace(",", ""));
 
 		var price = result[6].replace(",", "")
-		balan = parseFloat(balan) - parseFloat(price);
+		balan = (parseFloat(balan) - parseFloat(balanget)) - parseFloat(price);
 		$("#balanceSummarys").val(balan.toFixed(2));
 		$("#moneyTran").val(balan.toFixed(2));
 		$("#creditPrice").val(balan.toFixed(2));
