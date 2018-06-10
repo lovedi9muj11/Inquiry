@@ -199,7 +199,7 @@ function taxDiscount(){
 		bas = bable;
 	}
 	
-	var balance = FormatMoneyShowToNumber($("#balanceSummary").val());
+	var balance = FormatMoneyShowToNumber($("#balanceSummarys").val());
 	
 	var sq = $("#summaryTax").val();
 	var summaryTax = parseFloat(sq.replace(/,/g, ""));
