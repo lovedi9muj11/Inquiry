@@ -29,6 +29,9 @@ public class CallEpisOnline {
 	@Value("${url.online}")
 	private String url;
 	
+	@Value("${text.branarea}")
+	private String branArea;
+	
 	@Autowired
 	MasterDataService masterDataService;
 	
@@ -141,7 +144,7 @@ public class CallEpisOnline {
 	
 	public void callOnlineSyncUser(){
 		Set<String> branchArea = new HashSet<String>();
-		branchArea.add("1701");
+		branchArea.add(branArea);
 		
 		try {
 			UserBean userBean = new UserBean();
@@ -151,7 +154,7 @@ public class CallEpisOnline {
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, branchArea, String.class);
 			
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());
-			for(int i=0; i<10; i++) {
+			for(int i=0; i<jsonArray.length(); i++) {
 				userBean = new UserBean();
 				principal = new Principal();
 				userBean.setName(jsonArray.getJSONObject(i).getString("givenName"));
