@@ -886,20 +886,20 @@
 				<div class="modal-dialog modal-sm" style="width: 450px">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Authentication</h4>
+							<h4 class="modal-title" id="myModalLabel">ยืนยันตัวตน</h4>
 						</div>
 						<div class="modal-body">
 
 							<div class="row">
 								<div class="form-group col-md-12">
-									<label class="col-md-3 control-label">user name</label>
+									<label class="col-md-3 control-label">ชื่อเข้าระบบ</label>
 									<div class="col-md-9">
 										<input type="text" id="userName" name="userName"
 											class="form-control">
 									</div>
 								</div>
 								<div class="form-group col-md-12">
-									<label class="col-md-3 control-label">password</label>
+									<label class="col-md-3 control-label">รหัสเข้าระบบ</label>
 									<div class="col-md-9">
 										<input type="password" id="password" name="password"
 											class="form-control">
