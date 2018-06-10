@@ -227,7 +227,7 @@
 				</staticText>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="53" y="0" width="78" height="30" uuid="d4b2d719-aeff-4a27-a50d-e9f06e4aae38"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font fontName="FreesiaUPC" isBold="true" isUnderline="false"/>
 						<paragraph lineSpacing="Double"/>
 					</textElement>
