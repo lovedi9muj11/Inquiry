@@ -90,7 +90,7 @@ public class PaymentController {
 			paymentResultReq.setDateLineRS(dateLineSt);
 
 			paymentResultReq.setBalanceSummaryStr(
-					String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+					String.format("%,.2f", paymentResultReq.getPaidAmount().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq.setBeforeVatStr(
 					String.format("%,.2f", paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
 			paymentResultReq
@@ -147,7 +147,7 @@ public class PaymentController {
 		paymentResultReq.setDateLineRS(dateLineSt);
 
 		paymentResultReq.setBalanceSummaryStr(
-				String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+				String.format("%,.2f", paymentResultReq.getPaidAmount().setScale(2, RoundingMode.HALF_DOWN)));
 		paymentResultReq.setBeforeVatStr(
 				String.format("%,.2f", paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
 		paymentResultReq

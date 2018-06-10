@@ -40,6 +40,7 @@ public class PaymentResultReq {
 	private String serviceCode;
 	private String paid_amountStr;
 	private String discountspacalStr;
+	private BigDecimal paidAmount;
 	
 	
 	
@@ -55,7 +56,7 @@ public class PaymentResultReq {
 	}
 	
 	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
-			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount,BigDecimal discount) {
+			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount,BigDecimal discount,BigDecimal paidAmount) {
 		
 		this.custNo = custNo;
 		this.custName = custName;
@@ -72,7 +73,7 @@ public class PaymentResultReq {
 		this.period = period;
 		this.balanceAmount = balanceAmount;
 		this.discount = discount;
-		
+		this.paidAmount = paidAmount;
 
 	}
 	
@@ -374,6 +375,14 @@ public class PaymentResultReq {
 
 	public void setDiscountspacalStr(String discountspacalStr) {
 		this.discountspacalStr = discountspacalStr;
+	}
+
+	public BigDecimal getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(BigDecimal paidAmount) {
+		this.paidAmount = paidAmount;
 	}
 
 	

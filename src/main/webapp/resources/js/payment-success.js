@@ -27,12 +27,11 @@ function openTable(manualId) {
 			var td5 = $("<td align='center' ></td>").text(res.vatStr);
 			var td6 = $("<td align='center' ></td>").text(res.balanceOfvatStr);
 			var td7 = $("<td align='center' ></td>").text(res.discountStr);
-			var td8 = $("<td align='center' ></td>")
-					.text(res.balanceSummaryStr);
+			var td8 = $("<td align='center' ></td>").text(res.balanceSummaryStr);
 			var td9 = $("<td align='center' ></td>").text(res.deductionStr);
-			var td10 = $("<td align='center' ></td>").text(res.balancePriceStr);
-			var td11 = $("<td align='center' ></td>").text(res.period);
-			trE.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10,td11);
+//			var td10 = $("<td align='center' ></td>").text(res.balancePriceStr);
+			var td10 = $("<td align='center' ></td>").text(res.period);
+			trE.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10);
 			$("#showResultTableRQ tbody").append(trE);
 		}
 	});
