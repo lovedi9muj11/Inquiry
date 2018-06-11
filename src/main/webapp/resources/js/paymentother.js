@@ -536,7 +536,13 @@ function buttonAddBillingList() {
 		var amountDiscount = disDiscount(serviceAmount);
 		var amountBeforVat = disVat(amountDiscount,radioResult);
 		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
-		var vatamount = amountTotal- amountDiscount;
+		var vatamount;
+		if(radioResult == "beforvat"){
+			vatamount = amountTotal- amountDiscount;
+		}else{
+			 vatamount = amountBeforVat- amountDiscount;
+		}
+		
 		if(vatamount < 0 ){
 			vatamount = vatamount*(-1);
 		}
@@ -1738,7 +1744,7 @@ function disVat(serviceAmount,amountType){
 	if(amountType == "beforvat"){
 		amountBeforVat = serviceAmount;
 	}else{
-		amountBeforVat = serviceAmount - (serviceAmount * vatRate/100+vatRate);
+		amountBeforVat = serviceAmount - (serviceAmount * (vatRate/(100+vatRate)));
 	}
 	return amountBeforVat;
 }
