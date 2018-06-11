@@ -68,8 +68,8 @@
 						    <thead>
 						        <tr>
 						         	<th style="text-align: center;width: 1%">#</th>  				                         
-					                <th style="text-align: center;width: 10%">วันที่ทำรายการ</th>
-					                <th style="text-align: center;;width: 10%">วันที่ออกใบเสร็จรับเงิน</th>
+					                <th style="text-align: center;width: 11%">วันที่ทำรายการ</th>
+					                <th style="text-align: center;;width: 11%">วันที่ออกใบเสร็จรับเงิน</th>
 					                <th style="text-align: center;;width: 10%">เลขที่ใบเสร็จรับเงิน</th>
 					                <th style="text-align: center;;width: 10%">สถานที่รับชำระ</th>
 					                <th style="text-align: center;;width: 5%">ผู้รับชำระ</th>
@@ -80,7 +80,7 @@
 					                <th style="text-align: center;;width: 5%">ยอดชำระ</th>
 					                <th style="text-align: center;;width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
 					                <th style="text-align: center;;width: 5%">สถานนะ</th>
-					                <th style="text-align: center;;width: 5%">หมายเหตุ</th>
+					                <th style="text-align: center;;width: 3%">หมายเหตุ</th>
 						        </tr>
 						    </thead>
 						</table>

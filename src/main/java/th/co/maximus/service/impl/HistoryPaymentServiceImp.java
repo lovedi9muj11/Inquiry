@@ -16,6 +16,7 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.model.TrsMethodEpisOffline;
@@ -24,13 +25,16 @@ import th.co.maximus.service.HistoryPaymentService;
 @Service
 public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	Locale localeTH = new Locale("th", "TH");
-	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", localeTH);
+	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", localeTH);
 
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
 
 	@Autowired
 	private TrsMethodManualDao trsMethodManualDao;
+	
+	@Autowired
+	private MasterDatasDao masterDatasDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() {
@@ -43,8 +47,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		for (PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo)) {
 			if ("N".equals(bean.getClearing()) && "A".equals(bean.getRecordStatus())) {
-				List<TrsMethodEpisOffline> methodResult = trsMethodManualDao
-						.findByManualId(Long.valueOf(bean.getManualId()));
+				List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(bean.getManualId()));
 				StringBuffer paymentMethod = new StringBuffer();
 				for (TrsMethodEpisOffline method : methodResult) {
 
@@ -53,6 +56,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 				if (null != bean.getPeriod()) {
 					bean.setPeriod(Utils.periodFormat(bean.getPeriod()));
 				}
+				bean.setBrancharea(masterDatasDao.findByKey(bean.getBrancharea()).getValue());
 				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
 				bean.setPaymentMethod(paymentMethod.toString().substring(1));
 				result.add(bean);

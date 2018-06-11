@@ -110,20 +110,12 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 
 	@Override
 	public List<TrsMethodEpisOffline> findByManualId(long manualId) throws Exception {
-		// Connection connect = dataSource.getConnection();
-		// List<TrsMethodEpisOffline> beanReReq = new ArrayList<TrsMethodEpisOffline>();
-		// TrsMethodEpisOffline bean = new TrsMethodEpisOffline();
-
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
 				"SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID, trm.VERSIONSTAMP, trm.UPDATE_BY ");
 		sqlStmt.append(" FROM trsmethod_manual trm ");
 		sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
-		//
-		// PreparedStatement preparedStatement =
-		// connect.prepareStatement(sqlStmt.toString());
-		// preparedStatement.setLong(1, manualId);
-		//
+		
 		@SuppressWarnings("unchecked")
 		List<TrsMethodEpisOffline> beanReReq =  jdbcTemplate.query(sqlStmt.toString(),new Object[] { manualId }, new RowMapper() {
 			@Override
@@ -135,13 +127,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 			}
 
 		});
-//		getJdbcTemplate().setDataSource(dataSource);
-//		@SuppressWarnings("unchecked")
-//		List<TrsMethodEpisOffline> beanReReq = (ArrayList) getJdbcTemplate().queryForList(sqlStmt.toString(),
-//				new Object[] { manualId },
 		return beanReReq;
-
-		// connect.close();
 
 	}
 
