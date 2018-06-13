@@ -311,7 +311,7 @@ function submitForm() {
 		listpaymentTaxQ = []
 		listpaymentTaxQ = {
 			"docDed" : resultDeductible[a][1],
-		"custNo" : resultDeductible[a][2],
+			"custNo" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][3],
 			"moneyDed" : resultDeductible[a][4]*-1
 		}
@@ -1017,7 +1017,7 @@ function addDataSumCreditTranPrice() {
 
 		var ba3a = $("#balanceSummaryShow").val();
 		var balan = parseFloat(ba3a.replace(",", ""));
-		var baGet = $("balanceSumShow").val();
+		var baGet = $("#balanceSumShow").val();
 		var balanget = parseFloat(baGet.replace(",", ""));
 		var price = result[4].replace(",", "")
 		
