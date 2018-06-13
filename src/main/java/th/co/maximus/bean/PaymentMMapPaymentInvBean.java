@@ -33,6 +33,8 @@ public class PaymentMMapPaymentInvBean {
 	private String paymentMethod;
 	private String serviceType;
 	
+	private String chkPaymentType;
+	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
 	}
@@ -255,6 +257,14 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
+	}
+
+	public String getChkPaymentType() {
+		return chkPaymentType;
+	}
+
+	public void setChkPaymentType(String chkPaymentType) {
+		this.chkPaymentType = chkPaymentType;
 	}
 	
 }

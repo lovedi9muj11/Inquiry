@@ -42,7 +42,7 @@ public class PaymentResultReq {
 	private String discountspacalStr;
 	private BigDecimal paidAmount;
 	
-	
+	private String chkPaymentType;
 	
 	public String getAmountType() {
 		return amountType;
@@ -385,10 +385,12 @@ public class PaymentResultReq {
 		this.paidAmount = paidAmount;
 	}
 
-	
+	public String getChkPaymentType() {
+		return chkPaymentType;
+	}
 
-	
-
-	
+	public void setChkPaymentType(String chkPaymentType) {
+		this.chkPaymentType = chkPaymentType;
+	}
 	
 }

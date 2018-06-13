@@ -42,6 +42,7 @@ public class Constants {
 	
 	public static class Service{
 		public static final String SERVICE_TYPE_IBACSS = "IBACSS";
+		public static final String SERVICE_TYPE_OTHER = "OTHER";
 	}
 	
 	public static class MasterData{

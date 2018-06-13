@@ -27,6 +27,10 @@
 <body>
 	<header class="header_page"></header>
 	<!-- main panel -->
+	<form id="cancelForm" method="post" class="form-horizontal" role="form">
+		<input  type="hidden" name="documentNo" id="documentNo" value="">
+		<input  type="hidden" name="chkPaymentType" id="chkPaymentType" value="">
+	</form>
 	<div  style="padding: 30px 10px 50px 50px">
 		<h1 class="page-header"></h1>
 	  <div name="error" id="error"  class="alert alert-danger alert-dismissable fade in">
@@ -170,7 +174,6 @@
 	    </div>
 	  </div>
 	</div>
-	
 	
 	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="reason-cancel" >
 	  <div class="modal-dialog modal-sm" style="width:650px">

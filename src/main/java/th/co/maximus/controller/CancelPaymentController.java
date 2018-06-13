@@ -1,12 +1,9 @@
 package th.co.maximus.controller;
 
-import java.security.GeneralSecurityException;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +16,17 @@ import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
 import th.co.maximus.core.utils.Utils;
+import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.CancelPaymentService;
+import th.co.maximus.service.PaymentService;
 
 @Controller
 public class CancelPaymentController {
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
+	
+	@Autowired
+	private PaymentService paymentService;
 
 	// @Autowired
 	// private Md5PasswordEncoder md5PasswordEncoder;
@@ -80,11 +82,26 @@ public class CancelPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
-		return cancelPaymentService.insertAndUpdateCancelPayment(creteria);
+	public PaymentMMapPaymentInvBean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
+		PaymentMMapPaymentInvBean paymentMMapPaymentInvBean = new PaymentMMapPaymentInvBean();
+		PaymentResultReq paymentResultReq = cancelPaymentService.insertAndUpdateCancelPayment(creteria);
+		paymentMMapPaymentInvBean.setReceiptNoManual(paymentResultReq.getDocumentNo());
+		paymentMMapPaymentInvBean.setChkPaymentType(paymentResultReq.getChkPaymentType());
+		return paymentMMapPaymentInvBean;
 	}
+	
+	@RequestMapping(value = {"/searchReceiptNoById" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public PaymentResultReq searchReceiptNoById(@RequestBody PaymentResultReq creteria) {
+		PaymentResultReq paymentResultReq = new PaymentResultReq();
+		try {
+			paymentResultReq = paymentService.findByid(creteria.getManualId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	return paymentResultReq;
+		}
 
 }

@@ -16,15 +16,14 @@ import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.bean.TrsMethodManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.core.utils.Utils;
-import th.co.maximus.dao.DeductionManualDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
-import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
-import th.co.maximus.dao.TrscreDitrefManualDao;
 import th.co.maximus.model.TrsMethodEpisOffline;
+import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.CancelPaymentService;
 
 @Service
@@ -35,16 +34,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
 
 	@Autowired
-	private DeductionManualDao deductionManualDao;
-
-	@Autowired
 	private PaymentManualDao paymentManualDao;
-
-	@Autowired
-	private TrsChequeRefManualDao trsChequeRefManualDao;
-
-	@Autowired
-	private TrscreDitrefManualDao trscreDitrefManualDao;
 
 	@Autowired
 	private ReciptNoGenCode reciptNoGenCode;
@@ -117,8 +107,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo)
 			throws Exception {
 
-		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo,
-				invoiceNo);
+		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo);
 		for (PaymentMMapPaymentInvBean resultBean : result) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao
 					.findByManualId(Long.valueOf(resultBean.getManualId()));
@@ -146,9 +135,11 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 	@Override
 	@Transactional
-	public boolean insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean) {
-		boolean resultReturn = true;
+	public PaymentResultReq insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean) {
+//		boolean resultReturn = true;
+		PaymentResultReq paymentResultReq = new PaymentResultReq();
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
+		InvoiceBean invoiceBean = new InvoiceBean(); 
 		String receiptId = "";
 		int manualID = 0;
 		try {
@@ -158,15 +149,16 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			paymentInvoiceManualDao.updateStatusPaymentInvoice(paymentMMapPaymentInvBean.getManualId());
 			if ("02".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
 				// Insert PaymentManual
-				List<PaymentManualBean> paymentManual = paymentManualDao
-						.findPaymentManualFromNanualId(paymentMMapPaymentInvBean.getManualId());
+				List<PaymentManualBean> paymentManual = paymentManualDao.findPaymentManualFromNanualId(paymentMMapPaymentInvBean.getManualId());
 				if (!paymentManual.isEmpty()) {
 					PaymentManualBean paymentManualBean = new PaymentManualBean();
 					for (PaymentManualBean resultPaymentManual : paymentManual) {
+						paymentManualBean = new PaymentManualBean();
 						receiptId = resultPaymentManual.getReceiptNoManual();
 						paymentManualBean.setInvoiceNo(resultPaymentManual.getInvoiceNo());
-						paymentManualBean
-								.setReceiptNoManual(reciptNoGenCode.genCodeRecipt(resultPaymentManual.getDocType()));
+						paymentManualBean.setReceiptNoManual(reciptNoGenCode.genCodeRecipt(resultPaymentManual.getDocType()));
+//						result = paymentManualBean.getReceiptNoManual();
+						paymentResultReq.setDocumentNo(paymentManualBean.getReceiptNoManual());
 						paymentManualBean.setPaidDate(resultPaymentManual.getPaidDate());
 						paymentManualBean.setBrancharea(resultPaymentManual.getBrancharea());
 						paymentManualBean.setBranchCode(resultPaymentManual.getBranchCode());
@@ -190,8 +182,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					}
 				}
 				// Insert payment_invoice_manual
-				List<PaymentInvoiceManualBean> resultPaymentInvoice = paymentInvoiceManualDao
-						.findPaymentInvoiceFromManualId(paymentMMapPaymentInvBean.getManualId());
+				List<PaymentInvoiceManualBean> resultPaymentInvoice = paymentInvoiceManualDao.findPaymentInvoiceFromManualId(paymentMMapPaymentInvBean.getManualId());
 				if (!resultPaymentInvoice.isEmpty()) {
 					paymentInvoiceManualBean.setManualId(Long.valueOf(manualID));
 					paymentInvoiceManualBean.setSource(resultPaymentInvoice.get(0).getSource());
@@ -223,9 +214,17 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					paymentInvoiceManualBean.setServiceName(resultPaymentInvoice.get(0).getServiceName());
 					paymentInvoiceManualBean.setServiceCode(resultPaymentInvoice.get(0).getServiceCode());
 					paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
+					
+					if(true) {
+						invoiceBean = paymentInvoiceManualDao.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
+						paymentResultReq.setChkPaymentType(Constants.Service.SERVICE_TYPE_OTHER);
+						if(null != invoiceBean.getManualId()) {
+							paymentInvoiceManualDao.insertInvoice(invoiceBean);
+							paymentResultReq.setChkPaymentType(Constants.Service.SERVICE_TYPE_IBACSS);
+						}
+					}
 				}
-				for (TrsMethodEpisOffline method : trsMethodManualDao
-						.findByManualId(paymentMMapPaymentInvBean.getManualId())) {
+				for (TrsMethodEpisOffline method : trsMethodManualDao.findByManualId(paymentMMapPaymentInvBean.getManualId())) {
 					TrsMethodManualBean bean = new TrsMethodManualBean();
 					bean.setCode(method.getCode());
 					bean.setChequeNo(method.getChequeNo());
@@ -246,18 +245,17 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					trsMethodManualDao.insertTrsMethod(bean);
 				}
 				// insert payment_Invoice
-				InvoiceBean resultInvoiceBean = paymentInvoiceManualDao
-						.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
+				InvoiceBean resultInvoiceBean = paymentInvoiceManualDao.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
 				resultInvoiceBean.setManualId(Long.valueOf(manualID));
 				paymentInvoiceManualDao.insertInvoice(resultInvoiceBean);
 
 			}
 		} catch (Exception e) {
-			resultReturn = false;
+//			resultReturn = false;
 			e.printStackTrace();
 
 		}
-		return resultReturn;
+		return paymentResultReq;
 	}
 
 	@Override

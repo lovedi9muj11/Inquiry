@@ -32,7 +32,7 @@ $(document).ready(function () {
     $('#cancelPaymentTB tbody').on('change', ':radio', function() {
     	 	$("#mi-modal").modal('show');
             idRow = parseInt($('input[name="select"]:checked').val());
-        
+            
     });
     $('#btn2').click(function(){
     	console.log("sssssssssssssssssssssssssss");
@@ -315,6 +315,7 @@ function createRow(data, seq, table,check) {
 function createRowSelect(data, seq, table) {
 	customerAddress = data.customerAddress;
 	userFullName = data.customerName;
+	
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
 	createDate =data.createDateStr;
@@ -408,7 +409,11 @@ function submitCancelPayment(){
 	        async: false,
 	        contentType: "application/json; charset=utf-8",
 	        success: function (res) {
-	        	if(res){
+	        	var result = res.receiptNoManual != '';
+	        	if(result){
+	        		console.log(res.receiptNoManual)
+	        		$('#documentNo').val(res.receiptNoManual);
+	        		$('#chkPaymentType').val(res.chkPaymentType);
 	        		$("#success").show();
 	        	    hidePanel()
 	        	    showPanel('1');
@@ -468,6 +473,12 @@ function modalConfirmReason(callback){
 		var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
 		if(r){
 			submitCancelPayment();
+			if($('#chkPaymentType').val() === "IBACSS") {
+				rePrint();
+			}else{
+				rePrintOther();
+			}
+			
 			$("#reason-cancel").modal('hide');
 		}
 	}else{
@@ -494,10 +505,26 @@ function converDateToString(value){
 return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 };
 
+function rePrint() {
+	$("#cancelForm").attr("action", "/previewPaymentEpisOffline.pdf").attr("target", "_blank").submit();
+}
 
+function rePrintOther() {
+	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineByInsale.pdf").attr("target", "_blank").submit();
+}
 
-
-
-
-
-
+function searchReceiptNoById(id) {
+	var dataSend = { "manualId": id };
+	$.ajax({
+        type: "POST",
+        url: "/searchReceiptNoById",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	console.log(res.documentNo)
+        	$('#documentNo').val(res.documentNo);
+        }
+	})
+}
