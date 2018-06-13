@@ -35,7 +35,7 @@ public class InvEpisOfflineByInsaleBean {
 	public InvEpisOfflineByInsaleBean() {}
 	
 	public InvEpisOfflineByInsaleBean(String branArea,String bracnCode,String serviceName,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal discountSpecial,BigDecimal amount,BigDecimal discountbeforvat) {
+			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal discountSpecial,BigDecimal amount,BigDecimal discountbeforvat,Long methodId) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
 		this.custNo = custNo;
@@ -53,7 +53,7 @@ public class InvEpisOfflineByInsaleBean {
 		this.serviceName = serviceName;
 		this.amount = amount;
 		this.discountbeforvat = discountbeforvat;
-		
+		this.methodId = methodId;
 		
 	}
 	
