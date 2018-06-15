@@ -35,7 +35,7 @@ public class ReciptNoGenCode {
 		String dates=convertDateString(dateS);
 		try {
 
-			sql.append(" SELECT COUNT(pm.RECEIPT_NO_MANUAL) AS ReciptCount FROM receipt_manual pm ");
+			sql.append(" SELECT COUNT(pm.RECEIPT_NO_MANUAL) AS ReciptCount FROM RECEIPT_MANUAL pm ");
 			sql.append(" WHERE pm.CREATE_DATE >= ' ").append(convertDateString(date.toString()))
 					.append(" 00:00:00.000000' ");
 			sql.append(" AND pm.CREATE_DATE <= ' ").append(convertDateString(date.toString()))

@@ -22,7 +22,7 @@ public class DeductionManualServiceImpl implements DeductionManualService{
 	
 	@Override
 	public List<DeductionManualBean> DeductionManualAll() {
-		//return jdbcTemplate.query("select * from deduction_manual", new DeductionManualJoin());
+		//return jdbcTemplate.query("select * from DEDUCTION_MANUAL", new DeductionManualJoin());
 		return null;
 	}
 	

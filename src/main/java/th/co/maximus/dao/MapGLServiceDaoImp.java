@@ -59,7 +59,7 @@ public class MapGLServiceDaoImp implements MapGLServiceDao{
 
 	@Override
 	public void deleteBeforInsert() {
-		String del = "delete from map_gl_service_type";
+		String del = "delete from MAP_GL_SERVICE_TYPE";
 		jdbcTemplate.update(del);
 	}
 

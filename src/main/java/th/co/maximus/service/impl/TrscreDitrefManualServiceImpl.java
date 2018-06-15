@@ -24,7 +24,7 @@ public class TrscreDitrefManualServiceImpl implements TrscreDitrefManualService{
 	
 	@Override
 	public List<TrscreDitrefManualBean> TrscreDitrefManualAll() {
-		//return jdbcTemplate.query("select * from trscreditref_manual", new TrscreDitrefManualJoin());
+		//return jdbcTemplate.query("select * from TRSCREDITREF_MANUAL", new TrscreDitrefManualJoin());
 		return null;
 	}
 

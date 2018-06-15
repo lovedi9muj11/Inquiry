@@ -33,7 +33,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO receipt_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });
@@ -70,17 +70,17 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			sqlStmt.append("SELECT py.ACCOUNT_NO,py.RECEIPT_NO_MANUAL,py.VAT_AMOUNT,py.PAID_AMOUNT ");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE, py.PAID_DATE  ");
 			sqlStmt.append(
-					"  , (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID =  	py.MANUAL_ID )as DEDUCTION ");
+					"  , (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID =  	py.MANUAL_ID )as DEDUCTION ");
 			sqlStmt.append(
-					" ,(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
+					" ,(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
 
 //			sqlStmt.append(
-//					",(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
+//					",(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
 
 			sqlStmt.append(
-					",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM payment_invoice_manual pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
+					",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
 
-			sqlStmt.append("  FROM receipt_manual py WHERE  py.MANUAL_ID = ?");
+			sqlStmt.append("  FROM RECEIPT_MANUAL py WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -115,11 +115,11 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from map_gl_service_type where  REVENUE_TYPE_CODE = py.AMOUNTTYPE) as AMOUNTTYPE");
+			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE) as AMOUNTTYPE");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , DISCOUNTBEFORVAT, DISCOUNTSPECIAL  ");
 
-			sqlStmt.append("    FROM payment_invoice_manual py  WHERE  py.MANUAL_ID = ?");
+			sqlStmt.append("    FROM PAYMENT_INVOICE_MANUAL py  WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();

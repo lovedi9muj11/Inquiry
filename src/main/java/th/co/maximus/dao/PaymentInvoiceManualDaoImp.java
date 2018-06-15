@@ -45,8 +45,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
 		if(!profile.getRoles().get(0).getName().equals("sup")) {
 			sql.append(" WHERE payment_m.CREATE_BY = ?");
 			param.add(profile.getUsername());
@@ -95,7 +95,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO payment_invoice_manual (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE)  ");
+				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE)  ");
 		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
 		jdbcTemplate.update(sql.toString(), paymentInvoiceManualBean.getManualId(),
@@ -122,8 +122,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1");
 		if (!accountNo.equals("")) {
 			sql.append(" AND payment_m.ACCOUNT_NO like ?");
@@ -138,8 +138,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE  payment_m.MANUAL_ID  =  ?");
 		param.add(manual_id);
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
@@ -152,8 +152,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1 ");
 		if (receiptNo != "" && "".equals(invoiceNo)) {
 			sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
@@ -182,7 +182,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	@Override
 	public void updateRecodeStatusFromReceiptNo(String status, long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE receipt_manual payment_m ");
+		sql.append(" UPDATE RECEIPT_MANUAL payment_m ");
 		sql.append(" SET payment_m.RECORD_STATUS =  ? ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
 		jdbcTemplate.update(sql.toString(), status, manualId);
@@ -193,9 +193,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentInvoiceManualBean> findPaymentInvoiceFromManualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM payment_invoice_manual payment_invoice where payment_invoice.MANUAL_ID = ?");
+		sql.append(" SELECT * FROM PAYMENT_INVOICE_MANUAL PAYMENT_INVOICE where PAYMENT_INVOICE.MANUAL_ID = ?");
 		param.add(manualId);
-		sql.append("  GROUP by payment_invoice.MANUAL_ID ORDER BY payment_invoice.CREATE_DATE DESC");
+		sql.append("  GROUP by PAYMENT_INVOICE.MANUAL_ID ORDER BY PAYMENT_INVOICE.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentInvoice);
 	}
@@ -203,7 +203,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	@Override
 	public void updateStatusPaymentInvoice(long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE payment_invoice_manual payment_m ");
+		sql.append(" UPDATE PAYMENT_INVOICE_MANUAL payment_m ");
 		sql.append(" SET payment_m.RECORD_STATUS =  'C' ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
 		jdbcTemplate.update(sql.toString(), manualId);
@@ -212,8 +212,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM receipt_manual pm");
-		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL pm");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim on pm.INVOICE_NO = pim.INVOICE_NO ");
 		if (paymentInvBean.getPayDate() != null && paymentInvBean.getPayDateTo() != null) {
 			sql.append(" where ");
 			sql.append(" pm.PAID_DATE BETWEEN '" + paymentInvBean.getPayDate() + "'");
@@ -237,8 +237,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean paymentInvBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM receipt_manual pm");
-		sql.append(" INNER JOIN payment_invoice_manual pim on pm.INVOICE_NO = pim.INVOICE_NO ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL pm");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim on pm.INVOICE_NO = pim.INVOICE_NO ");
 		if (paymentInvBean.getPayDate() != null && paymentInvBean.getPayDateTo() != null) {
 			sql.append(" where ");
 			sql.append(" pm.PAID_DATE BETWEEN '" + paymentInvBean.getPayDate() + "'");
@@ -302,8 +302,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
 					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE");
-			sql.append(" FROM receipt_manual py");
-			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+			sql.append(" FROM RECEIPT_MANUAL py");
+			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE  ");
 			sql.append(" py.DOCTYPE = ? ");
 			if (StringUtils.isNoneEmpty(historyRpt.getDateFrom())
@@ -357,7 +357,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
 					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,pim.VAT_RATE,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE ");
-			sqlStmt.append(" FROM payment_invoice_manual pim ");
+			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
 			sqlStmt.append(" GROUP by pim.MANUAL_ID ORDER BY pim.CREATE_DATE DESC");
@@ -387,7 +387,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insertInvoice(InvoiceBean invoice) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO `payment_invoice` (`MANUAL_ID`, `INVOICE_NO`, `INVOICE_DATE`, `DATE_LINE`, `BEFOR_VAT`, `VAT_AMOUNT`, `PAID_AMOUNT`, `AMOUNT`, `VAT_RATE`, `CUSTOMER_NAME`, `CUSTOMER_ADDRESS`, `CUSTOMER_SEGMENT`, `CUSTOMER_BRANCH`, "
+				"INSERT INTO `PAYMENT_INVOICE` (`MANUAL_ID`, `INVOICE_NO`, `INVOICE_DATE`, `DATE_LINE`, `BEFOR_VAT`, `VAT_AMOUNT`, `PAID_AMOUNT`, `AMOUNT`, `VAT_RATE`, `CUSTOMER_NAME`, `CUSTOMER_ADDRESS`, `CUSTOMER_SEGMENT`, `CUSTOMER_BRANCH`, "
 						+ "`TAXNO`, `ACCOUNTSUBNO`, `PERIOD`, `SERVICENAME`, `SERVICE_TYPE`, `CHANG`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`, `DISCOUNT`) ");
 		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
@@ -442,7 +442,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		InvoiceBean result = new InvoiceBean();
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM payment_invoice invoice WHERE invoice.MANUAL_ID = ?");
+		sql.append(" SELECT * FROM PAYMENT_INVOICE invoice WHERE invoice.MANUAL_ID = ?");
 		param.add(manualId);
 		sql.append(" GROUP by invoice.MANUAL_ID  ORDER BY invoice.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
@@ -458,7 +458,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public PaymentInvoiceManualBean findInvoiceManualByManualId(Long manualId) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM payment_invoice_manual invoice WHERE invoice.MANUAL_ID = ?");
+		sql.append(" SELECT * FROM PAYMENT_INVOICE_MANUAL invoice WHERE invoice.MANUAL_ID = ?");
 		param.add(manualId);
 		sql.append(" GROUP by invoice.MANUAL_ID  ORDER BY invoice.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
@@ -469,8 +469,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVs(String clearing) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" SELECT * FROM receipt_manual payment_m ");
-		sql.append(" INNER JOIN payment_invoice_manual paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
 		sql.append(" WHERE payment_m.CLEARING = ?");
 		param.add(clearing);
 		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");

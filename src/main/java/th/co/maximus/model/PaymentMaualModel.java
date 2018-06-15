@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "receipt_manual")
+@Table(name = "RECEIPT_MANUAL")
 public class PaymentMaualModel {
 	private  Long   manualId;
 	private  Long   paymentId;

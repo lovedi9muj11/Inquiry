@@ -168,7 +168,7 @@ Date date = new Date();
 	
 	@Override
 	public List<TrsMethodManualBean> TrsmethodManualAll() {
-//		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
+//		return jdbcTemplate.query("select * from 	", new TrsMethodManualJoin());
 		return null;
 	}
 }

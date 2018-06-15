@@ -56,14 +56,14 @@ public class MapGLDaoImp implements MapGLDao{
 	@Override
 	public List<MapGLBean> findAll() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM map_gl_service_type  ");
+		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE  ");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 
 	@Override
 	public List<MapGLBean> findBySource(String source) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM map_gl_service_type mg  ");
+		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
 		sql.append(" WHERE mg.SOURCE = '"+source+"'");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}

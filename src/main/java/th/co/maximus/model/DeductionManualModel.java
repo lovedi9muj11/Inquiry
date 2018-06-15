@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "deduction_manual")
+@Table(name = "DEDUCTION_MANUAL")
 public class DeductionManualModel {
 	private Long deductionManualIdPrimary;
 	private String deDuctionNo;

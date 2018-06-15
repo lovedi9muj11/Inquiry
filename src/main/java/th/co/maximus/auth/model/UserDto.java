@@ -2,6 +2,7 @@ package th.co.maximus.auth.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 public class UserDto {
+	@Column(name = "ID")
     private Long id;
+	@Column(name = "Username")
     private String username;
+	@Column(name = "Password")
     private String password;
     private String passwordConfirm;
     private List<Role> roles;
@@ -57,7 +61,7 @@ public class UserDto {
     }
 
     @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public List<Role> getRoles() {
         return roles;
     }

@@ -29,7 +29,7 @@ public class DeductionManualImpl implements DeductionManualDao{
 	@Override
 	public void insert(DeductionManualBean deductionManualBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO deduction_manual ( DEDUCTIONNO, DEDUCTIONTYPE, AMOUNT, PAYMENTDATE, UPDATEDTTM, VERSIONSTAMP, INVOICE_NO,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID) ");
+		sql.append(" INSERT INTO DEDUCTION_MANUAL ( DEDUCTIONNO, DEDUCTIONTYPE, AMOUNT, PAYMENTDATE, UPDATEDTTM, VERSIONSTAMP, INVOICE_NO,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID) ");
 		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 		jdbcTemplate.update(sql.toString(),  deductionManualBean.getDeDuctionNo(), deductionManualBean.getDeDuctionType(),deductionManualBean.getaMount(),
 				deductionManualBean.getPaymentDate(),deductionManualBean.getUpdateDttm(),deductionManualBean.getVersionStamp(),deductionManualBean.getInvoiceNo(),deductionManualBean.getRemark(),deductionManualBean.getCreateBy(),deductionManualBean.getCreateDate(),
@@ -68,7 +68,7 @@ public class DeductionManualImpl implements DeductionManualDao{
 	@Override
 	public List<DeductionManualBean> findDeductionManualFromManualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("  SELECT * FROM deduction_manual deduction_m where deduction_m.MANUAL_ID = ");
+		sql.append("  SELECT * FROM DEDUCTION_MANUAL deduction_m where deduction_m.MANUAL_ID = ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new DeductionManualJoin());
 	}
@@ -80,7 +80,7 @@ public class DeductionManualImpl implements DeductionManualDao{
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT ded.DEDUCTIONNO ,ded.DEDUCTIONTYPE,ded.AMOUNT,ded.PAYMENTDATE,ded.INVOICE_NO,ded.REMARK ");
-			sqlStmt.append(" FROM deduction_manual ded ");
+			sqlStmt.append(" FROM DEDUCTION_MANUAL ded ");
 			sqlStmt.append(" WHERE  ded.MANUAL_ID = ?  ");
 			
 			

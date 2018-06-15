@@ -35,10 +35,10 @@ public class ReportDaoImpl implements ReportDao{
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, py.SOURCE ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,pim.AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pay.VAT_AMOUNT, ");
 			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,pay.PAID_AMOUNT,pim.PERIOD,py.DOCTYPE ");
-			sql.append(" FROM receipt_manual py");
-			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
-			sql.append(" INNER JOIN trsmethod_manual tm ON tm.MANUAL_ID = py.MANUAL_ID");
-			sql.append(" INNER JOIN payment_invoice pay ON pay.MANUAL_ID = py.MANUAL_ID");
+			sql.append(" FROM RECEIPT_MANUAL py");
+			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
+			sql.append(" INNER JOIN TRSMETHOD_MANUAL tm ON tm.MANUAL_ID = py.MANUAL_ID");
+			sql.append(" INNER JOIN PAYMENT_INVOICE pay ON pay.MANUAL_ID = py.MANUAL_ID");
 			sql.append(" WHERE py.RECEIPT_NO_MANUAL = ?");
 			sql.append(" GROUP BY tm.NAME ");
 			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
@@ -67,9 +67,9 @@ public class ReportDaoImpl implements ReportDao{
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, pim.SERVICENAME ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pim.DISCOUNTSPECIAL,pim.AMOUNT,pim.DISCOUNTBEFORVAT,tm.METHOD_MANUAL_ID");
-			sql.append(" FROM receipt_manual py");
-			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
-			sql.append(" INNER JOIN trsmethod_manual tm ON tm.MANUAL_ID = py.MANUAL_ID");
+			sql.append(" FROM RECEIPT_MANUAL py");
+			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+			sql.append(" INNER JOIN TRSMETHOD_MANUAL tm ON tm.MANUAL_ID = py.MANUAL_ID");
 			sql.append(" WHERE py.RECEIPT_NO_MANUAL = ?");
 			//sql.append(" GROUP BY pim.SERVICENAME ");
 			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
@@ -97,8 +97,8 @@ public class ReportDaoImpl implements ReportDao{
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME,py.CREATE_BY, pim.TAXNO ,py.INVOICE_NO , py.BRANCH_AREA, py.BRANCH_CODE ,py.PAID_AMOUNT,py.RECORD_STATUS,pim.VAT_RATE");
-			sql.append(" FROM receipt_manual py");
-			sql.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+			sql.append(" FROM RECEIPT_MANUAL py");
+			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE  ");
 			sql.append(" py.DOCTYPE = ? ");
 			if(StringUtils.isNoneEmpty(creteria.getDateFrom())) {

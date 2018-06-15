@@ -52,35 +52,35 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 	@Override
 	public List<MasterDatasBean> findByRevenueType() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data WHERE GROUP_KEY = 'REVENUE_TYPE'  ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = 'REVENUE_TYPE'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
 	@Override
 	public List<MasterDatasBean> findByProduct() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data WHERE GROUP_KEY = 'PRODUCT'  ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = 'PRODUCT'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
 	@Override
 	public List<MasterDatasBean> findByVat() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data WHERE GROUP_KEY = 'VAT'  ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = 'VAT'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
 	@Override
 	public List<MasterDatasBean> findByBankName() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data WHERE GROUP_KEY = 'BANK_TYPE'  ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = 'BANK_TYPE'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
 	@Override
 	public MasterDatasBean findByKey(String keyCode) {
 		StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM master_data WHERE KEYCODE = ? ");
+			sql.append("SELECT * FROM MASTER_DATA WHERE KEYCODE = ? ");
 			MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { keyCode }, new masterData());
 			return master;
 	}

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "trsmethod_manual")
+@Table(name = "TRSMETHOD_MANUAL")
 public class TrsMethodManualModel {
 	private  Long   methodManualId;
 	private  String   code;

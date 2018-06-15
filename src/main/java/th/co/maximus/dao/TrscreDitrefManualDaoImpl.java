@@ -31,7 +31,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO trscreditref_manual ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID ,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE) ");
+		sql.append(" INSERT INTO TRSCREDITREF_MANUAL ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID ,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE) ");
 		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?) ");
 		jdbcTemplate.update(sql.toString(),  trscreDitrefManualBean.getCreditNo(), trscreDitrefManualBean.getPublisherdec(),trscreDitrefManualBean.getCardType(),trscreDitrefManualBean.getaMount(),
 				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId(),trscreDitrefManualBean.getCreateBy(),trscreDitrefManualBean.getCreateDate(),trscreDitrefManualBean.getUpdateBy(),trscreDitrefManualBean.getUpdateDate());
@@ -63,7 +63,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Override
 	public List<TrscreDitrefManualBean> trscreDitrefManualFromManualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select * from trscreditref_manual trscreditref_m where trscreditref_m.ID = ");
+		sql.append("select * from TRSCREDITREF_MANUAL trscreditref_m where trscreditref_m.ID = ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new TrscreDitrefManualJoin());
 	}
@@ -76,7 +76,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT tcm.CREDITNO ,tcm.PUBLISHERDEC,tcm.CARDTYPE,tcm.AMOUNT ");
-			sqlStmt.append(" FROM trscreditref_manual tcm ");
+			sqlStmt.append(" FROM TRSCREDITREF_MANUAL tcm ");
 			sqlStmt.append(" WHERE  tcm.METHOD_MANUAL_ID = ?  ");
 			
 			

@@ -18,7 +18,7 @@ public class TmpInvoiceDaoImpl implements TmpInvoiceDao{
 	@Override
 	public void insertTmpInvoice(TmpInvoiceBean tmpInvoiceBean) {
 		StringBuilder sql = new StringBuilder();
-		 sql.append("INSERT INTO payment_invoice (MANUAL_ID, INVOICE_NO,INVOICE_DATE,DATE_LINE,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD ,CHANG, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,PAID_AMOUNT,DISCOUNT)  ");  
+		 sql.append("INSERT INTO PAYMENT_INVOICE (MANUAL_ID, INVOICE_NO,INVOICE_DATE,DATE_LINE,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD ,CHANG, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,PAID_AMOUNT,DISCOUNT)  ");  
 		 sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 		 
 		 jdbcTemplate.update(sql.toString(), tmpInvoiceBean.getManualId(),tmpInvoiceBean.getInvoiceNo(),tmpInvoiceBean.getInvoiceDate(),tmpInvoiceBean.getDateLine()

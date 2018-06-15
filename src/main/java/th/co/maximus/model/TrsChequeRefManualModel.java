@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "trschequeref_manual")
+@Table(name = "TRSCHEQUEREF_MANUAL")
 public class TrsChequeRefManualModel {
 	private  Long   Id;
 	private  String   chequeNo;

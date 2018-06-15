@@ -35,7 +35,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByBankCode() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.group_key = 'BANK_TYPE' ");
 		return jdbcTemplate.query(sql.toString() , new masterDataCode());
 	}
@@ -43,7 +43,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByBankName() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.group_key = 'BANK_TYPE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -51,7 +51,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAll() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.groupType = 'INITVALUE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -59,7 +59,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public int insertMasterdata(MasterDataBean masterDataBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO master_data (valueKey, text, groupType)  VALUES (?,?,?)";
+		String sql = "INSERT INTO MASTER_DATA (valueKey, text, groupType)  VALUES (?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
@@ -76,7 +76,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public int insertMasterdataGroup(MasterDataBean masterDataBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO master_data (valueKey, text, groupType)  VALUES (?,?,?)";
+		String sql = "INSERT INTO MASTER_DATA (valueKey, text, groupType)  VALUES (?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
@@ -93,7 +93,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByServiceType() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM map_gl_service_type mg  ");
+		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
 		sql.append(" WHERE mg.SOURCE = '"+Constants.MasterData.OTHER+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -101,7 +101,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByServiceDepartment() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.BUSINESS_AREA+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -109,14 +109,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByServiceName() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.groupType = 'SERVICENAME'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	@Override
 	public List<MasterDataBean> findAllByCategory() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.OTHER_PAYMENT_UNIT+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -124,7 +124,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAllByGropType(String groupType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM master_data ms  ");
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.groupType = ");
 		sql.append("'"+groupType+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
@@ -132,7 +132,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 
 	@Override
 	public void insertMasterDataSync(MasterDataSyncBean masterDataSyncBean) {
-		String sql = "INSERT INTO master_data (KEYCODE, VALUE, GROUP_KEY, TYPE, STATUS, ORDERED, PARENT_ID, REF_ID, PROPERTY_1, PROPERTY_2, PROPERTY_3, PROPERTY_4, PROPERTY_5, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO MASTER_DATA (KEYCODE, VALUE, GROUP_KEY, TYPE, STATUS, ORDERED, PARENT_ID, REF_ID, PROPERTY_1, PROPERTY_2, PROPERTY_3, PROPERTY_4, PROPERTY_5, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		java.util.Date now = new java.util.Date();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -163,7 +163,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 
 	@Override
 	public void deleteBeforInsertMS() {
-		String del = "delete from master_data";
+		String del = "delete from MASTER_DATA";
 		jdbcTemplate.update(del);
 	}
 	

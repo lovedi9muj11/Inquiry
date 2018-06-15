@@ -38,7 +38,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				" INSERT INTO trsmethod_manual (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID,CREDITNO) ");
+				" INSERT INTO TRSMETHOD_MANUAL (CODE, NAME, CHEQUENO,ACCOUNTNO,AMOUNT,UPDATEDTTM, VERSIONSTAMP,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,MANUAL_ID,CREDITNO) ");
 		sql.append("  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -70,7 +70,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 	@Override
 	public List<TrsMethodManualBean> findTrsMethodManualFromManualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM trsmethod_manual trsmethod_m where trsmethod_m.MANUAL_ID = ");
+		sql.append(" SELECT * FROM TRSMETHOD_MANUAL trsmethod_m where trsmethod_m.MANUAL_ID = ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString(), new TrsMethodManual());
 	}
@@ -113,7 +113,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
 				"SELECT trm.CODE ,trm.NAME,trm.CHEQUENO,trm.CREDITNO,trm.ACCOUNTNO,trm.AMOUNT, trm.METHOD_MANUAL_ID, trm.VERSIONSTAMP, trm.UPDATE_BY ");
-		sqlStmt.append(" FROM trsmethod_manual trm ");
+		sqlStmt.append(" FROM TRSMETHOD_MANUAL trm ");
 		sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
 		
 		@SuppressWarnings("unchecked")

@@ -72,6 +72,12 @@ public class PayOtherController {
 	public String payment(Model model, @RequestBody PaymentOtherFirstBean paymentBean, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int paymentId = 0;
+		System.out.println(paymentBean.getPaymentBill());
+
+		System.out.println(paymentBean.getPaymentTranPrice());
+		
+		System.out.println(paymentBean.getPaymentTax());
+		
 		try {
 			paymentId = paymentOtherService.insert(paymentBean);
 

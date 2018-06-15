@@ -38,7 +38,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO receipt_manual (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_RATE,VAT_AMOUNT)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_RATE,VAT_AMOUNT)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });
@@ -76,10 +76,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append(" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM deduction_manual dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,tmp.PAID_AMOUNT ");
-			sqlStmt.append(" FROM receipt_manual py ");
-			sqlStmt.append(" INNER JOIN payment_invoice_manual pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
-			sqlStmt.append(" INNER JOIN payment_invoice tmp ON tmp.MANUAL_ID =  py.MANUAL_ID AND tmp.INVOICE_NO = py.INVOICE_NO ");
+			sqlStmt.append(" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,tmp.PAID_AMOUNT ");
+			sqlStmt.append(" FROM RECEIPT_MANUAL py ");
+			sqlStmt.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
+			sqlStmt.append(" INNER JOIN PAYMENT_INVOICE tmp ON tmp.MANUAL_ID =  py.MANUAL_ID AND tmp.INVOICE_NO = py.INVOICE_NO ");
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
 			
 			
@@ -100,7 +100,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<PaymentManualBean> findPaymentManualFromNanualId(long manualId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM receipt_manual payment_m  ");
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m  ");
 		sql.append(" WHERE payment_m.MANUAL_ID =  ");
 		sql.append(manualId);
 		return jdbcTemplate.query(sql.toString() , new PaymentManual());
@@ -144,8 +144,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT PM.*,PIM.* ");
-		sql.append(" FROM receipt_manual PM ");
-		sql.append(" INNER JOIN payment_invoice_manual PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" FROM RECEIPT_MANUAL PM ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'"+criteria.getDateFrom()+"'").append("  AND PM.CREATE_DATE <= ").append("'"+criteria.getDateTo()+"'");
 		if(!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
 			sql.append(" AND PIM.VAT_RATE = ").append("'"+criteria.getVatRate()+"'");
@@ -196,7 +196,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID ");
-			sqlStmt.append(" FROM receipt_manual py ");
+			sqlStmt.append(" FROM RECEIPT_MANUAL py ");
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = 'A' ");
 			
 			

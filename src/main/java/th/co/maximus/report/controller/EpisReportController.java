@@ -364,7 +364,7 @@ public class EpisReportController {
 		List<String> result = new ArrayList<>();
 		for (int i = 0; i < collections.size(); i++) {
 			String payCode = "";
-			InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean) collections.get(i);
+			InvEpisOfflineByInsaleBean stockObject = collections.get(i);
 
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
@@ -379,8 +379,6 @@ public class EpisReportController {
 				payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
 				result.add(payCode);
 			}
-
-			
 
 		}
 		for (int i = 0; i < collections.size(); i++) {

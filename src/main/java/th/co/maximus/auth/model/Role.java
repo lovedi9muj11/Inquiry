@@ -2,6 +2,7 @@ package th.co.maximus.auth.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +11,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
+@Table(name = "ROLE")
 public class Role {
+	
+	@Column(name = "ID")
     private Long id;
+	@Column(name = "Name")
     private String name;
     private List<UserDto> users;
 
