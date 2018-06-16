@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.MasterDatasDao;
+import th.co.maximus.dao.UserDao;
+import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
 
 @Service
@@ -27,6 +30,9 @@ public class MasterDataServiceImpl implements MasterDataService{
 	
 	@Autowired
 	MasterDataService masterDataService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	List<GroupTypeDropdown> groupTypeDropdownList;
 	GroupTypeDropdown groupTypeDropdown;
@@ -150,6 +156,12 @@ public class MasterDataServiceImpl implements MasterDataService{
 	public MasterDatasBean findByKeyCode(String keyCode) {
 		// TODO Auto-generated method stub
 		return masterDatasDao.findByKey(keyCode);
+	}
+
+	@Override
+	public UserBean findByUsername(String username) throws SQLException {
+		
+		return userDao.findByUsername(username);
 	}
 
 }

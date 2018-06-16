@@ -38,6 +38,8 @@ public class ExportPDFReport {
 	private String discountStr;
 	private String balanceSummaryStr;
 	private String amountPaymentStr;
+	private String surName;
+	private String lastname;
 	
 	
 	
@@ -238,6 +240,18 @@ public class ExportPDFReport {
 	}
 	public void setAmountPaymentStr(String amountPaymentStr) {
 		this.amountPaymentStr = amountPaymentStr;
+	}
+	public String getSurName() {
+		return surName;
+	}
+	public void setSurName(String surName) {
+		this.surName = surName;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	
 	

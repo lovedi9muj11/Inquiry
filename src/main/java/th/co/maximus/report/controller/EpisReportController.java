@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRProperties;
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ExportPDFByInsaleReport;
 import th.co.maximus.bean.ExportPDFReport;
 import th.co.maximus.bean.HistoryReportBean;
@@ -39,6 +42,7 @@ import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
+import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.ReportService;
 import th.co.maximus.service.TrsChequeRefManualService;
@@ -58,7 +62,14 @@ public class EpisReportController {
 	private MasterDataService masterDataService;
 
 	private ServletContext context;
-
+	@Value("${text.prefix}")
+	private String nameCode;
+	@Value("${text.posno}")
+	private String posNo;
+	@Value("${text.branarea}")
+	private String branArea;
+	@Value("${text.branCode}")
+	private String branCode;
 	@Autowired
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
@@ -78,7 +89,7 @@ public class EpisReportController {
 
 	private void previewEpisOffilneprint(HttpServletRequest request, HttpServletResponse response,
 			List<InvEpisOfflineReportBean> collections) throws Exception {
-		
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean) collections.get(0);
@@ -103,16 +114,19 @@ public class EpisReportController {
 		
 		
 
-		MasterDatasBean valueBean = masterDataService.findByKeyCode(invObject.getBranArea());
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		
 		exportPDFReport.setBranArea(valueBean.getValue());
-		exportPDFReport.setBracnCode(" " +invObject.getBracnCode() + " ");
+		exportPDFReport.setBracnCode(" " +branCode + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
 		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
+		exportPDFReport.setSurName(bean.getSurName());
+		exportPDFReport.setLastname(bean.getLastName());
 		
 		exportPDFReport.setServiceNo(invObject.getServiceNo());
 		if(StringUtils.isNotBlank(invObject.getServiceNo())) {

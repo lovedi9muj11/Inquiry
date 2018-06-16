@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.1000000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="54"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -474,7 +474,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="121">
+		<band height="149">
 			<frame>
 				<reportElement x="-1" y="18" width="565" height="49" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
 				<staticText>
@@ -485,7 +485,7 @@
 					</textElement>
 					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
 
-อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
+อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษีฉบับนี้จริง]]></text>
 				</staticText>
 			</frame>
 			<staticText>
@@ -502,6 +502,13 @@
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="518" y="121" width="239" height="23" uuid="e46f9315-14d6-45a8-a172-149dbe834977"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

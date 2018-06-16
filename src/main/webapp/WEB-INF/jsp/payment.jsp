@@ -82,7 +82,7 @@
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="custNo"
 															name="custNo" placeholder="เลขที่ลูกค้า">
-														<p id="sCustNo" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="sCustNo" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่ลูกค้า</p>
 													</div>
 													<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
@@ -136,14 +136,12 @@
 															<option value="8">ธุรกิจ กสท</option>
 															<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
 														</select>
-														<p id="suserGroup" style="color: red;">
+														<p id="suserGroup" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
 													</div>
 
-													<label class="col-sm-2 control-label right"
-														for="formGroupInputLarge">หน่วยงานติดตามหนี้ :<span
-														style="color: red;">*</span></label>
-													<div class="col-sm-2">
+
+													<div class="col-sm-2" hidden>
 														<select class="form-control" id="debtCollection"
 															name="debtCollection">
 															<option value="">== กรุณาเลือก ==</option>
@@ -152,8 +150,6 @@
 															<option value="ปง.">ปง.</option>
 															<option value="ทต.">ทต.</option>
 														</select>
-														<p id="sdebtCollection" style="color: red;">
-															คุณยังไม่ได้เลือก หน่วยงานติดตามหนี้</p>
 
 													</div>
 													<label class="col-sm-2 control-label right" for="invoiceNo">เลขที่ใบแจ้ง
@@ -162,15 +158,10 @@
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="invoiceNo"
 															name="c" placeholder="เลขที่ใบแจ้ง">
-														<p id="sinvoiceNo" style="color: red;">
+														<p id="sinvoiceNo" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก เลขที่ใบแจ้ง</p>
 
 													</div>
-
-												</div>
-											</div>
-											<div class="row">
-												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">หมายเลขบริการ :</label>
 													<div class="col-sm-2">
@@ -178,26 +169,31 @@
 															name="serviceNo" placeholder="หมายเลขบริการ">
 														<!-- 														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p> -->
 													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group">
+
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รอบการใช้งานเริ่มต้น :<span
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="startupDate"
 															name="startupDate" onchange="datePriod()">
-														<p id="sstartupDate" style="color: red;">
+														<p id="sstartupDate" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก รอบการใช้งานเริ่มต้น</p>
-														<p id="sstartupDate1" style="color: red;">
+														<p id="sstartupDate1" style="color: red; display: none;">
 															รอบการใช้งานเริ่มต้นให้น้อยกว่า "รอบใช้งานสิ้นสุด"</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รอบการใช้งานสิ้นสุด : <span
-														style="color: red;">*</span></label>
+														style="color: red; display: none;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="endDate"
 															name="endDate" onchange="datePriod1()">
-														<p id="sendDate" style="color: red;">
+														<p id="sendDate" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก รอบการใช้งานสิ้นสุด</p>
-														<p id="sendDate1" style="color: red;">
+														<p id="sendDate1" style="color: red; display: none;">
 															รอบการใช้งานสิ้นสุดให้มากกว่า "รอบใช้งานเริ่มต้น"</p>
 													</div>
 												</div>
@@ -206,21 +202,21 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันครบกำหนด :<span
-														style="color: red;">*</span></label>
+														style="color: red; display: none;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="deadlines"
 															name="deadlines">
-														<p id="sdeadlines" style="color: red;">
+														<p id="sdeadlines" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก วันครบกำหนด</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันจัดทำใบแจ้งค่าใช้บริการ
-														: <span style="color: red;">*</span>
+														: <span style="color: red; display: none;">*</span>
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="invoiceDate"
 															name="invoiceDate">
-														<p id="sinvoiceDate" style="color: red;">
+														<p id="sinvoiceDate" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก วันจัดทำใบแจ้งค่าใช้บริการ</p>
 													</div>
 												</div>
@@ -298,7 +294,7 @@
 													<div class="col-sm-2">
 														<input class="form-control numeric2point" type="text"
 															id="balanceSummary" name="balanceSummary">
-														<p id="sBalanceSummary" style="color: red;">
+														<p id="sBalanceSummary" style="color: red; display: none;">
 															ยอดเงินของคุณ เกินยอดชำระจากใบแจ้งหนี้</p>
 													</div>
 												</div>
@@ -353,7 +349,7 @@
 													<div class="col-sm-6">
 														<input class="form-control" type="text" id="docDed"
 															name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
-														<p id="sdocDed" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="sdocDed" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่เอกสาร</p>
 													</div>
 												</div>
@@ -366,7 +362,7 @@
 														<input class="form-control numeric2point" type="text"
 															id="moneyDed" name="paymentTax.moneyDed"
 															placeholder="จำนวนเงิน">
-														<p id="smoneyDed" style="color: red;">
+														<p id="smoneyDed" style="color: red; display: none;">
 															คุณยังไม่ได้กรอก จำนวนเงิน</p>
 													</div>
 												</div>
@@ -384,7 +380,7 @@
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการภาษีหัก
 																ณ ที่จ่าย</span>
 														</button>
-														<p id="saddRow" style="color: red;">
+														<p id="saddRow" style="color: red; display: none;">
 															ลบรายการรับชำระออกก่อน</p>
 													</div>
 
@@ -422,7 +418,7 @@
 															class="btn btn-primary">
 															<span class="glyphicon glyphicon-plus">เพิ่มรายการหัก</span>
 														</button>
-														<p id="saddRow1" style="color: red;">
+														<p id="saddRow1" style="color: red; display: none;">
 															ลบรายการรับชำระออกก่อน</p>
 													</div>
 												</div>

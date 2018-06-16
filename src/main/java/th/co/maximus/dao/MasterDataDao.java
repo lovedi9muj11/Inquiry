@@ -1,11 +1,13 @@
 package th.co.maximus.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.model.UserBean;
 
 @Repository
 public interface MasterDataDao {

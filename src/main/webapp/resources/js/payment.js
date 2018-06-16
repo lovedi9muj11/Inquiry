@@ -26,13 +26,6 @@ $(document).ready(function() {
 				if(dataCheck > 0){
 					result = result - 	dataCheck;
 				}
-				
-				
-				
-				
-				
-			    // keydown code
-				
 				var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
 				if(bable < 0 || !bable){
 					bable = 0;
@@ -74,26 +67,16 @@ $(document).ready(function() {
 				// Summary
 				$("#balanceSummarys").val( parseFloat(bable).toFixed(2));
 				$("#balanceSummaryShow").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
-				
 				$("#moneyTran").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#creditPrice").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				$("#moneyCheck").val(bable.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
-				
-				
-//				$("#balanceBeforeTaxs").val(beforeVat.toFixed(2));
-//				$("#vats").val(vat.toFixed(2));
 				var balanOfTax = $("#balanceOfTaxPrice").val();
 				if(balanOfTax == ""){
 					balanOfTax = parseFloat(0);
 				}else{
 					balanOfTax = FormatMoneyShowToNumber(balanOfTax);
-				}
-				
-				
+				}	
 				if(balanOfTax < bable){
-//					alert("ยอดที่ต้องชำระมากกว่า ยอดใบแจ้งหนี้ กรุณากรอกใหม่");
 					$("#sBalanceSummary").show();
 					document.getElementById("radioButton").value = "";
 		        		document.getElementById("radioButtons").value = "";
@@ -134,8 +117,7 @@ $(document).ready(function() {
 		      		        	}
 		      		        	
 		      		        }
-					  });
-					    
+					  });  
 					  });
 					  
 					  $("#modal-btn-no").on("click", function(){
@@ -543,10 +525,6 @@ function submitForm(){
 	if($("#userGroup").val() == ""){
 		$("#suserGroup").show();
 		return $("#userGroup").focus();
-	}
-	if($("#debtCollection").val() == ""){
-		$("#sdebtCollection").show();
-		return $("#debtCollection").focus();
 	}
 	if($("#invoiceNo").val() == ""){
 		$("#sinvoiceNo").show();
