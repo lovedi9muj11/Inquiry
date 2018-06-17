@@ -56,15 +56,21 @@
 				<div class="row" style="padding-bottom: 10px">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="searchCriteria" name="searchCriteria"
-							class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
-						<button id="clearCriteria" name="clearCriteria"
-							class="btn btn-danger" style="width: 7%">ลบ</button>
+						<button id="searchCriteria" name="searchCriteria" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
+						<button id="clearCriteria" name="clearCriteria" class="btn btn-danger" style="width: 7%">ลบ</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<div class="box-footer">
+			<div class="row" style="padding-bottom: 10px">
+				<!-- Button -->
+				<div class="col-md-12 text-right">
+					<button id="send" name="send" class="btn btn-success"  style="width: 7%">ส่งหักล้าง</button>
+				</div>
+			</div>
+		</div>
 
 		<div class="panel" id="addressCustomerPM">
 			<div class="panel-heading">ประวัติการชำระ</div>
@@ -78,6 +84,7 @@
 								cellspacing="0" width="100%">
 								<thead>
 									<tr>
+										<th style="text-align: center; width: 1%"></th>
 										<th style="text-align: center; width: 1%">#</th>
 										<th style="text-align: center; width: 10%">วันที่ทำรายการ</th>
 										<th style="text-align: center;; width: 10%">วันที่ออกใบเสร็จรับเงิน</th>

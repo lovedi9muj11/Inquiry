@@ -6,7 +6,8 @@ $(document).ready(function () {
 		"columnDefs": [ {
 			"searchable": false,
 //			"orderable": false
-//			"targets": [0,2]
+//			"targets": [0,2],
+//			"checkboxes": {"selectRow": true}
 		} ]
 		});
 	
@@ -62,9 +63,9 @@ function createRow(data, seq) {
 	accountNo = data.accountNo;
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing
+    var rowNode = t.row.add([remark, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing
     ]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
+    $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
     $(rowNode).find('td').eq(3).addClass('left');
@@ -72,14 +73,15 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(5).addClass('left');
     $(rowNode).find('td').eq(6).addClass('left');
     $(rowNode).find('td').eq(7).addClass('left');
-    $(rowNode).find('td').eq(8).addClass('right');
-    $(rowNode).find('td').eq(9).addClass('center');
-    $(rowNode).find('td').eq(10).addClass('right');
+    $(rowNode).find('td').eq(8).addClass('left');
+    $(rowNode).find('td').eq(9).addClass('right');
+    $(rowNode).find('td').eq(10).addClass('center');
     $(rowNode).find('td').eq(11).addClass('right');
-    $(rowNode).find('td').eq(12).addClass('left');
-    $(rowNode).find('td').eq(13).addClass('center');
+    $(rowNode).find('td').eq(12).addClass('right');
+    $(rowNode).find('td').eq(13).addClass('left');
     $(rowNode).find('td').eq(13).addClass('center');
     $(rowNode).find('td').eq(15).addClass('center');
+    $(rowNode).find('td').eq(16).addClass('center');
 };
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');

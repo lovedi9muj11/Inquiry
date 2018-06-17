@@ -19,6 +19,7 @@ import th.co.maximus.bean.TrsMethodManualBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.core.utils.Utils;
+import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
@@ -28,7 +29,7 @@ import th.co.maximus.service.CancelPaymentService;
 
 @Service
 public class CancelPaymentServiceImp implements CancelPaymentService {
-	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
@@ -41,6 +42,9 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 
 	@Autowired
 	private TrsMethodManualDao trsMethodManualDao;
+	
+	@Autowired
+	private MasterDatasDao masterDatasDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() throws Exception {
@@ -107,10 +111,9 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo)
 			throws Exception {
 
-		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo);
-		for (PaymentMMapPaymentInvBean resultBean : result) {
-			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao
-					.findByManualId(Long.valueOf(resultBean.getManualId()));
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
+		for (PaymentMMapPaymentInvBean resultBean : paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo)) {
+			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
 			for (TrsMethodEpisOffline method : methodResult) {
 				if (paymentMethod.toString().equals("")) {
@@ -122,6 +125,8 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
 			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());
+			result.add(resultBean);
 		}
 
 //		Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>() {
