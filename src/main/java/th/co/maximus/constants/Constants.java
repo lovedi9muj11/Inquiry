@@ -26,6 +26,7 @@ public class Constants {
 		public static final String ACTIVE_A = "ปกติ";
 		public static final String ACTIVE_C = "ยกเลิก";
 		public static final String ACTIVE_AC = "รอหักล้าง";
+		public static final String ACTIVE_ = " - ";
 	}
 	
 	public static class report{
@@ -44,6 +45,9 @@ public class Constants {
 	public static class Service{
 		public static final String SERVICE_TYPE_IBACSS = "IBACSS";
 		public static final String SERVICE_TYPE_OTHER = "OTHER";
+		
+		public static final String CENTER_SERVICE = "ศูนย์บริการลูกค้า";
+		public static final String CENTER_SERVICE_ = "ศบล.";
 	}
 	
 	public static class MasterData{

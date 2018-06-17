@@ -379,6 +379,10 @@ public class BaseExcelRptService {
 		// font.setFontHeightInPoints((short)10);
 		font.setColor(IndexedColors.BLACK.getIndex());
 		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
 		cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);
@@ -392,6 +396,10 @@ public class BaseExcelRptService {
 		// font.setFontHeightInPoints((short)10);
 		font.setColor(IndexedColors.BLACK.getIndex());
 		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
 		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 		cellStyle.setWrapText(warpText);

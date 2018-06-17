@@ -1,10 +1,8 @@
 package th.co.maximus.service.report;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;

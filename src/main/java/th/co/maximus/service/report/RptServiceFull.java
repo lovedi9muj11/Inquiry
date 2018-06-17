@@ -17,14 +17,20 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDatasDao;
 
 @Service("rptServiceFull")
 public class RptServiceFull extends BaseExcelRptService{
+	
+	@Autowired
+	private MasterDatasDao masterDatasDao;
 	
 	protected Logger log = Logger.getLogger(getClass());
 	Locale localeTH = new Locale("th", "TH");
@@ -36,23 +42,31 @@ public class RptServiceFull extends BaseExcelRptService{
 	SimpleDateFormat formateDateEN = new SimpleDateFormat("dd/MM/yyyy", localeEN);
 	SimpleDateFormat formateYearTH = new SimpleDateFormat("yyyy", localeTH);
 	SimpleDateFormat formateHH = new SimpleDateFormat("HH:mm", localeTH);
+	
+	@Value("${text.branarea}")
+	private String branArea;
 
 	public Workbook getReport(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception{
-		SimpleDateFormat formatter2 = new SimpleDateFormat(Constants.DateTime.DATE_FORMAT, new Locale("th", "TH"));
+//		SimpleDateFormat formatter2 = new SimpleDateFormat(Constants.DateTime.DATE_FORMAT, new Locale("th", "TH"));
 		SimpleDateFormat formatter3 = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT, new Locale("th", "TH"));
 		Font fontNormal = createFontTHSarabanPSK(workbook, 14, false);
 		Font fontBold = createFontTHSarabanPSK(workbook, 14, true);
-		CellStyle txtLeftBor = createCellStyleForTextLeftBorder(workbook, fontNormal, true);
-		CellStyle txtCenterBor = createCellStyleForTextCenterBorder(workbook, fontNormal, true);
+//		CellStyle txtLeftBor = createCellStyleForTextLeftBorder(workbook, fontNormal, true);
+		CellStyle txtLeft = createCellStyleForTextLeft(workbook, fontNormal, true);
+		CellStyle numRightBor = createCellStyleForNumberTwoDecimalBorder(workbook, fontNormal);
+//		CellStyle txtCenterBor = createCellStyleForTextCenterBorder(workbook, fontNormal, true);
+		CellStyle txtCenter = createCellStyleForTextCenter(workbook, fontNormal, true);
 		CellStyle summary = createCellStyleForTextRightBorderBgGrey25Percent(workbook, fontBold, true);
 
-		String date = formatter2.format(new Date());
+		String date = formateDateEN.format(new Date());
 		String time = formateHH.format(new Date());
+		
+		String nameBranch = masterDatasDao.findByKey(branArea).getValue();
 
 		Sheet sh = workbook.getSheetAt(0);
 		Header header = sh.getHeader();
-		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom()))+" ").concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))))));
-		header.setLeft(sh.getHeader().getLeft().concat("xxx").concat("\n").concat("หน่วยงานรับชำระ : ").concat("\n").concat("เจ้าหน้าที่ : "));
+		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom()))))); // .concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))))
+		header.setLeft(sh.getHeader().getLeft().concat(nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_)).concat("\n").concat("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
 		header.setRight(sh.getHeader().getRight().concat(date+" "+time));
 
 		Footer footer = sh.getFooter();
@@ -78,7 +92,7 @@ public class RptServiceFull extends BaseExcelRptService{
 				Cell cell10 = row1.createCell(9);
 				
 				cell1.setCellValue(i+1);
-				cell2.setCellValue(entity.get(i).getDocumentDate().toString());
+				cell2.setCellValue(formateDateEN.format(entity.get(i).getDocumentDate()).toString());
 				cell3.setCellValue(entity.get(i).getDocumentNo());
 				cell4.setCellValue(entity.get(i).getCustName());
 				cell5.setCellValue(entity.get(i).getTaxId());
@@ -86,18 +100,18 @@ public class RptServiceFull extends BaseExcelRptService{
 				cell7.setCellValue(new Double((entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat()).toString()));
 				cell8.setCellValue(new Double((entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat()).toString()));
 				cell9.setCellValue(new Double((entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount()).toString()));
-				cell10.setCellValue(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_C);
+				cell10.setCellValue(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())?Constants.Status.ACTIVE_:Constants.Status.ACTIVE_C);
 				
-				cell1.setCellStyle(txtCenterBor);
-				cell2.setCellStyle(txtLeftBor);
-				cell3.setCellStyle(txtLeftBor);
-				cell4.setCellStyle(txtLeftBor);
-				cell5.setCellStyle(txtLeftBor);
-				cell6.setCellStyle(txtLeftBor);
-				cell7.setCellStyle(txtLeftBor);
-				cell8.setCellStyle(txtLeftBor);
-				cell9.setCellStyle(txtLeftBor);
-				cell10.setCellStyle(txtLeftBor);
+				cell1.setCellStyle(txtCenter);
+				cell2.setCellStyle(txtLeft);
+				cell3.setCellStyle(txtLeft);
+				cell4.setCellStyle(txtLeft);
+				cell5.setCellStyle(txtLeft);
+				cell6.setCellStyle(txtLeft);
+				cell7.setCellStyle(numRightBor);
+				cell8.setCellStyle(numRightBor);
+				cell9.setCellStyle(numRightBor);
+				cell10.setCellStyle(txtLeft);
 				
 			}
 			rowNum++;
@@ -168,9 +182,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell24.setCellStyle(summary);
 			sumCell25.setCellStyle(summary);
 			sumCell26.setCellStyle(summary);
-			sumCell27.setCellStyle(summary);
-			sumCell28.setCellStyle(summary);
-			sumCell29.setCellStyle(summary);
+			sumCell27.setCellStyle(numRightBor);
+			sumCell28.setCellStyle(numRightBor);
+			sumCell29.setCellStyle(numRightBor);
 			sumCell210.setCellStyle(summary);
 			
 			CellRangeAddress mergedCell1 = new CellRangeAddress(rowNum, rowNum, 0, 1);
@@ -206,9 +220,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell34.setCellStyle(summary);
 			sumCell35.setCellStyle(summary);
 			sumCell36.setCellStyle(summary);
-			sumCell37.setCellStyle(summary);
-			sumCell38.setCellStyle(summary);
-			sumCell39.setCellStyle(summary);
+			sumCell37.setCellStyle(numRightBor);
+			sumCell38.setCellStyle(numRightBor);
+			sumCell39.setCellStyle(numRightBor);
 			sumCell310.setCellStyle(summary);
 			
 			CellRangeAddress mergedCell2 = new CellRangeAddress(rowNum, rowNum, 0, 1);
@@ -244,9 +258,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell44.setCellStyle(summary);
 			sumCell45.setCellStyle(summary);
 			sumCell46.setCellStyle(summary);
-			sumCell47.setCellStyle(summary);
-			sumCell48.setCellStyle(summary);
-			sumCell49.setCellStyle(summary);
+			sumCell47.setCellStyle(numRightBor);
+			sumCell48.setCellStyle(numRightBor);
+			sumCell49.setCellStyle(numRightBor);
 			sumCell410.setCellStyle(summary);
 			
 			CellRangeAddress mergedCell3 = new CellRangeAddress(rowNum, rowNum, 0, 1);
