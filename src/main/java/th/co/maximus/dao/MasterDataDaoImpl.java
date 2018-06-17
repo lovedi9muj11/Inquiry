@@ -51,8 +51,8 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public List<MasterDataBean> findAll() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM MASTER_DATA ms  ");
-		sql.append(" WHERE ms.groupType = 'INITVALUE' ");
+		sql.append(" SELECT * FROM MASTER_DATA  ");
+//		sql.append(" WHERE ms.groupType = 'INITVALUE' ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	

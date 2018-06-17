@@ -49,7 +49,7 @@
 								<div class="form-group">
 									<div class="col-md-12 center ">
 										<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button>
-										<a class="btn btn-success " href="${contextPath}/create-master-data">สร้าง</a>
+<%-- 										<a class="btn btn-success " href="${contextPath}/create-master-data">สร้าง</a> --%>
 									</div>
 								</div>
 							</div>

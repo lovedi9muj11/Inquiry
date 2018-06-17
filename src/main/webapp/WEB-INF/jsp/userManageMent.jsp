@@ -35,41 +35,78 @@
 		<br />
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
-					<div class="form-group">
-						<label class="col-md-2 control-label right">ชื่อ : </label>
-						<div class="col-md-3 right">
-							<input type="text" id="name" class="form-control"></input>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label class="col-md-2 control-label right">ชื่อ : </label> -->
+<!-- 						<div class="col-md-3 right"> -->
+<!-- 							<input type="text" id="name" class="form-control"></input> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-md-2 left"> -->
+<!-- 							<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button> -->
+<!-- 							<button type="button" id="report" class="btn btn-primary " onclick="reportClick()">Report Excel</button> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					<div class="panel panel-default glasshd">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" href="#collapse2">Sync Data Online</a>
+							</h4>
 						</div>
-						<div class="col-md-2 left">
-							<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button>
-							<button type="button" id="report" class="btn btn-primary " onclick="reportClick()">Report Excel</button>
+						<div id="collapse2" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="glass">
+									<div class="form-group">
+										<label class="col-sm-4 control-label right">Sync User<font color="red">*</font> : </label>
+										<div class="col-sm-4">
+											<button type="button" id="userBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+										</div>
+									</div><br>
+<!-- 									</div> -->
+<!-- 									<div class="glass"> -->
+									<div class="form-group">
+										<label class="col-sm-4 control-label right">Master Data<font color="red">*</font> : </label>
+										<div class="col-sm-4">
+											<button type="button" id="msBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+										</div>
+									</div><br>
+<!-- 									</div> -->
+<!-- 									<div class="glass"> -->
+									<div class="form-group">
+										<label class="col-sm-4 control-label right">Sync MapGL<font color="red">*</font> : </label>
+										<div class="col-sm-4">
+											<button type="button" id="glBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<br />
-			<div class="row">
-			    <div class="col-md-12 col-sm-12">
-			        <div class="glass">
-			            <div class="">         
-			                <div class="table-responsive"> 
-			                    <table id="userList" class="table table-striped table-hover">
-			                        <thead>
-			                            <tr>
-			                                <th style="text-align: center;" width="10%">#</th>
-							                <th style="text-align: center;" width="40%">Name</th>
-							                <th style="text-align: center;" width="30%">Role</th>
-							                <th style="text-align: center;" width="20%">Action</th>
-			                            </tr>
-			                        </thead>
-			                        <tbody>
-			                        </tbody>
-			                    </table>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</div>
+<!-- 			<br /> -->
+			
+<!-- 			<div class="row"> -->
+<!-- 			    <div class="col-md-12 col-sm-12"> -->
+<!-- 			        <div class="glass"> -->
+<!-- 			            <div class="">          -->
+<!-- 			                <div class="table-responsive">  -->
+<!-- 			                    <table id="userList" class="table table-striped table-hover"> -->
+<!-- 			                        <thead> -->
+<!-- 			                            <tr> -->
+<!-- 			                                <th style="text-align: center;" width="10%">#</th> -->
+<!-- 							                <th style="text-align: center;" width="40%">Name</th> -->
+<!-- 							                <th style="text-align: center;" width="30%">Role</th> -->
+<!-- 							                <th style="text-align: center;" width="20%">Action</th> -->
+<!-- 			                            </tr> -->
+<!-- 			                        </thead> -->
+<!-- 			                        <tbody> -->
+<!-- 			                        </tbody> -->
+<!-- 			                    </table> -->
+<!-- 			                </div> -->
+<!-- 			            </div> -->
+<!-- 			        </div> -->
+<!-- 			    </div> -->
+<!-- 			</div> -->
+			
 		</div>
 		</div>
 	</div>

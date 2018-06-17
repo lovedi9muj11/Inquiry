@@ -1,14 +1,20 @@
 var tUser;
 $(document).ready(function() {
-	tUser = $('#userList').DataTable({
-		"filter" : false,
-		"info" : false,
-		"columnDefs": [ {
-			"searchable": false,
-			"orderable": false,
-			"targets": [1,3]
-		} ]
-		});
+//	tUser = $('#userList').DataTable({
+//		"filter" : false,
+//		"info" : false,
+//		"columnDefs": [ {
+//			"searchable": false,
+//			"orderable": false,
+//			"targets": [1,3]
+//		} ]
+//		});
+	
+	$('#userBtn').click(syncUser);
+	
+	$('#msBtn').click(syncMasterData);
+	
+	$('#glBtn').click(syncMapGl);
 });
 
 
@@ -68,4 +74,52 @@ function reportClick() {
 	$('#rptCode').val('RPTxxx');
 	$("#reportFrom").attr("action", "/printReport.xls").attr("target", "_blank").submit();
 	
+}
+
+function syncUser() {
+	console.log('syncUser')
+	
+	$.ajax({
+        type: "GET",
+        url: "syncUser",
+//        data: JSON.stringify(dataSend),
+//        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	console.log(res)
+        }
+	})
+}
+
+function syncMapGl() {
+	console.log('syncMapGl')
+	
+	$.ajax({
+        type: "GET",
+        url: "syncMapGL",
+//        data: JSON.stringify(dataSend),
+//        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	console.log(res)
+        }
+	})
+}
+
+function syncMasterData() {
+	console.log('syncMasterData')
+	
+	$.ajax({
+        type: "GET",
+        url: "syncMasterData",
+//        data: JSON.stringify(dataSend),
+//        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	console.log(res)
+        }
+	})
 }

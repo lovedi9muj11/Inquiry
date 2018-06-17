@@ -10,7 +10,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.BeanClass;
@@ -23,7 +25,7 @@ import th.co.maximus.service.MapGLService;
 import th.co.maximus.service.MasOfficerService;
 import th.co.maximus.service.MasterDataService;
 
-@Controller
+@RestController
 public class CallEpisOnline {
 	
 	@Value("${url.online}")
@@ -59,7 +61,8 @@ public class CallEpisOnline {
 		
 	}
 	
-	public void callOnlineSyncMasterData(){
+	@RequestMapping(value = "/syncMasterData", method = RequestMethod.GET, produces = "application/json")
+	public String callOnlineSyncMasterData(){
 		try {
 			MasterDataSyncBean masterDataSyncBean = new MasterDataSyncBean();
 			List<MasterDataSyncBean> list = new ArrayList<MasterDataSyncBean>();
@@ -104,10 +107,12 @@ public class CallEpisOnline {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	return Constants.SUCCESS;
 		
 	}
 	
-	public void callOnlineSyncMapGL(){
+	@RequestMapping(value = "/syncMapGL", method = RequestMethod.GET, produces = "application/json")
+	public String callOnlineSyncMapGL(){
 		try {
 			MapGLBean glBean = new MapGLBean();
 			List<MapGLBean> list = new ArrayList<MapGLBean>();
@@ -139,10 +144,11 @@ public class CallEpisOnline {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	return Constants.SUCCESS;
 	}
 	
-	public void callOnlineSyncUser(){
+	@RequestMapping(value = "/syncUser", method = RequestMethod.GET, produces = "application/json")
+	public String callOnlineSyncUser(){
 		Set<String> branchArea = new HashSet<String>();
 		branchArea.add(branArea);
 		
@@ -173,7 +179,7 @@ public class CallEpisOnline {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	return Constants.SUCCESS;
 	}
 	
 }

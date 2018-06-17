@@ -7,6 +7,7 @@ public class Constants {
 	public static final String TEST = "TEST";
 	public static final Locale localeTH = new Locale("th", "TH");
 	public static final Locale localeEN = new Locale("en", "EN");
+	public static final String SUCCESS = "SUCCESS";
 	
 	
 	public static class DateTime {
