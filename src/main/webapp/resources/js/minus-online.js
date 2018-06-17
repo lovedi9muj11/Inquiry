@@ -55,15 +55,18 @@ function createRow(data, seq) {
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		remark = "-"
+		cearling = '<a name="invoice" id="invoice" onclick="dialogRemakes('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		
 	}
 	clearing = data.clearing;
 	accountNo = data.accountNo;
 	
+	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([remark, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing
+    var rowNode = t.row.add([remark, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing,cearling
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
@@ -82,6 +85,7 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(13).addClass('center');
     $(rowNode).find('td').eq(15).addClass('center');
     $(rowNode).find('td').eq(16).addClass('center');
+    $(rowNode).find('td').eq(17).addClass('center');
 };
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');
@@ -98,7 +102,56 @@ function dialogRemake(value){
         }
 	})
 };
+
+function sendCearling(){
+	var clearing = $("#clearing").val();
+	if(clearing === "Y"){
+		return alert("กรุณาเลือกขอ้มูลให้ถูกต้อง");
+	}
+	
+	var dataSend = {"clearing": $('#clearing').val()};
+	$.ajax({
+        type: "POST",
+        url: "/clearing/find",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	
+        	search();
+        }
+	})
+	
+	
+}
+
+function dialogRemakes(value){
+	$("#confrimDialog").modal('show');
+	$("#manualId").val(value);
+};
+
 function closeDialog(){
 	$("#remake_dialog").modal('hide');
+}
+function confirmDialog(){
+	var dataSend = {"manualId": $("#manualId").val()};
+	$.ajax({
+        type: "POST",
+        url: "/histroryPayment/clearing",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	$("#confrimDialog").modal('hide');
+        	search();
+        	
+        }
+	})
+}
+
+function closeDialogs(){
+	$("#confrimDialog").modal('hide');
 }
 

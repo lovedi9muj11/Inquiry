@@ -17,4 +17,5 @@ public interface ClearingPaymentEpisOfflineService {
 	public List<TrsMethodEpisOffline> findTrsMethod(Integer manualId) throws Exception;
 	public List<TrsCreditrefEpisOffline> findTrsCredit(long methodTrsId) throws Exception;
 	public List<TrsChequerefEpisOffline> findTrsCheq(long methodTrsId) throws Exception;
+	public void updateStatusClearing (long manualId) throws Exception;
 }

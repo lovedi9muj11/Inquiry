@@ -72,5 +72,11 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		return trsChequeRefManualDao.findByManualId(methodTrsId);
 	}
 
+	@Override
+	public void updateStatusClearing(long manualId) throws Exception {
+		// TODO Auto-generated method stub
+		 paymentManualDao.udpateStatus(manualId);
+	}
+
 
 }

@@ -214,5 +214,22 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		return beanReReq; 
 	}
 
+	@Override
+	public void udpateStatus(long manualId) throws SQLException {
+		Connection connect = dataSource.getConnection();
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = 'Y' ");
+			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setLong(1, manualId);
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 }

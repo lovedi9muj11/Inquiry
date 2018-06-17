@@ -112,4 +112,19 @@ public class ClearingPaymentEpisOffline {
 			  result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());	
 	        return result;
 	    }
+	  @RequestMapping(value = {"/clearing/save"}, method = RequestMethod.POST, produces = "application/json")
+	  @ResponseBody
+	    public void save(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+			  result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());	
+			  
+			  if(result != null) {
+				  for(PaymentMMapPaymentInvBean data : result) {
+					  Integer terrible = (int) (long) data.getManualId();
+					  callOnlinePayment(terrible);
+					  clearingPaymentEpisOfflineService.updateStatusClearing(terrible);  
+				  }
+				  
+			  }
+	    }
 }
