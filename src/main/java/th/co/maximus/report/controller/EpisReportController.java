@@ -481,12 +481,13 @@ public class EpisReportController {
 		InvPaymentOrderTaxBean invObject = (InvPaymentOrderTaxBean) collections.get(0);
 		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
 
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:ss");
+		SimpleDateFormat dtt = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
-		String dateFrom = convertDateString(creteria.getDateFrom()) + " " + creteria.getDateFromHour() + ":"
-				+ creteria.getDateFromMinute();
-		String dateTo = creteria.getDateTo() + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute();
+//		String dateFrom = convertDateString(creteria.getDateFrom()) + " " + creteria.getDateFromHour() + ":"
+//				+ creteria.getDateFromMinute();
+//		String dateTo = convertDateString(creteria.getDateTo()) + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute();
 
 		if (creteria.getTypePrint().equals("F")) {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
@@ -494,13 +495,27 @@ public class EpisReportController {
 		} else {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ");
 		}
-
-		exportPDFReport.setDateForm(dateFrom);
-		exportPDFReport.setDateTo(dateTo);
+		String fomeDate = "";
+		String endDate = "";
+		if(StringUtils.isNotBlank(creteria.getDateFrom())) {
+			String dateForm = creteria.getDateFrom();
+			String[] res = dateForm.split("-");
+			fomeDate = res[2]+"/"+res[1]+"/"+res[0];
+		}
+		if(StringUtils.isNotBlank(creteria.getDateTo())) {
+			String dateEnd = creteria.getDateTo();
+			String[] res = dateEnd.split("-");
+			endDate = res[2]+"/"+res[1]+"/"+res[0];
+		}
+		
+		
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
+		exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
 		exportPDFReport.setPrintDate(dateDocument);
-		exportPDFReport.setBranchArea(invObject.getBranchArea());
+		exportPDFReport.setBranchArea(valueBean.getValue());
 		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
-		exportPDFReport.setBranchCodeEmp(invObject.getBranchCode());
+		exportPDFReport.setBranchCodeEmp(branCode);
 		exportPDFReport.setVatRate(invObject.getVatRate());
 		exportPDFReport.setEmpSummaryName(invObject.getEmpName());
 
@@ -516,7 +531,12 @@ public class EpisReportController {
 			colles.setCustName(colles.getCustName());
 			colles.setEmpName(colles.getEmpName());
 			colles.setTaxId(colles.getTaxId());
-			colles.setBranchCode(colles.getBranchCode());
+			if(colles.getBranchCode().equals("00000")) {
+				colles.setBranchCode("สำนักงานใหญ่");
+			}else {
+				colles.setBranchCode(colles.getBranchCode());
+			}
+			
 			colles.setSummary(colles.getSummary().setScale(2, RoundingMode.HALF_DOWN));
 
 			// BeforeVat and Vat
@@ -531,7 +551,7 @@ public class EpisReportController {
 			colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
 			colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
 			if (colles.getPayType().equals("A")) {
-				colles.setPayType("ปกติ");
+				colles.setPayType("-");
 			} else {
 				colles.setPayType("ยกเลิก");
 			}
@@ -540,7 +560,7 @@ public class EpisReportController {
 			summarySummary = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
 
 			colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
-			colles.setDocumentDateReport(String.valueOf(colles.getDocumentDate().toString()));
+			colles.setDocumentDateReport(String.valueOf(dtt.format(colles.getDocumentDate()).toString()));
 			colles.setBeforeVatReport(String.valueOf(colles.getBeforeVat()));
 			colles.setVatReport(String.valueOf(colles.getVat()));
 			colles.setSummaryReport(String.valueOf(colles.getSummary()));

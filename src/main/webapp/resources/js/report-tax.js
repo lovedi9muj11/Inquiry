@@ -52,9 +52,13 @@ function createRow(data, seq, table) {
 	paidAmount = data.paidAmount;
 	recordStatus = data.recordStatus;
 	if(recordStatus == "A"){
-		recordStatus = "ปกติ";
+		recordStatus = "-";
 	}else{
 		recordStatus = "ยกเลิก";
+	}
+	
+	if(branCode === "00000"){
+		branCode = "สำนักงานใหญ่";
 	}
 	
 	var str = documentDate;
