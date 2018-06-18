@@ -81,6 +81,13 @@
 								</div>
 								
 							</div>
+<!-- 							<div class="col-sm-5 right"> -->
+<!-- 							<p id="sShowValidate" style="color: red; display: none;">*วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p> -->
+								<div class="hide" id="error-end-date" style="font-size: 16px;">
+								<div class="col-md-2"></div>
+	                                <label class="col-md-10 error"> <font color="red">วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด</font></label>
+	                            </div>
+<!--                             </div> -->
 						</div>
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
@@ -127,8 +134,13 @@
 								</div>
 								
 							</div>
-							<div class="col-sm-2"></div>
-							<p id="sShowValidate" style="color: red; display: none;">          *วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p>
+<!-- 							<div class="col-sm-4 right"> -->
+<!-- 							<p id="sShowValidate" style="color: red; display: none;">*วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p> -->
+								<div class="hide" id="error-end-date2" style="font-size: 16px; red;">
+								<div class="col-md-2"></div>
+	                                <label class="col-md-10 error"> <font color="red">วันที่สิ้นสุดต้องมากกว่าหรือเท่ากับวันที่เริ่มต้น</font></label>
+	                            </div>
+<!--                             </div> -->
 						</div>
 					</div>
 					<div class="row">

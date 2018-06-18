@@ -2,7 +2,7 @@ var dateFromGlobal = "";
 var dateToGlobal = "";
 var user;
 $(document).ready(function (){
-	$("#sShowValidate").hide();
+//	$("#sShowValidate").hide();
 	var userName = $('#userName').val();
 	console.log("======================= Start report payment ======================");
 	reportPaymentTb = $('#reportPaymentTb').DataTable({
@@ -15,9 +15,9 @@ $(document).ready(function (){
 		} ]
 	});
 	initCriteria();
-	search();
 	dropdownUser();
 	deopdownAccount();
+	search();
 //	user = ${pageContext.request.userPrincipal.name};
 
 	
@@ -37,7 +37,7 @@ function initCriteria(){
 	$('#dateToMinute').val('59');
 	$('#vat').val('');
 	$('#categoryPayment').val('');
-	$("#authorities").val('');
+//	$("#authorities").val('');
 	$("#serviceType").val('');
 	$("#accountId").val('');
 	
@@ -45,6 +45,8 @@ function initCriteria(){
 
 function search(){
 	$("#sShowValidate").hide();
+	$("#error-end-date").addClass("hide");
+	$("#error-end-date2").addClass("hide");
 	reportPaymentTb.clear().draw();
 	var dateFrom = $('#dateFrom').val() +" "+ $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00";
 	var dateTo =$('#dateTo').val() +" "+ $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";
@@ -74,7 +76,9 @@ function search(){
 	        }
 		});
 	}else{
-		$("#sShowValidate").show();
+//		$("#sShowValidate").show();
+		$("#error-end-date").removeClass("hide");
+		$("#error-end-date2").removeClass("hide");
 	}
 
 };

@@ -63,7 +63,6 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 	@Override
 	public PaymentResultReq findById(int id) throws Exception {
 		Connection connect = dataSource.getConnection();
-		List<PaymentResultReq> bList = new ArrayList<>();
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
@@ -117,7 +116,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE) as AMOUNTTYPE");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
-			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , DISCOUNTBEFORVAT, DISCOUNTSPECIAL  ");
+			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL  ");
 
 			sqlStmt.append("    FROM PAYMENT_INVOICE_MANUAL py  WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
