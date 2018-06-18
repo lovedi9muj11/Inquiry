@@ -1,21 +1,17 @@
 package th.co.maximus.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import th.co.maximus.bean.PaymentInvoiceManualBean;
-import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.model.TrsMethodEpisOffline;
+import th.co.maximus.model.UserBean;
 import th.co.maximus.service.PaymentReportService;
 
 @Service
@@ -32,6 +28,12 @@ public class PaymentReportServiceImp implements PaymentReportService {
 
 	@Override
 	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria) throws Exception {
+		
+		Integer supCh = paymentManualDao.checkSup(criteria.getUser());
+		if(supCh == 2) {
+			criteria.setUser("");
+		}
+		
 		List<ReportPaymentBean> result = paymentManualDao.getReportPayment(criteria);
 		for(ReportPaymentBean resultBean : result) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));

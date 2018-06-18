@@ -301,7 +301,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE");
+					" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE  ");

@@ -2,6 +2,7 @@ var dateFromGlobal = "";
 var dateToGlobal = "";
 var user;
 $(document).ready(function (){
+	$("#sShowValidate").hide();
 	var userName = $('#userName').val();
 	console.log("======================= Start report payment ======================");
 	reportPaymentTb = $('#reportPaymentTb').DataTable({
@@ -43,6 +44,7 @@ function initCriteria(){
 };
 
 function search(){
+	$("#sShowValidate").hide();
 	reportPaymentTb.clear().draw();
 	var dateFrom = $('#dateFrom').val() +" "+ $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00";
 	var dateTo =$('#dateTo').val() +" "+ $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";
@@ -72,7 +74,7 @@ function search(){
 	        }
 		});
 	}else{
-		alert("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด");
+		$("#sShowValidate").show();
 	}
 
 };

@@ -231,5 +231,27 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		
 	}
 
+	@Override
+	public Integer checkSup(String userName) throws SQLException {
+		Connection connect = dataSource.getConnection();
+		Integer result = 0;
+		try {
+			StringBuilder sqlStmt = new StringBuilder();
+			sqlStmt.append(" SELECT ur.Role_ID ");
+			sqlStmt.append(" FROM USER up ");
+			sqlStmt.append(" INNER JOIN USER_ROLE ur  ON ur.User_ID =  up.ID ");
+			sqlStmt.append(" WHERE  up.Username = ? ");
+			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+			preparedStatement.setString(1, userName);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				result = resultSet.getInt(1);
+			}
+		} finally {
+			connect.close();
+		}
+		return result;
+	}
+
 
 }

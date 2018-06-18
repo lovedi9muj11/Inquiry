@@ -10,7 +10,7 @@ public class UserBean {
 		this.surName = surName;
 		this.lastName = lastName;
 	}
-	
+
 	public String getSurName() {
 		return surName;
 	}
@@ -23,7 +23,6 @@ public class UserBean {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
 	
 
 }

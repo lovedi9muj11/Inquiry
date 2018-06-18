@@ -127,6 +127,8 @@
 								</div>
 								
 							</div>
+							<div class="col-sm-2"></div>
+							<p id="sShowValidate" style="color: red; display: none;">          *วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p>
 						</div>
 					</div>
 					<div class="row">

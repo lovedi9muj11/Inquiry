@@ -38,10 +38,10 @@ public class PaymentReport extends BaseExcelRptService {
 		workbook.setSheetName(workbook.getSheetIndex(sh), "payment-report");
 		
 		//set row date header and style cell
-		 Row row1 = sh.createRow(1);
-		 Cell company = row1.createCell(0);
-		 Cell dateFromToCriteria = row1.createCell(4);
-		 Cell datePrint = row1.createCell(9);
+		 Row row1 = sh.getRow(1);
+		 Cell company = row1.getCell(0);
+		 Cell dateFromToCriteria = row1.getCell(4);
+		 Cell datePrint = row1.getCell(9);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
 		 dateFromToCriteria.setCellValue("ประจำวันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+" ถึง "+ convertDateFormat(criteria.getDateTo()));
 		 datePrint.setCellValue("พิมพ์วันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+" ถึง "+ convertDateFormat(criteria.getDateTo()));
@@ -49,13 +49,13 @@ public class PaymentReport extends BaseExcelRptService {
 		 dateFromToCriteria.setCellStyle(txtCenterBor);
 		 datePrint.setCellStyle(txtCenterBor);
 		 
-		 Row row2 = sh.createRow(2);
-		 Cell agency = row2.createCell(0);
+		 Row row2 = sh.getRow(2);
+		 Cell agency = row2.getCell(0);
 		 agency.setCellValue("หน่วยงานรับชำระ "+ criteria.getMachinePaymentName());
 		 agency.setCellStyle(txtCenterBor);
 		 
-		 Row row3 = sh.createRow(3);
-		 Cell user = row3.createCell(0);
+		 Row row3 = sh.getRow(3);
+		 Cell user = row3.getCell(0);
 		 user.setCellValue("เจ้าหน้าที่ "+ criteria.getUser());
 		 user.setCellStyle(txtCenterBor);
 		 
