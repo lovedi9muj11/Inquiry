@@ -538,8 +538,10 @@ function buttonAddBillingList() {
 		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
 		var vatamount;
 		if(radioResult == "beforvat"){
+			serviceAmount = amountTotal;
 			vatamount = amountTotal- amountDiscount;
 		}else{
+			serviceAmount = amountBeforVat;
 			 vatamount = amountBeforVat- amountDiscount;
 		}
 		

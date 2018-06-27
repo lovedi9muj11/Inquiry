@@ -50,9 +50,15 @@ public class PaymentFirstBean implements Serializable{
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	private String nonVat;
+	private String docType;
 	
 	
-	
+	public String getDocType() {
+		return docType;
+	}
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
 	public String getCustName() {
 		return custName;
 	}

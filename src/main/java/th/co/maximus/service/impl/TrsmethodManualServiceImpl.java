@@ -35,6 +35,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 		Date date = new Date();
 		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int idTrsMethod = 0;
+		Double totalAmount = paymentBean.getBalanceSummary();
 		if(paymentBean.getPaymentTranPrice().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
 				
@@ -49,15 +50,22 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
 				if(paymentTranPriceBean.getTypePayment().equals("CD")){
-					
+					totalAmount = totalAmount-paymentTranPriceBean.getCreditPrice();
 					trsMethodManualBean.setName("บัตรเครดิต");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
 				}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+					totalAmount = totalAmount-paymentTranPriceBean.getMoneyCheck();
 					trsMethodManualBean.setName("เช็ค");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
 				}else{
+					totalAmount = totalAmount-paymentTranPriceBean.getMoneyTran();
+					if(totalAmount < 0) {
+						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran()+totalAmount);
+					}else {
+						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+					}
 					trsMethodManualBean.setName("เงินสด");
-					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+					
 				}
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
@@ -153,7 +161,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				
 				
 				if(idTrsMethod >0){
-					deductionManualBean.setDeDuctionNo("ภาษีหัก ณ ที่จ่าย");
+					deductionManualBean.setDeDuctionNo(paymentTaxBean.getDocDed());
 					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
 					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed() *-1);
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));

@@ -85,19 +85,19 @@
 										id="vat">
 									<div class="form-group">
 										<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า
-											:<span style="color: red;">*</span>
+											:<span style="color: red; display: none"">*</span>
 										</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custNo"
 												name="custNo" placeholder="เลขที่ลูกค้า">
-											<p id="sCustNo" style="color: red;">คุณยังไม่ได้กรอก
+											<p id="sCustNo" style="color: red; display: none" display: none">คุณยังไม่ได้กรอก
 												เลขที่ลูกค้า</p>
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custName"
 												name="custName" placeholder="ชื่อ">
-											<p id="sCustName" style="color: red;">
+											<p id="sCustName" style="color: red; display: none"">
 												คุณยังไม่ได้กรอกชื่อ</p>
 										</div>
 
@@ -106,7 +106,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="taxId"
 												name="taxId" placeholder="Tax ID" maxlength="13">
-											<p id="staxId" style="color: red;">คุณยังไม่ได้กรอก TAX
+											<p id="staxId" style="color: red; display: none"">คุณยังไม่ได้กรอก TAX
 												ID</p>
 										</div>
 									</div>
@@ -115,7 +115,7 @@
 									<div class="form-group left">
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span
-											style="color: red;">*</span></label>
+											style="color: red; display: none"">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="userGroup" name="userGroup"
 												onchange="autoSelect()">
@@ -131,7 +131,7 @@
 												<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
 											</select>
 										</div>
-										<p id="suserGroup" style="color: red;">คุณยังไม่ได้เลือก
+										<p id="suserGroup" style="color: red; display: none"">คุณยังไม่ได้เลือก
 											กลุ่มผู้ใช้บริการ</p>
 
 										<label class="col-sm-2 control-label right"
@@ -139,7 +139,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" id="custBrach" name="custBrach"
 												type="text" maxlength="5">
-											<p id="scustBrach" style="color: red;">คุณยังไม่ได้กรอก
+											<p id="scustBrach" style="color: red; display: none"">คุณยังไม่ได้กรอก
 												สาขา</p>
 										</div>
 										<label class="col-sm-2 control-label right"
@@ -161,7 +161,7 @@
 										<div class="col-sm-6">
 											<textarea class="form-control" rows="3" id="custAddress"
 												name="custAddress"></textarea>
-											<p id="scustAddress" style="color: red;">
+											<p id="scustAddress" style="color: red; display: none"">
 												คุณยังไม่ได้กรอก ที่อยู่</p>
 										</div>
 									</div>
@@ -184,7 +184,7 @@
 								<div class="form-horizontal">
 									<div class="form-group">
 										<label class="control-label col-sm-2">ประเภทรายได้ :<span
-											style="color: red;">*</span></label>
+											style="color: red; display: none"">*</span></label>
 										<div class="col-sm-2">
 											<select id="inputServiceType" name="inputServiceType"
 												class="form-control">
@@ -198,11 +198,11 @@
 													}
 												%>
 											</select>
-											<p id="sinputServiceType" style="color: red;">
+											<p id="sinputServiceType" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
-											:<span style="color: red;">*</span>
+											:<span style="color: red; display: none"">*</span>
 										</label>
 										<div class="col-sm-2">
 											<select id="inputServiceDepartment"
@@ -217,7 +217,7 @@
 													}
 												%>
 											</select>
-											<p id="sinputServiceDepartment" style="color: red;">
+											<p id="sinputServiceDepartment" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">เงินส่วนลดก่อน
@@ -234,7 +234,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">ชื่อบริการ :<span
-											style="color: red;">*</span></label>
+											style="color: red; display: none"">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
@@ -248,15 +248,15 @@
 													}
 												%>
 											</select>
-											<p id="sinputServiceName" style="color: red;">
+											<p id="sinputServiceName" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>
 										</div>
 										<label class="control-label col-sm-2">จำนวนรายการ :<span
-											style="color: red;">*</span></label>
+											style="color: red; display: none"">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" name="inputServiceMoreData"
 												class="form-control" value="1">
-											<p id="sinputServiceMoreData" style="color: red;">
+											<p id="sinputServiceMoreData" style="color: red; display: none"">
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 										<div class="col-sm-1">
@@ -287,12 +287,12 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">จำนวนเงินต่อหน่วย
-											ก่อน vat :<span style="color: red;">*</span>
+											ก่อน vat :<span style="color: red; display: none"">*</span>
 										</label>
 										<div class="col-sm-2">
 											<input id="inputServiceAmount" name="inputServiceAmount"
 												class="form-control numeric2point right">
-											<p id="sinputServiceAmount" style="color: red;">
+											<p id="sinputServiceAmount" style="color: red; display: none"">
 												คุณยังไม่ได้กรอก จำนวนเงินต่อหน่วย ก่อน vat</p>
 										</div>
 										<label class="control-label col-sm-2">ภาษีหัก ณ
@@ -424,7 +424,7 @@
 													<input class="form-control numeric2point right" type="text"
 														id="moneyDed" name="paymentTax.moneyDed"
 														placeholder="จำนวนเงิน">
-													<p id="moneyDedTxt" style="color: red;">คุณยังไม่ได้กรอก
+													<p id="moneyDedTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 														จำนวนเงิน</p>
 												</div>
 											</div>
@@ -514,7 +514,7 @@
 														<input class="form-control numeric2point right"
 															type="text" placeholder="จำนวนเงิน" id="moneyTran"
 															name="paymentTranPrice.moneyTran">
-														<p id="moneyTranTxt" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="moneyTranTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 
@@ -534,7 +534,7 @@
 															<option value="visa">VISA</option>
 															<option value="masterCard">MASTER-CARD</option>
 														</select>
-														<p id="creditTypeTxt" style="color: red;">คุณยังไม่ได้เลือก
+														<p id="creditTypeTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
 															ประเภทของบัตรเครดิต</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -543,7 +543,7 @@
 														<input class="form-control" type="text" id="creditNo"
 															maxlength="16" name="paymentTranPrice.creditNo"
 															placeholder="เลขที่บัตร">
-														<p id="creditNoTxt" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="creditNoTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 															เลขที่บัตร</p>
 													</div>
 												</div>
@@ -565,7 +565,7 @@
 																}
 															%>
 														</select>
-														<p id="edcTypeTxt" style="color: red;">คุณยังไม่ได้เลือก
+														<p id="edcTypeTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
 															ธนาคารเจ้าของเครื่อง (EDC)</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -575,7 +575,7 @@
 															type="text" id="creditPrice"
 															name="paymentTranPrice.creditPrice"
 															placeholder="จำนวนเงิน">
-														<p id="creditPriceTxt" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="creditPriceTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 												</div>
@@ -628,7 +628,7 @@
 																}
 															%>
 														</select>
-														<p id="bankNoTxt" style="color: red;">คุณยังไม่ได้เลือก
+														<p id="bankNoTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
 															รหัสธนาคาร</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -663,7 +663,7 @@
 													<div class="col-sm-4">
 														<input class="form-control" type="date" id="dateCheck"
 															name="paymentTranPrice.dateCheck">
-														<p id="dateCheckTxt" style="color: red;">คุณยังไม่ได้เลือก
+														<p id="dateCheckTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
 															วันที่หน้าเช็ค</p>
 													</div>
 												</div>
@@ -675,7 +675,7 @@
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="branchCheck"
 															name="paymentTranPrice.branchCheck" placeholder="สาขา">
-														<p id="branchCheckTxt" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="branchCheckTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 															สาขา</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -685,7 +685,7 @@
 															type="text" id="moneyCheck"
 															name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
-														<p id="moneyCheckTxt" style="color: red;">คุณยังไม่ได้กรอก
+														<p id="moneyCheckTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 												</div>
