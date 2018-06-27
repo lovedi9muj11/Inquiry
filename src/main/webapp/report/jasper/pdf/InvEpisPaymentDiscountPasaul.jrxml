@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.1000000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="30"/>
+	<property name="ireport.y" value="29"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -198,7 +198,8 @@
 			</textField>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="255" y="116" width="47" height="23" uuid="cc3fe170-1dc5-4dcf-b00c-0f163a1b5c71">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y"]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y" &&
+$P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>

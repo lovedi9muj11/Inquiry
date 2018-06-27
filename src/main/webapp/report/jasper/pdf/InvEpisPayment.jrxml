@@ -198,7 +198,8 @@
 			</textField>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="255" y="116" width="47" height="23" uuid="cc3fe170-1dc5-4dcf-b00c-0f163a1b5c71">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y"]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y" &&
+$P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>

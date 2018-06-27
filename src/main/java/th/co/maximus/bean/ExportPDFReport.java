@@ -41,6 +41,8 @@ public class ExportPDFReport {
 	private String surName;
 	private String lastname;
 	
+	private String branAreaCheck;
+	
 	
 	
 	public String getBranArea() {
@@ -253,6 +255,13 @@ public class ExportPDFReport {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	public String getBranAreaCheck() {
+		return branAreaCheck;
+	}
+	public void setBranAreaCheck(String branAreaCheck) {
+		this.branAreaCheck = branAreaCheck;
+	}
+	
 	
 	
 
