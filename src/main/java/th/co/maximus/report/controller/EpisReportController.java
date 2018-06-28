@@ -117,8 +117,8 @@ public class EpisReportController {
 		}
 
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
-		// UserBean bean = masterDataService.findByUsername(profile.getUsername());
-		UserDto resultUser = userService.findByUsername(profile.getUsername());
+		 UserBean bean = masterDataService.findByUsername(profile.getUsername());
+//		UserDto resultUser = userService.findByUsername(profile.getUsername());
 		exportPDFReport.setBranArea(valueBean.getValue());
 		exportPDFReport.setBracnCode(" " + branCode + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
@@ -127,8 +127,8 @@ public class EpisReportController {
 		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
-		exportPDFReport.setSurName("("+resultUser.getUsername());
-		exportPDFReport.setLastname(resultUser.getRoles().get(0).getName()+")");
+		exportPDFReport.setSurName("("+bean.getSurName());
+		exportPDFReport.setLastname(bean.getLastName()+")");
 
 		exportPDFReport.setServiceNo(invObject.getServiceNo());
 		if (StringUtils.isNotBlank(invObject.getServiceNo())) {

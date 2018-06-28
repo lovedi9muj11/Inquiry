@@ -2,10 +2,11 @@ INSERT INTO `role` (`id`, `name`) VALUES ('1', 'admin');
 INSERT INTO `role` (`id`, `name`) VALUES ('2', 'sup');
 INSERT INTO `role` (`id`, `name`) VALUES ('3', 'user');
 
-INSERT INTO `user` (`id`, `password`, `username`) VALUES ('1', '5f4dcc3b5aa765d61d8327deb882cf99', 'admins');
-INSERT INTO `user` (`id`, `password`, `username`) VALUES ('2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1');
-INSERT INTO `user` (`id`, `password`, `username`) VALUES ('3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11');
-INSERT INTO `user` (`id`, `password`, `username`) VALUES ('4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12');
+INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admins', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000');
+
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
