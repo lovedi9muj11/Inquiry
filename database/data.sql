@@ -1,26 +1,26 @@
-INSERT INTO `role` (`id`, `name`) VALUES ('1', 'admin');
-INSERT INTO `role` (`id`, `name`) VALUES ('2', 'sup');
-INSERT INTO `role` (`id`, `name`) VALUES ('3', 'user');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('1', 'admin');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('2', 'sup');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('3', 'user');
 
-INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admins', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
-INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
-INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000');
-INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admins', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000');
 
 
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('1', '1');
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('2', '2');
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('3', '3');
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES ('4', '3');
+INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('1', '1');
+INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('2', '2');
+INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('3', '3');
+INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('4', '3');
 
-INSERT INTO `map_gl_service_type` (`ID`, `GL_CODE`, `SERVICE_CODE`, `PRODUCT_CODE`, `PRODUCT_NAME`, `SUB_PRODUCT_CODE`, `SUB_PRODUCT_NAME`, `SERVICE_NAME`, `REVENUE_TYPE_CODE`, `REVENUE_TYPE_NAME`, `SEGMENT_CODE`, `SEGMENT_NAME`, `STATUS`, `SOURCE`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
+INSERT INTO `MAP_GL_SERVICE_TYPE` (`ID`, `GL_CODE`, `SERVICE_CODE`, `PRODUCT_CODE`, `PRODUCT_NAME`, `SUB_PRODUCT_CODE`, `SUB_PRODUCT_NAME`, `SERVICE_NAME`, `REVENUE_TYPE_CODE`, `REVENUE_TYPE_NAME`, `SEGMENT_CODE`, `SEGMENT_NAME`, `STATUS`, `SOURCE`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
 	(1, '1234567890', 'MY', '101010004', 'บ.ITFS', '04', 'บ.ติดฯ/ซ่อมฯ-FLAG	', '1234567890 02 - รด.บริการ-นปท. 04 - บ.ติดฯ/ซ่อมฯ-FLAG', '02', 'รด.บริการ-นปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL),
 	(2, '21902202', 'my', '104010002', 'บ.my-PREPAID', '02', 'บ.พาดสายบนเสาไฟฟ้า	', '21902202 04 - รด.บริการบัตร-นปท. 03 - Voice', '04', 'รด.บริการบัตร-นปท.', '10401', 'my', '1', 'TOPUP', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL),
 	(3, '1234', 'my', '101010001', 'บ.CAT 001', '03', 'บ.พาดสายบนเสาโทรฯ	', '1234 02 - รด.บริการ-นปท. 03 - บ.CDMA ส่วนกลาง', '05', 'รด.บริการ-นปท.', '10202', 'Internet', '1', 'TOPUP', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL),
 	(4, 'qqq', 'qq', '101010001', 'บ.CAT 001', '05', 'บ.CDMA ส่วนกลาง', 'qqq 02 - รด.บริการ-นปท. 03 - บ.CDMA ส่วนกลาง', '03', 'รด.บริการ-นปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL),
 	(5, '55100101', 'null', '101010001', 'บ.CAT 001', '01', 'รด.ค่าใช้ท่อร้อยสาย	', '55100101 01 - รด.บริการ-ใน/รปท. 01 - รด.ค่าใช้ท่อร้อยสาย', '01', 'รด.บริการ-ใน/รปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL);
 	
-INSERT INTO `master_data` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATUS`, `ORDERED`, `PARENT_ID`, `REF_ID`, `PROPERTY_1`, `PROPERTY_2`, `PROPERTY_3`, `PROPERTY_4`, `PROPERTY_5`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
+INSERT INTO `MASTER_DATA` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATUS`, `ORDERED`, `PARENT_ID`, `REF_ID`, `PROPERTY_1`, `PROPERTY_2`, `PROPERTY_3`, `PROPERTY_4`, `PROPERTY_5`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
 	(1979, '01', 'รอผลการอนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '1', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1980, '1J10225', 'สำนักงานบริการลูกค้า กสท  สมุทรสาคร-ขต.(ตต)', 'COST_CENTER', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1981, '02', 'อนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '2', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
