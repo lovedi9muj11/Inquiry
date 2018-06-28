@@ -226,9 +226,11 @@ public class EpisReportController {
 			if (invObject.getBracnCode().equals("00000")) {
 				bran = "สำนักงานใหญ่";
 				exportPDFReport.setCheckBran("Y");
+				exportPDFReport.setBranAreaCheck("Y");
 			} else {
 				bran = invObject.getBracnCode();
 				exportPDFReport.setCheckBran("Y");
+				exportPDFReport.setBranAreaCheck("N");
 			}
 		} else {
 			exportPDFReport.setCheckBran("N");
