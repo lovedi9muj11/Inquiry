@@ -10,5 +10,5 @@ public interface PaymentOtherManualDao {
 
 	public PaymentResultReq findById(int id) throws Exception;
 	
-	public List<PaymentResultReq> findListById(int id) throws Exception;
+	public List<PaymentResultReq> findListById(Long id) throws Exception;
 }

@@ -108,7 +108,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 	}
 
 	@Override
-	public List<PaymentResultReq> findListById(int id) throws Exception {
+	public List<PaymentResultReq> findListById(Long id) throws Exception {
 		Connection connect = dataSource.getConnection();
 		List<PaymentResultReq> bList = new ArrayList<>();
 		PaymentResultReq beanReReq = new PaymentResultReq();
@@ -120,7 +120,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 
 			sqlStmt.append("    FROM PAYMENT_INVOICE_MANUAL py  WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setInt(1, id);
+			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 //				String.format("%,.2f", paymentResultReq.getBalanceOfvat())

@@ -66,7 +66,7 @@ public class ReportDaoImpl implements ReportDao{
 		
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, pim.SERVICENAME ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pim.DISCOUNTSPECIAL,pim.AMOUNT,pim.DISCOUNTBEFORVAT,tm.METHOD_MANUAL_ID");
+			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, pim.SERVICENAME ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pim.DISCOUNTSPECIAL,pim.AMOUNT,pim.DISCOUNTBEFORVAT,tm.METHOD_MANUAL_ID,pim.MANUAL_ID");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" INNER JOIN TRSMETHOD_MANUAL tm ON tm.MANUAL_ID = py.MANUAL_ID");
@@ -77,7 +77,7 @@ public class ReportDaoImpl implements ReportDao{
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				collections.add(new InvEpisOfflineByInsaleBean(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBigDecimal(7), 
-						resultSet.getString(8), resultSet.getDate(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14),resultSet.getBigDecimal(15),resultSet.getBigDecimal(16),resultSet.getBigDecimal(17),resultSet.getLong(18)))	;		
+						resultSet.getString(8), resultSet.getDate(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14),resultSet.getBigDecimal(15),resultSet.getBigDecimal(16),resultSet.getBigDecimal(17),resultSet.getLong(18),resultSet.getLong(19)))	;		
 						
 			}
 		} finally {

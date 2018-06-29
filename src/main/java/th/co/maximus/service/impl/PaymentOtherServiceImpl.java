@@ -96,7 +96,7 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 	}
 
 	@Override
-	public List<PaymentResultReq> findListByid(int id) throws Exception {
+	public List<PaymentResultReq> findListByid(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return paymentOtherManualDao.findListById(id);
 	}

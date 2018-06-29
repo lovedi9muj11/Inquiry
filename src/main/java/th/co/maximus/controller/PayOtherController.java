@@ -114,7 +114,7 @@ public class PayOtherController {
 			// paymentResultReq.setDiscountspacalStr(String.format("%,.2f",
 			// paymentResultReq.getDiscountspacal()));
 
-			paymentResultReq.setCustName(paymentOtherService.findListByid(idUser).get(0).getCustName());
+			paymentResultReq.setCustName(paymentOtherService.findListByid(new Long(idUser)).get(0).getCustName());
 			paymentResultReq.setManualId(idUser);
 			System.out.println(paymentResultReq.getDiscountStr());
 			request.setAttribute("paymentResultReq", paymentResultReq);
@@ -126,7 +126,7 @@ public class PayOtherController {
 	@RequestMapping(value = "/payOtherDetail/{manualId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<PaymentResultReq> payOtherDetail(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("manualId") int manualId) throws Exception {
-		return paymentOtherService.findListByid(manualId);
+		return paymentOtherService.findListByid(new Long(manualId));
 	}
 
 	public String commaformatter(BigDecimal bigDecimal) {

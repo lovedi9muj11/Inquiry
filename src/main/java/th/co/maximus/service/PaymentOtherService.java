@@ -11,5 +11,5 @@ public interface PaymentOtherService {
 	public void delete(String id);
 	public void update(PaymentOtherFirstBean paymentBean);
 	public  PaymentResultReq findByid(int id)throws Exception;
-	public  List<PaymentResultReq> findListByid(int id)throws Exception;
+	public  List<PaymentResultReq> findListByid(Long id)throws Exception;
 }
