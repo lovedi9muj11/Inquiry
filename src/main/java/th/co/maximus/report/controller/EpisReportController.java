@@ -432,7 +432,7 @@ public class EpisReportController {
 
 		}
 		List<InvEpisOfflineByInsaleBean> printCollections2 =new ArrayList<InvEpisOfflineByInsaleBean>();
-		int i = 0;
+		int i = 1;
 		for (PaymentResultReq paymentResultReq : invObject) {
 			InvEpisOfflineByInsaleBean jp = new InvEpisOfflineByInsaleBean();
 			jp.setRunnumber(String.valueOf(i++));
@@ -442,14 +442,6 @@ public class EpisReportController {
 			jp.setDiscountbeforvatStr(String.format("%,.2f", paymentResultReq.getDiscountspacal()));
 			printCollections2.add(jp);
 		}
-//		for (int f = 0; f < printCollections.size(); f++) {
-//			printCollections.get(f).setRunnumber(String.valueOf(f + 1));
-//			printCollections.get(f).setAmountStr(String.format("%,.2f", printCollections.get(f).getAmount()));
-//			printCollections.get(f).setBeforeDiscount(String.format("%,.2f", printCollections.get(f).getAmount()));
-//			printCollections.get(f).setServiceNameStr(String.format(printCollections.get(f).getServiceName()));
-//			printCollections.get(f).setDiscountbeforvatStr(String.format("%,.2f", printCollections.get(f).getDiscountbeforvat()));
-//
-//		}
 
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", printCollections.get(0).getBalanceSummary()));
 		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", printCollections.get(0).getDiscountSpecial()));
