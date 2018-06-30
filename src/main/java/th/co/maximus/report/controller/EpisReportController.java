@@ -102,7 +102,7 @@ public class EpisReportController {
 		List<InvEpisOfflineReportBean> printCollections = new ArrayList<InvEpisOfflineReportBean>();
 		InvEpisOfflineReportBean invObject = (InvEpisOfflineReportBean) collections.get(0);
 		ExportPDFReport exportPDFReport = new ExportPDFReport();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:ss");
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		String JASPER_JRXML_FILENAME = "";
