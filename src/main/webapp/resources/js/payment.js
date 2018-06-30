@@ -15,8 +15,6 @@ $(document).ready(function() {
 			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
 			$("#balanceOfTaxPrice").on( "keyup",  function() {
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();
-				
-				
 				if(balanceOfTaxPrice == ""){
 					balanceOfTaxPrice = parseFloat(0);
 				}
@@ -25,6 +23,24 @@ $(document).ready(function() {
 				}
 				$("#balanceSummary").val(FormatMoneyShowToNumber(balanceOfTaxPrice).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				inputAmount();
+			});
+			$("#balanceOfTaxPrice").on( "click",  function() {
+				this.select();
+			});
+			$("#balanceSummary").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyTran").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyDed").on( "click",  function() {
+				this.select();
+			});
+			$("#creditPrice").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyCheck").on( "click",  function() {
+				this.select();
 			});
 			$("#balanceOfTaxPrice").on( "change",  function() {
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();

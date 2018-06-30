@@ -1,5 +1,30 @@
-$(document).ready(
-		function() {
+$(document).ready(function() {
+			$("#inputServiceAmount").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyDed1").on( "click",  function() {
+				this.select();
+			});
+			$("#inputServiceDiscount").on( "click",  function() {
+				this.select();
+			});
+			$("#inputSpecialDiscount").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyTran").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyDed").on( "click",  function() {
+				this.select();
+			});
+			$("#creditPrice").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyCheck").on( "click",  function() {
+				this.select();
+			});
+			
+			
 			findTypePayment();
 			findBank();
 			findBankNo();
