@@ -42,6 +42,12 @@ $(document).ready(function() {
 			$("#moneyCheck").on( "click",  function() {
 				this.select();
 			});
+			$("#moneyTran").on( "change",  function() {
+				if($("#moneyTran").val() == ""){
+					$("#moneyTran").val($("#balanceSummary").val());
+				}				
+			});
+			
 			$("#balanceOfTaxPrice").on( "change",  function() {
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();
 				

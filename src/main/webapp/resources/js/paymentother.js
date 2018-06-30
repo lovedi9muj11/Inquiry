@@ -22,6 +22,13 @@ $(document).ready(function() {
 			});
 			$("#moneyCheck").on( "click",  function() {
 				this.select();
+				
+			});
+			$("#moneyTran").on( "change",  function() {
+				if($("#moneyTran").val() == ""){
+				var table = document.getElementById("sumtableBillingList");
+				replaseIndexV4(table);
+				}
 			});
 			
 			
@@ -1329,6 +1336,7 @@ function sumTranPrice() {
 	} else if (result == 'check') {
 		addDataSumCheckTranPrice();
 	}
+
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	replaseIndex(tablesumTotals);
 	
@@ -1421,6 +1429,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		}
 
 	}
+	
 	replaseIndex(tablesumTotals);
 
 	
@@ -1683,6 +1692,8 @@ function totalSum() {
 //			$("#balanceSummarys").val(result.toFixed(2).toString()
 //			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			var  a = 0;
+			$("#moneyTran").val(result.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#change").val(a.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		} else {
@@ -1700,8 +1711,8 @@ function totalSum() {
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSummarys").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-//		$("#moneyTran").val(total.toFixed(2).toString()
-//				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyTran").val(total.toFixed(2).toString()
+				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#creditPrice").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#moneyCheck").val(total.toFixed(2).toString()
