@@ -31,7 +31,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRProperties;
-import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.ExportPDFByInsaleReport;
@@ -431,21 +430,24 @@ public class EpisReportController {
 			}
 
 		}
-		List<InvEpisOfflineByInsaleBean> printCollections2 =new ArrayList<InvEpisOfflineByInsaleBean>();
+		List<InvEpisOfflineByInsaleBean> printCollections2 = new ArrayList<InvEpisOfflineByInsaleBean>();
 		int i = 1;
+		BigDecimal discountSpecial = BigDecimal.ZERO;
 		for (PaymentResultReq paymentResultReq : invObject) {
 			InvEpisOfflineByInsaleBean jp = new InvEpisOfflineByInsaleBean();
 			jp.setRunnumber(String.valueOf(i++));
-			jp.setAmountStr(String.format("%,.2f",paymentResultReq.getAmount()));
-			jp.setBeforeDiscount(String.format("%,.2f", paymentResultReq.getBeforeVat()));
 			jp.setServiceNameStr(String.format(paymentResultReq.getServiceName()));
-			jp.setDiscountbeforvatStr(String.format("%,.2f", paymentResultReq.getDiscountspacal()));
+			jp.setBeforeDiscount(String.format("%,.2f", paymentResultReq.getBeforeVat()));
+			jp.setDiscountbeforvatStr(String.format("%,.2f", paymentResultReq.getDiscount()));
+			jp.setAmountStr(String.format("%,.2f", paymentResultReq.getAmount().add(paymentResultReq.getDiscountspacal())));
+			System.out.println(paymentResultReq.getDiscountspacal());
+			discountSpecial =  discountSpecial.add(paymentResultReq.getDiscountspacal());
+
 			printCollections2.add(jp);
 		}
 
 		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", printCollections.get(0).getBalanceSummary()));
-		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", printCollections.get(0).getDiscountSpecial()));
-
+		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", discountSpecial));
 		String bran = "";
 		if (printCollections.get(0).getBracnCode().equals("00000")) {
 			bran = "สำนักงานใหญ่";

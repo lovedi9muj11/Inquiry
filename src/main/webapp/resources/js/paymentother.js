@@ -565,16 +565,23 @@ function buttonAddBillingList() {
 
 		var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount);
 		var serviceMoreData = FormatMoneyShowToNumber(inputServiceMoreData);
-		var amountDiscount = disDiscount(serviceAmount);
-		var amountBeforVat = disVat(amountDiscount,radioResult);
-		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
+	
+		var amountTotal
 		var vatamount;
+
 		if(radioResult == "beforvat"){
-			serviceAmount = amountTotal;
+			var amountDiscount = disDiscount(serviceAmount);
+			var amountBeforVat = disVat(amountDiscount,radioResult);
+			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
 			vatamount = amountTotal- amountDiscount;
+			
 		}else{
-			serviceAmount = amountBeforVat;
-			 vatamount = amountBeforVat- amountDiscount;
+			var amountBeforVat = disVat(serviceAmount,radioResult);
+			var amountDiscount = disDiscount(amountBeforVat);
+			 amountTotal = calurateVatRate(amountDiscount, vatRate);
+			 vatamount = amountTotal- amountDiscount;
+			 serviceAmount = amountBeforVat;
+			 
 		}
 		
 		if(vatamount < 0 ){
@@ -600,8 +607,8 @@ function buttonAddBillingList() {
 		+ "</td><td>"
 		+ serviceMoreData
 		+ "</td><td>"
-		+ serviceAmount.toFixed(2).toString().replace(
-				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+		+ serviceAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+		"$1,")
 		+ "</td><td>"
 		+ inputServiceDiscount
 		+ "</td><td>" 
