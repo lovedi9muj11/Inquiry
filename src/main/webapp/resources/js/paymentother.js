@@ -1145,7 +1145,7 @@ function addDataSumCheckTranPrice() {
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 		var balans = $("#balanceSummarys").val();
 		var balan = parseFloat(balans.replace(",", ""));
-		var baGet = $("balanceSumShow").val();
+		var baGet = $("#balanceSumShow").val();
 		var balanget = parseFloat(baGet.replace(",", ""));
 
 		var price = result[6].replace(",", "")
