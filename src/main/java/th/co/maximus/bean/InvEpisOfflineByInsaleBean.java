@@ -29,6 +29,7 @@ public class InvEpisOfflineByInsaleBean {
 	private String runnumber;
 	private String discountbeforvatStr;
 	private String serviceNameStr;
+	private String doctype;
 
 	public InvEpisOfflineByInsaleBean() {
 	}
@@ -36,7 +37,7 @@ public class InvEpisOfflineByInsaleBean {
 	public InvEpisOfflineByInsaleBean(String branArea, String bracnCode, String serviceName, String custNo,
 			String custName, String documentNo, BigDecimal balanceSummary, String invoiceNo, Date documentDate,
 			String customerAddress, String taxId, String remark, String paymentCode, String vatRate,
-			BigDecimal discountSpecial, BigDecimal amount, BigDecimal discountbeforvat, Long methodId, Long manualId) {
+			BigDecimal discountSpecial, BigDecimal amount, BigDecimal discountbeforvat, Long methodId, Long manualId,String doctype) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
 		this.custNo = custNo;
@@ -56,6 +57,7 @@ public class InvEpisOfflineByInsaleBean {
 		this.discountbeforvat = discountbeforvat;
 		this.methodId = methodId;
 		this.manualId = manualId;
+		this.doctype = doctype;
 
 	}
 
@@ -258,5 +260,14 @@ public class InvEpisOfflineByInsaleBean {
 	public void setMethodId(Long methodId) {
 		this.methodId = methodId;
 	}
+
+	public String getDoctype() {
+		return doctype;
+	}
+
+	public void setDoctype(String doctype) {
+		this.doctype = doctype;
+	}
+	
 
 }
