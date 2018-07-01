@@ -40,6 +40,11 @@ public class ExportPDFByInsaleReport {
 	private String discountSpecialCheck;
 	private String checkBran;
 	
+	private String surName;
+	private String lastname;
+	
+	private String sentStringHeader;
+	
 	
 	public String getServiceName() {
 		return serviceName;
@@ -232,6 +237,24 @@ public class ExportPDFByInsaleReport {
 	}
 	public void setCheckBran(String checkBran) {
 		this.checkBran = checkBran;
+	}
+	public String getSurName() {
+		return surName;
+	}
+	public void setSurName(String surName) {
+		this.surName = surName;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public String getSentStringHeader() {
+		return sentStringHeader;
+	}
+	public void setSentStringHeader(String sentStringHeader) {
+		this.sentStringHeader = sentStringHeader;
 	}
 	
 	

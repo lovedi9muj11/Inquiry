@@ -146,7 +146,7 @@
 				<text><![CDATA[TAX ID :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="116" width="399" height="23" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff">
+				<reportElement x="81" y="116" width="159" height="23" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff">
 					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -169,8 +169,8 @@
 				<text><![CDATA[ชำระด้วย  :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="1" y="2" width="786" height="27" uuid="ca69c0bb-e4a3-464b-908d-1e25b8b3ee17"/>
-				<textElement textAlignment="Center">
+				<reportElement style="Cat_Hl_Common" x="1" y="2" width="490" height="27" uuid="ca69c0bb-e4a3-464b-908d-1e25b8b3ee17"/>
+				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษี]]></text>
@@ -189,6 +189,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBranArea()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="500" y="2" width="287" height="27" backcolor="#FFFFFF" uuid="ab6ed77e-1cf9-4fb9-a8a3-b4c21573c3c6">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getSentStringHeader() == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[แบบย่อ]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -319,7 +328,7 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="250">
+		<band height="289">
 			<frame>
 				<reportElement x="1" y="151" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
 				<staticText>
@@ -329,7 +338,7 @@
 						<paragraph lineSpacing="Proportional" lineSpacingSize="3.0"/>
 					</textElement>
 					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
-อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษฉบับนี้จริง]]></text>
+อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษีฉบับนี้จริง]]></text>
 				</staticText>
 			</frame>
 			<staticText>
@@ -441,6 +450,13 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountSpecialStr()]]></textFieldExpression>
 				</textField>
 			</frame>
+			<textField>
+				<reportElement x="460" y="250" width="231" height="23" backcolor="#FFFFFF" uuid="895b37eb-501b-4f21-a0b5-39178fffddd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 </jasperReport>

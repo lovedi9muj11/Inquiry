@@ -296,7 +296,7 @@ public class EpisReportController {
 		List<PaymentResultReq> invObject = paymentOtherService.findListByid(printCollections.get(0).getManualId());
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ExportPDFByInsaleReport exportPDFReport = new ExportPDFByInsaleReport();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		BigDecimal zro = new BigDecimal(0);
@@ -360,6 +360,14 @@ public class EpisReportController {
 			exportPDFReport.setBalanceBefore(printCollections.get(0).getBalanceSummary());
 			exportPDFReport.setBalanceBeforeCheck("N");
 		}
+		
+		if(StringUtils.isNotBlank(printCollections.get(0).getTaxId()) && StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress()) 
+			&& StringUtils.isNotBlank(printCollections.get(0).getCustName()) &&	StringUtils.isNotBlank(printCollections.get(0).getCustNo())) {
+			exportPDFReport.setSentStringHeader("N");
+		}else {
+			exportPDFReport.setSentStringHeader("Y");
+		}
+		
 		exportPDFReport
 				.setBalanceBefore(printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 
