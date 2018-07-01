@@ -59,7 +59,6 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 				paymentManualBean.setPaidAmount(resRQ);
 				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
-			paymentManualBean.setVatRate(0);
 			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");

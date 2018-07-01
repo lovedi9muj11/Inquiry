@@ -26,7 +26,7 @@ public class PaymentManualBean {
 	private String docType;
 	private double change;
 	private java.math.BigDecimal   amount;
-	private Integer   vatRate;
+//	private Integer   vatRate;
 	private java.math.BigDecimal   vatAmount;
 	
 	
@@ -43,12 +43,7 @@ public class PaymentManualBean {
 	public void setAmount(java.math.BigDecimal amount) {
 		this.amount = amount;
 	}
-	public Integer getVatRate() {
-		return vatRate;
-	}
-	public void setVatRate(Integer vatRate) {
-		this.vatRate = vatRate;
-	}
+
 	public Long getManualId() {
 		return manualId;
 	}

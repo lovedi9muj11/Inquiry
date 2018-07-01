@@ -220,9 +220,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sql.append(" and '" + paymentInvBean.getPayDateTo() + "'");
 		}
 		if (StringUtils.isNotBlank(paymentInvBean.getVatRate())) {
-			sql.append(" and pim.VAT_RATE = '" + paymentInvBean.getVatRate() + "'");
+			sql.append(" and pm.VAT_RATE = '" + paymentInvBean.getVatRate() + "'");
 		} else {
-			sql.append(" and pim.VAT_RATE like '%" + paymentInvBean.getVatRate() + "%'");
+			sql.append(" and pm.VAT_RATE like '%" + paymentInvBean.getVatRate() + "%'");
 		}
 		if (StringUtils.isNotBlank(paymentInvBean.getUser())) {
 			sql.append(" and pm.UPDATE_BY = '" + paymentInvBean.getUser() + "'");

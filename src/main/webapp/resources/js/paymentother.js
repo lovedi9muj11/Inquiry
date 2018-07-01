@@ -1,5 +1,37 @@
-$(document).ready(
-		function() {
+$(document).ready(function() {
+			$("#inputServiceAmount").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyDed1").on( "click",  function() {
+				this.select();
+			});
+			$("#inputServiceDiscount").on( "click",  function() {
+				this.select();
+			});
+			$("#inputSpecialDiscount").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyTran").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyDed").on( "click",  function() {
+				this.select();
+			});
+			$("#creditPrice").on( "click",  function() {
+				this.select();
+			});
+			$("#moneyCheck").on( "click",  function() {
+				this.select();
+				
+			});
+			$("#moneyTran").on( "change",  function() {
+				if($("#moneyTran").val() == ""){
+				var table = document.getElementById("sumtableBillingList");
+				replaseIndexV4(table);
+				}
+			});
+			
+			
 			findTypePayment();
 			findBank();
 			findBankNo();
@@ -533,16 +565,23 @@ function buttonAddBillingList() {
 
 		var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount);
 		var serviceMoreData = FormatMoneyShowToNumber(inputServiceMoreData);
-		var amountDiscount = disDiscount(serviceAmount);
-		var amountBeforVat = disVat(amountDiscount,radioResult);
-		var amountTotal = calurateVatRate(amountBeforVat, vatRate);
+	
+		var amountTotal
 		var vatamount;
+
 		if(radioResult == "beforvat"){
-			serviceAmount = amountTotal;
+			var amountDiscount = disDiscount(serviceAmount);
+			var amountBeforVat = disVat(amountDiscount,radioResult);
+			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
 			vatamount = amountTotal- amountDiscount;
+			
 		}else{
-			serviceAmount = amountBeforVat;
-			 vatamount = amountBeforVat- amountDiscount;
+			var amountBeforVat = disVat(serviceAmount,radioResult);
+			var amountDiscount = disDiscount(amountBeforVat);
+			 amountTotal = calurateVatRate(amountDiscount, vatRate);
+			 vatamount = amountTotal- amountDiscount;
+			 serviceAmount = amountBeforVat;
+			 
 		}
 		
 		if(vatamount < 0 ){
@@ -568,8 +607,8 @@ function buttonAddBillingList() {
 		+ "</td><td>"
 		+ serviceMoreData
 		+ "</td><td>"
-		+ serviceAmount.toFixed(2).toString().replace(
-				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+		+ serviceAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+		"$1,")
 		+ "</td><td>"
 		+ inputServiceDiscount
 		+ "</td><td>" 
@@ -1304,6 +1343,7 @@ function sumTranPrice() {
 	} else if (result == 'check') {
 		addDataSumCheckTranPrice();
 	}
+
 	var tablesumTotals = document.getElementById("showTotalPriceTable");
 	replaseIndex(tablesumTotals);
 	
@@ -1396,6 +1436,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 		}
 
 	}
+	
 	replaseIndex(tablesumTotals);
 
 	
@@ -1658,6 +1699,8 @@ function totalSum() {
 //			$("#balanceSummarys").val(result.toFixed(2).toString()
 //			.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			var  a = 0;
+			$("#moneyTran").val(result.toFixed(2).toString()
+					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#change").val(a.toFixed(2).toString()
 					.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		} else {
@@ -1675,8 +1718,8 @@ function totalSum() {
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#balanceSummarys").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-//		$("#moneyTran").val(total.toFixed(2).toString()
-//				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+		$("#moneyTran").val(total.toFixed(2).toString()
+				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#creditPrice").val(total.toFixed(2).toString()
 				.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		$("#moneyCheck").val(total.toFixed(2).toString()

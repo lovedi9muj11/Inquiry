@@ -181,7 +181,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 						paymentManualBean.setDocType(resultPaymentManual.getDocType());
 						paymentManualBean.setChange(resultPaymentManual.getChange());
 						paymentManualBean.setAmount(resultPaymentManual.getAmount());
-						paymentManualBean.setVatRate(resultPaymentManual.getVatRate());
+//						paymentManualBean.setVatRate(resultPaymentManual.getVatRate());
 						paymentManualBean.setVatAmount(resultPaymentManual.getVatAmount());
 						manualID = paymentManualDao.insertPayment(paymentManualBean);
 					}
