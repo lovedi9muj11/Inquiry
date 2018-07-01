@@ -23,7 +23,6 @@ import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
-import th.co.maximus.service.HistoryPaymentService;
 
 @Controller
 public class ClearingPaymentEpisOffline {
@@ -31,100 +30,104 @@ public class ClearingPaymentEpisOffline {
 	private String url;
 
 	RestTemplate restTemplate;
-	
+
 	public ClearingPaymentEpisOffline() {
 		restTemplate = new RestTemplate();
 	}
-	
-	@Autowired
-	private HistoryPaymentService paymentManualService;
-	
+
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
-	
+
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
-	
-	public void callOnlinePayment(Integer manualId){
-		
 
-		
+	public String callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
+		String result = "";
 		try {
 			PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
+			List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
 			List<PaymentInvoiceEpisOffline> paymentList = new ArrayList<>();
 			List<DuductionEpisOffline> deductionList = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodList = new ArrayList<>();
 			List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
 			List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
-			try {
-				ReceiptOfflineModel recrip = clearingPaymentEpisOfflineService.findRecipt(manualId);
-				if(recrip != null){
-					paymentList = clearingPaymentEpisOfflineService.findPaymentInvoice(manualId);
-					deductionList = clearingPaymentEpisOfflineService.findDeduction(manualId);
-					methodList = clearingPaymentEpisOfflineService.findTrsMethod(manualId);
-					if(methodList.size() >0 && methodList != null){
-						for(TrsMethodEpisOffline method : methodList){
-							if(method.getCode().equals("CH")){
-								chequeList = clearingPaymentEpisOfflineService.findTrsCheq(method.getId());
-								method.setTrsChequerefEpisOffline(chequeList);
-							}else if(method.getCode().equals("CD")){
-								creditList = clearingPaymentEpisOfflineService.findTrsCredit(method.getId());
-								method.setTrsCreditrefEpisOffline(creditList);
+			if (creteria != null) {
+				for (PaymentMMapPaymentInvBean payment : creteria) {
+					Integer manualId = (int) (long) payment.getManualId();
+					ReceiptOfflineModel recrip = clearingPaymentEpisOfflineService.findRecipt(manualId);
+					if (recrip != null) {
+						paymentList = clearingPaymentEpisOfflineService.findPaymentInvoice(manualId);
+						deductionList = clearingPaymentEpisOfflineService.findDeduction(manualId);
+						methodList = clearingPaymentEpisOfflineService.findTrsMethod(manualId);
+						if (methodList.size() > 0 && methodList != null) {
+							for (TrsMethodEpisOffline method : methodList) {
+								if (method.getCode().equals("CH")) {
+									chequeList = clearingPaymentEpisOfflineService.findTrsCheq(method.getId());
+									method.setTrsChequerefEpisOffline(chequeList);
+								} else if (method.getCode().equals("CR")) {
+									creditList = clearingPaymentEpisOfflineService.findTrsCredit(method.getId());
+									method.setTrsCreditrefEpisOffline(creditList);
+								}
+
 							}
-							
+							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
-						paymentEpisOfflineDTO.setTrsMethod(methodList);
+						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
+						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
+						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
+						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
+						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
+						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
+						paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
+						paymentEpisOfflineDTO.setSource(recrip.getSource());
+						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
+						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
+						paymentEpisOfflineDTO.setPaymentInvoice(paymentList);
+						if (deductionList.size() > 0) {
+							paymentEpisOfflineDTO.setDuduction(deductionList);
+						}
+
 					}
-					paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
-					paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
-					paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
-					paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
-					paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
-					paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-					paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
-					paymentEpisOfflineDTO.setSource(recrip.getSource());
-					paymentEpisOfflineDTO.setRemark(recrip.getRemark());
-					paymentEpisOfflineDTO.setManualID(recrip.getManualID());
-					paymentEpisOfflineDTO.setPaymentInvoice(paymentList);
-					if(deductionList.size() > 0){
-						paymentEpisOfflineDTO.setDuduction(deductionList);
-					}
-					
+					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 				}
-				
-			} catch (Exception e) {
-				// TODO: handle exception
+				// add object to arrayList
+
 			}
-			
 			String postUrl = url.concat("/EpisWeb/offline/paymentManualSaveOffline"); // /offline/insertPayment
-			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, paymentEpisOfflineDTO, String.class);
-			System.out.println("Response for Post Request: " + postResponse.getBody());
-			
-		}catch (Exception e) {
+			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
+					String.class);
+			if(postResponse.getBody()!=null){
+				result = postResponse.getBody();
+			}else{
+				result = "N";
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
+			result = "N";
 		}
-		
+		return result;
 	}
-	  @RequestMapping(value = {"/clearing/find"}, method = RequestMethod.POST, produces = "application/json")
-	  @ResponseBody
-	    public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
-		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-			  result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());	
-	        return result;
-	    }
-	  @RequestMapping(value = {"/clearing/save"}, method = RequestMethod.POST, produces = "application/json")
-	  @ResponseBody
-	    public void save(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
-		  List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-			  result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());	
-			  
-			  if(result != null) {
-				  for(PaymentMMapPaymentInvBean data : result) {
-					  Integer terrible = (int) (long) data.getManualId();
-					  callOnlinePayment(terrible);
-					  clearingPaymentEpisOfflineService.updateStatusClearing(terrible);  
-				  }
-				  
-			  }
-	    }
+
+	@RequestMapping(value = { "/clearing/find" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
+		return result;
+	}
+
+	@RequestMapping(value = { "/clearing/save" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void save(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
+		if (result != null) {
+			callOnlinePayment(result);
+
+			for (PaymentMMapPaymentInvBean payment : result) {
+				clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId());
+			}
+		}
+
+	}
 }

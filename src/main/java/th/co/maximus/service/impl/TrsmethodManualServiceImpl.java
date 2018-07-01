@@ -49,7 +49,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
 				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
-				if(paymentTranPriceBean.getTypePayment().equals("CD")){
+				if(paymentTranPriceBean.getTypePayment().equals("CR")){
 					totalAmount = totalAmount-paymentTranPriceBean.getCreditPrice();
 					trsMethodManualBean.setName("บัตรเครดิต");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
@@ -83,7 +83,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				}
 				
 				if(idTrsMethod >0){
-						if(paymentTranPriceBean.getTypePayment().equals("CD")){
+						if(paymentTranPriceBean.getTypePayment().equals("CR")){
 							//insert Credit
 							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
 							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());

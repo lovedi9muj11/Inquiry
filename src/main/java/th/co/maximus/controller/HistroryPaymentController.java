@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class HistroryPaymentController {
 
 	@Autowired
 	private ClearingPaymentEpisOffline clearingPaymentEpisOffline;
-	
+
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
 
@@ -112,10 +113,25 @@ public class HistroryPaymentController {
 
 	@RequestMapping(value = { "/histroryPayment/clearing" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void clearing(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
-		Integer terrible = (int) (long) creteria.getManualId();
-		clearingPaymentEpisOffline.callOnlinePayment(terrible);
-		clearingPaymentEpisOfflineService.updateStatusClearing(terrible);  
+	public HashMap<String, String> clearing(@RequestBody List<PaymentMMapPaymentInvBean> creteria) throws Exception {
+		String message = "";
+		HashMap<String, String> result = new HashMap<>();
+		try {
+			String messages = clearingPaymentEpisOffline.callOnlinePayment(creteria);
+			if (!messages.equals("N")) {
+				for (PaymentMMapPaymentInvBean payment : creteria) {
+					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId());
+				}
+				message = "success :"+message;
+			}else{
+				message = "error :"+message;
+			}
+			
+		} catch (Exception e) {
+			message = "error" + e.getMessage();
+		}
+		result.put("data", message);
+		return result;
 	}
 
 }

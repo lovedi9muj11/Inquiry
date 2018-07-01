@@ -370,9 +370,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 						resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
 						resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
 						resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getString(16),
-						resultSet.getBigDecimal(17), resultSet.getBigDecimal(17), resultSet.getString(18),
-						resultSet.getString(19), resultSet.getString(20), resultSet.getString(21),
-						resultSet.getDate(22));
+						resultSet.getBigDecimal(17), resultSet.getBigDecimal(18), resultSet.getString(19),
+						resultSet.getString(20), resultSet.getString(21), resultSet.getString(22),
+						resultSet.getDate(23));
 				beanReReq.add(bean);
 			}
 
