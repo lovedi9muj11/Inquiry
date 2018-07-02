@@ -299,6 +299,11 @@ public class EpisReportController {
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
+		if (printCollections.get(0).getDoctype().equals("F")) {
+			exportPDFReport.setSentStringHeader("N");
+		} else if(printCollections.get(0).getDoctype().equals("S")) {
+			exportPDFReport.setSentStringHeader("Y");
+		}
 		BigDecimal zro = new BigDecimal(0);
 		BigDecimal spDis = new BigDecimal(0);
 		for (PaymentResultReq paymentResultReq : invObject) {
@@ -360,14 +365,6 @@ public class EpisReportController {
 			exportPDFReport.setBalanceBefore(printCollections.get(0).getBalanceSummary());
 			exportPDFReport.setBalanceBeforeCheck("N");
 		}
-		
-		if(StringUtils.isNotBlank(printCollections.get(0).getTaxId()) && StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress()) 
-			&& StringUtils.isNotBlank(printCollections.get(0).getCustName()) &&	StringUtils.isNotBlank(printCollections.get(0).getCustNo())) {
-			exportPDFReport.setSentStringHeader("N");
-		}else {
-			exportPDFReport.setSentStringHeader("Y");
-		}
-		
 		exportPDFReport
 				.setBalanceBefore(printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 

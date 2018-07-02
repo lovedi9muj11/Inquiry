@@ -34,10 +34,17 @@ public class PaymentOtherFirstBean implements Serializable{
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
+	private String docType;
 	
 	
 	
 	
+	public String getDocType() {
+		return docType;
+	}
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
 	public BigDecimal getSalespacial() {
 		return salespacial;
 	}

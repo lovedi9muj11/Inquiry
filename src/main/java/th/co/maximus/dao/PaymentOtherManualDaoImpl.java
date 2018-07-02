@@ -114,7 +114,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE) as AMOUNTTYPE");
+			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL  ");
 
