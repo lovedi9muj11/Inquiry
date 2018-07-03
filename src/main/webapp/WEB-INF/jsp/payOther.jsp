@@ -85,19 +85,19 @@
 										id="vat">
 									<div class="form-group">
 										<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า
-											:<span style="color: red; display: none"">*</span>
+											:<span style="color: red; ">*</span>
 										</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custNo"
 												name="custNo" placeholder="เลขที่ลูกค้า">
-											<p id="sCustNo" style="color: red; display: none" display: none">คุณยังไม่ได้กรอก
+											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก
 												เลขที่ลูกค้า</p>
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custName"
 												name="custName" placeholder="ชื่อ">
-											<p id="sCustName" style="color: red; display: none"">
+											<p id="sCustName" style="color: red; display: none">
 												คุณยังไม่ได้กรอกชื่อ</p>
 										</div>
 
@@ -115,7 +115,7 @@
 									<div class="form-group left">
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span
-											style="color: red; display: none"">*</span></label>
+											style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="userGroup" name="userGroup"
 												onchange="autoSelect()">
@@ -131,7 +131,7 @@
 												<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
 											</select>
 										</div>
-										<p id="suserGroup" style="color: red; display: none"">คุณยังไม่ได้เลือก
+										<p id="suserGroup" style="color: red; display: none">คุณยังไม่ได้เลือก
 											กลุ่มผู้ใช้บริการ</p>
 
 										<label class="col-sm-2 control-label right"
@@ -139,7 +139,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" id="custBrach" name="custBrach"
 												type="text" maxlength="5">
-											<p id="scustBrach" style="color: red; display: none"">คุณยังไม่ได้กรอก
+											<p id="scustBrach" style="color: red; display: none">คุณยังไม่ได้กรอก
 												สาขา</p>
 										</div>
 										<label class="col-sm-2 control-label right"
@@ -161,7 +161,7 @@
 										<div class="col-sm-6">
 											<textarea class="form-control" rows="3" id="custAddress"
 												name="custAddress"></textarea>
-											<p id="scustAddress" style="color: red; display: none"">
+											<p id="scustAddress" style="color: red; display: none">
 												คุณยังไม่ได้กรอก ที่อยู่</p>
 										</div>
 									</div>
@@ -184,7 +184,7 @@
 								<div class="form-horizontal">
 									<div class="form-group">
 										<label class="control-label col-sm-2">ประเภทรายได้ :<span
-											style="color: red; display: none"">*</span></label>
+											style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select id="inputServiceType" name="inputServiceType"
 												class="form-control">
@@ -202,7 +202,7 @@
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
-											:<span style="color: red; display: none"">*</span>
+											:<span style="color: red;">*</span>
 										</label>
 										<div class="col-sm-2">
 											<select id="inputServiceDepartment"
@@ -234,7 +234,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">ชื่อบริการ :<span
-											style="color: red; display: none"">*</span></label>
+											style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
@@ -252,7 +252,7 @@
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>
 										</div>
 										<label class="control-label col-sm-2">จำนวนรายการ :<span
-											style="color: red; display: none"">*</span></label>
+											style="color: red; ">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" name="inputServiceMoreData"
 												class="form-control" value="1">
@@ -287,7 +287,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">จำนวนเงินต่อหน่วย
-											ก่อน vat :<span style="color: red; display: none"">*</span>
+											ก่อน vat :<span style="color: red;" >*</span>
 										</label>
 										<div class="col-sm-2">
 											<input id="inputServiceAmount" name="inputServiceAmount"

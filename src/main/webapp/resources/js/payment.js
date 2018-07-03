@@ -147,7 +147,13 @@ $(document).ready(function() {
 
 
 function taxDiscount(){
-	var result = FormatMoneyShowToNumber($("#taxOnly").val());
+	var result = $("#taxOnly").val();
+	if(result == ""){
+		result = parseFloat(0);
+	}else{
+		result = FormatMoneyShowToNumber(result);
+	}
+	
 	var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
 	var vatq = FormatMoneyShowToNumber($("#vatrate").val());
 	var bas = parseFloat(0);
@@ -159,7 +165,7 @@ function taxDiscount(){
 		bas = bable;
 	}
 	
-	var balance = FormatMoneyShowToNumber($("#balanceSummarys").val());
+	var balance = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
 	
 	var sq = $("#summaryTax").val();
 	var summaryTax = parseFloat(sq.replace(/,/g, ""));

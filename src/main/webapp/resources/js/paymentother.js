@@ -344,7 +344,7 @@ function submitForm() {
 		listpaymentTaxQ = {
 			"docDed" : resultDeductible[a][1],
 			"custNo" : resultDeductible[a][2],
-			"radioDed" : resultDeductible[a][3],
+			"radioDed" : resultDeductible[a][5],
 			"moneyDed" : resultDeductible[a][4]*-1
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
@@ -700,17 +700,21 @@ function addRow() {
 	var table = document.getElementById("deductibleTable").rows.length;
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
+	var radioResultValue = "";
 	var invoiceNo = $("#invoiceNo").val();
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
 
-			if (radioResult == "01") {
+			if(radioResult == "01"){
 				radioResult = "69 ทวิ";
-			} else if (radioResult == "02") {
+				radioResultValue = "69BIS";
+			}else if(radioResult =="02"){
 				radioResult = "3 เตรส";
-			} else if (radioResult == "03") {
+				radioResultValue = "3TREDECIM";
+			}else if(radioResult == "03"){
 				radioResult = "69 ตรี";
+				radioResultValue = "69TRE";
 			}
 		}
 	}
@@ -756,6 +760,7 @@ function addRow() {
 			+ radioResult
 			+ "</td><td>"
 			+ "-"+moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ "<td>"+ radioResultValue + "</td>"
 			+ "</td><td><a onclick='myDeleteFunction("
 			+ tdAutoNumber()
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
@@ -872,7 +877,7 @@ function addDataTableDed() {
 		$("#showDeductibleTable").find('tbody').append(markup);
 		var markup1 = "<tr><td>" + numberRun + "</td><td>" + result[1]
 				+ "</td><td>" + result[2] + "</td><td>" + result[3]
-				+ "</td><td>" + result[4] + "</td></tr>";
+				+ "</td><td>" + result[4] + "</td><td>" + result[5] + "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
 		var prict1 = prict.replace(",", "");
 		balance = parseFloat(balance) - parseFloat(prict1 );
@@ -1145,7 +1150,7 @@ function addDataSumCheckTranPrice() {
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 		var balans = $("#balanceSummarys").val();
 		var balan = parseFloat(balans.replace(",", ""));
-		var baGet = $("balanceSumShow").val();
+		var baGet = $("#balanceSumShow").val();
 		var balanget = parseFloat(baGet.replace(",", ""));
 
 		var price = result[6].replace(",", "")
@@ -1324,6 +1329,10 @@ function addDataTablecreditTranPrice() {
 
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
+	if ($("#moneyTran").val() == "" || $("#moneyTran").val() == "0.00" ) {
+		$("#moneyTranTxt").show();
+		return $("#moneyTran").focus();
+	}
 	$('addRow').attr("disabled", "true");
 	$("#addRow").hide();
 	$("#addRowShow").show();

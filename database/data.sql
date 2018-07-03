@@ -6,12 +6,30 @@ INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES
+	(5, 'EPIS6', 'Agent', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS6', NULL, '2018-07-01 16:53:47.381260', NULL, '0000-00-00 00:00:00.000000'),
+	(6, 'EPIS7', 'GFMIS', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS7', NULL, '2018-07-01 16:53:47.392668', NULL, '0000-00-00 00:00:00.000000'),
+	(7, 'EPIS5', 'Agent', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS5', NULL, '2018-07-01 16:53:47.398618', NULL, '0000-00-00 00:00:00.000000'),
+	(8, 'EPIS1', 'Agent', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS1', NULL, '2018-07-01 16:53:47.403084', NULL, '0000-00-00 00:00:00.000000'),
+	(9, 'EPIS3', 'Agent', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS3', NULL, '2018-07-01 16:53:47.407548', NULL, '0000-00-00 00:00:00.000000'),
+	(10, 'EPIS2', 'Supervisor', '5f4dcc3b5aa765d61d8327deb882cf99', 'EPIS2', NULL, '2018-07-01 16:53:47.411019', NULL, '0000-00-00 00:00:00.000000'),
+	(11, 'preecha', 'Wiengpak', 'e10adc3949ba59abbe56e057f20f883e', 'preechaW', NULL, '2018-07-01 16:53:47.414985', NULL, '0000-00-00 00:00:00.000000'),
+	(12, 'kun', 'BACK', '5f4dcc3b5aa765d61d8327deb882cf99', 'kunback', NULL, '2018-07-01 16:53:47.418956', NULL, '0000-00-00 00:00:00.000000');
 
 
 INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('2', '2');
 INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('3', '3');
 INSERT INTO `USER_ROLE` (`user_id`, `role_id`) VALUES ('4', '3');
+INSERT INTO `USER_ROLE` (`User_ID`, `Role_ID`) VALUES
+	(5, 3),
+	(6, 3),
+	(7, 3),
+	(8, 3),
+	(9, 3),
+	(10, 2),
+	(11, 3),
+	(12, 3);
 
 INSERT INTO `MAP_GL_SERVICE_TYPE` (`ID`, `GL_CODE`, `SERVICE_CODE`, `PRODUCT_CODE`, `PRODUCT_NAME`, `SUB_PRODUCT_CODE`, `SUB_PRODUCT_NAME`, `SERVICE_NAME`, `REVENUE_TYPE_CODE`, `REVENUE_TYPE_NAME`, `SEGMENT_CODE`, `SEGMENT_NAME`, `STATUS`, `SOURCE`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
 	(1, '1234567890', 'MY', '101010004', 'บ.ITFS', '04', 'บ.ติดฯ/ซ่อมฯ-FLAG	', '1234567890 02 - รด.บริการ-นปท. 04 - บ.ติดฯ/ซ่อมฯ-FLAG', '02', 'รด.บริการ-นปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL),
@@ -21,6 +39,7 @@ INSERT INTO `MAP_GL_SERVICE_TYPE` (`ID`, `GL_CODE`, `SERVICE_CODE`, `PRODUCT_COD
 	(5, '55100101', 'null', '101010001', 'บ.CAT 001', '01', 'รด.ค่าใช้ท่อร้อยสาย	', '55100101 01 - รด.บริการ-ใน/รปท. 01 - รด.ค่าใช้ท่อร้อยสาย', '01', 'รด.บริการ-ใน/รปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL);
 	
 INSERT INTO `MASTER_DATA` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATUS`, `ORDERED`, `PARENT_ID`, `REF_ID`, `PROPERTY_1`, `PROPERTY_2`, `PROPERTY_3`, `PROPERTY_4`, `PROPERTY_5`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
+	(1, 't', 'time auto', '20/10/2018 10:30:00', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1979, '01', 'รอผลการอนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '1', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1980, '1J10225', 'สำนักงานบริการลูกค้า กสท  สมุทรสาคร-ขต.(ตต)', 'COST_CENTER', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1981, '02', 'อนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '2', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
@@ -2010,3 +2029,4 @@ INSERT INTO `MASTER_DATA` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATU
 	(3965, '09', 'บ.ติดฯ/ซ่อมฯ-RE	', 'SUB_PRODUCT', 'null', 'null', 'null', 'null', 'null', '181039901', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(3966, '10', 'บ.ติดฯ/ซ่อมฯ-RE	', 'SUB_PRODUCT', 'null', 'null', 'null', 'null', 'null', '181039901', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(3967, '11', 'บ.ติดฯ/ซ่อมฯ-RE	', 'SUB_PRODUCT', 'null', 'null', 'null', 'null', 'null', '181039901', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL);
+	

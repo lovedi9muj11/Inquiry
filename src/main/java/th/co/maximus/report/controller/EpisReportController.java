@@ -320,7 +320,7 @@ public class EpisReportController {
 
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(printCollections.get(0).getBranArea());
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
-		exportPDFReport.setBranArea(valueBean.getValue());
+		exportPDFReport.setBranArea(valueBean.getProperty1()+" "+valueBean.getValue());
 		// exportPDFReport.setBracnCode(invObject.getBracnCode());
 		exportPDFReport.setDocumentDate(printCollections.get(0).getDocumentDate());
 		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
@@ -448,7 +448,8 @@ public class EpisReportController {
 			jp.setServiceNameStr(String.format(paymentResultReq.getServiceName()));
 			jp.setBeforeDiscount(String.format("%,.2f", paymentResultReq.getBeforeVat()));
 			jp.setDiscountbeforvatStr(String.format("%,.2f", paymentResultReq.getDiscount()));
-			jp.setAmountStr(String.format("%,.2f", paymentResultReq.getAmount().add(paymentResultReq.getDiscountspacal())));
+			jp.setAmountStr(String.format("%,.2f", paymentResultReq.getBeforeVat().subtract(paymentResultReq.getDiscount())));
+					//.add(paymentResultReq.getDiscountspacal())));
 			System.out.println(paymentResultReq.getDiscountspacal());
 			discountSpecial =  discountSpecial.add(paymentResultReq.getDiscountspacal());
 
