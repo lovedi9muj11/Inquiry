@@ -448,7 +448,8 @@ public class EpisReportController {
 			jp.setServiceNameStr(String.format(paymentResultReq.getServiceName()));
 			jp.setBeforeDiscount(String.format("%,.2f", paymentResultReq.getBeforeVat()));
 			jp.setDiscountbeforvatStr(String.format("%,.2f", paymentResultReq.getDiscount()));
-			jp.setAmountStr(String.format("%,.2f", paymentResultReq.getAmount().add(paymentResultReq.getDiscountspacal())));
+			jp.setAmountStr(String.format("%,.2f", paymentResultReq.getBeforeVat().subtract(paymentResultReq.getDiscount())));
+					//.add(paymentResultReq.getDiscountspacal())));
 			System.out.println(paymentResultReq.getDiscountspacal());
 			discountSpecial =  discountSpecial.add(paymentResultReq.getDiscountspacal());
 
