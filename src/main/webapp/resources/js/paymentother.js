@@ -1329,6 +1329,10 @@ function addDataTablecreditTranPrice() {
 
 function sumTranPrice() {
 	var result = document.getElementById("typePayment").value;
+	if ($("#moneyTran").val() == "" || $("#moneyTran").val() == "0.00" ) {
+		$("#moneyTranTxt").show();
+		return $("#moneyTran").focus();
+	}
 	$('addRow').attr("disabled", "true");
 	$("#addRow").hide();
 	$("#addRowShow").show();
