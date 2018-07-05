@@ -259,7 +259,7 @@
 		      	<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<input type="text" id="remake" name="remake" class="form-control" disabled="disabled">
+							<input type="text" id="remake" name="remake" class="form-control">
 						</div>
 					</div>
 		     	</div>
