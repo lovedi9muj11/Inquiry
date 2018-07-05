@@ -100,5 +100,12 @@ public class Constants {
 			
 		}
 	}
+	
+	public static class CANCEL{
+		public static final String CANCEL_SERVICE_01 = "01";
+		public static final String CANCEL_ADDR_02 = "02";
+		public static final String CANCEL_SERVICE = "รับชำระผิดบริการ";
+		public static final String CANCEL_ADDR = "ชื่อ-ที่อยู่ ไม่ถูกต้อง";
+	}
 
 }

@@ -9,8 +9,10 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
@@ -145,12 +147,15 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 		InvoiceBean invoiceBean = new InvoiceBean(); 
+		
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		String receiptId = "";
 		int manualID = 0;
 		try {
 
 			// update status
-			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo("C", paymentMMapPaymentInvBean.getManualId());
+			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo("C", paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, profile.getUsername());
 			paymentInvoiceManualDao.updateStatusPaymentInvoice(paymentMMapPaymentInvBean.getManualId());
 			if ("02".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
 				// Insert PaymentManual

@@ -24,7 +24,7 @@ public interface PaymentInvoiceManualDao {
 	
 	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo);
 	
-	public void updateRecodeStatusFromReceiptNo(String status, long manualId);
+	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String  user);
 	
 	public void updateStatusPaymentInvoice(long manualId);
 	

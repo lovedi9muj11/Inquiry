@@ -35,7 +35,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">เลขที่ลูกค้า(Billing Account)</label>
+						<label class="col-md-4 control-label text-right">เลขที่ลูกค้า</label>
 						<div class="col-md-4">
 							<input type="text" id="billAccount" name="billAccount" class="form-control text-left">
 						</div>
@@ -100,7 +100,7 @@
 	      	<div class="modal-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<input type="text" id="remake" name="remake" class="form-control" disabled="disabled">
+						<input type="text" id="remake" name="remake" class="form-control" >
 					</div>
 				</div>
 	     	</div>

@@ -41,6 +41,8 @@ public class PaymentResultReq {
 	private String paid_amountStr;
 	private String discountspacalStr;
 	private BigDecimal paidAmount;
+	private BigDecimal discounBeforVat;
+	private String discounBeforVatStr;
 	
 	private String chkPaymentType;
 	
@@ -391,6 +393,22 @@ public class PaymentResultReq {
 
 	public void setChkPaymentType(String chkPaymentType) {
 		this.chkPaymentType = chkPaymentType;
+	}
+
+	public BigDecimal getDiscounBeforVat() {
+		return discounBeforVat;
+	}
+
+	public void setDiscounBeforVat(BigDecimal discounBeforVat) {
+		this.discounBeforVat = discounBeforVat;
+	}
+
+	public String getDiscounBeforVatStr() {
+		return discounBeforVatStr;
+	}
+
+	public void setDiscounBeforVatStr(String discounBeforVatStr) {
+		this.discounBeforVatStr = discounBeforVatStr;
 	}
 	
 }

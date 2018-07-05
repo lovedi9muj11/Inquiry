@@ -30,6 +30,7 @@
 	<form id="cancelForm" method="post" class="form-horizontal" role="form">
 		<input  type="hidden" name="documentNo" id="documentNo" value="">
 		<input  type="hidden" name="chkPaymentType" id="chkPaymentType" value="">
+		<input type="hidden" name="${_csrf.parameterName}" id="loginName" value="${_csrf.token}" />
 	</form>
 	<div  style="padding: 30px 10px 50px 50px">
 		<h1 class="page-header"></h1>
