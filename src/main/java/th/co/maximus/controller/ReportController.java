@@ -140,6 +140,7 @@ public class ReportController {
 	 
 	 @RequestMapping(value = { "/reportPaymentPDF" }, method = RequestMethod.POST)
 		public void paymentReportPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 request.setAttribute("documentReport", "-1");
 			ReportPaymentCriteria critreia = new ReportPaymentCriteria();
 			critreia.setDateFrom(request.getParameter("dateFromHidden"));
 			critreia.setDateTo(request.getParameter("dateToHidden"));
@@ -153,17 +154,8 @@ public class ReportController {
 			
 			String pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
 			
-			byte[] bytes = reportService.ganeratePaymentPDF(pathFile, critreia,result);
-			
-			Locale TH = new Locale("th", "TH");
-			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy HH-mm", TH);
-			String fileName = "Payment-Report"+ dateFormate.format(new Date());
-			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "attachment;filename="+ fileName +".pdf");
-			response.getOutputStream().write(bytes);
-			response.getOutputStream().flush();
-	   
-	        
+			reportService.ganeratePaymentPDF(pathFile, critreia,result,response);
+
 		}
 
 }
