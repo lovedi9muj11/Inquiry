@@ -1,5 +1,7 @@
 package th.co.maximus;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import th.co.maximus.batch.CallEpisOnline;
+import th.co.maximus.batch.OfflineBatch;
 import th.co.maximus.controller.ClearingPaymentEpisOffline;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15,6 +18,9 @@ import th.co.maximus.controller.ClearingPaymentEpisOffline;
 public class CallEpisOnlineTest {
 	@Autowired
 	private CallEpisOnline callEpisOnline;
+	
+	@Autowired
+    private OfflineBatch tasks;
 	
 	@Autowired
 	private ClearingPaymentEpisOffline clearingPaymentEpisOffline;
@@ -40,7 +46,7 @@ public class CallEpisOnlineTest {
 	@Test
 	@Ignore
 	public void test() throws Exception{
-		clearingPaymentEpisOffline.callOnlinePayment(1);
+		//clearingPaymentEpisOffline.callOnlinePayment(1);
 	}
 	
 	@Test
@@ -48,5 +54,11 @@ public class CallEpisOnlineTest {
 	public void callRestGetUser() throws Exception{
 		callEpisOnline.callOnlineSyncUser();
 	}
+	
+    @Test
+    @Ignore
+    public void contextLoads() {
+        assertThat(tasks).isNotNull();
+    }
 
 }
