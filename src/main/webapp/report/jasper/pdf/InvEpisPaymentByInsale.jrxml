@@ -198,6 +198,22 @@
 				</textElement>
 				<text><![CDATA[แบบย่อ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="283" y="116" width="197" height="23" backcolor="#FFFFFF" uuid="6f8474cc-e071-43c2-a607-2bb8e260e97c"/>
+				<textElement>
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSouce()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cat_Bt_Title" x="242" y="116" width="40" height="23" backcolor="#FFFFFF" uuid="01b5afbe-c088-4916-9213-085e3c4c8633">
+					<printWhenExpression><![CDATA[ $P{ReportSource}.getCheckBran() == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[สาขา :]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
