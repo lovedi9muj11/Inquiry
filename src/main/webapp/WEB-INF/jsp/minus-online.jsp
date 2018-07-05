@@ -56,8 +56,10 @@
 				<div class="row" style="padding-bottom: 10px">
 					<!-- Button -->
 					<div class="col-md-12 text-center">
-						<button id="searchCriteria" name="searchCriteria" class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
-						<button id="clearCriteria" name="clearCriteria" class="btn btn-danger" style="width: 7%">ลบ</button>
+						<button id="searchCriteria" name="searchCriteria"
+							class="btn btn-primary" onclick="search()" style="width: 7%">ค้นหา</button>
+						<button id="clearCriteria" name="clearCriteria"
+							class="btn btn-danger" style="width: 7%">ลบ</button>
 					</div>
 				</div>
 			</div>
@@ -67,7 +69,8 @@
 			<div class="row" style="padding-bottom: 10px">
 				<!-- Button -->
 				<div class="col-md-12 text-right">
-					<button id="send" name="send" class="btn btn-success" onclick="sendCearling()"  style="width: 7%">ส่งหักล้างทั้งหมด</button>
+					<button id="send" name="send" class="btn btn-success"
+						onclick="sendCearling()" style="width: 7%">ส่งหักล้างทั้งหมด</button>
 				</div>
 			</div>
 		</div>
@@ -134,18 +137,45 @@
 			</div>
 		</div>
 	</div>
-		<div class="modal fade" role="dialog"aria-labelledby="mySmallModalLabel" aria-hidden="true"id="confrimDialog">
+	<div class="modal fade" role="dialog"
+		aria-labelledby="mySmallModalLabel" aria-hidden="true"
+		id="confrimDialog">
 		<div class="modal-dialog modal-sm" style="width: 600px">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title" id="myModalLabel">ยืนยัน</h4>
 				</div>
-						<div class="form-group col-md-12">
-							<input type="hidden" id="manualId" name="manualId">
-						</div>
+				<div class="form-group col-md-12">
+					<input type="hidden" id="manualId" name="manualId">
+				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="modal-btn-si"	onclick="confirmDialog()">ตกลง</button>
-					<button type="button" class="btn btn-danger" id="modal-btn-si"onclick="closeDialogs()">ปิด</button>
+					<button type="button" class="btn btn-primary" id="modal-btn-si"
+						onclick="confirmDialog()">ตกลง</button>
+					<button type="button" class="btn btn-danger" id="modal-btn-si"
+						onclick="closeDialogs()">ปิด</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" role="dialog"
+		aria-labelledby="mySmallModalLabel" aria-hidden="true" id="showLog">
+		<div class="modal-dialog modal-sm" style="width: 600px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">แสดงผล</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-md-12">
+							<div class="alert alert-dark" role="alert">
+								<p id="showLogs"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="modal-btn-si"
+						onclick="closeLog()">ปิด</button>
 				</div>
 			</div>
 		</div>

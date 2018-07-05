@@ -16,7 +16,7 @@ public class TrsMethodEpisOffline {
 	private List<TrsCreditrefEpisOffline> trsCreditrefEpisOffline;
 	private List<TrsChequerefEpisOffline> trsChequerefEpisOffline;
 	public TrsMethodEpisOffline(){}
-	public TrsMethodEpisOffline(String code,String name,String creditNo,String chequeNo,String accountNo,BigDecimal amount,Long id,String versionStemp,String createBy){
+	public TrsMethodEpisOffline(String code,String name,String chequeNo,String creditNo,String accountNo,BigDecimal amount,Long id,String versionStemp,String createBy){
 		
 		this.code = code;
 		this.name = name;

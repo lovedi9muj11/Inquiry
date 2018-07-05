@@ -223,7 +223,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
 			preparedStatement.setLong(1, manualId);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

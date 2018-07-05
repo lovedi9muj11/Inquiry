@@ -475,7 +475,7 @@ function submitForm(){
 			"typePayment" : resultTotalPrice[b][1],
 			"moneyTran" : resultTotalPrice[b][2].replace(/,/g, "")
 			}
-		}else if (resultTotalPrice[b][1] == "CD"){
+		}else if (resultTotalPrice[b][1] == "CR"){
 			listpaymentTranPriceQ = {
 					"typePayment" : resultTotalPrice[b][1],
 					"creditType" : resultTotalPrice[b][2],
@@ -975,7 +975,7 @@ function addDataSumCreditTranPrice() {
 	var table = document.getElementById("showTotalPriceTable").rows.length;
 	var oTable = document.getElementById('creditTable');
 	var result = [];
-	var nameMode = "CD";
+	var nameMode = "CR";
 	var nameMode1 = "บัตรเครดิต";
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);

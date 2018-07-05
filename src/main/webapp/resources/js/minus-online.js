@@ -55,7 +55,12 @@ function createRow(data, seq) {
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		remark = "-"
-		cearling = '<a name="invoice" id="invoice" onclick="dialogRemakes('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		if(data.clearing == "Y"){
+			cearling = '-'
+		}else{
+			cearling = '<a name="cearling" id="cearling" onclick="dialogRemakes('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}
+		
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
@@ -135,17 +140,25 @@ function closeDialog(){
 	$("#remake_dialog").modal('hide');
 }
 function confirmDialog(){
+	var data = [];
 	var dataSend = {"manualId": $("#manualId").val()};
+	data.push(dataSend);
 	$.ajax({
         type: "POST",
         url: "/histroryPayment/clearing",
-        data: JSON.stringify(dataSend),
+        data: JSON.stringify(data),
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	$("#confrimDialog").modal('hide');
-        	search();
+        	if(res.data){
+        		$("#confrimDialog").modal('hide');
+        		search();
+        		$("#showLogs").val(res.data);
+        		$("#showLog").modal('show');
+            	
+        	}
+        
         	
         }
 	})
@@ -153,5 +166,8 @@ function confirmDialog(){
 
 function closeDialogs(){
 	$("#confrimDialog").modal('hide');
+}
+function closeLog(){
+	$("#showLog").modal('hide');
 }
 
