@@ -347,7 +347,7 @@ function format(d) {
 		txt = txt+ '<tr>'+
 			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
 			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
-			        '<th style="text-align: right;">'+d[i].discountspacalStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
 			    '</tr>'
