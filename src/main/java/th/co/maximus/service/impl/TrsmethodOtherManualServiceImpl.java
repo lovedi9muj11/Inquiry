@@ -72,7 +72,7 @@ Date date = new Date();
 				}
 				
 				if(idTrsMethod >0){
-						if(paymentTranPriceBean.getTypePayment().equals("CD")){
+						if(paymentTranPriceBean.getTypePayment().equals("CR")){
 							//insert Credit
 							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
 							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());
@@ -81,7 +81,8 @@ Date date = new Date();
 							trscreDitrefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 							trscreDitrefManualBean.setVersionStamp(1L);
 							trscreDitrefManualBean.setMethodManualId(String.valueOf(idTrsMethod));
-							
+							trscreDitrefManualBean.setCreateBy(paymentBean.getUserName());	
+							trscreDitrefManualBean.setUpdateBy(paymentBean.getUserName());
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
@@ -96,7 +97,8 @@ Date date = new Date();
 //							trsChequeRefManualBean.setChequeDate(new Timestamp(paymentTranPriceBean.getDateCheck().getTime()));
 							trsChequeRefManualBean.setCheDate(date1);
 							trsChequeRefManualBean.setMethodManualId(Long.valueOf(idTrsMethod));
-							
+							trsChequeRefManualBean.setCreateBy(paymentBean.getUserName());	
+							trsChequeRefManualBean.setUpdateBy(paymentBean.getUserName());
 							trsChequeRefManualDao.insert(trsChequeRefManualBean);
 							
 					
