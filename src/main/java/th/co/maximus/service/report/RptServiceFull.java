@@ -209,9 +209,12 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell34.setCellValue("");
 			sumCell35.setCellValue("");
 			sumCell36.setCellValue("");
-			sumCell37.setCellFormula("SUM(G"+(rowNum+1)+":G"+(rowNum-2)+")");
-			sumCell38.setCellFormula("SUM(H"+(rowNum+1)+":H"+(rowNum-2)+")");
-			sumCell39.setCellFormula("SUM(I"+(rowNum+1)+":I"+(rowNum-2)+")");
+//			sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+//			sumCell38.setCellFormula("SUM(H"+(rowNum)+":H"+(rowNum-3)+")");
+//			sumCell39.setCellFormula("SUM(I"+(rowNum)+":I"+(rowNum-3)+")");
+			sumCell37.setCellFormula(BigDecimal.ZERO.toString());
+			sumCell38.setCellFormula(BigDecimal.ZERO.toString());
+			sumCell39.setCellFormula(BigDecimal.ZERO.toString());
 			sumCell310.setCellValue("");
 			
 			sumCell31.setCellStyle(summary);
