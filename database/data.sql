@@ -2,7 +2,7 @@ INSERT INTO `ROLE` (`id`, `name`) VALUES ('1', 'admin');
 INSERT INTO `ROLE` (`id`, `name`) VALUES ('2', 'sup');
 INSERT INTO `ROLE` (`id`, `name`) VALUES ('3', 'user');
 
-INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admins', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000');
@@ -37,7 +37,10 @@ INSERT INTO `MAP_GL_SERVICE_TYPE` (`ID`, `GL_CODE`, `SERVICE_CODE`, `PRODUCT_COD
 	(5, '55100101', 'null', '101010001', 'บ.CAT 001', '01', 'รด.ค่าใช้ท่อร้อยสาย	', '55100101 01 - รด.บริการ-ใน/รปท. 01 - รด.ค่าใช้ท่อร้อยสาย', '01', 'รด.บริการ-ใน/รปท.', '10101', 'IDD', '1', 'OTHER', NULL, 'null', '2018-05-19 00:00:00.000000', 'null', '2018-05-19 00:00:00.000000', NULL);
 	
 INSERT INTO `MASTER_DATA` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATUS`, `ORDERED`, `PARENT_ID`, `REF_ID`, `PROPERTY_1`, `PROPERTY_2`, `PROPERTY_3`, `PROPERTY_4`, `PROPERTY_5`, `REMARK`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `RECORD_STATUS`) VALUES
-	(1, 't', 'time auto', '20/10/2018 10:30:00', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
+	(1, 'Trigger_M', '0 15 10 15 * ?', 'TriggerGoup', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every month', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
+	(2, 'Trigger_W', '0 15 10 ? * SUN', 'TriggerGoup', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every week', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
+	(3, 'Trigger_D', '0 15 10 * * ?', 'TriggerGoup', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every day', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
+	(4, 'Trigger_T', '0 15 10 * * ?', 'TriggerGoup', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every time', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1979, '01', 'รอผลการอนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '1', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1980, '1J10225', 'สำนักงานบริการลูกค้า กสท  สมุทรสาคร-ขต.(ตต)', 'COST_CENTER', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(1981, '02', 'อนุมัติ', 'ADJUST_AMOUNT_STATUS', 'null', 'Y', '2', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),

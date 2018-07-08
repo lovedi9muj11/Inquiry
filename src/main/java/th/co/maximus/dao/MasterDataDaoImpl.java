@@ -163,7 +163,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 
 	@Override
 	public void deleteBeforInsertMS() {
-		String del = "delete from MASTER_DATA";
+		String del = "delete from MASTER_DATA where GROUP_KEY <> 'TriggerGoup'";
 		jdbcTemplate.update(del);
 	}
 	

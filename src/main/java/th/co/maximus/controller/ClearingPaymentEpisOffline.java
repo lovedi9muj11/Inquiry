@@ -93,7 +93,7 @@ public class ClearingPaymentEpisOffline {
 				// add object to arrayList
 
 			}
-			String postUrl = url.concat("/EpisWeb/offline/paymentManualSaveOffline"); // /offline/insertPayment
+			String postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
 					String.class);
 			if(postResponse.getBody()!=null){

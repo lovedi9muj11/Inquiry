@@ -80,6 +80,14 @@ public class Constants {
 		public static final String OTHER = "OTHER";
 		public static final String BUSINESS_AREA = "BUSINESS_AREA";
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
+		public static final String TRIGGER_GOUP = "TriggerGoup";
+		
+		public static class KEYCODE{
+			public static final String TRIGGER_M = "Trigger_M";
+			public static final String TRIGGER_W = "Trigger_W";
+			public static final String TRIGGER_D = "Trigger_D";
+			public static final String TRIGGER_T = "Trigger_T";
+		}
 		
 	}
 	
@@ -106,6 +114,13 @@ public class Constants {
 		public static final String CANCEL_ADDR_02 = "02";
 		public static final String CANCEL_SERVICE = "รับชำระผิดบริการ";
 		public static final String CANCEL_ADDR = "ชื่อ-ที่อยู่ ไม่ถูกต้อง";
+	}
+	
+	public static class BATCH{
+		public static final String JOB_1 = "jobWithSimpleTriggerBeanTrigger";
+		public static final String JOB_2 = "jobWithSimpleTriggerBeanTrigger2";
+		public static final String JOB_3 = "jobWithSimpleTriggerBeanTrigger3";
+		public static final String JOB_4 = "jobWithSimpleTriggerBeanTrigger4";
 	}
 
 }

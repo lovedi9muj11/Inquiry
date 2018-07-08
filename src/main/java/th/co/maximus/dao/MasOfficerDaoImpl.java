@@ -52,13 +52,13 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 
 	@Override
 	public void deleteBeforInsert() {
-		String del = "delete from user";
+		String del = "delete from user where username <> 'admin'";
 		jdbcTemplate.update(del);
 	}
 
 	@Override
 	public void deleteBeforInsertUserRole() {
-		String del = "delete from user_role";
+		String del = "delete from user_role where Role_ID <> '1'";
 		jdbcTemplate.update(del);
 	}
 

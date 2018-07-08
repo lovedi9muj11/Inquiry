@@ -80,8 +80,16 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 	@Override
 	public MasterDatasBean findByKey(String keyCode) {
 		StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM MASTER_DATA WHERE KEYCODE = ? ");
-			MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { keyCode }, new masterData());
-			return master;
+		sql.append("SELECT * FROM MASTER_DATA WHERE KEYCODE = ? ");
+		MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { keyCode }, new masterData());
+		return master;
+	}
+
+	@Override
+	public MasterDatasBean findByGrop(String groupCode, String keyCode) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM MASTER_DATA WHERE GROUP_KEY = ? and KEYCODE = ? ");
+		MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { groupCode, keyCode }, new masterData());
+		return master;
 	}
 }
