@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import th.co.maximus.batch.CallEpisOnline;
-import th.co.maximus.batch.OfflineBatch;
+//import th.co.maximus.batch.OfflineBatch;
 import th.co.maximus.controller.ClearingPaymentEpisOffline;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,8 +19,8 @@ public class CallEpisOnlineTest {
 	@Autowired
 	private CallEpisOnline callEpisOnline;
 	
-	@Autowired
-    private OfflineBatch tasks;
+//	@Autowired
+//    private OfflineBatch tasks;
 	
 	@Autowired
 	private ClearingPaymentEpisOffline clearingPaymentEpisOffline;
@@ -58,7 +58,7 @@ public class CallEpisOnlineTest {
     @Test
     @Ignore
     public void contextLoads() {
-        assertThat(tasks).isNotNull();
+//        assertThat(tasks).isNotNull();
     }
 
 }

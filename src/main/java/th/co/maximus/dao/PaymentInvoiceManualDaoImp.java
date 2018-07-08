@@ -304,7 +304,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE");
+					" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE  ");
@@ -336,7 +336,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				// collections.add(new HistoryPaymen) ;
 				collections.add(new HistoryPaymentRS(resultSet.getDate(1), resultSet.getString(2),
 						resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),
-						resultSet.getString(7), resultSet.getBigDecimal(8), resultSet.getInt(9)));
+						resultSet.getString(7), resultSet.getBigDecimal(8), resultSet.getInt(9),resultSet.getBigDecimal(10),resultSet.getBigDecimal(11)));
 
 			}
 		} finally {
