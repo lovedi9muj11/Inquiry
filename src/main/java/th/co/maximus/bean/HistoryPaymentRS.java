@@ -21,7 +21,7 @@ public class HistoryPaymentRS {
 	
 	public HistoryPaymentRS(){}
 	
-	public HistoryPaymentRS(Date documentDate,String invoice,String custName,String taxId,String branCode,String recordStatus,String documentNo,BigDecimal paidAmount,int vatRate){
+	public HistoryPaymentRS(Date documentDate,String invoice,String custName,String taxId,String branCode,String recordStatus,String documentNo,BigDecimal paidAmount,int vatRate,BigDecimal vat,BigDecimal beforeVat){
 		this.documentDate = documentDate;
 		this.invoice = invoice;
 		this.custName = custName;
@@ -31,6 +31,8 @@ public class HistoryPaymentRS {
 		this.documentNo = documentNo;
 		this.paidAmount = paidAmount;
 		this.vatRate = vatRate;
+		this.vat = vat;
+		this.beforeVat = beforeVat;
 		
 	}
 	

@@ -96,7 +96,7 @@ public class RptServiceFull extends BaseExcelRptService{
 				cell3.setCellValue(entity.get(i).getDocumentNo());
 				cell4.setCellValue(entity.get(i).getCustName());
 				cell5.setCellValue(entity.get(i).getTaxId());
-				cell6.setCellValue(entity.get(i).getBranCode());
+				cell6.setCellValue(entity.get(i).getBranCode().equals("00000") ? "สำนักงานใหญ่" : entity.get(i).getBranCode());
 				cell7.setCellValue(new Double((entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat()).toString()));
 				cell8.setCellValue(new Double((entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat()).toString()));
 				cell9.setCellValue(new Double((entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount()).toString()));
@@ -209,9 +209,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell34.setCellValue("");
 			sumCell35.setCellValue("");
 			sumCell36.setCellValue("");
-			sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
-			sumCell38.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
-			sumCell39.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+			sumCell37.setCellFormula("SUM(G"+(rowNum+1)+":G"+(rowNum-2)+")");
+			sumCell38.setCellFormula("SUM(H"+(rowNum+1)+":H"+(rowNum-2)+")");
+			sumCell39.setCellFormula("SUM(I"+(rowNum+1)+":I"+(rowNum-2)+")");
 			sumCell310.setCellValue("");
 			
 			sumCell31.setCellStyle(summary);
