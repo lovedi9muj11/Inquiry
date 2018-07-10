@@ -15,7 +15,9 @@ import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.auth.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -29,11 +31,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto user = userRepository.findByUsername(username);
         
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        	authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-        UserProfile myUserDetails = new UserProfile(user.getUsername(), user.getPassword(), grantedAuthorities);
+        UserProfile myUserDetails = new UserProfile(user.getUsername(), user.getPassword(), authorities);
         myUserDetails.setPos(posNo);
         myUserDetails.setRoles(user.getRoles());
         return myUserDetails;
