@@ -1,6 +1,6 @@
-INSERT INTO `ROLE` (`id`, `name`) VALUES ('1', 'admin');
-INSERT INTO `ROLE` (`id`, `name`) VALUES ('2', 'sup');
-INSERT INTO `ROLE` (`id`, `name`) VALUES ('3', 'user');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('1', 'ADMIN');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('2', 'SUP');
+INSERT INTO `ROLE` (`id`, `name`) VALUES ('3', 'USER');
 
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000');
