@@ -560,7 +560,7 @@
 															<%
 																for (int i = 0; i < masterBankName.size(); i++) {
 															%>
-															<option value="<%=masterBankName.get(i).getText()%>"><%=masterBankName.get(i).getText()%></option>
+															<option value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText()%></option>
 															<%
 																}
 															%>

@@ -195,7 +195,7 @@ public class EpisReportController {
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
 				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CD")) {
+			} else if (stockObject.getPaymentCode().equals("CR")) {
 				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
 				String code = res.get(0).getCreditNo();
 				payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"
@@ -409,7 +409,7 @@ public class EpisReportController {
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
 				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CD")) {
+			} else if (stockObject.getPaymentCode().equals("CR")) {
 				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
 				String code = res.get(0).getCreditNo();
 				payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"

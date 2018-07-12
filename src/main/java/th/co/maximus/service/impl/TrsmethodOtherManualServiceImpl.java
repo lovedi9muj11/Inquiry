@@ -29,8 +29,8 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 	@Autowired DeductionManualDao deductionManualDao;
 	@Override
 	public int insertTrsmethodManual(PaymentOtherFirstBean paymentBean,int userId) {
-Date date = new Date();
-		
+	Date date = new Date();
+	Double totalAmount = paymentBean.getBalanceSummary();
 		int idTrsMethod = 0;
 		if(paymentBean.getPaymentTranPrice().size() >=0){
 			for(int i=0; i < paymentBean.getPaymentTranPrice().size();i++){
@@ -45,16 +45,22 @@ Date date = new Date();
 				trsMethodManualBean.setChequeNo(paymentBean.getPaymentTranPrice().get(i).getCheckNo());
 				trsMethodManualBean.setAccountNo(paymentBean.getCustNo());
 				trsMethodManualBean.setCreditId((paymentBean.getPaymentTranPrice().get(i).getCreditNo()));
-				if(paymentTranPriceBean.getTypePayment().equals("CD")){
-					
+				if(paymentTranPriceBean.getTypePayment().equals("CR")){
+					totalAmount = totalAmount-paymentTranPriceBean.getCreditPrice();
 					trsMethodManualBean.setName("บัตรเครดิต");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getCreditPrice());
 				}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
+					totalAmount = totalAmount-paymentTranPriceBean.getMoneyCheck();
 					trsMethodManualBean.setName("เช็ค");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
 				}else{
+					totalAmount = totalAmount-paymentTranPriceBean.getMoneyTran();
+					if(totalAmount < 0) {
+						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran()+totalAmount);
+					}else {
+						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
+					}
 					trsMethodManualBean.setName("เงินสด");
-					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
 				}
 				trsMethodManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 				trsMethodManualBean.setVersionStamp(1L);
@@ -76,7 +82,7 @@ Date date = new Date();
 							//insert Credit
 							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
 							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());
-							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getTypePayment());
+							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getBankName());
 							trscreDitrefManualBean.setCardType(paymentTranPriceBean.getCreditType());
 							trscreDitrefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 							trscreDitrefManualBean.setVersionStamp(1L);

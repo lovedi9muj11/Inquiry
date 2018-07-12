@@ -232,8 +232,8 @@
 														<select class="form-control" id="vatrate" name="vatrate"
 															onchange="findvatAmount()">
 															<option value="7">7%</option>
-															<option value="0">0%</option>
-															<option value="NON VAT">NON VAT</option>
+															<!-- <option value="0">0%</option>
+															<option value="NON VAT">NON VAT</option> -->
 														</select>
 													</div>
 												</div>

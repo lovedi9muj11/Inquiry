@@ -366,8 +366,9 @@ function submitForm() {
 			listpaymentTranPriceQ = {
 				"typePayment" : resultTotalPrice[b][1],
 				"creditType" : resultTotalPrice[b][2],
+				"bankName" : resultTotalPrice[b][4],
 				"creditNo" : resultTotalPrice[b][3],
-				"edcType" : resultTotalPrice[b][4],
+				"edcType" : resultTotalPrice[b][6],
 				"creditPrice" : resultTotalPrice[b][5].replace(",", "")
 			}
 		} else if (resultTotalPrice[b][1] == "CH") {
@@ -760,7 +761,7 @@ function addRow() {
 			+ radioResult
 			+ "</td><td>"
 			+ "-"+moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-			+ "<td>"+ radioResultValue + "</td>"
+			+ "<td style='display: none'>"+ radioResultValue + "</td>"
 			+ "</td><td><a onclick='myDeleteFunction("
 			+ tdAutoNumber()
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
@@ -1046,20 +1047,12 @@ function addDataSumCreditTranPrice() {
 
 		var numberRun = number + i;
 		var markup = "<tr><td>"
-				+ numberRun
-				+ "</td><td>"
-				+ nameMode1
-				+ "</td><td>"
-				+ result[4].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-				+ "</td><td><a onclick='myDeleteSumCreditTranPrice("
-				+ numberRun
-				+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
-		$("#showTotalPriceTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode
-				+ "</td><td>" + result[1] + "</td><td>" + result[2]
-				+ "</td><td>" + result[3] + "</td><td>" + result[4]
-				+ "</td></tr>";
-		$("#sumTotalPriceTable").find('tbody').append(markup1);
+		+ numberRun
+		+ "</td><td>"+ nameMode1+ "</td><td>"+ result[4].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")	+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+$("#showTotalPriceTable").find('tbody').append(markup);
+var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td>" + result[3]	+ "</td><td>" + result[4]+ "</td><td>"+ result[5]+ "</td></tr>";
+$("#sumTotalPriceTable").find('tbody').append(markup1);
+
 
 		var ba3a = $("#balanceSummaryShow").val();
 		var balan = parseFloat(ba3a.replace(",", ""));
@@ -1258,7 +1251,8 @@ function addDataTablecreditTranPrice() {
 	hideDetailPayment();
 	var table = document.getElementById("creditTable").rows.length;
 	var creditType = document.getElementById("creditType").value;
-	var edcType = document.getElementById("edcType").value;
+	var edcType = document.getElementById("edcType");
+	var selectedText = edcType.options[edcType.selectedIndex].text;
 	var creditNo = $("#creditNo").val();
 	var crepi = $("#creditPrice").val();
 	if (crepi == "") {
@@ -1312,10 +1306,11 @@ function addDataTablecreditTranPrice() {
 			+ "</td><td>"
 			+ creditNo
 			+ "</td><td>"
-			+ edcType
+			+ selectedText
 			+ "</td><td>"
-			+ creditPrice.toFixed(2).toString().replace(
-					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ creditPrice.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ "</td><td style='display: none'>"
+			+ edcType.value 
 			+ "</td><td><a onclick='myDeletecreditTranPrice("
 			+ count
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
@@ -1617,7 +1612,7 @@ function replaseIndexV3(str) {
 				.getElementById("sumtableBillingList");
 		replaseIndexV4(sumtableBillingList);
 	}
-	totalSum();
+	 totalSum();
 
 }
 
@@ -1692,14 +1687,15 @@ function replaseIndexV4(str) {
 //	$("#summaryTax").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
-	totalSum();
+	// totalSum();
 	return sumInputmon;
 }
 function totalSum() {
+	console.log("totalSum");
 	var sumtotal = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
 	var income = FormatMoneyShowToNumber($("#balanceSumShow").val());
 	var summaryTax = FormatMoneyShowToNumber($("#summaryTax").val());
-	var total =  (sumtotal-summaryTax );
+	var total =  (sumtotal+summaryTax );
 	if(income > 0){
 		var result = total - (income)
 		if (result > 0) {

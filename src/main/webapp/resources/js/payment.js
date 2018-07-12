@@ -13,6 +13,8 @@ $(document).ready(function() {
 			$("#change").val(parseFloat(0).toFixed(2));
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
 			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
+			$("#balanceOfTaxPrice").val(parseFloat(0).toFixed(2));
+			$("#balanceSummary").val(parseFloat(0).toFixed(2));
 			$("#balanceOfTaxPrice").on( "keyup",  function() {
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();
 				if(balanceOfTaxPrice == ""){
@@ -479,8 +481,9 @@ function submitForm(){
 			listpaymentTranPriceQ = {
 					"typePayment" : resultTotalPrice[b][1],
 					"creditType" : resultTotalPrice[b][2],
+					"bankName" : resultTotalPrice[b][4],
 					"creditNo" : resultTotalPrice[b][3],
-					"edcType" : resultTotalPrice[b][4],
+					"edcType" : resultTotalPrice[b][6],
 					"creditPrice" :resultTotalPrice[b][5].replace(/,/g, "")
 					}
 		}else if (resultTotalPrice[b][1] == "CH"){
@@ -834,7 +837,7 @@ function addDataTableDed() {
 		}
 		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		var numberRun = number + i;
-		totaldecut = totaldecut+ parseFloat(prict);
+		totaldecut = totaldecut+ parseFloat(prict.replace(/,/g, ""));
 	
 		var markup1 = "<tr><td>" + genid + "</td><td>" + result[1]	+ "</td><td>" + result[2]	+ "</td><td>" + result[3] + "</td><td>" + result[5]	+ "</td><td>" + result[4]	+ "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
@@ -843,7 +846,7 @@ function addDataTableDed() {
 		
 	}
 	number = number + 1;
-	var markup = "<tr><td>"	+ number+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+ totaldecut + "</td><td style='display: none' >"+ genid + "</td><td><a onclick='myDeleteDed("+ number+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ number+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+parseFloat(totaldecut).toFixed(2)  + "</td><td style='display: none' >"+ genid + "</td><td><a onclick='myDeleteDed("+ number+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#showDeductibleTable").find('tbody').append(markup);
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
 		document.getElementById("deductibleTable").deleteRow(i - 1);
@@ -1023,7 +1026,7 @@ function addDataSumCreditTranPrice() {
 				+ numberRun
 				+ "</td><td>"+ nameMode1+ "</td><td>"+ result[4].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")	+ "</td><td><a onclick='myDeleteSumCreditTranPrice("+ numberRun	+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 		$("#showTotalPriceTable").find('tbody').append(markup);
-		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td>" + result[3]	+ "</td><td>" + result[4] + "</td></tr>";
+		var markup1 = "<tr><td>" + numberRun + "</td><td>" + nameMode+ "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td>" + result[3]	+ "</td><td>" + result[4]+ "</td><td>"+ result[5]+ "</td></tr>";
 		$("#sumTotalPriceTable").find('tbody').append(markup1);
 		
 		
@@ -1224,7 +1227,8 @@ function addDataTablecreditTranPrice() {
 	}
 	var table = document.getElementById("creditTable").rows.length;
 	var creditType = document.getElementById("creditType").value;
-	var edcType = document.getElementById("edcType").value;
+	var edcType = document.getElementById("edcType");
+	var selectedText = edcType.options[edcType.selectedIndex].text;
 	var creditNo = $("#creditNo").val();
 	var crepi = $("#creditPrice").val();
 	if(crepi == ""){
@@ -1235,13 +1239,13 @@ function addDataTablecreditTranPrice() {
 	var sumTax = $("#summaryTax").val();
 	var summaryTax = parseFloat(sumTax.replace(/,/g, ""));
 //	var moneyT = parseFloat(creditPrice - parseFloat(summaryTax));
-	if(edcType == "001"){
-		edcType = "ธนาคารกรุงไทย";
-	}else if(edcType == "002"){
-		edcType = "ธนาคารไทยพานิชย์";
-	}else if(edcType == "003"){
-		edcType = "ธนาคารกสิกรไทย";
-	}
+	// if(edcType == "001"){
+	// 	edcType = "ธนาคารกรุงไทย";
+	// }else if(edcType == "002"){
+	// 	edcType = "ธนาคารไทยพานิชย์";
+	// }else if(edcType == "003"){
+	// 	edcType = "ธนาคารกสิกรไทย";
+	// }
 	
 	var count = parseInt(1);
 	for (count; count < table; count++) {
@@ -1278,9 +1282,11 @@ function addDataTablecreditTranPrice() {
 			+ "</td><td>"
 			+ creditNo
 			+ "</td><td>"
-			+ edcType
+			+ selectedText
 			+ "</td><td>"
 			+ creditPrice.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ "</td><td style='display: none'>"
+			+ edcType.value 
 			+ "</td><td><a onclick='myDeletecreditTranPrice("
 			+ count
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";

@@ -87,7 +87,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 							//insert Credit
 							trscreDitrefManualBean.setaMount(paymentTranPriceBean.getCreditPrice());
 							trscreDitrefManualBean.setCreditNo(paymentTranPriceBean.getCreditNo());
-							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getTypePayment());
+							trscreDitrefManualBean.setPublisherdec(paymentTranPriceBean.getBankName());
 							trscreDitrefManualBean.setCardType(paymentTranPriceBean.getCreditType());
 							trscreDitrefManualBean.setUpdateDttm(new Timestamp(date.getTime()));
 							trscreDitrefManualBean.setVersionStamp(1L);
