@@ -86,7 +86,7 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 			paymentId = paymentOtherManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentOtherInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);
-				trsmethodManualService.insertTrsmethodManual(paymentBean, paymentId);
+				trsmethodOtherManualService.insertTrsmethodManual(paymentBean, paymentId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
