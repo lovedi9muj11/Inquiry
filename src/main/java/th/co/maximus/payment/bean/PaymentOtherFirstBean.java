@@ -35,6 +35,7 @@ public class PaymentOtherFirstBean implements Serializable{
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	private String docType;
+	private String inputServiceDepartment;
 	
 	
 	
@@ -206,6 +207,12 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
 		this.paymentTranPrice = paymentTranPrice;
+	}
+	public String getInputServiceDepartment() {
+		return inputServiceDepartment;
+	}
+	public void setInputServiceDepartment(String inputServiceDepartment) {
+		this.inputServiceDepartment = inputServiceDepartment;
 	}
 	
 	

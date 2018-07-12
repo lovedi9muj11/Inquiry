@@ -314,4 +314,7 @@ public class PaymentInvoiceManualBean {
 		this.serviceName = serviceName;
 	}
 
+	
+	
+
 }

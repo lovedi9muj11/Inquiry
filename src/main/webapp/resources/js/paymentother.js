@@ -438,7 +438,8 @@ function submitForm() {
 		"salespacial": $("#salespacial").val(),
 		"paymentBill" : listpaymentSaleRQ,
 		"paymentTax" : listpaymentTaxRQ,
-		"paymentTranPrice" : listpaymentTranPriceRQ
+		"paymentTranPrice" : listpaymentTranPriceRQ,
+		"inputServiceDepartment":$("#inputServiceDepartment").val()
 	}
 
 	$.ajax({
