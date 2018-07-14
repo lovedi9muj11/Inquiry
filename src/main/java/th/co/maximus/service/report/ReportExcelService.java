@@ -2,6 +2,7 @@ package th.co.maximus.service.report;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ReportExcelService extends BaseExcelRptService {
 		return paymentReport.generatePaymentReportExcel(workbook, criteria, result);
 		
 	}
-	public void generationPaymentPDFService(String fileName , ReportPaymentCriteria criteria, List<ReportPaymentBean> date,HttpServletResponse response) throws JRException, ParseException, IOException {
+	public void generationPaymentPDFService(String fileName , ReportPaymentCriteria criteria, List<ReportPaymentBean> date,HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
 			paymentReportPdf.jasperGanarationPDF(fileName, criteria, date,response);
 	}
 }

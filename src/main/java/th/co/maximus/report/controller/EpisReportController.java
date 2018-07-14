@@ -516,17 +516,11 @@ public class EpisReportController {
 		SimpleDateFormat dtt = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
-		// String dateFrom = convertDateString(creteria.getDateFrom()) + " " +
-		// creteria.getDateFromHour() + ":"
-		// + creteria.getDateFromMinute();
-		// String dateTo = convertDateString(creteria.getDateTo()) + " " +
-		// creteria.getDateToHour() + ":" + creteria.getDateToMinute();
-
 		if (creteria.getTypePrint().equals("F")) {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
 			exportPDFReport.setReportStatus("1");
 		} else {
-			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ");
+			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ");
 		}
 		String fomeDate = "";
 		String endDate = "";

@@ -320,7 +320,7 @@
 				<textFieldExpression><![CDATA[$F{documentNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="357" y="0" width="91" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
+				<reportElement x="357" y="0" width="173" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -344,19 +344,6 @@
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{autoNumberReport}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="448" y="0" width="82" height="20" uuid="4a9b57e5-ef37-498b-a026-ca740ac952ce"/>
-				<box>
-					<topPen lineStyle="Dotted"/>
-					<leftPen lineStyle="Dotted"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
-					<rightPen lineStyle="Dotted"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="FreesiaUPC" size="14" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{empName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="530" y="0" width="83" height="20" uuid="81fe1ddd-7284-4e7c-856e-3a83b7d10d39"/>

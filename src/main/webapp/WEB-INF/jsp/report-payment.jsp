@@ -229,7 +229,7 @@
 											<th style="text-align: center;width: 5%">ลำดับที่</th>
 											<th style="text-align: center;width: 10%">ประเภทค่าบริการ</th>
 											<th style="text-align: center;width: 13%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
-											<th style="text-align: center;width: 10%">เลขที่สัญญา</th>
+											<th style="text-align: center;width: 10%">เลขที่ลูกค้า</th>
 											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
 											<th style="text-align: center;width: 10%">หน่วยติดตามหนี้</th>
 											<th style="text-align: center;width: 15%">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
@@ -259,7 +259,7 @@
 		      	<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<input type="text" id="remake" name="remake" class="form-control">
+							<label  id="remake" class="form-control"></label>
 						</div>
 					</div>
 		     	</div>

@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
-import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.model.TrsChequerefEpisOffline;
+import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
-import th.co.maximus.model.UserBean;
 import th.co.maximus.service.PaymentReportService;
+import th.co.maximus.service.TrsChequeRefManualService;
+import th.co.maximus.service.TrscreDitrefManualService;
 
 @Service
 public class PaymentReportServiceImp implements PaymentReportService {
@@ -24,7 +27,9 @@ public class PaymentReportServiceImp implements PaymentReportService {
 	private TrsMethodManualDao trsMethodManualDao;
 	
 	@Autowired
-	private PaymentInvoiceManualDao paymentInvoiceManualDao;
+	private TrscreDitrefManualService trscreDitrefManualService;
+	@Autowired
+	private TrsChequeRefManualService trsChequeRefManualService;
 
 	@Override
 	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria) throws Exception {
@@ -34,23 +39,54 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			criteria.setUser("");
 		}
 		
+		String checkWT = "";
 		List<ReportPaymentBean> result = paymentManualDao.getReportPayment(criteria);
+		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
+
 		for(ReportPaymentBean resultBean : result) {
+			String paymentCodeRes = "";
+			List<String> results = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
-			StringBuffer paymentMethod = new StringBuffer();
-			for(TrsMethodEpisOffline method: methodResult) {
-				paymentMethod.append("+ "+method.getName());
-			}
-			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
+				for (int i = 0; i < methodResult.size(); i++) {
+					String payCode = "";
+					TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
+
+					if (stockObject.getCode().equals("CC")) {
+						payCode = "เงินสด";
+						results.add(payCode);
+					} else if (stockObject.getCode().equals("CR")) {
+						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(resultBean.getManualId());
+						String code = stockObject.getCreditNo();
+						payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"
+								+ code.substring(12, 16);
+						results.add(payCode);
+					} else if (stockObject.getCode().equals("CH")) {
+						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(resultBean.getManualId());
+						payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
+						results.add(payCode);
+					}
+				}
+				for (int i = 0; i < methodResult.size(); i++) {
+					TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
+					if (stockObject.getCode().equals("DEDUC")) {
+						checkWT = "WT";
+						results.add(checkWT);
+					}
+
+				}
+				for (int f = 0; f < results.size(); f++) {
+					if (f == 0) {
+						paymentCodeRes += results.get(f);
+					} else {
+						paymentCodeRes += " + " + results.get(f);
+					}
+
+				}
+			resultBean.setPaymentMethod(paymentCodeRes);
+			data.add(resultBean);
 		}
 		
-//	     Collections.sort(result, new Comparator<ReportPaymentBean>(){
-//				@Override
-//				public int compare(ReportPaymentBean o1, ReportPaymentBean o2) {
-//					return o2.getCreateDate().compareTo(o1.getCreateDate());
-//				}
-//	        });
-		return result;
+		return data;
 	}
 
 }

@@ -108,10 +108,13 @@ function printReportPDF(){
 
 function createRow(data, seq) {
 	manualId = seq+1;
+	var serviceName = "";
 	if(data.serviceType == "IBACSS"){
 		serviceType = 'รับชำระค่าใช้บริการ';
+		serviceName = data.invoiceNo;
 	}else if(data.serviceType == "OTHER"){
 		serviceType = 'รับชำระค่าใช้บริการอื่น ๆ';
+		serviceName = data.serviceName;
 	}
 	receiptNo = data.receiptNoManual;
 	accountSubNo = data.accountSubNo;
@@ -139,7 +142,7 @@ function createRow(data, seq) {
 	
 	
     var t = $('#reportPaymentTb').DataTable();
-    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, invoiceNo, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
+    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, serviceName, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');

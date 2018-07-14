@@ -1,6 +1,7 @@
 package th.co.maximus.service.report;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -23,16 +26,21 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.model.UserBean;
+import th.co.maximus.service.MasterDataService;
 
 @Service("paymentReportPdf")
 public class PaymentReportPdf {
 	Locale TH = new Locale("th", "TH");
 	SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss", TH);
+	@Autowired
+	private MasterDataService masterDataService;
 
 	public void jasperGanarationPDF(String fileName, ReportPaymentCriteria criteria, List<ReportPaymentBean> date,
-			HttpServletResponse response) throws JRException, ParseException, IOException {
+			HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
 		List<ReportPaymentBean> resultSource = new ArrayList<>();
 		// DecimalFormat df2 = new DecimalFormat("#0.00");
 		double sumAllTotal = 0.00;
@@ -45,11 +53,8 @@ public class PaymentReportPdf {
 			for (ReportPaymentBean reportPaymentBean : date) {
 				ReportPaymentBean reportPaymentBeanNew = new ReportPaymentBean();
 				reportPaymentBeanNew.setManualIdStr(index + "");
-				
-				
 				reportPaymentBeanNew.setServiceType(reportPaymentBean.getServiceType().equals("IBACSS") ? "รับชำระค่าใช้บริการ" : "รับชำระค่าใช้บริการอื่นๆ");
 				reportPaymentBeanNew.setReceiptNoManual(reportPaymentBean.getReceiptNoManual());
-
 				if (null != reportPaymentBean.getAccountSubNo()) {
 					reportPaymentBeanNew.setAccountSubNo(reportPaymentBean.getAccountSubNo());
 				} else {
@@ -68,7 +73,8 @@ public class PaymentReportPdf {
 				if (null != reportPaymentBean.getInvoiceNo()) {
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
 				} else {
-					reportPaymentBeanNew.setInvoiceNo("-");
+					
+					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer("-");
@@ -76,9 +82,9 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
 				if ("A".equals(reportPaymentBean.getStatus())) {
-					reportPaymentBeanNew.setStatus("ยกเลิก");
-				} else if ("C".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
+				} else if ("C".equals(reportPaymentBean.getStatus())) {
+					reportPaymentBeanNew.setStatus("ยกเลิก");
 				}
 
 				index++;
@@ -93,13 +99,17 @@ public class PaymentReportPdf {
 		}
 
 		// set new params
+		Date dates = new Date();
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-		parameters.put("printDateFrom", convertDateFormat(criteria.getDateFrom()));
-		parameters.put("printDateTo", convertDateFormat(criteria.getDateTo()));
+		parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 		parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 		parameters.put("dateTo", convertDateFormat(criteria.getDateTo()));
 		parameters.put("staff", criteria.getUser());
+		parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+		
 
 		parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 		parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
