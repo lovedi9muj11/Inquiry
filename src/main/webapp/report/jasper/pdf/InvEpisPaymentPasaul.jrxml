@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.1000000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="51"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -155,7 +155,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษีแบบย่อ]]></text>
+				<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="466" y="47" width="126" height="23" uuid="b0d1c781-c536-4805-a885-69956089b634"/>
