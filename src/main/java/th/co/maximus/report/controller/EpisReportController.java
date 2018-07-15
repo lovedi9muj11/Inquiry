@@ -73,6 +73,8 @@ public class EpisReportController {
 	private String branArea;
 	@Value("${text.branCode}")
 	private String branCode;
+	@Value("${text.taxid.cat}")
+	private String taxidCat;
 
 	@Autowired
 	public void setServletContext(ServletContext servletContext) {
@@ -541,7 +543,6 @@ public class EpisReportController {
 			exportPDFReport.setReportStatus("1");
 		} else {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ");
-			exportPDFReport.setReportStatus("1");
 		}
 		String fomeDate = "";
 		String endDate = "";
@@ -561,7 +562,7 @@ public class EpisReportController {
 		exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
 		exportPDFReport.setPrintDate(dateDocument);
 		exportPDFReport.setBranchArea(valueBean.getValue());
-		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
+		exportPDFReport.setInvoiceNo(taxidCat);
 		exportPDFReport.setBranchCodeEmp(branCode);
 		exportPDFReport.setVatRate(invObject.getVatRate());
 		exportPDFReport.setEmpSummaryName(invObject.getEmpName());

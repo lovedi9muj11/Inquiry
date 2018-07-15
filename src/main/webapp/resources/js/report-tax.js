@@ -1,3 +1,4 @@
+var check = false;
 $(document).ready(function (){
 	reportTax = $('#reportTax').DataTable({
 		"filter" : false,
@@ -14,6 +15,7 @@ $(document).ready(function (){
 	
 });
 function search() {
+	check = false;
 	reportTax.clear().draw();
 	var data = '';
 	var dataSend = { "dateFrom": $('#dateFrom').val(), "dateFromHour": $('#dateFromHour').val(), "dateFromMinute": $('#dateFromMinute').val() 
@@ -34,6 +36,7 @@ function search() {
         success: function (res) {
         	for (var i = 0; i < res.length; i++) {
                     createRow(res[i], i, "reportTax");
+                    check = true;
                 }
         }
 	})
@@ -81,9 +84,11 @@ function reportExcel() {
 	
 }
 function reportPDF() {
-	
-	$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
-	
+	if(!check){
+		alert("ยังไม่ม่ข้อมูลในการออกรายงาน");
+	}else{
+		$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
+	}
 }
 
 function initCriteria(){
