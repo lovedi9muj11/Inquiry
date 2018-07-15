@@ -43,6 +43,10 @@ public class InvPaymentOrderTaxBean {
 	private String documentDateReport;
 	private String autoNumberReport;
 	
+	private BigDecimal beforeVatZero;
+	private BigDecimal vatZero;
+	private BigDecimal summaryZero;
+	
 	
 	public InvPaymentOrderTaxBean(){}
 	
@@ -268,6 +272,30 @@ public class InvPaymentOrderTaxBean {
 
 	public void setReportStatus(String reportStatus) {
 		this.reportStatus = reportStatus;
+	}
+
+	public BigDecimal getBeforeVatZero() {
+		return beforeVatZero;
+	}
+
+	public void setBeforeVatZero(BigDecimal beforeVatZero) {
+		this.beforeVatZero = beforeVatZero;
+	}
+
+	public BigDecimal getVatZero() {
+		return vatZero;
+	}
+
+	public void setVatZero(BigDecimal vatZero) {
+		this.vatZero = vatZero;
+	}
+
+	public BigDecimal getSummaryZero() {
+		return summaryZero;
+	}
+
+	public void setSummaryZero(BigDecimal summaryZero) {
+		this.summaryZero = summaryZero;
 	}
 	
 	

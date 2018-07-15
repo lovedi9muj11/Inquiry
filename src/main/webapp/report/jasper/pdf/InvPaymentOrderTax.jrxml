@@ -554,39 +554,27 @@
 					</textElement>
 					<text><![CDATA[0]]></text>
 				</staticText>
-				<staticText>
-					<reportElement x="696" y="0" width="91" height="30" uuid="90fefa18-329e-4c61-8608-1b71c73d4b3e"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textField>
+					<reportElement x="696" y="0" width="91" height="30" uuid="4d71468c-9953-4d6d-a015-81f5bf489ea5"/>
+					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<text><![CDATA[0.00]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="787" y="0" width="91" height="30" uuid="6bc1b481-0dbc-4484-b08b-e2db42539060"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatZero()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="787" y="0" width="91" height="30" uuid="eb8ca117-ffff-4f62-944c-620f4343264e"/>
+					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<text><![CDATA[0.00]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="878" y="0" width="91" height="30" uuid="5513416f-8614-4c8a-bb68-85386cf80e09"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatZero()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="878" y="0" width="91" height="30" uuid="7bcbd890-8e8f-4c6a-8140-036ae9c5a96f"/>
+					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<text><![CDATA[0.00]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getSummaryZero()]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="1" y="90" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce">

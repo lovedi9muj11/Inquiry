@@ -32,7 +32,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
-import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.ExportPDFByInsaleReport;
 import th.co.maximus.bean.ExportPDFReport;
 import th.co.maximus.bean.HistoryReportBean;
@@ -65,8 +64,6 @@ public class EpisReportController {
 
 	@Autowired
 	private MasterDataService masterDataService;
-	@Autowired
-	private UserService userService;
 	private ServletContext context;
 	@Value("${text.prefix}")
 	private String nameCode;
@@ -541,6 +538,7 @@ public class EpisReportController {
 			exportPDFReport.setReportStatus("1");
 		} else {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ");
+			exportPDFReport.setReportStatus("1");
 		}
 		String fomeDate = "";
 		String endDate = "";
@@ -565,9 +563,18 @@ public class EpisReportController {
 		exportPDFReport.setVatRate(invObject.getVatRate());
 		exportPDFReport.setEmpSummaryName(invObject.getEmpName());
 
-		BigDecimal beforeVatRq = new BigDecimal(0);
-		BigDecimal vatRq = new BigDecimal(0);
+		BigDecimal summaryBeforeVt = new BigDecimal(0);
+		BigDecimal vatSummary = new BigDecimal(0);
 		BigDecimal summarySummary = new BigDecimal(0);
+		
+		BigDecimal beforeVtDefult = new BigDecimal(0);
+		BigDecimal vatRateDefult = new BigDecimal(0);
+		BigDecimal totalVtDefult = new BigDecimal(0);
+		
+		BigDecimal beforeVtzero = new BigDecimal(0);
+		BigDecimal vatRatezero = new BigDecimal(0);
+		BigDecimal totalVtratezero = new BigDecimal(0);
+		
 		for (int i = 0; i < collections.size(); i++) {
 			InvPaymentOrderTaxBean colles = new InvPaymentOrderTaxBean();
 			colles = collections.get(i);
@@ -596,29 +603,45 @@ public class EpisReportController {
 
 			colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
 			colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
-			if (colles.getPayType().equals("A")) {
-				colles.setPayType("-");
-			} else {
-				colles.setPayType("ยกเลิก");
+			
+			if(colles.getVatRate() == 0) {
+				beforeVtzero = beforeVtzero.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+				vatRatezero = vatRatezero.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+				totalVtratezero = totalVtratezero.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
+			}else {
+				beforeVtDefult = beforeVtDefult.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+				vatRateDefult = vatRateDefult.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+				totalVtDefult = totalVtDefult.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
 			}
-			beforeVatRq = beforeVats.setScale(2, RoundingMode.HALF_DOWN);
-			vatRq = vat.setScale(2, RoundingMode.HALF_DOWN);
-			summarySummary = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
+
+			summaryBeforeVt = summaryBeforeVt.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+			vatSummary = vatSummary.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+			summarySummary = summarySummary.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
 
 			colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
 			colles.setDocumentDateReport(String.valueOf(dtt.format(colles.getDocumentDate()).toString()));
 			colles.setBeforeVatReport(String.valueOf(colles.getBeforeVat()));
 			colles.setVatReport(String.valueOf(colles.getVat()));
 			colles.setSummaryReport(String.valueOf(colles.getSummary()));
+			if (colles.getPayType().equals("A")) {
+				colles.setPayType("-");
+			} else {
+				colles.setPayType("ยกเลิก");
+			}
 			printCollections.add(colles);
 
 		}
 
-		exportPDFReport.setBeforeVatRq(beforeVatRq);
-		exportPDFReport.setVatRq(vatRq);
-		exportPDFReport.setSummaryRq(summarySummary);
-		exportPDFReport.setBeforeVatSummary(beforeVatRq);
-		exportPDFReport.setVatSummary(vatRq);
+		exportPDFReport.setBeforeVatRq(beforeVtDefult);
+		exportPDFReport.setVatRq(vatRateDefult);
+		exportPDFReport.setSummaryRq(totalVtDefult);
+		
+		exportPDFReport.setBeforeVatZero(beforeVtzero);
+		exportPDFReport.setVatZero(vatRatezero);
+		exportPDFReport.setSummaryZero(totalVtratezero);
+		
+		exportPDFReport.setBeforeVatSummary(summaryBeforeVt);
+		exportPDFReport.setVatSummary(vatSummary);
 		exportPDFReport.setSummarySummary(summarySummary);
 
 		parameters.put("ReportSource", exportPDFReport);
