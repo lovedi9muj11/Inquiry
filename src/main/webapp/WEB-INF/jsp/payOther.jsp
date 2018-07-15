@@ -187,7 +187,7 @@
 											style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select id="inputServiceType" name="inputServiceType"
-												class="form-control">
+												class="form-control" >
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
@@ -212,7 +212,7 @@
 													for (int i = 0; i < masterServiceDepartment.size(); i++) {
 												%>
 												<option
-													value="<%=masterServiceDepartment.get(i).getText()%>"><%=masterServiceDepartment.get(i).getText()%></option>
+													value="<%=masterServiceDepartment.get(i).getText()%>"><%=masterServiceDepartment.get(i).getId()%> : <%=masterServiceDepartment.get(i).getText()%></option>
 												<%
 													}
 												%>
