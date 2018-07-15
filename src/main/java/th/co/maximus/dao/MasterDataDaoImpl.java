@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.constants.Constants;
+
 @Repository
 public class MasterDataDaoImpl implements MasterDataDao{
 	
@@ -176,6 +177,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			masterDataBean.setValue(rs.getString("KEYCODE"));
 			masterDataBean.setText(rs.getString("VALUE"));
 			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
+			masterDataBean.setOrderBatch(rs.getString("ORDERED"));
 			
 			return masterDataBean;
 		}
@@ -197,5 +199,24 @@ public class MasterDataDaoImpl implements MasterDataDao{
 
 	}
 
-	
+	@Override
+	public List<MasterDataBean> showAllMSNGL() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
+		sql.append(" WHERE ms.group_key in ('"+Constants.MasterData.BANK_TYPE+"', '"+Constants.MasterData.BUSINESS_AREA+"', '"+Constants.MasterData.OTHER_PAYMENT_UNIT+"')");
+		
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("", "");
+//		jdbcTemplate.queryForList(sql.toString(), params, new masterData());
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+
+	@Override
+	public List<MasterDataBean> findBatch(String code) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+code+"'");
+		
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+
 }

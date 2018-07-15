@@ -7,10 +7,11 @@ import th.co.maximus.bean.TrsChequeRefManualBean;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 
 public interface TrsChequeRefManualDao {
+	
 	public void insert(TrsChequeRefManualBean trsChequeRefManualBean);
-	
+
 	public List<TrsChequeRefManualBean> findTrachequeFromManualId(long manualId);
-	
+
 	public List<TrsChequerefEpisOffline> findByManualId(long methodManualId) throws SQLException;
 
 }

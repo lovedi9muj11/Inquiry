@@ -100,7 +100,8 @@
 	      	<div class="modal-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<input type="text" id="remake" name="remake" class="form-control" >
+<!-- 						<input type="text" id="remake" name="remake" class="form-control" > -->
+						<label id="remake" class="control-label"></label>
 					</div>
 				</div>
 	     	</div>

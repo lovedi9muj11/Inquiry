@@ -6,6 +6,7 @@ public class MasterDataBean {
 	private String value;
 	private String text;
 	private String group;
+	private String orderBatch;
 	private String masterdataGroup;
 	
 	
@@ -39,8 +40,12 @@ public class MasterDataBean {
 	public void setMasterdataGroup(String masterdataGroup) {
 		this.masterdataGroup = masterdataGroup;
 	}
-	
-	
+	public String getOrderBatch() {
+		return orderBatch;
+	}
+	public void setOrderBatch(String orderBatch) {
+		this.orderBatch = orderBatch;
+	}
 	
 
 }

@@ -5,12 +5,17 @@ import java.util.List;
 import th.co.maximus.bean.MasterDatasBean;
 
 public interface MasterDatasDao {
-	
-	public List<MasterDatasBean> findByRevenueType();
-	public List<MasterDatasBean> findByProduct();
-	public List<MasterDatasBean> findByVat();
-	public List<MasterDatasBean> findByBankName();
-	public MasterDatasBean findByKey(String keyCode);
-	public MasterDatasBean findByGrop(String groupCode, String keyCode);
 
+	public List<MasterDatasBean> findByRevenueType();
+
+	public List<MasterDatasBean> findByProduct();
+
+	public List<MasterDatasBean> findByVat();
+
+	public List<MasterDatasBean> findByBankName();
+
+	public MasterDatasBean findByKey(String keyCode);
+
+	public MasterDatasBean findByGrop(String groupCode, String keyCode);
+	
 }

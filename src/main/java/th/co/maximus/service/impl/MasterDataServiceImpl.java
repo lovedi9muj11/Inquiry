@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
+import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MapGLDao;
 import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.UserDao;
@@ -23,7 +25,7 @@ import th.co.maximus.service.MasterDataService;
 public class MasterDataServiceImpl implements MasterDataService{
 	
 	@Autowired
-	MasterDataDao masterDataDao;
+	private MasterDataDao masterDataDao;
 	
 	@Autowired
 	private MasterDatasDao masterDatasDao;
@@ -33,6 +35,9 @@ public class MasterDataServiceImpl implements MasterDataService{
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private MapGLDao mapGLDao;
 	
 	List<GroupTypeDropdown> groupTypeDropdownList;
 	GroupTypeDropdown groupTypeDropdown;
@@ -162,6 +167,52 @@ public class MasterDataServiceImpl implements MasterDataService{
 	public UserBean findByUsername(String username) throws SQLException {
 		
 		return userDao.findByUsername(username);
+	}
+
+	@Override
+	public List<MasterDataBean> showAllMSNGL() {
+		List<MasterDataBean> masterDataBeans = masterDataDao.showAllMSNGL();
+		setMSNGL(masterDataBeans, mapGLDao.findAll(), mapGLDao.findBySource(Constants.MasterData.OTHER));
+		return masterDataBeans;
+	}
+	
+	void setMSNGL(List<MasterDataBean> masterDataBeans, List<MapGLBean> glBeans, List<MapGLBean> glBeans2) {
+		MasterDataBean msBean = new MasterDataBean();
+		for(MapGLBean beanGL : glBeans) {
+			msBean = new MasterDataBean();
+			msBean.setValue(beanGL.getRevenueTypeCode());
+			msBean.setText(beanGL.getRevenueTypeName());
+			masterDataBeans.add(msBean);
+		}
+		
+		for(MapGLBean beanGL2 : glBeans2) {
+			msBean = new MasterDataBean();
+			msBean.setValue(beanGL2.getServiceCode());
+			msBean.setText(beanGL2.getServiceName());
+			masterDataBeans.add(msBean);
+		}
+	}
+
+	@Override
+	public List<GroupTypeDropdown> findBatch(String code) {
+		groupTypeDropdownList = new ArrayList<GroupTypeDropdown>();
+		groupTypeDropdown = new GroupTypeDropdown();
+		
+		List<MasterDataBean> list = masterDataDao.findBatch(code);
+		
+		if(CollectionUtils.isNotEmpty(list)) {
+			groupTypeDropdown.setName(Constants.MasterData.SELECT_DROPDOWN);
+			groupTypeDropdown.setValue("");
+			groupTypeDropdownList.add(groupTypeDropdown);
+			for(int i=0; i<list.size(); i++) {
+				groupTypeDropdown = new GroupTypeDropdown();
+				groupTypeDropdown.setName(list.get(i).getOrderBatch());
+				groupTypeDropdown.setValue(list.get(i).getValue());
+				groupTypeDropdownList.add(groupTypeDropdown);
+			}
+		}
+		
+		return groupTypeDropdownList;
 	}
 
 }

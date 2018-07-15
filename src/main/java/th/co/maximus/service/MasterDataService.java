@@ -20,6 +20,8 @@ public interface MasterDataService {
 	
 	List<GroupTypeDropdown> findAll();
 	
+	List<GroupTypeDropdown> findBatch(String code);
+	
 	public int insert(MasterDataBean masterDataBean);
 	
 	public int insertGroup(MasterDataBean masterDataBean);
@@ -37,5 +39,7 @@ public interface MasterDataService {
 	public MasterDatasBean findByKeyCode(String keyCode);
 	
 	public UserBean findByUsername(String username)throws SQLException;
+	
+	List<MasterDataBean> showAllMSNGL();
 	
 }

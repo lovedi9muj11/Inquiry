@@ -61,11 +61,18 @@ public class RptServiceFull extends BaseExcelRptService{
 		String date = formateDateEN.format(new Date());
 		String time = formateHH.format(new Date());
 		
+		BigDecimal vat7 = BigDecimal.ZERO;
+		BigDecimal vat72 = BigDecimal.ZERO;
+		BigDecimal vat73 = BigDecimal.ZERO;
+		BigDecimal vat0 = BigDecimal.ZERO;
+		BigDecimal vat02 = BigDecimal.ZERO;
+		BigDecimal vat03 = BigDecimal.ZERO;
+		
 		String nameBranch = masterDatasDao.findByKey(branArea).getValue();
 
 		Sheet sh = workbook.getSheetAt(0);
 		Header header = sh.getHeader();
-		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom()))))); // .concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))))
+		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
 		header.setLeft(sh.getHeader().getLeft().concat(nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_)).concat("\n").concat("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
 		header.setRight(sh.getHeader().getRight().concat(date+" "+time));
 
@@ -78,6 +85,16 @@ public class RptServiceFull extends BaseExcelRptService{
 
 		if (CollectionUtils.isNotEmpty(entity)) {
 			for(int i=0; i<entity.size(); i++) {
+				
+				if(7 == entity.get(i).getVatRate()) {
+					vat7 = vat7.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+					vat72 = vat72.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+					vat73 = vat73.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+				}else if(0 == entity.get(i).getVatRate()) {
+					vat0 = vat0.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+					vat02 = vat02.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+					vat03 = vat03.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+				}
 		
 				Row row1 = sh.createRow(rowNum++);
 				Cell cell1 = row1.createCell(0);
@@ -171,9 +188,9 @@ public class RptServiceFull extends BaseExcelRptService{
 			sumCell24.setCellValue("");
 			sumCell25.setCellValue("");
 			sumCell26.setCellValue("");
-			sumCell27.setCellFormula("SUM(G2:G"+(rowNum-2)+")");
-			sumCell28.setCellFormula("SUM(H2:H"+(rowNum-2)+")");
-			sumCell29.setCellFormula("SUM(I2:I"+(rowNum-2)+")");
+			sumCell27.setCellFormula(vat7.toString()); //"SUM(G2:G"+(rowNum-2)+")"
+			sumCell28.setCellFormula(vat72.toString()); //"SUM(H2:H"+(rowNum-2)+")"
+			sumCell29.setCellFormula(vat73.toString()); //"SUM(I2:I"+(rowNum-2)+")"
 			sumCell210.setCellValue("");
 			
 			sumCell21.setCellStyle(summary);
@@ -212,9 +229,9 @@ public class RptServiceFull extends BaseExcelRptService{
 //			sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
 //			sumCell38.setCellFormula("SUM(H"+(rowNum)+":H"+(rowNum-3)+")");
 //			sumCell39.setCellFormula("SUM(I"+(rowNum)+":I"+(rowNum-3)+")");
-			sumCell37.setCellFormula(BigDecimal.ZERO.toString());
-			sumCell38.setCellFormula(BigDecimal.ZERO.toString());
-			sumCell39.setCellFormula(BigDecimal.ZERO.toString());
+			sumCell37.setCellFormula(vat0.toString());
+			sumCell38.setCellFormula(vat02.toString());
+			sumCell39.setCellFormula(vat03.toString());
 			sumCell310.setCellValue("");
 			
 			sumCell31.setCellStyle(summary);

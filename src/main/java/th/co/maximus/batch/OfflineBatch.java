@@ -56,63 +56,26 @@ public class OfflineBatch implements Job {
 
     @Bean(name = "jobWithSimpleTriggerBeanTrigger")
 	public CronTriggerFactoryBean sampleJobTrigger(@Qualifier("jobWithSimpleTriggerBean") JobDetail jobDetail) throws Exception {
-	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_M);
-	System.out.println(111);
+	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_MS);
     	return ConfigureQuartz.createCronTrigger(jobDetail, masterDatas.getValue());
     }
     
     @Bean(name = "jobWithSimpleTriggerBeanTrigger2")
   	public CronTriggerFactoryBean sampleJobTrigger2(@Qualifier("jobWithSimpleTriggerBean") JobDetail jobDetail) throws Exception {
-  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_W);
-  	System.out.println(222);
+  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_GL);
   		return ConfigureQuartz.createCronTrigger(jobDetail, masterDatas.getValue());
-  }
+    }
     
     @Bean(name = "jobWithSimpleTriggerBeanTrigger3")
   	public CronTriggerFactoryBean sampleJobTrigger3(@Qualifier("jobWithSimpleTriggerBean") JobDetail jobDetail) throws Exception {
-  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_D);
-  	System.out.println(333);
+  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_USER);
   		return ConfigureQuartz.createCronTrigger(jobDetail, masterDatas.getValue());
-  }
+	}
     
     @Bean(name = "jobWithSimpleTriggerBeanTrigger4")
   	public CronTriggerFactoryBean sampleJobTrigger4(@Qualifier("jobWithSimpleTriggerBean") JobDetail jobDetail) throws Exception {
-  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_T);
-  	System.out.println(444);
+  	MasterDatasBean masterDatas = masterDatasDao.findByGrop(Constants.MasterData.TRIGGER_GOUP, Constants.MasterData.KEYCODE.TRIGGER_MINUS);
   		return ConfigureQuartz.createCronTrigger(jobDetail, masterDatas.getValue());
-  }
-    
-//    @Scheduled(fixedRate = 5000)
-//    public void reportCurrentTime() {
-//        log.info("The time is now {}", dateFormat.format(new Date()));
-//        
-//        new java.util.Timer().schedule( 
-//                new java.util.TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        System.out.println("xxx");
-//                    }
-//                }, 
-//                x 
-//        );
-//        
-//    }
-    
-//    public String formateCorn(Date date) {
-//    	Calendar cal = Calendar.getInstance();
-//    	cal.setTime(date);
-//    	int year = cal.get(Calendar.YEAR);
-//    	int month = cal.get(Calendar.MONTH);
-//    	int day = cal.get(Calendar.DAY_OF_MONTH);
-//    	
-//    	String result = "";
-//    	System.out.println(date.getSeconds());
-//    	System.out.println(date.getMinutes());
-//    	System.out.println(date.getHours());
-//    	LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//    	System.out.println(localDate);
-//    	return null;
-//    }
-    
+	}
     
 }

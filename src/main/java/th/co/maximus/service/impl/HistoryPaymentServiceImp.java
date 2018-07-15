@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import th.co.maximus.core.utils.Utils;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,15 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.constants.Constants;
+import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
+import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.dao.TrscreDitrefManualDao;
+import th.co.maximus.model.TrsChequerefEpisOffline;
+import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.HistoryPaymentService;
 
@@ -32,6 +38,12 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 
 	@Autowired
 	private TrsMethodManualDao trsMethodManualDao;
+	
+	@Autowired
+	private TrsChequeRefManualDao  trsChequeRefManualDao;
+	
+	@Autowired
+	private TrscreDitrefManualDao  trscreDitrefManualDao;
 	
 	@Autowired
 	private MasterDatasDao masterDatasDao;
@@ -51,7 +63,31 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 				StringBuffer paymentMethod = new StringBuffer();
 				for (TrsMethodEpisOffline method : methodResult) {
 
-					paymentMethod.append("+ " + method.getName());
+					if("CH".equals(method.getCode())) {
+						List<TrsChequerefEpisOffline> list = trsChequeRefManualDao.findByManualId(method.getId());
+						
+						if(CollectionUtils.isNotEmpty(list)) {
+							for(int i=0; i<list.size(); i++) {
+								paymentMethod.append("+ " + method.getName()+" "+list.get(i).getPublisher()+" "+list.get(i).getChequeNo());
+							}
+						}
+						
+					}else if("CR".equals(method.getCode())) {
+						List<TrsCreditrefEpisOffline> list = trscreDitrefManualDao.findByMethodId(method.getId());
+						
+						if(CollectionUtils.isNotEmpty(list)) {
+							for(int i=0; i<list.size(); i++) {
+								paymentMethod.append("+ " + method.getName()+" "+list.get(i).getCardtype().toUpperCase()+" ************"+list.get(i).getCreditNo().substring(12));
+							}
+						}
+						
+					}else {
+						String methodName = method.getName();
+						if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName())) {
+							methodName = Constants.Status.METHOD_WT;
+						}
+						paymentMethod.append("+ " + methodName);
+					}
 				}
 				if (null != bean.getPeriod()) {
 					bean.setPeriod(Utils.periodFormat(bean.getPeriod()));

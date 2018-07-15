@@ -1,13 +1,11 @@
 package th.co.maximus.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
-import th.co.maximus.model.UserBean;
 
 @Repository
 public interface MasterDataDao {
@@ -17,6 +15,8 @@ public interface MasterDataDao {
 	public List<MasterDataBean> findAllByBankName() ;
 	
 	List<MasterDataBean> findAll();
+	
+	List<MasterDataBean> findBatch(String code);
 	
 	public int insertMasterdata(MasterDataBean masterDataBean);
 	
@@ -35,5 +35,7 @@ public interface MasterDataDao {
 	void insertMasterDataSync(MasterDataSyncBean masterDataSyncBean);
 	
 	void deleteBeforInsertMS();
+	
+	List<MasterDataBean> showAllMSNGL();
 
 }

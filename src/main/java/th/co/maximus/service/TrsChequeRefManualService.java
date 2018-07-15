@@ -10,6 +10,7 @@ public interface TrsChequeRefManualService {
 	void insertTrsChequeRefManual(TrsChequeRefManualBean trsChequeRefManualBean);
 
 	List<TrsChequeRefManualBean> TrsChequeRefManualAll();
+
 	public List<TrsChequerefEpisOffline> findTrsCredit(long methodTrsId) throws Exception;
 
 }

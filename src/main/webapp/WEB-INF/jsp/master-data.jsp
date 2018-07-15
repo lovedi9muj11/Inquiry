@@ -34,27 +34,27 @@
 					<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>
 					<div class="panel">
 						<br />
-						<div class="row">
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<label class="col-md-2 control-label right">ชื่อ : </label>
-									<div class="col-md-3 right">
-										<input type="text" id="name" class="form-control"></input>
-									</div>
-									<label class="col-md-2 control-label right">ประเภท : </label> 
-									<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
-									</select>
-								</div>
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col-md-12 col-sm-12"> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="col-md-2 control-label right">ชื่อ : </label> -->
+<!-- 									<div class="col-md-3 right"> -->
+<!-- 										<input type="text" id="name" class="form-control"></input> -->
+<!-- 									</div> -->
+<!-- 									<label class="col-md-2 control-label right">ประเภท : </label>  -->
+<!-- 									<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name"> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
 
-								<div class="form-group">
-									<div class="col-md-12 center ">
-										<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button>
+<!-- 								<div class="form-group"> -->
+<!-- 									<div class="col-md-12 center "> -->
+<!-- 										<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button> -->
 <%-- 										<a class="btn btn-success " href="${contextPath}/create-master-data">สร้าง</a> --%>
-									</div>
-								</div>
-							</div>
-						</div>
-						<br />
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<br /> -->
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
 								<div class="glass">
@@ -65,8 +65,8 @@
 													<tr>
 														<th style="text-align: center;" width="10%">#</th>
 														<th style="text-align: center;" width="40%">ชื่อ</th>
-														<th style="text-align: center;" width="30%">ประเภท</th>
-														<th style="text-align: center;" width="20%">Action</th>
+														<th style="text-align: center;" width="30%">Code</th>
+<!-- 														<th style="text-align: center;" width="20%">Action</th> -->
 													</tr>
 												</thead>
 												<tbody>

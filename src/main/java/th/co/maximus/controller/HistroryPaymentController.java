@@ -93,6 +93,7 @@ public class HistroryPaymentController {
 					hisPay.setBeforeVat(beforeVat.setScale(2, RoundingMode.HALF_DOWN));
 					hisPay.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 					hisPay.setNumberRun(String.valueOf(i + 1));
+					hisPay.setVatRate(hisPay.getVatRate());
 
 					result.add(hisPay);
 

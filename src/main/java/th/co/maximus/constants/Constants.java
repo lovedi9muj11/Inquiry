@@ -48,6 +48,9 @@ public class Constants {
 		public static final String ACTIVE_C = "ยกเลิก";
 		public static final String ACTIVE_AC = "รอหักล้าง";
 		public static final String ACTIVE_ = " - ";
+		
+		public static final String METHOD_WT_STR = "ภาษีหัก ณ ที่จ่าย";
+		public static final String METHOD_WT = "WT";
 	}
 	
 	public static class report{
@@ -83,10 +86,10 @@ public class Constants {
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		
 		public static class KEYCODE{
-			public static final String TRIGGER_M = "Trigger_M";
-			public static final String TRIGGER_W = "Trigger_W";
-			public static final String TRIGGER_D = "Trigger_D";
-			public static final String TRIGGER_T = "Trigger_T";
+			public static final String TRIGGER_MS = "Trigger_MS";
+			public static final String TRIGGER_GL = "Trigger_GL";
+			public static final String TRIGGER_USER = "Trigger_User";
+			public static final String TRIGGER_MINUS = "Trigger_Minus";
 		}
 		
 	}

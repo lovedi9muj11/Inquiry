@@ -29,6 +29,7 @@
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/userManageMent">Sync Data</a></li>
 								<li><a href="${contextPath}/masterData">Master Data</a></li>
+								<li><a href="${contextPath}/insertBatch">Set Batch</a></li>
 							</ul></li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUP')">
