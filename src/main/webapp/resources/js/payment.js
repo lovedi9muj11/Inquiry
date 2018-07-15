@@ -74,6 +74,11 @@ $(document).ready(function() {
 					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
 					 return $("#balanceSummary").focus();
 				  }
+				  if($('#showTotalPriceTable').find('tr').length > 1){
+					document.getElementById("radioButton").checked = false;
+					alert("กรุณาลบวิธีการรับชำระก่อน");
+					return $("#showTotalPriceTable").focus();
+				}
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
@@ -113,6 +118,11 @@ $(document).ready(function() {
 					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
 					 return $("#balanceSummary").focus();
 				  }
+				  if($('#showTotalPriceTable').find('tr').length > 1){
+					document.getElementById("radioButton").checked = false;
+					alert("กรุณาลบวิธีการรับชำระก่อน");
+					return $("#showTotalPriceTable").focus();
+				}
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
