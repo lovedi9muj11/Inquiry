@@ -53,10 +53,10 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			
 			double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
 			if(resRQ > paymentBean.getBalanceSum()) {
-				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum());
+				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()- paymentBean.getChange());
 				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
 			}else {
-				paymentManualBean.setPaidAmount(resRQ);
+				paymentManualBean.setPaidAmount(resRQ- paymentBean.getChange());
 				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
 			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
