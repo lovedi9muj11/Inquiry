@@ -39,6 +39,9 @@ public class ExportPDFByInsaleReport {
 	private String balanceBeforeCheck;
 	private String discountSpecialCheck;
 	private String checkBran;
+	private String checkSouce;
+	private String vatRate;
+	private String vatRateCheck;
 	
 	private String surName;
 	private String lastname;
@@ -46,6 +49,18 @@ public class ExportPDFByInsaleReport {
 	private String sentStringHeader;
 	
 	
+	public String getVatRateCheck() {
+		return vatRateCheck;
+	}
+	public void setVatRateCheck(String vatRateCheck) {
+		this.vatRateCheck = vatRateCheck;
+	}
+	public String getVatRate() {
+		return vatRate;
+	}
+	public void setVatRate(String vatRate) {
+		this.vatRate = vatRate;
+	}
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -255,6 +270,12 @@ public class ExportPDFByInsaleReport {
 	}
 	public void setSentStringHeader(String sentStringHeader) {
 		this.sentStringHeader = sentStringHeader;
+	}
+	public String getCheckSouce() {
+		return checkSouce;
+	}
+	public void setCheckSouce(String checkSouce) {
+		this.checkSouce = checkSouce;
 	}
 	
 	

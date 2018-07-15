@@ -304,7 +304,6 @@ public class EpisReportController {
 		} else if(printCollections.get(0).getDoctype().equals("S")) {
 			exportPDFReport.setSentStringHeader("Y");
 		}
-		BigDecimal zro = new BigDecimal(0);
 		BigDecimal spDis = new BigDecimal(0);
 		for (PaymentResultReq paymentResultReq : invObject) {
 			spDis.add(paymentResultReq.getDiscountspacal());
@@ -324,30 +323,41 @@ public class EpisReportController {
 		exportPDFReport.setBracnCode(printCollections.get(0).getBracnCode());
 		exportPDFReport.setDocumentDate(printCollections.get(0).getDocumentDate());
 		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
-		if (StringUtils.isNotBlank(printCollections.get(0).getCustName())) {
-			exportPDFReport.setCustNameCheck("Y");
-		} else {
-			exportPDFReport.setCustNameCheck("N");
+		exportPDFReport.setVatRate(printCollections.get(0).getVatRate());
+		
+		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
+			exportPDFReport.setVatRateCheck("Y");
+			
+			if (StringUtils.isNotBlank(printCollections.get(0).getCustName())) {
+				exportPDFReport.setCustNameCheck("Y");
+			} else {
+				exportPDFReport.setCustNameCheck("N");
+			}
+			
+			if (StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress())) {
+				exportPDFReport.setAddressCheck("Y");
+
+			} else {
+				exportPDFReport.setAddressCheck("N");
+			}
+			
+			if (StringUtils.isNotBlank(printCollections.get(0).getTaxId())) {
+				exportPDFReport.setTaxIdCheck("Y");
+			} else {
+				exportPDFReport.setTaxIdCheck("N");
+			}
+		}else {
+			exportPDFReport.setVatRateCheck("N");
 		}
+		
+		exportPDFReport.setCustomerAddress(printCollections.get(0).getCustomerAddress());
 		exportPDFReport.setCustName(printCollections.get(0).getCustName());
 		exportPDFReport.setDocumentNo(printCollections.get(0).getDocumentNo());
 		exportPDFReport.setBalanceSummaryStr(
 				String.format("%,.2f", printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
 						.add(spDis.setScale(2, RoundingMode.HALF_DOWN))));
 
-		if (StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress())) {
-			exportPDFReport.setAddressCheck("Y");
-
-		} else {
-			exportPDFReport.setAddressCheck("N");
-		}
-		exportPDFReport.setCustomerAddress(printCollections.get(0).getCustomerAddress());
-
-		if (StringUtils.isNotBlank(printCollections.get(0).getTaxId())) {
-			exportPDFReport.setTaxIdCheck("Y");
-		} else {
-			exportPDFReport.setTaxIdCheck("N");
-		}
+		
 		exportPDFReport.setTaxId(printCollections.get(0).getTaxId());
 		exportPDFReport.setRemark(printCollections.get(0).getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
@@ -462,13 +472,18 @@ public class EpisReportController {
 		if (printCollections.get(0).getBracnCode().equals("00000")) {
 			bran = "สำนักงานใหญ่";
 			exportPDFReport.setCheckBran("N");
-		} else {
+		} else if(printCollections.get(0).getBracnCode().equals("")){
+			exportPDFReport.setCheckBran("N");
+		}else {
 			bran = printCollections.get(0).getBracnCode();
 			exportPDFReport.setCheckBran("Y");
 		}
-
-		exportPDFReport.setPaymentCode(paymentCodeRes);
+		
 		exportPDFReport.setSouce(bran);
+		exportPDFReport.setPaymentCode(paymentCodeRes);
+		
+		
+		
 		parameters.put("ReportSource", exportPDFReport);
 
 		response.setContentType("application/pdf");
