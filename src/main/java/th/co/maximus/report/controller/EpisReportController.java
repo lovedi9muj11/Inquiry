@@ -390,9 +390,12 @@ public class EpisReportController {
 		BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
 
 		BigDecimal beforeVats = total.subtract(vat);
-
+		
+		BigDecimal vatSum = beforeVats.add(vat);
+		
 		exportPDFReport.setBeforeVatStr(String.format("%,.2f", beforeVats.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setVatStr(String.format("%,.2f", vat.setScale(2, RoundingMode.HALF_DOWN)));
+		exportPDFReport.setVatSum(String.format("%,.2f", vatSum.setScale(2, RoundingMode.HALF_DOWN)));
 
 		// String nameService = "";
 		// nameService = invObject.getBracnCode() + invObject.getBranArea() +

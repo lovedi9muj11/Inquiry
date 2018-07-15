@@ -47,8 +47,15 @@ public class ExportPDFByInsaleReport {
 	private String lastname;
 	
 	private String sentStringHeader;
+	private String vatSum;
 	
 	
+	public String getVatSum() {
+		return vatSum;
+	}
+	public void setVatSum(String vatSum) {
+		this.vatSum = vatSum;
+	}
 	public String getVatRateCheck() {
 		return vatRateCheck;
 	}

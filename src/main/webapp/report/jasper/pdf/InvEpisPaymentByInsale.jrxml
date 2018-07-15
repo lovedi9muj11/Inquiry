@@ -353,9 +353,9 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="289">
+		<band height="311">
 			<frame>
-				<reportElement x="1" y="151" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
+				<reportElement x="1" y="174" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="29" y="0" width="437" height="58" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
@@ -367,30 +367,30 @@
 				</staticText>
 			</frame>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="70" y="220" width="310" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
+				<reportElement style="Cat_Hl_Common" x="70" y="242" width="310" height="23" uuid="20593962-5448-4d62-8f8d-4eb7f77d4d86"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="440" y="220" width="315" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
+				<reportElement style="Cat_Hl_Common" x="440" y="242" width="315" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="1" y="20" width="780" height="128" backcolor="#FFFFFF" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
+				<reportElement x="1" y="18" width="780" height="150" backcolor="#FFFFFF" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="0" y="90" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
+					<reportElement style="Cat_Hl_Common" x="0" y="117" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[หมายเหตุ :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="80" y="90" width="380" height="23" backcolor="#FFFFFF" uuid="23a096d4-d93f-454a-9c08-ea0a2c740486"/>
+					<reportElement x="80" y="117" width="380" height="23" backcolor="#FFFFFF" uuid="23a096d4-d93f-454a-9c08-ea0a2c740486"/>
 					<textElement>
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
@@ -424,14 +424,14 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="490" y="94" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="118" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงินรับชำระทั้งสิ้น (Total Charge) :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="676" y="94" width="100" height="23" backcolor="#FFFFFF" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
+					<reportElement x="676" y="118" width="100" height="23" backcolor="#FFFFFF" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
@@ -482,9 +482,27 @@
 					</textElement>
 					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม (VAT " +$P{ReportSource}.getVatRate()+" %) :"]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="490" y="94" width="186" height="23" uuid="ff83336d-7e20-43dd-a83c-4b90d5436149">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getVatRateCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวมภาษีมูลค่าเพิ่ม:]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="676" y="94" width="100" height="23" uuid="db672aa4-5c9c-46b9-abeb-7fd09066b684">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getVatRateCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSum()]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField>
-				<reportElement x="460" y="250" width="231" height="23" backcolor="#FFFFFF" uuid="895b37eb-501b-4f21-a0b5-39178fffddd4"/>
+				<reportElement x="460" y="272" width="231" height="23" backcolor="#FFFFFF" uuid="895b37eb-501b-4f21-a0b5-39178fffddd4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="16" isBold="false"/>
 				</textElement>
