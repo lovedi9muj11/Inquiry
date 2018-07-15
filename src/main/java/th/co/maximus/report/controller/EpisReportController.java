@@ -299,11 +299,22 @@ public class EpisReportController {
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
-		if (printCollections.get(0).getDoctype().equals("F")) {
+		
+		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
+			exportPDFReport.setVatRateCheck("Y");
+			
+			if (printCollections.get(0).getDoctype().equals("F")) {
+				exportPDFReport.setSentStringHeader("N");
+			} else if(printCollections.get(0).getDoctype().equals("S")) {
+				exportPDFReport.setSentStringHeader("Y");
+			}
+			
+		}else {
+			exportPDFReport.setVatRateCheck("N");
 			exportPDFReport.setSentStringHeader("N");
-		} else if(printCollections.get(0).getDoctype().equals("S")) {
-			exportPDFReport.setSentStringHeader("Y");
+			exportPDFReport.setDiscountSpecialCheck("N");
 		}
+		
 		BigDecimal spDis = new BigDecimal(0);
 		for (PaymentResultReq paymentResultReq : invObject) {
 			spDis.add(paymentResultReq.getDiscountspacal());
@@ -325,29 +336,23 @@ public class EpisReportController {
 		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
 		exportPDFReport.setVatRate(printCollections.get(0).getVatRate());
 		
-		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
-			exportPDFReport.setVatRateCheck("Y");
-			
-			if (StringUtils.isNotBlank(printCollections.get(0).getCustName())) {
-				exportPDFReport.setCustNameCheck("Y");
-			} else {
-				exportPDFReport.setCustNameCheck("N");
-			}
-			
-			if (StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress())) {
-				exportPDFReport.setAddressCheck("Y");
+		if (StringUtils.isNotBlank(printCollections.get(0).getCustName())) {
+			exportPDFReport.setCustNameCheck("Y");
+		} else {
+			exportPDFReport.setCustNameCheck("N");
+		}
+		
+		if (StringUtils.isNotBlank(printCollections.get(0).getCustomerAddress())) {
+			exportPDFReport.setAddressCheck("Y");
 
-			} else {
-				exportPDFReport.setAddressCheck("N");
-			}
-			
-			if (StringUtils.isNotBlank(printCollections.get(0).getTaxId())) {
-				exportPDFReport.setTaxIdCheck("Y");
-			} else {
-				exportPDFReport.setTaxIdCheck("N");
-			}
-		}else {
-			exportPDFReport.setVatRateCheck("N");
+		} else {
+			exportPDFReport.setAddressCheck("N");
+		}
+		
+		if (StringUtils.isNotBlank(printCollections.get(0).getTaxId())) {
+			exportPDFReport.setTaxIdCheck("Y");
+		} else {
+			exportPDFReport.setTaxIdCheck("N");
 		}
 		
 		exportPDFReport.setCustomerAddress(printCollections.get(0).getCustomerAddress());
@@ -380,7 +385,7 @@ public class EpisReportController {
 
 		BigDecimal total = printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
 				.add(spDis.setScale(2, RoundingMode.HALF_DOWN));
-		BigDecimal vatRate = new BigDecimal(printCollections.get(0).getVatRate());
+		BigDecimal vatRate = new BigDecimal(StringUtils.isNotBlank(printCollections.get(0).getVatRate())?printCollections.get(0).getVatRate():BigDecimal.ZERO.toString());
 		BigDecimal resVat = new BigDecimal(107);
 
 		BigDecimal beforeVat = total.multiply(vatRate);

@@ -13,7 +13,7 @@ public class PaymentInvoiceManualBean {
 	private double beforVat;
 	private double amount;
 	private double vatAmount;
-	private int vatRate;
+	private Integer vatRate;
 	private String customerName;
 	private String customerAddress;
 	private String customerSegment;
@@ -98,11 +98,11 @@ public class PaymentInvoiceManualBean {
 		this.vatAmount = vatAmount;
 	}
 
-	public int getVatRate() {
+	public Integer getVatRate() {
 		return vatRate;
 	}
 
-	public void setVatRate(int vatRate) {
+	public void setVatRate(Integer vatRate) {
 		this.vatRate = vatRate;
 	}
 

@@ -78,6 +78,8 @@ public class PayOtherController {
 		
 		System.out.println(paymentBean.getPaymentTax());
 		
+		System.out.println(paymentBean.getVatrate() + " vatRate");
+		
 		try {
 			paymentId = paymentOtherService.insert(paymentBean);
 

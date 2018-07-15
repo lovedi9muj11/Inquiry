@@ -408,7 +408,14 @@ function submitForm() {
 //		$("#scustAddress").show();
 //		return $("#custAddress").focus();
 //	}
+	
+	var vatRate;
 
+	if($('#vatrate option:selected').text() == 'Non VAT') {
+		vatRate = null;
+	}else{
+		vatRate = $("#vatrate").val();
+	}
 	var dataSend = {
 		"custName" : $("#custName").val(),
 		"custNo" : $("#custNo").val(),
@@ -418,7 +425,7 @@ function submitForm() {
 		"custBrach" : $("#custBrach").val(),
 		"userGroup" : $("#userGroup").val(),
 		"userName" : $("#userName1").val(),
-		"vatrate" : $("#vatrate").val(),
+		"vatrate" : vatRate,
 		"balanceBeforeTax" : parseFloat($("#balanceBeforeTax").val().replace(
 				",", "")),
 		"vat" : parseFloat($("#vat").val().replace(",", "")),
