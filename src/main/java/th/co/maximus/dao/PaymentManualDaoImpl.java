@@ -171,7 +171,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setManualId(rs.getLong("MANUAL_ID"));
 			reportPayment.setServiceType(rs.getString("SERVICE_TYPE"));
 			reportPayment.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
-			reportPayment.setAccountSubNo(rs.getString("ACCOUNTSUBNO"));
+			reportPayment.setAccountSubNo(rs.getString("ACCOUNT_NO"));
 			reportPayment.setCustomerName(rs.getString("CUSTOMER_NAME"));
 			reportPayment.setDepartment(rs.getString("DEPARTMENT"));
 			reportPayment.setInvoiceNo(rs.getString("INVOICE_NO"));
