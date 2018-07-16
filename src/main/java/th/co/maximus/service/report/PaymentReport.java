@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,10 +19,20 @@ import th.co.maximus.bean.ReportPaymentCriteria;
 
 @Service("paymentReport")
 public class PaymentReport extends BaseExcelRptService {
+	
+	Locale localeTH = new Locale("th", "TH");
+	Locale localeEN = new Locale("en", "EN");
+	
+	SimpleDateFormat formateDateEN = new SimpleDateFormat("dd/MM/yyyy", localeEN);
+	SimpleDateFormat formateYearTH = new SimpleDateFormat("yyyy", localeTH);
+	SimpleDateFormat formateHH = new SimpleDateFormat("HH:mm", localeTH);
+	
 	public Workbook generatePaymentReportExcel(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws ParseException {
 		//StyleCell
 		Font fontNormal = createFontTHSarabanPSK(workbook, 11, false);
 		CellStyle txtCenterBor = createStyleCellLeft(workbook, fontNormal, true);
+		CellStyle txtCenterHeadBor = createStyleCellCenter(workbook, fontNormal, true);
+		CellStyle txtRightBor = createStyleCellRight(workbook, fontNormal, true);
 		
 		Font fontTable = createFontTHSarabanPSK(workbook, 10, false);
 		CellStyle txtCenterTable = createStyleCellLeftBorder(workbook, fontTable, true);
@@ -31,7 +42,8 @@ public class PaymentReport extends BaseExcelRptService {
 		
 		CellStyle borderCell = createBorderCellStyle(workbook, fontTable);
 		
-		
+		String date = formateDateEN.format(new Date());
+		String time = formateHH.format(new Date());
 		
 		//Create Sheet and name Sheet
 		Sheet sh = workbook.getSheetAt(0);
@@ -40,14 +52,14 @@ public class PaymentReport extends BaseExcelRptService {
 		//set row date header and style cell
 		 Row row1 = sh.getRow(1);
 		 Cell company = row1.getCell(0);
-		 Cell dateFromToCriteria = row1.getCell(4);
-		 Cell datePrint = row1.getCell(9);
+		 Cell dateFromToCriteria = row1.getCell(5);
+		 Cell datePrint = row1.getCell(11);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
 		 dateFromToCriteria.setCellValue("ประจำวันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+" ถึง "+ convertDateFormat(criteria.getDateTo()));
-		 datePrint.setCellValue("พิมพ์วันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+" ถึง "+ convertDateFormat(criteria.getDateTo()));
+		 datePrint.setCellValue("พิมพ์วันที่"+" "+ date+" "+time);
 		 company.setCellStyle(txtCenterBor);
-		 dateFromToCriteria.setCellStyle(txtCenterBor);
-		 datePrint.setCellStyle(txtCenterBor);
+		 dateFromToCriteria.setCellStyle(txtCenterHeadBor);
+		 datePrint.setCellStyle(txtRightBor);
 		 
 		 Row row2 = sh.getRow(2);
 		 Cell agency = row2.getCell(0);
@@ -56,7 +68,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 
 		 Row row3 = sh.getRow(3);
 		 Cell user = row3.getCell(0);
-		 user.setCellValue("เจ้าหน้าที่ "+ criteria.getUser());
+		 user.setCellValue("เจ้าหน้าที่ "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
 		 user.setCellStyle(txtCenterBor);
 		 
 		 int indexRow = 6;
@@ -104,13 +116,11 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
 				 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
 				 if("A".equals(resultReportPayment.getStatus())) {
-					 cell12.setCellValue("ยกเลิก");
-				 }else if("C".equals(resultReportPayment.getStatus())) {
 					 cell12.setCellValue("-");
+				 }else if("C".equals(resultReportPayment.getStatus())) {
+					 cell12.setCellValue("ยกเลิก");
 				 }
 				 cell13.setCellValue(resultReportPayment.getCreateBy());
-				 
-				 
 				 
 				 cell.setCellStyle(txtCenterTableRight);
 				 cell1.setCellStyle(txtCenterTable);

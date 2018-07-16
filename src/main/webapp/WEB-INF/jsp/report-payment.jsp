@@ -259,7 +259,7 @@
 		      	<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label  id="remake" class="form-control"></label>
+							<label  id="remake" class="control-label"></label>
 						</div>
 					</div>
 		     	</div>

@@ -9,6 +9,9 @@ public class ReportPaymentCriteria {
 	private String serviceType;
 	private String machinePaymentName;
 	
+	private String firstName;
+	private String lastName;
+	
 	public String getMachinePaymentName() {
 		return machinePaymentName;
 	}
@@ -50,6 +53,18 @@ public class ReportPaymentCriteria {
 	}
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	

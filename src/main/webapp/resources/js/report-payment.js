@@ -230,7 +230,7 @@ function dialogRemake(value){
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	$("#remake").val(res.remark);
+        	$("#remake").text(res.remark);
         }
 	})
 };

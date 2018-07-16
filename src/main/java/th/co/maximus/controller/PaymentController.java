@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;
-import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.PaymentService;
@@ -34,8 +32,6 @@ public class PaymentController {
 	private PaymentService paymentService;
 	@Autowired
 	private MasterDatasDao masterDatasDao;
-	@Autowired
-	private PaymentInvoiceManualDao paymentInvoiceManualDao;
 
 	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
 	public String registration(Model model) {
@@ -48,6 +44,7 @@ public class PaymentController {
 		return "payment";
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/paymentSuccess", method = RequestMethod.GET)
 	public String paymentSuccess(Model model, int idUser, HttpServletRequest request) throws Exception {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
@@ -107,6 +104,7 @@ public class PaymentController {
 		return "payment-success";
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/getDetailBilling/{manualId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody PaymentResultReq getBillingDetail(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("manualId") int manualId) throws Exception {

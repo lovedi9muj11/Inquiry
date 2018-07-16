@@ -16,10 +16,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -28,7 +30,9 @@ import th.co.maximus.bean.ReportBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.model.UserBean;
 import th.co.maximus.service.HistoryPaymentService;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentReportService;
 import th.co.maximus.service.report.ReportService;
 
@@ -45,6 +49,9 @@ public class ReportController {
 	
 	@Autowired
 	private PaymentReportService paymentReportService;
+	
+	@Autowired
+	private MasterDataService masterDataService;
 	
 	
 	@RequestMapping(value = { "/printReport.xls" }, method = RequestMethod.POST)
@@ -111,7 +118,14 @@ public class ReportController {
 			critreia.setDateFrom(request.getParameter("dateFromHidden"));
 			critreia.setDateTo(request.getParameter("dateToHidden"));
 			critreia.setAccountId(request.getParameter("accountIdHidden"));
+			
+			UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserBean bean = masterDataService.findByUsername(profile.getUsername());
+			critreia.setFirstName(bean.getSurName());
+			critreia.setLastName(bean.getLastName());
+			
 			critreia.setUser(request.getParameter("authoritiesHidden"));
+			
 			critreia.setServiceType(request.getParameter("serviceType"));
 			critreia.setVatRate(request.getParameter("vat"));
 			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));

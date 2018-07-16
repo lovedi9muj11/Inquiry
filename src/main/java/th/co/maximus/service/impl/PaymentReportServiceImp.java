@@ -3,6 +3,7 @@ package th.co.maximus.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,14 +56,19 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						payCode = "เงินสด";
 						results.add(payCode);
 					} else if (stockObject.getCode().equals("CR")) {
-						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(resultBean.getManualId());
+						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
-						payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"
-								+ code.substring(12, 16);
+						payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
 						results.add(payCode);
 					} else if (stockObject.getCode().equals("CH")) {
-						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(resultBean.getManualId());
-						payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
+						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
+						
+						if(CollectionUtils.isNotEmpty(res)) {
+							for(int j=0; j<res.size(); j++) {
+								payCode = "เช็ค " + res.get(i).getPublisher() + "เลขที่ : ************" + res.get(i).getChequeNo().substring(12);
+							}
+						}
+						
 						results.add(payCode);
 					}
 				}

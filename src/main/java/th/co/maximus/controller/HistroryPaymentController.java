@@ -67,8 +67,7 @@ public class HistroryPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/histroryPayment/paymentPrint" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {"/histroryPayment/paymentPrint" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<HistoryPaymentRS> paymentPrint(@RequestBody HistoryReportBean creteria) throws SQLException {
 		List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
@@ -104,8 +103,7 @@ public class HistroryPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/histroryPayment/findInvoiceByManualId" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {"/histroryPayment/findInvoiceByManualId" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public PaymentInvoiceManualBean findInvoiceByManualId(@RequestBody PaymentMMapPaymentInvBean creteria)
 			throws Exception {

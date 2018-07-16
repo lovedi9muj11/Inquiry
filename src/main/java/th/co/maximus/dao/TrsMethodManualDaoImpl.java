@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -116,7 +114,7 @@ public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 		sqlStmt.append(" FROM TRSMETHOD_MANUAL trm ");
 		sqlStmt.append(" WHERE  trm.MANUAL_ID = ?  ");
 		
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		List<TrsMethodEpisOffline> beanReReq =  jdbcTemplate.query(sqlStmt.toString(),new Object[] { manualId }, new RowMapper() {
 			@Override
 			public TrsMethodEpisOffline mapRow(ResultSet rs, int rowNum) throws SQLException {
