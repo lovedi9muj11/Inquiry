@@ -77,7 +77,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 
 			sqlStmt.append(",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
 			
-			sqlStmt.append(",(SELECT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VATRATE ");
+			sqlStmt.append(",(SELECT DISTINCT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VATRATE ");
 
 			sqlStmt.append("  FROM RECEIPT_MANUAL py WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());

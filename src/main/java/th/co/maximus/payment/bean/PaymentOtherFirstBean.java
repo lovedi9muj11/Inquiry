@@ -16,7 +16,7 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String userGroup;
 	private String userName;
 	private String custStatus;
-	private Integer vatrate;
+	private String vatrate;
 	private double balanceBeforeTax;
 	private double vat;
 	private double balanceOfTax;
@@ -119,10 +119,10 @@ public class PaymentOtherFirstBean implements Serializable{
 		this.custStatus = custStatus;
 	}
 	
-	public Integer getVatrate() {
+	public String getVatrate() {
 		return vatrate;
 	}
-	public void setVatrate(Integer vatrate) {
+	public void setVatrate(String vatrate) {
 		this.vatrate = vatrate;
 	}
 	public double getBalanceBeforeTax() {

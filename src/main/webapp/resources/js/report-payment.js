@@ -123,7 +123,7 @@ function createRow(data, seq) {
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
 	noRefer = '-';
-	beforVat = data.beforVat;
+	beforVat = formatDouble(data.beforVat,2);
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);
 	if (data.status == 'C'){
