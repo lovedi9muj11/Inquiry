@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,6 @@ import th.co.maximus.dao.DeductionManualDao;
 import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.dao.TrscreDitrefManualDao;
-import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.payment.bean.PaymentTranPriceBean;
@@ -149,7 +149,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 				
 				
 				if(idTrsMethod >0){
-					deductionManualBean.setDeDuctionNo(paymentTaxBean.getDocDed());
+					deductionManualBean.setDeDuctionNo(StringUtils.isNotBlank(paymentBean.getHaveDocNo())?paymentBean.getHaveDocNo():paymentTaxBean.getDocDed());
 					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
 					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed());
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));

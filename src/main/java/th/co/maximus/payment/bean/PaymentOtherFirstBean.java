@@ -37,7 +37,7 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String docType;
 	private String inputServiceDepartment;
 	
-	
+	private String haveDocNo;
 	
 	
 	public String getDocType() {
@@ -214,6 +214,12 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setInputServiceDepartment(String inputServiceDepartment) {
 		this.inputServiceDepartment = inputServiceDepartment;
+	}
+	public String getHaveDocNo() {
+		return haveDocNo;
+	}
+	public void setHaveDocNo(String haveDocNo) {
+		this.haveDocNo = haveDocNo;
 	}
 	
 	

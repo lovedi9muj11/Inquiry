@@ -81,8 +81,7 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 				paymentBean.setDocumentNo(code);
 				paymentBean.setDocType(paymentManualBean.getDocType());
-
-
+				
 			paymentId = paymentOtherManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
 				paymentOtherInvoiceManualService.insertPaymentInvoiceManual(paymentBean, paymentId);

@@ -425,7 +425,7 @@ function submitForm() {
 		"custName" : $("#custName").val(),
 		"custNo" : $("#custNo").val(),
 		"taxId" : $("#taxId").val(),
-		"documentNo" : $("#docDed").val(),
+		"haveDocNo" : $("#docDed").val(),
 		"custAddress" : $("#custAddress").val(),
 		"custBrach" : $("#custBrach").val(),
 		"userGroup" : $("#userGroup").val(),
