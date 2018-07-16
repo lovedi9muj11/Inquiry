@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	
+	
+			$('#inputServiceDepartment').select2();
+			$('#inputServiceType').select2();
+			$('#inputServiceName').select2();
+	
 			$("#inputServiceAmount").on( "click",  function() {
 				this.select();
 			});

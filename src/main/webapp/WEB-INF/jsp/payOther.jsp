@@ -12,6 +12,7 @@
 <html>
 <head>
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/lib/select2.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Payment</title>
 <script type="text/javascript"
@@ -22,6 +23,8 @@
 <script src="${contextPath}/resources/js/utils.js"></script>
 <script src="${contextPath}/resources/js/paymentother.js"></script>
 <script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
+
+<link href="${contextPath}/resources/css/select2.min.css" rel="stylesheet">
 
 <%
 	List<MasterDataBean> masterBankCode = null;
@@ -186,7 +189,8 @@
 										<label class="control-label col-sm-2">ประเภทรายได้ :<span
 											style="color: red;">*</span></label>
 										<div class="col-sm-2">
-											<select id="inputServiceType" name="inputServiceType"
+										
+											 <select id="inputServiceType" name="inputServiceType"
 												class="form-control" >
 												<option value="">-- กรุณาเลือก --</option>
 												<%
@@ -197,15 +201,15 @@
 												<%
 													}
 												%>
-											</select>
+											</select> 
 											<p id="sinputServiceType" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
 											:<span style="color: red;">*</span>
 										</label>
-										<div class="col-sm-2">
-											<select id="inputServiceDepartment"
+										<div class="col-sm-2 ">
+										<select id="inputServiceDepartment"
 												name="inputServiceDepartment" class="form-control">
 												<option value="">-- กรุณาเลือก --</option>
 												<%
@@ -217,9 +221,10 @@
 													}
 												%>
 											</select>
+										</div>
+					
 											<p id="sinputServiceDepartment" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
-										</div>
 										<label class="control-label col-sm-2">เงินส่วนลดก่อน
 											VAT :</label>
 										<div class="col-sm-2">
