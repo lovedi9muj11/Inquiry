@@ -77,7 +77,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 
 			sqlStmt.append(",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
 			
-			sqlStmt.append(",(SELECT DISTINCT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VATRATE ");
+			sqlStmt.append(",(SELECT DISTINCT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VAT_RATE ");
 
 			sqlStmt.append("  FROM RECEIPT_MANUAL py WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
@@ -95,7 +95,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
 				
-				if(StringUtils.isBlank(resultSet.getString("VATRATE"))) {
+				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
 					beanReReq.setVatStr("-");
 				}else {
 					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
@@ -140,7 +140,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
 				
-				if(StringUtils.isBlank(resultSet.getString("VAT_RATE"))) {
+				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
 					beanReReq.setVatStr("-");
 				}else {
 					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));

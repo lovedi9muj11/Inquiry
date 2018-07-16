@@ -1,5 +1,6 @@
 package th.co.maximus.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,7 +181,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			reportPayment.setRemake(rs.getString("REMARK"));
 //			reportPayment.setNoRefer(rs.getString(""));
-			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract( rs.getBigDecimal("VAT_AMOUNT")));
+			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract( rs.getBigDecimal("VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
 			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));

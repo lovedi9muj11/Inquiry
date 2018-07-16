@@ -176,7 +176,10 @@ function vatAmount() {
 	if ($("#balanceSum").val() !== '') {
 		result = parseFloat($("#balanceSum").val().replace(",", ""));
 	}
-	var vaq = $("#vatrate").val();
+	var vaq = $('#vatrate').val();
+	if(vaq == 'notVat'){
+		vaq = '0';
+	}
 	var vatRQ = parseFloat(parseFloat(vaq).toFixed(2).replace(",", ""));
 	var beforeVat = parseFloat(0);
 	var vat = parseFloat(0);
@@ -430,11 +433,8 @@ function submitForm() {
 	
 	var vatRate;
 
-	if($('#vatrate option:selected').text() == 'Non VAT') {
-		vatRate = null;
-	}else{
 		vatRate = $("#vatrate").val();
-	}
+
 	var dataSend = {
 		"custName" : $("#custName").val(),
 		"custNo" : $("#custNo").val(),
@@ -576,6 +576,9 @@ function buttonAddBillingList() {
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var vatRate = $('#vatrate').val();
+	if(vatRate == 'nonVat'){
+		vatRate = '0';
+	}
 	var moneyDed1 = $("#moneyDed1").val();
 	var radiovat = document.getElementsByName("radiovat");
 
@@ -610,12 +613,13 @@ function buttonAddBillingList() {
 			var amountDiscount = disDiscount(amountBeforVat);
 			 amountTotal = calurateVatRate(amountDiscount, vatRate);
 			 vatamount = amountTotal- amountDiscount;
+			 
 			 serviceAmount = amountBeforVat;
 			 
 		}
 		
 		var chkVatamount;
-		if('Non VAT' == $("#vatrate option:selected").text()) {
+		if("nonVat" == $("#vatrate option:selected").val()) {
 			chkVatamount = '-';
 		}else{
 			if(vatamount < 0 ){

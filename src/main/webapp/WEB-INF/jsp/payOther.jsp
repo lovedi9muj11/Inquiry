@@ -151,7 +151,7 @@
 											<select class="form-control" id="vatrate" name="vatrate">
 												<option value="7">7%</option>
 												<option value="0">0%</option>
-												<option value="0">Non VAT</option>
+												<option value=nonVat>Non VAT</option>
 
 											</select>
 										</div>

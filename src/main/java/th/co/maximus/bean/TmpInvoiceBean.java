@@ -13,7 +13,7 @@ public class TmpInvoiceBean {
 	private BigDecimal amount;
 	private BigDecimal vatAmount;
 	private BigDecimal paidAmount;
-	private int vatRate;
+	private String vatRate;
 	private String customerName;
 	private String customerAddress;
 	private String customerSegment;
@@ -76,10 +76,10 @@ public class TmpInvoiceBean {
 	public void setVatAmount(BigDecimal vatAmount) {
 		this.vatAmount = vatAmount;
 	}
-	public int getVatRate() {
+	public String getVatRate() {
 		return vatRate;
 	}
-	public void setVatRate(int vatRate) {
+	public void setVatRate(String vatRate) {
 		this.vatRate = vatRate;
 	}
 	public String getCustomerName() {

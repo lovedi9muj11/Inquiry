@@ -266,7 +266,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoice.setBeforVat(rs.getDouble("BEFOR_VAT"));
 			paymentInvoice.setVatAmount(rs.getInt("VAT_AMOUNT"));
 			paymentInvoice.setAmount(rs.getDouble("AMOUNT"));
-			paymentInvoice.setVatRate(rs.getInt("VAT_RATE"));
+			paymentInvoice.setVatRate(rs.getString("VAT_RATE"));
 			paymentInvoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
 			paymentInvoice.setCustomerSegment(rs.getString("CUSTOMER_SEGMENT"));
 			paymentInvoice.setCustomerBranch(rs.getString("CUSTOMER_BRANCH"));

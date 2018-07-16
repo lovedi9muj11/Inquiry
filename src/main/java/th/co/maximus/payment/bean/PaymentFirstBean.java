@@ -33,7 +33,7 @@ public class PaymentFirstBean implements Serializable{
 	private Date invoiceDate;
 	private String custStatus;
 	private Double taxOnly;
-	private int vatrate;
+	private String vatrate;
 	private double balanceBeforeTax;
 	private double vat;
 	private double balanceOfTax;
@@ -149,10 +149,10 @@ public class PaymentFirstBean implements Serializable{
 	public void setCustStatus(String custStatus) {
 		this.custStatus = custStatus;
 	}
-	public int getVatrate() {
+	public String getVatrate() {
 		return vatrate;
 	}
-	public void setVatrate(int vatrate) {
+	public void setVatrate(String vatrate) {
 		this.vatrate = vatrate;
 	}
 	public double getBalanceBeforeTax() {
