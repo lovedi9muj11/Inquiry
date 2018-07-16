@@ -1,11 +1,8 @@
 package th.co.maximus.controller;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,7 +94,7 @@ public class PayOtherController {
 	@RequestMapping(value = "/payOtherSuccess", method = RequestMethod.GET)
 	public String paymentSuccess(Model model, int idUser, HttpServletRequest request) throws Exception {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+//		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 		if (idUser > 0) {
 			paymentResultReq = paymentOtherService.findByid(idUser);

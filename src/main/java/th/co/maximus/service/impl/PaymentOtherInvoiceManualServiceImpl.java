@@ -9,13 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.UserProfile;
-import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
-import th.co.maximus.bean.TrsMethodManualBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.payment.bean.PaymentBillBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
-import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.service.PaymentOtherInvoiceManualService;
 
 @Service

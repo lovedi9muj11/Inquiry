@@ -322,8 +322,16 @@ function submitForm() {
 	// list ขาย
 	var listpaymentSale = [];
 	var listpaymentSaleRQ = [];
-
+	var vatSaleChk;
+	
 	for (var h = 0; h < resultTblSale.length; h++) {
+		
+		if('-' == resultTblSale[h][8]) {
+			vatSaleChk = 0;
+		}else{
+			vatSaleChk = resultTblSale[h][8].replace(",", "");
+		}
+		
 		listpaymentSale = []
 		listpaymentSale = {
 			"inputServiceType" : resultTblSale[h][1],
@@ -333,7 +341,7 @@ function submitForm() {
 			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
 			 "inputServiceDiscount" : resultTblSale[h][6],
 			 "inputSpecialDiscount" : resultTblSale[h][7],
-			"vatSale" : resultTblSale[h][8].replace(",", ""),
+			"vatSale" : vatSaleChk,
 			
 			"summaryinvoice" : resultTblSale[h][10].replace(",", "")
 		}
@@ -526,6 +534,8 @@ function findBankNo() {
 }
 
 function buttonAddBillingList() {
+    document.getElementById('vatrate').disabled = true;
+    
 	hideDetailPayment();
 	if ($("#inputServiceType").val() == "") {
 		$("#sinputServiceType").show();
@@ -559,7 +569,7 @@ function buttonAddBillingList() {
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
-	var vatRate = $("#vatrate").val();
+	var vatRate = $('#vatrate').val();
 	var moneyDed1 = $("#moneyDed1").val();
 	var radiovat = document.getElementsByName("radiovat");
 
@@ -598,9 +608,18 @@ function buttonAddBillingList() {
 			 
 		}
 		
-		if(vatamount < 0 ){
-			vatamount = vatamount*(-1);
+		var chkVatamount;
+		if('Non VAT' == $("#vatrate option:selected").text()) {
+			chkVatamount = '-';
+		}else{
+			if(vatamount < 0 ){
+				vatamount = vatamount*(-1);
+				chkVatamount = vatamount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+			}else{
+				chkVatamount = vatamount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+			}
 		}
+		
 		var count = parseFloat(0);
 		count = parseFloat(count + parseFloat(table));
 
@@ -621,21 +640,17 @@ function buttonAddBillingList() {
 		+ "</td><td>"
 		+ serviceMoreData
 		+ "</td><td>"
-		+ serviceAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-		"$1,")
+		+ serviceAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		+ "</td><td>"
 		+ inputServiceDiscount
 		+ "</td><td>" 
-		+ specialDiscount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-		"$1,")
+		+ specialDiscount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		+"</td><td>"
-		+ vatamount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-				"$1,")
+		+ chkVatamount
 		+ "</td><td>"
 		+ moneyDed1
 		+"</td><td>"
-		+ amountTotal.toFixed(2).toString().replace(
-				/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+		+ amountTotal.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 		+ "</td><td><a onclick='deleteTableSale("
 		+ count
 		+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
@@ -706,6 +721,11 @@ function deleteTableSale(count) {
 			}
 		}
 	}
+	
+	if(1 == table.rows.length) {
+		document.getElementById('vatrate').disabled = false;
+	}
+	
 	replaseIndexV4(table);
 }
 

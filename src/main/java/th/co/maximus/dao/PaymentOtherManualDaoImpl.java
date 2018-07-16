@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -68,16 +69,15 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT py.ACCOUNT_NO,py.RECEIPT_NO_MANUAL,py.VAT_AMOUNT,py.PAID_AMOUNT ");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE, py.PAID_DATE  ");
-			sqlStmt.append(
-					"  , (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID =  	py.MANUAL_ID )as DEDUCTION ");
-			sqlStmt.append(
-					" ,(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
+			sqlStmt.append("  , (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID =  	py.MANUAL_ID )as DEDUCTION ");
+			sqlStmt.append(" ,(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
 
 //			sqlStmt.append(
 //					",(SELECT SUM(pim.DISCOUNTBEFORVAT) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTBEFORVAT ");
 
-			sqlStmt.append(
-					",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
+			sqlStmt.append(",(SELECT SUM(pim.DISCOUNTSPECIAL) FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as DISCOUNTSPECIAL ");
+			
+			sqlStmt.append(",(SELECT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VATRATE ");
 
 			sqlStmt.append("  FROM RECEIPT_MANUAL py WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
@@ -94,7 +94,13 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
 				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
-				beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+				
+				if(StringUtils.isBlank(resultSet.getString("VATRATE"))) {
+					beanReReq.setVatStr("-");
+				}else {
+					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+				}
+				
 				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
 				beanReReq.setDiscountspacalStr(String.format("%,.2f",beanReReq.getDiscountspacal()));
 				beanReReq.setPaid_amount(resultSet.getBigDecimal("PAID_AMOUNT"));
@@ -116,7 +122,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT  (select REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
-			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL  ");
+			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL, py.VAT_RATE  ");
 
 			sqlStmt.append("    FROM PAYMENT_INVOICE_MANUAL py  WHERE  py.MANUAL_ID = ?");
 			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
@@ -133,7 +139,13 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setAmount(resultSet.getBigDecimal("AMOUNT"));
 				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
-				beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+				
+				if(StringUtils.isBlank(resultSet.getString("VAT_RATE"))) {
+					beanReReq.setVatStr("-");
+				}else {
+					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+				}
+				
 				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
 				beanReReq.setDiscountspacalStr(String.format("%,.2f", beanReReq.getDiscountspacal()));
 				beanReReq.setBeforeVat(resultSet.getBigDecimal("BEFOR_VAT"));
@@ -149,5 +161,6 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		}
 		return bList;
 	}
+	
 
 }
