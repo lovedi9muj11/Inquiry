@@ -12,7 +12,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Footer;
-import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -52,9 +51,11 @@ public class RptServiceFull extends BaseExcelRptService{
 		Font fontNormal = createFontTHSarabanPSK(workbook, 14, false);
 		Font fontBold = createFontTHSarabanPSK(workbook, 14, true);
 //		CellStyle txtLeftBor = createCellStyleForTextLeftBorder(workbook, fontNormal, true);
+		CellStyle txtLeftNoBor = createStyleCellLeft(workbook, fontBold, false);
+		CellStyle txtCentertNoBor = createStyleCellCenter(workbook, fontBold, false);
+		CellStyle txtRightNoBor = createStyleCellRight(workbook, fontBold, false);
 		CellStyle txtLeft = createCellStyleForTextLeft(workbook, fontNormal, true);
 		CellStyle numRightBor = createCellStyleForNumberTwoDecimalBorder(workbook, fontNormal);
-//		CellStyle txtCenterBor = createCellStyleForTextCenterBorder(workbook, fontNormal, true);
 		CellStyle txtCenter = createCellStyleForTextCenter(workbook, fontNormal, true);
 		CellStyle summary = createCellStyleForTextRightBorderBgGrey25Percent(workbook, fontBold, true);
 
@@ -69,19 +70,39 @@ public class RptServiceFull extends BaseExcelRptService{
 		BigDecimal vat03 = BigDecimal.ZERO;
 		
 		String nameBranch = masterDatasDao.findByKey(branArea).getValue();
+		
+		int rowNumHead = 1;
 
 		Sheet sh = workbook.getSheetAt(0);
-		Header header = sh.getHeader();
-		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
-		header.setLeft(sh.getHeader().getLeft().concat(nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_)).concat("\n").concat("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
-		header.setRight(sh.getHeader().getRight().concat(date+" "+time));
+//		Header header = sh.getHeader();
+//		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
+//		header.setLeft(sh.getHeader().getLeft().concat(nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_)).concat("\n").concat("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
+//		header.setRight(sh.getHeader().getRight().concat(date+" "+time));
 
 		Footer footer = sh.getFooter();
 		footer.setCenter(sh.getFooter().getCenter());
 //		footer.setLeft(sh.getFooter().getLeft().concat(StringUtils.isNotBlank(bean.getCustName()) ? bean.getCustName():""));
 //		footer.setRight(sh.getFooter().getRight().concat(StringUtils.isNotBlank(bean.getCustName()) ? bean.getCustName() :""));
 		
-		int rowNum = 1;
+		Row rowHead = sh.createRow(rowNumHead++);
+		Cell cellH1 = rowHead.createCell(0);
+		cellH1.setCellValue(("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
+		cellH1.setCellStyle(txtCentertNoBor);
+		rowNumHead++;
+		Row rowHead2 = sh.createRow(rowNumHead++);
+		Cell cellH2 = rowHead2.createCell(0);
+		cellH2.setCellValue("หน่วยงานรับชำระ : ".concat((nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_))));
+		cellH2.setCellStyle(txtLeftNoBor);
+		Cell cellH22 = rowHead2.createCell(8);
+		cellH22.setCellValue("วันเวลาพิมพ์  : ".concat(date+" "+time));
+		cellH22.setCellStyle(txtRightNoBor);
+		
+		Row rowHead3 = sh.createRow(rowNumHead++);
+		Cell cellH3 = rowHead3.createCell(0);
+		cellH3.setCellValue(("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
+		cellH3.setCellStyle(txtLeftNoBor);
+		
+		int rowNum = 7;
 
 		if (CollectionUtils.isNotEmpty(entity)) {
 			for(int i=0; i<entity.size(); i++) {
