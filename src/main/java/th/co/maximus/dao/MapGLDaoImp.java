@@ -68,4 +68,12 @@ public class MapGLDaoImp implements MapGLDao{
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 
+	@Override
+	public List<MapGLBean> findByRevenuType(String revennuId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
+		sql.append(" WHERE mg.REVENUE_TYPE_CODE = '"+revennuId+"'");
+		return jdbcTemplate.query(sql.toString() , new mapGL());
+	}
+
 }

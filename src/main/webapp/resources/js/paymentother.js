@@ -36,6 +36,21 @@ $(document).ready(function() {
 				replaseIndexV4(table);
 				}
 			});
+			$("#inputServiceType").on( "change",  function() {
+				console.log(this);
+				$("#inputServiceName").empty();
+				$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
+				$.ajax({
+				    type: 'GET',
+				    url: "/getServiceName/"+$(this).val()
+				}).then(function (data) {
+					for(var i=0; i<data.length; i++) {
+						var element = data[i];
+						$('#inputServiceName').append('<option value="' + element.serviceCode+ '">' + element.serviceName + '</option>');
+					}
+				});
+			});
+			
 			
 			
 			findTypePayment();
@@ -290,6 +305,8 @@ function submitForm() {
 		resultDeductible.push(deductible);
 
 	}
+	
+	
 	// ตารางขาย
 	var tblSale = document.getElementById("sumtableBillingList");
 	var roeLeng = tblSale.rows.length;

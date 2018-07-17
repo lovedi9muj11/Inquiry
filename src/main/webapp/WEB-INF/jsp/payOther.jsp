@@ -39,7 +39,7 @@
 	masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 	masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType");
 	masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment");
-	mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName");
+// 	mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName");
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 %>
 
@@ -243,15 +243,7 @@
 										<div class="col-sm-2">
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
-												<option value="">-- กรุณาเลือก --</option>
-												<%
-													for (int i = 0; i < mapGLServiceName.size(); i++) {
-												%>
-												<option
-													value="<%=mapGLServiceName.get(i).getServiceCode()%>"><%=mapGLServiceName.get(i).getServiceName()%></option>
-												<%
-													}
-												%>
+													<option value="">-- กรุณาเลือก --</option>
 											</select>
 											<p id="sinputServiceName" style="color: red; display: none"">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>

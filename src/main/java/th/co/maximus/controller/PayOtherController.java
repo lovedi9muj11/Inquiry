@@ -52,16 +52,22 @@ public class PayOtherController {
 		// serviceNameList = masterDataService.findAllByServiceName();
 		// serviceTypeList = masterDataService.findAllByServiceType();
 
-		List<MapGLBean> serviceNameList = mapGLDao.findAll();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
 		model.addAttribute("serviceType", serviceTypeList);
-		model.addAttribute("serviceName", serviceNameList);
+//		model.addAttribute("serviceName", serviceNameList);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
 		return "payOther";
+	}
+
+	@RequestMapping(value = { "/getServiceName/{id}" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> getServiceName(@PathVariable("id") String id) {
+		List<MapGLBean> serviceNameList = mapGLDao.findByRevenuType(id);
+		return serviceNameList;
+
 	}
 
 	@RequestMapping(value = "/paymenOthertService", method = RequestMethod.POST)
@@ -72,11 +78,11 @@ public class PayOtherController {
 		System.out.println(paymentBean.getPaymentBill());
 
 		System.out.println(paymentBean.getPaymentTranPrice());
-		
+
 		System.out.println(paymentBean.getPaymentTax());
-		
+
 		System.out.println(paymentBean.getVatrate() + " vatRate");
-		
+
 		try {
 			paymentId = paymentOtherService.insert(paymentBean);
 
@@ -94,7 +100,7 @@ public class PayOtherController {
 	@RequestMapping(value = "/payOtherSuccess", method = RequestMethod.GET)
 	public String paymentSuccess(Model model, int idUser, HttpServletRequest request) throws Exception {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
-//		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		// SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 		if (idUser > 0) {
 			paymentResultReq = paymentOtherService.findByid(idUser);
