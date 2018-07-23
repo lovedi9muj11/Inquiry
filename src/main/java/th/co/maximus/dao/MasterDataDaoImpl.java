@@ -103,7 +103,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByServiceDepartment() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA ms  ");
-		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.BUSINESS_AREA+"'");
+		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.COST_CENTER+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	

@@ -55,11 +55,9 @@ $(document).ready(function() {
 				
 				
 				if(balanceOfTaxPrice == ""){
-					balanceOfTaxPrice = parseFloat(0);
+					balanceOfTaxPrice = "0"
 				}
-				if(balanceOfTaxPrice == ""){
-					balanceOfTaxPrice = parseFloat(0);
-				}
+				
 				$("#balanceSummary").val(FormatMoneyShowToNumber(balanceOfTaxPrice).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				inputAmount();
 			});

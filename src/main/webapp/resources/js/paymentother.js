@@ -51,7 +51,25 @@ $(document).ready(function() {
 				});
 			});
 			
+			$("#inputServiceDiscount").on( "change",  function() {
+				var inputServiceDiscount = $("#inputServiceDiscount").val();
+				
+				
+				if(inputServiceDiscount == ""){
+					inputServiceDiscount = "0";
+				}
+				$("#inputServiceDiscount").val(FormatMoneyShowToNumber(inputServiceDiscount).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			});
 			
+			$("#inputSpecialDiscount").on( "change",  function() {
+				var inputSpecialDiscount = $("#inputSpecialDiscount").val();
+				
+				
+				if(inputSpecialDiscount == ""){
+					inputSpecialDiscount = "0";
+				}
+				$("#inputSpecialDiscount").val(FormatMoneyShowToNumber(inputSpecialDiscount).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			});
 			
 			findTypePayment();
 			findBank();
@@ -365,8 +383,8 @@ function submitForm() {
 			"inputServiceCode" : resultTblSale[h][3],
 			"inputServiceMoreData" : resultTblSale[h][4],
 			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
-			 "inputServiceDiscount" : resultTblSale[h][6],
-			 "inputSpecialDiscount" : resultTblSale[h][7],
+			 "inputServiceDiscount" : resultTblSale[h][6].replace(",", ""),
+			 "inputSpecialDiscount" : resultTblSale[h][7].replace(",", ""),
 			"vatSale" : vatSaleChk,
 			
 			"summaryinvoice" : resultTblSale[h][10].replace(",", "")
@@ -719,7 +737,11 @@ function deleteTableSale(count) {
 	var balanceSummary = $("#balanceSummary").val();
 	var balanceBeforeTaxRQ = $("#balanceBeforeTax").val();
 	var vatRQ = $("#vat").val();
-	var vatRate = $("#vatrate").val();
+
+	var vatRate = $('#vatrate').val();
+	if(vatRate == 'notVat'){
+		vatRate = '0';
+	}
 	var table = document.getElementById("sumtableBillingList");
 	if (table.rows.length > 0) {
 		for (var i = 1; i <= table.rows.length; i++) {
@@ -1085,7 +1107,9 @@ function addDataSumCreditTranPrice() {
 		}
 		var ba23 = $("#balanceSummarys").val();
 		var branSum = parseFloat(ba23.replace(",", ""));
-
+		var ba24 = $("#balanceSummaryShow").val();
+		var branSum1 = parseFloat(ba24.replace(",", ""));
+		
 		var bard = $("#balanceSum").val();
 		var brana = parseFloat(bard.replace(",", ""));
 
@@ -1488,7 +1512,9 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				$("#moneyTran").val(
 						balance.toFixed(2).toString().replace(
 								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				
+				$("#balanceSummarys").val(
+						balance.toFixed(2).toString().replace(
+								/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 
 				
 				vatAmount();
@@ -1578,7 +1604,7 @@ function replaseIndex(str) {
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 		}
 		$("#balanceSum").val(suminputmon.toFixed(2));
-		$("#balanceSummarys").val(suminputmon.toFixed(2));
+//		$("#balanceSummarys").val(suminputmon.toFixed(2));
 		$("#balanceSumShow").val(
 				suminputmon.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	}else{
@@ -1697,7 +1723,10 @@ function replaseIndexV4(str) {
 					+ FormatMoneyShowToNumber(cells[9].innerHTML);
 			beforeSaleShow = beforeSaleShow
 					+ FormatMoneyShowToNumber(cells[4].innerHTML);
-			vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
+			if(cells[7].innerHTML != "-"){
+				vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
+			}
+		
 			cells[0].innerHTML = i;
 			cells[10].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
@@ -1798,7 +1827,10 @@ function totalSum() {
 
 function calVat() {
 	var userGroup = $("#userGroup").val();
-	var vatRate = $("#vatrate").val();
+	var vatRate = $('#vatrate').val();
+	if(vatRate == 'notVat'){
+		vatRate = '0';
+	}
 	var inputServiceMoreData = $("#inputServiceMoreData").val();
 	var inputServiceAmount = $("#inputServiceAmount").val();
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
@@ -1849,7 +1881,10 @@ function calWT(amount){
 	return wt;
 }
 function disVat(serviceAmount,amountType){
-	var vatRate = $("#vatrate").val();
+	var vatRate = $('#vatrate').val();
+	if(vatRate == 'notVat'){
+		vatRate = '0';
+	}
 	vatRate = parseFloat(vatRate.replace(",", ""));
 	if(amountType == "beforvat"){
 		amountBeforVat = serviceAmount;

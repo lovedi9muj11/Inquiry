@@ -51,7 +51,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			
-			double resRQ = paymentBean.getBalanceSum()+paymentBean.getSummaryTax();
+			double resRQ = paymentBean.getBalanceSum();
 			if(resRQ > paymentBean.getBalanceSum()) {
 				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()- paymentBean.getChange());
 				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
