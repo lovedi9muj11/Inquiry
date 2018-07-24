@@ -63,7 +63,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setChange(paymentBean.getChang());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			
-			if(resRQ>= paymentBean.getAmountInvoice()){
+			if(paymentBean.getBalanceOfTax()>= paymentBean.getAmountInvoice()){
 				paymentManualBean.setPaytype("F");
 			}else{
 				paymentManualBean.setPaytype("P");

@@ -827,7 +827,7 @@
 													</div>
 													<div class="col-sm-3">
 														<input class="form-control numeric2point" type="text"
-															id="taxOnly" name="taxOnly" onchange="taxDiscount()">
+															id="taxOnly" name="taxOnly" onclick="taxDiscount()" onchange="taxDiscount()" >
 													</div>
 												</div>
 											</div>

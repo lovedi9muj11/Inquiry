@@ -252,7 +252,7 @@ public class EpisReportController {
 		exportPDFReport.setInvoiceNo(invObject.getInvoiceNo());
 
 		exportPDFReport
-				.setDiscountStr(String.format("%,.2f", invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
+				.setDiscountStr(String.format("%,.2f", new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setAmountPaymentStr(
 				String.format("%,.2f", invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setBalanceSummaryStr(

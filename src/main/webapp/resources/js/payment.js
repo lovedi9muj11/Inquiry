@@ -10,6 +10,7 @@ $(document).ready(function() {
 			disBtn();
 			autoSelect();
 			document.getElementById("taxOnly").readOnly = true;
+			$("#taxOnly").val(parseFloat(0).toFixed(2))
 			$("#change").val(parseFloat(0).toFixed(2));
 			$("#balanceSumShow").val(parseFloat(0).toFixed(2));
 			$("#balanceSummaryShow").val(parseFloat(0).toFixed(2));
@@ -90,8 +91,8 @@ $(document).ready(function() {
 		      		        success: function (res) {
 		      		        	if(res){
 		      		        		document.getElementById("taxOnly").readOnly = false;
-		      		        		document.getElementById("radioButton").disabled = true;
-		      		        		document.getElementById("radioButtons").disabled = true;
+		      		        		document.getElementById("radioButton").disabled = false;
+		      		        		document.getElementById("radioButtons").disabled = false;
 		      		        		document.getElementById("radioButton").checked = true;
 		      		        		$("#mi-modal").modal('hide');
 		      		        	}else{
@@ -134,8 +135,8 @@ $(document).ready(function() {
 		      		        success: function (res) {
 		      		        	if(res){
 		      		        		document.getElementById("taxOnly").readOnly = false;
-		      		        		document.getElementById("radioButton").disabled = true;
-		      		        		document.getElementById("radioButtons").disabled = true;
+		      		        		document.getElementById("radioButton").disabled = false;
+		      		        		document.getElementById("radioButtons").disabled = false;
 		      		        		document.getElementById("radioButtons").checked = true;
 		      		        		$("#mi-modal").modal('hide');
 		      		        	}else{
@@ -182,7 +183,7 @@ function taxDiscount(){
 	if(bable < 0 || !bable){
 		bable = parseFloat(0);
 	}
-	if(bas > balance){
+	if(bas > (balance - (summaryTax*-1))){
 		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
 		$("#taxOnly").val(0);
 		return $("#taxOnly").focus();
@@ -192,7 +193,7 @@ function taxDiscount(){
 	var balanSum = FormatMoneyShowToNumber($("#balanceSummary").val());
 	var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
 	var total = parseFloat(balanSumShow) - parseFloat(summaryTax *-1);
-	balance =	parseFloat(balance) - parseFloat(bas);
+	balance =	parseFloat(balance - parseFloat(summaryTax *-1)) - parseFloat(bas);
 	
 	result = result +vatDis;
 	
@@ -338,6 +339,8 @@ function datePriod1(){
 	if($("#endDate").val() == ""){
 		$("#sendDate").show();
 		return $("#endDate").focus();
+	}else{
+		$("#sendDate").hide();
 	}
 	if(parseFloat(dateSt) > parseFloat(dateEn)){
 		 $("#sstartupDate1").show();
@@ -854,7 +857,7 @@ function addDataTableDed() {
 		
 	}
 	number = number + 1;
-	var markup = "<tr><td>"	+ number+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+parseFloat(totaldecut).toFixed(2)  + "</td><td style='display: none' >"+ genid + "</td><td><a onclick='myDeleteDed("+ number+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
+	var markup = "<tr><td>"	+ number+ "</td><td>"+ "ภาษีหัก ณ ที่จ่าย"	+ "</td><td>"+parseFloat(totaldecut).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")  + "</td><td style='display: none' >"+ genid + "</td><td><a onclick='myDeleteDed("+ number+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 	$("#showDeductibleTable").find('tbody').append(markup);
 	for (var i = document.getElementById("deductibleTable").rows.length; i > 1; i--) {
 		document.getElementById("deductibleTable").deleteRow(i - 1);
