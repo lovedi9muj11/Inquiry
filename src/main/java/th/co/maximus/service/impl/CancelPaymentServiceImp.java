@@ -117,11 +117,13 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 		for (PaymentMMapPaymentInvBean resultBean : paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo)) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
+			String name = "";
 			for (TrsMethodEpisOffline method : methodResult) {
 				if (paymentMethod.toString().equals("")) {
 					paymentMethod.append(method.getName());
 				} else {
-					paymentMethod.append("+" + method.getName());
+					name = Constants.Status.METHOD_WT_STR.equals(method.getName())?Constants.Status.METHOD_WT:method.getName();
+					paymentMethod.append("+" + name);
 				}
 
 			}

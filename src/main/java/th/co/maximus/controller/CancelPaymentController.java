@@ -57,7 +57,7 @@ public class CancelPaymentController {
 	public List<PaymentMMapPaymentInvBean> findAllFromId(@RequestBody PaymentMMapPaymentInvBean creteria)
 			throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		if (!("").equals(creteria.getManualId())) {
+		if (null != creteria.getManualId()) {
 			result = cancelPaymentService.findAllCancelPaymentFromId(creteria.getManualId());
 		}
 		return result;
