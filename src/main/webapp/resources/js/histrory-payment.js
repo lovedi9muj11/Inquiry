@@ -58,7 +58,7 @@ function createRow(data, seq) {
 		}else {
 			remark = '-';
 		}
-	}else if(data.recordStatus == 'C'){
+	}else{
 		recordStatus = 'ยกเลิก';
 		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}

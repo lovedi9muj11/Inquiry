@@ -157,9 +157,9 @@
 								<div class="col-md-8">
 									<select class="form-control" id="vat" name="vat">
 										<option value="">ทั้งหมด</option>
-										<option value="0">0%</option>
-										<option value="3">3%</option>
-										<option value="7">7%</option>
+												<option value="7">7%</option>
+												<option value="0">0%</option>
+												<option value="NON VAT">Non VAT</option>
 									</select>
 								</div>
 							</div>

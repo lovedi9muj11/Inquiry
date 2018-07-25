@@ -13,7 +13,7 @@ public interface HistoryPaymentService {
 
 	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() throws Exception;
 	
-	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo) throws Exception;
+	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo,String payType) throws Exception;
 	
 	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean);
 	

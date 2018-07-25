@@ -18,7 +18,7 @@ public interface PaymentInvoiceManualDao {
 	
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean);
 
-	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo);
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo,String payType);
 	
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id);
 	

@@ -42,6 +42,11 @@ public class HistroryPaymentController {
 	public String gotoHistroryPayment(Model model) {
 		return "history-payment";
 	}
+	
+	@RequestMapping(value = { "/gotoHistroryPaymentother" }, method = RequestMethod.GET)
+	public String gotoHistroryPaymentother(Model model) {
+		return "history-payment-other";
+	}
 
 	@RequestMapping(value = { "/histroryPayment/find" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -51,7 +56,21 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo());
+		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(),"IBACSS");
+
+		// }
+		return result;
+	}
+	
+	@RequestMapping(value = { "/histroryPaymentByother/find" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<PaymentMMapPaymentInvBean> findByother(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+		// if("".equals(creteria.getAccountNo())) {
+		// result = cancelPaymentService.findAllCancelPayment();
+		// }else {
+
+		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(),"OTHER");
 
 		// }
 		return result;

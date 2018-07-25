@@ -428,9 +428,7 @@
 	<summary>
 		<band height="131">
 			<frame>
-				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -455,9 +453,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -514,9 +510,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="60" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="0" y="60" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -577,9 +571,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="1" y="90" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getReportStatus() == "1"]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="1" y="90" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
