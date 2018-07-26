@@ -327,6 +327,7 @@ public class EpisReportController {
 			exportPDFReport.setDiscountSpecialCheck("N");
 		}
 
+
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(printCollections.get(0).getBranArea());
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		exportPDFReport.setBranArea(valueBean.getProperty1()+" "+valueBean.getValue());
@@ -372,15 +373,18 @@ public class EpisReportController {
 		exportPDFReport.setAmount(printCollections.get(0).getAmount());
 		// exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat().setScale(2,
 		// RoundingMode.HALF_DOWN));
-		if (printCollections.get(0).getBalanceSummary().signum() == 0) {
-			exportPDFReport.setBalanceBefore(printCollections.get(0).getBalanceSummary());
-			exportPDFReport.setBalanceBeforeCheck("Y");
-		} else {
-			exportPDFReport.setBalanceBefore(printCollections.get(0).getBalanceSummary());
-			exportPDFReport.setBalanceBeforeCheck("N");
-		}
-		exportPDFReport
-				.setBalanceBefore(printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
+		
+//		if (printCollections.get(0).getBalanceSummary().signum() == 0) {
+//			exportPDFReport.setBalanceBeforeCheck("Y");
+//			exportPDFReport.setBalanceBeforeStr(String.format("%,.2f",printCollections.get(0).getBalanceSummary()));
+//			
+//		} else {
+//			exportPDFReport.setBalanceBeforeCheck("N");
+//			exportPDFReport.setBalanceBeforeStr(String.format("%,.2f",printCollections.get(0).getBalanceSummary()));
+//			
+//		}
+//		exportPDFReport
+//				.setBalanceBeforeStr(String.format("%,.2f",printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
 
 		BigDecimal total = printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
 				.add(spDis.setScale(2, RoundingMode.HALF_DOWN));
@@ -473,8 +477,17 @@ public class EpisReportController {
 			printCollections2.add(jp);
 		}
 
-		exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", printCollections.get(0).getBalanceSummary()));
-		exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", discountSpecial));
+		//exportPDFReport.setBalanceBeforeStr(String.format("%,.2f", printCollections.get(0).getBalanceSummary()));
+		//discountspacial
+		if(discountSpecial.signum()==0) {
+			exportPDFReport.setDiscountSpecialCheck("Y");
+			exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", discountSpecial));
+		}else {
+			exportPDFReport.setDiscountSpecialCheck("N");
+			exportPDFReport.setDiscountSpecialStr(String.format("%,.2f", discountSpecial));
+		}
+		
+		
 		String bran = "";
 		if (printCollections.get(0).getBracnCode().equals("00000")) {
 			bran = "สำนักงานใหญ่";
