@@ -86,7 +86,7 @@ public class RptServiceFull extends BaseExcelRptService{
 		
 		Row rowHead = sh.createRow(rowNumHead++);
 		Cell cellH1 = rowHead.createCell(0);
-		cellH1.setCellValue(("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
+		cellH1.setCellValue(("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())).concat(" "+bean.getDateFromHour()).concat(":"+bean.getDateFromMinute()))).concat(" ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))).concat(" "+bean.getDateToHour()).concat(":"+bean.getDateToMinute())));
 		cellH1.setCellStyle(txtCentertNoBor);
 		rowNumHead++;
 		Row rowHead2 = sh.createRow(rowNumHead++);

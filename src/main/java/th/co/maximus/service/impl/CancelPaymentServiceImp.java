@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
+import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
+import th.co.maximus.dao.TrscreDitrefManualDao;
+import th.co.maximus.model.TrsChequerefEpisOffline;
+import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.CancelPaymentService;
@@ -47,6 +52,12 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	
 	@Autowired
 	private MasterDatasDao masterDatasDao;
+	
+	@Autowired
+	private TrsChequeRefManualDao  trsChequeRefManualDao;
+	
+	@Autowired
+	private TrscreDitrefManualDao  trscreDitrefManualDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() throws Exception {
@@ -117,18 +128,46 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 		for (PaymentMMapPaymentInvBean resultBean : paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo)) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
-			String name = "";
+//			String name = "";
 			for (TrsMethodEpisOffline method : methodResult) {
-				if (paymentMethod.toString().equals("")) {
-					paymentMethod.append(method.getName());
-				} else {
-					name = Constants.Status.METHOD_WT_STR.equals(method.getName())?Constants.Status.METHOD_WT:method.getName();
-					paymentMethod.append("+" + name);
+				
+				if("CH".equals(method.getCode())) {
+					List<TrsChequerefEpisOffline> list = trsChequeRefManualDao.findByManualId(method.getId());
+					
+					if(CollectionUtils.isNotEmpty(list)) {
+						for(int i=0; i<list.size(); i++) {
+							paymentMethod.append("+ " + method.getName()+" "+list.get(i).getPublisher()+" "+list.get(i).getChequeNo());
+						}
+					}
+					
+				}else if("CR".equals(method.getCode())) {
+					List<TrsCreditrefEpisOffline> list = trscreDitrefManualDao.findByMethodId(method.getId());
+					
+					if(CollectionUtils.isNotEmpty(list)) {
+						for(int i=0; i<list.size(); i++) {
+							paymentMethod.append("+ " + method.getName()+" "+list.get(i).getCardtype().toUpperCase()+" ************"+list.get(i).getCreditNo().substring(12));
+						}
+					}
+					
+				}else {
+					String methodName = method.getName();
+					if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName())) {
+						methodName = Constants.Status.METHOD_WT;
+					}
+					paymentMethod.append("+ " + methodName);
 				}
+				
+				
+//				if (paymentMethod.toString().equals("")) {
+//					paymentMethod.append(method.getName());
+//				} else {
+//					name = Constants.Status.METHOD_WT_STR.equals(method.getName())?Constants.Status.METHOD_WT:method.getName();
+//					paymentMethod.append("+" + name);
+//				}
 
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
-			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());
 			result.add(resultBean);
 		}

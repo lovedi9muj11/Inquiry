@@ -129,7 +129,7 @@
 						                <th style="text-align: center;">วันที่ทำรายการ</th>
 						                <th style="text-align: center;">เลขที่ลูกค้า</th>
 						                <th style="text-align: center;">ชื่อลูกค้า</th>
-						                <th style="text-align: center;">วิธีการชำระ</th>
+						                <th style="text-align: center; width: 250px;">วิธีการชำระ</th>
 						                <th style="text-align: center;">จำนวนเงิน</th>
 						                <th style="text-align: center;">สถานที่รับชำระ</th>
 						                <th style="text-align: center;">ผู้รับชำระ</th>
