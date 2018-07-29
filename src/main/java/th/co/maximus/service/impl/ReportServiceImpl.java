@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.HistoryReportBean;
-import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
+import th.co.maximus.bean.InvEpisOfflineOtherBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
 import th.co.maximus.dao.ReportDao;
@@ -26,9 +26,9 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<InvEpisOfflineByInsaleBean> inqueryEpisOfflineByInsaleJSONHandler(String documentNo) throws SQLException {
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo) throws SQLException {
 		// TODO Auto-generated method stub
-		return reportDao.inqueryEpisOfflineByInsaleJSONHandler(documentNo);
+		return reportDao.inqueryEpisOfflineOtherJSONHandler(documentNo);
 	}
 
 	@Override

@@ -95,7 +95,7 @@ function submti() {
 }
 function submitTest() {
 
-	$("#paymentFroms").attr("action", "/previewPaymentEpisOfflineByInsale.pdf")
+	$("#paymentFroms").attr("action", "/previewPaymentEpisOfflineOther.pdf")
 			.attr("target", "_blank").submit();
 }
 

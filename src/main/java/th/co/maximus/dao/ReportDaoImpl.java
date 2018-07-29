@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.HistoryReportBean;
-import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
+import th.co.maximus.bean.InvEpisOfflineOtherBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
 @Repository("ReportDao")
@@ -60,9 +60,9 @@ public class ReportDaoImpl implements ReportDao{
 
 
 	@Override
-	public List<InvEpisOfflineByInsaleBean> inqueryEpisOfflineByInsaleJSONHandler(String documentNo) throws SQLException {
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo) throws SQLException {
 		Connection connect = dataSource.getConnection();
-		List<InvEpisOfflineByInsaleBean> collections = new ArrayList<InvEpisOfflineByInsaleBean>();
+		List<InvEpisOfflineOtherBean> collections = new ArrayList<InvEpisOfflineOtherBean>();
 		
 		try {
 			StringBuilder sql = new StringBuilder();
@@ -77,7 +77,7 @@ public class ReportDaoImpl implements ReportDao{
 			preparedStatement.setString(1, documentNo);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				collections.add(new InvEpisOfflineByInsaleBean(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBigDecimal(7), 
+				collections.add(new InvEpisOfflineOtherBean(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getBigDecimal(7), 
 						resultSet.getString(8), resultSet.getDate(9), resultSet.getString(10), resultSet.getString(11), resultSet.getString(12), resultSet.getString(13), resultSet.getString(14),resultSet.getBigDecimal(15),resultSet.getBigDecimal(16),resultSet.getBigDecimal(17),resultSet.getLong(18),resultSet.getLong(19),
 						resultSet.getString(20)));		
 						

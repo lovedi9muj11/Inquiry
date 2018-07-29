@@ -510,7 +510,7 @@ function rePrint() {
 }
 
 function rePrintOther() {
-	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineByInsale.pdf").attr("target", "_blank").submit();
+	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineOther.pdf").attr("target", "_blank").submit();
 }
 
 function searchReceiptNoById(id) {

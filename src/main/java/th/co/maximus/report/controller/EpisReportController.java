@@ -32,10 +32,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
-import th.co.maximus.bean.ExportPDFByInsaleReport;
+import th.co.maximus.bean.ExportPDFOtherReport;
 import th.co.maximus.bean.ExportPDFReport;
 import th.co.maximus.bean.HistoryReportBean;
-import th.co.maximus.bean.InvEpisOfflineByInsaleBean;
+import th.co.maximus.bean.InvEpisOfflineOtherBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
 import th.co.maximus.bean.MasterDatasBean;
@@ -274,27 +274,27 @@ public class EpisReportController {
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
 
-	@RequestMapping(value = { "/previewPaymentEpisOfflineByInsale.pdf" })
-	public void previewPaymentEpisOfflineByInsale(HttpServletRequest request, HttpServletResponse response, Model model)
+	@RequestMapping(value = { "/previewPaymentEpisOfflineOther.pdf" })
+	public void previewPaymentEpisOfflineOther(HttpServletRequest request, HttpServletResponse response, Model model)
 			throws Exception {
 		// String documentNo = "";
-		String JASPER_JRXML_FILENAME = "InvEpisPaymentByInsale";
+		String JASPER_JRXML_FILENAME = "InvEpisPaymentOther";
 		request.setAttribute("documentReport", "-1");
 		String documentNo = request.getParameter("documentNo");
-		List<InvEpisOfflineByInsaleBean> collections = reportService.inqueryEpisOfflineByInsaleJSONHandler(documentNo);
+		List<InvEpisOfflineOtherBean> collections = reportService.inqueryEpisOfflineOtherJSONHandler(documentNo);
 
 		if (collections != null) {
-			previewEpisOffilneprintByInsale(request, response, collections, JASPER_JRXML_FILENAME);
+			previewEpisOffilneprintOther(request, response, collections, JASPER_JRXML_FILENAME);
 		}
 	}
 
-	private void previewEpisOffilneprintByInsale(HttpServletRequest request, HttpServletResponse response,
-			List<InvEpisOfflineByInsaleBean> collections, final String JASPER_JRXML_FILENAME) throws Exception {
+	private void previewEpisOffilneprintOther(HttpServletRequest request, HttpServletResponse response,
+			List<InvEpisOfflineOtherBean> collections, final String JASPER_JRXML_FILENAME) throws Exception {
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		List<InvEpisOfflineByInsaleBean> printCollections = collections;
+		List<InvEpisOfflineOtherBean> printCollections = collections;
 		List<PaymentResultReq> invObject = paymentOtherService.findListByid(printCollections.get(0).getManualId());
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ExportPDFByInsaleReport exportPDFReport = new ExportPDFByInsaleReport();
+		ExportPDFOtherReport exportPDFReport = new ExportPDFOtherReport();
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
@@ -410,7 +410,7 @@ public class EpisReportController {
 		// String payCode = "";
 		// List<String> result = new ArrayList<>();
 		// for (int i = 0; i < collections.size(); i++) {
-		// InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean)
+		// InvEpisOfflineOtherBean stockObject = (InvEpisOfflineOtherBean)
 		// collections.get(i);
 		//
 		// result.add(stockObject.getPaymentCode());
@@ -425,7 +425,7 @@ public class EpisReportController {
 		List<String> result = new ArrayList<>();
 		for (int i = 0; i < collections.size(); i++) {
 			String payCode = "";
-			InvEpisOfflineByInsaleBean stockObject = collections.get(i);
+			InvEpisOfflineOtherBean stockObject = collections.get(i);
 
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
@@ -444,7 +444,7 @@ public class EpisReportController {
 
 		}
 		for (int i = 0; i < collections.size(); i++) {
-			InvEpisOfflineByInsaleBean stockObject = (InvEpisOfflineByInsaleBean) collections.get(i);
+			InvEpisOfflineOtherBean stockObject = (InvEpisOfflineOtherBean) collections.get(i);
 			if (stockObject.getPaymentCode().equals("DEDUC")) {
 				checkWT = "WT";
 				result.add(checkWT);
@@ -460,11 +460,11 @@ public class EpisReportController {
 			}
 
 		}
-		List<InvEpisOfflineByInsaleBean> printCollections2 = new ArrayList<InvEpisOfflineByInsaleBean>();
+		List<InvEpisOfflineOtherBean> printCollections2 = new ArrayList<InvEpisOfflineOtherBean>();
 		int i = 1;
 		BigDecimal discountSpecial = BigDecimal.ZERO;
 		for (PaymentResultReq paymentResultReq : invObject) {
-			InvEpisOfflineByInsaleBean jp = new InvEpisOfflineByInsaleBean();
+			InvEpisOfflineOtherBean jp = new InvEpisOfflineOtherBean();
 			jp.setRunnumber(String.valueOf(i++));
 			jp.setServiceNameStr(String.format(paymentResultReq.getServiceName()));
 			jp.setBeforeDiscount(String.format("%,.2f", paymentResultReq.getBeforeVat()));

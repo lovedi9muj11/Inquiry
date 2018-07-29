@@ -3,7 +3,7 @@ package th.co.maximus.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ExportPDFByInsaleReport {
+public class ExportPDFOtherReport {
 	private String branArea;
 	private String bracnCode;
 	private String souce;

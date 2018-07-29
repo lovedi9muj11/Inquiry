@@ -3,7 +3,7 @@ package th.co.maximus.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class InvEpisOfflineByInsaleBean {
+public class InvEpisOfflineOtherBean {
 	private String branArea;
 	private String bracnCode;
 	private String souce;
@@ -31,10 +31,10 @@ public class InvEpisOfflineByInsaleBean {
 	private String serviceNameStr;
 	private String doctype;
 
-	public InvEpisOfflineByInsaleBean() {
+	public InvEpisOfflineOtherBean() {
 	}
 
-	public InvEpisOfflineByInsaleBean(String branArea, String bracnCode, String serviceName, String custNo,
+	public InvEpisOfflineOtherBean(String branArea, String bracnCode, String serviceName, String custNo,
 			String custName, String documentNo, BigDecimal balanceSummary, String invoiceNo, Date documentDate,
 			String customerAddress, String taxId, String remark, String paymentCode, String vatRate,
 			BigDecimal discountSpecial, BigDecimal amount, BigDecimal discountbeforvat, Long methodId, Long manualId,String doctype) {

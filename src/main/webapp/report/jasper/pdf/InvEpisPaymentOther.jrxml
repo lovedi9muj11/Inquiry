@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentByInsale" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentOther" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.3310000000000006"/>
@@ -20,7 +20,7 @@
 	<style name="Cat_Wt_Title" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Hl_Common" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
 	<style name="Cat_Ct_Common" forecolor="#000000" fill="Solid" vTextAlign="Middle" vImageAlign="Middle" fontName="FreesiaUPC" fontSize="12"/>
-	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFByInsaleReport"/>
+	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFOtherReport"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
