@@ -402,19 +402,6 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม " +$P{ReportSource}.getVatRate()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<textField pattern="">
-				<reportElement x="431" y="0" width="87" height="20" uuid="c0e77fae-61bd-49d7-a626-28b695d647e3"/>
-				<box>
-					<topPen lineStyle="Dotted"/>
-					<leftPen lineStyle="Dotted"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#C0C0C0"/>
-					<rightPen lineStyle="Dotted"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="14" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getDiscountStr()]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="132" y="0" width="176" height="20" uuid="1a084081-1d6d-480d-aa31-12e28b1dd43a"/>
 				<box>
@@ -454,6 +441,16 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement style="Cat_Hl_Common" x="435" y="0" width="82" height="20" uuid="a9fbc75f-6f56-4529-991b-e9d0ef070245">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y" &&
+$P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="true"/>
+				</textElement>
+				<text><![CDATA[0.00]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<summary>

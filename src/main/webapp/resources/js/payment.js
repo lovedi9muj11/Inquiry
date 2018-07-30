@@ -27,6 +27,10 @@ $(document).ready(function() {
 				$("#balanceSummary").val(FormatMoneyShowToNumber(balanceOfTaxPrice).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				inputAmount();
 			});
+			$("#taxOnly").on( "keyup",  function() {
+				taxDiscount();
+
+			});
 			$("#balanceOfTaxPrice").on( "click",  function() {
 				this.select();
 			});
@@ -118,7 +122,7 @@ $(document).ready(function() {
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
-					document.getElementById("radioButton").checked = false;
+					document.getElementById("radioButtons").checked = false;
 					alert("กรุณาลบวิธีการรับชำระก่อน");
 					return $("#showTotalPriceTable").focus();
 				}
@@ -175,8 +179,12 @@ function taxDiscount(){
 	}else{
 		bas = bable;
 	}
-	
-	var balance = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
+	var balance = $("#balanceOfTaxs").val()
+	if(balance == ""){
+		balance = parseFloat(0);
+	}else{
+		balance = FormatMoneyShowToNumber(balance);
+	}
 	
 	var sq = $("#summaryTax").val();
 	var summaryTax = parseFloat(sq.replace(/,/g, ""));
@@ -186,6 +194,7 @@ function taxDiscount(){
 	if(bas > (balance - (summaryTax*-1))){
 		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
 		$("#taxOnly").val(0);
+		taxDiscount();
 		return $("#taxOnly").focus();
 	}
 	
@@ -202,7 +211,13 @@ function taxDiscount(){
 	$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+	if(result >= 0){
+		$("#taxOnly").on( "change",  function() {
+			$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+		});
+	}else{
+		$("#taxOnly").val(0);
+	}
 };
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
