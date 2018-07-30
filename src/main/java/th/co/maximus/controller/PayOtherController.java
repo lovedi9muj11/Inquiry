@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MapGLDao;
+import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.MasterDataService;
@@ -37,6 +39,12 @@ public class PayOtherController {
 
 	@Autowired
 	private MapGLDao mapGLDao;
+	
+	@Autowired
+	MasterDatasDao masterDatasDao;
+	@Value("${text.costcenter}")
+	private String costcenter;
+	
 
 	@RequestMapping(value = { "/payOther" }, method = RequestMethod.GET)
 	public String payOther(Model model) {
@@ -51,7 +59,6 @@ public class PayOtherController {
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
 		// serviceNameList = masterDataService.findAllByServiceName();
 		// serviceTypeList = masterDataService.findAllByServiceType();
-
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 
 		model.addAttribute("bankCode", bankCodeList);
@@ -60,6 +67,7 @@ public class PayOtherController {
 //		model.addAttribute("serviceName", serviceNameList);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
+		model.addAttribute("costcenter", costcenter);
 		return "payOther";
 	}
 

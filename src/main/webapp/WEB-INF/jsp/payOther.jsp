@@ -39,14 +39,13 @@
 	masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 	masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType");
 	masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment");
-// 	mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName");
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
+	String	costcenter = (String) request.getAttribute("costcenter");
 %>
 
 </head>
 <body>
 	<div class="container-fluid">
-
 		<form name="paymentFrom" method="post" action="#" id="paymentFrom"
 			class="form-horizontal">
 			<div id="page-content-wrapper">
@@ -215,8 +214,7 @@
 												<%
 													for (int i = 0; i < masterServiceDepartment.size(); i++) {
 												%>
-												<option
-													value="<%=masterServiceDepartment.get(i).getText()%>"><%=masterServiceDepartment.get(i).getId()%> : <%=masterServiceDepartment.get(i).getText()%></option>
+												<option	value="<%=masterServiceDepartment.get(i).getValue()%>" <%= (masterServiceDepartment.get(i).getValue().equals(costcenter))?"selected":""%>><%=masterServiceDepartment.get(i).getValue()%> : <%=masterServiceDepartment.get(i).getText()%></option>
 												<%
 													}
 												%>
