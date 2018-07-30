@@ -1,7 +1,51 @@
 var vatRateResult = 0;
 var vatNanVat = "";
+var chars = [];
 
-$(document).ready(function() {		
+$(document).ready(function() {
+	
+	$("#xxx").keypress(function(e){
+        if ( e.which == 13 ) {
+        	console.log('x1')
+            var barcode = chars.join("");
+            if(barcode.charAt(0) == "|") barcode = barcode.slice(1,barcode.length);
+            if(barcode.charAt(0) == " ") barcode = barcode.slice(1,barcode.length);
+//            alert(barcode.substring(0, 15));
+//            alert(barcode.substring(15, 24));
+//            alert(barcode.substring(24, 42));
+//            alert(barcode.substring(42, 42));
+//            alert(barcode);
+            $("#xxx").val(barcode);
+            chars = [];
+            e.preventDefault();
+            var setCode = barcode.split("\n");
+//            alert(ks[0]);
+            $.each(setCode, function(x){
+//               alert(setCode[x]);
+            	if(x==1) $('#custNo').val(setCode[x]);
+            	if(x==2) {
+            		$('#invoiceNo').val(setCode[x].substring(0, 9)); 
+            		var year = setCode[x].substring(13, 17); 
+            		var month = setCode[x].substring(11, 13); 
+            		var day = setCode[x].substring(9, 11);
+            		var today = year+"-"+(month)+"-"+(day) ;
+
+                	$('#deadlines').val(today);
+            	} 
+            	
+            });
+        } else if ( e.which == 109 )  {
+        	console.log('x2')
+        } else {
+        	console.log('x3')
+            chars.push(String.fromCharCode(e.which));
+        }
+    });
+	
+//	$("#xxx").on('change keydown paste input', function(){
+//	      alert($("#xxx").val());
+//	});
+	
 			findTypePayment();
 			findBank();
 			findBankNo();
@@ -26,6 +70,10 @@ $(document).ready(function() {
 				}
 				$("#balanceSummary").val(FormatMoneyShowToNumber(balanceOfTaxPrice).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				inputAmount();
+			});
+			$("#taxOnly").on( "keyup",  function() {
+				taxDiscount();
+
 			});
 			$("#balanceOfTaxPrice").on( "click",  function() {
 				this.select();
@@ -118,7 +166,7 @@ $(document).ready(function() {
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
-					document.getElementById("radioButton").checked = false;
+					document.getElementById("radioButtons").checked = false;
 					alert("กรุณาลบวิธีการรับชำระก่อน");
 					return $("#showTotalPriceTable").focus();
 				}
@@ -175,8 +223,12 @@ function taxDiscount(){
 	}else{
 		bas = bable;
 	}
-	
-	var balance = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
+	var balance = $("#balanceOfTaxs").val()
+	if(balance == ""){
+		balance = parseFloat(0);
+	}else{
+		balance = FormatMoneyShowToNumber(balance);
+	}
 	
 	var sq = $("#summaryTax").val();
 	var summaryTax = parseFloat(sq.replace(/,/g, ""));
@@ -186,6 +238,7 @@ function taxDiscount(){
 	if(bas > (balance - (summaryTax*-1))){
 		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
 		$("#taxOnly").val(0);
+		taxDiscount();
 		return $("#taxOnly").focus();
 	}
 	
@@ -202,7 +255,13 @@ function taxDiscount(){
 	$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+	if(result >= 0){
+		$("#taxOnly").on( "change",  function() {
+			$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+		});
+	}else{
+		$("#taxOnly").val(0);
+	}
 };
 function disBtn(){
 	var table = document.getElementById("showTotalPriceTable");
@@ -1695,3 +1754,9 @@ function inputAmount(){
 	}
 	vatAmount();
 } 
+
+function setDataBC() {
+	var x1 = $('#xxx').val();
+	alert(x1.length)
+	$('#xxx').val(x1.replace("|",""));
+}
