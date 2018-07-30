@@ -386,23 +386,31 @@ public class EpisReportController {
 //		}
 //		exportPDFReport
 //				.setBalanceBeforeStr(String.format("%,.2f",printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
+		if(printCollections.get(0).getVatRate().equals("nonVat")) {
+			exportPDFReport.setVatRateCheck("N");
+			exportPDFReport.setSentStringHeader("N");
+			exportPDFReport.setDiscountSpecialCheck("N");
+			
+		}else {
+			BigDecimal total = printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
+					.add(spDis.setScale(2, RoundingMode.HALF_DOWN));
+			BigDecimal vatRate = new BigDecimal(StringUtils.isNotBlank(printCollections.get(0).getVatRate())?printCollections.get(0).getVatRate():BigDecimal.ZERO.toString());
+			BigDecimal resVat = new BigDecimal(107);
 
-		BigDecimal total = printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
-				.add(spDis.setScale(2, RoundingMode.HALF_DOWN));
-		BigDecimal vatRate = new BigDecimal(StringUtils.isNotBlank(printCollections.get(0).getVatRate())?printCollections.get(0).getVatRate():BigDecimal.ZERO.toString());
-		BigDecimal resVat = new BigDecimal(107);
+			BigDecimal beforeVat = total.multiply(vatRate);
 
-		BigDecimal beforeVat = total.multiply(vatRate);
+			BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
 
-		BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
-
-		BigDecimal beforeVats = total.subtract(vat);
+			BigDecimal beforeVats = total.subtract(vat);
+			
+			BigDecimal vatSum = beforeVats.add(vat);
+			
+			exportPDFReport.setBeforeVatStr(String.format("%,.2f", beforeVats.setScale(2, RoundingMode.HALF_DOWN)));
+			exportPDFReport.setVatStr(String.format("%,.2f", vat.setScale(2, RoundingMode.HALF_DOWN)));
+			exportPDFReport.setVatSum(String.format("%,.2f", vatSum.setScale(2, RoundingMode.HALF_DOWN)));
+			
+		}
 		
-		BigDecimal vatSum = beforeVats.add(vat);
-		
-		exportPDFReport.setBeforeVatStr(String.format("%,.2f", beforeVats.setScale(2, RoundingMode.HALF_DOWN)));
-		exportPDFReport.setVatStr(String.format("%,.2f", vat.setScale(2, RoundingMode.HALF_DOWN)));
-		exportPDFReport.setVatSum(String.format("%,.2f", vatSum.setScale(2, RoundingMode.HALF_DOWN)));
 
 		// String nameService = "";
 		// nameService = invObject.getBracnCode() + invObject.getBranArea() +

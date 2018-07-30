@@ -826,11 +826,11 @@
 													:</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="hidden"
-														id="beforeSale" readonly="">
+														id="beforeSale" disabled="disabled">
 												</div>
 												<div class="col-sm-3">
 													<input class="form-control numeric2point right" type="text"
-														id="beforeSaleShow" readonly="">
+														id="beforeSaleShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -845,7 +845,7 @@
 												<!-- 												</div> -->
 												<div class="col-sm-3">
 													<input class="form-control numeric2point right "
-														type="text" id="sale" readonly="">
+														type="text" id="sale" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -860,7 +860,7 @@
 												<!-- 												</div> -->
 												<div class="col-sm-3">
 													<input class="form-control numeric2point right" type="text"
-														id="salespacial" readonly="">
+														id="salespacial" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -872,11 +872,11 @@
 													:</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="hidden"
-														id="balanceBeforeTaxs" readonly="">
+														id="balanceBeforeTaxs" disabled="disabled">
 												</div>
 												<div class="col-sm-3">
 													<input class="form-control numeric2point right" type="text"
-														id="balanceBeforeTaxsShow" readonly="">
+														id="balanceBeforeTaxsShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -889,7 +889,7 @@
 													<input class="form-control right" type="hidden" id="vats"
 														readonly=""> <input
 														class="form-control numeric2point right" type="text"
-														id="vatsShow" readonly="">
+														id="vatsShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -901,9 +901,9 @@
 													:</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="hidden"
-														id="balanceOfTaxs" readonly=""> <input
+														id="balanceOfTaxs" disabled="disabled"> <input
 														class="form-control numeric2point right" type="text"
-														id="balanceOfTaxsShow" readonly="">
+														id="balanceOfTaxsShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -914,7 +914,7 @@
 													for="formGroupInputLarge">ภาษีหัก ณ ที่จ่าย :</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="text"
-														id="summaryTax" name="summaryTax" readonly="">
+														id="summaryTax" name="summaryTax" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -944,9 +944,9 @@
 													for="formGroupInputLarge">ยอดเงินที่ต้องชำระ :</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="hidden"
-														id="balanceSummarys" readonly=""> <input
+														id="balanceSummarys" disabled="disabled"> <input
 														class="form-control numeric2point right" type="text"
-														id="balanceSummaryShow" readonly="">
+														id="balanceSummaryShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -957,9 +957,9 @@
 													for="formGroupInputLarge">ยอดเงินรับมา :</label>
 												<div class="col-sm-3">
 													<input class="form-control right " type="hidden"
-														id="balanceSum" readonly=""> <input
+														id="balanceSum" disabled="disabled"> <input
 														class="form-control numeric2point right" type="text"
-														id="balanceSumShow" readonly="">
+														id="balanceSumShow" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -970,7 +970,7 @@
 													for="formGroupInputLarge">เงินทอน :</label>
 												<div class="col-sm-3">
 													<input class="form-control right" type="text" id="change"
-														readonly="">
+														disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -979,20 +979,20 @@
 											<div class="form-group ">
 												<div class="col-sm-6"></div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton1" readonly="">
+													<input type="radio" id="radioButton1" disabled="disabled">
 													รายได้อื่นที่ไม่มีภาษี
 												</div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton2" readonly="">
+													<input type="radio" id="radioButton2" disabled="disabled">
 													รายได้อื่นมีภาษี
 												</div>
 												<div class="col-sm-1" align="right">
-													<input type="radio" id="radioButton3" readonly="">
+													<input type="radio" id="radioButton3" disabled="disabled">
 													รับชำระล่วงหน้า
 												</div>
 												<div class="col-sm-3">
 													<input class="form-control right" type="text" id="" name=""
-														value="0.00" readonly="">
+														value="0.00" disabled="disabled">
 												</div>
 											</div>
 										</div>
