@@ -196,7 +196,7 @@
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">รอบการใช้งานสิ้นสุด : <span
-														style="color: red; display: none;">*</span></label>
+														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="endDate"
 															name="endDate" onchange="datePriod1()">
@@ -211,7 +211,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันครบกำหนด :<span
-														style="color: red; display: none;">*</span></label>
+														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="deadlines"
 															name="deadlines">
@@ -220,7 +220,7 @@
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">วันจัดทำใบแจ้งค่าใช้บริการ
-														: <span style="color: red; display: none;">*</span>
+														: <span style="color: red;">*</span>
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="invoiceDate"
