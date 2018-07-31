@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -82,11 +83,11 @@ public class EpisReportController {
 		this.context = servletContext;
 	}
 
-	@RequestMapping(value = { "/previewPaymentEpisOffline.pdf" })
-	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model)
+	@RequestMapping(value = { "/previewPaymentEpisOffline/{documentReport}.pdf" })
+	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable("documentReport")String documentNo)
 			throws Exception {
-		request.setAttribute("documentReport", "-1");
-		String documentNo = request.getParameter("documentNo");
+///		request.setAttribute("documentReport", "-1");
+//		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineReportBean> collections = reportService.inqueryEpisOfflineJSONHandler(documentNo);
 
 		if (collections != null) {
