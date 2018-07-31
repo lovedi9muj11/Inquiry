@@ -531,11 +531,15 @@ return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 };
 
 function rePrint() {
-	$("#cancelForm").attr("action", "/previewPaymentEpisOffline.pdf").attr("target", "_blank").submit();
+//	$("#cancelForm").attr("action", "/previewPaymentEpisOffline.pdf").attr("target", "_blank").submit();
+	
+	window.open("/previewPaymentEpisOffline/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
 }
 
 function rePrintOther() {
-	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineOther.pdf").attr("target", "_blank").submit();
+//	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineOther.pdf").attr("target", "_blank").submit();
+	
+	window.open("/previewPaymentEpisOfflineOther/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
 }
 
 function searchReceiptNoById(id) {

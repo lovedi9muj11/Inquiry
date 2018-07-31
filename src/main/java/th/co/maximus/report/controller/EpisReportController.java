@@ -84,7 +84,7 @@ public class EpisReportController {
 	}
 
 	@RequestMapping(value = { "/previewPaymentEpisOffline/{documentReport}.pdf" })
-	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable("documentReport")String documentNo)
+	public void previewReturnStockBySerialHTML(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("documentReport")String documentNo)
 			throws Exception {
 ///		request.setAttribute("documentReport", "-1");
 //		String documentNo = request.getParameter("documentNo");
@@ -276,13 +276,13 @@ public class EpisReportController {
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
 
-	@RequestMapping(value = { "/previewPaymentEpisOfflineOther.pdf" })
-	public void previewPaymentEpisOfflineOther(HttpServletRequest request, HttpServletResponse response, Model model)
+	@RequestMapping(value = { "/previewPaymentEpisOfflineOther/{documentReport}.pdf" })
+	public void previewPaymentEpisOfflineOther(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("documentReport")String documentNo)
 			throws Exception {
 		// String documentNo = "";
 		String JASPER_JRXML_FILENAME = "InvEpisPaymentOther";
 		request.setAttribute("documentReport", "-1");
-		String documentNo = request.getParameter("documentNo");
+//		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineOtherBean> collections = reportService.inqueryEpisOfflineOtherJSONHandler(documentNo);
 
 		if (collections != null) {
