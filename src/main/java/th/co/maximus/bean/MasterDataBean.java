@@ -8,8 +8,14 @@ public class MasterDataBean {
 	private String group;
 	private String orderBatch;
 	private String masterdataGroup;
+	private String property2;
 	
-	
+	public String getProperty2() {
+		return property2;
+	}
+	public void setProperty2(String property2) {
+		this.property2 = property2;
+	}
 	public int getId() {
 		return id;
 	}

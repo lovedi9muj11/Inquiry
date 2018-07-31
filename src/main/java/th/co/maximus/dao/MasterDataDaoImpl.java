@@ -103,7 +103,8 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByServiceDepartment() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA ms  ");
-		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.COST_CENTER+"'");
+		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.BUSINESS_AREA+"'");
+		sql.append(" ORDER BY KEYCODE ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	
@@ -178,7 +179,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			masterDataBean.setText(rs.getString("VALUE"));
 			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
 			masterDataBean.setOrderBatch(rs.getString("ORDERED"));
-			
+			masterDataBean.setProperty2(rs.getString("PROPERTY_2"));
 			return masterDataBean;
 		}
 

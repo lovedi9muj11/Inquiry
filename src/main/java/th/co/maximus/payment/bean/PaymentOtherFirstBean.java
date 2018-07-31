@@ -29,8 +29,8 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String remark;
 	private double summaryTax;
 	private double change;
-	private BigDecimal sale;
-	private BigDecimal salespacial;
+//	private BigDecimal sale;
+//	private BigDecimal salespacial;
 	private List<PaymentBillBean> paymentBill;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
@@ -46,18 +46,18 @@ public class PaymentOtherFirstBean implements Serializable{
 	public void setDocType(String docType) {
 		this.docType = docType;
 	}
-	public BigDecimal getSalespacial() {
-		return salespacial;
-	}
-	public void setSalespacial(BigDecimal salespacial) {
-		this.salespacial = salespacial;
-	}
-	public BigDecimal getSale() {
-		return sale;
-	}
-	public void setSale(BigDecimal sale) {
-		this.sale = sale;
-	}
+//	public BigDecimal getSalespacial() {
+//		return salespacial;
+//	}
+//	public void setSalespacial(BigDecimal salespacial) {
+//		this.salespacial = salespacial;
+//	}
+//	public BigDecimal getSale() {
+//		return sale;
+//	}
+//	public void setSale(BigDecimal sale) {
+//		this.sale = sale;
+//	}
 	public double getChange() {
 		return change;
 	}

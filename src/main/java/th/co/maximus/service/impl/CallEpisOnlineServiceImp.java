@@ -52,7 +52,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 	public void callOnline() {
 		String postUrl = url.concat("/test/test.json"); // /Maximus/Test
 		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
-		System.out.println("Response for Post Request: " + postResponse.getBody());		
+//		System.out.println("Response for Post Request: " + postResponse.getBody());		
 	}
 
 	@Override

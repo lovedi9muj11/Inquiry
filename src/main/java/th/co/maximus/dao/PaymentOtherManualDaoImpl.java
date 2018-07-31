@@ -90,7 +90,6 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 				beanReReq.setDocumentNo(resultSet.getString("RECEIPT_NO_MANUAL"));
 				beanReReq.setBalanceSummary(resultSet.getBigDecimal("PAID_AMOUNT"));
 				beanReReq.setBalanceSummaryStr(String.format("%,.2f", resultSet.getBigDecimal("PAID_AMOUNT")));
-//				System.out.println(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
 				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
 				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
 				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));

@@ -42,7 +42,7 @@ public class PayOtherController {
 	
 	@Autowired
 	MasterDatasDao masterDatasDao;
-	@Value("${text.costcenter}")
+	@Value("${text.branarea}")
 	private String costcenter;
 	
 
@@ -83,13 +83,6 @@ public class PayOtherController {
 	public String payment(Model model, @RequestBody PaymentOtherFirstBean paymentBean, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int paymentId = 0;
-		System.out.println(paymentBean.getPaymentBill());
-
-		System.out.println(paymentBean.getPaymentTranPrice());
-
-		System.out.println(paymentBean.getPaymentTax());
-
-		System.out.println(paymentBean.getVatrate() + " vatRate");
 
 		try {
 			paymentId = paymentOtherService.insert(paymentBean);
@@ -129,7 +122,7 @@ public class PayOtherController {
 
 			paymentResultReq.setCustName(paymentOtherService.findListByid(new Long(idUser)).get(0).getCustName());
 			paymentResultReq.setManualId(idUser);
-			System.out.println(paymentResultReq.getDiscountStr());
+		
 			request.setAttribute("paymentResultReq", paymentResultReq);
 		}
 
