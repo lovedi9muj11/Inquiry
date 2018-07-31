@@ -75,6 +75,10 @@ $(document).ready(function() {
 				taxDiscount();
 
 			});
+			
+			$("#taxOnly").on( "click",  function() {
+				this.select();
+			});
 			$("#balanceOfTaxPrice").on( "click",  function() {
 				this.select();
 			});
