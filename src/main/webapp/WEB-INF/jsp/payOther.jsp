@@ -274,7 +274,7 @@
 											<div class="input-group">
 												<div class="input-group-addon">฿</div>
 												<input id="inputSpecialDiscount" name="inputSpecialDiscount"
-													class="form-control right numeric2point" />
+													class="form-control right numeric2point" disabled="disabled" />
 											</div>
 										</div>
 

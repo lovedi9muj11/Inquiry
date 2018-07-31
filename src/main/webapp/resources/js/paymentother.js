@@ -137,7 +137,8 @@ $(document).ready(function() {
 			$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			$("#summaryTax").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 			
-			document.getElementById("inputSpecialDiscount").readOnly = true;
+//			document.getElementById("inputSpecialDiscount").readOnly = true;
+			$("#inputSpecialDiscount").prop('disabled', true);
 			$('#rbSpecialDiscount').click(function() {
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
@@ -151,7 +152,8 @@ $(document).ready(function() {
 		      		        contentType: "application/json; charset=utf-8",
 		      		        success: function (res) {
 		      		        	if(res){
-		      		        		document.getElementById("inputSpecialDiscount").readOnly = false;
+//		      		        		document.getElementById("inputSpecialDiscount").readOnly = false;	
+		      		        		$("#inputSpecialDiscount").prop('disabled', false);
 		      		        	}else{
 		      		        		$("#mi-modal").modal('hide');
 		      		        		$("#mi-modal-notauthen").modal('show');
@@ -707,7 +709,9 @@ $("#sumtableBillingList").find('tbody').append(markup);
 	var balanceBeforeTaxRQ = $("#balanceBeforeTax").val();
 	var vatRQ = $("#vat").val();
 	var money = parseFloat(moneyCC.replace(",", ""));
-
+	$("#inputSpecialDiscount").val(parseFloat(0).toFixed(2));
+	$("#inputServiceDiscount").val(parseFloat(0).toFixed(2));
+	$("#inputSpecialDiscount").prop('disabled', true);
 	//money = parseFloat(money + amount); ไม่แน่ใจว่า ตรงนี้ทำอะไร
 	vatRQ = parseFloat(vat + vatRQ);
 	balanceBeforeTaxRQ = parseFloat(amountBeforVat + balanceBeforeTaxRQ);
