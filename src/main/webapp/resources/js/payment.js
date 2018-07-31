@@ -4,7 +4,7 @@ var chars = [];
 
 $(document).ready(function() {
 	
-	$("#xxx").keypress(function(e){
+	$("#barCode").keypress(function(e){
         if ( e.which == 13 ) {
         	console.log('x1')
             var barcode = chars.join("");
@@ -15,7 +15,7 @@ $(document).ready(function() {
 //            alert(barcode.substring(24, 42));
 //            alert(barcode.substring(42, 42));
 //            alert(barcode);
-            $("#xxx").val(barcode);
+            $("#barCode").val(barcode);
             chars = [];
             e.preventDefault();
             var setCode = barcode.split("\n");
@@ -31,7 +31,12 @@ $(document).ready(function() {
             		var today = year+"-"+(month)+"-"+(day) ;
 
                 	$('#deadlines').val(today);
-            	} 
+            	}
+            	if(x==3) {
+            		var amount = ((parseFloat(setCode[x]))/100);
+            		$("#balanceOfTaxPrice").val(amount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            		$('#balanceOfTaxPrice').change();
+            	}
             	
             });
         } else if ( e.which == 109 )  {
@@ -42,8 +47,8 @@ $(document).ready(function() {
         }
     });
 	
-//	$("#xxx").on('change keydown paste input', function(){
-//	      alert($("#xxx").val());
+//	$("#barCode").on('change keydown paste input', function(){
+//	      alert($("#barCode").val());
 //	});
 	
 			findTypePayment();
@@ -1760,7 +1765,7 @@ function inputAmount(){
 } 
 
 function setDataBC() {
-	var x1 = $('#xxx').val();
+	var x1 = $('#barCode').val();
 	alert(x1.length)
-	$('#xxx').val(x1.replace("|",""));
+	$('#barCode').val(x1.replace("|",""));
 }

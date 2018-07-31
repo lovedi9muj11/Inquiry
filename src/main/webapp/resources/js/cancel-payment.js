@@ -7,6 +7,8 @@ var customerAddress = '';
 var clearing;
 var valueIcon = "";
 var IdSelected = "";
+var chars = [];
+
 $(document).ready(function () {
     console.log("ready!");
 
@@ -212,7 +214,29 @@ $(document).ready(function () {
       	  }
       	$('#userName').val('');
       	$('#password').val('');
-      }); 
+      });
+    	
+    	$("#barCode").keypress(function(e){
+            if ( e.which == 13 ) {
+                var barcode = chars.join("");
+                if(barcode.charAt(0) == "|") barcode = barcode.slice(1,barcode.length);
+                if(barcode.charAt(0) == " ") barcode = barcode.slice(1,barcode.length);
+                $("#barCode").val(barcode);
+                chars = [];
+                e.preventDefault();
+                
+                var setCode = barcode.split("\n");
+                $.each(setCode, function(x){
+                	if(x==2) {
+                		$('#billNumber').val(setCode[x].substring(0, 9)); 
+                	}
+                });
+            } else if ( e.which == 109 )  {
+            } else {
+                chars.push(String.fromCharCode(e.which));
+            }
+            search();
+        });
 });
 
 
@@ -261,6 +285,7 @@ function search() {
 function clearCriteria(){
 	$('#billNumber').val('');
 	$('#receiptNumber').val('');
+	$('#barCode').val('');
 	search();
 };
 function chaengIcon(value){

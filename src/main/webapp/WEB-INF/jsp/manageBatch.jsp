@@ -47,7 +47,7 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 <!-- 								<input type="text" id="name" class="form-control"></input> -->
 <!-- 							</div> -->
 							<label class="col-md-5 control-label right">ประเภท : </label> 
-							<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
+							<select class="groupType col-md-2" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
 							</select>
 						</div>
 

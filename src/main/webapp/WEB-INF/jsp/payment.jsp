@@ -75,6 +75,15 @@
 									<div class="panel-body">
 										<div class="col-md-12 col-sm-12">
 											<div class="row">
+												<div class="form-group col-md-6">
+													<label class="col-sm-4 control-label right">BarCode:</label>
+													<div class="col-sm-6">
+														<input class="form-control" type="text" id="barCode" name="barCode">
+<!-- 														<input class="form-control" type="text" id="barCode" name="barCode" onchange="setDataBC()"> -->
+													</div>
+												</div>
+											</div>
+											<div class="row">
 												<div class="form-group">
 													<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า
 														:<span style="color: red;">*</span>

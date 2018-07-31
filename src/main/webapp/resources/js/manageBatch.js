@@ -14,23 +14,27 @@ $(document).ready(function() {
 			}
 		});
 	
-	$('#month').append('<option value="'+'">' + PLS_SELECT + '</option>');
-	
-	$('#date').append('<option value="'+'">' + PLS_SELECT + '</option>');
-	
-	$('#hour').append('<option value="'+'">' + PLS_SELECT + '</option>');
-	
-	$('#minute').append('<option value="'+'">' + PLS_SELECT + '</option>');
+	setValue();
 	
 	$('#groupType').change(function () {
-		$('#month').empty();
-		setMonth();
-		$('#date').empty();
-		setDate();
-		$('#hour').empty();
-		setHour();
-		$('#minute').empty();
-		setMinute();
+		var xxx = $('#groupType').val();
+		if(''==xxx) {
+			$('#month').empty();
+			$('#date').empty();
+			$('#hour').empty();
+			$('#minute').empty();
+			setValue();
+		}else{
+			$('#month').empty();
+			setMonth();
+			$('#date').empty();
+			setDate();
+			$('#hour').empty();
+			setHour();
+			$('#minute').empty();
+			setMinute();
+		}
+		
 	});
 	
 });
@@ -61,4 +65,14 @@ function setMinute() {
 	for(var i=0; i<60; i++) {
 		$('#minute').append('<option value="'+(i+1)+'">' + (i+1) + '</option>');
 	}
+}
+
+function setValue() {
+	$('#month').append('<option value="'+'">' + PLS_SELECT + '</option>');
+	
+	$('#date').append('<option value="'+'">' + PLS_SELECT + '</option>');
+	
+	$('#hour').append('<option value="'+'">' + PLS_SELECT + '</option>');
+	
+	$('#minute').append('<option value="'+'">' + PLS_SELECT + '</option>');
 }

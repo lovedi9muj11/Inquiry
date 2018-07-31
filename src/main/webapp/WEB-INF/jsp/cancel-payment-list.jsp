@@ -58,15 +58,24 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-4 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
+							<label class="col-md-5 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
 							<div class="col-md-6">
 								<input type="text" id="billNumber" class="form-control text-left">
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<label class="col-md-4 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
+							<label class="col-md-2 control-label text-right">เลขที่ใบเสร็จรับเงิน</label>
 							<div class="col-md-6">
 								<input type="text" id="receiptNumber" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="col-sm-5 control-label right">BarCode:</label>
+							<div class="col-sm-6">
+<!-- 								<input class="form-control" type="text" id="barCode" name="barCode"> -->
+														<input class="form-control" type="text" id="barCode" name="barCode" onchange="setDataBC()">
 							</div>
 						</div>
 					</div>
