@@ -87,8 +87,13 @@ function syncUser() {
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	console.log(res)
-        }
+        	console.log(res);
+        	alert('Sync Data Success');
+        },
+		 error: function (e) {
+		      	console.log(e)
+		      	alert('Sync Data Error');
+		      }
 	})
 }
 
@@ -103,8 +108,13 @@ function syncMapGl() {
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-        	console.log(res)
-        }
+        	console.log(res);
+          	alert('Sync Data Success');
+        },
+		 error: function (e) {
+		      	console.log(e)
+		      	alert('Sync Data Error');
+		      }
 	})
 }
 
@@ -120,6 +130,11 @@ function syncMasterData() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res)
-        }
+        	alert('Sync Data Success');
+        },
+		 error: function (e) {
+	      	console.log(e)
+	      	alert('Sync Data Error');
+	      }
 	})
 }
