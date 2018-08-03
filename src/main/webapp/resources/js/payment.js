@@ -140,7 +140,7 @@ $(document).ready(function() {
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
 					  $.ajax({
 		      		        type: "POST",
-		      		        url: "/cancelPayment/checkAuthentication",
+		      		        url: ctx +"/cancelPayment/checkAuthentication",
 		      		        data: JSON.stringify(dataSend),
 		      		        dataType: "json",
 		      		        async: false,
@@ -184,7 +184,7 @@ $(document).ready(function() {
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
 					  $.ajax({
 		      		        type: "POST",
-		      		        url: "/cancelPayment/checkAuthentication",
+		      		        url: ctx +"/cancelPayment/checkAuthentication",
 		      		        data: JSON.stringify(dataSend),
 		      		        dataType: "json",
 		      		        async: false,
@@ -671,7 +671,7 @@ function submitForm(){
 		 
 	$.ajax({
         type: "POST",
-        url: "paymentService",
+        url: ctx +"/paymentService",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,

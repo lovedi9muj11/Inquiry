@@ -64,7 +64,7 @@ function search(){
 	if(validationSearchCriteria()){
 		$.ajax({
 	        type: "POST",
-	        url: "/reportPayment",
+	        url: ctx +"/reportPayment",
 	        data: JSON.stringify(dataCritaria),
 	        dataType: "json",
 	        async: false,
@@ -167,7 +167,7 @@ function dropdownUser(){
 
 	$.ajax({
         type: "POST",
-        url: "/userManageMent/search",
+        url: ctx +"/userManageMent/search",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -193,7 +193,7 @@ function dropdownUser(){
 function deopdownAccount(){
 	$.ajax({
         type: "POST",
-        url: "/findGL_AccountMaster",
+        url: ctx +"/findGL_AccountMaster",
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
@@ -224,7 +224,7 @@ function dialogRemake(value){
 	var dataSend = {"manualId": value};
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/findInvoiceByManualId",
+        url: ctx +"/histroryPayment/findInvoiceByManualId",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,

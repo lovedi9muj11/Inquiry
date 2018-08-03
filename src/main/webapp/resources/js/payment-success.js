@@ -13,7 +13,7 @@ function openTable(manualId) {
 	$("#showResultTableRQ tbody")[0].innerHTML = "";
 	$.ajax({
 		type : "GET",
-		url : "/getDetailBilling/" + manualId,
+		url : ctx +"/getDetailBilling/" + manualId,
 		dataType : "json",
 		async : false,
 		contentType : "application/json; charset=utf-8",
@@ -53,7 +53,7 @@ function openTableSumOther(manualId) {
 	var i = 0;
 	$.ajax({
 		type : "GET",
-		url : "/payOtherDetail/" + manualId,
+		url : ctx +"/payOtherDetail/" + manualId,
 		dataType : "json",
 		async : false,
 		contentType : "application/json; charset=utf-8",

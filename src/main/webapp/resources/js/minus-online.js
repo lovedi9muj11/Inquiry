@@ -25,7 +25,7 @@ function search(){
 	var dataSend = {"clearing": $('#clearing').val()};
 	$.ajax({
         type: "POST",
-        url: "/clearing/find",
+        url: ctx +"/clearing/find",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -97,7 +97,7 @@ function dialogRemake(value){
 	var dataSend = {"manualId": value};
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/findInvoiceByManualId",
+        url: ctx +"/histroryPayment/findInvoiceByManualId",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -117,7 +117,7 @@ function sendCearling(){
 	var dataSend = {"clearing": $('#clearing').val()};
 	$.ajax({
         type: "POST",
-        url: "/clearing/find",
+        url: ctx +"/clearing/find",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -145,7 +145,7 @@ function confirmDialog(){
 	data.push(dataSend);
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/clearing",
+        url: ctx +"/histroryPayment/clearing",
         data: JSON.stringify(data),
         dataType: "json",
         async: false,

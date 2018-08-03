@@ -6,7 +6,7 @@ $(document).ready(function() {
 	
 	$.ajax({
 		    type: 'GET',
-		    url: "/masterData/masterDataBatch"
+		    url: ctx +"/masterData/masterDataBatch"
 		}).then(function (data) {
 			for(var i=0; i<data.length; i++) {
 				var element = data[i];

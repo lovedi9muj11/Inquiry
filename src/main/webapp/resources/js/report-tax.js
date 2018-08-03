@@ -28,7 +28,7 @@ function search() {
 	 }
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/paymentPrint",
+        url: ctx +"/histroryPayment/paymentPrint",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,

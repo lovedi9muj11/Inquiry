@@ -34,7 +34,7 @@
 		
 		$.ajax({
 	        type: "GET",
-	        url: "/findAllMasterData",
+	        url: ctx +"/findAllMasterData",
 	//        data: JSON.stringify(dataSend),
 	//        dataType: "json",
 	        async: false,
@@ -66,7 +66,7 @@
 	
 			$.ajax({
 				type : "POST",
-				url : "insertMasterdata",
+				url : ctx +"/insertMasterdata",
 				data : JSON.stringify(dataSend),
 				dataType : "json",
 				async : false,
@@ -88,7 +88,7 @@
 	
 			$.ajax({
 				type : "POST",
-				url : "insertMasterdataGroup",
+				url : ctx +"/insertMasterdataGroup",
 				data : JSON.stringify(dataSend),
 				dataType : "json",
 				async : false,

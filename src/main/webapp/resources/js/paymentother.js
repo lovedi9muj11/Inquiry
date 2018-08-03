@@ -42,7 +42,7 @@ $(document).ready(function() {
 				$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
 				$.ajax({
 				    type: 'GET',
-				    url: "/getServiceName/"+$(this).val()
+				    url: ctx +"/getServiceName/"+$(this).val()
 				}).then(function (data) {
 					for(var i=0; i<data.length; i++) {
 						var element = data[i];
@@ -145,7 +145,7 @@ $(document).ready(function() {
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
 					  $.ajax({
 		      		        type: "POST",
-		      		        url: "/cancelPayment/checkAuthentication",
+		      		        url: ctx +"/cancelPayment/checkAuthentication",
 		      		        data: JSON.stringify(dataSend),
 		      		        dataType: "json",
 		      		        async: false,
@@ -507,7 +507,7 @@ function submitForm() {
 
 	$.ajax({
 		type : "POST",
-		url : "paymenOthertService",
+		url : ctx +"/paymenOthertService",
 		data : JSON.stringify(dataSend),
 		dataType : "json",
 		async : false,

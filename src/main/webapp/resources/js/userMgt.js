@@ -25,7 +25,7 @@ function searchClick() {
 	HoldOn.open();
 	$.ajax({
         type: "POST",
-        url: "/userManageMent/search",
+        url: ctx +"/userManageMent/search",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -81,7 +81,7 @@ function syncUser() {
 	
 	$.ajax({
         type: "GET",
-        url: "syncUser",
+        url: ctx +"/syncUser",
 //        data: JSON.stringify(dataSend),
 //        dataType: "json",
         async: false,
@@ -102,7 +102,7 @@ function syncMapGl() {
 	
 	$.ajax({
         type: "GET",
-        url: "syncMapGL",
+        url: ctx +"/syncMapGL",
 //        data: JSON.stringify(dataSend),
 //        dataType: "json",
         async: false,
@@ -123,7 +123,7 @@ function syncMasterData() {
 	
 	$.ajax({
         type: "GET",
-        url: "syncMasterData",
+        url: ctx +"/syncMasterData",
 //        data: JSON.stringify(dataSend),
 //        dataType: "json",
         async: false,

@@ -24,7 +24,7 @@ function search(){
 	var dataSend = {"accountNo": $('#billAccount').val()};
 	$.ajax({
         type: "POST",
-        url: "/histroryPaymentByother/find",
+        url: ctx +"/histroryPaymentByother/find",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -88,7 +88,7 @@ function dialogRemake(value){
 	var dataSend = {"manualId": value};
 	$.ajax({
         type: "POST",
-        url: "/histroryPayment/findInvoiceByManualId",
+        url: ctx +"/histroryPayment/findInvoiceByManualId",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,

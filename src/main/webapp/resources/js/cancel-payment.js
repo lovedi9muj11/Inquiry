@@ -69,9 +69,9 @@ $(document).ready(function () {
         	console.log(row.data()[15]);
         	var url;
             if(row.data()[15] == "IBACSS"){
-         	   url = "/getDetailBilling/"+IdSelected;
+         	   url = ctx +"/getDetailBilling/"+IdSelected;
             }else{
-         	   url = "/payOtherDetail/"+IdSelected;
+         	   url = ctx +"/payOtherDetail/"+IdSelected;
             }
          	$.ajax({
    		        type: "GET",
@@ -105,9 +105,9 @@ $(document).ready(function () {
         	console.log(row.data()[15]);
         	var url;
            if(row.data()[15] == "IBACSS"){
-        	   url = "/getDetailBilling/"+IdSelected;
+        	   url = ctx +"/getDetailBilling/"+IdSelected;
            }else{
-        	   url = "/payOtherDetail/"+IdSelected;
+        	   url = ctx +"/payOtherDetail/"+IdSelected;
            }
         	$.ajax({
   		        type: "GET",
@@ -152,7 +152,7 @@ $(document).ready(function () {
       			var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
       			$.ajax({
       		        type: "POST",
-      		        url: "/cancelPayment/checkAuthentication",
+      		        url: ctx +"/cancelPayment/checkAuthentication",
       		        data: JSON.stringify(dataSend),
       		        dataType: "json",
       		        async: false,
@@ -172,7 +172,7 @@ $(document).ready(function () {
       		        	var dataSend2 = { "manualId": idRow};
       		     			$.ajax({
       		     		        type: "POST",
-      		     		        url: "/cancelPayment/findFromId",
+      		     		        url: ctx +"/cancelPayment/findFromId",
       		     		        data: JSON.stringify(dataSend2),
       		     		        dataType: "json",
       		     		        async: false,
@@ -268,7 +268,7 @@ function search() {
 	var dataSend = { "invoiceNo": $('#billNumber').val(), "receiptNoManual": $('#receiptNumber').val() };
 	$.ajax({
         type: "POST",
-        url: "/cancelPayment/find",
+        url: ctx +"/cancelPayment/find",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -428,7 +428,7 @@ function submitCancelPayment(){
 	};
 	$.ajax({
 	        type: "POST",
-	        url: "/cancelPayment/updateStatus",
+	        url: ctx +"/cancelPayment/updateStatus",
 	        data: JSON.stringify(dataSet),
 	        dataType: "json",
 	        async: false,
@@ -533,20 +533,20 @@ return [day, month, year].join('/')+" "+ [hours,minutes,seconds].join(':');
 function rePrint() {
 //	$("#cancelForm").attr("action", "/previewPaymentEpisOffline.pdf").attr("target", "_blank").submit();
 	
-	window.open("/previewPaymentEpisOffline/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
+	window.open(ctx +"/previewPaymentEpisOffline/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
 }
 
 function rePrintOther() {
 //	$("#cancelForm").attr("action", "/previewPaymentEpisOfflineOther.pdf").attr("target", "_blank").submit();
 	
-	window.open("/previewPaymentEpisOfflineOther/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
+	window.open(ctx +"/previewPaymentEpisOfflineOther/"+$('#documentNo').val()+".pdf",  'top=0,left=0,menubar=no,status=yes,scrollbars=yes,resizable=yes,width=1500,height=700');
 }
 
 function searchReceiptNoById(id) {
 	var dataSend = { "manualId": id };
 	$.ajax({
         type: "POST",
-        url: "/searchReceiptNoById",
+        url: ctx +"/searchReceiptNoById",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
