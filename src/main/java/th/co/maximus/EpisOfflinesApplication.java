@@ -2,9 +2,10 @@ package th.co.maximus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class EpisOfflinesApplication {
+public class EpisOfflinesApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EpisOfflinesApplication.class, args);

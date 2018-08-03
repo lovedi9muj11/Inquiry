@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <div id="wrapper">
 	<nav class="navbar navbar-inverse top-bar navbar-fixed-top"

@@ -1,5 +1,6 @@
 package th.co.maximus.auth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,7 +16,11 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "USER")
-public class UserDto {
+public class UserDto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2149442557547382774L;
 	@Column(name = "ID")
     private Long id;
 	@Column(name = "Username")
