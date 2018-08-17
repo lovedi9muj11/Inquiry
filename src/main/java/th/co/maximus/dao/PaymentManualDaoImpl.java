@@ -7,11 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -24,17 +26,14 @@ import th.co.maximus.constants.Constants;
 import th.co.maximus.model.ReceiptOfflineModel;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
-
 @Repository("PaymentManualDao")
 public class PaymentManualDaoImpl implements PaymentManualDao {
+
+
 	@Autowired
-	DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 
-	public PaymentManualDaoImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
 
-	}
 
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
@@ -62,7 +61,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 				pst.setString(17, paymentManualBean.getDocType());
 				pst.setDouble(18, paymentManualBean.getChange());
 				pst.setBigDecimal(19, paymentManualBean.getAmount());
-//				pst.setInt(20, paymentManualBean.getVatRate());
+				// pst.setInt(20, paymentManualBean.getVatRate());
 				pst.setBigDecimal(20, paymentManualBean.getVatAmount());
 				return pst;
 			}
@@ -73,28 +72,37 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 
 	@Override
 	public PaymentResultReq findById(int id) throws Exception {
-		Connection connect = dataSource.getConnection();
-		PaymentResultReq beanReReq = new PaymentResultReq();
-		try {
-			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append(" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,tmp.PAID_AMOUNT ");
-			sqlStmt.append(" FROM RECEIPT_MANUAL py ");
-			sqlStmt.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
-			sqlStmt.append(" INNER JOIN PAYMENT_INVOICE tmp ON tmp.MANUAL_ID =  py.MANUAL_ID AND tmp.INVOICE_NO = py.INVOICE_NO ");
-			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
-			
-			
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setInt(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				beanReReq = new PaymentResultReq(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4), resultSet.getString(5), 
-						resultSet.getDate(6), resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9), resultSet.getBigDecimal(10), resultSet.getBigDecimal(11), resultSet.getBigDecimal(12), resultSet.getString(13),resultSet.getBigDecimal(14),resultSet.getBigDecimal(15),resultSet.getBigDecimal(16));
-			}
 
-		} finally {
-			connect.close();
-		}
+		PaymentResultReq beanReReq = new PaymentResultReq();
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append(
+				" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,tmp.PAID_AMOUNT ");
+		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
+		sqlStmt.append(
+				" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
+		sqlStmt.append(
+				" INNER JOIN PAYMENT_INVOICE tmp ON tmp.MANUAL_ID =  py.MANUAL_ID AND tmp.INVOICE_NO = py.INVOICE_NO ");
+		sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
+
+		beanReReq = jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
+			public void setValues(PreparedStatement preparedStatement) throws SQLException {
+				preparedStatement.setInt(1, id);
+			}
+		}, new ResultSetExtractor<PaymentResultReq>() {
+			public PaymentResultReq extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				if (resultSet.next()) {
+					return new PaymentResultReq(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+							resultSet.getBigDecimal(4), resultSet.getString(5), resultSet.getDate(6),
+							resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9),
+							resultSet.getBigDecimal(10), resultSet.getBigDecimal(11), resultSet.getBigDecimal(12),
+							resultSet.getString(13), resultSet.getBigDecimal(14), resultSet.getBigDecimal(15),
+							resultSet.getBigDecimal(16));
+
+				}
+				return null;
+			}
+		});
+
 		return beanReReq;
 	}
 
@@ -104,9 +112,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m  ");
 		sql.append(" WHERE payment_m.MANUAL_ID =  ");
 		sql.append(manualId);
-		return jdbcTemplate.query(sql.toString() , new PaymentManual());
+		return jdbcTemplate.query(sql.toString(), new PaymentManual());
 	}
-	
+
 	private static final class PaymentManual implements RowMapper<PaymentManualBean> {
 
 		@Override
@@ -127,14 +135,16 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			paymentManual.setUpdateBy(rs.getString("UPDATE_BY"));
 			paymentManual.setUpdateDate(rs.getTimestamp("UPDATE_DATE"));
-			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE)?Constants.Status.ACTIVE_A:Constants.Status.ACTIVE_AC);
+			paymentManual.setRecordStatus(
+					rs.getString("RECORD_STATUS").equals(Constants.Status.ACTIVE) ? Constants.Status.ACTIVE_A
+							: Constants.Status.ACTIVE_AC);
 			paymentManual.setRefid(rs.getLong("REF_ID"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
 			paymentManual.setPaytype(rs.getString("PAY_TYPE"));
 			paymentManual.setDocType(rs.getString("DOCTYPE"));
 			paymentManual.setChange(rs.getDouble("CHANG"));
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
-//			paymentManual.setVatRate(rs.getInt("VAT_RATE"));
+			// paymentManual.setVatRate(rs.getInt("VAT_RATE"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			return paymentManual;
 		}
@@ -147,23 +157,24 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" SELECT PM.*,PIM.* ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
-		sql.append(" WHERE PM.CREATE_DATE >=").append("'"+criteria.getDateFrom()+"'").append("  AND PM.CREATE_DATE <= ").append("'"+criteria.getDateTo()+"'");
-		if(!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
-			sql.append(" AND PIM.VAT_RATE = ").append("'"+criteria.getVatRate()+"'");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'")
+				.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
+		if (!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
+			sql.append(" AND PIM.VAT_RATE = ").append("'" + criteria.getVatRate() + "'");
 		}
-		if(!"".equals(criteria.getUser()) && criteria.getUser() != null) {
-			sql.append(" AND PM.CREATE_BY = ").append("'"+criteria.getUser()+"'");
+		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
-		if(!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
-			sql.append(" AND PIM.SERVICE_TYPE = ").append("'"+criteria.getServiceType()+"'");
+		if (!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
+			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + criteria.getServiceType() + "'");
 		}
-		if(!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
-			sql.append(" AND PIM.SERVICECODE = ").append("'"+criteria.getAccountId()+"'");
+		if (!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
+			sql.append(" AND PIM.SERVICECODE = ").append("'" + criteria.getAccountId() + "'");
 		}
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
-		return jdbcTemplate.query(sql.toString() , new reportPaymentMapper());
+		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
-	
+
 	private static final class reportPaymentMapper implements RowMapper<ReportPaymentBean> {
 
 		@Override
@@ -180,8 +191,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setCreateBy(rs.getString("CREATE_BY"));
 			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			reportPayment.setRemake(rs.getString("REMARK"));
-//			reportPayment.setNoRefer(rs.getString(""));
-			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract( rs.getBigDecimal("VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
+			// reportPayment.setNoRefer(rs.getString(""));
+			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract(rs.getBigDecimal("VAT_AMOUNT")).setScale(2,
+					BigDecimal.ROUND_HALF_UP));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
 			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
@@ -191,68 +203,71 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	}
 
 	@Override
-	public ReceiptOfflineModel findByManualId(long manualId) throws SQLException{
-		Connection connect = dataSource.getConnection();
-		ReceiptOfflineModel beanReReq = new ReceiptOfflineModel();
-		try {
-			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID ");
-			sqlStmt.append(" FROM RECEIPT_MANUAL py ");
-			sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = 'A' ");
-			
-			
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, manualId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				beanReReq = new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3), resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getString(10));
-			}
+	public ReceiptOfflineModel findByManualId(long manualId) throws SQLException {
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return beanReReq; 
+		ReceiptOfflineModel beanReReq = new ReceiptOfflineModel();
+
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append(
+				"SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID ");
+		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
+		sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = 'A' ");
+		beanReReq = jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
+			public void setValues(PreparedStatement preparedStatement) throws SQLException {
+				preparedStatement.setLong(1, manualId);
+			}
+		}, new ResultSetExtractor<ReceiptOfflineModel>() {
+			public ReceiptOfflineModel extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				if (resultSet.next()) {
+					return new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3),
+							resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),
+							resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
+							resultSet.getString(10));
+				}
+
+				return null;
+			}
+		});
+
+		return beanReReq;
 	}
 
 	@Override
 	public void udpateStatus(long manualId) throws SQLException {
-		Connection connect = dataSource.getConnection();
-		try {
-			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = 'Y' ");
-			sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, manualId);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = 'Y' ");
+		sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
+		Object param = manualId;
+		jdbcTemplate.update(sqlStmt.toString(), param);
+
 	}
 
 	@Override
 	public Integer checkSup(String userName) throws SQLException {
-		Connection connect = dataSource.getConnection();
+		
 		Integer result = 0;
-		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(" SELECT ur.Role_ID ");
 			sqlStmt.append(" FROM USER up ");
 			sqlStmt.append(" INNER JOIN USER_ROLE ur  ON ur.User_ID =  up.ID ");
 			sqlStmt.append(" WHERE  up.Username = ? ");
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setString(1, userName);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				result = resultSet.getInt(1);
-			}
-		} finally {
-			connect.close();
-		}
+			
+			jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
+				public void setValues(PreparedStatement preparedStatement) throws SQLException {
+					preparedStatement.setString(1, userName);
+				}
+			}, new ResultSetExtractor<Integer>() {
+				public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+					if (resultSet.next()) {
+						return  resultSet.getInt(1);
+					}
+
+					return null;
+				}
+			});
+		
 		return result;
 	}
-
 
 }
