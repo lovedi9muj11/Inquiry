@@ -1,5 +1,6 @@
 package th.co.maximus.auth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +13,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ROLE")
-public class Role {
+public class Role implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2014113234085008713L;
 	@Column(name = "ID")
     private Long id;
 	@Column(name = "Name")
