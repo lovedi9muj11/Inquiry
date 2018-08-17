@@ -65,7 +65,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						
 						if(CollectionUtils.isNotEmpty(res)) {
 							for(int j=0; j<res.size(); j++) {
-								payCode = "เช็ค " + res.get(i).getPublisher() + "เลขที่ : ************" + res.get(i).getChequeNo().substring(12);
+								payCode = "เช็ค " + res.get(j).getPublisher() + "เลขที่ : ************" + res.get(j).getChequeNo().substring(3);
 							}
 						}
 						

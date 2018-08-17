@@ -117,7 +117,7 @@ function sendCearling(){
 	var dataSend = {"clearing": $('#clearing').val()};
 	$.ajax({
         type: "POST",
-        url: ctx +"/clearing/find",
+        url: ctx +"/clearing/save",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
