@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -25,14 +23,8 @@ import th.co.maximus.constants.Constants;
 public class MasterDataDaoImpl implements MasterDataDao{
 	
 	@Autowired
-	DataSource dataSource;
-	
 	private JdbcTemplate jdbcTemplate;
-
-	public MasterDataDaoImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
+	
 	@Override
 	public List<MasterDataBean> findAllByBankCode() {
 		StringBuilder sql = new StringBuilder();
@@ -218,6 +210,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+code+"'");
 		
 		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+
+	@Override
+	public MasterDataBean findGroupTypeByKeyCode(String groupKey) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and KEYCODE = '"+groupKey+"'");
+		
+		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
 	}
 
 }

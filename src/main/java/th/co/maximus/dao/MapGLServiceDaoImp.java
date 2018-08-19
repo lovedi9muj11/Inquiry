@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -18,14 +16,8 @@ import th.co.maximus.bean.MapGLBean;
 public class MapGLServiceDaoImp implements MapGLServiceDao{
 	
 	@Autowired
-	DataSource dataSource;
-	
 	private JdbcTemplate jdbcTemplate;
 	
-	public MapGLServiceDaoImp(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
 	@Override
 	public void insertMapGLService(MapGLBean mapGLBean) {
 		String sql = "INSERT INTO MAP_GL_SERVICE_TYPE (GL_CODE, SERVICE_CODE, PRODUCT_CODE, PRODUCT_NAME, SUB_PRODUCT_CODE, SUB_PRODUCT_NAME, SERVICE_NAME, REVENUE_TYPE_CODE, REVENUE_TYPE_NAME, SEGMENT_CODE, SEGMENT_NAME, STATUS, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE, RECORD_STATUS, SOURCE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

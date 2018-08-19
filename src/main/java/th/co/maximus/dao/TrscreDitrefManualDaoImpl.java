@@ -1,13 +1,10 @@
 package th.co.maximus.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,14 +16,9 @@ import th.co.maximus.model.TrsCreditrefEpisOffline;
 
 @Repository("TrscreDitrefManualDao")
 public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	@Autowired
-	DataSource dataSource;
-	
-	public TrscreDitrefManualDaoImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
 	
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
@@ -69,30 +61,48 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	}
 
 	@Override
-	public List<TrsCreditrefEpisOffline> findByMethodId(long methodId) throws SQLException {
-		Connection connect = dataSource.getConnection();
-		List<TrsCreditrefEpisOffline> beanReReq = new ArrayList<TrsCreditrefEpisOffline>();
-		TrsCreditrefEpisOffline bean = new TrsCreditrefEpisOffline();
+	public List<TrsCreditrefEpisOffline> findByMethodId(long methodId) {
+//		List<TrsCreditrefEpisOffline> beanReReq = new ArrayList<TrsCreditrefEpisOffline>();
+		List<TrsCreditrefEpisOffline> beanReReqs = new ArrayList<TrsCreditrefEpisOffline>();
+		List<Object> param = new LinkedList<Object>();
+//		TrsCreditrefEpisOffline bean = new TrsCreditrefEpisOffline();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT tcm.CREDITNO ,tcm.PUBLISHERDEC,tcm.CARDTYPE,tcm.AMOUNT ");
 			sqlStmt.append(" FROM TRSCREDITREF_MANUAL tcm ");
 			sqlStmt.append(" WHERE  tcm.METHOD_MANUAL_ID = ?  ");
 			
+			param.add(methodId);
+			Object[] paramArr = param.toArray();
+			beanReReqs = jdbcTemplate.query(sqlStmt.toString(), paramArr, new mapTrsCreditrefEpisOffline());
 			
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, methodId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				bean = new TrsCreditrefEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4));
-				beanReReq.add(bean);
-			}
+			
+//			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+//			preparedStatement.setLong(1, methodId);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				bean = new TrsCreditrefEpisOffline(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getBigDecimal(4));
+//				beanReReq.add(bean);
+//			}
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return beanReReq;
+		return beanReReqs;
+	}
+	
+	private static final class mapTrsCreditrefEpisOffline implements RowMapper<TrsCreditrefEpisOffline> {
+
+		@Override
+		public TrsCreditrefEpisOffline mapRow(ResultSet rs, int rowNum) throws SQLException {
+			TrsCreditrefEpisOffline trsCreditrefEpisOffline = new TrsCreditrefEpisOffline();
+			trsCreditrefEpisOffline.setCreditNo(rs.getString("tcm.CREDITNO"));
+			trsCreditrefEpisOffline.setPublisherdec(rs.getString("tcm.PUBLISHERDEC"));
+			trsCreditrefEpisOffline.setCardtype(rs.getString("tcm.CARDTYPE"));
+			trsCreditrefEpisOffline.setAmount(rs.getBigDecimal("tcm.AMOUNT"));
+			return trsCreditrefEpisOffline;
+		}
+
 	}
 
 }

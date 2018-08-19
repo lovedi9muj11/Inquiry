@@ -1,14 +1,20 @@
 package th.co.maximus.service.impl;
 
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
+import th.co.maximus.bean.DropDownBean;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
@@ -213,6 +219,79 @@ public class MasterDataServiceImpl implements MasterDataService{
 		}
 		
 		return groupTypeDropdownList;
+	}
+
+	@Override
+	public MasterDataBean findGroupTypeByKeyCode(String groupKey) {
+		List<DropDownBean> months = new ArrayList<DropDownBean>();
+		MasterDataBean masterDataBean = new MasterDataBean();
+		masterDataBean = masterDataDao.findGroupTypeByKeyCode(groupKey);
+		
+		if(null != masterDataBean) {
+			setTime(masterDataBean);
+			
+			monthDropdown(months);
+		}
+		masterDataBean.setDropDownMonths(months);
+		
+		//set date local
+		getLocalDateTime(masterDataBean);
+		
+		return masterDataBean;
+	}
+	
+	public void setTime(MasterDataBean masterDataBean) {
+		if(StringUtils.isNotBlank(masterDataBean.getText())) {
+			String[] list = masterDataBean.getText().split(" ");
+			masterDataBean.setMonth(list[4]);
+			masterDataBean.setDay(list[3]);
+			masterDataBean.setHour(list[2]);
+			masterDataBean.setMinute(list[1]);
+		}else {
+			masterDataBean.setMonth("");
+			masterDataBean.setDay("");
+			masterDataBean.setHour("");
+			masterDataBean.setMinute("");
+		}
+	}
+	
+	public void monthDropdown(List<DropDownBean> months) {
+		DropDownBean downBean = new DropDownBean();
+		for(int i=0; i < 12; i++) {
+			downBean = new DropDownBean();
+			String monthName = getMonthForInt(i);
+			downBean.setKey((i+1)+"");
+			downBean.setValue(monthName);
+			months.add(downBean);
+		}
+	}
+	
+	String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols(new Locale("th", "TH"));
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+    }
+	
+	public void getLocalDateTime(MasterDataBean masterDataBean) {
+//		LocalDateTime now = LocalDateTime.now();
+//		int year = now.getYear();
+//		String yearTH = now.format(DateTimeFormatter.ofPattern("yyyy", new Locale("th", "TH")));
+//		int month = now.getMonthValue();
+//		int day = now.getDayOfMonth();
+//		int hour = now.getHour();
+//		int minute = now.getMinute();
+//		int second = now.getSecond();
+//		int millis = now.get(ChronoField.MILLI_OF_SECOND);
+		
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy", new Locale("th", "TH"));
+		String yearTH = df.format(date);
+		
+		masterDataBean.setYearNow(yearTH);
 	}
 
 }

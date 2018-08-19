@@ -15,6 +15,8 @@ import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.repository.RoleRepository;
 import th.co.maximus.auth.repository.UserRepository;
 import th.co.maximus.auth.service.UserService;
+import th.co.maximus.dao.UserDao;
+import th.co.maximus.model.UserBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +28,9 @@ public class UserServiceTest {
 	@Autowired  UserService userService;
 	  
 	@Autowired  RoleRepository roleRepository;
+	
+	@Autowired
+	UserDao userDao;
 	
 	@Rollback
 	@Test
@@ -44,6 +49,13 @@ public class UserServiceTest {
 	@Ignore
 	public void login() {
 		UserDto bean = userRepository.findByUsername("admin");
+		assertThat(bean).isNotNull();
+	}
+	
+	@Test
+	@Ignore
+	public void findByUsername() {
+		UserBean bean = userDao.findByUsername("admin");
 		assertThat(bean).isNotNull();
 	}
 	

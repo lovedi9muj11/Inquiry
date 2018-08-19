@@ -1,6 +1,5 @@
 package th.co.maximus.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import th.co.maximus.bean.TrsChequeRefManualBean;
@@ -12,6 +11,6 @@ public interface TrsChequeRefManualDao {
 
 	public List<TrsChequeRefManualBean> findTrachequeFromManualId(long manualId);
 
-	public List<TrsChequerefEpisOffline> findByManualId(long methodManualId) throws SQLException;
+	public List<TrsChequerefEpisOffline> findByManualId(long methodManualId);
 
 }

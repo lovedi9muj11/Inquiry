@@ -1,5 +1,7 @@
 package th.co.maximus.bean;
 
+import java.util.List;
+
 public class MasterDataBean {
 	
 	private int id;
@@ -9,6 +11,16 @@ public class MasterDataBean {
 	private String orderBatch;
 	private String masterdataGroup;
 	private String property2;
+	
+	private String month;
+	private String day;
+	private String hour;
+	private String minute;
+	
+	private String yearNow;
+	
+	private List<DropDownBean> DropDownBeans;
+	private List<DropDownBean> DropDownMonths; 
 	
 	public String getProperty2() {
 		return property2;
@@ -51,6 +63,48 @@ public class MasterDataBean {
 	}
 	public void setOrderBatch(String orderBatch) {
 		this.orderBatch = orderBatch;
+	}
+	public List<DropDownBean> getDropDownBeans() {
+		return DropDownBeans;
+	}
+	public void setDropDownBeans(List<DropDownBean> dropDownBeans) {
+		DropDownBeans = dropDownBeans;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getHour() {
+		return hour;
+	}
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+	public String getMinute() {
+		return minute;
+	}
+	public void setMinute(String minute) {
+		this.minute = minute;
+	}
+	public List<DropDownBean> getDropDownMonths() {
+		return DropDownMonths;
+	}
+	public void setDropDownMonths(List<DropDownBean> dropDownMonths) {
+		DropDownMonths = dropDownMonths;
+	}
+	public String getYearNow() {
+		return yearNow;
+	}
+	public void setYearNow(String yearNow) {
+		this.yearNow = yearNow;
 	}
 	
 

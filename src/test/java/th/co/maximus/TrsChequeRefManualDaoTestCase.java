@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import th.co.maximus.bean.TrsChequeRefManualBean;
 import th.co.maximus.dao.TrsChequeRefManualDao;
+import th.co.maximus.model.TrsChequerefEpisOffline;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -21,8 +23,17 @@ public class TrsChequeRefManualDaoTestCase {
 	private TrsChequeRefManualDao trsChequeRefManualDao;
 	
 	@Test
+	@Ignore
 	public void findTrachequeFromManualIdTestCase() {
 		List<TrsChequeRefManualBean> result = trsChequeRefManualDao.findTrachequeFromManualId(1);
+		assertThat(result).isEmpty();
+		
+	}
+	
+	@Test
+	@Ignore
+	public void findByManualId() {
+		List<TrsChequerefEpisOffline> result = trsChequeRefManualDao.findByManualId(1);
 		assertThat(result).isEmpty();
 		
 	}

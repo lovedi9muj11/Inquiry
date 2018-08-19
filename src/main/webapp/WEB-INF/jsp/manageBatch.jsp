@@ -35,8 +35,12 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 		<jsp:include page="../layout/menu.jsp"></jsp:include>
 		<header class="header_page"></header>
 
-		<form id="masterFrom" method="post" class="form-horizontal"
-			role="form">
+		<form id="masterFrom" method="post" class="form-horizontal" role="form">
+			<input type="hidden" id="yearNow"/>
+			<input type="hidden" id="monthdd"/>
+			<input type="hidden" id="daydd"/>
+			<input type="hidden" id="hourdd"/>
+			<input type="hidden" id="mindd"/>
 			<div id="page-content-wrapper">
 				<br />
 				<div class="row">

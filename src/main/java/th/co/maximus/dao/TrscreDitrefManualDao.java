@@ -1,6 +1,5 @@
 package th.co.maximus.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import th.co.maximus.bean.TrscreDitrefManualBean;
@@ -12,5 +11,5 @@ public interface TrscreDitrefManualDao {
 	
 	public List<TrscreDitrefManualBean> trscreDitrefManualFromManualId(long manualId);
 	
-	public List<TrsCreditrefEpisOffline> findByMethodId(long methodId) throws SQLException;
+	public List<TrsCreditrefEpisOffline> findByMethodId(long methodId);
 }

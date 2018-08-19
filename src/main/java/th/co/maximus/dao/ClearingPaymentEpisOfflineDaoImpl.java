@@ -1,27 +1,17 @@
 //package th.co.maximus.dao;
 //
-//import javax.sql.DataSource;
-//
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.jdbc.core.JdbcTemplate;
 //import org.springframework.stereotype.Repository;
 //
 //@Repository
 //public class ClearingPaymentEpisOfflineDaoImpl implements ClearingPaymentEpisOfflineDao{
-//	@Autowired
-//	DataSource dataSource;
 //
 //	@Autowired
 //	private JdbcTemplate jdbcTemplate;
 //
-//	public ClearingPaymentEpisOfflineDaoImpl(DataSource dataSource) {
-//		jdbcTemplate = new JdbcTemplate(dataSource);
-//
-//	}
-//
 ////	@Override
 ////	public PaymentEpisOfflineDTO findDataClearing(Integer manaulId){
-////		Connection connect = dataSource.getConnection();
 ////		PaymentEpisOfflineDTO beanReReq = new PaymentEpisOfflineDTO();
 ////		try {
 ////			StringBuilder sqlStmt = new StringBuilder();

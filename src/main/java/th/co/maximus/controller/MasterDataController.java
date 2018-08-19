@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
-import th.co.maximus.service.MasterDataService;
-
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.service.MasterDataService;
 
 @Controller
 public class MasterDataController {
 
 	@Autowired
 	MasterDataService masterDataService;
-
+	
 	@RequestMapping(value = { "/create-master-data" }, method = RequestMethod.GET)
 	public String createmasterData(Model model) {
 		return "create-master-data";
@@ -94,6 +93,19 @@ public class MasterDataController {
 		}
 
 		return masterDataList;
+	}
+	
+	@RequestMapping(value = "/findGroupTypeByKeyCode", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public MasterDataBean findGroupTypeByKeyCode(@RequestBody MasterDataBean masterDataBean, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		MasterDataBean masterData = new MasterDataBean();
+		try {
+			masterData = masterDataService.findGroupTypeByKeyCode(masterDataBean.getGroup());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return masterData;
 	}
 
 }

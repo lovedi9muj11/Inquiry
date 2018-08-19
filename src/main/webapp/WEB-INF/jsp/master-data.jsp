@@ -26,8 +26,7 @@
 		<jsp:include page="../layout/menu.jsp"></jsp:include>
 		<header class="header_page"></header>
 
-		<form id="masterFrom" method="post" class="form-horizontal"
-			role="form">
+		<form id="masterFrom" method="post" class="form-horizontal" role="form">
 			<div id="page-content-wrapper">
 				<br />
 				<div class="container-fluid">

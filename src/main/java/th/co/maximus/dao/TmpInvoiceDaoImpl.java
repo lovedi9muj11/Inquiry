@@ -1,7 +1,5 @@
 package th.co.maximus.dao;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,9 +10,8 @@ import th.co.maximus.bean.TmpInvoiceBean;
 public class TmpInvoiceDaoImpl implements TmpInvoiceDao{
 
 	@Autowired
-	DataSource dataSource;
-	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
 	@Override
 	public void insertTmpInvoice(TmpInvoiceBean tmpInvoiceBean) {
 		StringBuilder sql = new StringBuilder();

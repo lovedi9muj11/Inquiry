@@ -5,14 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
@@ -22,14 +21,9 @@ import th.co.maximus.payment.bean.PaymentResultReq;
 
 @Service
 public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
+	
 	@Autowired
-	DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
-
-	public PaymentOtherManualDaoImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-
-	}
 
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
@@ -62,9 +56,10 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 	}
 
 	@Override
-	public PaymentResultReq findById(int id) throws Exception {
-		Connection connect = dataSource.getConnection();
-		PaymentResultReq beanReReq = new PaymentResultReq();
+	public PaymentResultReq findById(int id) {
+//		PaymentResultReq beanReReq = new PaymentResultReq();
+		PaymentResultReq beanReReqs = new PaymentResultReq();
+		List<Object> param = new LinkedList<Object>();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT py.ACCOUNT_NO,py.RECEIPT_NO_MANUAL,py.VAT_AMOUNT,py.PAID_AMOUNT ");
@@ -80,43 +75,48 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			sqlStmt.append(",(SELECT DISTINCT pim.VAT_RATE FROM PAYMENT_INVOICE_MANUAL pim WHERE pim.MANUAL_ID = py.MANUAL_ID )  as VAT_RATE ");
 
 			sqlStmt.append("  FROM RECEIPT_MANUAL py WHERE  py.MANUAL_ID = ?");
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setInt(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			param.add(id);
+			Object[] paramArr = param.toArray();
+			beanReReqs = jdbcTemplate.queryForObject(sqlStmt.toString(), paramArr, new mapPaymentResultReq());
+			
+//			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+//			preparedStatement.setInt(1, id);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//
+//				beanReReq = new PaymentResultReq();
+//				beanReReq.setCustNo(resultSet.getString("ACCOUNT_NO"));
+//				beanReReq.setDocumentNo(resultSet.getString("RECEIPT_NO_MANUAL"));
+//				beanReReq.setBalanceSummary(resultSet.getBigDecimal("PAID_AMOUNT"));
+//				beanReReq.setBalanceSummaryStr(String.format("%,.2f", resultSet.getBigDecimal("PAID_AMOUNT")));
+//				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+//				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
+//				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
+//				
+//				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
+//					beanReReq.setVatStr("-");
+//				}else {
+//					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+//				}
+//				
+//				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
+//				beanReReq.setDiscountspacalStr(String.format("%,.2f",beanReReq.getDiscountspacal()));
+//				beanReReq.setPaid_amount(resultSet.getBigDecimal("PAID_AMOUNT"));
+//
+//			}
 
-				beanReReq = new PaymentResultReq();
-				beanReReq.setCustNo(resultSet.getString("ACCOUNT_NO"));
-				beanReReq.setDocumentNo(resultSet.getString("RECEIPT_NO_MANUAL"));
-				beanReReq.setBalanceSummary(resultSet.getBigDecimal("PAID_AMOUNT"));
-				beanReReq.setBalanceSummaryStr(String.format("%,.2f", resultSet.getBigDecimal("PAID_AMOUNT")));
-				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
-				beanReReq.setDiscountStr(String.format("%,.2f", resultSet.getBigDecimal("DISCOUNTBEFORVAT")));
-				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
-				
-				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
-					beanReReq.setVatStr("-");
-				}else {
-					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
-				}
-				
-				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
-				beanReReq.setDiscountspacalStr(String.format("%,.2f",beanReReq.getDiscountspacal()));
-				beanReReq.setPaid_amount(resultSet.getBigDecimal("PAID_AMOUNT"));
-
-			}
-
-		} finally {
-			connect.close();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		return beanReReq;
+		return beanReReqs;
 	}
 
 	@Override
 	public List<PaymentResultReq> findListById(Long id) throws Exception {
-		Connection connect = dataSource.getConnection();
-		List<PaymentResultReq> bList = new ArrayList<>();
-		PaymentResultReq beanReReq = new PaymentResultReq();
+//		List<PaymentResultReq> bList = new ArrayList<>();
+		List<PaymentResultReq> bLists = new ArrayList<>();
+//		PaymentResultReq beanReReq = new PaymentResultReq();
+		List<Object> param = new LinkedList<Object>();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT  (select  REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
@@ -124,42 +124,106 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL, py.VAT_RATE  ");
 
 			sqlStmt.append("    FROM PAYMENT_INVOICE_MANUAL py  WHERE  py.MANUAL_ID = ?");
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-//				String.format("%,.2f", paymentResultReq.getBalanceOfvat())
-				beanReReq = new PaymentResultReq();
-				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
-				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
-				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
-				beanReReq.setAmountType(resultSet.getString("AMOUNTTYPE"));
-				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
-				beanReReq.setAmount(resultSet.getBigDecimal("AMOUNT"));
-				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));
-				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
-				
-				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
-					beanReReq.setVatStr("-");
-				}else {
-					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
-				}
-				
-				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
-				beanReReq.setDiscountspacalStr(String.format("%,.2f", beanReReq.getDiscountspacal()));
-				beanReReq.setBeforeVat(resultSet.getBigDecimal("BEFOR_VAT"));
-				beanReReq.setBeforeVatStr(String.format("%,.2f", beanReReq.getBeforeVat()));
-				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
-				beanReReq.setDiscountStr(String.format("%,.2f", beanReReq.getDiscount()));
-				bList.add(beanReReq);
+			param.add(id);
+			Object[] paramArr = param.toArray();
+			bLists = jdbcTemplate.query(sqlStmt.toString(), paramArr, new mapPaymentResultReq2());
+			
+//			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+//			preparedStatement.setLong(1, id);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				beanReReq = new PaymentResultReq();
+//				beanReReq.setCustName(resultSet.getString("CUSTOMER_NAME"));
+//				beanReReq.setServiceName(resultSet.getString("SERVICENAME"));
+//				beanReReq.setServiceCode(resultSet.getString("SERVICECODE"));
+//				beanReReq.setAmountType(resultSet.getString("AMOUNTTYPE"));
+//				beanReReq.setQuantity(resultSet.getString("QUANTITY"));
+//				beanReReq.setAmount(resultSet.getBigDecimal("AMOUNT"));
+//				beanReReq.setAmountStr(String.format("%,.2f", beanReReq.getAmount()));
+//				beanReReq.setVat(resultSet.getBigDecimal("VAT_AMOUNT"));
+//				
+//				if(resultSet.getString("VAT_RATE").equals("nonVat")) {
+//					beanReReq.setVatStr("-");
+//				}else {
+//					beanReReq.setVatStr(String.format("%,.2f", beanReReq.getVat()));
+//				}
+//				
+//				beanReReq.setDiscountspacal(resultSet.getBigDecimal("DISCOUNTSPECIAL"));
+//				beanReReq.setDiscountspacalStr(String.format("%,.2f", beanReReq.getDiscountspacal()));
+//				beanReReq.setBeforeVat(resultSet.getBigDecimal("BEFOR_VAT"));
+//				beanReReq.setBeforeVatStr(String.format("%,.2f", beanReReq.getBeforeVat()));
+//				beanReReq.setDiscount(resultSet.getBigDecimal("DISCOUNTBEFORVAT"));
+//				beanReReq.setDiscountStr(String.format("%,.2f", beanReReq.getDiscount()));
+//				bList.add(beanReReq);
+//
+//			}
 
-			}
-
-		} finally {
-			connect.close();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		return bList;
+		return bLists;
 	}
 	
+	private static final class mapPaymentResultReq implements RowMapper<PaymentResultReq> {
 
+		@Override
+		public PaymentResultReq mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentResultReq paymentResultReq = new PaymentResultReq();
+			paymentResultReq = new PaymentResultReq();
+			paymentResultReq.setCustNo(rs.getString("ACCOUNT_NO"));
+			paymentResultReq.setDocumentNo(rs.getString("RECEIPT_NO_MANUAL"));
+			paymentResultReq.setBalanceSummary(rs.getBigDecimal("PAID_AMOUNT"));
+			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", rs.getBigDecimal("PAID_AMOUNT")));
+			paymentResultReq.setDiscount(rs.getBigDecimal("DISCOUNTBEFORVAT"));
+			paymentResultReq.setDiscountStr(String.format("%,.2f", rs.getBigDecimal("DISCOUNTBEFORVAT")));
+			paymentResultReq.setVat(rs.getBigDecimal("VAT_AMOUNT"));
+			
+			if(rs.getString("VAT_RATE").equals("nonVat")) {
+				paymentResultReq.setVatStr("-");
+			}else {
+				paymentResultReq.setVatStr(String.format("%,.2f", paymentResultReq.getVat()));
+			}
+			
+			paymentResultReq.setDiscountspacal(rs.getBigDecimal("DISCOUNTSPECIAL"));
+			paymentResultReq.setDiscountspacalStr(String.format("%,.2f",paymentResultReq.getDiscountspacal()));
+			paymentResultReq.setPaid_amount(rs.getBigDecimal("PAID_AMOUNT"));
+			
+			return paymentResultReq;
+		}
+
+	}
+	
+	private static final class mapPaymentResultReq2 implements RowMapper<PaymentResultReq> {
+
+		@Override
+		public PaymentResultReq mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentResultReq paymentResultReq = new PaymentResultReq();
+			paymentResultReq = new PaymentResultReq();
+			paymentResultReq.setCustName(rs.getString("CUSTOMER_NAME"));
+			paymentResultReq.setServiceName(rs.getString("SERVICENAME"));
+			paymentResultReq.setServiceCode(rs.getString("SERVICECODE"));
+			paymentResultReq.setAmountType(rs.getString("AMOUNTTYPE"));
+			paymentResultReq.setQuantity(rs.getString("QUANTITY"));
+			paymentResultReq.setAmount(rs.getBigDecimal("AMOUNT"));
+			paymentResultReq.setAmountStr(String.format("%,.2f", paymentResultReq.getAmount()));
+			paymentResultReq.setVat(rs.getBigDecimal("VAT_AMOUNT"));
+			
+			if(rs.getString("VAT_RATE").equals("nonVat")) {
+				paymentResultReq.setVatStr("-");
+			}else {
+				paymentResultReq.setVatStr(String.format("%,.2f", paymentResultReq.getVat()));
+			}
+			
+			paymentResultReq.setDiscountspacal(rs.getBigDecimal("DISCOUNTSPECIAL"));
+			paymentResultReq.setDiscountspacalStr(String.format("%,.2f", paymentResultReq.getDiscountspacal()));
+			paymentResultReq.setBeforeVat(rs.getBigDecimal("BEFOR_VAT"));
+			paymentResultReq.setBeforeVatStr(String.format("%,.2f", paymentResultReq.getBeforeVat()));
+			paymentResultReq.setDiscount(rs.getBigDecimal("DISCOUNTBEFORVAT"));
+			paymentResultReq.setDiscountStr(String.format("%,.2f", paymentResultReq.getDiscount()));
+			
+			return paymentResultReq;
+		}
+
+	}
+	
 }

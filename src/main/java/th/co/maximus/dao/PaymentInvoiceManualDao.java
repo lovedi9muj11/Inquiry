@@ -1,6 +1,5 @@
 package th.co.maximus.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import th.co.maximus.bean.HistoryPaymentRS;
@@ -14,6 +13,7 @@ import th.co.maximus.model.PaymentInvoiceEpisOffline;
 public interface PaymentInvoiceManualDao {
 	
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV();
+	
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVs(String clearing);
 	
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean);
@@ -34,9 +34,9 @@ public interface PaymentInvoiceManualDao {
 	
 	List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean historySubFindBean);
 	
-	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException;
+	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt);
 	
-	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId) throws SQLException;
+	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId);
 	
 	public void insertInvoice(InvoiceBean invoice);
 	

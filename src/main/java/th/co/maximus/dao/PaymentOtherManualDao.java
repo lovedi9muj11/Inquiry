@@ -8,7 +8,7 @@ import th.co.maximus.payment.bean.PaymentResultReq;
 public interface PaymentOtherManualDao {
 	public int insertPayment(PaymentManualBean paymentManualBean);
 
-	public PaymentResultReq findById(int id) throws Exception;
+	public PaymentResultReq findById(int id);
 	
 	public List<PaymentResultReq> findListById(Long id) throws Exception;
 }

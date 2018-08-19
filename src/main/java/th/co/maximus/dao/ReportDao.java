@@ -1,6 +1,5 @@
 package th.co.maximus.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import th.co.maximus.bean.HistoryReportBean;
@@ -10,7 +9,9 @@ import th.co.maximus.bean.InvPaymentOrderTaxBean;
 
 public interface ReportDao {
 	
-	public List<InvEpisOfflineReportBean> inqueryEpisOfflineJSONHandler(String documentNo)throws SQLException ;
-	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo)throws SQLException ;
-	public List<InvPaymentOrderTaxBean> inqueryInvPaymentOrderTaxBeanJSONHandler(HistoryReportBean creteria)throws SQLException;
+	public List<InvEpisOfflineReportBean> inqueryEpisOfflineJSONHandler(String documentNo);
+	
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo);
+	
+	public List<InvPaymentOrderTaxBean> inqueryInvPaymentOrderTaxBeanJSONHandler(HistoryReportBean creteria);
 }

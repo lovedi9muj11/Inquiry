@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -22,13 +21,6 @@ import th.co.maximus.model.TrsMethodEpisOffline;
 public class TrsMethodManualDaoImpl implements TrsMethodManualDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	 @Autowired
-	 DataSource dataSource;
-	//
-	// public TrsMethodManualDaoImpl(DataSource dataSource) {
-	// jdbcTemplate = new JdbcTemplate(dataSource);
-	// }
 
 	@Override
 	public int insertTrsMethod(TrsMethodManualBean trsMethodManualBean) {

@@ -1,14 +1,10 @@
 package th.co.maximus.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +25,9 @@ import th.co.maximus.model.PaymentInvoiceEpisOffline;
 @Repository("PaymentInvoiceManualDao")
 public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
-
-
-	@Autowired
-	DataSource dataSource;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	public PaymentInvoiceManualDaoImp(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
+	
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -299,14 +287,15 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	};
 
 	@Override
-	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException {
-		List<HistoryPaymentRS> collections = new ArrayList<HistoryPaymentRS>();
-		Connection connect = dataSource.getConnection();
+	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) {
+//		List<HistoryPaymentRS> collections = new ArrayList<HistoryPaymentRS>();
+		List<HistoryPaymentRS> historyPaymentRSs = new ArrayList<HistoryPaymentRS>();
+		List<Object> param = new LinkedList<Object>();
 
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT");
+					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE  ");
@@ -331,21 +320,29 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
 			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.CREATE_DATE DESC");
 			// sql.append(" GROUP BY tm.NAME ");
-			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
-			preparedStatement.setString(1, historyRpt.getTypePrint());
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				// collections.add(new HistoryPaymen) ;
-				collections.add(new HistoryPaymentRS(resultSet.getDate(1), resultSet.getString(2),
-						resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),
-						resultSet.getString(7), resultSet.getBigDecimal(8), resultSet.getInt(9),resultSet.getBigDecimal(10),resultSet.getBigDecimal(11)));
-
-			}
-		} finally {
-			connect.close();
+			param.add(historyRpt.getTypePrint());
+			Object[] paramArr = param.toArray();
+			historyPaymentRSs = jdbcTemplate.query(sql.toString(), paramArr, new mapHistory());
+			
+//			PreparedStatement preparedStatement = connect.prepareStatement(sql.toString());
+//			preparedStatement.setString(1, historyRpt.getTypePrint());
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				// collections.add(new HistoryPaymen) ;
+//				collections.add(new HistoryPaymentRS(resultSet.getDate(1), resultSet.getString(2),
+//						resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),
+//						resultSet.getString(7), resultSet.getBigDecimal(8), resultSet.getInt(9),resultSet.getBigDecimal(10),resultSet.getBigDecimal(11)));
+//
+//			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+//		finally {
+//			connect.close();
+//		}
 
-		return collections;
+		return historyPaymentRSs;
 	}
 
 	public static final String convertDateString(String str) {
@@ -354,10 +351,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	}
 
 	@Override
-	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId) throws SQLException {
-		Connection connect = dataSource.getConnection();
+	public List<PaymentInvoiceEpisOffline> findByManualId(long manualId){
 		List<PaymentInvoiceEpisOffline> beanReReq = new ArrayList<PaymentInvoiceEpisOffline>();
-		PaymentInvoiceEpisOffline bean = new PaymentInvoiceEpisOffline();
+		List<Object> param = new LinkedList<Object>();
+//		PaymentInvoiceEpisOffline bean = new PaymentInvoiceEpisOffline();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
@@ -366,23 +363,27 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
 			sqlStmt.append(" GROUP by pim.MANUAL_ID ORDER BY pim.CREATE_DATE DESC");
-			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
-			preparedStatement.setLong(1, manualId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				bean = new PaymentInvoiceEpisOffline(resultSet.getString(1), resultSet.getBigDecimal(2),
-						resultSet.getBigDecimal(3), resultSet.getBigDecimal(4), resultSet.getBigDecimal(5),
-						resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
-						resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
-						resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getString(16),
-						resultSet.getBigDecimal(17), resultSet.getBigDecimal(18), resultSet.getString(19),
-						resultSet.getString(20), resultSet.getString(21), resultSet.getString(22),
-						resultSet.getDate(23));
-				beanReReq.add(bean);
-			}
+			
+			param.add(manualId);
+			Object[] paramArr = param.toArray();
+			beanReReq = jdbcTemplate.query(sqlStmt.toString(), paramArr, new mapPayment());
+			
+//			PreparedStatement preparedStatement = connect.prepareStatement(sqlStmt.toString());
+//			preparedStatement.setLong(1, manualId);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				bean = new PaymentInvoiceEpisOffline(resultSet.getString(1), resultSet.getBigDecimal(2),
+//						resultSet.getBigDecimal(3), resultSet.getBigDecimal(4), resultSet.getBigDecimal(5),
+//						resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
+//						resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
+//						resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getString(16),
+//						resultSet.getBigDecimal(17), resultSet.getBigDecimal(18), resultSet.getString(19),
+//						resultSet.getString(20), resultSet.getString(21), resultSet.getString(22),
+//						resultSet.getDate(23));
+//				beanReReq.add(bean);
+//			}
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return beanReReq;
@@ -481,6 +482,62 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
+	}
+	
+	private static final class mapPayment implements RowMapper<PaymentInvoiceEpisOffline> {
+
+		@Override
+		public PaymentInvoiceEpisOffline mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentInvoiceEpisOffline paymentInvoiceEpisOffline = new PaymentInvoiceEpisOffline();
+			paymentInvoiceEpisOffline.setInvoiceNo(rs.getString("pim.INVOICE_NO"));
+			paymentInvoiceEpisOffline.setBeforVat(rs.getBigDecimal("pim.BEFOR_VAT"));
+			paymentInvoiceEpisOffline.setVatAmount(rs.getBigDecimal("pim.VAT_AMOUNT"));
+			paymentInvoiceEpisOffline.setAmount(rs.getBigDecimal("pim.AMOUNT"));
+			paymentInvoiceEpisOffline.setVatRate(rs.getBigDecimal("pim.VAT_RATE"));
+			paymentInvoiceEpisOffline.setCustomerName(rs.getString("pim.CUSTOMER_NAME"));
+			paymentInvoiceEpisOffline.setCustomerAddress(rs.getString("pim.CUSTOMER_ADDRESS"));
+			paymentInvoiceEpisOffline.setCustomerSegment(rs.getString("pim.CUSTOMER_SEGMENT"));
+			paymentInvoiceEpisOffline.setCustomerBranch(rs.getString("pim.CUSTOMER_BRANCH"));
+			paymentInvoiceEpisOffline.setTaxNo(rs.getString("pim.TAXNO"));
+			paymentInvoiceEpisOffline.setAccountSubNo(rs.getString("pim.ACCOUNTSUBNO"));
+			paymentInvoiceEpisOffline.setPeriod(rs.getString("pim.PERIOD"));
+			paymentInvoiceEpisOffline.setServiceType(rs.getString("pim.SERVICE_TYPE"));
+			paymentInvoiceEpisOffline.setRemark(rs.getString("pim.REMARK"));
+			paymentInvoiceEpisOffline.setQuantity(rs.getInt("pim.QUANTITY"));
+			paymentInvoiceEpisOffline.setIncomeType(rs.getString("pim.INCOMETYPE"));
+			paymentInvoiceEpisOffline.setDiscountBeforvat(rs.getBigDecimal("pim.DISCOUNTBEFORVAT"));
+			paymentInvoiceEpisOffline.setDiscountSpecial(rs.getBigDecimal("pim.DISCOUNTSPECIAL"));
+			paymentInvoiceEpisOffline.setAmountType(rs.getString("pim.AMOUNTTYPE"));
+			paymentInvoiceEpisOffline.setDepartment(rs.getString("pim.DEPARTMENT"));
+			paymentInvoiceEpisOffline.setServiceName(rs.getString("pim.SERVICENAME"));
+			paymentInvoiceEpisOffline.setServiceCode(rs.getString("pim.SERVICECODE"));
+			paymentInvoiceEpisOffline.setInvoiceDate(rs.getDate("pim.INVOICE_DATE"));
+			
+			return paymentInvoiceEpisOffline;
+		}
+
+	}
+	
+	private static final class mapHistory implements RowMapper<HistoryPaymentRS> {
+
+		@Override
+		public HistoryPaymentRS mapRow(ResultSet rs, int rowNum) throws SQLException {
+			HistoryPaymentRS historyPaymentRS = new HistoryPaymentRS();
+			historyPaymentRS.setBeforeVat(rs.getBigDecimal("pim.BEFOR_VAT"));
+			historyPaymentRS.setBranCode(rs.getString("py.BRANCH_CODE"));
+			historyPaymentRS.setCustName(rs.getString("pim.CUSTOMER_NAME"));
+			historyPaymentRS.setDocumentDate(rs.getDate("py.CREATE_DATE"));
+			historyPaymentRS.setDocumentNo(rs.getString("py.RECEIPT_NO_MANUAL"));
+			historyPaymentRS.setInvoice(rs.getString("py.INVOICE_NO"));
+			historyPaymentRS.setNumberRun("");
+			historyPaymentRS.setPaidAmount(rs.getBigDecimal("py.PAID_AMOUNT"));
+			historyPaymentRS.setRecordStatus(rs.getString("py.RECORD_STATUS"));
+			historyPaymentRS.setTaxId(rs.getString("pim.TAXNO"));
+			historyPaymentRS.setVat(rs.getBigDecimal("pim.VAT_AMOUNT"));
+			historyPaymentRS.setVatRate(rs.getInt("pim.VAT_RATE"));
+			return historyPaymentRS;
+		}
+
 	}
 
 }

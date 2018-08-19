@@ -19,6 +19,7 @@ import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
+import th.co.maximus.model.PaymentInvoiceEpisOffline;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -66,6 +67,15 @@ public class PaymentHistroryDaoTest {
 		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findPayOrder(historySubFindBean);
 		
 		assertThat(result).isNotEmpty();
+	}
+	
+	@Test
+	@Ignore
+	public void findByManualId() {
+		List<PaymentInvoiceEpisOffline> result = paymentInvoiceManualDao.findByManualId(10);
+		
+		assertThat(result).isNotEmpty();
+		
 	}
 	
 }

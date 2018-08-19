@@ -42,4 +42,6 @@ public interface MasterDataService {
 	
 	List<MasterDataBean> showAllMSNGL();
 	
+	MasterDataBean findGroupTypeByKeyCode(String groupKey);
+	
 }

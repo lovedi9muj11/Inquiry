@@ -37,5 +37,7 @@ public interface MasterDataDao {
 	void deleteBeforInsertMS();
 	
 	List<MasterDataBean> showAllMSNGL();
+	
+	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 
 }
