@@ -58,7 +58,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo,String payType) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		for (PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountId(accountNo,payType)) {
-			if ("N".equals(bean.getClearing()) && "A".equals(bean.getRecordStatus())) {
+			if ("N".equals(bean.getClearing())) {
 				List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(bean.getManualId()));
 				StringBuffer paymentMethod = new StringBuffer();
 				for (TrsMethodEpisOffline method : methodResult) {

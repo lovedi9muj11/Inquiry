@@ -2,7 +2,9 @@ package th.co.maximus.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
 
 @Repository("PaymentInvoiceManualDao")
@@ -139,6 +142,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) {
+		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT); 
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -164,6 +168,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		// sql.append(" payment_m.INVOICE_NO = ?");
 		// param.add(invoiceNo);
 		// }
+		System.out.println("[ae] xxx :: "+dateFM.format(new Date()));
+		sql.append(" AND payment_m.CREATE_DATE >= '"+dateFM.format(new Date())+" 00:00:00' ");
+		
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC ");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);

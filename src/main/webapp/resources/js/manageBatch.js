@@ -66,6 +66,7 @@ $(document).ready(function() {
 
 function setMonth(months) {
 	$('#month').append('<option value="*">' + PLS_SELECT_ALL_MONTH + '</option>');
+	$('#month').append('<option value="L">' + PLS_SELECT_ALL_MONTH_LAST_DAY + '</option>');
 	for(var i=0; i<months.length; i++) {
 		$('#month').append('<option value="'+(months[i].key)+'">' + (months[i].value) + '</option>');
 	}

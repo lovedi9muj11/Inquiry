@@ -56,7 +56,7 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(),"IBACSS");
+		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(), "IBACSS");
 
 		// }
 		return result;

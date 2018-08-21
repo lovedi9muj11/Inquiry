@@ -79,7 +79,7 @@
 					                <th style="text-align: center;;width: 10%">วิธีการรับชำระ</th>
 					                <th style="text-align: center;;width: 5%">ยอดชำระ</th>
 					                <th style="text-align: center;;width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
-					                <th style="text-align: center;;width: 5%">สถานนะ</th>
+					                <th style="text-align: center;;width: 5%">สถานะ</th>
 					                <th style="text-align: center;;width: 3%">หมายเหตุ</th>
 						        </tr>
 						    </thead>

@@ -45,8 +45,8 @@ function createRow(data, seq) {
 	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;
 	createBy = data.createBy;
-	invoiceNo = data.invoiceNo;
-	period = data.period;
+	invoiceNo = data.invoiceNo!=null?data.invoiceNo:'-';
+	period = data.period!=null?data.period:'-';
 	amount = formatDouble(data.amount,2);
 	source = data.paymentMethod;
 	paidAmount = formatDouble(data.paidAmount,2);
@@ -60,13 +60,17 @@ function createRow(data, seq) {
 		}
 	}else{
 		recordStatus = 'ยกเลิก';
+		if(data.remark != ""){
 		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remark = '-';
+		}
 	}
 	
 	accountNo = data.accountNo;
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, accountNo
+    var rowNode = t.row.add([no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , paidAmount, source, amount, vatAmount, recordStatus, remark, accountNo
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('left');
     $(rowNode).find('td').eq(1).addClass('left');
@@ -74,8 +78,8 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(3).addClass('left');
     $(rowNode).find('td').eq(4).addClass('left');
     $(rowNode).find('td').eq(5).addClass('left');
-    $(rowNode).find('td').eq(6).addClass('left');
-    $(rowNode).find('td').eq(7).addClass('left');
+    $(rowNode).find('td').eq(6).addClass('center');
+    $(rowNode).find('td').eq(7).addClass('center');
     $(rowNode).find('td').eq(8).addClass('right');
     $(rowNode).find('td').eq(9).addClass('center');
     $(rowNode).find('td').eq(10).addClass('right');
