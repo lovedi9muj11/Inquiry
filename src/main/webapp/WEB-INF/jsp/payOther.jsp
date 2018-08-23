@@ -147,7 +147,7 @@
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">VAT RATE :</label>
 										<div class="col-sm-2">
-											<select class="form-control" id="vatrate" name="vatrate">
+											<select class="form-control" id="vatrate" name="vatrate" onchange="autoSelectVat()">
 												<option value="7">7%</option>
 												<option value="0">0%</option>
 												<option value=nonVat>Non VAT</option>
@@ -320,7 +320,7 @@
 
 										<div class="col-sm-3" align="right">
 											<input type="radio" name="radiovat" value="beforvat" checked>ก่อน
-											vat <input type="radio" name="radiovat" value="aftervat">หลัง
+											vat <input type="radio" name="radiovat" value="aftervat" id="aftervat">หลัง
 											vat
 										</div>
 
@@ -670,8 +670,6 @@
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="branchCheck"
 															name="paymentTranPrice.branchCheck" placeholder="สาขา">
-														<p id="branchCheckTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
-															สาขา</p>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
@@ -818,7 +816,7 @@
 													for="formGroupInputLarge">เพิ่มเติม :</label>
 												<div class="col-sm-3">
 													<input class="form-control" type="text" id="remark"
-														name="remark">
+														name="remark" maxlength="50">
 												</div>
 												<div class="col-sm-3"></div>
 												<label class="col-sm-2 control-label right"

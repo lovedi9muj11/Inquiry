@@ -283,7 +283,6 @@ function hideDetailPayment() {
 
 	$("#bankNoTxt").hide();
 	$("#bankNameTxt").hide();
-	$("#branchCheckTxt").hide();
 	$("#bankNameTxt").hide();
 	$("#checkNoTxt").hide();
 	$("#dateCheckTxt").hide();
@@ -1095,8 +1094,9 @@ function addDataSumCreditTranPrice() {
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
 	var bas2 = $("#balanceSum").val();
+	
 	if (bas2 == "") {
-		bas2 = parseFloat(0).toFixed(2)
+		bas2 = parseFloat(0).toFixed(2);
 	}
 	var balanceS = parseFloat(bas2.replace(",", ""));
 
@@ -1179,9 +1179,11 @@ function addDataSumCheckTranPrice() {
 	var rowLength = oTable.rows.length;
 	var count = parseInt(0);
 	var number = parseFloat(table - parseFloat(1));
+	
 	var ba3d = $("#balanceSum").val();
+	
 	if (ba3d == "") {
-		ba3d = parseFloat(0).toFixed(2)
+		ba3d = parseFloat(0).toFixed(2);
 	}
 
 	var balanceS = parseFloat(ba3d.replace(",", ""));
@@ -1283,10 +1285,6 @@ function addDataTableCheck() {
 	if (bankName == "") {
 		$("#bankNameTxt").show();
 		return $("#bankName").focus();
-	}
-	if (branchCheck == "") {
-		$("#branchCheckTxt").show();
-		return $("#branchCheck").focus();
 	}
 	if (parseFloat(moneyCheck) < parseFloat(0)) {
 		$("#bankNameTxt").show();
@@ -1921,10 +1919,19 @@ function autoSelect(){
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
 	}else if(event == "3"){
-		radiobtns = document.getElementById("radioDedCT");
+		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
+	}
+}
+	function autoSelectVat(){
+	
+	var event = $("#vatrate").val();
+	if(event == "nonVat"){
+		 document.getElementById("aftervat").disabled = true;
+	}else{
+		document.getElementById("aftervat").disabled = false;
 	}
 }

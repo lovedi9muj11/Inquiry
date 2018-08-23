@@ -453,7 +453,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{beforeDiscount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amountStr}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="25" width="186" height="23" uuid="1eda3734-98ac-4b20-9d5b-429ee9798284">
