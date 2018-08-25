@@ -22,6 +22,7 @@ import th.co.maximus.service.PaymentService;
 
 @Controller
 public class CancelPaymentController {
+	
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
 	

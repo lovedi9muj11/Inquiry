@@ -54,13 +54,17 @@ function createRow(data, seq) {
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		if(data.remark != ""){
-			remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+			remark ='<a name="remark" id="remark" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 		}else {
 			remark = '-';
 		}
 	}else{
 		recordStatus = 'ยกเลิก';
-		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		if(data.remark != ""){
+			remark ='<a name="remark" id="remark" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remark = '-';
+		}
 	}
 	
 	accountNo = data.accountNo;

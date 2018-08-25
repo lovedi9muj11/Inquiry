@@ -1,4 +1,11 @@
+var checkClick = true;
+var valueIcon = "";
+var IdSelected = "";
+var tableInit;
+
 $(document).ready(function () {
+//	document.getElementById("showResultTableRQ").style.display = "none";
+	
 	histroryTB = $('#histroryPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
@@ -15,6 +22,32 @@ $(document).ready(function () {
 	$('#clearCriteria').click(function(){
 		$('#billAccount').val('');
 		search();
+	});
+	
+	$('#histroryPaymentTB tbody').on('click', '#plus_invoice', function () {
+	    var tr = $(this).closest('tr');
+	    var row = tableInit.row(tr);
+
+	    if (row.child.isShown()) {
+	        row.child.hide();
+	        $('#'+valueIcon).addClass('glyphicon-plus').removeClass('glyphicon-minus');
+	        tr.removeClass('shown');
+	    }
+	    else {
+	    	var url;
+	    	url = ctx +"/payOtherDetail/"+IdSelected;
+	     	$.ajax({
+			        type: "GET",
+			        url: url,
+			        dataType: "json",
+			        async: false,
+			        contentType: "application/json; charset=utf-8",
+			        success: function (res) {
+						row.child(format(res)).show();
+						$('#'+valueIcon).addClass('glyphicon-minus').removeClass('glyphicon-plus');
+			        }
+	     	});
+	    }
 	});
 });
 
@@ -45,8 +78,8 @@ function createRow(data, seq) {
 	receiptNoManual = data.receiptNoManual;
 	branchCode = data.brancharea;
 	createBy = data.createBy;
-	invoiceNo = data.invoiceNo!=null?data.invoiceNo:'-';
-	period = data.period!=null?data.period:'-';
+//	invoiceNo = data.invoiceNo!=null?data.invoiceNo:'-';
+//	period = data.period!=null?data.period:'-';
 	amount = formatDouble(data.amount,2);
 	source = data.paymentMethod;
 	paidAmount = formatDouble(data.paidAmount,2);
@@ -54,39 +87,49 @@ function createRow(data, seq) {
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		if(data.remark != ""){
-			remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+			remark ='<a name="remark" id="remark" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 		}else {
 			remark = '-';
 		}
 	}else{
 		recordStatus = 'ยกเลิก';
 		if(data.remark != ""){
-		remark ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		remark ='<a name="remark" id="remark" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 		}else {
 			remark = '-';
 		}
 	}
 	
+	plus_invoice =  '<a name="plus_invoice" id="plus_invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
+	
+//	actionP = plus+del;
+	
 	accountNo = data.accountNo;
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , paidAmount, source, amount, vatAmount, recordStatus, remark, accountNo
+    tableInit = t;
+    var rowNode = t.row.add([plus_invoice, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy , paidAmount, source, amount, vatAmount, recordStatus, remark, accountNo
     ]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('left');
+    $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
     $(rowNode).find('td').eq(3).addClass('left');
     $(rowNode).find('td').eq(4).addClass('left');
     $(rowNode).find('td').eq(5).addClass('left');
     $(rowNode).find('td').eq(6).addClass('center');
-    $(rowNode).find('td').eq(7).addClass('center');
-    $(rowNode).find('td').eq(8).addClass('right');
-    $(rowNode).find('td').eq(9).addClass('center');
+    $(rowNode).find('td').eq(7).addClass('right');
+    $(rowNode).find('td').eq(8).addClass('center');
+    $(rowNode).find('td').eq(9).addClass('right');
     $(rowNode).find('td').eq(10).addClass('right');
-    $(rowNode).find('td').eq(11).addClass('right');
-    $(rowNode).find('td').eq(12).addClass('left');
-    $(rowNode).find('td').eq(13).addClass('center');
-};
+    $(rowNode).find('td').eq(11).addClass('left');
+    $(rowNode).find('td').eq(12).addClass('center');
+}
+
+function chaengIcon(value){
+	valueIcon= 'icon'+value;
+	IdSelected = value;
+}
+
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');
 	var dataSend = {"manualId": value};
@@ -101,8 +144,45 @@ function dialogRemake(value){
         	$("#remake").text(res.remark);
         }
 	})
-};
+}
+
 function closeDialog(){
 	$("#remake_dialog").modal('hide');
 }
 
+function closeTableSumOther() {
+
+	$("#del").hide();
+	$("#plus").show();
+	document.getElementById("showResultTableRQ").style.display = "none";
+	checkClick = true;
+}
+
+function format(d) {
+	var txt="";
+	var i = 0;
+	for(i=0; i < d.length; i++){
+		txt = txt+ '<tr>'+
+			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
+			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
+			    '</tr>'
+	}
+
+    return '<table class="table table-bordered" cellspacing="0" width="100%">'+
+			    '<thead>'+
+			    '<tr>'+
+			        '<th style="text-align: left;">รายการ</th>'+
+			        '<th style="text-align: right;">จำนวน</th>'+
+			        '<th style="text-align: right;">ส่วนลด</th>'+
+			        '<th style="text-align: right;">ภาษีมูลค่าเพิ่ม</th>'+
+			        '<th style="text-align: right;">จำนวนเงิน</th>'+
+			    '</tr>'+
+			'</thead>'+
+			'<tbody>'+
+			txt +
+			'</tbody>'
+		'</table>';
+};

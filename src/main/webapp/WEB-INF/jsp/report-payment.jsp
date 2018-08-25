@@ -37,11 +37,11 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">วันที่ชำระ :</label>
-							<div class="col-md-10">
+<!-- 							<div class="col-md-10"> -->
 								<div class='col-md-6'>
 									<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<select class="form-control" name="dateFromHour" id="dateFromHour">
 										<option value="00">00</option>
 										<option value="01">01</option>
@@ -70,7 +70,7 @@
 									</select>
 									
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<select class="form-control" name="dateFromMinute" id="dateFromMinute">
 										<option value="00">00</option>
 										<option value="15">15</option>
@@ -80,7 +80,7 @@
 									</select>
 								</div>
 								
-							</div>
+<!-- 							</div> -->
 <!-- 							<div class="col-sm-5 right"> -->
 <!-- 							<p id="sShowValidate" style="color: red; display: none;">*วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p> -->
 								<div class="hide" id="error-end-date" style="font-size: 16px;">
@@ -91,11 +91,11 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">ถึงวันที่ :</label>
-							<div class="col-md-10">
+<!-- 							<div class="col-md-10"> -->
 								<div class='col-md-6'>
 									<input type='date' class="form-control" id="dateTo" name="dateTo"/>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<select class="form-control" name="dateToHour" id="dateToHour">
 										<option value="00">00</option>
 										<option value="01">01</option>
@@ -123,7 +123,7 @@
 										<option value="23">23</option>
 									</select>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<select class="form-control" name="dateToMinute" id="dateToMinute">
 										<option value="00">00</option>
 										<option value="15">15</option>
@@ -133,7 +133,7 @@
 									</select>
 								</div>
 								
-							</div>
+<!-- 							</div> -->
 <!-- 							<div class="col-sm-4 right"> -->
 <!-- 							<p id="sShowValidate" style="color: red; display: none;">*วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด</p> -->
 								<div class="hide" id="error-end-date2" style="font-size: 16px; red;">
@@ -144,52 +144,62 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-6">
-							<label class="col-md-2 control-label text-right">รหัสบัญชี:</label>
-							<div class="col-md-10">
-								<select class="form-control" id="accountId" name="accountId"></select>
-							</div>
+<!-- 						<div class="form-group col-md-6"> -->
+<!-- 							<label class="col-md-2 control-label text-right">รหัสบัญชี:</label> -->
+<!-- 							<div class="col-md-10"> -->
+<!-- 								<select class="form-control" id="accountId" name="accountId"></select> -->
+<!-- 							</div> -->
 
-						</div>
+<!-- 						</div> -->
+<!-- 						<div class="form-group col-md-6"> -->
+<!-- 							<div class="col-md-6"> -->
+<!-- 								<label class="col-md-4 control-label text-right">Vat Rate:</label> -->
+<!-- 								<div class="col-md-8"> -->
+<!-- 									<select class="form-control" id="vat" name="vat"> -->
+<!-- 										<option value="">ทั้งหมด</option> -->
+<!-- 												<option value="7">7%</option> -->
+<!-- 												<option value="0">0%</option> -->
+<!-- 												<option value="NON VAT">Non VAT</option> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 						<div class="form-group col-md-6">
-							<div class="col-md-6">
-								<label class="col-md-4 control-label text-right">Vat Rate:</label>
-								<div class="col-md-8">
-									<select class="form-control" id="vat" name="vat">
-										<option value="">ทั้งหมด</option>
-												<option value="7">7%</option>
-												<option value="0">0%</option>
-												<option value="NON VAT">Non VAT</option>
-									</select>
-								</div>
+							<label class="col-md-2 control-label text-right">ประเภทการรับชำระ:</label>
+							<div class="col-md-3">
+								<select class="form-control" id="serviceType" name="serviceType">
+									<option value="">ทั้งหมด</option>
+									<option value="IBACSS">ค่าบริการ (IBACSS)</option>
+									<option value="OTHER">ค่าบริการอื่น ๆ</option>
+								</select>
 							</div>
-							<div class="col-md-6">
-								<label class="col-md-5 control-label text-right">ประเภทการรับชำระ:</label>
-								<div class="col-md-7">
-									<select class="form-control" id="serviceType" name="serviceType">
-										<option value="">ทั้งหมด</option>
-										<option value="IBACSS">ค่าบริการ (IBACSS)</option>
-										<option value="OTHER">ค่าบริการอื่น ๆ</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label class="col-md-2 control-label text-right">เครื่องที่รับชำระ:</label>
-							<div class="col-md-10">
+							<label class="col-md-3 control-label text-right">เครื่องที่รับชำระ:</label>
+							<div class="col-md-4">
 								<input type="text" id="machinePaymentName" name="machinePaymentName" value="ศูนย์บริการลูกค้า นนทบุรี" class="form-control" disabled/>
 							</div>
 						</div>
-						
+<!-- 						</div> -->
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label>
-							<div class="col-md-10">
+							<div class="col-md-4">
 								<select class="form-control" id="authorities" name="authorities"></select>
 							</div>
 						</div>
 					</div>
+<!-- 					<div class="row"> -->
+<!-- 						<div class="form-group col-md-6"> -->
+<!-- 							<label class="col-md-2 control-label text-right">เครื่องที่รับชำระ:</label> -->
+<!-- 							<div class="col-md-10"> -->
+<!-- 								<input type="text" id="machinePaymentName" name="machinePaymentName" value="ศูนย์บริการลูกค้า นนทบุรี" class="form-control" disabled/> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+						
+<!-- 						<div class="form-group col-md-6"> -->
+<!-- 							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label> -->
+<!-- 							<div class="col-md-10"> -->
+<!-- 								<select class="form-control" id="authorities" name="authorities"></select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 				</div>
 	
 				<div class="box-footer" style="padding-bottom: 20px">
@@ -223,7 +233,7 @@
 							<!--<div class="box-header"></div>
 							 /.box-header -->
 							<div class="box-body">
-								<table id="reportPaymentTb" class="table table-bordered" cellspacing="0" width="100%">
+								<table id="reportPaymentTb" class="table table-bordered">
 									<thead>
 										<tr>
 											<th style="text-align: center;width: 5%">ลำดับที่</th>
@@ -231,7 +241,7 @@
 											<th style="text-align: center;width: 13%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
 											<th style="text-align: center;width: 10%">เลขที่ลูกค้า</th>
 											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
-											<th style="text-align: center;width: 10%">หน่วยติดตามหนี้</th>
+											<th style="text-align: center;width: 10%">หน่วยงานรับรายได้</th>
 											<th style="text-align: center;width: 15%">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
 											<th style="text-align: center;width: 5%">ชำระโดย</th>
 											<th style="text-align: center;width: 5%">เลขที่อ้างอิง</th>

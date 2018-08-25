@@ -16,7 +16,7 @@ $(document).ready(function (){
 	});
 	initCriteria();
 	dropdownUser();
-	deopdownAccount();
+//	deopdownAccount();
 	search();
 //	user = ${pageContext.request.userPrincipal.name};
 
@@ -35,11 +35,11 @@ function initCriteria(){
 	$('#dateFromMinute').val('00');
 	$('#dateToHour').val('23');
 	$('#dateToMinute').val('59');
-	$('#vat').val('');
+//	$('#vat').val('');
 	$('#categoryPayment').val('');
 //	$("#authorities").val('');
 	$("#serviceType").val('');
-	$("#accountId").val('');
+//	$("#accountId").val('');
 	
 };
 
@@ -56,10 +56,10 @@ function search(){
 	var dataCritaria = {
 			"dateFrom": dateFrom,
 			"dateTo": dateTo,
-			"vatRate": $('#vat').val(),
+//			"vatRate": $('#vat').val(),
 			"user":  $('#authorities').val(),
-			"serviceType": $('#serviceType').val(),
-			"accountId": $('#accountId').val()
+			"serviceType": $('#serviceType').val()
+//			"accountId": $('#accountId').val()
 		};
 	if(validationSearchCriteria()){
 		$.ajax({
@@ -92,7 +92,7 @@ function printReport(){
 	$('#dateFromHidden').val(dateFromGlobal);
 	$('#dateToHidden').val(dateToGlobal);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
-	$('#accountIdHidden').val($('#accountId').val());
+//	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val());
 	$("#paymentFrom").attr("action", "/reportPaymentExcel").attr("target", "_blank").submit();
 };
@@ -101,7 +101,7 @@ function printReportPDF(){
 	$('#dateFromHidden').val(dateFromGlobal);
 	$('#dateToHidden').val(dateToGlobal);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
-	$('#accountIdHidden').val($('#accountId').val());
+//	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val());
 	$("#paymentFrom").attr("action", "/reportPaymentPDF").attr("target", "_blank").submit();
 };

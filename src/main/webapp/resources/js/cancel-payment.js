@@ -393,6 +393,7 @@ function format(d) {
 			'</tbody>'
 		'</table>';
 };
+
 function format2(d) {
 //	sprintStr =  d[9].split(",");
 //	invoice = parseFloat(sprintStr[0]+sprintStr[1]) - parseFloat(d[13])

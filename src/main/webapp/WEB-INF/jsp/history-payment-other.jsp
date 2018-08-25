@@ -64,26 +64,45 @@
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table id="histroryPaymentTB" class="table table-bordered" cellspacing="0" width="100%">
-						    <thead>
-						        <tr>
-						         	<th style="text-align: center;width: 1%">#</th>  				                         
-					                <th style="text-align: center;width: 11%">วันที่ทำรายการ</th>
-					                <th style="text-align: center;;width: 11%">วันที่ออกใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;;width: 10%">เลขที่ใบเสร็จรับเงิน</th>
-					                <th style="text-align: center;;width: 10%">สถานที่รับชำระ</th>
-					                <th style="text-align: center;;width: 5%">ผู้รับชำระ</th>
-					                <th style="text-align: center;;width: 10%">เลขที่ใบแจ้งค่าใช้บริการ</th>
-					                <th style="text-align: center;;width: 10%">รอบการใช้งาน</th>
-					                <th style="text-align: center;;width: 10%">ยอดเงินตามใบแจ้งค่าบริการ</th>
-					                <th style="text-align: center;;width: 10%">วิธีการรับชำระ</th>
-					                <th style="text-align: center;;width: 5%">ยอดชำระ</th>
-					                <th style="text-align: center;;width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
-					                <th style="text-align: center;;width: 5%">สถานะ</th>
-					                <th style="text-align: center;;width: 3%">หมายเหตุ</th>
-						        </tr>
-						    </thead>
-						</table>
+							<table id="histroryPaymentTB" class="table table-bordered">
+							    <thead>
+							        <tr>
+							        	<th></th>
+							         	<th style="text-align: center;width: 1%">#</th>  				                         
+						                <th style="text-align: center;width: 11%">วันที่ทำรายการ</th>
+						                <th style="text-align: center;;width: 11%">วันที่ออกใบเสร็จรับเงิน</th>
+						                <th style="text-align: center;;width: 10%">เลขที่ใบเสร็จรับเงิน</th>
+						                <th style="text-align: center;;width: 10%">สถานที่รับชำระ</th>
+						                <th style="text-align: center;;width: 5%">ผู้รับชำระ</th>
+	<!-- 					                <th style="text-align: center;;width: 10%">เลขที่ใบแจ้งค่าใช้บริการ</th> -->
+	<!-- 					                <th style="text-align: center;;width: 10%">รอบการใช้งาน</th> -->
+						                <th style="text-align: center;;width: 10%">ยอดเงินตามใบแจ้งค่าบริการ</th>
+						                <th style="text-align: center;;width: 20%">วิธีการรับชำระ</th>
+						                <th style="text-align: center;;width: 5%">ยอดชำระ</th>
+						                <th style="text-align: center;;width: 10%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
+						                <th style="text-align: center;;width: 5%">สถานะ</th>
+						                <th style="text-align: center;;width: 3%">หมายเหตุ</th>
+							        </tr>
+							    </thead>
+							    <tbody>
+								</tbody>
+							</table>
+<!-- 							<table class="table " id="showResultTableRQ"> -->
+<!-- 								<thead align="center"> -->
+<!-- 									<tr align="center"> -->
+<!-- 										<th style='text-align: center;'>ประเภทบริการ</th> -->
+<!-- 										<th style='text-align: center;'>ชื่อบริการ</th> -->
+<!-- 										<th style='text-align: center;'>จำนวนรายการ</th> -->
+<!-- 										<th style='text-align: center;'>จำนวนเงิน</th> -->
+<!-- 										<th style='text-align: center;'>ส่วนลดก่อน  VAT</th> -->
+<!-- 										<th style='text-align: center;'>ภาษีมูลค่าเพิ่ม</th> -->
+<!-- 										<th style='text-align: center;'>ส่วนลดพิเศษ</th> -->
+<!-- 										<th style='text-align: center;'>ยอดเงินรวม</th> -->
+<!-- 									</tr> -->
+<!-- 								</thead> -->
+<!-- 								<tbody> -->
+<!-- 								</tbody> -->
+<!-- 							</table> -->
 						</div>
 					</div>
 				</div>
