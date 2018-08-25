@@ -33,7 +33,7 @@ public class ReportDaoImpl implements ReportDao{
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT py.BRANCH_AREA ,py.BRANCH_CODE, py.SOURCE ,py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,pim.AMOUNT ,py.INVOICE_NO,py.CREATE_DATE,pim.CUSTOMER_ADDRESS,pim.TAXNO,py.REMARK,tm.CODE ,pim.VAT_RATE,pay.VAT_AMOUNT, ");
-			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,pay.PAID_AMOUNT,pim.PERIOD,py.DOCTYPE ");
+			sql.append(" pay.BEFOR_VAT,tm.METHOD_MANUAL_ID,pay.ACCOUNTSUBNO,pay.DISCOUNT,py.AMOUNT,pim.PERIOD,py.DOCTYPE ");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
 			sql.append(" INNER JOIN TRSMETHOD_MANUAL tm ON tm.MANUAL_ID = py.MANUAL_ID");
@@ -166,7 +166,7 @@ public class ReportDaoImpl implements ReportDao{
 			invEpisOfflineReportBean.setMethodId(rs.getLong("tm.METHOD_MANUAL_ID"));
 			invEpisOfflineReportBean.setServiceNo(rs.getString("pay.ACCOUNTSUBNO"));
 			invEpisOfflineReportBean.setDiscount(rs.getBigDecimal("pay.DISCOUNT"));
-			invEpisOfflineReportBean.setAmountPayment(rs.getBigDecimal("pay.PAID_AMOUNT"));
+			invEpisOfflineReportBean.setAmountPayment(rs.getBigDecimal("py.AMOUNT"));
 			invEpisOfflineReportBean.setPreiod(rs.getString("pim.PERIOD"));
 			invEpisOfflineReportBean.setDocType(rs.getString("py.DOCTYPE"));
 			return invEpisOfflineReportBean;

@@ -87,7 +87,7 @@
 												<td align="center">${paymentResultReq.custNo}</td>
 												<td align="center">${paymentResultReq.custName}</td>
 												<td align="center">${paymentResultReq.documentNo}</td>
-												<td align="center">${paymentResultReq.balanceOfvatStr}</td>
+												<td align="center">${paymentResultReq.balanceSummaryStr}</td>
 												<td align="center">บันทึกรายการเรียบร้อย</td>
 											</tr>
 										</tbody>

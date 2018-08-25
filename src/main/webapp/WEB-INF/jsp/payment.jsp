@@ -90,7 +90,7 @@
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="custNo"
-															name="custNo" placeholder="เลขที่ลูกค้า">
+															name="custNo" placeholder="เลขที่ลูกค้า" >
 														<p id="sCustNo" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่ลูกค้า</p>
 													</div>
@@ -763,7 +763,7 @@
 														for="formGroupInputLarge">เพิ่มเติม :</label>
 													<div class="col-sm-3">
 														<input class="form-control" type="text" id="remark"
-															name="remark" maxlength="100">
+															name="remark" maxlength="50">
 													</div>
 												</div>
 											</div>

@@ -92,7 +92,7 @@ public class PaymentServiceImpl implements PaymentService{
 				tmpInvoiceBean.setBeforVat(new BigDecimal(paymentBean.getBalanceBeforeTax()));
 				tmpInvoiceBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
 				
-				double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
+				double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1) + paymentBean.getTaxOnly());
 				if(resRQ > paymentBean.getBalanceOfTax()) {
 					tmpInvoiceBean.setPaidAmount(new BigDecimal(paymentBean.getBalanceOfTax()));
 				}else {

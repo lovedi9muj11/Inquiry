@@ -39,9 +39,9 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			if(paymentBean.getTaxOnly() == null ){
 				paymentBean.setTaxOnly(0.00);
 			}
-			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1) + paymentBean.getTaxOnly());
+			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
 			if(resRQ > paymentBean.getBalanceOfTax()) {
-				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()));
+				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()).subtract(new BigDecimal(paymentBean.getTaxOnly())));
 			}else {
 				paymentManualBean.setAmount(new BigDecimal(resRQ));
 			}
@@ -68,21 +68,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else{
 				paymentManualBean.setPaytype("P");
 			}
-//			if(paymentBean.getUserGroup().equals("1") || paymentBean.getUserGroup().equals("2") ) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else if(paymentBean.getUserGroup().equals("3")) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else {
-//				paymentManualBean.setDocType("F");
-//			}
+
 			paymentManualBean.setDocType(paymentBean.getDocType());
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);
