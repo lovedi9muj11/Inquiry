@@ -82,14 +82,14 @@ function createRow(data, seq, table) {
 
 function reportExcel() {
 	
-	$("#reportTaxForm").attr("action", "/paymentPrintOrder").attr("target", "_blank").submit();
+	$("#reportTaxForm").attr("action", "/Epis-Offlines/paymentPrintOrder").attr("target", "_blank").submit();
 	
 }
 function reportPDF() {
 	if(!check){
 		alert("ยังไม่ม่ข้อมูลในการออกรายงาน");
 	}else{
-		$("#reportTaxForm").attr("action", "previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
+		$("#reportTaxForm").attr("action", "/Epis-Offlines/previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();
 	}
 }
 

@@ -94,7 +94,7 @@ function printReport(){
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val());
-	$("#paymentFrom").attr("action", "/reportPaymentExcel").attr("target", "_blank").submit();
+	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentExcel").attr("target", "_blank").submit();
 };
 
 function printReportPDF(){
@@ -103,7 +103,7 @@ function printReportPDF(){
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val());
-	$("#paymentFrom").attr("action", "/reportPaymentPDF").attr("target", "_blank").submit();
+	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentPDF").attr("target", "_blank").submit();
 };
 
 function createRow(data, seq) {
@@ -122,7 +122,7 @@ function createRow(data, seq) {
 	department = data.department;
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
-	noRefer = '-';
+	noRefer = data.refNo;
 	beforVat = formatDouble(data.beforVat,2);
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);

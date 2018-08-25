@@ -46,6 +46,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 
 		for(ReportPaymentBean resultBean : result) {
 			String paymentCodeRes = "";
+			boolean chkCC = true;
 			List<String> results = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 				for (int i = 0; i < methodResult.size(); i++) {
@@ -55,11 +56,13 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					if (stockObject.getCode().equals("CC")) {
 						payCode = "เงินสด";
 						results.add(payCode);
+						if(i==0) {resultBean.setRefNo(""); chkCC=true;}
 					} else if (stockObject.getCode().equals("CR")) {
 						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
 						payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
 						results.add(payCode);
+						if(chkCC) {resultBean.setRefNo(code.substring(12, 16)); chkCC=false;}
 					} else if (stockObject.getCode().equals("CH")) {
 						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 						
@@ -70,6 +73,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						}
 						
 						results.add(payCode);
+						if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
 					}
 				}
 				for (int i = 0; i < methodResult.size(); i++) {

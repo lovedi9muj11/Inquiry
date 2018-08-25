@@ -120,7 +120,7 @@ public class ReportDaoImpl implements ReportDao{
 				
 			}
 			if(StringUtils.isNoneEmpty(creteria.getDateTo())) {
-				String dateTo = convertDateString(creteria.getDateTo()) + creteria.getDateToHour()+ ":"+creteria.getDateToMinute() +":"+"59"+":" +"999999"; 
+				String dateTo = convertDateString(creteria.getDateTo())+ " " + creteria.getDateToHour()+ ":"+creteria.getDateToMinute() +":"+"59"+":" +"999999"; 
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
 			}
 			

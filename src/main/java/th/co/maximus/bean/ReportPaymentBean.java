@@ -27,6 +27,8 @@ public class ReportPaymentBean {
 	private String vatAmountStr;
 	private String paymentMethod;
 	private String remake;
+	
+	private String refNo;
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -202,6 +204,14 @@ public class ReportPaymentBean {
 
 	public void setRemake(String remake) {
 		this.remake = remake;
+	}
+
+	public String getRefNo() {
+		return refNo;
+	}
+
+	public void setRefNo(String refNo) {
+		this.refNo = refNo;
 	}
 
 }
