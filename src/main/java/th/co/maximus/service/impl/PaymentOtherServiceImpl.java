@@ -65,17 +65,21 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 //				paymentBean.setDocumentNo(code);
 				if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-						paymentManualBean.setDocType("F");
+						
+							paymentManualBean.setDocType("F");
 					}else {
+						
 						paymentManualBean.setDocType("S");
 					}
 				}else if(paymentBean.getUserGroup().equals("1")) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+						
 						paymentManualBean.setDocType("F");
 					}else {
 						paymentManualBean.setDocType("S");
 					}
 				}else {
+					
 					paymentManualBean.setDocType("F");
 				}
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
