@@ -76,7 +76,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
-				" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,tmp.PAID_AMOUNT ");
+				" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,py.AMOUNT ");
 		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
 		sqlStmt.append(
 				" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
@@ -159,18 +159,18 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'")
 				.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
-		if (!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
-			sql.append(" AND PIM.VAT_RATE = ").append("'" + criteria.getVatRate() + "'");
-		}
+//		if (!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
+//			sql.append(" AND PIM.VAT_RATE = ").append("'" + criteria.getVatRate() + "'");
+//		}
 		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
 		if (!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
 			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + criteria.getServiceType() + "'");
 		}
-		if (!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
-			sql.append(" AND PIM.SERVICECODE = ").append("'" + criteria.getAccountId() + "'");
-		}
+//		if (!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
+//			sql.append(" AND PIM.SERVICECODE = ").append("'" + criteria.getAccountId() + "'");
+//		}
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
