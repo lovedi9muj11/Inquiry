@@ -1,5 +1,6 @@
 package th.co.maximus.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,13 +73,18 @@ public class ClearingPaymentEpisOffline {
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
+						BigDecimal paid  = BigDecimal.ZERO;
+						for (PaymentInvoiceEpisOffline paymentInvoiceEpisOffline : paymentList) {
+							paid.add(paymentInvoiceEpisOffline.getAmount());
+						}
+						
 						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
 						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
+						paymentEpisOfflineDTO.setPaidAmount(paid);
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
 						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
