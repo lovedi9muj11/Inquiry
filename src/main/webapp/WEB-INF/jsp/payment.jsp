@@ -166,7 +166,7 @@
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="invoiceNo"
-															name="c" placeholder="เลขที่ใบแจ้ง">
+															name="c" placeholder="เลขที่ใบแจ้ง" >
 														<p id="sinvoiceNo" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก เลขที่ใบแจ้ง</p>
 
@@ -214,7 +214,7 @@
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control" type="date" id="deadlines"
-															name="deadlines">
+															name="deadlines" >
 														<p id="sdeadlines" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก วันครบกำหนด</p>
 													</div>
@@ -288,8 +288,8 @@
 														for="formGroupInputLarge">ยอดชำระจากใบแจ้งหนี้: <span
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
-														<input class="form-control numeric2point" type="text"
-															id="balanceOfTaxPrice" name="balanceOfTaxPrice">
+														<input class="form-control  numeric2point " type="text"
+															id="balanceOfTaxPrice" name="balanceOfTaxPrice" style="text-align: right;">
 
 													</div>
 												</div>
@@ -302,7 +302,7 @@
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control numeric2point" type="text"
-															id="balanceSummary" name="balanceSummary">
+															id="balanceSummary" name="balanceSummary" style="text-align: right;">
 														<p id="sBalanceSummary" style="color: red; display: none;">
 															ยอดเงินของคุณ เกินยอดชำระจากใบแจ้งหนี้</p>
 													</div>

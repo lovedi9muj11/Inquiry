@@ -411,7 +411,7 @@ function findvatAmount(){
 function datePriod(){
 	var dateS = document.getElementById('startupDate');
 	var dateE = document.getElementById('endDate');
-
+	$("#sstartupDate").hide();
 	$("#sstartupDate1").hide();
 	 $("#sendDate1").hide();
 	var res = dateS.value.split("-");
@@ -437,7 +437,7 @@ function datePriod(){
 function datePriod1(){
 	var dateS = document.getElementById('startupDate');
 	var dateE = document.getElementById('endDate');
-
+	$("#sendDate").hide();
 	 $("#sstartupDate1").hide();
 	 $("#sendDate1").hide();
 	var res = dateS.value.split("-");

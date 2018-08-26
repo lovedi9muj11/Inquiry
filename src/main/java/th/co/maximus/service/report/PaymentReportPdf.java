@@ -77,7 +77,7 @@ public class PaymentReportPdf {
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
-				reportPaymentBeanNew.setNoRefer("-");
+				reportPaymentBeanNew.setNoRefer(reportPaymentBean.getRefNo());
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
