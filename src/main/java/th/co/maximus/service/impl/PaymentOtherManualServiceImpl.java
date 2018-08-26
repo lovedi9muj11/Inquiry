@@ -51,14 +51,16 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			
-			double resRQ = paymentBean.getBalanceSum();
-			if(resRQ > paymentBean.getBalanceSum()) {
-				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum()- paymentBean.getChange());
-				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
-			}else {
-				paymentManualBean.setPaidAmount(resRQ- paymentBean.getChange());
-				paymentManualBean.setAmount(new BigDecimal(resRQ));
-			}
+//			double resRQ = paymentBean.getBalanceSummary();
+//			if(resRQ > paymentBean.getBalanceSum()) {
+//				paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary()- paymentBean.getChange());
+//				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
+//			}else {
+//				paymentManualBean.setPaidAmount(resRQ- paymentBean.getChange());
+//				paymentManualBean.setAmount(new BigDecimal(resRQ));
+//			}
+			paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary());
+			paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
 			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");

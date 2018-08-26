@@ -191,6 +191,18 @@ $(document).ready(function() {
 			    $('.js-example-basic-single').select2();
 			});
 			
+			$("#creditPrice").on( "keyup",  function() {
+				var txt  = $("#creditPrice").val();
+				if(txt === ""){
+					$("#creditPrice").val("0.00");
+				}
+			});	  
+			$("#moneyCheck").on( "keyup",  function() {
+				var txt  = $("#moneyCheck").val();
+				if(txt === ""){
+					$("#moneyCheck").val("0.00");
+				}
+			});	 
 			
 		});
 
@@ -1735,7 +1747,7 @@ function replaseIndexV4(str) {
 			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML);
 			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
 			summaryTax= summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML);
-			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML));
+			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML));
 		}
 	}
 //	$("#moneyDed").val(summaryTax);
