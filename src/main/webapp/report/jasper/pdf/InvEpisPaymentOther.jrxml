@@ -383,14 +383,14 @@
 			<frame>
 				<reportElement x="1" y="18" width="780" height="150" backcolor="#FFFFFF" uuid="bdcbe30e-754b-4c58-9c67-7c669509b86e"/>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="0" y="94" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
+					<reportElement style="Cat_Hl_Common" x="0" y="117" width="80" height="23" uuid="5d49a992-a0e3-4514-9025-bb8c407c505d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[หมายเหตุ :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="80" y="94" width="380" height="23" backcolor="#FFFFFF" uuid="23a096d4-d93f-454a-9c08-ea0a2c740486"/>
+					<reportElement x="80" y="117" width="380" height="23" backcolor="#FFFFFF" uuid="23a096d4-d93f-454a-9c08-ea0a2c740486"/>
 					<textElement>
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
@@ -424,14 +424,14 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Cat_Hl_Common" x="490" y="94" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
+					<reportElement style="Cat_Hl_Common" x="490" y="117" width="185" height="23" uuid="6ab29268-08df-49a6-8ec0-1b373c53917c"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนเงินรับชำระทั้งสิ้น (Total Charge) :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="676" y="94" width="100" height="23" backcolor="#FFFFFF" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
+					<reportElement x="676" y="117" width="100" height="23" backcolor="#FFFFFF" uuid="7b7e95ab-6f7e-48b0-a57d-701f3341d86d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
@@ -481,6 +481,24 @@
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม (VAT " +$P{ReportSource}.getVatRate()+" %) :"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="490" y="94" width="185" height="23" backcolor="#FFFFFF" uuid="1d0d1f1e-6eef-49dd-aff6-e3b72a7a3f23">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getVatRateCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวมภาษีมูลค่าเพิ่ม :]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="676" y="94" width="100" height="23" backcolor="#FFFFFF" uuid="ce36f93e-3c0b-4aa2-b114-747bc202d766">
+						<printWhenExpression><![CDATA[$P{ReportSource}.getVatRateCheck()=="Y"]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSum()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>

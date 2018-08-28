@@ -122,7 +122,7 @@ public class PayOtherController {
 
 			paymentResultReq.setCustName(paymentOtherService.findListByid(new Long(idUser)).get(0).getCustName());
 			paymentResultReq.setManualId(idUser);
-		
+			
 			request.setAttribute("paymentResultReq", paymentResultReq);
 		}
 

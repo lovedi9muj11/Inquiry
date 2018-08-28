@@ -1934,7 +1934,7 @@ function autoSelect(){
 		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
-		radiobtns = document.getElementById("radioDedCD");
+		radiobtns = document.getElementById("radioDedCT");
 		radiobtns.checked = true;
 	}
 }

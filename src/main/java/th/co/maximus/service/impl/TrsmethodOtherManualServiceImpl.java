@@ -56,7 +56,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 				}else{
 					totalAmount = totalAmount-paymentTranPriceBean.getMoneyTran();
 					if(totalAmount < 0) {
-						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran()+totalAmount);
+						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran()+totalAmount+ paymentBean.getSummaryTax());
 					}else {
 						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran());
 					}

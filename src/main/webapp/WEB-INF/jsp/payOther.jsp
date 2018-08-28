@@ -108,7 +108,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="taxId"
 												name="taxId" placeholder="Tax ID" maxlength="13">
-											<p id="staxId" style="color: red; display: none"">คุณยังไม่ได้กรอก TAX
+											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX
 												ID</p>
 										</div>
 									</div>
@@ -201,7 +201,7 @@
 													}
 												%>
 											</select> 
-											<p id="sinputServiceType" style="color: red; display: none"">
+											<p id="sinputServiceType" style="color: red; display: none">
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
 										<label class="control-label col-sm-2">หน่วยงานรับรายได้
@@ -221,7 +221,7 @@
 											</select>
 										</div>
 					
-											<p id="sinputServiceDepartment" style="color: red; display: none"">
+											<p id="sinputServiceDepartment" style="color: red; display: none">
 												คุณยังไม่ได้เลือก หน่วยงานรับรายได้</p>
 										<label class="control-label col-sm-2">เงินส่วนลดก่อน
 											VAT :</label>
@@ -243,7 +243,7 @@
 												name="inputServiceName">
 													<option value="">-- กรุณาเลือก --</option>
 											</select>
-											<p id="sinputServiceName" style="color: red; display: none"">
+											<p id="sinputServiceName" style="color: red; display: none">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>
 										</div>
 										<label class="control-label col-sm-2">จำนวนรายการ :<span
@@ -251,7 +251,7 @@
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" name="inputServiceMoreData"
 												class="form-control" value="1">
-											<p id="sinputServiceMoreData" style="color: red; display: none"">
+											<p id="sinputServiceMoreData" style="color: red; display: none">
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 										<div class="col-sm-1">
@@ -419,7 +419,7 @@
 													<input class="form-control numeric2point right" type="text"
 														id="moneyDed" name="paymentTax.moneyDed"
 														placeholder="จำนวนเงิน">
-													<p id="moneyDedTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
+													<p id="moneyDedTxt" style="color: red; display: none">คุณยังไม่ได้กรอก
 														จำนวนเงิน</p>
 												</div>
 											</div>
@@ -509,7 +509,7 @@
 														<input class="form-control numeric2point right"
 															type="text" placeholder="จำนวนเงิน" id="moneyTran"
 															name="paymentTranPrice.moneyTran">
-														<p id="moneyTranTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
+														<p id="moneyTranTxt" style="color: red; display: none">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 
@@ -529,7 +529,7 @@
 															<option value="visa">VISA</option>
 															<option value="masterCard">MASTER-CARD</option>
 														</select>
-														<p id="creditTypeTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
+														<p id="creditTypeTxt" style="color: red; display: none">คุณยังไม่ได้เลือก
 															ประเภทของบัตรเครดิต</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -538,7 +538,7 @@
 														<input class="form-control" type="text" id="creditNo"
 															maxlength="16" name="paymentTranPrice.creditNo"
 															placeholder="เลขที่บัตร">
-														<p id="creditNoTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
+														<p id="creditNoTxt" style="color: red; display: none">คุณยังไม่ได้กรอก
 															เลขที่บัตร</p>
 													</div>
 												</div>
@@ -560,7 +560,7 @@
 																}
 															%>
 														</select>
-														<p id="edcTypeTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
+														<p id="edcTypeTxt" style="color: red; display: none">คุณยังไม่ได้เลือก
 															ธนาคารเจ้าของเครื่อง (EDC)</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -570,7 +570,7 @@
 															type="text" id="creditPrice"
 															name="paymentTranPrice.creditPrice"
 															placeholder="จำนวนเงิน">
-														<p id="creditPriceTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
+														<p id="creditPriceTxt" style="color: red; display: none">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 												</div>
@@ -623,7 +623,7 @@
 																}
 															%>
 														</select>
-														<p id="bankNoTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
+														<p id="bankNoTxt" style="color: red; display: none">คุณยังไม่ได้เลือก
 															รหัสธนาคาร</p>
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -632,7 +632,9 @@
 														<input class="form-control" type="text" id="checkNo"
 															maxlength="7" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
+															<p id="checkNoTxt" style="color: red; display: none">คุณยังไม่ได้กรอกเลขที่เช็ค</p>
 													</div>
+													
 												</div>
 											</div>
 											<div class="form-horizontal">
@@ -658,7 +660,7 @@
 													<div class="col-sm-4">
 														<input class="form-control" type="date" id="dateCheck"
 															name="paymentTranPrice.dateCheck">
-														<p id="dateCheckTxt" style="color: red; display: none"">คุณยังไม่ได้เลือก
+														<p id="dateCheckTxt" style="color: red; display: none">คุณยังไม่ได้เลือก
 															วันที่หน้าเช็ค</p>
 													</div>
 												</div>
@@ -678,7 +680,7 @@
 															type="text" id="moneyCheck"
 															name="paymentTranPrice.moneyCheck"
 															placeholder="จำนวนเงิน">
-														<p id="moneyCheckTxt" style="color: red; display: none"">คุณยังไม่ได้กรอก
+														<p id="moneyCheckTxt" style="color: red; display: none">คุณยังไม่ได้กรอก
 															จำนวนเงิน</p>
 													</div>
 												</div>
@@ -1009,20 +1011,20 @@
 				<div class="modal-dialog modal-sm" style="width: 450px">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Authentication</h4>
+							<h4 class="modal-title" id="myModalLabel">ยืนยันตัวตน</h4>
 						</div>
 						<div class="modal-body">
 
 							<div class="row">
 								<div class="form-group col-md-12">
-									<label class="col-md-3 control-label">user name</label>
+									<label class="col-md-3 control-label">ชื่อเข้าระบบ</label>
 									<div class="col-md-9">
 										<input type="text" id="userName" name="userName"
 											class="form-control">
 									</div>
 								</div>
 								<div class="form-group col-md-12">
-									<label class="col-md-3 control-label">password</label>
+									<label class="col-md-3 control-label">รหัสเข้าระบบ</label>
 									<div class="col-md-9">
 										<input type="password" id="password" name="password"
 											class="form-control">
@@ -1043,7 +1045,7 @@
 				<div class="modal-dialog modal-sm" style="width: 450px">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Authentication</h4>
+							<h4 class="modal-title" id="myModalLabel">ยืนยันตัวตน</h4>
 						</div>
 						<div class="modal-body">
 

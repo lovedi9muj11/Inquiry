@@ -51,13 +51,13 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			
-//			double resRQ = paymentBean.getBalanceSummary();
+//			double resRQ = paymentBean.getBalanceSum();
 //			if(resRQ > paymentBean.getBalanceSum()) {
-//				paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary()- paymentBean.getChange());
-//				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
+//				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum() - paymentBean.getChange());
+//				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
 //			}else {
 //				paymentManualBean.setPaidAmount(resRQ- paymentBean.getChange());
-//				paymentManualBean.setAmount(new BigDecimal(resRQ));
+//				paymentManualBean.setAmount(new BigDecimal(resRQ- paymentBean.getChange()));
 //			}
 			paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary());
 			paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
@@ -72,7 +72,6 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setRecordStatus("A");
 			paymentManualBean.setChange(paymentBean.getChange());
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
-//			paymentBean.getc
 			
 			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");
