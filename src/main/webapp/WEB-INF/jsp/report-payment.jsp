@@ -241,10 +241,10 @@
 											<th style="text-align: center;width: 13%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
 											<th style="text-align: center;width: 10%">เลขที่ลูกค้า</th>
 											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
-											<th style="text-align: center;width: 10%">หน่วยงานรับรายได้</th>
+<!-- 											<th style="text-align: center;width: 10%">หน่วยงานรับรายได้</th> -->
 											<th style="text-align: center;width: 15%">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
 											<th style="text-align: center;width: 5%">ชำระโดย</th>
-											<th style="text-align: center;width: 5%">เลขที่อ้างอิง</th>
+											<th style="text-align: center;width: 10%">เลขที่อ้างอิง</th>
 											<th style="text-align: center;width: 10%">ยอดเงินก่อนภาษี</th>
 											<th style="text-align: center;width: 10%">ภาษีมูลค่าเพิ่ม</th>
 											<th style="text-align: center;width: 10%">จำนวนเงินรวม</th>

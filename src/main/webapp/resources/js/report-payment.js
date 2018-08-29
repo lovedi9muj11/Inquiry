@@ -142,7 +142,7 @@ function createRow(data, seq) {
 	
 	
     var t = $('#reportPaymentTb').DataTable();
-    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, serviceName, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
+    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, serviceName, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
@@ -150,14 +150,14 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(3).addClass('left');
     $(rowNode).find('td').eq(4).addClass('left');
     $(rowNode).find('td').eq(5).addClass('left');
-    $(rowNode).find('td').eq(6).addClass('left');
-    $(rowNode).find('td').eq(7).addClass('left');
-    $(rowNode).find('td').eq(8).addClass('right');
-    $(rowNode).find('td').eq(9).addClass('center');
+//    $(rowNode).find('td').eq(6).addClass('left');
+    $(rowNode).find('td').eq().addClass('left');
+    $(rowNode).find('td').eq(7).addClass('right');
+    $(rowNode).find('td').eq(8).addClass('center');
+    $(rowNode).find('td').eq(9).addClass('right');
     $(rowNode).find('td').eq(10).addClass('right');
-    $(rowNode).find('td').eq(11).addClass('right');
+    $(rowNode).find('td').eq(11).addClass('center');
     $(rowNode).find('td').eq(12).addClass('center');
-    $(rowNode).find('td').eq(13).addClass('center');
 };
 
 function dropdownUser(){
