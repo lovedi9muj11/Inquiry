@@ -98,7 +98,7 @@
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custName"
-												name="custName" placeholder="ชื่อ">
+												name="custName" placeholder="ชื่อ"  maxlength="300">
 											<p id="sCustName" style="color: red; display: none">
 												คุณยังไม่ได้กรอกชื่อ</p>
 										</div>
@@ -162,7 +162,7 @@
 											for="formGroupInputLarge">ที่อยู่ :</label>
 										<div class="col-sm-6">
 											<textarea class="form-control" rows="3" id="custAddress"
-												name="custAddress"></textarea>
+												name="custAddress"  maxlength="300"></textarea>
 											<p id="scustAddress" style="color: red; display: none">
 												คุณยังไม่ได้กรอก ที่อยู่</p>
 										</div>
@@ -407,6 +407,8 @@
 												<div class="col-sm-6">
 													<input class="form-control" type="text" id="docDed"
 														name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
+														<p id="sdocDed" style="color: red; display: none">คุณยังไม่ได้กรอก
+														เลขที่เอกสาร</p>
 												</div>
 											</div>
 										</div>

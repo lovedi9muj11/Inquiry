@@ -162,8 +162,10 @@ $(document).ready(function() {
 		      		        	
 		      		        }
 					  });
+					    $('#userName').val("");
+					    $('#password').val("");
 					    $("#mi-modal").modal('hide');
-					   
+					    
 					    
 					  });
 					  
@@ -276,6 +278,7 @@ function hideShowdat() {
 	$("#addRowShow").hide();
 	$("#buttonAddBillingListDis").hide();
 	$("#addDataTableDedDis").hide();
+	$("#sdocDed").hide();
 
 }
 
@@ -824,6 +827,10 @@ function addRow() {
 	 * $("#invoiceNo").focus(); } if(docDed == ""){ alert("กรุณากรอกเลขที่เอกสาร
 	 * กรุณากรอกใหม่ !"); return $("#docDed").focus(); }
 	 */
+	if (docDed == "") {
+		$("#sdocDed").show();
+		return $("#docDed").focus();
+	}
 	if (custNo == "") {
 		$("#scustNo").show();
 		return $("#custNo").focus();
