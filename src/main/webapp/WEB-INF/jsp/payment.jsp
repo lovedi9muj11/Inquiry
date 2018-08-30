@@ -90,14 +90,14 @@
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="custNo"
-															name="custNo" placeholder="เลขที่ลูกค้า" >
+															name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
 														<p id="sCustNo" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่ลูกค้า</p>
 													</div>
 													<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="custName"
-															name="custName" placeholder="ชื่อ">
+															name="custName" placeholder="ชื่อ" maxlength="300">
 
 													</div>
 													<label class="col-sm-2 control-label right"
@@ -114,7 +114,7 @@
 														for="formGroupInputLarge">ที่อยู่ :</label>
 													<div class="col-sm-6">
 														<textarea class="form-control" rows="3" id="custAddress"
-															name="custAddress"></textarea>
+															name="custAddress" ></textarea>
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">สาขา : </label>
@@ -166,7 +166,7 @@
 													</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="invoiceNo"
-															name="c" placeholder="เลขที่ใบแจ้ง" >
+															name="c" placeholder="เลขที่ใบแจ้ง" maxlength="30">
 														<p id="sinvoiceNo" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก เลขที่ใบแจ้ง</p>
 
@@ -175,7 +175,7 @@
 														for="formGroupInputLarge">หมายเลขบริการ :</label>
 													<div class="col-sm-2">
 														<input class="form-control" type="text" id="serviceNo"
-															name="serviceNo" placeholder="หมายเลขบริการ">
+															name="serviceNo" placeholder="หมายเลขบริการ" maxlength="300">
 														<!-- 														<p id="sserviceNo" style="color: red;"> คุณยังไม่ได้เลือก หมายเลขบริการ</p> -->
 													</div>
 												</div>
@@ -289,7 +289,7 @@
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control  numeric2point " type="text"
-															id="balanceOfTaxPrice" name="balanceOfTaxPrice" style="text-align: right;">
+															id="balanceOfTaxPrice" name="balanceOfTaxPrice" style="text-align: right;" maxlength="14">
 
 													</div>
 												</div>
@@ -302,8 +302,8 @@
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
 														<input class="form-control numeric2point" type="text"
-															id="balanceSummary" name="balanceSummary" style="text-align: right;">
-														<p id="sBalanceSummary" style="color: red; display: none;">
+															id="balanceSummary" name="balanceSummary" style="text-align: right;" maxlength="14">
+														<p id="sBalanceSummary" style="color: red; display: none;" >
 															ยอดเงินของคุณ เกินยอดชำระจากใบแจ้งหนี้</p>
 													</div>
 												</div>
@@ -357,7 +357,7 @@
 														for="formGroupInputLarge">เลขที่เอกสาร :</label>
 													<div class="col-sm-6">
 														<input class="form-control" type="text" id="docDed"
-															name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
+															name="paymentTax.docDed" placeholder="เลขที่เอกสาร" maxlength="30">
 														<p id="sdocDed" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่เอกสาร</p>
 													</div>
@@ -370,7 +370,7 @@
 													<div class="col-sm-6">
 														<input class="form-control numeric2point" type="text"
 															id="moneyDed" name="paymentTax.moneyDed"
-															placeholder="จำนวนเงิน">
+															placeholder="จำนวนเงิน" maxlength="14">
 														<p id="smoneyDed" style="color: red; display: none;">
 															คุณยังไม่ได้กรอก จำนวนเงิน</p>
 													</div>
@@ -467,7 +467,7 @@
 														<div class="col-sm-4">
 															<input class="form-control numeric2point" type="text"
 																placeholder="จำนวนเงิน" id="moneyTran"
-																name="paymentTranPrice.moneyTran">
+																name="paymentTranPrice.moneyTran" maxlength="14">
 														</div>
 
 													</div>
@@ -520,7 +520,7 @@
 														<div class="col-sm-4">
 															<input class="form-control numeric2point" type="text"
 																id="creditPrice" name="paymentTranPrice.creditPrice"
-																placeholder="จำนวนเงิน">
+																placeholder="จำนวนเงิน" maxlength="14">
 														</div>
 													</div>
 												</div>
@@ -616,14 +616,14 @@
 															for="formGroupInputLarge">สาขา :</label>
 														<div class="col-sm-4">
 															<input class="form-control" type="text" id="branchCheck"
-																name="paymentTranPrice.branchCheck" placeholder="สาขา">
+																name="paymentTranPrice.branchCheck" placeholder="สาขา" maxlength="5">
 														</div>
 														<label class="col-sm-2 control-label right"
 															for="formGroupInputLarge">จำนวนเงิน :</label>
 														<div class="col-sm-4">
 															<input class="form-control numeric2point" type="text"
 																id="moneyCheck" name="paymentTranPrice.moneyCheck"
-																placeholder="จำนวนเงิน">
+																placeholder="จำนวนเงิน" maxlength="14">
 														</div>
 													</div>
 												</div>
@@ -836,7 +836,7 @@
 													</div>
 													<div class="col-sm-3">
 														<input class="form-control numeric2point" type="text"
-															id="taxOnly" name="taxOnly">
+															id="taxOnly" name="taxOnly" maxlength="14">
 													</div>
 												</div>
 											</div>
