@@ -1,6 +1,7 @@
 var vatRateResult = 0;
 var vatNanVat = "";
 var chars = [];
+var checkLogin = false;
 
 $(document).ready(function() {
 	
@@ -58,6 +59,7 @@ $(document).ready(function() {
 			hideShowdat();
 			disBtn();
 			autoSelect();
+			
 			$("#moneyDed").val("0.00");
 			document.getElementById("taxOnly").readOnly = true;
 			$("#taxOnly").val(parseFloat(0).toFixed(2))
@@ -104,10 +106,34 @@ $(document).ready(function() {
 				this.select();
 			});
 			$("#moneyTran").on( "change",  function() {
+				var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+				var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
 				if($("#moneyTran").val() == ""){
-					$("#moneyTran").val($("#balanceSummary").val());
+					$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				}				
 			});
+			
+			$("#creditPrice").on( "change",  function() {
+				
+				var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+				var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+				if($("#creditPrice").val() == ""){
+					$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+				}			
+			});
+			$("#moneyCheck").on( "change",  function() {
+				var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+				var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+				if($("#moneyCheck").val() == ""){
+					$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+				}			
+			});
+			
+			
+			
 			
 			$("#balanceOfTaxPrice").on( "change",  function() {
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();
@@ -138,6 +164,7 @@ $(document).ready(function() {
 					alert("กรุณาลบวิธีการรับชำระก่อน");
 					return $("#showTotalPriceTable").focus();
 				}
+				  if(!checkLogin){
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
@@ -155,6 +182,7 @@ $(document).ready(function() {
 		      		        		document.getElementById("radioButtons").disabled = false;
 		      		        		document.getElementById("radioButton").checked = true;
 		      		        		$("#mi-modal").modal('hide');
+		      		        		checkLogin = true;
 		      		        	}else{
 		      		        		document.getElementById("radioButton").checked = false;
 		      		        		$("#messError").show();
@@ -168,7 +196,7 @@ $(document).ready(function() {
 					    $("#mi-modal").modal('hide');
 					 });
 					  $("input:radio").removeAttr("checked");
-					  
+				  }
 					  taxDiscount();
 			    });
 			  $('#radioButtons').change(function() {
@@ -186,6 +214,7 @@ $(document).ready(function() {
 					alert("กรุณาลบวิธีการรับชำระก่อน");
 					return $("#showTotalPriceTable").focus();
 				}
+				  if(!checkLogin){
 				  $("#mi-modal").modal('show');
 				  $("#modal-btn-si").on("click", function(){
 					  var dataSend = { "userName": $('#userName').val(), "password": $('#password').val() };
@@ -203,6 +232,7 @@ $(document).ready(function() {
 		      		        		document.getElementById("radioButtons").disabled = false;
 		      		        		document.getElementById("radioButtons").checked = true;
 		      		        		$("#mi-modal").modal('hide');
+		      		        		checkLogin = true;
 		      		        	}else{
 		      		        		 document.getElementById("radioButtons").checked = false;
 		      		        		$("#messError").show();
@@ -217,27 +247,33 @@ $(document).ready(function() {
 					    $("#mi-modal").modal('hide');
 					 });
 					  $("input:radio").removeAttr("checked");
-					  
+				  }
 					  taxDiscount()
 			    });
 			  // ===============================================================================
 				// validate Field
 				$("#moneyDed").on( "keyup",  function() {
-					var txt  = $("#moneyDed").val();
-					if(txt === ""){
-						$("#moneyDed").val("0.00");
+					var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+					var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+					if($("#moneyDed").val() == ""){
+						$("#moneyDed").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 					}
 				});	  
 				$("#creditPrice").on( "keyup",  function() {
-					var txt  = $("#creditPrice").val();
-					if(txt === ""){
-						$("#creditPrice").val("0.00");
+					var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+					var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+					if($("#creditPrice").val() == ""){
+						$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 					}
 				});	  
 				$("#moneyCheck").on( "keyup",  function() {
-					var txt  = $("#moneyCheck").val();
-					if(txt === ""){
-						$("#moneyCheck").val("0.00");
+					var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+					var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+					if($("#moneyCheck").val() == ""){
+						$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 					}
 				});	  
 				$("#invoiceDate").on( "change",  function() {
@@ -248,8 +284,18 @@ $(document).ready(function() {
 			  
 		});
 
+function checkTaxOnly(){
+	var table = document.getElementById("showTotalPriceTable").rows.length;
+	
+	if(table > 1){
+		document.getElementById("taxOnly").disabled = true;
+	}else{
+		document.getElementById("taxOnly").disabled = false;
+	}
+}
 
 function taxDiscount(){
+	
 	var result = $("#taxOnly").val();
 	if(result == ""){
 		result = parseFloat(0);
@@ -1438,6 +1484,7 @@ function validateCheck(){
 	 $("#addRowShow1").show();
 }
 function sumTranPrice() {
+	
 	var result = document.getElementById("typePayment").value;
 // document.getElementById("addRow").disabled = true;
 	var balanceOfTaxPrice = document.getElementById("balanceOfTaxPrice").value;
@@ -1459,6 +1506,9 @@ function sumTranPrice() {
 	} else if (result == 'check') {
 		addDataSumCheckTranPrice();
 	}
+	
+	
+	checkTaxOnly();
 }
 function myDeletecreditTranPrice(count) {
 	var tablesumTotal = document.getElementById("creditTable");
@@ -1537,7 +1587,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 
 	}
 	replaseIndexPriceTotal(tablesumTotals);
-	
+	checkTaxOnly();
 }
 
 function myDeleteCheckTranPrice(count) {
