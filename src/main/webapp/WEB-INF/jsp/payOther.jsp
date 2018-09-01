@@ -91,7 +91,7 @@
 										</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custNo"
-												name="custNo" placeholder="เลขที่ลูกค้า">
+												name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
 											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก
 												เลขที่ลูกค้า</p>
 										</div>
@@ -250,7 +250,7 @@
 											style="color: red; ">*</span></label>
 										<div class="col-sm-2">
 											<input id="inputServiceMoreData" name="inputServiceMoreData"
-												class="form-control" value="1">
+												class="form-control" value="1" maxlength="11">
 											<p id="sinputServiceMoreData" style="color: red; display: none">
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
@@ -406,7 +406,7 @@
 													for="formGroupInputLarge">เลขที่เอกสาร :</label>
 												<div class="col-sm-6">
 													<input class="form-control" type="text" id="docDed"
-														name="paymentTax.docDed" placeholder="เลขที่เอกสาร">
+														name="paymentTax.docDed" placeholder="เลขที่เอกสาร" maxlength="40">
 														<p id="sdocDed" style="color: red; display: none">คุณยังไม่ได้กรอก
 														เลขที่เอกสาร</p>
 												</div>
@@ -673,7 +673,7 @@
 														for="formGroupInputLarge">สาขา :</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="branchCheck"
-															name="paymentTranPrice.branchCheck" placeholder="สาขา">
+															name="paymentTranPrice.branchCheck" placeholder="สาขา" maxlength="300">
 													</div>
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">จำนวนเงิน :</label>
