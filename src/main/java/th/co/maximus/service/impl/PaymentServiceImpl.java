@@ -50,18 +50,20 @@ public class PaymentServiceImpl implements PaymentService{
 				
 				if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-						paymentManualBean.setDocType("F");
+						paymentManualBean.setDocType("RF");
 					}else {
-						paymentManualBean.setDocType("S");
+						paymentManualBean.setDocType("RS");
 					}
 				}else if(paymentBean.getUserGroup().equals("1")) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-						paymentManualBean.setDocType("F");
+						paymentManualBean.setDocType("RF");
 					}else {
-						paymentManualBean.setDocType("S");
+						paymentManualBean.setDocType("RS");
 					}
-				}else {
-					paymentManualBean.setDocType("F");
+				}else if(paymentBean.getVatrate().equals("NON VAT")){
+					paymentManualBean.setDocType("RO");
+				}else{
+					paymentManualBean.setDocType("RF");
 				}
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 				paymentBean.setDocumentNo(code);

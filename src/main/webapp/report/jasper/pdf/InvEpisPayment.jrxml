@@ -3,7 +3,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.1000000000000005"/>
-	<property name="ireport.x" value="15"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="47"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -442,12 +442,9 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="435" y="0" width="82" height="20" uuid="babf7a56-f792-47bf-9b27-cba9cd2fa07c">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y" &&
-$P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
-				</reportElement>
+				<reportElement style="Cat_Hl_Common" x="435" y="0" width="82" height="20" uuid="babf7a56-f792-47bf-9b27-cba9cd2fa07c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="true"/>
+					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<text><![CDATA[0.00]]></text>
 			</staticText>
