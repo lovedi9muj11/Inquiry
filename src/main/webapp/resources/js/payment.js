@@ -2,6 +2,7 @@ var vatRateResult = 0;
 var vatNanVat = "";
 var chars = [];
 var checkLogin = false;
+var isprice;
 
 $(document).ready(function() {
 	
@@ -80,6 +81,7 @@ $(document).ready(function() {
 				inputAmount();
 			});
 			$("#taxOnly").on( "keyup",  function() {
+				isprice = $("#taxOnly").val();
 				taxDiscount();
 
 			});
@@ -150,6 +152,7 @@ $(document).ready(function() {
 				inputAmount();
 			});
 			  $('#radioButton').change(function() {
+				  
 				  var balance = $("#balanceSummary").val();
 				  var tax = FormatMoneyShowToNumber($("#taxOnly").val());
 				  $("#messError").hide();
@@ -196,9 +199,10 @@ $(document).ready(function() {
 					 });
 					  $("input:radio").removeAttr("checked");
 				  }
-					  taxDiscount();
+				  isSelectTaxDiscount()
 			    });
 			  $('#radioButtons').change(function() {
+				  
 				  var balance = $("#balanceSummary").val();
 				  var tax = FormatMoneyShowToNumber($("#taxOnly").val());
 				  $("#messError").hide();
@@ -246,7 +250,7 @@ $(document).ready(function() {
 					 });
 					  $("input:radio").removeAttr("checked");
 				  }
-					  taxDiscount()
+				  isSelectTaxDiscount()
 			    });
 			  // ===============================================================================
 				// validate Field
@@ -289,6 +293,65 @@ function checkTaxOnly(){
 		document.getElementById("taxOnly").disabled = true;
 	}else{
 		document.getElementById("taxOnly").disabled = false;
+	}
+}
+
+function isSelectTaxDiscount(){
+	var result = isprice;
+	if(result == ""){
+		result = parseFloat(0);
+	}else{
+		result = FormatMoneyShowToNumber(result);
+	}
+	
+	var bable = parseFloat(result.toFixed(2).replace(/,/g, ""));
+	var vatq = FormatMoneyShowToNumber($("#vatrate").val());
+	var bas = parseFloat(0);
+	var vatDis = parseFloat(0);
+	if(document.getElementById("radioButtons").checked){
+		vatDis = (result *vatq)/100;
+		 bas = result + parseFloat(vatDis);
+	}else{
+		bas = bable;
+	}
+	var balance = $("#balanceOfTaxs").val()
+	if(balance == ""){
+		balance = parseFloat(0);
+	}else{
+		balance = FormatMoneyShowToNumber(balance);
+	}
+	
+	var sq = $("#summaryTax").val();
+	var summaryTax = parseFloat(sq.replace(/,/g, ""));
+	if(bable < 0 || !bable){
+		bable = parseFloat(0);
+	}
+	if(bas > (balance - (summaryTax*-1))){
+		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+		$("#taxOnly").val(0);
+		taxDiscount();
+		return $("#taxOnly").focus();
+	}
+	
+	
+	var balanSum = FormatMoneyShowToNumber($("#balanceSummary").val());
+	var balanSumShow = FormatMoneyShowToNumber($("#balanceSummaryShow").val());
+	var total = parseFloat(balanSumShow) - parseFloat(summaryTax *-1);
+	balance =	parseFloat(balance - parseFloat(summaryTax *-1)) - parseFloat(bas);
+	
+	result = result +vatDis;
+	
+	$("#balanceSummarys").val(parseFloat(balance).toFixed(2));
+	$("#balanceSummaryShow").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	if(result >= 0){
+//		$("#taxOnly").on( "change",  function() {
+			$("#taxOnly").val(result.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+//		});
+	}else{
+		$("#taxOnly").val(0);
 	}
 }
 
