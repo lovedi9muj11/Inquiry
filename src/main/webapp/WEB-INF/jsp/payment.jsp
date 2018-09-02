@@ -113,7 +113,7 @@
 													<label class="col-sm-2 control-label right"
 														for="formGroupInputLarge">ที่อยู่ :</label>
 													<div class="col-sm-6">
-														<textarea class="form-control" rows="3" id="custAddress"
+														<textarea class="form-control" rows="3" id="custAddress" maxlength="300"
 															name="custAddress" ></textarea>
 													</div>
 													<label class="col-sm-2 control-label right"

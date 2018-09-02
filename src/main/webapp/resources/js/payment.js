@@ -151,8 +151,7 @@ $(document).ready(function() {
 			});
 			  $('#radioButton').change(function() {
 				  var balance = $("#balanceSummary").val();
-				  $("#taxOnly").val("0.00");
-				  
+				  var tax = FormatMoneyShowToNumber($("#taxOnly").val());
 				  $("#messError").hide();
 				  if(balance == "" || balance == "0.00"){
 					  document.getElementById("radioButton").checked = false;
@@ -160,9 +159,9 @@ $(document).ready(function() {
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
-					document.getElementById("radioButton").checked = false;
+						  document.getElementById("radioButton").checked = false;
 					alert("กรุณาลบวิธีการรับชำระก่อน");
-					return $("#showTotalPriceTable").focus();
+					return ;
 				}
 				  if(!checkLogin){
 				  $("#mi-modal").modal('show');
@@ -201,8 +200,7 @@ $(document).ready(function() {
 			    });
 			  $('#radioButtons').change(function() {
 				  var balance = $("#balanceSummary").val();
-				  $("#taxOnly").val("0.00");
-				  
+				  var tax = FormatMoneyShowToNumber($("#taxOnly").val());
 				  $("#messError").hide();
 				  if(balance == "" || balance == "0.00"){
 					  document.getElementById("radioButtons").checked = false;
@@ -210,9 +208,9 @@ $(document).ready(function() {
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
-					document.getElementById("radioButtons").checked = false;
+						  document.getElementById("radioButtons").checked = false;
 					alert("กรุณาลบวิธีการรับชำระก่อน");
-					return $("#showTotalPriceTable").focus();
+					return ;
 				}
 				  if(!checkLogin){
 				  $("#mi-modal").modal('show');

@@ -60,9 +60,11 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				}else{
 					totalAmount = totalAmount-paymentTranPriceBean.getMoneyTran();
 					if(totalAmount < 0) {
-						trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyTran()+totalAmount-(paymentBean.getSummaryTax()*-1));
+						Double amount = ((paymentTranPriceBean.getMoneyTran()- (totalAmount * -1)));
+						amount = amount -(paymentBean.getSummaryTax()*-1)-(paymentBean.getTaxOnly());
+						trsMethodManualBean.setAmount(amount);
 					}else {
-						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()-(paymentBean.getSummaryTax()*-1))  );
+						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()));
 					}
 					trsMethodManualBean.setName("เงินสด");
 					
