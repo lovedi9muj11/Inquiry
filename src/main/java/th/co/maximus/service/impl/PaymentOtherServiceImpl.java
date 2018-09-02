@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.dao.PaymentOtherManualDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
@@ -63,25 +64,26 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 //				}
 //				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 //				paymentBean.setDocumentNo(code);
-				if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
-					if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-						
-							paymentManualBean.setDocType("F");
-					}else {
-						
-						paymentManualBean.setDocType("S");
-					}
-				}else if(paymentBean.getUserGroup().equals("1")) {
-					if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-						
-						paymentManualBean.setDocType("F");
-					}else {
-						paymentManualBean.setDocType("S");
-					}
+				if(Constants.PAYMENT_OTHER.NON_VATE.equals(paymentBean.getVatrate())) {
+					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
-					
-					paymentManualBean.setDocType("F");
+					if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
+						if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
+							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
+						}else {
+							paymentManualBean.setDocType(Constants.DOCTYPE.RS);
+						}
+					}else if(paymentBean.getUserGroup().equals("1")) {
+						if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
+							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
+						}else {
+							paymentManualBean.setDocType(Constants.DOCTYPE.RS);
+						}
+					}else {
+						paymentManualBean.setDocType(Constants.DOCTYPE.RF);
+					}
 				}
+				
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 				paymentBean.setDocumentNo(code);
 				paymentBean.setDocType(paymentManualBean.getDocType());

@@ -126,5 +126,15 @@ public class Constants {
 		public static final String JOB_3 = "jobWithSimpleTriggerBeanTrigger3";
 		public static final String JOB_4 = "jobWithSimpleTriggerBeanTrigger4";
 	}
+	
+	public static class PAYMENT_OTHER{
+		public static final String NON_VATE = "nonVat";
+	}
+	
+	public static class DOCTYPE{
+		public static final String RO = "RO";
+		public static final String RS = "RS";
+		public static final String RF = "RF";
+	}
 
 }
