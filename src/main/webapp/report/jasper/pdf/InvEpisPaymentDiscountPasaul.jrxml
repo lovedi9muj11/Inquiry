@@ -460,10 +460,7 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="435" y="0" width="82" height="20" uuid="c6a650cf-0afd-4990-bc7d-64204af1dc64">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y" &&
-$P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
-				</reportElement>
+				<reportElement style="Cat_Hl_Common" x="431" y="0" width="86" height="20" uuid="c6a650cf-0afd-4990-bc7d-64204af1dc64"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
