@@ -903,6 +903,17 @@ function addRow() {
 		return $("#balanceSummary").focus();
 	}
 	hideShowdat();
+	
+	var priceMoney = FormatMoneyShowToNumber($("#moneyDed").val());
+	
+	if(priceMoney <= 0){
+		alert("กรุณากรอกจำนวนเงินภาษีให้ถูกต้อง");
+		// `$("#sBalanceSummary").hide();
+				return $("#moneyDed").focus();
+	}
+	
+	
+	
 	var sq = $("#summaryTax").val();
 	var basu = $("#balanceSummarys").val();
 	var branSum = parseFloat(basu.replace(/,/g, ""));
