@@ -462,7 +462,7 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="431" y="0" width="86" height="20" uuid="c6a650cf-0afd-4990-bc7d-64204af1dc64"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="true"/>
+					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<text><![CDATA[0.00]]></text>
 			</staticText>
