@@ -162,8 +162,7 @@ $(document).ready(function() {
 		      		        	
 		      		        }
 					  });
-					    $('#userName').val("");
-					    $('#password').val("");
+					    
 					    $("#mi-modal").modal('hide');
 					    
 					    
@@ -179,7 +178,8 @@ $(document).ready(function() {
 					    
 					    
 					 });
-					 
+					 $('#userName').val("");
+					 $('#password').val("");
 			    });
 			$('#inputServiceAmount').change(function() {
 				$('#sinputServiceAmount').hide();
@@ -278,7 +278,6 @@ function hideShowdat() {
 	$("#addRowShow").hide();
 	$("#buttonAddBillingListDis").hide();
 	$("#addDataTableDedDis").hide();
-	$("#sdocDed").hide();
 
 }
 
@@ -304,7 +303,7 @@ function hideDetailPayment() {
 	$("#moneyCheckTxt").hide();
 
 	$("#moneyTranTxt").hide();
-
+	$("#sCustNotxt").hide();
 }
 
 function submitForm() {
@@ -827,12 +826,8 @@ function addRow() {
 	 * $("#invoiceNo").focus(); } if(docDed == ""){ alert("กรุณากรอกเลขที่เอกสาร
 	 * กรุณากรอกใหม่ !"); return $("#docDed").focus(); }
 	 */
-	if (docDed == "") {
-		$("#sdocDed").show();
-		return $("#docDed").focus();
-	}
 	if (custNo == "") {
-		$("#scustNo").show();
+		$("#sCustNo").show();
 		return $("#custNo").focus();
 	}
 	if (dmoney == "") {
@@ -871,6 +866,7 @@ function addRow() {
 			+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 
 	$("#deductibleTable").find('tbody').append(markup);
+	$("#sCustNo").hide();
 };
 
 function myDeleteFunction(count) {

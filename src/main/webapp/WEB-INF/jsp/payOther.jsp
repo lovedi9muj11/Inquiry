@@ -407,8 +407,6 @@
 												<div class="col-sm-6">
 													<input class="form-control" type="text" id="docDed"
 														name="paymentTax.docDed" placeholder="เลขที่เอกสาร" maxlength="40">
-														<p id="sdocDed" style="color: red; display: none">คุณยังไม่ได้กรอก
-														เลขที่เอกสาร</p>
 												</div>
 											</div>
 										</div>
