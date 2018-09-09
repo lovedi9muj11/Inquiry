@@ -80,6 +80,7 @@ public class Constants {
 		public static final String STATUS_SUCCESS = "SUCCESS";
 		public static final String STATUS_FAIL = "FAIL";
 		public static final String BANK_TYPE = "BANK_TYPE";
+		public static final String VAT = "VAT";
 		public static final String OTHER = "OTHER";
 		public static final String BUSINESS_AREA = "BUSINESS_AREA";
 		public static final String COST_CENTER = "COST_CENTER";

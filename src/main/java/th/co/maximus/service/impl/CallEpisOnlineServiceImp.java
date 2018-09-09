@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import th.co.maximus.bean.BeanClass;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.bean.Principal;
@@ -50,8 +49,8 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 
 	@Override
 	public void callOnline() {
-		String postUrl = url.concat("/test/test.json"); // /Maximus/Test
-		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
+//		String postUrl = url.concat("/test/test.json"); // /Maximus/Test
+//		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
 //		System.out.println("Response for Post Request: " + postResponse.getBody());		
 	}
 
@@ -65,6 +64,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.BANK_TYPE);
 			groupKeys.add(Constants.MasterData.BUSINESS_AREA);
 			groupKeys.add(Constants.MasterData.OTHER_PAYMENT_UNIT);
+			groupKeys.add(Constants.MasterData.VAT);
 			
 			String gettUrl = url.concat("/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, groupKeys, String.class);
