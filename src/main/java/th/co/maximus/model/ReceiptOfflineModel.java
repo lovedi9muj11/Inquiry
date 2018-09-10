@@ -14,10 +14,11 @@ public class ReceiptOfflineModel {
 	private String remark;
 	private String accountNo;
 	private String manualID;
+	private BigDecimal amount;
 	
 	public ReceiptOfflineModel(){}
 	public ReceiptOfflineModel(String invoiceNo,String receiptNo,Date paidDate,String branchArea,String branchCode,BigDecimal paidAmount
-			,String source,String remark,String accountNo,String manualID){
+			,String source,String remark,String accountNo,String manualID,BigDecimal amount){
 		
 		this.invoiceNo = invoiceNo;
 		this.receiptNo = receiptNo;
@@ -29,6 +30,7 @@ public class ReceiptOfflineModel {
 		this.remark = remark;
 		this.accountNo = accountNo;
 		this.manualID = manualID;
+		this.amount = amount;
 		
 	}
 	
@@ -94,6 +96,13 @@ public class ReceiptOfflineModel {
 	public void setManualID(String manualID) {
 		this.manualID = manualID;
 	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	
 	
 	
 }

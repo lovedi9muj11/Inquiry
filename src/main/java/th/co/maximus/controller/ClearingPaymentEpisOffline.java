@@ -73,10 +73,10 @@ public class ClearingPaymentEpisOffline {
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
-						BigDecimal paid  = BigDecimal.ZERO;
-						for (PaymentInvoiceEpisOffline paymentInvoiceEpisOffline : paymentList) {
-							paid.add(paymentInvoiceEpisOffline.getAmount());
-						}
+//						BigDecimal paid  = BigDecimal.ZERO;
+//						for (PaymentInvoiceEpisOffline paymentInvoiceEpisOffline : paymentList) {
+//							paid.add(paymentInvoiceEpisOffline.getAmount());
+//						}
 						
 						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
@@ -84,7 +84,7 @@ public class ClearingPaymentEpisOffline {
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setPaidAmount(paid);
+						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount());
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
 						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
