@@ -11,7 +11,7 @@ public class PaymentMMapPaymentInvBean {
 	private Timestamp paidDate;
 	private String brancharea;
 	private String branchCode;
-	private Long paidAmount;
+	private BigDecimal paidAmount;
 	private String source;
 	private String clearing;
 	private String remark;
@@ -155,14 +155,6 @@ public class PaymentMMapPaymentInvBean {
 		this.branchCode = branchCode;
 	}
 
-	public Long getPaidAmount() {
-		return paidAmount;
-	}
-
-	public void setPaidAmount(Long paidAmount) {
-		this.paidAmount = paidAmount;
-	}
-
 	public String getSource() {
 		return source;
 	}
@@ -265,6 +257,14 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setChkPaymentType(String chkPaymentType) {
 		this.chkPaymentType = chkPaymentType;
+	}
+
+	public BigDecimal getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(BigDecimal paidAmount) {
+		this.paidAmount = paidAmount;
 	}
 	
 }

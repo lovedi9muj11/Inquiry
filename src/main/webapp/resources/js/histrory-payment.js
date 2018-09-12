@@ -49,7 +49,7 @@ function createRow(data, seq) {
 	period = data.period;
 	amount = formatDouble(data.amount,2);
 	source = data.paymentMethod;
-	paidAmount = formatDouble(data.paidAmount,2);
+	paidAmount = data.paidAmount;
 	vatAmount = formatDouble(data.vatAmount,2);
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';

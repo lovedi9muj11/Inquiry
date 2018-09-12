@@ -59,7 +59,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setPaidDate(rs.getTimestamp("PAID_DATE"));
 			paymentManual.setBrancharea(rs.getString("BRANCH_AREA"));
 			paymentManual.setBranchCode(rs.getString("BRANCH_CODE"));
-			paymentManual.setPaidAmount(rs.getLong("PAID_AMOUNT"));
+			paymentManual.setPaidAmount(rs.getBigDecimal("PAID_AMOUNT"));
 			paymentManual.setSource(rs.getString("SOURCE"));
 			paymentManual.setClearing(rs.getString("CLEARING"));
 			paymentManual.setRemark(rs.getString("REMARK"));
