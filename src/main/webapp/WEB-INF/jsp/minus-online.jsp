@@ -102,7 +102,7 @@
 										<th style="text-align: center;; width: 20%">ภาษีมูลค่าเพิ่มจากการรับชำระ</th>
 										<th style="text-align: center;; width: 5%">สถานนะ</th>
 										<th style="text-align: center;; width: 5%">หมายเหตุ</th>
-										<th style="text-align: center;; width: 5%">clearing</th>
+										<th style="text-align: center;; width: 5%">สถานะการส่งข้อมูล</th>
 										<th style="text-align: center;; width: 5%">หักล้าง</th>
 									</tr>
 								</thead>

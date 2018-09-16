@@ -69,9 +69,17 @@ function createRow(data, seq) {
 	clearing = data.clearing;
 	accountNo = data.accountNo;
 	
+	if(clearing === "Y"){
+		clearing = "ส่งหักล้างแล้ว";
+	}else{
+		clearing = "ยังไม่ส่งหักล้าง";
+	}
+	
+	checkbox = '<input type="checkbox"></input>';
+	
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([remark, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing,cearling
+    var rowNode = t.row.add([checkbox, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing,cearling
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
