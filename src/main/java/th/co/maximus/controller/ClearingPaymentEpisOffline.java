@@ -88,12 +88,14 @@ public class ClearingPaymentEpisOffline {
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount());
+						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
 						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
 						List<PaymentInvoiceEpisOffline> paymentList2 = new ArrayList<>();
 						for (PaymentInvoiceEpisOffline data : paymentList) {
+							
+//							data.setAmount(data.getAmount().add(new BigDecimal(invoid.getDiscount()))) ;
 						
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
 									BigDecimal disVat = (new BigDecimal(invoid.getDiscount()).multiply( data.getVatRate())).divide(new BigDecimal("107"));
