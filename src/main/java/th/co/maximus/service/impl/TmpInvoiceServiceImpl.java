@@ -17,5 +17,10 @@ public class TmpInvoiceServiceImpl implements TmpInvoiceService{
 		tmpInvoiceDao.insertTmpInvoice(tmpInvoiceBean);
 		
 	}
+	@Override
+	public TmpInvoiceBean findByManualId(Integer manualId) {
+		// TODO Auto-generated method stub
+		return tmpInvoiceDao.findByManualId(manualId);
+	}
 
 }

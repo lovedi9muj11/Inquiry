@@ -28,6 +28,10 @@ public class TmpInvoiceBean {
 	private Date updateDate;
 	private String recordStatus;
 	private Double discount;
+	private String isDiscountFlg;
+	
+	
+	
 	public int getInvId() {
 		return invId;
 	}
@@ -174,6 +178,13 @@ public class TmpInvoiceBean {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
+	public String getIsDiscountFlg() {
+		return isDiscountFlg;
+	}
+	public void setIsDiscountFlg(String isDiscountFlg) {
+		this.isDiscountFlg = isDiscountFlg;
+	}
+	
 	
 	
 	

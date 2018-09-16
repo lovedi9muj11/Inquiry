@@ -783,9 +783,20 @@ function submitForm(){
 	if(vatNanVat == "NON VAT"){
 		$("#vatrate").val(parseFloat(0));
 	}
+	
+	var isDiscountFlg = "";
+	if(document.getElementById("radioButtons").checked){
+		isDiscountFlg = "N";
+	}
+	if(document.getElementById("radioButtons").checked){
+		isDiscountFlg = "Y";
+	}
+	
+	
 
 	var dataSend = {
 			 "custName":$("#custName").val() ,
+			 "isDiscountFlg":isDiscountFlg ,
 			 "custNo":$("#custNo").val() ,
 			 "taxId":$("#taxId").val() ,
 			 "documentNo" : $("#docDed").val(),
@@ -817,7 +828,7 @@ function submitForm(){
 			 "remark":$("#remark").val() ,
 			 "summaryTax": parseFloat($("#summaryTax").val().replace(/,/g, "")) ,
 			 "paymentTax":listpaymentTaxRQ  ,
-			 "paymentTranPrice" :listpaymentTranPriceRQ	 
+			 "paymentTranPrice" :listpaymentTranPriceRQ	,
 	}
 		 
 	$.ajax({

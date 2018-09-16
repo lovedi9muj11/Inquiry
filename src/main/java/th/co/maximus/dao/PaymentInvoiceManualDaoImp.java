@@ -45,7 +45,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
-
+ 
 	private static final RowMapper<PaymentMMapPaymentInvBean> PaymentManual = new RowMapper<PaymentMMapPaymentInvBean>() {
 		// Utils utils = new Utils();
 
@@ -507,7 +507,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setCustomerBranch(rs.getString("pim.CUSTOMER_BRANCH"));
 			paymentInvoiceEpisOffline.setTaxNo(rs.getString("pim.TAXNO"));
 			paymentInvoiceEpisOffline.setAccountSubNo(rs.getString("pim.ACCOUNTSUBNO"));
-			paymentInvoiceEpisOffline.setPeriod(rs.getString("pim.PERIOD"));
+			paymentInvoiceEpisOffline.setPeriod(formatDateDoc(rs.getString("pim.PERIOD")));
 			paymentInvoiceEpisOffline.setServiceType(rs.getString("pim.SERVICE_TYPE"));
 			paymentInvoiceEpisOffline.setRemark(rs.getString("pim.REMARK"));
 			paymentInvoiceEpisOffline.setQuantity(rs.getInt("pim.QUANTITY"));
@@ -546,5 +546,14 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		}
 
 	}
-
+	public static String formatDateDoc(String date) {
+		String dateResult = "";
+		if (date.length() == 16) {
+			String docDatess = date.substring(8);
+			String docDates = date.substring(0, 8);
+			dateResult = docDates.substring(6) + "/" + docDates.substring(4, 6) + "/" + docDates.substring(0, 4) + "-"
+					+ docDatess.substring(6) + "/" + docDatess.substring(4, 6) + "/" + docDatess.substring(0, 4);
+		}
+		return dateResult;
+	}
 }

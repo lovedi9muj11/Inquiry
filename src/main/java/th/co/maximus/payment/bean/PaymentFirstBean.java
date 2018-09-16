@@ -4,12 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import th.co.maximus.core.utils.converter.CustomDateDeserializer;
-import th.co.maximus.core.utils.converter.CustomDateSerializer;
-
 public class PaymentFirstBean implements Serializable{
 	
 	/**
@@ -51,6 +45,7 @@ public class PaymentFirstBean implements Serializable{
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	private String nonVat;
 	private String docType;
+	private String isDiscountFlg;
 	
 	
 	public String getDocType() {
@@ -262,6 +257,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setNonVat(String nonVat) {
 		this.nonVat = nonVat;
+	}
+	public String getIsDiscountFlg() {
+		return isDiscountFlg;
+	}
+	public void setIsDiscountFlg(String isDiscountFlg) {
+		this.isDiscountFlg = isDiscountFlg;
 	}
 	
 	
