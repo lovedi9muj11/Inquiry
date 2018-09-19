@@ -304,9 +304,9 @@ public class EpisReportController {
 		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
 			exportPDFReport.setVatRateCheck("Y");
 			
-			if (printCollections.get(0).getDoctype().equals("F")) {
+			if (printCollections.get(0).getDoctype().equals("RF")) {
 				exportPDFReport.setSentStringHeader("N");
-			} else if(printCollections.get(0).getDoctype().equals("S")) {
+			} else if(printCollections.get(0).getDoctype().equals("RS")) {
 				exportPDFReport.setSentStringHeader("Y");
 			}
 			
