@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`RECEIPT_MANUAL` (
 	CANCEL_REASON VARCHAR(50),
 	CANCEL_DATE TIMESTAMP(6),
 	CANCEL_BY VARCHAR(20),
+	CLEARING_BY VARCHAR(20),
+	CLEARING_DATE TIMESTAMP(6),
 	PRIMARY KEY (MANUAL_ID)
 )DEFAULT CHARSET=utf8;
 
@@ -88,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`PAYMENT_INVOICE` (
 	UPDATE_DATE TIMESTAMP(6),
 	RECORD_STATUS VARCHAR(20),
 	DISCOUNT decimal(14,4) ,
+	DISCOUNT_FLAG varchar(5),
 	PRIMARY KEY (INV_ID) 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 )DEFAULT CHARSET=utf8;
@@ -208,6 +211,7 @@ CREATE TABLE IF NOT EXISTS `EPIS`.`USER` (
 	CREATE_DATE TIMESTAMP(6),
 	UPDATE_BY VARCHAR(20),
 	UPDATE_DATE TIMESTAMP(6),
+	LoginFlag VARCHAR(1),
 	PRIMARY KEY (`id`)
 )DEFAULT CHARSET=utf8;
 
