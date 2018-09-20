@@ -5,4 +5,5 @@ import th.co.maximus.bean.TmpInvoiceBean;
 public interface TmpInvoiceDao {
 
 	public void insertTmpInvoice(TmpInvoiceBean tmpInvoiceBean);
+	public TmpInvoiceBean findByManualId(Integer manualId);
 }

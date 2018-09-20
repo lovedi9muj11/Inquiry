@@ -29,6 +29,9 @@ public class PaymentInvoiceEpisOffline {
 	private String serviceCode;
 	private Date invoiceDate;
 	
+	private BigDecimal discount;
+	private BigDecimal discountVat;
+	
 	public PaymentInvoiceEpisOffline(){}
 	public PaymentInvoiceEpisOffline(String invoiceNo,BigDecimal beforVat,BigDecimal vatAmount,BigDecimal amount,BigDecimal vatRate,String customerName,
 			String customerAddress,String customerSegment,String customerBranch,String taxNo,String accountSubNo,
@@ -198,7 +201,22 @@ public class PaymentInvoiceEpisOffline {
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+	public BigDecimal getDiscountVat() {
+		return discountVat;
+	}
+	public void setDiscountVat(BigDecimal discountVat) {
+		this.discountVat = discountVat;
+	}
 
+	
+
+	
 	
 	
 }

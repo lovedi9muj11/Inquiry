@@ -330,7 +330,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
 			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());
 		}
+		
+		
 
 //		Collections.sort(result, new Comparator<PaymentMMapPaymentInvBean>() {
 //			@Override

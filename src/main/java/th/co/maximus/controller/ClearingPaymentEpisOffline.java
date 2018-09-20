@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.bean.TmpInvoiceBean;
 import th.co.maximus.model.DuductionEpisOffline;
 import th.co.maximus.model.PaymentEpisOfflineDTO;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
@@ -24,6 +26,7 @@ import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
+import th.co.maximus.service.TmpInvoiceService;
 
 @Controller
 public class ClearingPaymentEpisOffline {
@@ -42,6 +45,9 @@ public class ClearingPaymentEpisOffline {
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
 
+	@Autowired
+	private TmpInvoiceService tmpInvoiceService;
+
 	public String callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
 		String result = "";
 		try {
@@ -52,6 +58,7 @@ public class ClearingPaymentEpisOffline {
 			List<TrsMethodEpisOffline> methodList = new ArrayList<>();
 			List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
 			List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
+			TmpInvoiceBean invoid = new TmpInvoiceBean();
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					Integer manualId = (int) (long) payment.getManualId();
@@ -60,6 +67,7 @@ public class ClearingPaymentEpisOffline {
 						paymentList = clearingPaymentEpisOfflineService.findPaymentInvoice(manualId);
 						deductionList = clearingPaymentEpisOfflineService.findDeduction(manualId);
 						methodList = clearingPaymentEpisOfflineService.findTrsMethod(manualId);
+						invoid = tmpInvoiceService.findByManualId(manualId);
 						if (methodList.size() > 0 && methodList != null) {
 							for (TrsMethodEpisOffline method : methodList) {
 								if (method.getCode().equals("CH")) {
@@ -73,22 +81,39 @@ public class ClearingPaymentEpisOffline {
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
-//						BigDecimal paid  = BigDecimal.ZERO;
-//						for (PaymentInvoiceEpisOffline paymentInvoiceEpisOffline : paymentList) {
-//							paid.add(paymentInvoiceEpisOffline.getAmount());
-//						}
-						
+
 						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
 						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount());
+						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
 						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
-						paymentEpisOfflineDTO.setPaymentInvoice(paymentList);
+						List<PaymentInvoiceEpisOffline> paymentList2 = new ArrayList<>();
+						for (PaymentInvoiceEpisOffline data : paymentList) {
+							
+//							data.setAmount(data.getAmount().add(new BigDecimal(invoid.getDiscount()))) ;
+						
+								if ("Y".equals(invoid.getIsDiscountFlg())) {
+									BigDecimal disVat = (new BigDecimal(invoid.getDiscount()).multiply( data.getVatRate())).divide(new BigDecimal("107"));
+									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
+									data.setDiscountVat(disVat);
+								} else {
+									if(null != invoid.getDiscount()){
+										data.setDiscount(new BigDecimal(invoid.getDiscount()));
+									}else{
+				
+										data.setDiscountVat(BigDecimal.ZERO);
+									}
+								}
+
+							paymentList2.add(data);
+						}
+
+						paymentEpisOfflineDTO.setPaymentInvoice(paymentList2);
 						if (deductionList.size() > 0) {
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
@@ -102,9 +127,9 @@ public class ClearingPaymentEpisOffline {
 			String postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
 					String.class);
-			if(postResponse.getBody()!=null){
+			if (postResponse.getBody() != null) {
 				result = postResponse.getBody();
-			}else{
+			} else {
 				result = "N";
 			}
 		} catch (Exception e) {
@@ -136,4 +161,6 @@ public class ClearingPaymentEpisOffline {
 		}
 
 	}
+	
 }
+

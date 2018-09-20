@@ -106,7 +106,7 @@ public class EpisReportController {
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		String JASPER_JRXML_FILENAME = "";
-		if (invObject.getDocType().equals("F")) {
+		if (invObject.getDocType().equals("RF")) {
 			if (invObject.getDiscount().signum() == 0) {
 				JASPER_JRXML_FILENAME = "InvEpisPayment";
 			} else {
@@ -304,9 +304,9 @@ public class EpisReportController {
 		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
 			exportPDFReport.setVatRateCheck("Y");
 			
-			if (printCollections.get(0).getDoctype().equals("F")) {
+			if (printCollections.get(0).getDoctype().equals("RF")) {
 				exportPDFReport.setSentStringHeader("N");
-			} else if(printCollections.get(0).getDoctype().equals("S")) {
+			} else if(printCollections.get(0).getDoctype().equals("RS")) {
 				exportPDFReport.setSentStringHeader("Y");
 			}
 			
