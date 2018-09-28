@@ -41,8 +41,8 @@
 <!-- 							<input type="text" id="name" class="form-control"></input> -->
 <!-- 						</div> -->
 <!-- 						<div class="col-md-2 left"> -->
-<!-- 							<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button> -->
-<!-- 							<button type="button" id="report" class="btn btn-primary " onclick="reportClick()">Report Excel</button> -->
+<!-- 							<button type="button" id="search" class="btn btn-primary btn3d" onclick="searchClick()">ค้นหา</button> -->
+<!-- 							<button type="button" id="report" class="btn btn-primary btn3d" onclick="reportClick()">Report Excel</button> -->
 <!-- 						</div> -->
 <!-- 					</div> -->
 					<div class="panel panel-default glasshd">
@@ -57,7 +57,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label right">Sync User<font color="red">*</font> : </label>
 										<div class="col-sm-4">
-											<button type="button" id="userBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+											<button type="button" id="userBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
 									</div><br>
 <!-- 									</div> -->
@@ -65,7 +65,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label right">Master Data<font color="red">*</font> : </label>
 										<div class="col-sm-4">
-											<button type="button" id="msBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+											<button type="button" id="msBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
 									</div><br>
 <!-- 									</div> -->
@@ -73,7 +73,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label right">Sync MapGL<font color="red">*</font> : </label>
 										<div class="col-sm-4">
-											<button type="button" id="glBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-check"></i>Click</button>
+											<button type="button" id="glBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
 									</div>
 								</div>

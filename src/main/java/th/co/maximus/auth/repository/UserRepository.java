@@ -9,4 +9,5 @@ import th.co.maximus.auth.model.UserDto;
 public interface UserRepository extends JpaRepository<UserDto, Long> {
 	
     UserDto findByUsername(String username);
+    
 }

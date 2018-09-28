@@ -27,6 +27,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 	@Autowired TrscreDitrefManualDao trscreDitrefManualDao;
 	@Autowired TrsChequeRefManualDao trsChequeRefManualDao;
 	@Autowired DeductionManualDao deductionManualDao;
+	@SuppressWarnings("deprecation")
 	@Override
 	public int insertTrsmethodManual(PaymentOtherFirstBean paymentBean,int userId) {
 	Date date = new Date();

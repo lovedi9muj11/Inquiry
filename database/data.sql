@@ -2,7 +2,7 @@ INSERT INTO `ROLE` (`id`, `name`) VALUES ('1', 'ADMIN');
 INSERT INTO `ROLE` (`id`, `name`) VALUES ('2', 'SUP');
 INSERT INTO `ROLE` (`id`, `name`) VALUES ('3', 'USER');
 
-INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `LoginFlag`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000', 'Y');
+INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `LoginFlag`) VALUES (1, 'fname', 'lname', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', NULL, '2018-06-28 11:45:43.357761', NULL, '0000-00-00 00:00:00.000000', 'N');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `LoginFlag`) VALUES (2, 'fname1', 'lname2', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis1', NULL, '2018-06-28 11:45:59.323910', NULL, '0000-00-00 00:00:00.000000', 'Y');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `LoginFlag`) VALUES (3, 'fname3', 'lname3', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis11', NULL, '2018-06-28 11:46:08.152196', NULL, '0000-00-00 00:00:00.000000', 'Y');
 INSERT INTO `USER` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`, `LoginFlag`) VALUES (4, 'fname4', 'lname4', '5f4dcc3b5aa765d61d8327deb882cf99', 'Epis12', NULL, '2018-06-28 11:46:14.200390', NULL, '0000-00-00 00:00:00.000000', 'Y');

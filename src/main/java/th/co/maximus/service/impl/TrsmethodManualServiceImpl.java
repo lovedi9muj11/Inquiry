@@ -30,6 +30,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 	@Autowired TrsChequeRefManualDao trsChequeRefManualDao;
 	@Autowired DeductionManualDao deductionManualDao;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public int insertTrsmethodManual(PaymentFirstBean paymentBean,int userId) {
 		Date date = new Date();

@@ -21,13 +21,22 @@ public class MasOfficerServiceImpl implements MasOfficerService{
 		String statusResult = "";
 		try {
 			statusResult = Constants.MasterData.STATUS_SUCCESS;
-			masOfficerDao.deleteBeforInsert();
 			masOfficerDao.deleteBeforInsertUserRole();
+			masOfficerDao.deleteBeforInsert();
 			for(int i=0; i<userBeanList.size(); i++) {
-				int idUser = masOfficerDao.insertUserService(userBeanList.get(i));
-				String roleName = userBeanList.get(i).getPrincipal().getName();
-				int idRole = masOfficerDao.findRoleByRoleName(checkRoleName(roleName));
-				masOfficerDao.insertUserRole(idUser, idRole);
+//				if(masOfficerDao.selectUserBeanByID(userBeanList.get(i))) {
+//					
+//				}
+				try {
+					int idUser = masOfficerDao.insertUserService(userBeanList.get(i));
+					String roleName = userBeanList.get(i).getPrincipal().getName();
+					int idRole = masOfficerDao.findRoleByRoleName(checkRoleName(roleName));
+					masOfficerDao.insertUserRole(idUser, idRole);
+				}catch (Exception ex) {
+//					ex.printStackTrace();
+					continue;
+				}
+				
 			}
 		}catch(Exception e) {
 			statusResult = Constants.MasterData.STATUS_FAIL;
@@ -48,6 +57,15 @@ public class MasOfficerServiceImpl implements MasOfficerService{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void updatePassword(String password, String username) {
+		try {
+			masOfficerDao.updatePassword(password, username);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

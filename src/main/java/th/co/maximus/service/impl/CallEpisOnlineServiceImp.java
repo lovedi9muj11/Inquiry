@@ -163,6 +163,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				principal.setName(object.getString("name"));
 				
 				userBean.setPrincipal(principal);
+				userBean.setLoginFlag(Constants.USER.LOGIN_FLAG_Y);
 				list.add(userBean);
 			}
 			String respone = masOfficerService.insertMasOfficerUser(list);

@@ -23,13 +23,19 @@ public class UserDto implements Serializable {
 	private static final long serialVersionUID = 2149442557547382774L;
 	@Column(name = "ID")
     private Long id;
+	
 	@Column(name = "Username")
     private String username;
+	
 	@Column(name = "Password")
     private String password;
+	
+	@Column(name = "LoginFlag")
+	private String loginFlag;
+	
     private String passwordConfirm;
     private List<Role> roles;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -55,8 +61,16 @@ public class UserDto implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public String getLoginFlag() {
+		return loginFlag;
+	}
 
-    @Transient
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
+	}
+
+	@Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }

@@ -7,7 +7,9 @@ public class UserBean {
 	private String surName;
 	private String userName;
 	private String password;
+	private String passwordConfirm;
 	private String roleCode;
+	private String loginFlag;
 	
 	// bean
 	private Principal principal;
@@ -53,6 +55,18 @@ public class UserBean {
 	}
 	public void setPrincipal(Principal principal) {
 		this.principal = principal;
+	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	public String getLoginFlag() {
+		return loginFlag;
+	}
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
 	}
 	
 }

@@ -100,6 +100,11 @@ public class Constants {
 		public static final String OTHER = "OTHER";
 	}
 	
+	public static class USER{
+		public static final String LOGIN_FLAG_Y = "Y";
+		public static final String LOGIN_FLAG_N = "N";
+	}
+	
 	public static class Role{
 		public static final String SUPPERVISOR = "sup";
 		public static final String ADMIN = "admin";
