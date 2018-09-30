@@ -28,32 +28,24 @@ public class PaymentFirstBean implements Serializable{
 	private String custStatus;
 	private Double taxOnly;
 	private String vatrate;
-	private double balanceBeforeTax;
-	private double vat;
-	private double balanceOfTax;
-	private double balanceSummary;
-	private double balanceBeforeTaxs;
-	private double vats;
-	private double balanceOfTaxs;
-	private double balanceSummarys;
-	private double balanceSum;
-	private double amountInvoice;
-	private double chang;
+	private Double balanceBeforeTax;
+	private Double vat;
+	private Double balanceOfTax;
+	private Double balanceSummary;
+	private Double balanceBeforeTaxs;
+	private Double vats;
+	private Double balanceOfTaxs;
+	private Double balanceSummarys;
+	private Double balanceSum;
+	private Double amountInvoice;
+	private Double chang;
 	private String remark;
-	private double summaryTax;
+	private Double summaryTax;
 	private List<PaymentTaxBean> paymentTax;
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	private String nonVat;
 	private String docType;
 	private String isDiscountFlg;
-	
-	
-	public String getDocType() {
-		return docType;
-	}
-	public void setDocType(String docType) {
-		this.docType = docType;
-	}
 	public String getCustName() {
 		return custName;
 	}
@@ -108,6 +100,12 @@ public class PaymentFirstBean implements Serializable{
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getServiceNo() {
 		return serviceNo;
 	}
@@ -144,65 +142,83 @@ public class PaymentFirstBean implements Serializable{
 	public void setCustStatus(String custStatus) {
 		this.custStatus = custStatus;
 	}
+	public Double getTaxOnly() {
+		return taxOnly;
+	}
+	public void setTaxOnly(Double taxOnly) {
+		this.taxOnly = taxOnly;
+	}
 	public String getVatrate() {
 		return vatrate;
 	}
 	public void setVatrate(String vatrate) {
 		this.vatrate = vatrate;
 	}
-	public double getBalanceBeforeTax() {
+	public Double getBalanceBeforeTax() {
 		return balanceBeforeTax;
 	}
-	public void setBalanceBeforeTax(double balanceBeforeTax) {
+	public void setBalanceBeforeTax(Double balanceBeforeTax) {
 		this.balanceBeforeTax = balanceBeforeTax;
 	}
-	public double getVat() {
+	public Double getVat() {
 		return vat;
 	}
-	public void setVat(double vat) {
+	public void setVat(Double vat) {
 		this.vat = vat;
 	}
-	public double getBalanceOfTax() {
+	public Double getBalanceOfTax() {
 		return balanceOfTax;
 	}
-	public void setBalanceOfTax(double balanceOfTax) {
+	public void setBalanceOfTax(Double balanceOfTax) {
 		this.balanceOfTax = balanceOfTax;
 	}
-	public double getBalanceSummary() {
+	public Double getBalanceSummary() {
 		return balanceSummary;
 	}
-	public void setBalanceSummary(double balanceSummary) {
+	public void setBalanceSummary(Double balanceSummary) {
 		this.balanceSummary = balanceSummary;
 	}
-	public double getBalanceBeforeTaxs() {
+	public Double getBalanceBeforeTaxs() {
 		return balanceBeforeTaxs;
 	}
-	public void setBalanceBeforeTaxs(double balanceBeforeTaxs) {
+	public void setBalanceBeforeTaxs(Double balanceBeforeTaxs) {
 		this.balanceBeforeTaxs = balanceBeforeTaxs;
 	}
-	public double getVats() {
+	public Double getVats() {
 		return vats;
 	}
-	public void setVats(double vats) {
+	public void setVats(Double vats) {
 		this.vats = vats;
 	}
-	public double getBalanceOfTaxs() {
+	public Double getBalanceOfTaxs() {
 		return balanceOfTaxs;
 	}
-	public void setBalanceOfTaxs(double balanceOfTaxs) {
+	public void setBalanceOfTaxs(Double balanceOfTaxs) {
 		this.balanceOfTaxs = balanceOfTaxs;
 	}
-	public double getBalanceSummarys() {
+	public Double getBalanceSummarys() {
 		return balanceSummarys;
 	}
-	public void setBalanceSummarys(double balanceSummarys) {
+	public void setBalanceSummarys(Double balanceSummarys) {
 		this.balanceSummarys = balanceSummarys;
 	}
-	public double getBalanceSum() {
+	public Double getBalanceSum() {
 		return balanceSum;
 	}
-	public void setBalanceSum(double balanceSum) {
+	public void setBalanceSum(Double balanceSum) {
 		this.balanceSum = balanceSum;
+	}
+	public Double getAmountInvoice() {
+		return amountInvoice;
+	}
+	public void setAmountInvoice(Double amountInvoice) {
+		this.amountInvoice = amountInvoice;
+	}
+	public Double getChang() {
+		return chang;
+	}
+	public void setChang(Double chang) {
+		this.chang = chang;
 	}
 	public String getRemark() {
 		return remark;
@@ -210,10 +226,10 @@ public class PaymentFirstBean implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public double getSummaryTax() {
+	public Double getSummaryTax() {
 		return summaryTax;
 	}
-	public void setSummaryTax(double summaryTax) {
+	public void setSummaryTax(Double summaryTax) {
 		this.summaryTax = summaryTax;
 	}
 	public List<PaymentTaxBean> getPaymentTax() {
@@ -228,35 +244,17 @@ public class PaymentFirstBean implements Serializable{
 	public void setPaymentTranPrice(List<PaymentTranPriceBean> paymentTranPrice) {
 		this.paymentTranPrice = paymentTranPrice;
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public double getChang() {
-		return chang;
-	}
-	public void setChang(double chang) {
-		this.chang = chang;
-	}
-	public double getAmountInvoice() {
-		return amountInvoice;
-	}
-	public void setAmountInvoice(double amountInvoice) {
-		this.amountInvoice = amountInvoice;
-	}
-	public Double getTaxOnly() {
-		return taxOnly;
-	}
-	public void setTaxOnly(Double taxOnly) {
-		this.taxOnly = taxOnly;
-	}
 	public String getNonVat() {
 		return nonVat;
 	}
 	public void setNonVat(String nonVat) {
 		this.nonVat = nonVat;
+	}
+	public String getDocType() {
+		return docType;
+	}
+	public void setDocType(String docType) {
+		this.docType = docType;
 	}
 	public String getIsDiscountFlg() {
 		return isDiscountFlg;
@@ -264,6 +262,7 @@ public class PaymentFirstBean implements Serializable{
 	public void setIsDiscountFlg(String isDiscountFlg) {
 		this.isDiscountFlg = isDiscountFlg;
 	}
+	
 	
 	
 	

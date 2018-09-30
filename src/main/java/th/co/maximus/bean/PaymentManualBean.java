@@ -28,6 +28,7 @@ public class PaymentManualBean {
 	private java.math.BigDecimal   amount;
 //	private Integer   vatRate;
 	private java.math.BigDecimal   vatAmount;
+	private String customerGroup;
 	
 	
 	
@@ -171,7 +172,14 @@ public class PaymentManualBean {
 	public void setChange(double change) {
 		this.change = change;
 	}
+	public String getCustomerGroup() {
+		return customerGroup;
+	}
+	public void setCustomerGroup(String customerGroup) {
+		this.customerGroup = customerGroup;
+	}
 
+	
 	
 	
 	

@@ -38,7 +38,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_AMOUNT)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_AMOUNT,CUSTOMER_GROUP)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });
@@ -63,6 +63,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 				pst.setBigDecimal(19, paymentManualBean.getAmount());
 				// pst.setInt(20, paymentManualBean.getVatRate());
 				pst.setBigDecimal(20, paymentManualBean.getVatAmount());
+				pst.setString(21, paymentManualBean.getCustomerGroup());
 				return pst;
 			}
 		}, keyHolder);

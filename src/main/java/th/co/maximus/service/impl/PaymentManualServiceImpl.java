@@ -36,14 +36,18 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
+			paymentManualBean.setCustomerGroup(paymentBean.getUserGroup());
 			if(paymentBean.getTaxOnly() == null ){
 				paymentBean.setTaxOnly(0.00);
 			}
+			if(null == paymentBean.getChang()){
+				paymentBean.setChang(0.00);
+			}
 			double resRQ = (paymentBean.getBalanceSum()+ (paymentBean.getSummaryTax() * -1));
 			if(resRQ > paymentBean.getBalanceOfTax()) {
-				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()).subtract(new BigDecimal(paymentBean.getTaxOnly())));
+				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceOfTax()).subtract(new BigDecimal(paymentBean.getTaxOnly()).subtract(new BigDecimal(paymentBean.getChang()))));
 			}else {
-				paymentManualBean.setAmount(new BigDecimal(resRQ));
+				paymentManualBean.setAmount(new BigDecimal(resRQ - paymentBean.getChang()));
 			}
 //			if(paymentBean.getNonVat().equals("NON VAT")) {
 //				paymentManualBean.setVatRate(-1);
