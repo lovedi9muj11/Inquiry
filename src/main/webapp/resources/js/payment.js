@@ -100,6 +100,7 @@ $(document).ready(function() {
 			});
 			$("#moneyDed").on( "click",  function() {
 				this.select();
+				$("#moneyDed").val("0.00");
 			});
 			$("#creditPrice").on( "click",  function() {
 				this.select();
@@ -150,6 +151,13 @@ $(document).ready(function() {
 			});
 			$("#balanceSummary").on( "keyup",  function() {
 				inputAmount();
+			});
+			
+			$("#invoiceNo").on( "keyup",  function() {
+				$("#sinvoiceNo").hide();
+			});
+			$("#deadlines").on( "change",  function() {
+				$("#sdeadlines").hide();
 			});
 			  $('#radioButton').change(function() {
 				  
@@ -1045,6 +1053,8 @@ function myDeleteDed(count) {
 	}
 	replaseIndexSumTax(tableDed);
 	// replaseIndexSumTax(tableDed);
+	
+	$("#moneyDed").val("0.00");
 
 }
 
