@@ -94,7 +94,7 @@
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/reportPayment">รายงานการรับชำระ</a>
 								</li>
-								<li><a href="${contextPath}/reportPayment">รายงานการรับชำระบริการอื่น ๆ</a>
+								<li><a href="${contextPath}/reportPaymentOther">รายงานการรับชำระบริการอื่น ๆ</a>
 								</li>
 								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบย่อ/แบบเต็ม</a>
 								</li>

@@ -7,6 +7,6 @@ import th.co.maximus.bean.ReportPaymentCriteria;
 
 public interface PaymentReportService {
 	
-	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria) throws Exception;
+	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria,String serviceType) throws Exception;
 
 }

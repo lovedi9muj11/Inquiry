@@ -33,7 +33,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 	private TrsChequeRefManualService trsChequeRefManualService;
 
 	@Override
-	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria) throws Exception {
+	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria,String serviceType) throws Exception {
 		
 		Integer supCh = paymentManualDao.checkSup(criteria.getUser());
 		if(supCh == 2) {
@@ -41,7 +41,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 		}
 		
 		String checkWT = "";
-		List<ReportPaymentBean> result = paymentManualDao.getReportPayment(criteria);
+		List<ReportPaymentBean> result = paymentManualDao.getReportPayment(criteria,serviceType);
 		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
 
 		for(ReportPaymentBean resultBean : result) {

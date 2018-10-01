@@ -16,7 +16,7 @@ public interface PaymentManualDao {
 	
 	public List<PaymentManualBean> findPaymentManualFromNanualId(long manualId);
 	
-	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria);
+	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria,String serviceType);
 	public ReceiptOfflineModel findByManualId(long manualId) throws SQLException;
 	public void udpateStatus(long manualId) throws SQLException;
 	public Integer checkSup(String userName) throws SQLException;

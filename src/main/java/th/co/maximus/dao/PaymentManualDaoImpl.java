@@ -153,7 +153,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	}
 
 	@Override
-	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria) {
+	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT PM.*,PIM.* ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
@@ -166,12 +166,11 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
-		if (!"".equals(criteria.getServiceType()) && criteria.getServiceType() != null) {
-			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + criteria.getServiceType() + "'");
-		}
+			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
 //		if (!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
 //			sql.append(" AND PIM.SERVICECODE = ").append("'" + criteria.getAccountId() + "'");
 //		}
+		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}

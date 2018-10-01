@@ -42,7 +42,7 @@ public class ReportPaymentController {
 	@RequestMapping(value = { "/reportPayment" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<ReportPaymentBean> reportPaymentCriteria(@RequestBody ReportPaymentCriteria creteria) throws Exception {
-		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria);
+		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria,"IBACSS");
 		return result;
 	}
 	@RequestMapping(value = { "/findGL_AccountMaster" }, method = RequestMethod.POST, produces = "application/json")
