@@ -59,14 +59,19 @@
 								</ul></li>
 						</sec:authorize>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">ยกเลิกชำระค่าบริการ <span
+							data-toggle="dropdown">ยกเลิกรับชำระเงิน <span
 								class="caret"></span> <span style="font-size: 18px;"
 								class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/cancalPayment">ยกเลิกชำระค่าบริการ</a>
+								<li><a href="${contextPath}/cancalPayment">ยกเลิกรับชำระค่าบริการ</a>
 								</li>
-							</ul></li>
+							</ul>
+							<ul class="dropdown-menu forAnimate" role="menu">
+								<li><a href="${contextPath}/cancalPaymentOther">ยกเลิกรับชำระค่าบริการอื่น</a>
+								</li>
+							</ul>
+						</li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">ประวัติการชำระค่าบริการ <span
 								class="caret"> </span> <span style="font-size: 18px;"
@@ -88,6 +93,8 @@
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/reportPayment">รายงานการรับชำระ</a>
+								</li>
+								<li><a href="${contextPath}/reportPayment">รายงานการรับชำระบริการอื่น ๆ</a>
 								</li>
 								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบย่อ/แบบเต็ม</a>
 								</li>
