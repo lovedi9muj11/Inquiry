@@ -159,7 +159,7 @@ public class PaymentController {
 		return paymentResultReq;
 	}
 
-	@RequestMapping(value = "/paymentService", method = RequestMethod.POST)
+    @RequestMapping(value = "/paymentService", method = RequestMethod.POST)
 	@ResponseBody
 	public String payment(Model model, @RequestBody PaymentFirstBean paymentBean, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

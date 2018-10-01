@@ -74,11 +74,13 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setAccountNo(paymentBean.getCustNo());
 			paymentManualBean.setDocType(paymentBean.getDocType());
 			
-			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
+			paymentManualBean.setPaytype("F");
+/*			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");
 			}else{
 				paymentManualBean.setPaytype("P");
 			}
+	//comment 30-10-18		*/
 			
 //			if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
 //				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
