@@ -76,6 +76,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setCustomerName((rs.getString("CUSTOMER_NAME")));
 			paymentManual.setCustomerAddress(rs.getString("CUSTOMER_ADDRESS"));
 			paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
+			paymentManual.setServiceName(rs.getString("SERVICENAME"));
+			paymentManual.setCustomerGroup(rs.getString("CUSTOMER_GROUP"));
+			paymentManual.setDiscountBeforVat(rs.getBigDecimal("DISCOUNTBEFORVAT"));
+			paymentManual.setDiscountSpecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
 
 			return paymentManual;
 		}
@@ -141,7 +145,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	}
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) {
+	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String code, boolean chkCancel) {
 		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT); 
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
@@ -149,14 +153,28 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1 ");
-		if (receiptNo != "" && "".equals(invoiceNo)) {
-			sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
-			param.add(receiptNo);
+		if(chkCancel) {
+			if (receiptNo != "" && "".equals(code)) {
+				sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
+				param.add(receiptNo);
+			}
+			if (code != "" && "".equals(receiptNo)) {
+				sql.append(" AND  payment_m.INVOICE_NO = ?");
+				param.add(code);
+			}
+			sql.append(" AND payment_m.INVOICE_NO IS NOT NULL ");
+		}else {
+			if (receiptNo != "" && "".equals(code)) {
+				sql.append(" AND payment_m.RECEIPT_NO_MANUAL = ?");
+				param.add(receiptNo);
+			}
+			if (code != "" && "".equals(receiptNo)) {
+				sql.append(" AND  payment_m.ACCOUNT_NO = ?");
+				param.add(code);
+			}
+			sql.append(" AND payment_m.INVOICE_NO IS NULL ");
 		}
-		if (invoiceNo != "" && "".equals(receiptNo)) {
-			sql.append(" AND  payment_m.INVOICE_NO = ?");
-			param.add(invoiceNo);
-		}
+		
 		if(!profile.getRoles().get(0).getName().equals("sup")) {
 			sql.append(" AND payment_m.CREATE_BY = ?");
 			param.add(profile.getUsername());
@@ -168,7 +186,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		// sql.append(" payment_m.INVOICE_NO = ?");
 		// param.add(invoiceNo);
 		// }
-		System.out.println("[ae] xxx :: "+dateFM.format(new Date()));
 		sql.append(" AND payment_m.CREATE_DATE >= '"+dateFM.format(new Date())+" 00:00:00' ");
 		
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC ");
@@ -185,7 +202,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" , payment_m.CANCEL_DATE =  ? ");
 		sql.append(" , payment_m.CANCEL_BY =  ? ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
-		jdbcTemplate.update(sql.toString(), status, cancel, null, user, manualId);
+		jdbcTemplate.update(sql.toString(), status, cancel, null, user.toUpperCase(), manualId);
 
 	}
 

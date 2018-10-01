@@ -16,9 +16,8 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/css/styles/Dialog/bootbox.min.js"></script>
-<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script> -->
 	
-<script type="text/javascript" src="${contextPath}/resources/js/cancel-payment.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/cancel-payment-list-other.js"></script>
 <script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
 <title>Menu</title>
@@ -58,9 +57,9 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-5 control-label text-right">เลขที่ใบแจ้งค่าบริการ</label>
+							<label class="col-md-5 control-label text-right">เลขที่ลูกค้า</label>
 							<div class="col-md-6">
-								<input type="text" id="billNumber" class="form-control text-left">
+								<input type="text" id="accountNo" class="form-control text-left">
 							</div>
 						</div>
 						<div class="form-group col-md-6">
@@ -126,18 +125,18 @@
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true" cellspacing="0" width="100%">
+							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true">
 								<thead>
 							        <tr>
 							         	<th id="formate"></th>  
 								        <th id="radioSelect"></th>  
 								        <th style="text-align: center;">#</th>   				                         
 						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
-						                <th style="text-align: center;">วันที่ออกใบเสร็จ</th>
-						                <th style="text-align: center;">วันที่ทำรายการ</th>
+						                <th style="text-align: center;">วันที่รับชำระ</th>
 						                <th style="text-align: center;">เลขที่ลูกค้า</th>
 						                <th style="text-align: center;">ชื่อลูกค้า</th>
-						                <th style="text-align: center; width: 250px;">วิธีการชำระ</th>
+						                <th style="text-align: center;">กลุ่มผู้ใช้บริการ</th>
+						                <th style="text-align: center; width:250px;">ชื่อบริการ</th>
 						                <th style="text-align: center;">จำนวนเงิน</th>
 						                <th style="text-align: center;">สถานที่รับชำระ</th>
 						                <th style="text-align: center;">ผู้รับชำระ</th>

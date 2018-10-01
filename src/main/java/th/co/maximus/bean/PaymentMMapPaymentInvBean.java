@@ -34,6 +34,12 @@ public class PaymentMMapPaymentInvBean {
 	private String serviceType;
 	
 	private String chkPaymentType;
+	private boolean chkCancel;
+	private String serviceName;
+	private String customerGroup;
+	private String userApproved;
+	private BigDecimal discountBeforVat;
+	private BigDecimal discountSpecial;
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
@@ -265,6 +271,54 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setPaidAmount(BigDecimal paidAmount) {
 		this.paidAmount = paidAmount;
+	}
+
+	public boolean isChkCancel() {
+		return chkCancel;
+	}
+
+	public void setChkCancel(boolean chkCancel) {
+		this.chkCancel = chkCancel;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public String getCustomerGroup() {
+		return customerGroup;
+	}
+
+	public void setCustomerGroup(String customerGroup) {
+		this.customerGroup = customerGroup;
+	}
+
+	public String getUserApproved() {
+		return userApproved;
+	}
+
+	public void setUserApproved(String userApproved) {
+		this.userApproved = userApproved;
+	}
+
+	public BigDecimal getDiscountBeforVat() {
+		return discountBeforVat;
+	}
+
+	public void setDiscountBeforVat(BigDecimal discountBeforVat) {
+		this.discountBeforVat = discountBeforVat;
+	}
+
+	public BigDecimal getDiscountSpecial() {
+		return discountSpecial;
+	}
+
+	public void setDiscountSpecial(BigDecimal discountSpecial) {
+		this.discountSpecial = discountSpecial;
 	}
 	
 }

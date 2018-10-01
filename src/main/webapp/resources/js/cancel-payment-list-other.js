@@ -19,8 +19,6 @@ $(document).ready(function () {
 		"order": [[ 2, 'asc' ]],
 		"columnDefs": [ {
 			"searchable": false,
-//			"orderable": false,
-//			"targets": [1,12]
 		} ]
 	});
     $("#error").hide();
@@ -35,12 +33,9 @@ $(document).ready(function () {
     $('#cancelPaymentTB tbody').on('change', ':radio', function() {
     	 	$("#mi-modal").modal('show');
             idRow = parseInt($('input[name="select"]:checked').val());
-//            $('input[name=select]').attr('checked',false);
             $(this).prop('checked', false);
     });
-    $('#btn2').click(function(){
-    	console.log("sssssssssssssssssssssssssss");
-    });
+    
     function clickInvoiceDetail(){
         var tr = $(this).closest('tr');
         var row = tableInit.row(tr);
@@ -57,6 +52,7 @@ $(document).ready(function () {
         }
     	
     };
+    
     $('#cancelPaymentTB tbody').on('click', '#invoice', function () {
         var tr = $(this).closest('tr');
         var row = tableInit.row(tr);
@@ -131,13 +127,13 @@ $(document).ready(function () {
            
         }
     });  
-	  
+
     var modalConfirm = function(callback){	  
 
     	  $("#modal-btn-si").on("click", function(){
     		  userApproved = $('#userName').val()
-    	    callback(true);
-    	    $("#mi-modal").modal('hide');
+    		  callback(true);
+    		  $("#mi-modal").modal('hide');
     	  });
     	  
     	  $("#modal-btn-no").on("click", function(){
@@ -268,7 +264,7 @@ function showTableSelect(){
 function search() {
 	cancelPaymentTB.clear().draw();
 	var data = '';
-	var dataSend = { "invoiceNo": $('#billNumber').val(), "receiptNoManual": $('#receiptNumber').val(), "chkCancel": true };
+	var dataSend = { "accountNo": $('#accountNo').val(), "receiptNoManual": $('#receiptNumber').val(), "chkCancel": false };
 	$.ajax({
         type: "POST",
         url: ctx +"/cancelPayment/find",
@@ -286,7 +282,7 @@ function search() {
 };
 
 function clearCriteria(){
-	$('#billNumber').val('');
+	$('#accountNo').val('');
 	$('#receiptNumber').val('');
 	$('#barCode').val('');
 	search();
@@ -301,10 +297,12 @@ function createRow(data, seq, table,check) {
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr
-	dateMake = data.createDateStr;
+//	dateMake = data.createDateStr;
 	accountNo = data.accountNo;
 	customer = data.customerName;
-	payType = data.paymentMethod;
+//	payType = data.paymentMethod;
+	serviceName = data.serviceName;
+	userGroup = data.customerGroup;
 	amount = formatDouble(data.amount,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
@@ -320,23 +318,23 @@ function createRow(data, seq, table,check) {
 	userFullName = data.customerName;
 	
 	tableInit = $('#'+table).DataTable();
-	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('center').width('5px');
-    $(rowNode).find('td').eq(1).addClass('center').width('5px');
-    $(rowNode).find('td').eq(2).addClass('center').width('40px');
-    $(rowNode).find('td').eq(3).addClass('center').width('5px');
-    $(rowNode).find('td').eq(4).addClass('center').width('5px');
-    $(rowNode).find('td').eq(5).addClass('center').width('5px');
-    $(rowNode).find('td').eq(6).addClass('center').width('50px');
-    $(rowNode).find('td').eq(7).addClass('center').width('5px');
-    $(rowNode).find('td').eq(8).addClass('center').width('5px');
-    $(rowNode).find('td').eq(9).addClass('center').width('5px');
-    $(rowNode).find('td').eq(10).addClass('center').width('10px');
-    $(rowNode).find('td').eq(11).addClass('center').width('20px');
-    $(rowNode).find('td').eq(12).addClass('center').width('5px');
-    $(rowNode).find('td').eq(13).addClass('center').width('5px');
-    $(rowNode).find('td').eq(14).addClass('hidden').width('5px');
-    $(rowNode).find('td').eq(15).addClass('center').width('5px');
+	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
+    $(rowNode).find('td').eq(0).addClass('center');
+    $(rowNode).find('td').eq(1).addClass('center');
+    $(rowNode).find('td').eq(2).addClass('center');
+    $(rowNode).find('td').eq(3).addClass('center');
+    $(rowNode).find('td').eq(4).addClass('center');
+    $(rowNode).find('td').eq(5).addClass('center');
+    $(rowNode).find('td').eq(6).addClass('center');
+    $(rowNode).find('td').eq(7).addClass('center');
+    $(rowNode).find('td').eq(8).addClass('center');
+    $(rowNode).find('td').eq(9).addClass('center');
+    $(rowNode).find('td').eq(10).addClass('center');
+    $(rowNode).find('td').eq(11).addClass('center');
+    $(rowNode).find('td').eq(12).addClass('center');
+    $(rowNode).find('td').eq(13).addClass('center');
+    $(rowNode).find('td').eq(14).addClass('center');
+    $(rowNode).find('td').eq(15).addClass('center');
 
 };
 

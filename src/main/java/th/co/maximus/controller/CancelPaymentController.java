@@ -36,20 +36,25 @@ public class CancelPaymentController {
 	private UserService userService;
 
 	@RequestMapping(value = { "/cancalPayment" }, method = RequestMethod.GET)
-	public String usermgt(Model model) {
+	public String cancalPayment(Model model) {
 		return "cancel-payment-list";
+	}
+	
+	@RequestMapping(value = { "/cancalPaymentOther" }, method = RequestMethod.GET)
+	public String cancalPaymentOther(Model model) {
+		return "cancel-payment-list-other";
 	}
 
 	@RequestMapping(value = { "/cancelPayment/find" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<PaymentMMapPaymentInvBean> findAll(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-//		if (!"".equals(creteria.getReceiptNoManual()) || !"".equals(creteria.getInvoiceNo())) {
-			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(),
-					creteria.getInvoiceNo());
-//		} else {
-//			result = cancelPaymentService.findAllCancelPayment();
-//		}
+		if(creteria.isChkCancel()) {
+			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(), creteria.getInvoiceNo(), creteria.isChkCancel());
+		}else {
+			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(), creteria.getAccountNo(), creteria.isChkCancel());
+		}
+			
 		return result;
 	}
 
@@ -64,8 +69,7 @@ public class CancelPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/cancelPayment/checkAuthentication" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = { "/cancelPayment/checkAuthentication" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean checkAuthentication(@RequestBody UserBean user) {
 		boolean result = false;

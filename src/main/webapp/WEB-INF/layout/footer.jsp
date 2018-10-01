@@ -13,9 +13,9 @@
 </body>
 </html>
 <script>
-	$(document).ajaxStart(function() {
-		HoldOn.open();
-	}).ajaxStop(function() {
-		HoldOn.close();
-	});
+// 	$(document).ajaxStart(function() {
+// 		HoldOn.open();
+// 	}).ajaxStop(function() {
+// 		HoldOn.close();
+// 	});
 </script>

@@ -84,6 +84,8 @@ function createRow(data, seq) {
 	source = data.paymentMethod;
 	paidAmount = formatDouble(data.paidAmount,2);
 	vatAmount = formatDouble(data.vatAmount,2);
+	discountBeforVat = formatDouble(data.discountBeforVat,2);
+	discountSpecial = formatDouble(data.discountSpecial,2);
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		if(data.remark != ""){
@@ -108,7 +110,7 @@ function createRow(data, seq) {
 	
     var t = $('#histroryPaymentTB').DataTable();
     tableInit = t;
-    var rowNode = t.row.add([plus_invoice, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy , paidAmount, source, amount, vatAmount, recordStatus, remark, accountNo
+    var rowNode = t.row.add([plus_invoice, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy , paidAmount, discountBeforVat, discountSpecial, source, amount, recordStatus, remark, accountNo
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
@@ -117,12 +119,14 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(4).addClass('left');
     $(rowNode).find('td').eq(5).addClass('left');
     $(rowNode).find('td').eq(6).addClass('center');
-    $(rowNode).find('td').eq(7).addClass('right');
+    $(rowNode).find('td').eq(7).addClass('center');
     $(rowNode).find('td').eq(8).addClass('center');
-    $(rowNode).find('td').eq(9).addClass('right');
-    $(rowNode).find('td').eq(10).addClass('right');
-    $(rowNode).find('td').eq(11).addClass('left');
-    $(rowNode).find('td').eq(12).addClass('center');
+    $(rowNode).find('td').eq(9).addClass('center');
+    $(rowNode).find('td').eq(10).addClass('center');
+//    $(rowNode).find('td').eq(11).addClass('right');
+    $(rowNode).find('td').eq(11).addClass('right');
+    $(rowNode).find('td').eq(12).addClass('left');
+    $(rowNode).find('td').eq(13).addClass('center');
 }
 
 function chaengIcon(value){
@@ -163,10 +167,13 @@ function format(d) {
 	var i = 0;
 	for(i=0; i < d.length; i++){
 		txt = txt+ '<tr>'+
-			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
-			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
-			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+			        '<th style="text-align: left;">'+d[i].amountType+'</th>'+
+			        '<th style="text-align: left;">'+d[i].serviceName+'</th>'+
+			        '<th style="text-align: right;">'+d[i].quantity+'</th>'+
+			        '<th style="text-align: right;">'+d[i].beforeVatStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountspacalStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
 			    '</tr>'
 	}
@@ -174,11 +181,14 @@ function format(d) {
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
 			    '<thead>'+
 			    '<tr>'+
-			        '<th style="text-align: left;">รายการ</th>'+
-			        '<th style="text-align: right;">จำนวน</th>'+
-			        '<th style="text-align: right;">ส่วนลด</th>'+
+			        '<th style="text-align: center;">ประเภทบริการ</th>'+
+			        '<th style="text-align: center;">ชื่อบริการ</th>'+
+			        '<th style="text-align: right;">จำนวนรายการ</th>'+
+			        '<th style="text-align: right;">จำนวนเงินต่อหน่วย</th>'+
 			        '<th style="text-align: right;">ภาษีมูลค่าเพิ่ม</th>'+
-			        '<th style="text-align: right;">จำนวนเงิน</th>'+
+			        '<th style="text-align: right;">ส่วนลด</th>'+
+			        '<th style="text-align: right;">ส่วนลดพิเศษ</th>'+
+			        '<th style="text-align: right;">ยอดเงินรวม</th>'+
 			    '</tr>'+
 			'</thead>'+
 			'<tbody>'+

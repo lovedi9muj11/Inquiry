@@ -22,7 +22,7 @@ public interface PaymentInvoiceManualDao {
 	
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id);
 	
-	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo);
+	public List<PaymentMMapPaymentInvBean> findCriteriaFromInvoiceOrReceiptNo(String receiptNo, String code, boolean chkCancel);
 	
 	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String  user);
 	

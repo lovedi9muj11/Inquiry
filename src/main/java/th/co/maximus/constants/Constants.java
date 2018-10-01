@@ -53,20 +53,20 @@ public class Constants {
 		public static final String METHOD_WT = "WT";
 	}
 	
-	public static class report{
+	public static class report {
 		public static final String repotPathc = "/report/jasper/pdf";
 		public static final String EXCELFULL = "ExcelFull";
 		public static final String XXX = "RPTxxx";
 		public static final String REPORT_FULL = "Report";
 		public final static String RPT_EXCEL = "EXCEL";
 	}
-	public static class dataUser{
+	public static class dataUser {
 		public static final String BRANCHAREA = "1704";
 		public static final String SOURCE = "OFFLINE";
 		public static final String NAME_USER = "ADMIN";
 	}
 	
-	public static class Service{
+	public static class Service {
 		public static final String SERVICE_TYPE_IBACSS = "IBACSS";
 		public static final String SERVICE_TYPE_OTHER = "OTHER";
 		
@@ -74,7 +74,7 @@ public class Constants {
 		public static final String CENTER_SERVICE_ = "ศบล.";
 	}
 	
-	public static class MasterData{
+	public static class MasterData {
 		public static final String SELECT_DROPDOWN = "กรุณาเลือก";
 		public static final String MASTERDATA_GROUP = "INITVALUE";
 		public static final String STATUS_SUCCESS = "SUCCESS";
@@ -87,7 +87,7 @@ public class Constants {
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		
-		public static class KEYCODE{
+		public static class KEYCODE {
 			public static final String TRIGGER_MS = "Trigger_MS";
 			public static final String TRIGGER_GL = "Trigger_GL";
 			public static final String TRIGGER_USER = "Trigger_User";
@@ -96,21 +96,21 @@ public class Constants {
 		
 	}
 	
-	public static class GL_SERVICE{
+	public static class GL_SERVICE {
 		public static final String OTHER = "OTHER";
 	}
 	
-	public static class USER{
+	public static class USER {
 		public static final String LOGIN_FLAG_Y = "Y";
 		public static final String LOGIN_FLAG_N = "N";
 	}
 	
-	public static class Role{
+	public static class Role {
 		public static final String SUPPERVISOR = "sup";
 		public static final String ADMIN = "admin";
 		public static final String USER = "user";
 		
-		public static class RoleOnline{
+		public static class RoleOnline {
 			public static final String SUPPERVISOR = "Suppervisor";
 			public static final String ADMIN = "ADMIN";
 			public static final String USER = "BACKOFFICE";
@@ -119,28 +119,50 @@ public class Constants {
 		}
 	}
 	
-	public static class CANCEL{
+	public static class CANCEL {
 		public static final String CANCEL_SERVICE_01 = "01";
 		public static final String CANCEL_ADDR_02 = "02";
 		public static final String CANCEL_SERVICE = "รับชำระผิดบริการ";
 		public static final String CANCEL_ADDR = "ชื่อ-ที่อยู่ ไม่ถูกต้อง";
 	}
 	
-	public static class BATCH{
+	public static class BATCH {
 		public static final String JOB_1 = "jobWithSimpleTriggerBeanTrigger";
 		public static final String JOB_2 = "jobWithSimpleTriggerBeanTrigger2";
 		public static final String JOB_3 = "jobWithSimpleTriggerBeanTrigger3";
 		public static final String JOB_4 = "jobWithSimpleTriggerBeanTrigger4";
 	}
 	
-	public static class PAYMENT_OTHER{
+	public static class PAYMENT_OTHER {
 		public static final String NON_VATE = "nonVat";
 	}
 	
-	public static class DOCTYPE{
+	public static class DOCTYPE {
 		public static final String RO = "RO";
 		public static final String RS = "RS";
 		public static final String RF = "RF";
+	}
+	
+	public static class CUSTOMER_GROUP {
+		public static final String CUSTOMER_1 = "1";
+		public static final String CUSTOMER_2 = "2";
+		public static final String CUSTOMER_3 = "3";
+		public static final String CUSTOMER_4 = "4";
+		public static final String CUSTOMER_5 = "5";
+		public static final String CUSTOMER_6 = "6";
+		public static final String CUSTOMER_7 = "7";
+		public static final String CUSTOMER_8 = "8";
+		public static final String CUSTOMER_9 = "9";
+		
+		public static final String CUSTOMER_NAME_1 = "ธุรกิจทั่วไป";
+		public static final String CUSTOMER_NAME_2 = "หน่วยงานรัฐ";
+		public static final String CUSTOMER_NAME_3 = "บุคคลทั่วไป";
+		public static final String CUSTOMER_NAME_4 = "Carrier/Operator/NON POTs";
+		public static final String CUSTOMER_NAME_5 = "Mkt.Arm";
+		public static final String CUSTOMER_NAME_6 = "ISP";
+		public static final String CUSTOMER_NAME_7 = "Reseller/Agent";
+		public static final String CUSTOMER_NAME_8 = "ธุรกิจ กสท";
+		public static final String CUSTOMER_NAME_9 = "สถานฑูต/องค์กรระหว่างประเทศ";
 	}
 
 }

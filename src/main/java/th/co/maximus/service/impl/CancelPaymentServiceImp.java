@@ -10,10 +10,8 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
@@ -37,6 +35,7 @@ import th.co.maximus.service.CancelPaymentService;
 @Service
 public class CancelPaymentServiceImp implements CancelPaymentService {
 	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	SimpleDateFormat dateFM = new SimpleDateFormat("dd/MM/yyyy");
 
 	@Autowired
 	private PaymentInvoiceManualDao paymentInvoiceManualDao;
@@ -112,7 +111,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					}
 
 				}
-				bean.setCreateDateStr(dt.format(bean.getCreateDate()));
+				bean.setCreateDateStr(dateFM.format(bean.getCreateDate()));
 				bean.setPaymentMethod(paymentMethod.toString());
 				result.add(bean);
 			}
@@ -121,11 +120,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	}
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo)
-			throws Exception {
+	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String code, boolean chkCancel) throws Exception {
 
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<PaymentMMapPaymentInvBean>();
-		for (PaymentMMapPaymentInvBean resultBean : paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, invoiceNo)) {
+		for (PaymentMMapPaymentInvBean resultBean : paymentInvoiceManualDao.findCriteriaFromInvoiceOrReceiptNo(receiptNo, code, chkCancel)) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
 //			String name = "";
@@ -166,7 +164,8 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 //				}
 
 			}
-			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
+			setCustomerGroupName(resultBean);
+			resultBean.setCreateDateStr(dateFM.format(resultBean.getCreateDate()));
 			resultBean.setPaymentMethod(paymentMethod.toString().substring(1));
 			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());
 			result.add(resultBean);
@@ -184,19 +183,18 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	@Override
 	@Transactional
 	public PaymentResultReq insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentMMapPaymentInvBean) {
-//		boolean resultReturn = true;
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
 		PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 		InvoiceBean invoiceBean = new InvoiceBean(); 
 		
-		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String receiptId = "";
 		int manualID = 0;
 		try {
-
+			Date date = new Date();
 			// update status
-			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo("C", paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, profile.getUsername());
+			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo("C", paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, paymentMMapPaymentInvBean.getUserApproved());
 			paymentInvoiceManualDao.updateStatusPaymentInvoice(paymentMMapPaymentInvBean.getManualId());
 			if ("02".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
 				// Insert PaymentManual
@@ -270,7 +268,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 						invoiceBean = paymentInvoiceManualDao.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
 						paymentResultReq.setChkPaymentType(Constants.Service.SERVICE_TYPE_OTHER);
 						if(null != invoiceBean.getManualId()) {
-							paymentInvoiceManualDao.insertInvoice(invoiceBean);
+//							paymentInvoiceManualDao.insertInvoice(invoiceBean);
 							paymentResultReq.setChkPaymentType(Constants.Service.SERVICE_TYPE_IBACSS);
 						}
 					}
@@ -297,8 +295,12 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				}
 				// insert payment_Invoice
 				InvoiceBean resultInvoiceBean = paymentInvoiceManualDao.findInvoiceByManualId(paymentMMapPaymentInvBean.getManualId());
-				resultInvoiceBean.setManualId(Long.valueOf(manualID));
-				paymentInvoiceManualDao.insertInvoice(resultInvoiceBean);
+				if(null != resultInvoiceBean) {
+					resultInvoiceBean.setManualId(Long.valueOf(manualID));
+//					resultInvoiceBean.setCreateDate(new Timestamp(date.getTime()));
+					resultInvoiceBean.setUpdateDate(new Timestamp(date.getTime()));
+					paymentInvoiceManualDao.insertInvoice(resultInvoiceBean);
+				}
 
 			}
 		} catch (Exception e) {
@@ -342,6 +344,30 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 //			}
 //		});
 		return result;
+	}
+	
+	public void setCustomerGroupName(PaymentMMapPaymentInvBean resultBean) {
+		
+		if(Constants.CUSTOMER_GROUP.CUSTOMER_1.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_1);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_2.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_2);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_3.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_3);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_4.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_4);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_5.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_5);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_6.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_6);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_7.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_7);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_8.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_8);
+		}else if(Constants.CUSTOMER_GROUP.CUSTOMER_9.equals(resultBean.getCustomerGroup())) {
+			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_9);
+		}
+		
 	}
 
 }

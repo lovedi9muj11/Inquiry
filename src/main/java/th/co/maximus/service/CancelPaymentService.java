@@ -10,7 +10,7 @@ public interface CancelPaymentService {
 	
 	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentFromId(Long manualId) throws Exception;
 	
-	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo) throws Exception;
+	public List<PaymentMMapPaymentInvBean> serviceCriteriaFromInvoiceOrReceiptNo(String receiptNo, String invoiceNo, boolean chkCancel) throws Exception;
 	
 	public PaymentResultReq insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
 	
