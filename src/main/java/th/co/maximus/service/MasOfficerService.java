@@ -10,5 +10,7 @@ import th.co.maximus.bean.UserBean;
 public interface MasOfficerService {
 	
 	String insertMasOfficerUser(List<UserBean> userBeanList);
+	
+	void updatePassword(String password, String username);
 
 }

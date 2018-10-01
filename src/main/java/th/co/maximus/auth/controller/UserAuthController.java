@@ -1,5 +1,7 @@
 package th.co.maximus.auth.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import th.co.maximus.auth.model.UserDto;
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.auth.service.SecurityService;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.auth.validator.UserValidator;
 import th.co.maximus.bean.UserBean;
+import th.co.maximus.constants.Constants;
 
 @Controller
 public class UserAuthController {
@@ -66,15 +71,28 @@ public class UserAuthController {
     }
 
     
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        return "welcome";
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	UserProfile userPro = (UserProfile) auth.getPrincipal();
+		
+    	if(Constants.USER.LOGIN_FLAG_Y.equalsIgnoreCase(userPro.getLoginFlag())) {
+    		return "confirm-password";
+    	}else {
+    		return "welcome";
+    	}
+    }
+	
+	@RequestMapping(value = {"/afterpassword", "/welcomePassword"}, method = RequestMethod.GET)
+    public String welcomePassword(Model model) {
+		return "welcome";
     }
     
     @RequestMapping(value = {"/userManageMent"}, method = RequestMethod.GET)
     public String usermgt(Model model) {
         return "userManageMent";
     }
+    
     @RequestMapping(value = {"/masterData"}, method = RequestMethod.GET)
     public String masterData(Model model) {
         return "master-data";
@@ -83,5 +101,25 @@ public class UserAuthController {
     public void addUserSession(UserBean user, HttpSession session) {
     	session.setAttribute("userRole", user.getRoleCode());
     }
+    
+    @RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean checkPassword(Model model, @RequestBody UserBean userBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//    	Map<String, Object> params = new HashMap<String, Object>();
+    	boolean chkResponse = true;
+//    	JSONObject jo = new JSONObject();
+    	UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	chkResponse = userService.checkPassword(userBean.getPassword(), profile.getUsername());
+		return chkResponse;
+	}
+    
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    @ResponseBody
+	public Boolean updatePassword(Model model, @RequestBody UserBean userBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	userService.saveConfirmPassword(userBean, profile.getUsername());
+    	boolean res = true;
+		return res;
+	}
     
 }

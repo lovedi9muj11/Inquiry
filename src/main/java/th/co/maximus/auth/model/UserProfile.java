@@ -14,6 +14,7 @@ public class UserProfile extends User {
 	private static final long serialVersionUID = 1L;
 	private String pos;
 	private List<Role> roles;
+	private String loginFlag;
 	public UserProfile(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
@@ -35,6 +36,12 @@ public class UserProfile extends User {
 	}
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	public String getLoginFlag() {
+		return loginFlag;
+	}
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
 	}
 	
 }

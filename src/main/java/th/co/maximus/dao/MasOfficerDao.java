@@ -13,5 +13,9 @@ public interface MasOfficerDao {
 	void insertUserRole(int idUser, int idRole);
 	
 	int findRoleByRoleName(String roleName);
+	
+	boolean selectUserBeanByID(UserBean userBean);
+	
+	void updatePassword(String password, String username);
 
 }

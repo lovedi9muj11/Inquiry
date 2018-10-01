@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.RoleBean;
 import th.co.maximus.bean.UserBean;
+import th.co.maximus.constants.Constants;
 
 @Service
 public class MasOfficerDaoImpl implements MasOfficerDao{
@@ -25,7 +26,7 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 
 	@Override
 	public int insertUserService(UserBean userBean) {
-		String sql = "INSERT INTO user (Password, Username, Name, SurName)  VALUES (?,?,?,?)";
+		String sql = "INSERT INTO user (Password, Username, Name, SurName, LoginFlag)  VALUES (?,?,?,?,?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 //		java.util.Date now = new java.util.Date();
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -35,6 +36,7 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 				pst.setString(2, userBean.getUserName());
 				pst.setString(3, userBean.getName());
 				pst.setString(4, userBean.getSurName());
+				pst.setString(5, userBean.getLoginFlag());
 				return pst;
 			}
 		}, keyHolder);
@@ -44,14 +46,15 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 
 	@Override
 	public void deleteBeforInsert() {
-		String del = "delete from user where username <> 'admin'";
+		String del = " delete from user where username <> 'admin' and loginflag <> 'N' ";
 		jdbcTemplate.update(del);
 	}
 
 	@Override
 	public void deleteBeforInsertUserRole() {
-		String del = "delete from user_role where Role_ID <> '1'";
-		jdbcTemplate.update(del);
+//		String del = "delete from user_role where Role_ID <> '1'";
+		String delsql = "DELETE user_role FROM user_role INNER JOIN user ON user.ID=user_role.User_ID WHERE user.loginflag <> 'N'";
+		jdbcTemplate.update(delsql);
 	}
 
 	@Override
@@ -78,6 +81,20 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 		return res.get(0).getId();
 	}
 	
+	@Override
+	public boolean selectUserBeanByID(UserBean userBean) {
+		boolean result = true;
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM user  ");
+		sql.append(" WHERE username =  '");
+		sql.append(userBean.getUserName()+"'");
+		UserBean res = jdbcTemplate.queryForObject(sql.toString() , new UserBeanMap());
+		if(null == res) {
+			result = false;
+		}
+		return result;
+	}
+	
 	private static final class RoleBeanMap implements RowMapper<RoleBean> {
 
 		@Override
@@ -87,6 +104,26 @@ public class MasOfficerDaoImpl implements MasOfficerDao{
 			return roleBean;
 		}
 
+	}
+	
+	private static final class UserBeanMap implements RowMapper<UserBean> {
+
+		@Override
+		public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			UserBean userBean = new UserBean();
+			userBean.setUserName(rs.getString("Username"));
+			return userBean;
+		}
+
+	}
+
+	@Override
+	public void updatePassword(String password, String username) {
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append("UPDATE user SET  Password = '"+password+"', LoginFlag = '"+Constants.USER.LOGIN_FLAG_N+"'");
+		sqlStmt.append(" WHERE  Username = ? ");
+		Object param = username;
+		jdbcTemplate.update(sqlStmt.toString(), param);
 	}
 
 }

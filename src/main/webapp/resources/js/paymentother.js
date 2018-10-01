@@ -36,6 +36,18 @@ $(document).ready(function() {
 				replaseIndexV4(table);
 				}
 			});
+//			$("#creditPrice").on( "change",  function() {
+//				if($("#creditPrice").val() == ""){
+//				var table = document.getElementById("sumtableBillingList");
+//				replaseIndexV4(table);
+//				}
+//			});
+//			$("#moneyCheck").on( "change",  function() {
+//				if($("#moneyCheck").val() == ""){
+//				var table = document.getElementById("sumtableBillingList");
+//				replaseIndexV4(table);
+//				}
+//			});
 			$("#inputServiceType").on( "change",  function() {
 				console.log(this);
 				$("#inputServiceName").empty();
@@ -417,7 +429,7 @@ function submitForm() {
 			"docDed" : resultDeductible[a][1],
 			"custNo" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][5],
-			"moneyDed" : resultDeductible[a][4]*-1
+			"moneyDed" : resultDeductible[a][4].replace(",", "")*-1
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -509,7 +521,7 @@ function submitForm() {
 		"balanceSum" : parseFloat($("#balanceSum").val().replace(",", "")),
 		"remark" : $("#remark").val(),
 		"summaryTax" : parseFloat(($("#summaryTax").val().replace(",", ""))),
-		"change" : $("#change").val(),
+		"change" : parseFloat(($("#change").val().replace(",", ""))),
 		"sale" : $("#sale").val(),
 		"salespacial": $("#salespacial").val(),
 		"paymentBill" : listpaymentSaleRQ,
@@ -648,23 +660,23 @@ function buttonAddBillingList() {
 
 		var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount);
 		var serviceMoreData = FormatMoneyShowToNumber(inputServiceMoreData);
-	
+	var sumTotalAmount = serviceAmount * serviceMoreData ;
 		var amountTotal
 		var vatamount;
 
 		if(radioResult == "beforvat"){
-			var amountDiscount = disDiscount(serviceAmount);
+			var amountDiscount = disDiscount(sumTotalAmount);
 			var amountBeforVat = disVat(amountDiscount,radioResult);
 			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
 			vatamount = amountTotal- amountDiscount;
 			
 		}else{
-			var amountBeforVat = disVat(serviceAmount,radioResult);
+			var amountBeforVat = disVat(sumTotalAmount,radioResult);
 			var amountDiscount = disDiscount(amountBeforVat);
 			 amountTotal = calurateVatRate(amountDiscount, vatRate);
 			 vatamount = amountTotal- amountDiscount;
 			 
-			 serviceAmount = amountBeforVat;
+			 sumTotalAmount = amountBeforVat;
 			 
 		}
 		
@@ -1739,7 +1751,7 @@ function replaseIndexV4(str) {
 			sumInputmon = sumInputmon
 					+ FormatMoneyShowToNumber(cells[9].innerHTML);
 			beforeSaleShow = beforeSaleShow
-					+ FormatMoneyShowToNumber(cells[4].innerHTML);
+					+ FormatMoneyShowToNumber(cells[4].innerHTML) ;
 			if(cells[7].innerHTML != "-"){
 				vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
 			}
@@ -1747,10 +1759,10 @@ function replaseIndexV4(str) {
 			cells[0].innerHTML = i;
 			cells[10].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
-			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML);
-			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
+			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML) ;
+			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML) ;
 			summaryTax= summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML);
-			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML));
+			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)) ;
 		}
 	}
 //	$("#moneyDed").val(summaryTax);
