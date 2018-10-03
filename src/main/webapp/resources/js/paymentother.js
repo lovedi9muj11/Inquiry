@@ -660,23 +660,22 @@ function buttonAddBillingList() {
 
 		var serviceAmount = FormatMoneyShowToNumber(inputServiceAmount);
 		var serviceMoreData = FormatMoneyShowToNumber(inputServiceMoreData);
-	var sumTotalAmount = serviceAmount * serviceMoreData ;
-		var amountTotal
+		var amountTotal;
 		var vatamount;
 
 		if(radioResult == "beforvat"){
-			var amountDiscount = disDiscount(sumTotalAmount);
+			var amountDiscount = disDiscount(serviceAmount);
 			var amountBeforVat = disVat(amountDiscount,radioResult);
 			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
 			vatamount = amountTotal- amountDiscount;
 			
 		}else{
-			var amountBeforVat = disVat(sumTotalAmount,radioResult);
+			var amountBeforVat = disVat(serviceAmount,radioResult);
 			var amountDiscount = disDiscount(amountBeforVat);
 			 amountTotal = calurateVatRate(amountDiscount, vatRate);
 			 vatamount = amountTotal- amountDiscount;
 			 
-			 sumTotalAmount = amountBeforVat;
+			 serviceAmount = amountBeforVat;
 			 
 		}
 		
