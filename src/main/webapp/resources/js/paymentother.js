@@ -602,7 +602,7 @@ function findBankNo() {
 }
 
 function buttonAddBillingList() {
-    document.getElementById('vatrate').disabled = true;
+    
     
 	hideDetailPayment();
 	if ($("#inputServiceType").val() == "") {
@@ -755,6 +755,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
 	$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	document.getElementById('vatrate').disabled = true;
 
 }
 function calurateVatRate (amountDiscount ,vatRate){
