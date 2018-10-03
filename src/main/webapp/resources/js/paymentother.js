@@ -83,6 +83,36 @@ $(document).ready(function() {
 				$("#inputSpecialDiscount").val(FormatMoneyShowToNumber(inputSpecialDiscount).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 			});
 			
+			$("#inputServiceAmount").on( "change",  function() {
+				var inputServiceAmount = $("#inputServiceAmount").val();
+				
+				
+				if(inputServiceAmount == ""){
+					inputServiceAmount = "0";
+				}
+				$("#inputServiceAmount").val(FormatMoneyShowToNumber(inputServiceAmount).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			});
+			
+			$("#moneyDed1").on( "change",  function() {
+				var moneyDed1 = $("#moneyDed1").val();
+				
+				
+				if(moneyDed1 == ""){
+					moneyDed1 = "0";
+				}
+				$("#moneyDed1").val(FormatMoneyShowToNumber(moneyDed1).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			});
+			
+			$("#inputServiceMoreData").on( "change",  function() {
+				var inputServiceMoreData = $("#inputServiceMoreData").val();
+				
+				
+				if(inputServiceMoreData == ""){
+					inputServiceMoreData = "1";
+				}
+				$("#inputServiceMoreData").val(inputServiceMoreData);
+			});
+			
 			findTypePayment();
 			findBank();
 			findBankNo();
@@ -662,17 +692,16 @@ function buttonAddBillingList() {
 		var serviceMoreData = FormatMoneyShowToNumber(inputServiceMoreData);
 		var amountTotal;
 		var vatamount;
-
 		if(radioResult == "beforvat"){
 			var amountDiscount = disDiscount(serviceAmount);
 			var amountBeforVat = disVat(amountDiscount,radioResult);
-			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
+			 amountTotal = calurateVatRate(amountBeforVat, vatRate*serviceMoreData);
 			vatamount = amountTotal- amountDiscount;
 			
 		}else{
-			var amountBeforVat = disVat(serviceAmount,radioResult);
+			var amountBeforVat = disVat(serviceAmount ,radioResult);
 			var amountDiscount = disDiscount(amountBeforVat);
-			 amountTotal = calurateVatRate(amountDiscount, vatRate);
+			 amountTotal = calurateVatRate(amountDiscount, vatRate*serviceMoreData);
 			 vatamount = amountTotal- amountDiscount;
 			 
 			 serviceAmount = amountBeforVat;
@@ -1750,8 +1779,8 @@ function replaseIndexV4(str) {
 			}
 			sumInputmon = sumInputmon
 					+ FormatMoneyShowToNumber(cells[9].innerHTML);
-			beforeSaleShow = beforeSaleShow
-					+ FormatMoneyShowToNumber(cells[4].innerHTML) ;
+			beforeSaleShow = (beforeSaleShow
+					+ FormatMoneyShowToNumber(cells[4].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
 			if(cells[7].innerHTML != "-"){
 				vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
 			}
@@ -1759,10 +1788,10 @@ function replaseIndexV4(str) {
 			cells[0].innerHTML = i;
 			cells[10].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
-			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML) ;
-			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML) ;
-			summaryTax= summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML);
-			beforeSaleShow1 = beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)) ;
+			spacial = (spacial + FormatMoneyShowToNumber(cells[6].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			sale = (sale + FormatMoneyShowToNumber(cells[5].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			summaryTax= (summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML);
+			beforeSaleShow1 =( beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
 		}
 	}
 //	$("#moneyDed").val(summaryTax);
@@ -1911,6 +1940,7 @@ function calWT(amount){
 }
 function disVat(serviceAmount,amountType){
 	var vatRate = $('#vatrate').val();
+	var serviceMoreData = $("#inputServiceMoreData").val();
 	if(vatRate == 'notVat'){
 		vatRate = '0';
 	}
@@ -1930,7 +1960,7 @@ function disDiscount(amountBeforVat){
 	var inputServiceMoreData = parseFloat(serviceMoreData.replace(",", ""));
 	var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", ""));
 	var serviceDiscount = parseFloat(inputServiceDiscount.replace(",", ""));
-	var amount = amountBeforVat*serviceMoreData - specialDiscount -serviceDiscount;
+	var amount = (amountBeforVat*serviceMoreData) - (specialDiscount*serviceMoreData) -(serviceDiscount*serviceMoreData);
 	return amount;
 	
 }
