@@ -30,24 +30,39 @@ $(document).ready(function() {
 				this.select();
 				
 			});
+//			$("#moneyTran").on( "change",  function() {
+//				if($("#moneyTran").val() == ""){
+//				var table = document.getElementById("sumtableBillingList");
+//				replaseIndexV4(table);
+//				}
+//			});
 			$("#moneyTran").on( "change",  function() {
-				if($("#moneyTran").val() == ""){
-				var table = document.getElementById("sumtableBillingList");
-				replaseIndexV4(table);
-				}
-			});
-//			$("#creditPrice").on( "change",  function() {
-//				if($("#creditPrice").val() == ""){
-//				var table = document.getElementById("sumtableBillingList");
-//				replaseIndexV4(table);
-//				}
-//			});
-//			$("#moneyCheck").on( "change",  function() {
-//				if($("#moneyCheck").val() == ""){
-//				var table = document.getElementById("sumtableBillingList");
-//				replaseIndexV4(table);
-//				}
-//			});
+			var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+			var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+			if($("#moneyTran").val() == ""){
+				$("#moneyTran").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			}				
+		});
+		
+		$("#creditPrice").on( "change",  function() {
+			
+			var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+			var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+			if($("#creditPrice").val() == ""){
+				$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			}			
+		});
+		$("#moneyCheck").on( "change",  function() {
+			var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+			var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+			if($("#moneyCheck").val() == ""){
+				$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			}			
+		});
+		
 			$("#inputServiceType").on( "change",  function() {
 				console.log(this);
 				$("#inputServiceName").empty();
@@ -236,17 +251,21 @@ $(document).ready(function() {
 			});
 			
 			$("#creditPrice").on( "keyup",  function() {
-				var txt  = $("#creditPrice").val();
-				if(txt === ""){
-					$("#creditPrice").val("0.00");
+				var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+				var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+				if($("#creditPrice").val() == ""){
+					$("#creditPrice").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				}
 			});	  
 			$("#moneyCheck").on( "keyup",  function() {
-				var txt  = $("#moneyCheck").val();
-				if(txt === ""){
-					$("#moneyCheck").val("0.00");
+				var balance =  FormatMoneyShowToNumber($("#balanceSummarys").val());
+				var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
+
+				if($("#moneyCheck").val() == ""){
+					$("#moneyCheck").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				}
-			});	 
+			});		 
 			
 		});
 
@@ -1789,9 +1808,9 @@ function replaseIndexV4(str) {
 			cells[10].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
 			spacial = (spacial + FormatMoneyShowToNumber(cells[6].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
-			sale = (sale + FormatMoneyShowToNumber(cells[5].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
 			summaryTax= (summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML);
-			beforeSaleShow1 =( beforeSaleShow1+(FormatMoneyShowToNumber(cells[4].innerHTML)-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			beforeSaleShow1 = beforeSaleShow1+((FormatMoneyShowToNumber(cells[4].innerHTML)*FormatMoneyShowToNumber(cells[3].innerHTML))-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)) ;
 		}
 	}
 //	$("#moneyDed").val(summaryTax);
@@ -1940,7 +1959,6 @@ function calWT(amount){
 }
 function disVat(serviceAmount,amountType){
 	var vatRate = $('#vatrate').val();
-	var serviceMoreData = $("#inputServiceMoreData").val();
 	if(vatRate == 'notVat'){
 		vatRate = '0';
 	}
@@ -1960,7 +1978,7 @@ function disDiscount(amountBeforVat){
 	var inputServiceMoreData = parseFloat(serviceMoreData.replace(",", ""));
 	var specialDiscount = parseFloat(inputSpecialDiscount.replace(",", ""));
 	var serviceDiscount = parseFloat(inputServiceDiscount.replace(",", ""));
-	var amount = (amountBeforVat*serviceMoreData) - (specialDiscount*serviceMoreData) -(serviceDiscount*serviceMoreData);
+	var amount = (amountBeforVat*serviceMoreData) - specialDiscount - serviceDiscount;
 	return amount;
 	
 }
