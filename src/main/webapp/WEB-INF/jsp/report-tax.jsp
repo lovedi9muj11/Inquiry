@@ -148,8 +148,8 @@
 								:</label>
 							<div class="col-md-6">
 								<select class="form-control" id="typePrint" name="typePrint">
-									<option value="F">รายการภาษีแบบเต็ม</option>
-									<option value="S">รายการภาษีแบบย่อ</option>
+									<option value="RF">รายการภาษีแบบเต็ม</option>
+									<option value="RS">รายการภาษีแบบย่อ</option>
 								</select>
 							</div>
 						</div>

@@ -35,11 +35,7 @@ function initCriteria(){
 	$('#dateFromMinute').val('00');
 	$('#dateToHour').val('23');
 	$('#dateToMinute').val('59');
-//	$('#vat').val('');
 	$('#categoryPayment').val('');
-//	$("#authorities").val('');
-	$("#serviceType").val('');
-//	$("#accountId").val('');
 	
 };
 
@@ -48,8 +44,8 @@ function search(){
 	$("#error-end-date").addClass("hide");
 	$("#error-end-date2").addClass("hide");
 	reportPaymentTb.clear().draw();
-	var dateFrom = $('#dateFrom').val() +" "+ $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00";
-	var dateTo =$('#dateTo').val() +" "+ $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";
+	var dateFrom = $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00"; //$('#dateFrom').val() +" "+ 
+	var dateTo = $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";  //$('#dateTo').val() +" "+ 
 	dateFromGlobal = dateFrom;
 	dateToGlobal = dateTo;
 	var data = '';

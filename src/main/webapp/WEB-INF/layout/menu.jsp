@@ -1,6 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%-- <jsp:include page="${contextPath}/commons/includes.jsp"></jsp:include> --%>
@@ -92,9 +91,9 @@
 								class="pull-right hidden-xs glyphicon glyphicon-file"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/reportPayment">รายงานการรับชำระ</a>
+								<li><a href="${contextPath}/reportPayment">รายงานรับชำระค่าบริการ</a>
 								</li>
-								<li><a href="${contextPath}/reportPaymentOther">รายงานการรับชำระบริการอื่น ๆ</a>
+								<li><a href="${contextPath}/reportPaymentOther">รายงานรับชำระค่าบริการอื่น</a>
 								</li>
 								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบย่อ/แบบเต็ม</a>
 								</li>

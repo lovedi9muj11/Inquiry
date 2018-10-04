@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -48,12 +49,14 @@ public class PaymentReportPdf {
 		double sumAllVat0 = 0.00;
 		int index = 1;
 
+		String serviceName = "";
 		// set new DataSource
 		if (date.size() != 0) {
 			for (ReportPaymentBean reportPaymentBean : date) {
 				ReportPaymentBean reportPaymentBeanNew = new ReportPaymentBean();
 				reportPaymentBeanNew.setManualIdStr(index + "");
 				reportPaymentBeanNew.setServiceType(reportPaymentBean.getServiceType().equals("IBACSS") ? "รับชำระค่าใช้บริการ" : "รับชำระค่าใช้บริการอื่นๆ");
+				serviceName = reportPaymentBeanNew.getServiceType();
 				reportPaymentBeanNew.setReceiptNoManual(reportPaymentBean.getReceiptNoManual());
 				if (null != reportPaymentBean.getAccountSubNo()) {
 					reportPaymentBeanNew.setAccountSubNo(reportPaymentBean.getAccountSubNo());
@@ -77,7 +80,7 @@ public class PaymentReportPdf {
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
-				reportPaymentBeanNew.setNoRefer(reportPaymentBean.getRefNo());
+				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
@@ -105,11 +108,11 @@ public class PaymentReportPdf {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
 		parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-		parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
-		parameters.put("dateTo", convertDateFormat(criteria.getDateTo()));
+		parameters.put("dateFrom", convertTimeFormat(criteria.getDateFrom()));
+		parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 		parameters.put("staff", criteria.getUser());
 		parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
-		
+		parameters.put("serviceNameHead", serviceName);
 
 		parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 		parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
@@ -126,9 +129,15 @@ public class PaymentReportPdf {
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
 
+	@SuppressWarnings("unused")
 	private String convertDateFormat(String dateFormat) throws ParseException {
 		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
 		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+	}
+	
+	private String convertTimeFormat(String dateFormat) throws ParseException {
+		Date date = new SimpleDateFormat("HH:mm:ss").parse(dateFormat);
+		return new SimpleDateFormat("HH:mm:ss").format(date);
 	}
 
 }

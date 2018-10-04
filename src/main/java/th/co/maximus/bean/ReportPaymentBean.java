@@ -27,8 +27,10 @@ public class ReportPaymentBean {
 	private String vatAmountStr;
 	private String paymentMethod;
 	private String remake;
+	private String cancelReason;
 	
 	private String refNo;
+	private String deductionNo;
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -212,6 +214,22 @@ public class ReportPaymentBean {
 
 	public void setRefNo(String refNo) {
 		this.refNo = refNo;
+	}
+
+	public String getCancelReason() {
+		return cancelReason;
+	}
+
+	public void setCancelReason(String cancelReason) {
+		this.cancelReason = cancelReason;
+	}
+
+	public String getDeductionNo() {
+		return deductionNo;
+	}
+
+	public void setDeductionNo(String deductionNo) {
+		this.deductionNo = deductionNo;
 	}
 
 }

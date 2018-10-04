@@ -7,8 +7,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.DeductionManualImpl;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.model.TrsChequerefEpisOffline;
@@ -26,6 +29,9 @@ public class PaymentReportServiceImp implements PaymentReportService {
 	
 	@Autowired
 	private TrsMethodManualDao trsMethodManualDao;
+	
+	@Autowired
+	private DeductionManualImpl deductionManualImpl;
 	
 	@Autowired
 	private TrscreDitrefManualService trscreDitrefManualService;
@@ -46,9 +52,11 @@ public class PaymentReportServiceImp implements PaymentReportService {
 
 		for(ReportPaymentBean resultBean : result) {
 			String paymentCodeRes = "";
+			String deductionNo = "";
 			boolean chkCC = true;
 			List<String> results = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
+			List<DeductionManualBean> deductionList = deductionManualImpl.findDeductionManualFromManualId(Long.valueOf(resultBean.getManualId()));
 				for (int i = 0; i < methodResult.size(); i++) {
 					String payCode = "";
 					TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
@@ -57,6 +65,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						payCode = "เงินสด";
 						results.add(payCode);
 						if(i==0) {resultBean.setRefNo(""); chkCC=true;}
+						if (stockObject.getCode().equals("DEDUC")) {}
 					} else if (stockObject.getCode().equals("CR")) {
 						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
@@ -76,11 +85,14 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
 					}
 				}
+				
+				boolean chkWT = true;
 				for (int i = 0; i < methodResult.size(); i++) {
 					TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
-					if (stockObject.getCode().equals("DEDUC")) {
+					if (stockObject.getCode().equals("DEDUC") && chkWT) {
 						checkWT = "WT";
 						results.add(checkWT);
+						chkWT = false;
 					}
 
 				}
@@ -92,6 +104,20 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					}
 
 				}
+				
+				int i=0;
+				for(DeductionManualBean deductionBean : deductionList) {
+					if(i>0)deductionNo += ", ";
+					
+					deductionNo += deductionBean.getDeDuctionNo();
+					i++;
+				}
+				
+			if(paymentCodeRes.indexOf(Constants.PAYTYPE.WT) > 0) {
+				resultBean.setRefNo(deductionNo);
+			}
+			
+			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
 			data.add(resultBean);
 		}

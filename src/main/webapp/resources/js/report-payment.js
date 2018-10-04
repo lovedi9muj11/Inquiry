@@ -38,18 +38,17 @@ function initCriteria(){
 //	$('#vat').val('');
 	$('#categoryPayment').val('');
 //	$("#authorities").val('');
-	$("#serviceType").val('');
 //	$("#accountId").val('');
 	
 };
 
 function search(){
 	$("#sShowValidate").hide();
-	$("#error-end-date").addClass("hide");
-	$("#error-end-date2").addClass("hide");
+//	$("#error-end-date").addClass("hide");
+//	$("#error-end-date2").addClass("hide");
 	reportPaymentTb.clear().draw();
-	var dateFrom = $('#dateFrom').val() +" "+ $('#dateFromHour').val() +":"+ $('#dateFromMinute').val()+":00";
-	var dateTo =$('#dateTo').val() +" "+ $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";
+	var dateFrom = $('#dateFromHour').val() +":" + $('#dateFromMinute').val()+":00"; //$('#dateFrom').val() +" "+
+	var dateTo = $('#dateToHour').val() +":" + $('#dateToMinute').val()+":00"; //$('#dateTo').val() +" "+
 	dateFromGlobal = dateFrom;
 	dateToGlobal = dateTo;
 	var data = '';
@@ -126,9 +125,10 @@ function createRow(data, seq) {
 	beforVat = formatDouble(data.beforVat,2);
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);
+	deductionNo = data.deductionNo;
 	if (data.status == 'C'){
 		statusStr = 'ยกเลิก';
-		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		remake = '<a name="invoice" id="invoice" onclick="dialogCancelRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	}else{
 		if(data.remake != ""){
 			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
@@ -151,7 +151,7 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(4).addClass('left');
     $(rowNode).find('td').eq(5).addClass('left');
 //    $(rowNode).find('td').eq(6).addClass('left');
-    $(rowNode).find('td').eq().addClass('left');
+    $(rowNode).find('td').eq(6).addClass('center');
     $(rowNode).find('td').eq(7).addClass('right');
     $(rowNode).find('td').eq(8).addClass('center');
     $(rowNode).find('td').eq(9).addClass('right');
@@ -234,9 +234,27 @@ function dialogRemake(value){
         }
 	})
 };
+
+function dialogCancelRemake(value){
+	$("#remake_dialog").modal('show');
+	var dataSend = {"manualId": value};
+	$.ajax({
+        type: "POST",
+        url: ctx +"/histroryPayment/findInvoiceByManualIdCancel",
+        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	$("#remake").text(res.cancelReason);
+        }
+	})
+};
+
 function closeDialog(){
 	$("#remake_dialog").modal('hide');
 }
+
 function validationSearchCriteria(){
 	var returnResult = true;
 	var dateFrom = $('#dateFrom').val();

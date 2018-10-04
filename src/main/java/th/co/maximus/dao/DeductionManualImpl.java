@@ -49,8 +49,8 @@ public class DeductionManualImpl implements DeductionManualDao {
 			deductionManualBean.setaMount(rs.getLong("AMOUNT"));
 			deductionManualBean.setPaymentDate(rs.getTimestamp("PAYMENTDATE"));
 			deductionManualBean.setUpdateDttm(rs.getTimestamp("UPDATEDTTM"));
-			deductionManualBean.setUpdateSystem(rs.getString("UPDATESYSTEM"));
-			deductionManualBean.setUpdateUser(rs.getString("UPDATEUSER"));
+//			deductionManualBean.setUpdateSystem(rs.getString("UPDATESYSTEM"));
+//			deductionManualBean.setUpdateUser(rs.getString("UPDATEUSER"));
 			deductionManualBean.setVersionStamp(rs.getLong("VERSIONSTAMP"));
 			deductionManualBean.setInvoiceNo(rs.getString("INVOICE_NO"));
 			deductionManualBean.setRemark(rs.getString("REMARK"));

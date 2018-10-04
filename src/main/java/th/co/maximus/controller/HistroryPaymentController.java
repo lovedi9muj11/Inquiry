@@ -20,6 +20,8 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.HistoryPaymentService;
 
@@ -37,6 +39,9 @@ public class HistroryPaymentController {
 
 	// @Autowired
 	// private CancelPaymentService cancelPaymentService;
+	
+	@Autowired
+	private PaymentManualDao paymentManualDao;
 
 	@RequestMapping(value = { "/gotoHistroryPayment" }, method = RequestMethod.GET)
 	public String gotoHistroryPayment(Model model) {
@@ -127,6 +132,14 @@ public class HistroryPaymentController {
 	public PaymentInvoiceManualBean findInvoiceByManualId(@RequestBody PaymentMMapPaymentInvBean creteria)
 			throws Exception {
 		return paymentManualService.findInvoiceManuleByManualIdService(creteria.getManualId());
+	}
+	
+	@RequestMapping(value = {"/histroryPayment/findInvoiceByManualIdCancel" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public PaymentManualBean findInvoiceByManualIdCancel(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
+		List<PaymentManualBean> paymentManual = paymentManualDao.findPaymentManualFromNanualId(creteria.getManualId());
+		return paymentManual.get(0);
+//		return paymentManualService.findInvoiceManuleByManualIdService(creteria.getManualId());
 	}
 
 	@RequestMapping(value = { "/histroryPayment/clearing" }, method = RequestMethod.POST, produces = "application/json")

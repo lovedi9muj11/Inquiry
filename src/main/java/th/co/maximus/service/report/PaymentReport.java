@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -37,6 +38,7 @@ public class PaymentReport extends BaseExcelRptService {
 		Font fontTable = createFontTHSarabanPSK(workbook, 10, false);
 		CellStyle txtCenterTable = createStyleCellLeftBorder(workbook, fontTable, true);
 		CellStyle txtCenterTableRight = createStyleCellLefRight(workbook, fontTable, true);
+		CellStyle txtTableCenter = createStyleCellCenterBorder(workbook, fontTable, true);
 									
 		CellStyle txtCenterDecimalRight = createStyleCellFormetDecimalRight(workbook, fontTable, true);
 		
@@ -44,6 +46,13 @@ public class PaymentReport extends BaseExcelRptService {
 		
 		String date = formateDateEN.format(new Date());
 		String time = formateHH.format(new Date());
+		String serviceName = "";
+		
+		if("IBACSS".equals(result.get(0).getServiceType())) {
+			serviceName = "รับชำระค่าใช้บริการ";
+		 }else if("OTHER".equals(result.get(0).getServiceType())) {
+			 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
+		 }
 		
 		//Create Sheet and name Sheet
 		Sheet sh = workbook.getSheetAt(0);
@@ -55,7 +64,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 Cell dateFromToCriteria = row1.getCell(5);
 		 Cell datePrint = row1.getCell(11);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
-		 dateFromToCriteria.setCellValue("ประจำวันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+" ถึง "+ convertDateFormat(criteria.getDateTo()));
+		 dateFromToCriteria.setCellValue("เวลา"+" "+ convertTimeFormat(criteria.getDateFrom())+" "+" ถึง "+ convertTimeFormat(criteria.getDateTo()));
 		 datePrint.setCellValue("พิมพ์วันที่"+" "+ date+" "+time);
 		 company.setCellStyle(txtCenterBor);
 		 dateFromToCriteria.setCellStyle(txtCenterHeadBor);
@@ -63,15 +72,20 @@ public class PaymentReport extends BaseExcelRptService {
 		 
 		 Row row2 = sh.getRow(2);
 		 Cell agency = row2.getCell(0);
-		 agency.setCellValue("หน่วยงานรับชำระ "+ criteria.getMachinePaymentName());
+		 agency.setCellValue("หน่วยงานรับชำระ  :  "+ criteria.getMachinePaymentName());
 		 agency.setCellStyle(txtCenterBor);
 		 
 		 Row row3 = sh.getRow(3);
 		 Cell user = row3.getCell(0);
-		 user.setCellValue("เจ้าหน้าที่ "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
+		 user.setCellValue("เจ้าหน้าที่  :  "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
 		 user.setCellStyle(txtCenterBor);
 		 
-		 int indexRow = 6;
+		 Row row4 = sh.getRow(4);
+		 Cell service = row4.getCell(0);
+		 service.setCellValue("บริการ :  "+serviceName);
+		 service.setCellStyle(txtCenterBor);
+		 
+		 int indexRow = 7;
 		 int index = 1;
 		 double sumAllTotal = 0.00;
 		 double sumAllNoVat = 0.00;
@@ -85,7 +99,8 @@ public class PaymentReport extends BaseExcelRptService {
 			 for(ReportPaymentBean resultReportPayment : result) {
 				 Row row = sh.createRow(indexRow);
 				 Cell cell = row.createCell(0);
-				 Cell cell1= row.createCell(1);
+//				 Cell cell1= row.createCell(1);
+				 Cell cell1 = row.createCell(1);
 				 Cell cell2 = row.createCell(2);
 				 Cell cell3 = row.createCell(3);
 				 Cell cell4 = row.createCell(4);
@@ -97,45 +112,40 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell10 = row.createCell(10);
 				 Cell cell11 = row.createCell(11);
 				 Cell cell12 = row.createCell(12);
-				 Cell cell13 = row.createCell(13);
 				 
 				 cell.setCellValue(index);
-				 if("IBACSS".equals(resultReportPayment.getServiceType())) {
-					 cell1.setCellValue("รับชำระค่าใช้บริการ");
-				 }else if("OTHER".equals(resultReportPayment.getServiceType())) {
-					 cell1.setCellValue("รับชำระค่าใช้บริการอื่น ๆ ");
-				 }
-				 cell2.setCellValue(resultReportPayment.getReceiptNoManual());
-				 cell3.setCellValue(resultReportPayment.getAccountSubNo());
-				 cell4.setCellValue(resultReportPayment.getCustomerName());
-				 cell5.setCellValue(resultReportPayment.getDepartment());
-				 cell6.setCellValue(resultReportPayment.getInvoiceNo());
-				 cell7.setCellValue(resultReportPayment.getPaymentMethod());
-				 cell8.setCellValue("-");
-				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
-				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
-				 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
+//				 cell1.setCellValue(serviceName);
+				 cell1.setCellValue(resultReportPayment.getReceiptNoManual());
+				 cell2.setCellValue(resultReportPayment.getAccountSubNo());
+				 cell3.setCellValue(resultReportPayment.getCustomerName());
+				 cell4.setCellValue(resultReportPayment.getDepartment());
+				 cell5.setCellValue(resultReportPayment.getInvoiceNo());
+				 cell6.setCellValue(resultReportPayment.getPaymentMethod());
+				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"-");
+				 cell8.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
+				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
+				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
 				 if("A".equals(resultReportPayment.getStatus())) {
-					 cell12.setCellValue("-");
+					 cell11.setCellValue("-");
 				 }else if("C".equals(resultReportPayment.getStatus())) {
-					 cell12.setCellValue("ยกเลิก");
+					 cell11.setCellValue("ยกเลิก");
 				 }
-				 cell13.setCellValue(resultReportPayment.getCreateBy());
+				 cell12.setCellValue(resultReportPayment.getCreateBy());
 				 
 				 cell.setCellStyle(txtCenterTableRight);
+//				 cell1.setCellStyle(txtCenterTable);
 				 cell1.setCellStyle(txtCenterTable);
 				 cell2.setCellStyle(txtCenterTable);
 				 cell3.setCellStyle(txtCenterTable);
 				 cell4.setCellStyle(txtCenterTable);
 				 cell5.setCellStyle(txtCenterTable);
-				 cell6.setCellStyle(txtCenterTable);
-				 cell7.setCellStyle(txtCenterTable);
-				 cell8.setCellStyle(txtCenterTable);
+				 cell6.setCellStyle(txtTableCenter);
+				 cell7.setCellStyle(txtCenterDecimalRight);
+				 cell8.setCellStyle(txtCenterTableRight);
 				 cell9.setCellStyle(txtCenterDecimalRight);
-				 cell10.setCellStyle(txtCenterTableRight);
-				 cell11.setCellStyle(txtCenterDecimalRight);
+				 cell10.setCellStyle(txtCenterTable);
+				 cell11.setCellStyle(txtCenterTable);
 				 cell12.setCellStyle(txtCenterTable);
-				 cell13.setCellStyle(txtCenterTable);
 //				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
 //				 if("0".equals(vatConverStr)) {
@@ -205,8 +215,15 @@ public class PaymentReport extends BaseExcelRptService {
 		
 		return workbook;
 	}
+	
+	@SuppressWarnings("unused")
 	private String convertDateFormat(String dateFormat) throws ParseException {
 	    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
 	    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+	}
+	
+	private String convertTimeFormat(String dateFormat) throws ParseException {
+	    Date date = new SimpleDateFormat("HH:mm:ss").parse(dateFormat);
+	    return new SimpleDateFormat("HH:mm:ss").format(date);
 	}
 }

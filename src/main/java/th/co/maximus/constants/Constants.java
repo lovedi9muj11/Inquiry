@@ -51,6 +51,8 @@ public class Constants {
 		
 		public static final String METHOD_WT_STR = "ภาษีหัก ณ ที่จ่าย";
 		public static final String METHOD_WT = "WT";
+		
+		public static final String CC_WT = "เงินสด + WT";
 	}
 	
 	public static class report {
@@ -135,6 +137,10 @@ public class Constants {
 	
 	public static class PAYMENT_OTHER {
 		public static final String NON_VATE = "nonVat";
+	}
+	
+	public static class PAYTYPE {
+		public static final String WT = "WT";
 	}
 	
 	public static class DOCTYPE {

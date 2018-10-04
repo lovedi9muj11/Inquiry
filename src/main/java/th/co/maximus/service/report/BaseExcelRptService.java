@@ -371,6 +371,24 @@ public class BaseExcelRptService {
 
 		return cellStyle;
 	}
+	
+	protected CellStyle createStyleCellCenterBorder(Workbook workbook, Font font, boolean warpText) {
+		// style for text
+		// font.setFontHeightInPoints((short)10);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setWrapText(warpText);
+		cellStyle.setFont(font);
+
+		return cellStyle;
+	}
+	
 	protected CellStyle createStyleCellFormetDecimal(Workbook workbook, Font font, boolean warpText) {
 		// style for text
 		// font.setFontHeightInPoints((short)10);

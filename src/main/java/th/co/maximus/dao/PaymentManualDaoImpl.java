@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -33,7 +35,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
+	Locale localEn = new Locale("en", "EN");
+	SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT, localEn);
 
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
@@ -147,6 +150,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
 			// paymentManual.setVatRate(rs.getInt("VAT_RATE"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
+			paymentManual.setCancelReason(rs.getString("CANCEL_REASON"));
 			return paymentManual;
 		}
 
@@ -158,18 +162,16 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" SELECT PM.*,PIM.* ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
-		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'")
-				.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
-//		if (!"".equals(criteria.getVatRate()) && criteria.getVatRate() != null) {
-//			sql.append(" AND PIM.VAT_RATE = ").append("'" + criteria.getVatRate() + "'");
-//		}
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
+		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
+		
+//		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
+//		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
+		
 		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
 			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
-//		if (!"".equals(criteria.getAccountId()) && criteria.getAccountId() != null) {
-//			sql.append(" AND PIM.SERVICECODE = ").append("'" + criteria.getAccountId() + "'");
-//		}
 		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
@@ -192,11 +194,11 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			reportPayment.setRemake(rs.getString("REMARK"));
 			// reportPayment.setNoRefer(rs.getString(""));
-			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract(rs.getBigDecimal("VAT_AMOUNT")).setScale(2,
-					BigDecimal.ROUND_HALF_UP));
+			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract(rs.getBigDecimal("VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
 			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
+			reportPayment.setCancelReason(rs.getString("CANCEL_REASON"));
 			return reportPayment;
 		}
 
