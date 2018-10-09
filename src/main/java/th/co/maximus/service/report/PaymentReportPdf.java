@@ -1,5 +1,6 @@
 package th.co.maximus.service.report;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -18,21 +19,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
 
+@SuppressWarnings("deprecation")
 @Service("paymentReportPdf")
 public class PaymentReportPdf {
 	Locale TH = new Locale("th", "TH");
@@ -40,9 +45,9 @@ public class PaymentReportPdf {
 	@Autowired
 	private MasterDataService masterDataService;
 
-	public void jasperGanarationPDF(String fileName, ReportPaymentCriteria criteria, List<ReportPaymentBean> date,
-			HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
-		List<ReportPaymentBean> resultSource = new ArrayList<>();
+	public void jasperGanarationPDF(String fileName, ReportPaymentCriteria criteria, List<ReportPaymentBean> date, HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
+		List<ReportPaymentBean> resultSource = new ArrayList<ReportPaymentBean>();
+		List<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
 		// DecimalFormat df2 = new DecimalFormat("#0.00");
 		double sumAllTotal = 0.00;
 		double sumAllTotalNoVat = 0.00;
@@ -122,10 +127,16 @@ public class PaymentReportPdf {
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
 		JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
-		JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty())
-				? new JRBeanCollectionDataSource(resultSource)
-				: new JREmptyDataSource();
+		JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+		
+//		JRXlsExporter exporter = new JRXlsExporter(DefaultJasperReportsContext.getInstance());
+//		jasperPrints.add(jasperPrint);
+		
+//		exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST,jasperPrints);
+//		exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File("xxx.pdf"));
+//		exporter.exportReport();
+		
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
 

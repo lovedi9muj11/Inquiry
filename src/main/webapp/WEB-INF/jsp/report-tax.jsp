@@ -183,8 +183,7 @@
 								<!--<div class="box-header"></div>
 						 /.box-header -->
 								<div class="box-body">
-									<table id="reportTax" class="table table-bordered"
-										cellspacing="0" width="100%">
+									<table id="reportTax" class="table table-bordered">
 										<thead>
 											<tr>
 												<th style="text-align: center;">ลำดับที่</th>

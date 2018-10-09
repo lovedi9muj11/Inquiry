@@ -168,16 +168,16 @@ public class PaymentReport extends BaseExcelRptService {
 //		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
 //		 cellTotalSummary.setCellStyle(txtCenterTable);
 		 
-		 Cell totalSummaryNoVat = textTotalSummary.createCell(9);
+		 Cell totalSummaryNoVat = textTotalSummary.createCell(8);
 		 totalSummaryNoVat.setCellValue(String.format("%,.2f", sumAllNoVat));
 		 totalSummaryNoVat.setCellStyle(txtCenterTable);
 		 totalSummaryNoVat.setCellStyle(borderCell);
 		 
-		 Cell totalVat0 = textTotalSummary.createCell(10);
+		 Cell totalVat0 = textTotalSummary.createCell(9);
 		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
 		 totalVat0.setCellStyle(borderCell);
 		 
-		 Cell totalSummary = textTotalSummary.createCell(11);
+		 Cell totalSummary = textTotalSummary.createCell(10);
 		 totalSummary.setCellValue(String.format("%,.2f", sumAllTotal));
 		 totalSummary.setCellStyle(borderCell);
 		 
