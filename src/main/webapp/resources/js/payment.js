@@ -2,7 +2,7 @@ var vatRateResult = 0;
 var vatNanVat = "";
 var chars = [];
 var checkLogin = false;
-var isprice;
+var isprice = 0;
 
 $(document).ready(function() {
 	
@@ -100,7 +100,7 @@ $(document).ready(function() {
 			});
 			$("#moneyDed").on( "click",  function() {
 				this.select();
-				$("#moneyDed").val("0.00");
+//				$("#moneyDed").val("0.00");
 			});
 			$("#creditPrice").on( "click",  function() {
 				this.select();
@@ -1734,12 +1734,12 @@ function summaryTax() {
 	}
 	
 	var taxonly = $("#taxOnly").val();
-
-	var taxonlyParse = parseFloat(taxonly.replace(/,/g, ""));
-	if(taxonlyParse === ""){
+	if(taxonly === ""){
 		taxonly = parseFloat(0);
+	}else{
+		taxonly = parseFloat(taxonly.replace(/,/g, ""));
 	}
-	
+//	var taxonlyParse = parseFloat(taxonly.replace(/,/g, ""));
 	var moneyss = parseFloat((priceSum - summary) - taxonly); 
 	$("#summaryTax").val((summary.toFixed(2) * -1).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

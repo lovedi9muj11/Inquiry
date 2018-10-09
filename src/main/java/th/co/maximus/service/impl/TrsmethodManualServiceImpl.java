@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -59,13 +60,14 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 					trsMethodManualBean.setName("เช็ค");
 					trsMethodManualBean.setAmount(paymentTranPriceBean.getMoneyCheck());
 				}else{
+					Double chage = paymentBean.getChang();
 					totalAmount = totalAmount-paymentTranPriceBean.getMoneyTran();
 					if(totalAmount < 0) {
 						Double amount = ((paymentTranPriceBean.getMoneyTran()- (totalAmount * -1)));
-						amount = amount -(paymentBean.getSummaryTax()*-1)-(paymentBean.getTaxOnly());
+						amount = amount - ((paymentBean.getSummaryTax()*-1)-(paymentBean.getTaxOnly()) - chage);
 						trsMethodManualBean.setAmount(amount);
 					}else {
-						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()));
+						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()- chage));
 					}
 					trsMethodManualBean.setName("เงินสด");
 					
