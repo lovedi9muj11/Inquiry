@@ -267,7 +267,8 @@ $(document).ready(function() {
 					var inPrice = FormatMoneyShowToNumber($("#balanceSummary").val());
 
 					if($("#moneyDed").val() == ""){
-						$("#moneyDed").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+						$("#moneyDed").val(0.00)
+//						$("#moneyDed").val(balance.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 					}
 				});	  
 				$("#creditPrice").on( "keyup",  function() {
