@@ -1,5 +1,6 @@
 package th.co.maximus.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -217,7 +218,8 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			paymentResultReq.setDiscountspacal(rs.getBigDecimal("DISCOUNTSPECIAL"));
 			paymentResultReq.setDiscountspacalStr(String.format("%,.2f", paymentResultReq.getDiscountspacal()));
 			paymentResultReq.setBeforeVat(rs.getBigDecimal("BEFOR_VAT"));
-			paymentResultReq.setBeforeVatStr(String.format("%,.2f", paymentResultReq.getBeforeVat()));
+			//paymentResultReq.setBeforeVatStr(String.format("%,.2f", paymentResultReq.getBeforeVat()));
+			paymentResultReq.setBeforeVatStr(String.format("%,.2f", paymentResultReq.getBeforeVat().multiply(new BigDecimal(paymentResultReq.getQuantity()))));
 			paymentResultReq.setDiscount(rs.getBigDecimal("DISCOUNTBEFORVAT"));
 			paymentResultReq.setDiscountStr(String.format("%,.2f", paymentResultReq.getDiscount()));
 			

@@ -60,6 +60,7 @@ function openTableSumOther(manualId) {
 		success : function(res) {
 			console.log(res);
 			for(i =0; i < res.length ;i++){
+				
 			var trE = $("<tr align='center' ></tr>");
 				var td1 = $("<td align='center' ></td>").text(res[i].amountType);
 				var td2 = $("<td align='center' ></td>").text(res[i].serviceName);
