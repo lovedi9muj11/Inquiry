@@ -1810,8 +1810,8 @@ function replaseIndexV4(str) {
 			}
 			sumInputmon = sumInputmon
 					+ FormatMoneyShowToNumber(cells[9].innerHTML);
-			beforeSaleShow = (beforeSaleShow
-					+ FormatMoneyShowToNumber(cells[4].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			beforeSaleShow = beforeSaleShow
+					+ (FormatMoneyShowToNumber(cells[4].innerHTML)*FormatMoneyShowToNumber(cells[3].innerHTML)) ;
 			if(cells[7].innerHTML != "-"){
 				vat = vat + FormatMoneyShowToNumber(cells[7].innerHTML);
 			}
@@ -1819,7 +1819,7 @@ function replaseIndexV4(str) {
 			cells[0].innerHTML = i;
 			cells[10].innerHTML = "<a onclick='deleteTableSale(" + i
 					+ ")'><span class='glyphicon glyphicon-trash'></span></a>";
-			spacial = (spacial + FormatMoneyShowToNumber(cells[6].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML) ;
+			spacial = spacial + FormatMoneyShowToNumber(cells[6].innerHTML) ;
 			sale = sale + FormatMoneyShowToNumber(cells[5].innerHTML);
 			summaryTax= (summaryTax + FormatMoneyShowToNumber(cells[8].innerHTML))*FormatMoneyShowToNumber(cells[3].innerHTML);
 			beforeSaleShow1 = beforeSaleShow1+((FormatMoneyShowToNumber(cells[4].innerHTML)*FormatMoneyShowToNumber(cells[3].innerHTML))-FormatMoneyShowToNumber(cells[5].innerHTML)-FormatMoneyShowToNumber(cells[6].innerHTML)) ;
