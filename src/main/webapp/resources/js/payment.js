@@ -1763,7 +1763,7 @@ function summaryTax() {
 }
 
 function removeTax() {
-	var moneyss = $("#balanceSum").val();
+	var moneyss = $("#moneyTran").val();
 	
 	if(moneyss == ""){
 		moneyss = parseFloat(0);
@@ -1799,8 +1799,17 @@ function removeTax() {
 	
 	var change = $("#change").val();
 	var resultChange = parseFloat(change.replace(/,/g, ""));
+	
+	var bl = $("#balanceSum").val();
+	
+	if(bl == ""){
+		bl = parseFloat(0);
+	}else{
+		bl = parseFloat(bl.replace(/,/g, ""));
+	}
 
 	moneyss = moneyss - resultChange;
+	moneyss = moneyss + bl;
 	
 	$("#summaryTax").val(tax.toFixed(2));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
