@@ -37,6 +37,7 @@ public class PaymentResultReq {
 	private String balancePriceStr;
 	private String discountStr;
 	private String serviceName;
+	private String productName;
 	private String serviceCode;
 	private String paid_amountStr;
 	private String discountspacalStr;
@@ -409,6 +410,14 @@ public class PaymentResultReq {
 
 	public void setDiscounBeforVatStr(String discounBeforVatStr) {
 		this.discounBeforVatStr = discounBeforVatStr;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	
 }

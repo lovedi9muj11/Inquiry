@@ -121,6 +121,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append("SELECT  (select  REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
+			sqlStmt.append(" ,(select  PRODUCT_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as PRODUCT_NAME");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL, py.VAT_RATE  ");
 
@@ -203,6 +204,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			paymentResultReq.setCustName(rs.getString("CUSTOMER_NAME"));
 			paymentResultReq.setServiceName(rs.getString("SERVICENAME"));
 			paymentResultReq.setServiceCode(rs.getString("SERVICECODE"));
+			paymentResultReq.setProductName(rs.getString("PRODUCT_NAME"));
 			paymentResultReq.setAmountType(rs.getString("AMOUNTTYPE"));
 			paymentResultReq.setQuantity(rs.getString("QUANTITY"));
 			paymentResultReq.setAmount(rs.getBigDecimal("AMOUNT"));

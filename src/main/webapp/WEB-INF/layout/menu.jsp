@@ -19,6 +19,9 @@
 <link href="${contextPath}/resources/css/styles/display-tag.css" rel="stylesheet" media="screen" type="text/css">
 <link href="${contextPath}/resources/css/styles/welcome.css" rel="stylesheet" media="screen" type="text/css">
 <link href="${contextPath}/resources/css/HoldOn.css" rel="stylesheet">
+
+<script src="${contextPath}/resources/lib/sweetalert.min.js"></script>
+
 <!-- sidebar -->
 <div id="wrapper">
 	<div id="sidebar-wrapper">

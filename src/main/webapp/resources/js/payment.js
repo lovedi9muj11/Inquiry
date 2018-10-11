@@ -1206,9 +1206,9 @@ function addDataTableMoneyTranPrice() {
 		var balan = parseFloat(beq.replace(/,/g, ""));
 		var ceq = $("#balanceSummarys").val(); 
 		var changeRQ = parseFloat(ceq.replace(/,/g, ""));
-		balanceS = parseFloat(balanceS + money + (summaryTax *-1));
 		
-		changeRQ =  (parseFloat(balanceS)- parseFloat(balan)) - (summaryTax *-1);
+		
+		changeRQ =  parseFloat(money)- parseFloat(balan);
 		balan = parseFloat(balan) - parseFloat(money);
 		if(balan < 0){
 			balan = parseFloat(0);
@@ -1225,11 +1225,11 @@ function addDataTableMoneyTranPrice() {
 		
 		$("#balanceSummarys").val(balan.toFixed(2));
 		
-		
+		balanceS = parseFloat(balanceS + money + (summaryTax *-1));
 		
 		if(parseFloat(sumPrice) < parseFloat(balanceS)){
 			// sumPrice = parseFloat(sumPrice) + parseFloat(money)
-			balanceS = balanceS - (summaryTax *-1) - changeRQ;
+			balanceS = balanceS - (summaryTax *-1);
 			$("#balanceSum").val(parseFloat(balanceS).toFixed(2));
 			$("#balanceSumShow").val(balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}else{
@@ -1596,7 +1596,8 @@ function sumTranPrice() {
 	
 	
 	if(balance < summary){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง")
 // $("#sBalanceSummary").hide();
 		return $("#balanceSummary").focus();
 	}
@@ -1763,7 +1764,7 @@ function summaryTax() {
 }
 
 function removeTax() {
-	var moneyss = $("#moneyTran").val();
+	var moneyss = $("#balanceSum").val();
 	
 	if(moneyss == ""){
 		moneyss = parseFloat(0);
@@ -1799,22 +1800,13 @@ function removeTax() {
 	
 	var change = $("#change").val();
 	var resultChange = parseFloat(change.replace(/,/g, ""));
-	
-	var bl = $("#balanceSum").val();
-	
-	if(bl == ""){
-		bl = parseFloat(0);
-	}else{
-		bl = parseFloat(bl.replace(/,/g, ""));
-	}
 
 	moneyss = moneyss - resultChange;
-	bl = moneyss + bl;
 	
 	$("#summaryTax").val(tax.toFixed(2));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#balanceSummarys").val(parseFloat(bl).toFixed(2));
-	$("#balanceSummaryShow").val(bl.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
+	$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
