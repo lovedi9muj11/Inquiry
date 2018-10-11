@@ -30,6 +30,7 @@ $(document).ready(function() {
 				this.select();
 				
 			});
+			
 //			$("#moneyTran").on( "change",  function() {
 //				if($("#moneyTran").val() == ""){
 //				var table = document.getElementById("sumtableBillingList");
@@ -244,6 +245,9 @@ $(document).ready(function() {
 			$('#inputServiceMoreData').change(function() {
 				$('#sinputServiceMoreData').hide();
 			});
+			$('#userGroup').change(function() {
+				$('#suserGroup').hide();
+			});
 			
 			
 			$(document).ready(function() {
@@ -368,7 +372,10 @@ function hideDetailPayment() {
 }
 
 function submitForm() {
-	if ($("#balanceSum").val() < $("#balanceOfTaxs").val()) {
+	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replace(",", ""));
+	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
+	var balance = balanceOfTaxs + summaryTax ;
+	if ($("#balanceSum").val() < balance) {
 	 alert("ยอดเงินรับมาไม่ถูกต้อง")
 	}else{
 		
