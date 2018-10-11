@@ -1651,7 +1651,9 @@ function myDeleteSumCreditTranPrice(numberRun) {
 				}
 // var res = summaryTax.split("-");
 				balance = parseFloat(balance);
-				res = parseFloat(balance) + parseFloat(chen);
+				
+				var changPc = parseFloat(chen.replace(/,/g, ""));
+				res = parseFloat(balance) + parseFloat(changPc);
 				if(parseFloat(res) >= parseFloat(sumPrice)  ){
 					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
@@ -1660,7 +1662,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 					// balance = parseFloat(sumPrice);
 					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
-				
+				balance = balance - changPc;
 				$("#balanceSummarys").val(balance.toFixed(2));
 				$("#balanceSum").val(balanceSum.toFixed(2));
 				$("#balanceSumShow").val(balanceSum.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
