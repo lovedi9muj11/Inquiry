@@ -1023,7 +1023,9 @@ function myDeleteDed(count) {
 	var st = $("#summaryTax").val();
 	var summaryTax = parseFloat(st.replace(/,/g, ""));
 	var summaryTa = parseFloat(0);
-
+//	var change = $("#change").val();
+//	var resultChange = parseFloat(change.replace(/,/g, ""));
+	
 
 	if (table.rows.length > 0) {
 
@@ -1034,11 +1036,11 @@ function myDeleteDed(count) {
 				
 				var total = parseFloat(oCells[2].innerHTML.replace(/,/g, ""));
 				var balances =	parseFloat(parseFloat(balance) + parseFloat(total *-1));
-				if(balances < result){
-					// balance = result;
-					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-				}
-					$("#balanceSummarys").val(balances.toFixed(2));
+				
+
+//				balances = balances - resultChange;
+//				
+//					$("#balanceSummarys").val(balances.toFixed(2));
 				// $("#balanceSummaryShow").val(balance.toFixed(2));
 					for (var i = 1; i < table.rows.length; i++) {
 						var oCell = table.rows.item(i).cells;
@@ -1049,8 +1051,14 @@ function myDeleteDed(count) {
 					}
 				removeTax();
 				vatAmount();
+				if(balances < result){
+					// balance = result;
+					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+				}
 				
 				tableDed.deleteRow(count);
+				
+				
 	}
 	replaseIndexSumTax(tableDed);
 	// replaseIndexSumTax(tableDed);
@@ -1788,7 +1796,11 @@ function removeTax() {
 	}else{
 		tax = parseFloat(tax - (summary*-1));
 	}
+	
+	var change = $("#change").val();
+	var resultChange = parseFloat(change.replace(/,/g, ""));
 
+	moneyss = moneyss - resultChange;
 	
 	$("#summaryTax").val(tax.toFixed(2));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

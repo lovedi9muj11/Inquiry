@@ -1,6 +1,7 @@
 package th.co.maximus.service.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,9 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 //				paymentManualBean.setVatRate(paymentBean.getVatrate());
 //			}
 			
-			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVat()));
+			
+			
+			paymentManualBean.setVatAmount(calVatAmount(paymentManualBean.getAmount()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());
@@ -91,6 +94,19 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	@Override
 	public List<PaymentManualBean> PaymentManualAll() {
 		return null;
+	}
+
+
+
+
+	@Override
+	public BigDecimal calVatAmount(BigDecimal amount) {
+		BigDecimal vat = new BigDecimal(7);
+		
+		amount = amount.multiply(vat);
+		amount = amount.divide(new BigDecimal(107),RoundingMode.HALF_UP);
+		
+		return amount;
 	}
 	
 	/*public PaymentManualBean xx() {
