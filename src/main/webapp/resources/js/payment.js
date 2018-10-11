@@ -1206,9 +1206,9 @@ function addDataTableMoneyTranPrice() {
 		var balan = parseFloat(beq.replace(/,/g, ""));
 		var ceq = $("#balanceSummarys").val(); 
 		var changeRQ = parseFloat(ceq.replace(/,/g, ""));
+		balanceS = parseFloat(balanceS + money + (summaryTax *-1));
 		
-		
-		changeRQ =  parseFloat(money)- parseFloat(balan);
+		changeRQ =  (parseFloat(balanceS)- parseFloat(balan)) - (summaryTax *-1);
 		balan = parseFloat(balan) - parseFloat(money);
 		if(balan < 0){
 			balan = parseFloat(0);
@@ -1225,11 +1225,11 @@ function addDataTableMoneyTranPrice() {
 		
 		$("#balanceSummarys").val(balan.toFixed(2));
 		
-		balanceS = parseFloat(balanceS + money + (summaryTax *-1));
+		
 		
 		if(parseFloat(sumPrice) < parseFloat(balanceS)){
 			// sumPrice = parseFloat(sumPrice) + parseFloat(money)
-			balanceS = balanceS - (summaryTax *-1);
+			balanceS = balanceS - (summaryTax *-1) - changeRQ;
 			$("#balanceSum").val(parseFloat(balanceS).toFixed(2));
 			$("#balanceSumShow").val(balanceS.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 		}else{
@@ -1809,12 +1809,12 @@ function removeTax() {
 	}
 
 	moneyss = moneyss - resultChange;
-	moneyss = moneyss + bl;
+	bl = moneyss + bl;
 	
 	$("#summaryTax").val(tax.toFixed(2));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
-	$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#balanceSummarys").val(parseFloat(bl).toFixed(2));
+	$("#balanceSummaryShow").val(bl.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
