@@ -368,7 +368,10 @@ function hideDetailPayment() {
 }
 
 function submitForm() {
-
+	if ($("#balanceSum").val() < $("#balanceOfTaxs").val()) {
+	 alert("ยอดเงินรับมาไม่ถูกต้อง")
+	}else{
+		
 	hideShowdat();
 	var radioButtons = document.getElementsByName("radioDed");
 	var radioResult = "";
@@ -378,6 +381,10 @@ function submitForm() {
 	var totalPrice = [];
 	var resultTotalPrice = [];
 	var resultTblSale = [];
+	
+	
+		
+	
 
 	// get radio
 	for (var x = 0; x < radioButtons.length; x++) {
@@ -592,6 +599,8 @@ function submitForm() {
 			}
 		}
 	})
+	
+	}//else
 
 };
 function findTypePayment() {
@@ -671,7 +680,7 @@ function buttonAddBillingList() {
 		$("#sinputServiceMoreData").show();
 		return $("#inputServiceMoreData").focus();
 	}
-	if ($("#inputServiceAmount").val() == "") {
+	if ($("#inputServiceAmount").val() <= 0.00 ) {
 		$("#sinputServiceAmount").show();
 		return $("#inputServiceAmount").focus();
 	}
@@ -770,7 +779,7 @@ function buttonAddBillingList() {
 		+ moneyDed1
 		+"</td><td>"
 		+ amountTotal.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-		+ "</td><td><a onclick='deleteTableSale("
+		+ "</td><td id='delete'><a  onclick='deleteTableSale("
 		+ count
 		+ ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
 $("#sumtableBillingList").find('tbody').append(markup);
@@ -1492,6 +1501,8 @@ function sumTranPrice() {
 	$('addRow').attr("disabled", "true");
 	$("#addRow").hide();
 	$("#addRowShow").show();
+	
+	$("#delete").hide();
 
 	$('addDataTableDedShow').attr("disabled", "true");
 	$("#addDataTableDedShow").hide();
@@ -1531,6 +1542,7 @@ function myDeleteSumCreditTranPrice(numberRun) {
 
 		$("#addRow").show();
 		$("#addRowShow").hide();
+		$("#delete").show();
 
 		$("#buttonAddBillingList").show();
 		$("#buttonAddBillingListDis").hide();
