@@ -230,9 +230,11 @@ function dialogRemake(value){
         }
 	})
 };
+
 function closeDialog(){
 	$("#remake_dialog").modal('hide');
 }
+
 function validationSearchCriteria(){
 	var returnResult = true;
 	var dateFrom = $('#dateFrom').val();
