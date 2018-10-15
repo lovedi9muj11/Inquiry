@@ -47,7 +47,10 @@ public class PaymentReportServiceImp implements PaymentReportService {
 		}
 		
 		String checkWT = "";
-		List<ReportPaymentBean> result = paymentManualDao.getReportPayment(criteria,serviceType);
+		List<ReportPaymentBean> result = new ArrayList<ReportPaymentBean>();
+		
+		result = paymentManualDao.getReportPayment(criteria,serviceType);
+		
 		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
 
 		for(ReportPaymentBean resultBean : result) {
@@ -119,6 +122,102 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
+			resultBean.setServiceCode(resultBean.getServiceCode());
+			data.add(resultBean);
+		}
+		
+		return data;
+	}
+	
+	@Override
+	public List<ReportPaymentBean> findPaymnetReportServiceOtherSearch(ReportPaymentCriteria criteria,String serviceType) throws Exception {
+		
+		Integer supCh = paymentManualDao.checkSup(criteria.getUser());
+		if(supCh == 2) {
+			criteria.setUser("");
+		}
+		
+		String checkWT = "";
+		List<ReportPaymentBean> result = new ArrayList<ReportPaymentBean>();
+		
+		if(Constants.Service.SERVICE_TYPE_OTHER.equals(serviceType)) {
+			result = paymentManualDao.getReportPaymentOther(criteria,serviceType);
+		}else {
+			result = paymentManualDao.getReportPayment(criteria,serviceType);
+		}
+		
+		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
+		
+		for(ReportPaymentBean resultBean : result) {
+			String paymentCodeRes = "";
+			String deductionNo = "";
+			boolean chkCC = true;
+			List<String> results = new ArrayList<>();
+			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
+			List<DeductionManualBean> deductionList = deductionManualImpl.findDeductionManualFromManualId(Long.valueOf(resultBean.getManualId()));
+			for (int i = 0; i < methodResult.size(); i++) {
+				String payCode = "";
+				TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
+				
+				if (stockObject.getCode().equals("CC")) {
+					payCode = "เงินสด";
+					results.add(payCode);
+					if(i==0) {resultBean.setRefNo(""); chkCC=true;}
+					if (stockObject.getCode().equals("DEDUC")) {}
+				} else if (stockObject.getCode().equals("CR")) {
+					List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
+					String code = stockObject.getCreditNo();
+					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
+					results.add(payCode);
+					if(chkCC) {resultBean.setRefNo(code.substring(12, 16)); chkCC=false;}
+				} else if (stockObject.getCode().equals("CH")) {
+					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
+					
+					if(CollectionUtils.isNotEmpty(res)) {
+						for(int j=0; j<res.size(); j++) {
+							payCode = "เช็ค " + res.get(j).getPublisher() + "เลขที่ : ************" + res.get(j).getChequeNo().substring(3);
+						}
+					}
+					
+					results.add(payCode);
+					if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
+				}
+			}
+			
+			boolean chkWT = true;
+			for (int i = 0; i < methodResult.size(); i++) {
+				TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
+				if (stockObject.getCode().equals("DEDUC") && chkWT) {
+					checkWT = "WT";
+					results.add(checkWT);
+					chkWT = false;
+				}
+				
+			}
+			for (int f = 0; f < results.size(); f++) {
+				if (f == 0) {
+					paymentCodeRes += results.get(f);
+				} else {
+					paymentCodeRes += " + " + results.get(f);
+				}
+				
+			}
+			
+			int i=0;
+			for(DeductionManualBean deductionBean : deductionList) {
+				if(i>0)deductionNo += ", ";
+				
+				deductionNo += deductionBean.getDeDuctionNo();
+				i++;
+			}
+			
+			if(paymentCodeRes.indexOf(Constants.PAYTYPE.WT) > 0) {
+				resultBean.setRefNo(deductionNo);
+			}
+			
+			resultBean.setDeductionNo(deductionNo);
+			resultBean.setPaymentMethod(paymentCodeRes);
+			resultBean.setServiceCode(resultBean.getServiceCode());
 			data.add(resultBean);
 		}
 		

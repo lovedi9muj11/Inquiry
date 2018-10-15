@@ -164,7 +164,7 @@ public class ReportController {
 			critreia.setVatRate(request.getParameter("vat"));
 			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));
 			 
-			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia, critreia.getServiceType());
+			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServiceOtherSearch(critreia, critreia.getServiceType());
 			
 			String pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
 			

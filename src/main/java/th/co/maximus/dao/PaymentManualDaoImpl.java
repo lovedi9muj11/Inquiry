@@ -176,6 +176,24 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
+	
+	@Override
+	public List<ReportPaymentBean> getReportPaymentOther(ReportPaymentCriteria criteria,String serviceType) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" FROM RECEIPT_MANUAL PM ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
+		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
+		
+		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
+		}
+		sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+		
+		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY  PIM.SERVICECODE, PM.CREATE_DATE");
+		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
+	}
 
 	private static final class reportPaymentMapper implements RowMapper<ReportPaymentBean> {
 
@@ -190,6 +208,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setDepartment(rs.getString("DEPARTMENT"));
 			reportPayment.setInvoiceNo(rs.getString("INVOICE_NO"));
 			reportPayment.setServiceName(rs.getString("SERVICENAME"));
+			reportPayment.setServiceCode(rs.getString("SERVICECODE"));
 			reportPayment.setCreateBy(rs.getString("CREATE_BY"));
 			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			reportPayment.setRemake(rs.getString("REMARK"));

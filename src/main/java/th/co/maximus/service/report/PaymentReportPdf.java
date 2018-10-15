@@ -1,7 +1,8 @@
 package th.co.maximus.service.report;
 
-import java.io.File;
+import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,26 +15,27 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
 
@@ -47,6 +49,7 @@ public class PaymentReportPdf {
 
 	public void jasperGanarationPDF(String fileName, ReportPaymentCriteria criteria, List<ReportPaymentBean> date, HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
 		List<ReportPaymentBean> resultSource = new ArrayList<ReportPaymentBean>();
+		List<ReportPaymentBean> resultSources = new ArrayList<ReportPaymentBean>();
 		List<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
 		// DecimalFormat df2 = new DecimalFormat("#0.00");
 		double sumAllTotal = 0.00;
@@ -55,8 +58,11 @@ public class PaymentReportPdf {
 		int index = 1;
 
 		String serviceName = "";
+		String type = "";
+		String serviceCode = "";
 		// set new DataSource
 		if (date.size() != 0) {
+			type = date.get(0).getServiceType();
 			for (ReportPaymentBean reportPaymentBean : date) {
 				ReportPaymentBean reportPaymentBeanNew = new ReportPaymentBean();
 				reportPaymentBeanNew.setManualIdStr(index + "");
@@ -89,6 +95,7 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
+				reportPaymentBeanNew.setServiceCode(reportPaymentBean.getServiceCode());
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
@@ -127,17 +134,58 @@ public class PaymentReportPdf {
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
 		JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
-		JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 		
-//		JRXlsExporter exporter = new JRXlsExporter(DefaultJasperReportsContext.getInstance());
-//		jasperPrints.add(jasperPrint);
+		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
+			if(CollectionUtils.isNotEmpty(resultSource))serviceCode = resultSource.get(0).getServiceCode();
+			
+			int count = 0;
+			for(ReportPaymentBean reportPaymentBean : resultSource) {
+				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
+					resultSources.add(reportPaymentBean);
+				}else {
+					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+					JasperPrint jasperPrint = new JasperPrint();
+					
+					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+					jasperPrints.add(jasperPrint);
+					
+					resultSources = new ArrayList<ReportPaymentBean>();
+					resultSources.add(reportPaymentBean);
+				}
+				serviceCode = reportPaymentBean.getServiceCode();
+				count++;
+				
+				if(count==resultSource.size()) {
+					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+					JasperPrint jasperPrint = new JasperPrint();
+					
+					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+					jasperPrints.add(jasperPrint);
+				}
+			}
+			
+		}else {
+			JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
+			JasperPrint jasperPrint = new JasperPrint();
+			
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+			jasperPrints.add(jasperPrint);
+		}
 		
-//		exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST,jasperPrints);
-//		exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File("xxx.pdf"));
-//		exporter.exportReport();
-		
-		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		try {
+			pushReportToOutputStream(response, jasperPrints);
+		} catch (PrinterException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void pushReportToOutputStream(HttpServletResponse response, List<JasperPrint> jasperPrints) throws IOException, JRException, PrinterException  {
+		OutputStream outputStream = response.getOutputStream();
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrints);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+		exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, "this.print();");
+		exporter.exportReport();
 	}
 
 	@SuppressWarnings("unused")

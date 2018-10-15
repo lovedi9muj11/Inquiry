@@ -31,6 +31,7 @@ public class ReportPaymentBean {
 	
 	private String refNo;
 	private String deductionNo;
+	private String serviceCode;
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -230,6 +231,14 @@ public class ReportPaymentBean {
 
 	public void setDeductionNo(String deductionNo) {
 		this.deductionNo = deductionNo;
+	}
+
+	public String getServiceCode() {
+		return serviceCode;
+	}
+
+	public void setServiceCode(String serviceCode) {
+		this.serviceCode = serviceCode;
 	}
 
 }
