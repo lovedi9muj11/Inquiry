@@ -730,13 +730,13 @@ function buttonAddBillingList() {
 		if(radioResult == "beforvat"){
 			var amountDiscount = disDiscount(serviceAmount);
 			var amountBeforVat = disVat(amountDiscount,radioResult);
-			 amountTotal = calurateVatRate(amountBeforVat, vatRate*serviceMoreData);
+			 amountTotal = calurateVatRate(amountBeforVat, vatRate);
 			vatamount = amountTotal- amountDiscount;
 			
 		}else{
 			var amountBeforVat = disVat(serviceAmount ,radioResult);
 			var amountDiscount = disDiscount(amountBeforVat);
-			 amountTotal = calurateVatRate(amountDiscount, vatRate*serviceMoreData);
+			 amountTotal = calurateVatRate(amountDiscount, vatRate);
 			 vatamount = amountTotal- amountDiscount;
 			 
 			 serviceAmount = amountBeforVat;

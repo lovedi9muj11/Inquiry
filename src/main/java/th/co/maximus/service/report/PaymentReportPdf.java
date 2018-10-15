@@ -139,8 +139,10 @@ public class PaymentReportPdf {
 			if(CollectionUtils.isNotEmpty(resultSource))serviceCode = resultSource.get(0).getServiceCode();
 			
 			int count = 0;
+			int countRow = 0;
 			for(ReportPaymentBean reportPaymentBean : resultSource) {
 				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
+					reportPaymentBean.setManualIdStr((countRow+1)+"");
 					resultSources.add(reportPaymentBean);
 				}else {
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
@@ -150,10 +152,13 @@ public class PaymentReportPdf {
 					jasperPrints.add(jasperPrint);
 					
 					resultSources = new ArrayList<ReportPaymentBean>();
+					countRow = 0;
+					reportPaymentBean.setManualIdStr((countRow+1)+"");
 					resultSources.add(reportPaymentBean);
 				}
 				serviceCode = reportPaymentBean.getServiceCode();
 				count++;
+				countRow++;
 				
 				if(count==resultSource.size()) {
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
