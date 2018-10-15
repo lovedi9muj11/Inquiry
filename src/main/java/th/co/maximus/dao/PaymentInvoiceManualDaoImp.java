@@ -386,7 +386,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
-			sqlStmt.append(" GROUP by pim.MANUAL_ID ORDER BY pim.CREATE_DATE DESC");
+			sqlStmt.append(" ORDER BY pim.CREATE_DATE DESC");
 			
 			param.add(manualId);
 			Object[] paramArr = param.toArray();
@@ -524,7 +524,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setCustomerBranch(rs.getString("pim.CUSTOMER_BRANCH"));
 			paymentInvoiceEpisOffline.setTaxNo(rs.getString("pim.TAXNO"));
 			paymentInvoiceEpisOffline.setAccountSubNo(rs.getString("pim.ACCOUNTSUBNO"));
-			paymentInvoiceEpisOffline.setPeriod(formatDateDoc(rs.getString("pim.PERIOD")));
+			paymentInvoiceEpisOffline.setPeriod(rs.getString("pim.PERIOD") == null ? "" : formatDateDoc(rs.getString("pim.PERIOD")));
 			paymentInvoiceEpisOffline.setServiceType(rs.getString("pim.SERVICE_TYPE"));
 			paymentInvoiceEpisOffline.setRemark(rs.getString("pim.REMARK"));
 			paymentInvoiceEpisOffline.setQuantity(rs.getInt("pim.QUANTITY"));

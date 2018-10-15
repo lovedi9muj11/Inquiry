@@ -58,15 +58,23 @@ public class ClearingPaymentEpisOffline {
 			List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
 			List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
 			TmpInvoiceBean invoid = new TmpInvoiceBean();
+			Boolean isOther = false;
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					Integer manualId = (int) (long) payment.getManualId();
 					ReceiptOfflineModel recrip = clearingPaymentEpisOfflineService.findRecipt(manualId);
 					if (recrip != null) {
 						paymentList = clearingPaymentEpisOfflineService.findPaymentInvoice(manualId);
+						for (PaymentInvoiceEpisOffline pay : paymentList) {
+							if ("OTHER".equals(pay.getServiceType())) {
+								isOther = true;
+							}
+						}
 						deductionList = clearingPaymentEpisOfflineService.findDeduction(manualId);
 						methodList = clearingPaymentEpisOfflineService.findTrsMethod(manualId);
-						invoid = tmpInvoiceService.findByManualId(manualId);
+						if (!isOther) {
+							invoid = tmpInvoiceService.findByManualId(manualId);
+						}
 						if (methodList.size() > 0 && methodList != null) {
 							for (TrsMethodEpisOffline method : methodList) {
 								if (method.getCode().equals("CH")) {
@@ -80,52 +88,63 @@ public class ClearingPaymentEpisOffline {
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
-
 						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
 						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
+						if (isOther) {
+							paymentEpisOfflineDTO.setPaidAmount(recrip.getAmount());
+						} else {
+							paymentEpisOfflineDTO
+									.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
+						}
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
 						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
 						List<PaymentInvoiceEpisOffline> paymentList2 = new ArrayList<>();
-						for (PaymentInvoiceEpisOffline data : paymentList) {
-							
-//							data.setAmount(data.getAmount().add(new BigDecimal(invoid.getDiscount()))) ;
-						
+						if (!isOther) {
+							for (PaymentInvoiceEpisOffline data : paymentList) {
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
-									BigDecimal disVat = (new BigDecimal(invoid.getDiscount()).multiply( data.getVatRate())).divide(new BigDecimal("107"));
+									BigDecimal disVat = (new BigDecimal(invoid.getDiscount())
+											.multiply(data.getVatRate())).divide(new BigDecimal("107"));
 									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
 									data.setDiscountVat(disVat);
 								} else {
-									if(null != invoid.getDiscount()){
+									if (null != invoid.getDiscount()) {
 										data.setDiscount(new BigDecimal(invoid.getDiscount()));
-									}else{
-				
+									} else {
+
 										data.setDiscountVat(BigDecimal.ZERO);
 									}
 								}
 
-							paymentList2.add(data);
+								paymentList2.add(data);
+							}
+							paymentEpisOfflineDTO.setPaymentInvoice(paymentList2);
+						}else{
+							paymentEpisOfflineDTO.setPaymentInvoice(paymentList);
 						}
-
-						paymentEpisOfflineDTO.setPaymentInvoice(paymentList2);
 						if (deductionList.size() > 0) {
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
-
 					}
 					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 				}
-				// add object to arrayList
 
 			}
-			String postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
+			String postUrl = "";
+			if(isOther){
+				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
+			}else{
+				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
+			}
+			
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
 					String.class);
+			
+			
 			if (postResponse.getBody() != null) {
 				result = postResponse.getBody();
 			} else {
@@ -160,6 +179,5 @@ public class ClearingPaymentEpisOffline {
 		}
 
 	}
-	
-}
 
+}
