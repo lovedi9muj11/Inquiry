@@ -376,7 +376,7 @@ function submitForm() {
 	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
 	var balance = balanceOfTaxs + summaryTax ;
 	if ($("#balanceSum").val() < balance) {
-	 alert("ยอดเงินรับมาไม่ถูกต้อง")
+	 swal("ยอดเงินรับมาไม่ถูกต้อง")
 	}else{
 		
 	hideShowdat();

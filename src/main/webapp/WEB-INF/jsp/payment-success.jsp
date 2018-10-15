@@ -7,18 +7,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <title>Menu</title>
 
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/payment.css" rel="stylesheet">
 
+<script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/payment-success.js"></script>
+<script src="${contextPath}/resources/js/utils.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/lib/autoNumeric-1.7.4.js"></script>
 
-<script src="${contextPath}/resources/js/utils.js"
-	type="text/javascript"></script>
 <%=request.getAttribute("paymentResultReq")%>
 </head>
 <body>

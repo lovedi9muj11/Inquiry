@@ -88,11 +88,11 @@ function syncUser() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res);
-        	alert('Sync Data Success');
+        	swal('Sync Data Success')
         },
 		 error: function (e) {
 		      	console.log(e)
-		      	alert('Sync Data Error');
+		      	swal('Sync Data Error')
 		      }
 	})
 }
@@ -109,11 +109,11 @@ function syncMapGl() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res);
-          	alert('Sync Data Success');
+          	swal('Sync Data Success')
         },
 		 error: function (e) {
 		      	console.log(e)
-		      	alert('Sync Data Error');
+		      	swal('Sync Data Error')
 		      }
 	})
 }
@@ -130,11 +130,11 @@ function syncMasterData() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res)
-        	alert('Sync Data Success');
+        	swal('Sync Data Success')
         },
 		 error: function (e) {
 	      	console.log(e)
-	      	alert('Sync Data Error');
+	      	swal('Sync Data Error')
 	      }
 	})
 }

@@ -2,7 +2,6 @@ package th.co.maximus.service;
 
 import java.util.List;
 
-import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 
