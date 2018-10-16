@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentOther" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentOther" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" whenResourceMissingType="Error" isIgnorePagination="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.3310000000000006"/>
@@ -312,48 +312,45 @@
 		<band height="29" splitType="Immediate">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<frame>
-				<reportElement style="Cat_Wt_Title" x="1" y="0" width="786" height="27" isPrintInFirstWholeBand="true" backcolor="#FFFFFF" uuid="d14faf93-00b3-4738-b533-4db6ddb84909"/>
-				<textField>
-					<reportElement style="Cat_Hl_Common" positionType="FixRelativeToBottom" x="109" y="1" width="289" height="23" backcolor="#FFFFFF" uuid="aa5ea0cd-bc46-480f-91ef-a5374a652b3b"/>
-					<textElement textAlignment="Left">
-						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{serviceNameStr}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="399" y="1" width="149" height="23" backcolor="#FFFFFF" uuid="35314463-9e9b-46d9-9304-eb9535762185"/>
-					<textElement textAlignment="Right">
-						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{beforeDiscount}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="676" y="1" width="100" height="23" backcolor="#FFFFFF" uuid="392fecff-9f89-4eef-8869-7fde4be7dd49"/>
-					<textElement textAlignment="Right">
-						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{amountStr}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="0" y="1" width="108" height="23" backcolor="#FFFFFF" uuid="ce8d366e-1e95-44b7-afdd-e4ba9f67062a"/>
-					<textElement textAlignment="Center">
-						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{runnumber}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="548" y="1" width="127" height="23" backcolor="#FFFFFF" uuid="16e1fb3f-39ec-4aa0-9610-71e68fd0a850"/>
-					<textElement textAlignment="Right">
-						<font fontName="FreesiaUPC" size="14" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{discountbeforvatStr}]]></textFieldExpression>
-				</textField>
-			</frame>
+			<textField>
+				<reportElement style="Cat_Hl_Common" positionType="FixRelativeToBottom" x="109" y="1" width="289" height="23" backcolor="#FFFFFF" uuid="aa5ea0cd-bc46-480f-91ef-a5374a652b3b"/>
+				<textElement textAlignment="Left">
+					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serviceNameStr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="1" width="149" height="23" backcolor="#FFFFFF" uuid="35314463-9e9b-46d9-9304-eb9535762185"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beforeDiscount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="676" y="1" width="100" height="23" backcolor="#FFFFFF" uuid="392fecff-9f89-4eef-8869-7fde4be7dd49"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountStr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="108" height="23" backcolor="#FFFFFF" uuid="ce8d366e-1e95-44b7-afdd-e4ba9f67062a"/>
+				<textElement textAlignment="Center">
+					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{runnumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="548" y="1" width="127" height="23" backcolor="#FFFFFF" uuid="16e1fb3f-39ec-4aa0-9610-71e68fd0a850"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discountbeforvatStr}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<lastPageFooter>
-		<band height="311">
+	<pageFooter>
+		<band height="295">
 			<frame>
 				<reportElement x="1" y="174" width="540" height="58" backcolor="#FFFFFF" uuid="8ccae438-8cff-45c1-9659-9c71d45a91d6"/>
 				<staticText>
@@ -509,5 +506,5 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
 			</textField>
 		</band>
-	</lastPageFooter>
+	</pageFooter>
 </jasperReport>
