@@ -166,7 +166,12 @@ public class ReportController {
 			 
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServiceOtherSearch(critreia, critreia.getServiceType());
 			
-			String pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
+			String pathFile = "";
+			if(Constants.Service.SERVICE_TYPE_IBACSS.equals(critreia.getServiceType())) {
+				pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplateIBACSS.jrxml");
+			}else {
+				pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
+			}
 			
 			reportService.ganeratePaymentPDF(pathFile, critreia,result,response);
 

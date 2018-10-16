@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,6 +22,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import th.co.maximus.auth.model.UserRole;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
@@ -267,28 +269,47 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public Integer checkSup(String userName) throws SQLException {
 		
-		Integer result = 0;
+//		Integer result = 0;
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(" SELECT ur.Role_ID ");
 			sqlStmt.append(" FROM USER up ");
 			sqlStmt.append(" INNER JOIN USER_ROLE ur  ON ur.User_ID =  up.ID ");
 			sqlStmt.append(" WHERE  up.Username = ? ");
 			
-			jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
-				public void setValues(PreparedStatement preparedStatement) throws SQLException {
-					preparedStatement.setString(1, userName);
-				}
-			}, new ResultSetExtractor<Integer>() {
-				public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-					if (resultSet.next()) {
-						return  resultSet.getInt(1);
-					}
-
-					return null;
-				}
-			});
+			List<Object> param = new LinkedList<Object>();
+			param.add(userName);
+			Object[] paramArr = param.toArray();
+			
+			UserRole userRoles = jdbcTemplate.queryForObject(sqlStmt.toString(), paramArr, userRole);
+			
+//			jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
+//				public void setValues(PreparedStatement preparedStatement) throws SQLException {
+//					preparedStatement.setString(1, userName);
+//				}
+//			}, new ResultSetExtractor<Integer>() {
+//				public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+//					if (resultSet.next()) {
+//						return  resultSet.getInt(1);
+//					}
+//
+//					return null;
+//				}
+//			});
 		
-		return result;
+		return userRoles.getRoleId();
 	}
+	
+	private static final RowMapper<UserRole> userRole = new RowMapper<UserRole>() {
+//	private static final class userRole implements RowMapper<UserRole> {
+
+		@Override
+		public UserRole mapRow(ResultSet rs, int rowNum) throws SQLException {
+			UserRole userRole = new UserRole();
+			userRole.setRoleId(rs.getInt("Role_ID"));
+			
+			return userRole;
+		}
+
+	};
 
 }

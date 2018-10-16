@@ -398,7 +398,7 @@
 				<text><![CDATA[รวมตามบริการ :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="43" width="95" height="18" uuid="4085592d-e719-401f-a420-854c31faef29"/>
+				<reportElement x="5" y="26" width="95" height="18" uuid="4085592d-e719-401f-a420-854c31faef29"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>
@@ -412,7 +412,7 @@
 				<textFieldExpression><![CDATA[$P{serviceName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="104" y="43" width="161" height="18" uuid="eadbae0f-2454-45b6-b309-590419b47559"/>
+				<reportElement x="104" y="26" width="161" height="18" uuid="eadbae0f-2454-45b6-b309-590419b47559"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
@@ -426,7 +426,7 @@
 				<textFieldExpression><![CDATA[$P{serviceListCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="43" width="161" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
+				<reportElement x="450" y="26" width="161" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
@@ -439,21 +439,21 @@
 				<reportElement x="4" y="42" width="1105" height="1" uuid="f141960b-f3f9-4f25-b66e-555fe62befb8"/>
 			</line>
 			<textField>
-				<reportElement x="804" y="43" width="98" height="20" uuid="aceda45f-2ffe-4ef5-80a8-a86d4f47b436"/>
+				<reportElement x="804" y="26" width="98" height="20" uuid="aceda45f-2ffe-4ef5-80a8-a86d4f47b436"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryNoVatUser}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="875" y="43" width="100" height="20" uuid="c8149046-aced-4b06-99b9-7c265646ae1c"/>
+				<reportElement x="875" y="26" width="100" height="20" uuid="c8149046-aced-4b06-99b9-7c265646ae1c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVat0User}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="967" y="43" width="82" height="20" uuid="ca2a961d-91fa-4295-bd7c-59d95ac70aea"/>
+				<reportElement x="967" y="26" width="82" height="20" uuid="ca2a961d-91fa-4295-bd7c-59d95ac70aea"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
@@ -467,59 +467,7 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="562" y="24" width="50" height="18" uuid="a8fd477f-b6cd-4819-8cf2-0005f27b2f8e"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[รายการ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="5" y="26" width="95" height="18" uuid="42089ffc-59b7-4361-b9e2-810c7c93ef85"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[รวมตาม GL :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="104" y="26" width="161" height="18" uuid="5498c586-7999-413c-85ce-f4c5bb6187c0"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{glName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="450" y="26" width="161" height="18" uuid="c9d20f69-ac8f-4640-a91c-2c1f3e8eb812"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{glListCount}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="5" y="60" width="1105" height="1" uuid="c7a4ce58-62ee-4f1b-82bf-f7cc1908e3c9"/>
-			</line>
-			<textField>
-				<reportElement x="804" y="26" width="98" height="20" uuid="b0c12fe2-d388-4a00-8b21-3000d55c94d7"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{summaryNoVatGL}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="875" y="26" width="100" height="20" uuid="57ffdc89-5fcf-4d67-9ec3-606ab6eff5cc"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{summaryVat0GL}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="967" y="26" width="82" height="20" uuid="131a8eee-b55e-493e-a618-eab6093d8acd"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{summaryVatGL}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="561" y="43" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
+				<reportElement x="561" y="26" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>
