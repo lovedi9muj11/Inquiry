@@ -70,7 +70,7 @@
 				<!-- Button -->
 				<div class="col-md-12 text-right">
 					<button id="send" name="send" class="btn btn-success"
-						onclick="sendCearling()" style="width: 7%">ส่งหักล้างทั้งหมด</button>
+						onclick="dialogRemakes()" style="width: 7%">ส่งหักล้างทั้งหมด</button>
 				</div>
 			</div>
 		</div>
@@ -103,7 +103,6 @@
 										<th style="text-align: center;; width: 5%">สถานนะ</th>
 										<th style="text-align: center;; width: 5%">หมายเหตุ</th>
 										<th style="text-align: center;; width: 5%">สถานะการส่งข้อมูล</th>
-										<th style="text-align: center;; width: 5%">หักล้าง</th>
 									</tr>
 								</thead>
 							</table>
@@ -145,9 +144,6 @@
 				<div class="modal-header">
 					<h4 class="modal-title" id="myModalLabel">ยืนยัน</h4>
 				</div>
-				<div class="form-group col-md-12">
-					<input type="hidden" id="manualId" name="manualId">
-				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" id="modal-btn-si"
 						onclick="confirmDialog()">ตกลง</button>
@@ -176,6 +172,23 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" id="modal-btn-si"
 						onclick="closeLog()">ปิด</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" role="dialog"
+		aria-labelledby="mySmallModalLabel" aria-hidden="true" id="errorShow">
+		<div class="modal-dialog modal-sm" style="width: 600px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">แสดงผล</h4>
+				</div>
+				<div class="modal-body">
+								<p>กรุณาเลือกรายการที่ต้องหักล้าง</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="modal-btn-si"
+						onclick="closeLogError()">ปิด</button>
 				</div>
 			</div>
 		</div>
