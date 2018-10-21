@@ -5,14 +5,14 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		    type: 'GET',
-		    url: ctx +"/masterData/masterDataBatch"
-		}).then(function (data) {
-			for(var i=0; i<data.length; i++) {
-				var element = data[i];
-				$('#groupType').append('<option value="' + element.value+ '">' + element.name + '</option>');
-			}
-		});
+	    type: 'GET',
+	    url: ctx +"/masterData/masterDataBatch"
+	}).then(function (data) {
+		for(var i=0; i<data.length; i++) {
+			var element = data[i];
+			$('#groupType').append('<option value="' + element.value+ '">' + element.name + '</option>');
+		}
+	});
 	
 	setValue();
 	
@@ -61,6 +61,40 @@ $(document).ready(function() {
 		}
 		
 	});
+	
+	$('#saveBtn').click(function() {
+		if(''==$("#groupType").val())return swal(PLS_SELECT+' '+PLS_SELECT_ALL_TYPE)
+//		if(''==$("#month").val())return swal(PLS_SELECT+' '+PLS_SELECT_MONTH)
+//		if(''==$("#date").val())return swal('date')
+//		if(''==$("#hour").val())return swal('hour')
+//		if(''==$("#minute").val())return swal('minute')
+		
+		var masterDataBean = {
+			"month":$("#month").val() ,
+			"day":$("#date").val() ,
+			"hour":$("#hour").val() ,
+			"minute":$("#minute").val() ,
+			"orderBatch":$("#groupType").val()
+		}
+		
+		$.ajax({
+	        type: "POST",
+	        url: ctx +"/insertBatch",
+	        data: JSON.stringify(masterDataBean),
+	        dataType: "json",
+	        async: false,
+	        contentType: "application/json; charset=utf-8",
+	        success: function (res) {
+	        	swal('Insert : '+res.responseText)
+//	        	alert(res.responseText)
+	        },
+	        error : function (res) {
+	        	swal('Insert : '+res.responseText)
+//	        	alert(res.responseText)
+	        }
+		});
+		
+	})
 	
 });
 

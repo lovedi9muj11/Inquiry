@@ -44,4 +44,6 @@ public interface MasterDataService {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
+	void insertBatch(MasterDataBean masterDataBean);
+	
 }

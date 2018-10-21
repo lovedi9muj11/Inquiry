@@ -148,7 +148,7 @@ public class HistroryPaymentController {
 		String message = "";
 		HashMap<String, String> result = new HashMap<>();
 		try {
-			String messages = clearingPaymentEpisOffline.callOnlinePayment(creteria);
+			String messages = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
 			if (!messages.equals("N")) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId());

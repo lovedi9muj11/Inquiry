@@ -33,7 +33,7 @@ public class TmpInvoiceDaoImpl implements TmpInvoiceDao{
 	public TmpInvoiceBean findByManualId(Integer manualId) {
 		StringBuilder sql = new StringBuilder();
 		TmpInvoiceBean tmp = new TmpInvoiceBean();
-		sql.append(" select * from PAYMENT_INVOICE  where PAYMENT_INVOICE.INV_ID = ");
+		sql.append(" select * from PAYMENT_INVOICE  where PAYMENT_INVOICE.MANUAL_ID = ");
 		sql.append(manualId);
 		java.util.Map<String, Object> map = new HashMap<String, Object >();
 		map  =  jdbcTemplate.queryForMap(sql.toString());

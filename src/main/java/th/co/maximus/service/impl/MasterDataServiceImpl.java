@@ -294,4 +294,44 @@ public class MasterDataServiceImpl implements MasterDataService{
 		masterDataBean.setYearNow(yearTH);
 	}
 
+	@Override
+	public void insertBatch(MasterDataBean masterDataBean) {
+		StringBuilder valueSet = new StringBuilder();
+		valueSet.append("0");
+		
+		if(StringUtils.isNotBlank(masterDataBean.getMinute())) {
+			valueSet.append(" ");
+			valueSet.append(masterDataBean.getMinute());
+		}else {
+			valueSet.append(" *");
+		}
+		
+		if(StringUtils.isNotBlank(masterDataBean.getHour())) {
+			valueSet.append(" ");
+			valueSet.append(masterDataBean.getHour());
+		}else {
+			valueSet.append(" *");
+		}
+		
+		if(StringUtils.isNotBlank(masterDataBean.getDay())) {
+			valueSet.append(" ");
+			valueSet.append(masterDataBean.getDay());
+		}else {
+			valueSet.append(" *");
+		}
+		
+		if(StringUtils.isNotBlank(masterDataBean.getMonth())) {
+			valueSet.append(" ");
+			valueSet.append(masterDataBean.getMonth());
+		}else {
+			valueSet.append("*");
+		}
+		
+		valueSet.append(" ?");
+		
+		if(StringUtils.isNotBlank(valueSet.toString()))masterDataBean.setValue(valueSet.toString());
+		
+		if(StringUtils.isNotBlank(masterDataBean.getValue()))masterDataDao.insertBatch(masterDataBean);
+	}
+
 }
