@@ -194,7 +194,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 		try {
 			Date date = new Date();
 			// update status
-			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo("C", paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, paymentMMapPaymentInvBean.getUserApproved());
+			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo(Constants.Status.STATUS_CANCEL, paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, paymentMMapPaymentInvBean.getUserApproved());
 			paymentInvoiceManualDao.updateStatusPaymentInvoice(paymentMMapPaymentInvBean.getManualId());
 			if ("02".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
 				// Insert PaymentManual

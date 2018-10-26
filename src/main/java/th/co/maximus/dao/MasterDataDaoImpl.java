@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,6 +219,19 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and KEYCODE = '"+groupKey+"'");
 		
 		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
+	}
+
+	@Override
+	public void insertBatch(MasterDataBean masterDataBean) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" UPDATE MASTER_DATA set VALUE = ? WHERE KEYCODE = ?");
+		
+		param.add(masterDataBean.getValue());
+		param.add(masterDataBean.getOrderBatch());
+		Object[] paramArr = param.toArray();
+		
+		jdbcTemplate.update(sql.toString(), paramArr);
 	}
 
 }

@@ -919,11 +919,13 @@ function addRow() {
 	}
 
 	if (parseFloat(moneyDed) < 0) {
-		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
+//		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
+		swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 		return $("#moneyDed").focus();
 	}
 	if (moneyDed == "") {
-		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
+//		alert("กรุณากรอกจำนวนเงิน  กรุณากรอกใหม่ !");
+		swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 		return $("#moneyDed").focus();
 	}
 	var markup = "<tr><td>"
@@ -1036,7 +1038,8 @@ function addDataTableDed() {
 		}
 		var plus = parseFloat(parseFloat(summaTax) + parseFloat(result[4]));
 		if (plus > parseFloat(branSum)) {
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
+			//alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 			return;
 		}
 		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
@@ -1220,7 +1223,8 @@ function addDataSumCreditTranPrice() {
 		var plus = parseFloat(result[4].toString().replace(",", ""));
 
 		if (plus > parseFloat(branSum)) {
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+//			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 			return;
 		}
 
@@ -1302,7 +1306,8 @@ function addDataSumCheckTranPrice() {
 		}
 		var plus = parseFloat(result[6].toString().replace(",", ""));
 		if (plus > parseFloat(branSum)) {
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			//alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+			swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 			return;
 		}
 		var numberRun = number + i;

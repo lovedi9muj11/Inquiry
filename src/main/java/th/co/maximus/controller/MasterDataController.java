@@ -107,5 +107,19 @@ public class MasterDataController {
 
 		return masterData;
 	}
+	
+	@RequestMapping(value = "/insertBatch", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String insertBatch(Model model, @RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String status = Constants.MasterData.STATUS_FAIL;
+		try {
+			masterDataService.insertBatch(masterDataBean);
+			status = Constants.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return status;
+	}
+	
 }

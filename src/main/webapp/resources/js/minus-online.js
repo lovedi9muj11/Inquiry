@@ -55,11 +55,11 @@ function createRow(data, seq) {
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';
 		remark = "-"
-		if(data.clearing == "Y"){
-			cearling = '-'
-		}else{
-			cearling = '<a name="cearling" id="cearling" onclick="dialogRemakes('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
-		}
+//		if(data.clearing == "Y"){
+//			cearling = '-'
+//		}else{
+//			cearling = '<a name="cearling" id="cearling" onclick="dialogRemakes('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+//		}
 		
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
@@ -75,12 +75,11 @@ function createRow(data, seq) {
 		clearing = "ยังไม่ส่งหักล้าง";
 	}
 	
-	checkbox = '<input type="checkbox"></input>';
+	checkbox = '<input type="checkbox" name="check" value='+data.manualId+'></input>';
 	
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([checkbox, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing,cearling
-    ]).draw(true).node();
+    var rowNode = t.row.add([checkbox, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
@@ -95,10 +94,10 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(11).addClass('right');
     $(rowNode).find('td').eq(12).addClass('right');
     $(rowNode).find('td').eq(13).addClass('left');
-    $(rowNode).find('td').eq(13).addClass('center');
+    $(rowNode).find('td').eq(14).addClass('center');
     $(rowNode).find('td').eq(15).addClass('center');
+//    $(rowNode).find('td').eq(16).addClass('center');
     $(rowNode).find('td').eq(16).addClass('center');
-    $(rowNode).find('td').eq(17).addClass('center');
 };
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');
@@ -139,9 +138,8 @@ function sendCearling(){
 	
 }
 
-function dialogRemakes(value){
+function dialogRemakes(){
 	$("#confrimDialog").modal('show');
-	$("#manualId").val(value);
 };
 
 function closeDialog(){
@@ -149,8 +147,18 @@ function closeDialog(){
 }
 function confirmDialog(){
 	var data = [];
-	var dataSend = {"manualId": $("#manualId").val()};
-	data.push(dataSend);
+	if($('input[name="check"]:checked').length <= 0){
+		closeDialogs();
+		$("#errorShow").modal('show');
+		return;
+	}
+	var dataSend = {};
+	
+	for(var i = 0; i < $('input[name="check"]:checked').length; i++){
+		var value = $($('input[name="check"]:checked')[i]).val();
+		dataSend = {"manualId" : value};
+		data.push(dataSend);
+	}
 	$.ajax({
         type: "POST",
         url: ctx +"/histroryPayment/clearing",
@@ -177,5 +185,8 @@ function closeDialogs(){
 }
 function closeLog(){
 	$("#showLog").modal('hide');
+}
+function closeLogError(){
+	$("#errorShow").modal('hide');
 }
 

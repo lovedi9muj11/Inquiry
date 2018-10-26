@@ -37,7 +37,6 @@ public class UserController {
 			UserBean result = new UserBean();
 			result.setId(resList.get(i).getId());
 			result.setUserName(resList.get(i).getUsername());
-			result.setPassword(resList.get(i).getPassword());
 			for(int j=0; j<resList.get(i).getRoles().size(); j++) {
 				roleCode += resList.get(i).getRoles().get(j).getName() + " ";
 			}

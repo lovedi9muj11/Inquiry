@@ -486,15 +486,35 @@ function showReasonCancel(){
 			 $("#address").val(customerAddress);
 			$("#reason-cancel").modal('show');
 		}else{
-			var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
-			if(r){
-				$("#reason-cancel").modal('hide');
-				submitCancelPayment();
-			}
+//			var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
+//			if(r){
+//				$("#reason-cancel").modal('hide');
+//				submitCancelPayment();
+//			}
+			
+			swal({
+				  title: "คุณต้องการยกเลิกรายการหรือไม่",
+				  text: "",
+				  icon: "warning",
+				  buttons: true,
+				  successMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+//				    swal("yes xxx", {
+//				      icon: "success",
+//				    });
+					  
+					$("#reason-cancel").modal('hide');
+					submitCancelPayment();
+				  } else {
+//				    swal("xxx");
+				  }
+				});
 			
 		}
 	}else{
-		alert("โปรดระบุตัวเลือก");
+		swal("โปรดระบุตัวเลือก");
 	}
 };
 

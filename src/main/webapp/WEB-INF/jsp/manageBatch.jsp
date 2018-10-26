@@ -10,6 +10,8 @@
 <script type="text/javascript">
 var PLS_SELECT = 'กรุณาเลือก';
 var PLS_SELECT_ALL_MONTH = 'ทุกเดือน';
+var PLS_SELECT_ALL_TYPE = 'ประเภท';
+var PLS_SELECT_MONTH = 'เดือน';
 var PLS_SELECT_ALL_MONTH_LAST_DAY = 'ทุกสิ้นเดือน';
 var PLS_SELECT_ALL_DAY = 'ทุกวัน';
 var PLS_SELECT_ALL_HOUR = 'ทุกชั่วโมง';
@@ -106,7 +108,7 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 						</div>
 						<div class="form-group">
 							<div class="col-sm-12 center split">
-								<button type="button" id="saveBtn" class="btn btn-success btn3d"><i class="fa fa-fw fa-save"></i>xxx</button>
+								<button type="button" id="saveBtn" class="btn btn-success"><i class="fa fa-fw fa-save"></i>บันทึก</button>
 							</div>
 						</div>
 					</div>

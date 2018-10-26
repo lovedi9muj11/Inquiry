@@ -47,7 +47,7 @@ function search(){
 //	$("#error-end-date").addClass("hide");
 //	$("#error-end-date2").addClass("hide");
 	reportPaymentTb.clear().draw();
-	var dateFrom = $('#dateFromHour').val() +":" + $('#dateFromMinute').val()+":00"; //$('#dateFrom').val() +" "+
+	var dateFrom = $('#dateFrom').val() +" "+$('#dateFromHour').val() +":" + $('#dateFromMinute').val()+":00";
 	var dateTo = $('#dateToHour').val() +":" + $('#dateToMinute').val()+":00"; //$('#dateTo').val() +" "+
 	dateFromGlobal = dateFrom;
 	dateToGlobal = dateTo;
@@ -56,7 +56,7 @@ function search(){
 			"dateFrom": dateFrom,
 			"dateTo": dateTo,
 //			"vatRate": $('#vat').val(),
-			"user":  $('#authorities').val(),
+			"user":  $('#authorities').val()==''?$("#userLogin").val():$('#authorities').val(),
 			"serviceType": $('#serviceType').val()
 //			"accountId": $('#accountId').val()
 		};
@@ -92,7 +92,7 @@ function printReport(){
 	$('#dateToHidden').val(dateToGlobal);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
-	$('#authoritiesHidden').val($('#authorities').val());
+	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
 	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentExcel").attr("target", "_blank").submit();
 };
 
@@ -101,7 +101,7 @@ function printReportPDF(){
 	$('#dateToHidden').val(dateToGlobal);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
-	$('#authoritiesHidden').val($('#authorities').val());
+	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
 	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentPDF").attr("target", "_blank").submit();
 };
 
@@ -152,7 +152,7 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(5).addClass('left');
 //    $(rowNode).find('td').eq(6).addClass('left');
     $(rowNode).find('td').eq(6).addClass('center');
-    $(rowNode).find('td').eq(7).addClass('right');
+    $(rowNode).find('td').eq(7).addClass('center');
     $(rowNode).find('td').eq(8).addClass('center');
     $(rowNode).find('td').eq(9).addClass('right');
     $(rowNode).find('td').eq(10).addClass('right');
@@ -161,9 +161,9 @@ function createRow(data, seq) {
 };
 
 function dropdownUser(){
-	var dataSend = { "username": "" };
 	var userLogin = $("#userLogin").val();
 	var supervisor = false;
+	var dataSend = { "username": "" };
 
 	$.ajax({
         type: "POST",
@@ -175,7 +175,7 @@ function dropdownUser(){
         success: function (res) {
 	        for(var a = 0, value = res.length; value>a ; a++){
 	        	if(userLogin == res[a].userName){
-	        		if(res[a].roleCode == 'sup '){
+	        		if(res[a].roleCode == 'SUP '){
 	        			generateDropDown(res);
 	        		}else{
 	        		  var $el = $("#authorities");
@@ -213,7 +213,7 @@ function generateDropDown(value){
     $el.empty();
     $el.append($("<option></option>").attr("value", '').text('ทั้งหมด'));
     for(var a = 0, s = value.length; s>a ; a++){
-    	if(value[a].roleCode == 'user '){
+    	if(value[a].roleCode == 'USER '){
     		$el.append($("<option>").attr('value',value[a].userName).text(value[a].userName));
     	}
     }
