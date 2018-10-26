@@ -44,6 +44,7 @@ import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
+import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.MasterDataService;
@@ -51,7 +52,9 @@ import th.co.maximus.service.PaymentOtherService;
 import th.co.maximus.service.ReportService;
 import th.co.maximus.service.TrsChequeRefManualService;
 import th.co.maximus.service.TrscreDitrefManualService;
+import th.co.maximus.service.TrsmethodManualService;
 
+@SuppressWarnings("deprecation")
 @Controller
 public class EpisReportController {
 	@Autowired
@@ -63,6 +66,9 @@ public class EpisReportController {
 	private TrsChequeRefManualService trsChequeRefManualService;
 	@Autowired
 	private PaymentOtherService paymentOtherService;
+	
+	@Autowired
+	private TrsmethodManualService trsmethodManualService;
 
 	@Autowired
 	private MasterDataService masterDataService;
@@ -106,7 +112,7 @@ public class EpisReportController {
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		String JASPER_JRXML_FILENAME = "";
-		if (invObject.getDocType().equals("RF")) {
+		if (Constants.DOCTYPE.RF.equals(invObject.getDocType())) {
 			if (invObject.getDiscount().signum() == 0) {
 				JASPER_JRXML_FILENAME = "InvEpisPayment";
 			} else {
@@ -188,29 +194,38 @@ public class EpisReportController {
 
 		String paymentCodeRes = "";
 		String checkWT = "";
+		
 		List<String> result = new ArrayList<>();
-		for (int i = 0; i < collections.size(); i++) {
 			String payCode = "";
-			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(i);
+			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(0);
+			List<TrsMethodEpisOffline> data = trsmethodManualService.TrsmethodManualAll(Long.parseLong(stockObject.getManualId()));
+			for(int t =0;t<data.size();t++) {
+				TrsMethodEpisOffline rs = (TrsMethodEpisOffline) data.get(t);
+				if (rs.getCode().equals("CC")) {
+					payCode = "เงินสด";
+					result.add(payCode);
+				} else if (rs.getCode().equals("CR")) {
+					List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(rs.getId());
+					for(int f=0;f<res.size();f++) {
+						String code = res.get(f).getCreditNo();
+						payCode = "บัตรเครดิต" + " " + res.get(f).getCardtype() + " " + "เลขที่ : ************"
+								+ code.substring(12, 16);
+						result.add(payCode);
+					}
 
-			if (stockObject.getPaymentCode().equals("CC")) {
-				payCode = "เงินสด";
-				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CR")) {
-				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
-				String code = res.get(0).getCreditNo();
-				payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"
-						+ code.substring(12, 16);
-				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CH")) {
-				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());
-				payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
-				result.add(payCode);
+				} else if (rs.getCode().equals("CH")) {
+					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(rs.getId());
+					for(int f=0;f<res.size();f++) {
+						payCode = "เช็ค " + res.get(f).getPublisher() + "เลขที่ :" + res.get(f).getChequeNo();
+						result.add(payCode);
+					}
+
+				}
 			}
-		}
+			
 		for (int i = 0; i < collections.size(); i++) {
-			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(i);
-			if (stockObject.getPaymentCode().equals("DEDUC")) {
+			InvEpisOfflineReportBean stockObjects = (InvEpisOfflineReportBean) collections.get(i);
+			if (stockObjects.getPaymentCode().equals("DEDUC")) {
 				checkWT = "WT";
 				result.add(checkWT);
 			}
@@ -304,9 +319,9 @@ public class EpisReportController {
 		if(StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
 			exportPDFReport.setVatRateCheck("Y");
 			
-			if (printCollections.get(0).getDoctype().equals("RF")) {
+			if (Constants.DOCTYPE.RF.equals(printCollections.get(0).getDoctype())) {
 				exportPDFReport.setSentStringHeader("N");
-			} else if(printCollections.get(0).getDoctype().equals("RS")) {
+			} else if(Constants.DOCTYPE.RS.equals(printCollections.get(0).getDoctype())) {
 				exportPDFReport.setSentStringHeader("Y");
 			}
 			
@@ -568,7 +583,7 @@ public class EpisReportController {
 		SimpleDateFormat dtt = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		String dateDocument = dt.format(date);
-		if (creteria.getTypePrint().equals("F")) {
+		if (Constants.DOCTYPE.RF.equals(creteria.getTypePrint())) {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
 			exportPDFReport.setReportStatus("1");
 		} else {
@@ -638,45 +653,56 @@ public class EpisReportController {
 			colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
 			colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
 			
-			if(colles.getVatRate() == 0) {
-				beforeVtzero = beforeVtzero.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
-				vatRatezero = vatRatezero.add(vat).setScale(2, RoundingMode.HALF_DOWN);
-				totalVtratezero = totalVtratezero.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
-			}else {
-				beforeVtDefult = beforeVtDefult.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
-				vatRateDefult = vatRateDefult.add(vat).setScale(2, RoundingMode.HALF_DOWN);
-				totalVtDefult = totalVtDefult.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
-			}
+			if(Constants.Status.ACTIVE.equals(colles.getPayType())) {
+				if(colles.getVatRate() == 0) {
+					beforeVtzero = beforeVtzero.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+					vatRatezero = vatRatezero.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+					totalVtratezero = totalVtratezero.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
+				}else {
+					beforeVtDefult = beforeVtDefult.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+					vatRateDefult = vatRateDefult.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+					totalVtDefult = totalVtDefult.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
+				}
 
-			summaryBeforeVt = summaryBeforeVt.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
-			vatSummary = vatSummary.add(vat).setScale(2, RoundingMode.HALF_DOWN);
-			summarySummary = summarySummary.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
+				summaryBeforeVt = summaryBeforeVt.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+				vatSummary = vatSummary.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+				summarySummary = summarySummary.add(colles.getSummary()).setScale(2, RoundingMode.HALF_DOWN);
+			}
 
 			colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
 			colles.setDocumentDateReport(String.valueOf(dtt.format(colles.getDocumentDate()).toString()));
-			colles.setBeforeVatReport(String.valueOf(colles.getBeforeVat()));
-			colles.setVatReport(String.valueOf(colles.getVat()));
-			colles.setSummaryReport(String.valueOf(colles.getSummary()));
-			if (colles.getPayType().equals("A")) {
+			colles.setBeforeVatReport(String.format("%,.2f", colles.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+			colles.setVatReport(String.format("%,.2f", colles.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+			colles.setSummaryReport(String.format("%,.2f", colles.getSummary().setScale(2, RoundingMode.HALF_DOWN)));
+			if (Constants.Status.ACTIVE.equals(colles.getPayType())) {
 				colles.setPayType("-");
 			} else {
-				colles.setPayType("ยกเลิก");
+				colles.setPayType(Constants.Status.ACTIVE_C);
 			}
 			printCollections.add(colles);
 
 		}
 
 		exportPDFReport.setBeforeVatRq(beforeVtDefult);
+		exportPDFReport.setBeforeVatRqStr(String.format("%,.2f", beforeVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setVatRq(vatRateDefult);
+		exportPDFReport.setVatRqStr(String.format("%,.2f", vatRateDefult.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setSummaryRq(totalVtDefult);
+		exportPDFReport.setSummaryRqStr(String.format("%,.2f", totalVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
 		
 		exportPDFReport.setBeforeVatZero(beforeVtzero);
+		exportPDFReport.setBeforeVatZeroStr(String.format("%,.2f", beforeVtzero.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setVatZero(vatRatezero);
+		exportPDFReport.setVatZeroStr(String.format("%,.2f", vatRatezero.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setSummaryZero(totalVtratezero);
+		exportPDFReport.setSummaryZeroStr(String.format("%,.2f", totalVtratezero.setScale(2, RoundingMode.HALF_DOWN)));
 		
 		exportPDFReport.setBeforeVatSummary(summaryBeforeVt);
+		exportPDFReport.setBeforeVatSummaryStr(String.format("%,.2f", summaryBeforeVt.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setVatSummary(vatSummary);
+		exportPDFReport.setVatSummaryStr(String.format("%,.2f", vatSummary.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setSummarySummary(summarySummary);
+		exportPDFReport.setSummarySummaryStr(String.format("%,.2f", summarySummary.setScale(2, RoundingMode.HALF_DOWN)));
 
 		parameters.put("ReportSource", exportPDFReport);
 
