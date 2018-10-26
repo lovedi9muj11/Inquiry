@@ -1,6 +1,5 @@
 package th.co.maximus.service.impl;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +17,7 @@ import th.co.maximus.dao.DeductionManualDao;
 import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.dao.TrscreDitrefManualDao;
+import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.payment.bean.PaymentTranPriceBean;
@@ -192,9 +192,8 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 	}
 	
 	@Override
-	public List<TrsMethodManualBean> TrsmethodManualAll() {
-//		return jdbcTemplate.query("select * from trsmethod_manual", new TrsMethodManualJoin());
-		return null;
+	public List<TrsMethodEpisOffline> TrsmethodManualAll(Long manualId) throws Exception{
+		return trsMethodManualDao.findByManualId(manualId);
 	}
 
 	

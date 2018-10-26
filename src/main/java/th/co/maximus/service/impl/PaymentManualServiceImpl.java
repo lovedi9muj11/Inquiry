@@ -3,6 +3,8 @@ package th.co.maximus.service.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,15 +27,18 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 
 
 	@Override
-	public int insertPaymentManual(PaymentFirstBean paymentBean) {
+	public int insertPaymentManual(PaymentFirstBean paymentBean) throws ParseException {
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Date date = new Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd 00:00:00");
+		String da = dt.format(paymentBean.getDeadlines());
+		Date da1 = dt.parse(da);
 		int userId=0;
 		if(StringUtils.isNotBlank(paymentBean.getInvoiceNo())){
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			paymentManualBean.setPaidDate(new Timestamp(paymentBean.getDeadlines().getTime()));
+			paymentManualBean.setPaidDate(new Timestamp(da1.getTime()));
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());

@@ -25,10 +25,11 @@
 
 <%
 	List<MasterDatasBean> masterBankCode = null;
+	List<MasterDatasBean> vat = null;
 %>
 <%
 	masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
-%>
+	vat = (List<MasterDatasBean>) request.getAttribute("vat");
 %>
 </head>
 <body>
@@ -89,8 +90,8 @@
 														<p id="sCustNo" style="color: red; display: none;">คุณยังไม่ได้กรอก
 															เลขที่ลูกค้า</p>
 													</div>
-													<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
-													<div class="col-sm-2">
+													<label class="col-sm-1 control-label right" for="custName">ชื่อ:</label>
+													<div class="col-sm-3">
 														<input class="form-control" type="text" id="custName"
 															name="custName" placeholder="ชื่อ" maxlength="300">
 
@@ -235,9 +236,13 @@
 													<div class="col-sm-2">
 														<select class="form-control" id="vatrate" name="vatrate"
 															onchange="findvatAmount()">
-															<option value="7">7%</option>
-															<!-- <option value="0">0%</option>
-															<option value="NON VAT">NON VAT</option> -->
+																<%
+																	for (int i = 0; i < vat.size(); i++) {
+																%>
+																<option value="<%=vat.get(i).getValue()%>"><%=vat.get(i).getValue()%></option>
+																<%
+																	}
+																%>
 														</select>
 													</div>
 												</div>
@@ -611,7 +616,7 @@
 															for="formGroupInputLarge">สาขา :</label>
 														<div class="col-sm-4">
 															<input class="form-control" type="text" id="branchCheck"
-																name="paymentTranPrice.branchCheck" placeholder="สาขา" maxlength="5">
+																name="paymentTranPrice.branchCheck" placeholder="สาขา" maxlength="300">
 														</div>
 														<label class="col-sm-2 control-label right"
 															for="formGroupInputLarge">จำนวนเงิน :</label>

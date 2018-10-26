@@ -32,7 +32,7 @@ $(document).ready(function() {
             		var day = setCode[x].substring(9, 11);
             		var today = year+"-"+(month)+"-"+(day) ;
 
-                	$('#deadlines').val(today);
+//                	$('#deadlines').val(today);
             	}
             	if(x==3) {
             		var amount = ((parseFloat(setCode[x]))/100);

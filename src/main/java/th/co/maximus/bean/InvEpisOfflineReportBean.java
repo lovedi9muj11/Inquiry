@@ -28,6 +28,7 @@ public class InvEpisOfflineReportBean {
 	private BigDecimal amountPayment;
 	private String preiod;
 	private String docType;
+	private String manualId;
 	
 	
 	
@@ -35,7 +36,7 @@ public class InvEpisOfflineReportBean {
 	public InvEpisOfflineReportBean() {}
 	
 	public InvEpisOfflineReportBean(String branArea,String bracnCode,String souce,String custNo,String custName,String documentNo,BigDecimal balanceSummary,String invoiceNo,Date documentDate
-			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal vat,BigDecimal beforeVat,Long methodId,String serviceNo,BigDecimal discount,BigDecimal amountPayment,String preiod,String docType) {
+			,String customerAddress,String taxId,String remark,String paymentCode,String vatRate,BigDecimal vat,BigDecimal beforeVat,Long methodId,String serviceNo,BigDecimal discount,BigDecimal amountPayment,String preiod,String docType,String manualId) {
 		this.branArea = branArea;
 		this.bracnCode = bracnCode;
 		this.souce = souce;
@@ -58,10 +59,19 @@ public class InvEpisOfflineReportBean {
 		this.amountPayment = amountPayment;
 		this.preiod = preiod;
 		this.docType = docType;
+		this.manualId = manualId;
 		
 	}
 	
 	
+	public String getManualId() {
+		return manualId;
+	}
+
+	public void setManualId(String manualId) {
+		this.manualId = manualId;
+	}
+
 	public String getDocType() {
 		return docType;
 	}
