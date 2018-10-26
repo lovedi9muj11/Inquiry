@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -48,11 +49,13 @@ public class PaymentReport extends BaseExcelRptService {
 		String time = formateHH.format(new Date());
 		String serviceName = "";
 		
-		if("IBACSS".equals(result.get(0).getServiceType())) {
-			serviceName = "รับชำระค่าใช้บริการ";
-		 }else if("OTHER".equals(result.get(0).getServiceType())) {
-			 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
-		 }
+		if(CollectionUtils.isNotEmpty(result)) {
+			if("IBACSS".equals(result.get(0).getServiceType())) {
+				serviceName = "รับชำระค่าใช้บริการ";
+			 }else if("OTHER".equals(result.get(0).getServiceType())) {
+				 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
+			 }
+		}
 		
 		//Create Sheet and name Sheet
 		Sheet sh = workbook.getSheetAt(0);
@@ -61,10 +64,10 @@ public class PaymentReport extends BaseExcelRptService {
 		//set row date header and style cell
 		 Row row1 = sh.getRow(1);
 		 Cell company = row1.getCell(0);
-		 Cell dateFromToCriteria = row1.getCell(5);
-		 Cell datePrint = row1.getCell(11);
+		 Cell dateFromToCriteria = row1.getCell(4);
+		 Cell datePrint = row1.getCell(10);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
-		 dateFromToCriteria.setCellValue("เวลา"+" "+ convertTimeFormat(criteria.getDateFrom())+" "+" ถึง "+ convertTimeFormat(criteria.getDateTo()));
+		 dateFromToCriteria.setCellValue("วันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+"- "+ convertTimeFormat(criteria.getDateTo()));
 		 datePrint.setCellValue("พิมพ์วันที่"+" "+ date+" "+time);
 		 company.setCellStyle(txtCenterBor);
 		 dateFromToCriteria.setCellStyle(txtCenterHeadBor);
@@ -216,7 +219,6 @@ public class PaymentReport extends BaseExcelRptService {
 		return workbook;
 	}
 	
-	@SuppressWarnings("unused")
 	private String convertDateFormat(String dateFormat) throws ParseException {
 	    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
 	    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);

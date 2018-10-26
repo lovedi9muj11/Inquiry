@@ -164,7 +164,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" SELECT PM.*,PIM.* ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
-		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
+//		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
 		
 //		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");

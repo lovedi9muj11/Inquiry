@@ -173,7 +173,7 @@ public class PaymentReportPdf {
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
 					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-					parameters.put("dateFrom", convertTimeFormat(criteria.getDateFrom()));
+					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 					parameters.put("staff", criteria.getUser());
 					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
@@ -224,7 +224,7 @@ public class PaymentReportPdf {
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
 					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-					parameters.put("dateFrom", convertTimeFormat(criteria.getDateFrom()));
+					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 					parameters.put("staff", criteria.getUser());
 					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
@@ -259,7 +259,7 @@ public class PaymentReportPdf {
 			parameters = new HashMap<String, Object>();
 			parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
 			parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-			parameters.put("dateFrom", convertTimeFormat(criteria.getDateFrom()));
+			parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 			parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 			parameters.put("staff", criteria.getUser());
 			parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
@@ -313,7 +313,6 @@ public class PaymentReportPdf {
 		exporter.exportReport();
 	}
 
-	@SuppressWarnings("unused")
 	private String convertDateFormat(String dateFormat) throws ParseException {
 		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
 		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);

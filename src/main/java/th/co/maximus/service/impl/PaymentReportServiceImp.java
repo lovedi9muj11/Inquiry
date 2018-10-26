@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,16 @@ public class PaymentReportServiceImp implements PaymentReportService {
 	@Override
 	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria,String serviceType) throws Exception {
 		
-		Integer supCh = paymentManualDao.checkSup(criteria.getUser());
+		Integer supCh = 0;
+		
+		if(StringUtils.isNotBlank(criteria.getUser())) {
+			if(!"".equals(criteria.getUser())) {
+				supCh = paymentManualDao.checkSup(criteria.getUser());
+			}else {
+				supCh = 2;
+			}
+		}
+		
 		if(supCh == 2) {
 			criteria.setUser("");
 		}
