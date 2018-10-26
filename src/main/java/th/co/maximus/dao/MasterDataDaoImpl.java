@@ -105,7 +105,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByServiceName() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA ms  ");
-		sql.append(" WHERE ms.groupType = 'SERVICENAME'");
+		sql.append(" WHERE ms.group_key = 'SERVICENAME'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 	@Override
@@ -113,6 +113,13 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA ms  ");
 		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.OTHER_PAYMENT_UNIT+"'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	@Override
+	public List<MasterDataBean> findByVat() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
+		sql.append(" WHERE ms.group_key = '"+Constants.MasterData.VAT+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 

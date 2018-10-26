@@ -33,6 +33,7 @@
 	List<MasterDataBean> masterServiceDepartment = null;
 	List<MapGLBean> mapGLServiceName = null;
 	List<MasterDataBean> masterCategory = null;
+	List<MasterDataBean> masterVat = null;
 %>
 <%
 	masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode");
@@ -41,6 +42,7 @@
 	masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment");
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 	String	costcenter = (String) request.getAttribute("costcenter");
+	masterVat = (List<MasterDataBean>) request.getAttribute("vat");
 %>
 
 </head>
@@ -148,9 +150,14 @@
 											for="formGroupInputLarge">VAT RATE :</label>
 										<div class="col-sm-2">
 											<select class="form-control" id="vatrate" name="vatrate" onchange="autoSelectVat()">
-												<option value="7">7%</option>
-												<option value="0">0%</option>
-												<option value=nonVat>Non VAT</option>
+												
+															<%
+																for (int i = 0; i < masterVat.size(); i++) {
+															%>
+															<option value="<%=masterVat.get(i).getText()%>"><%=masterVat.get(i).getText()%></option>
+															<%
+																}
+															%>
 
 											</select>
 										</div>

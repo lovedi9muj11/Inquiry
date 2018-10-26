@@ -146,6 +146,11 @@ public class MasterDataServiceImpl implements MasterDataService{
 		List<MasterDataBean> masterDataList = masterDataDao.findAllByCategory();
 		return masterDataList;
 	}
+	@Override
+	public List<MasterDataBean> findByVat() {
+		List<MasterDataBean> masterDataList = masterDataDao.findByVat();
+		return masterDataList;
+	}
 
 	@Override
 	public String insertMasterDataSync(List<MasterDataSyncBean> masterDataSyncBean) {

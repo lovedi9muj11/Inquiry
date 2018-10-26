@@ -42,4 +42,6 @@ public interface MasterDataDao {
 	
 	void insertBatch(MasterDataBean masterDataBean);
 
+	public List<MasterDataBean> findByVat();
+
 }

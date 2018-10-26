@@ -64,6 +64,7 @@ $(document).ready(function() {
 			}			
 		});
 		
+		
 			$("#inputServiceType").on( "change",  function() {
 				console.log(this);
 				$("#inputServiceName").empty();
@@ -107,6 +108,15 @@ $(document).ready(function() {
 					inputServiceAmount = "0";
 				}
 				$("#inputServiceAmount").val(FormatMoneyShowToNumber(inputServiceAmount).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
+			});
+			$("#moneyDed").on( "change",  function() {
+				var moneyDed = $("#moneyDed").val();
+				
+				
+				if(moneyDed == ""){
+					moneyDed = "0";
+				}
+				$("#moneyDed").val(FormatMoneyShowToNumber(moneyDed).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 			});
 			
 			$("#moneyDed1").on( "change",  function() {

@@ -55,7 +55,7 @@ public class MapGLDaoImp implements MapGLDao{
 	public List<MapGLBean> findBySource(String source) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
-		sql.append(" WHERE mg.SOURCE = '"+source+"'");
+		sql.append(" WHERE mg.SOURCE = '"+source+"' GROUP BY REVENUE_TYPE_CODE");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 
@@ -63,7 +63,7 @@ public class MapGLDaoImp implements MapGLDao{
 	public List<MapGLBean> findByRevenuType(String revennuId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
-		sql.append(" WHERE mg.REVENUE_TYPE_CODE = '"+revennuId+"'");
+		sql.append(" WHERE mg.REVENUE_TYPE_CODE = '"+revennuId+"' ");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 
