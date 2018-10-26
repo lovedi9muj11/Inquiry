@@ -44,6 +44,7 @@ import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
+import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.MasterDataService;
@@ -51,6 +52,7 @@ import th.co.maximus.service.PaymentOtherService;
 import th.co.maximus.service.ReportService;
 import th.co.maximus.service.TrsChequeRefManualService;
 import th.co.maximus.service.TrscreDitrefManualService;
+import th.co.maximus.service.TrsmethodManualService;
 
 @Controller
 public class EpisReportController {
@@ -63,6 +65,9 @@ public class EpisReportController {
 	private TrsChequeRefManualService trsChequeRefManualService;
 	@Autowired
 	private PaymentOtherService paymentOtherService;
+	
+	@Autowired
+	private TrsmethodManualService trsmethodManualService;
 
 	@Autowired
 	private MasterDataService masterDataService;
@@ -188,29 +193,38 @@ public class EpisReportController {
 
 		String paymentCodeRes = "";
 		String checkWT = "";
+		
 		List<String> result = new ArrayList<>();
-		for (int i = 0; i < collections.size(); i++) {
 			String payCode = "";
-			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(i);
+			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(0);
+			List<TrsMethodEpisOffline> data = trsmethodManualService.TrsmethodManualAll(Long.parseLong(stockObject.getManualId()));
+			for(int t =0;t<data.size();t++) {
+				TrsMethodEpisOffline rs = (TrsMethodEpisOffline) data.get(t);
+				if (rs.getCode().equals("CC")) {
+					payCode = "เงินสด";
+					result.add(payCode);
+				} else if (rs.getCode().equals("CR")) {
+					List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(rs.getId());
+					for(int f=0;f<res.size();f++) {
+						String code = res.get(f).getCreditNo();
+						payCode = "บัตรเครดิต" + " " + res.get(f).getCardtype() + " " + "เลขที่ : ************"
+								+ code.substring(12, 16);
+						result.add(payCode);
+					}
 
-			if (stockObject.getPaymentCode().equals("CC")) {
-				payCode = "เงินสด";
-				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CR")) {
-				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
-				String code = res.get(0).getCreditNo();
-				payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************"
-						+ code.substring(12, 16);
-				result.add(payCode);
-			} else if (stockObject.getPaymentCode().equals("CH")) {
-				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());
-				payCode = "เช็ค " + res.get(0).getPublisher() + "เลขที่ :" + res.get(0).getChequeNo();
-				result.add(payCode);
+				} else if (rs.getCode().equals("CH")) {
+					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(rs.getId());
+					for(int f=0;f<res.size();f++) {
+						payCode = "เช็ค " + res.get(f).getPublisher() + "เลขที่ :" + res.get(f).getChequeNo();
+						result.add(payCode);
+					}
+
+				}
 			}
-		}
+			
 		for (int i = 0; i < collections.size(); i++) {
-			InvEpisOfflineReportBean stockObject = (InvEpisOfflineReportBean) collections.get(i);
-			if (stockObject.getPaymentCode().equals("DEDUC")) {
+			InvEpisOfflineReportBean stockObjects = (InvEpisOfflineReportBean) collections.get(i);
+			if (stockObjects.getPaymentCode().equals("DEDUC")) {
 				checkWT = "WT";
 				result.add(checkWT);
 			}

@@ -42,7 +42,7 @@ public class PaymentSeriveTest{
 		paymentBean.setCustName("CUSTNAME");
 		paymentBean.setCustName("19 / 11 ต.หนองน้ำใส");
 		
-		paymentManualService.insertPaymentManual(paymentBean);
+//		paymentManualService.insertPaymentManual(paymentBean);
 	}
 	
 	@Ignore

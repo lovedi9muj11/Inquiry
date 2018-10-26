@@ -36,10 +36,13 @@ public class PaymentController {
 	@RequestMapping(value = "/gotoPayment", method = RequestMethod.GET)
 	public String registration(Model model) {
 		List<MasterDatasBean> bankCodeList = new ArrayList<>();
+		List<MasterDatasBean> vatRate = new ArrayList<>();
 
 		bankCodeList = masterDatasDao.findByBankName();
+		vatRate = masterDatasDao.findByVat();
 
 		model.addAttribute("bank", bankCodeList);
+		model.addAttribute("vat", vatRate);
 
 		return "payment";
 	}
