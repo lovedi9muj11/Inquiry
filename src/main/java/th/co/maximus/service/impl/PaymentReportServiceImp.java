@@ -56,8 +56,10 @@ public class PaymentReportServiceImp implements PaymentReportService {
 		for(ReportPaymentBean resultBean : result) {
 			String paymentCodeRes = "";
 			String deductionNo = "";
-			boolean chkCC = true;
+		
+			boolean chkCH = false;
 			List<String> results = new ArrayList<>();
+			List<String> refno = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			List<DeductionManualBean> deductionList = deductionManualImpl.findDeductionManualFromManualId(Long.valueOf(resultBean.getManualId()));
 				for (int i = 0; i < methodResult.size(); i++) {
@@ -67,25 +69,26 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					if (stockObject.getCode().equals("CC")) {
 						payCode = "เงินสด";
 						results.add(payCode);
-						if(i==0) {resultBean.setRefNo(""); chkCC=true;}
-						if (stockObject.getCode().equals("DEDUC")) {}
+					
 					} else if (stockObject.getCode().equals("CR")) {
 						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
-						payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
-						results.add(payCode);
-						if(chkCC) {resultBean.setRefNo(code.substring(12, 16)); chkCC=false;}
+                        payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
+                        results.add(payCode);
+						refno.add(code.substring(12, 16)); 
 					} else if (stockObject.getCode().equals("CH")) {
 						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 						
 						if(CollectionUtils.isNotEmpty(res)) {
 							for(int j=0; j<res.size(); j++) {
-								payCode = "เช็ค " + res.get(j).getPublisher() + "เลขที่ : ************" + res.get(j).getChequeNo().substring(3);
+								payCode = "เช็ค";
 							}
 						}
-						
-						results.add(payCode);
-						if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
+						if(!chkCH){
+							results.add(payCode);
+						}
+
+						refno.add(res.get(0).getChequeNo()); chkCH=true;
 					}
 				}
 				
@@ -117,9 +120,18 @@ public class PaymentReportServiceImp implements PaymentReportService {
 				}
 				
 			if(paymentCodeRes.indexOf(Constants.PAYTYPE.WT) > 0) {
-				resultBean.setRefNo(deductionNo);
+				refno.add(deductionNo);
 			}
-			
+			String refnoDis = "";
+			for (int a = 0; a < refno.size(); a++) {
+				if (a == 0) {
+					refnoDis += refno.get(a);
+				} else {
+					refnoDis += " , " + refno.get(a);
+				}
+
+			}
+			resultBean.setRefNo(refnoDis);
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
 			resultBean.setServiceCode(resultBean.getServiceCode());
