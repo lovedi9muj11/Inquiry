@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.MapGLBean;
+import th.co.maximus.constants.Constants;
 
 @Service
 public class MapGLDaoImp implements MapGLDao{
@@ -64,6 +65,7 @@ public class MapGLDaoImp implements MapGLDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
 		sql.append(" WHERE mg.REVENUE_TYPE_CODE = '"+revennuId+"' ");
+		sql.append(" AND mg.SOURCE = '"+Constants.MasterData.OTHER+"' ");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 

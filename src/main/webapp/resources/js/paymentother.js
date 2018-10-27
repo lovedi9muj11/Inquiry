@@ -482,12 +482,12 @@ function submitForm() {
 			"inputServiceName" : resultTblSale[h][2],
 			"inputServiceCode" : resultTblSale[h][3],
 			"inputServiceMoreData" : resultTblSale[h][4],
-			"inputServiceAmount" : resultTblSale[h][5].replace(",", ""),
-			 "inputServiceDiscount" : resultTblSale[h][6].replace(",", ""),
-			 "inputSpecialDiscount" : resultTblSale[h][7].replace(",", ""),
+			"inputServiceAmount" : FormatMoneyShowToNumber(resultTblSale[h][5]),
+			 "inputServiceDiscount" : FormatMoneyShowToNumber(resultTblSale[h][6]),
+			 "inputSpecialDiscount" : FormatMoneyShowToNumber(resultTblSale[h][7]),
 			"vatSale" : vatSaleChk,
 			
-			"summaryinvoice" : resultTblSale[h][10].replace(",", "")
+			"summaryinvoice" : FormatMoneyShowToNumber(resultTblSale[h][10])
 		}
 		listpaymentSaleRQ.push(listpaymentSale);
 	}
@@ -502,7 +502,7 @@ function submitForm() {
 			"docDed" : resultDeductible[a][1],
 			"custNo" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][5],
-			"moneyDed" : resultDeductible[a][4].replace(",", "")*-1
+			"moneyDed" : FormatMoneyShowToNumber(resultDeductible[a][4])*-1
 		}
 		listpaymentTaxRQ.push(listpaymentTaxQ);
 	}
@@ -517,7 +517,7 @@ function submitForm() {
 		if (resultTotalPrice[b][1] == "CC") {
 			listpaymentTranPriceQ = {
 				"typePayment" : resultTotalPrice[b][1],
-				"moneyTran" : resultTotalPrice[b][2].replace(",", "")
+				"moneyTran" : FormatMoneyShowToNumber(resultTotalPrice[b][2])
 			}
 		} else if (resultTotalPrice[b][1] == "CR") {
 			listpaymentTranPriceQ = {
@@ -526,7 +526,7 @@ function submitForm() {
 				"bankName" : resultTotalPrice[b][4],
 				"creditNo" : resultTotalPrice[b][3],
 				"edcType" : resultTotalPrice[b][6],
-				"creditPrice" : resultTotalPrice[b][5].replace(",", "")
+				"creditPrice" : FormatMoneyShowToNumber(resultTotalPrice[b][5])
 			}
 		} else if (resultTotalPrice[b][1] == "CH") {
 			listpaymentTranPriceQ = {
@@ -536,7 +536,7 @@ function submitForm() {
 				"branchCheck" : resultTotalPrice[b][4],
 				"checkNo" : resultTotalPrice[b][5],
 				"dateCheck" : resultTotalPrice[b][6],
-				"moneyCheck" : resultTotalPrice[b][7].replace(",", "")
+				"moneyCheck" : FormatMoneyShowToNumber(resultTotalPrice[b][7])
 			}
 		}
 
