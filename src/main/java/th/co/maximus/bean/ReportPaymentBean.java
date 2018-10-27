@@ -30,6 +30,7 @@ public class ReportPaymentBean {
 	private String cancelReason;
 	
 	private String refNo;
+	private String refNoEx;
 	private String deductionNo;
 	private String serviceCode;
 
@@ -239,6 +240,14 @@ public class ReportPaymentBean {
 
 	public void setServiceCode(String serviceCode) {
 		this.serviceCode = serviceCode;
+	}
+
+	public String getRefNoEx() {
+		return refNoEx;
+	}
+
+	public void setRefNoEx(String refNoEx) {
+		this.refNoEx = refNoEx;
 	}
 
 }

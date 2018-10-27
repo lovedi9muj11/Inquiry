@@ -30,12 +30,20 @@ public class InvPaymentOrderTaxBean {
 	// summary Report
 	private String empSummaryName;
 	private int vatRate;
+	
 	private BigDecimal beforeVatRq;
+	private String beforeVatRqStr;
 	private BigDecimal vatRq;
+	private String vatRqStr;
 	private BigDecimal summaryRq;
+	private String summaryRqStr;
+	
 	private BigDecimal beforeVatSummary;
+	private String beforeVatSummaryStr;
 	private BigDecimal vatSummary;
+	private String vatSummaryStr;
 	private BigDecimal summarySummary;
+	private String summarySummaryStr;
 	
 	private String beforeVatReport;
 	private String vatReport;
@@ -44,8 +52,11 @@ public class InvPaymentOrderTaxBean {
 	private String autoNumberReport;
 	
 	private BigDecimal beforeVatZero;
+	private String beforeVatZeroStr;
 	private BigDecimal vatZero;
+	private String vatZeroStr;
 	private BigDecimal summaryZero;
+	private String summaryZeroStr;
 	
 	
 	public InvPaymentOrderTaxBean(){}
@@ -296,6 +307,78 @@ public class InvPaymentOrderTaxBean {
 
 	public void setSummaryZero(BigDecimal summaryZero) {
 		this.summaryZero = summaryZero;
+	}
+
+	public String getBeforeVatSummaryStr() {
+		return beforeVatSummaryStr;
+	}
+
+	public void setBeforeVatSummaryStr(String beforeVatSummaryStr) {
+		this.beforeVatSummaryStr = beforeVatSummaryStr;
+	}
+
+	public String getVatSummaryStr() {
+		return vatSummaryStr;
+	}
+
+	public void setVatSummaryStr(String vatSummaryStr) {
+		this.vatSummaryStr = vatSummaryStr;
+	}
+
+	public String getSummarySummaryStr() {
+		return summarySummaryStr;
+	}
+
+	public void setSummarySummaryStr(String summarySummaryStr) {
+		this.summarySummaryStr = summarySummaryStr;
+	}
+
+	public String getBeforeVatZeroStr() {
+		return beforeVatZeroStr;
+	}
+
+	public void setBeforeVatZeroStr(String beforeVatZeroStr) {
+		this.beforeVatZeroStr = beforeVatZeroStr;
+	}
+
+	public String getVatZeroStr() {
+		return vatZeroStr;
+	}
+
+	public void setVatZeroStr(String vatZeroStr) {
+		this.vatZeroStr = vatZeroStr;
+	}
+
+	public String getSummaryZeroStr() {
+		return summaryZeroStr;
+	}
+
+	public void setSummaryZeroStr(String summaryZeroStr) {
+		this.summaryZeroStr = summaryZeroStr;
+	}
+
+	public String getBeforeVatRqStr() {
+		return beforeVatRqStr;
+	}
+
+	public void setBeforeVatRqStr(String beforeVatRqStr) {
+		this.beforeVatRqStr = beforeVatRqStr;
+	}
+
+	public String getVatRqStr() {
+		return vatRqStr;
+	}
+
+	public void setVatRqStr(String vatRqStr) {
+		this.vatRqStr = vatRqStr;
+	}
+
+	public String getSummaryRqStr() {
+		return summaryRqStr;
+	}
+
+	public void setSummaryRqStr(String summaryRqStr) {
+		this.summaryRqStr = summaryRqStr;
 	}
 	
 	

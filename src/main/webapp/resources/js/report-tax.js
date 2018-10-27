@@ -23,7 +23,7 @@ function search() {
 	
 	};
 	 if ((Date.parse(dataSend.dateFrom+" "+dataSend.dateFromHour+":"+dataSend.dateFromMinute) > Date.parse(dataSend.dateTo+" "+dataSend.dateToHour+":"+dataSend.dateToMinute))) {
-			alert("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด");
+			swal("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด")
 		 	return;
 	 }
 	$.ajax({

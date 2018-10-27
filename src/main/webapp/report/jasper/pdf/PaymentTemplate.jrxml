@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="1150" pageHeight="768" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="754"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
@@ -101,38 +101,38 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
-				<text><![CDATA[วันที่]]></text>
+				<text><![CDATA[ประจำวันที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="574" y="38" width="19" height="20" uuid="e399ab32-6ca6-4035-a9f0-352977f3e033"/>
+				<reportElement x="589" y="38" width="19" height="20" uuid="e399ab32-6ca6-4035-a9f0-352977f3e033"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="492" y="38" width="94" height="20" uuid="ef41f536-b4ca-40e3-a399-321e81340cb6"/>
+				<reportElement x="507" y="38" width="94" height="20" uuid="ef41f536-b4ca-40e3-a399-321e81340cb6"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateFrom}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="587" y="38" width="95" height="20" uuid="d14ec674-f8fa-4f41-8434-ab1b3f965440"/>
+				<reportElement x="599" y="38" width="95" height="20" uuid="d14ec674-f8fa-4f41-8434-ab1b3f965440"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateTo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="890" y="38" width="39" height="20" uuid="cae867b2-bb03-4b49-a3f3-5b0d72ee9828"/>
+				<reportElement x="958" y="38" width="39" height="20" uuid="cae867b2-bb03-4b49-a3f3-5b0d72ee9828"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
-				<text><![CDATA[วันที่พิมพ์]]></text>
+				<text><![CDATA[วันเวลาพิมพ์]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="929" y="38" width="178" height="20" uuid="358a57ba-fb67-41c3-b54f-fd757ce30325"/>
+				<reportElement x="997" y="38" width="113" height="20" uuid="358a57ba-fb67-41c3-b54f-fd757ce30325"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isItalic="false"/>
 				</textElement>
@@ -179,6 +179,20 @@
 					<font fontName="FreesiaUPC"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{serviceNameHead}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="1057" y="20" width="50" height="18" uuid="b7c7dc1d-1bd1-4a75-a77e-f5b38e77623a"/>
+				<textElement textAlignment="Center">
+					<font fontName="FreesiaUPC" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["จาก    " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1018" y="20" width="50" height="18" uuid="fc5158ca-348c-4c0b-81e2-4dd2739d9c04"/>
+				<textElement textAlignment="Center">
+					<font fontName="FreesiaUPC" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

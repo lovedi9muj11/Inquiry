@@ -63,6 +63,9 @@ public class Constants {
 		public static final String XXX = "RPTxxx";
 		public static final String REPORT_FULL = "Report";
 		public final static String RPT_EXCEL = "EXCEL";
+		
+		public final static String HEARDER_DATE = "ประจำวันที่";
+		public final static String HEARDER_DATE_TIME = "วันเวลาที่พิมพ์";
 	}
 	public static class dataUser {
 		public static final String BRANCHAREA = "1704";

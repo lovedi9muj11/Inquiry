@@ -90,8 +90,9 @@ public class PaymentReportPdf {
 					
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 				}
-				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
-				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
+//				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
+				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
+				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"");
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
 				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
@@ -108,9 +109,12 @@ public class PaymentReportPdf {
 				index++;
 				resultSource.add(reportPaymentBeanNew);
 
-				sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-				sumAllTotal += reportPaymentBean.getAmount().doubleValue();
-				sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+				if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatus())) {
+					sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+					sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+					sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+				}
+				
 			}
 		}
 
@@ -148,9 +152,12 @@ public class PaymentReportPdf {
 			String glCode = "";
 			for(ReportPaymentBean reportPaymentBean : resultSource) {
 				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
-					sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-					sumAllTotal += reportPaymentBean.getAmount().doubleValue();
-					sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+					
+					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatus())) {
+						sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+						sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+						sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+					}
 					
 					if(count==0) {
 						userPay = reportPaymentBean.getCreateBy();
@@ -212,9 +219,13 @@ public class PaymentReportPdf {
 					sumAllVat0 = 0;
 					sumAllTotal = 0;
 					sumAllTotalNoVat = 0;
-					sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-					sumAllTotal += reportPaymentBean.getAmount().doubleValue();
-					sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+					
+					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatus())) {
+						sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+						sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+						sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+					}
+					
 				}
 				serviceCode = reportPaymentBean.getServiceCode();
 				count++;

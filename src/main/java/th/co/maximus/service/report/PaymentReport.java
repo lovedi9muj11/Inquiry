@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.constants.Constants;
 
 @Service("paymentReport")
 public class PaymentReport extends BaseExcelRptService {
@@ -67,8 +68,9 @@ public class PaymentReport extends BaseExcelRptService {
 		 Cell dateFromToCriteria = row1.getCell(4);
 		 Cell datePrint = row1.getCell(10);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
-		 dateFromToCriteria.setCellValue("วันที่"+" "+ convertDateFormat(criteria.getDateFrom())+" "+"- "+ convertTimeFormat(criteria.getDateTo()));
-		 datePrint.setCellValue("พิมพ์วันที่"+" "+ date+" "+time);
+//		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom())+" "+"- "+ convertTimeFormat(criteria.getDateTo()));
+		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom()));
+		 datePrint.setCellValue(Constants.report.HEARDER_DATE_TIME+" "+ date+" "+time);
 		 company.setCellStyle(txtCenterBor);
 		 dateFromToCriteria.setCellStyle(txtCenterHeadBor);
 		 datePrint.setCellStyle(txtRightBor);
@@ -102,11 +104,11 @@ public class PaymentReport extends BaseExcelRptService {
 			 for(ReportPaymentBean resultReportPayment : result) {
 				 Row row = sh.createRow(indexRow);
 				 Cell cell = row.createCell(0);
-//				 Cell cell1= row.createCell(1);
-				 Cell cell1 = row.createCell(1);
-				 Cell cell2 = row.createCell(2);
-				 Cell cell3 = row.createCell(3);
-				 Cell cell4 = row.createCell(4);
+				 Cell cell1Add = row.createCell(1);
+				 Cell cell1 = row.createCell(2);
+				 Cell cell2 = row.createCell(3);
+				 Cell cell3 = row.createCell(4);
+//				 Cell cell4 = row.createCell(5);
 				 Cell cell5 = row.createCell(5);
 				 Cell cell6 = row.createCell(6);
 				 Cell cell7 = row.createCell(7);
@@ -117,14 +119,15 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell12 = row.createCell(12);
 				 
 				 cell.setCellValue(index);
-//				 cell1.setCellValue(serviceName);
+				 cell1Add.setCellValue(serviceName);
 				 cell1.setCellValue(resultReportPayment.getReceiptNoManual());
 				 cell2.setCellValue(resultReportPayment.getAccountSubNo());
 				 cell3.setCellValue(resultReportPayment.getCustomerName());
-				 cell4.setCellValue(resultReportPayment.getDepartment());
+//				 cell4.setCellValue(resultReportPayment.getDepartment());
 				 cell5.setCellValue(resultReportPayment.getInvoiceNo());
 				 cell6.setCellValue(resultReportPayment.getPaymentMethod());
-				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"-");
+//				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
+				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNoEx())?resultReportPayment.getRefNoEx():"");
 				 cell8.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
 				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
 				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
@@ -135,31 +138,33 @@ public class PaymentReport extends BaseExcelRptService {
 				 }
 				 cell12.setCellValue(resultReportPayment.getCreateBy());
 				 
-				 cell.setCellStyle(txtCenterTableRight);
-//				 cell1.setCellStyle(txtCenterTable);
+				 cell.setCellStyle(txtCenterDecimalRight);
+				 cell1Add.setCellStyle(txtCenterTable);
 				 cell1.setCellStyle(txtCenterTable);
 				 cell2.setCellStyle(txtCenterTable);
 				 cell3.setCellStyle(txtCenterTable);
-				 cell4.setCellStyle(txtCenterTable);
+//				 cell4.setCellStyle(txtCenterTable);
 				 cell5.setCellStyle(txtCenterTable);
 				 cell6.setCellStyle(txtTableCenter);
-				 cell7.setCellStyle(txtCenterDecimalRight);
-				 cell8.setCellStyle(txtCenterTableRight);
-				 cell9.setCellStyle(txtCenterDecimalRight);
-				 cell10.setCellStyle(txtCenterTable);
-				 cell11.setCellStyle(txtCenterTable);
-				 cell12.setCellStyle(txtCenterTable);
+				 cell7.setCellStyle(txtTableCenter);
+				 cell8.setCellStyle(txtCenterDecimalRight);
+				 cell9.setCellStyle(txtCenterTableRight);
+				 cell10.setCellStyle(txtCenterDecimalRight);
+				 cell11.setCellStyle(txtTableCenter);
+				 cell12.setCellStyle(txtTableCenter);
 //				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
-//				 if("0".equals(vatConverStr)) {
-					 sumVat0 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-//				 }else if("3".equals(vatConverStr)) {
-//					 sumVat3 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-//				 }else if("7".equals(vatConverStr)) {
-//					 sumVat7 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
-//				 }
-				 sumAllTotal += resultReportPayment.getAmount().doubleValue();
-				 sumAllNoVat += resultReportPayment.getBeforVat().doubleValue();
+				 if(Constants.Status.ACTIVE.equals(resultReportPayment.getStatus())) {
+//					 if("0".equals(vatConverStr)) {
+						 sumVat0 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+//					 }else if("3".equals(vatConverStr)) {
+//						 sumVat3 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+//					 }else if("7".equals(vatConverStr)) {
+//						 sumVat7 += resultReportPayment.getAmount().doubleValue() - resultReportPayment.getBeforVat().doubleValue();
+//					 }
+					 sumAllTotal += resultReportPayment.getAmount().doubleValue();
+					 sumAllNoVat += resultReportPayment.getBeforVat().doubleValue();
+				 }
 				 
 				 index++;
 				 indexRow++;
@@ -220,10 +225,13 @@ public class PaymentReport extends BaseExcelRptService {
 	}
 	
 	private String convertDateFormat(String dateFormat) throws ParseException {
-	    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
-	    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+//	    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateFormat);
+	    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateFormat);
+//	    return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+	    return new SimpleDateFormat("dd/MM/yyyy").format(date);
 	}
 	
+	@SuppressWarnings("unused")
 	private String convertTimeFormat(String dateFormat) throws ParseException {
 	    Date date = new SimpleDateFormat("HH:mm:ss").parse(dateFormat);
 	    return new SimpleDateFormat("HH:mm:ss").format(date);

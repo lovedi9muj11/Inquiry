@@ -67,7 +67,9 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			String paymentCodeRes = "";
 			String deductionNo = "";
 		
+			boolean chkCC = true;
 			boolean chkCH = false;
+			boolean chkCR = false;
 			List<String> results = new ArrayList<>();
 			List<String> refno = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
@@ -80,14 +82,29 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						payCode = "เงินสด";
 						results.add(payCode);
 					
+						if(i==0) {resultBean.setRefNoEx(""); chkCC=true;}
 					} else if (stockObject.getCode().equals("CR")) {
 						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
-                        payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
-                        results.add(payCode);
-						refno.add(code.substring(12, 16)); 
+//                        payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
+//                        results.add(payCode);
+//						refno.add(code.substring(12, 16));
+						if(chkCC) {resultBean.setRefNoEx(code.substring(12, 16)); chkCC=false;}
+						
+						if(CollectionUtils.isNotEmpty(res)) {
+							for(int j=0; j<res.size(); j++) {
+								payCode = "บัตรเครดิต";
+							}
+						}
+						if(!chkCR){
+							results.add(payCode);
+						}
+
+						refno.add(res.get(0).getCreditNo()); chkCR=true;
 					} else if (stockObject.getCode().equals("CH")) {
 						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
+						
+						if(chkCC) {resultBean.setRefNoEx("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
 						
 						if(CollectionUtils.isNotEmpty(res)) {
 							for(int j=0; j<res.size(); j++) {
@@ -174,7 +191,11 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			String paymentCodeRes = "";
 			String deductionNo = "";
 			boolean chkCC = true;
+			boolean chkCR = false;
+			boolean chkCH = false;
+
 			List<String> results = new ArrayList<>();
+			List<String> refno = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			List<DeductionManualBean> deductionList = deductionManualImpl.findDeductionManualFromManualId(Long.valueOf(resultBean.getManualId()));
 			for (int i = 0; i < methodResult.size(); i++) {
@@ -189,20 +210,42 @@ public class PaymentReportServiceImp implements PaymentReportService {
 				} else if (stockObject.getCode().equals("CR")) {
 					List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 					String code = stockObject.getCreditNo();
-					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
-					results.add(payCode);
+//					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
+//					results.add(payCode);
 					if(chkCC) {resultBean.setRefNo(code.substring(12, 16)); chkCC=false;}
-				} else if (stockObject.getCode().equals("CH")) {
-					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 					
 					if(CollectionUtils.isNotEmpty(res)) {
 						for(int j=0; j<res.size(); j++) {
-							payCode = "เช็ค " + res.get(j).getPublisher() + "เลขที่ : ************" + res.get(j).getChequeNo().substring(3);
+							payCode = "บัตรเครดิต";
 						}
 					}
+					if(!chkCR){
+						results.add(payCode);
+					}
+
+					refno.add(res.get(0).getCreditNo()); chkCR=true;
+				} else if (stockObject.getCode().equals("CH")) {
+					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 					
-					results.add(payCode);
+//					if(CollectionUtils.isNotEmpty(res)) {
+//						for(int j=0; j<res.size(); j++) {
+//							payCode = "เช็ค " + res.get(j).getPublisher() + "เลขที่ : ************" + res.get(j).getChequeNo().substring(3);
+//						}
+//					}
+//					
+//					results.add(payCode);
 					if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
+					
+					if(CollectionUtils.isNotEmpty(res)) {
+						for(int j=0; j<res.size(); j++) {
+							payCode = "เช็ค";
+						}
+					}
+					if(!chkCH){
+						results.add(payCode);
+					}
+
+					refno.add(res.get(0).getChequeNo()); chkCH=true;
 				}
 			}
 			

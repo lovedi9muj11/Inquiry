@@ -86,7 +86,7 @@ public class RptServiceFull extends BaseExcelRptService{
 		
 		Row rowHead = sh.createRow(rowNumHead++);
 		Cell cellH1 = rowHead.createCell(0);
-		cellH1.setCellValue(("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())).concat(" "+bean.getDateFromHour()).concat(":"+bean.getDateFromMinute()))).concat(" ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))).concat(" "+bean.getDateToHour()).concat(":"+bean.getDateToMinute())));
+		cellH1.setCellValue(("ระหว่างวันที่  "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())).concat(" "+bean.getDateFromHour()).concat(":"+bean.getDateFromMinute()))).concat(" ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))).concat(" "+bean.getDateToHour()).concat(":"+bean.getDateToMinute())));
 		cellH1.setCellStyle(txtCentertNoBor);
 		rowNumHead++;
 		Row rowHead2 = sh.createRow(rowNumHead++);
@@ -99,7 +99,7 @@ public class RptServiceFull extends BaseExcelRptService{
 		
 		Row rowHead3 = sh.createRow(rowNumHead++);
 		Cell cellH3 = rowHead3.createCell(0);
-		cellH3.setCellValue(("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
+		cellH3.setCellValue(("สาขาที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
 		cellH3.setCellStyle(txtLeftNoBor);
 		
 		int rowNum = 7;
@@ -107,14 +107,16 @@ public class RptServiceFull extends BaseExcelRptService{
 		if (CollectionUtils.isNotEmpty(entity)) {
 			for(int i=0; i<entity.size(); i++) {
 				
-				if(7 == entity.get(i).getVatRate()) {
-					vat7 = vat7.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
-					vat72 = vat72.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
-					vat73 = vat73.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
-				}else if(0 == entity.get(i).getVatRate()) {
-					vat0 = vat0.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
-					vat02 = vat02.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
-					vat03 = vat03.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+				if(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())) {
+					if(7 == entity.get(i).getVatRate()) {
+						vat7 = vat7.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+						vat72 = vat72.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+						vat73 = vat73.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+					}else if(0 == entity.get(i).getVatRate()) {
+						vat0 = vat0.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+						vat02 = vat02.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+						vat03 = vat03.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+					}
 				}
 		
 				Row row1 = sh.createRow(rowNum++);
