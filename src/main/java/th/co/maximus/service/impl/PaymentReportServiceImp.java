@@ -212,7 +212,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					String code = stockObject.getCreditNo();
 //					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
 //					results.add(payCode);
-					if(chkCC) {resultBean.setRefNo(code.substring(12, 16)); chkCC=false;}
+					if(chkCC) {refno.add(code.substring(12, 16)); chkCC=false;}
 					
 					if(CollectionUtils.isNotEmpty(res)) {
 						for(int j=0; j<res.size(); j++) {
@@ -234,7 +234,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 //					}
 //					
 //					results.add(payCode);
-					if(chkCC) {resultBean.setRefNo("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
+					if(chkCC) {refno.add( res.get(0).getChequeNo()); chkCC=false;}
 					
 					if(CollectionUtils.isNotEmpty(res)) {
 						for(int j=0; j<res.size(); j++) {
@@ -279,7 +279,16 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			if(paymentCodeRes.indexOf(Constants.PAYTYPE.WT) > 0) {
 				resultBean.setRefNo(deductionNo);
 			}
-			
+			String refnoDis = "";
+			for (int a = 0; a < refno.size(); a++) {
+				if (a == 0) {
+					refnoDis += refno.get(a);
+				} else {
+					refnoDis += " , " + refno.get(a);
+				}
+
+			}
+			resultBean.setRefNo(refnoDis);
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
 			resultBean.setServiceCode(resultBean.getServiceCode());
