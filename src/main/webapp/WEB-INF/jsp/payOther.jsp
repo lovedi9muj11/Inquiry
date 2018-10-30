@@ -150,14 +150,6 @@
 											for="formGroupInputLarge">VAT RATE :</label>
 										<div class="col-sm-2">
 											<select class="form-control" id="vatrate" name="vatrate" onchange="autoSelectVat()">
-												
-															<%
-																for (int i = 0; i < masterVat.size(); i++) {
-															%>
-															<option value="<%=masterVat.get(i).getText()%>"><%=masterVat.get(i).getText()%></option>
-															<%
-																}
-															%>
 
 											</select>
 										</div>

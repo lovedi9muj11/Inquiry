@@ -52,20 +52,18 @@ public class PayOtherController {
 		List<MasterDataBean> bankNameList = new ArrayList<>();
 		List<MasterDataBean> categoryList = new ArrayList<>();
 		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
-		List<MasterDataBean> vat = new ArrayList<>();
 
 		bankCodeList = masterDataService.findAllByBankCode();
 		bankNameList = masterDataService.findAllByBankName();
 		categoryList = masterDataService.findAllByCategory();
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
-		vat = masterDataService.findByVat();
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
+		
 
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
 		model.addAttribute("serviceType", serviceTypeList);
-		model.addAttribute("vat", vat);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
 		model.addAttribute("costcenter", costcenter);
@@ -76,6 +74,13 @@ public class PayOtherController {
 	public @ResponseBody List<MapGLBean> getServiceName(@PathVariable("id") String id) {
 		List<MapGLBean> serviceNameList = mapGLDao.findByRevenuType(id);
 		return serviceNameList;
+
+	}
+	
+	@RequestMapping(value = { "/getvatRate" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MasterDataBean> getVatRate() {
+		List<MasterDataBean> vat = masterDataService.findByVat();
+		return vat;
 
 	}
 

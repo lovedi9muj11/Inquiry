@@ -31,6 +31,9 @@ $(document).ready(function() {
 				
 			});
 			
+			
+			
+			
 //			$("#moneyTran").on( "change",  function() {
 //				if($("#moneyTran").val() == ""){
 //				var table = document.getElementById("sumtableBillingList");
@@ -79,6 +82,22 @@ $(document).ready(function() {
 					}
 				});
 			});
+			
+			$.ajax({
+			    type: 'GET',
+			    url: ctx +"/getvatRate"
+			}).then(function (data) {
+				for(var i=0; i<data.length; i++) {
+					var element = data[i];
+					if(element.text != 'Non-VAT'){
+						$('#vatrate').append('<option value="' + element.text+ '">' + element.text +' %'+ '</option>');
+					}else{
+						$('#vatrate').append('<option value="' + element.text+ '">' + element.text + '</option>');
+					}
+					
+				}
+			});
+			
 			
 			$("#inputServiceDiscount").on( "change",  function() {
 				var inputServiceDiscount = $("#inputServiceDiscount").val();
