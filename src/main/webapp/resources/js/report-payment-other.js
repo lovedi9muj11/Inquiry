@@ -169,7 +169,8 @@ function dropdownUser(){
         dataType: "json",
         async: false,
         contentType: "application/json; charset=utf-8",
-        success: function (res) {
+        success: function (response) {
+        	var res = response.userBeans
 	        for(var a = 0, value = res.length; value>a ; a++){
 	        	if(userLogin == res[a].userName){
 	        		if(res[a].roleCode == 'SUP '){
@@ -183,6 +184,7 @@ function dropdownUser(){
 	        		break;
 	        	}
 	        }
+	        $('#machinePaymentName').val(response.centerServiceName)
         }
 	});
 	

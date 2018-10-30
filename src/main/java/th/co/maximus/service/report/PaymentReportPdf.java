@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,12 @@ import th.co.maximus.service.MasterDataService;
 @SuppressWarnings("deprecation")
 @Service("paymentReportPdf")
 public class PaymentReportPdf {
+	@Value("${text.posno}")
+	private String posNo;
+	
 	Locale TH = new Locale("th", "TH");
 	SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss", TH);
+	
 	@Autowired
 	private MasterDataService masterDataService;
 
@@ -60,6 +65,7 @@ public class PaymentReportPdf {
 		String serviceName = "";
 		String type = "";
 		String serviceCode = "";
+		String departCode = "";
 		// set new DataSource
 		if (date.size() != 0) {
 			type = date.get(0).getServiceType();
@@ -90,8 +96,8 @@ public class PaymentReportPdf {
 					
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 				}
-//				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
-				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getPaymentMethod());
+				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
+				reportPaymentBeanNew.setPaymentMethod(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"");
 				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
 				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
@@ -100,6 +106,7 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setAmount(reportPaymentBean.getAmount());
 				reportPaymentBeanNew.setBeforVat(reportPaymentBean.getBeforVat());
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
+				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
@@ -144,41 +151,102 @@ public class PaymentReportPdf {
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
 			if(CollectionUtils.isNotEmpty(resultSource))serviceCode = resultSource.get(0).getServiceCode();
 			
+			if(CollectionUtils.isNotEmpty(resultSource))departCode = resultSource.get(0).getDepartment();
+			
 			int count = 0;
 			int countRow = 0;
+			int i = 1;
 			sumAllVat0 = 0;
 			sumAllTotal = 0;
 			sumAllTotalNoVat = 0;
 			String glCode = "";
 			for(ReportPaymentBean reportPaymentBean : resultSource) {
 				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
-					
-					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatus())) {
-						sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-						sumAllTotal += reportPaymentBean.getAmount().doubleValue();
-						sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
-					}
-					
-					if(count==0) {
-						userPay = reportPaymentBean.getCreateBy();
-					}else {
-						if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
-							String comma = "";
-							
-							if(StringUtils.isNotBlank(userPay))comma=", ";
-							
-							userPay = userPay.concat(comma).concat(reportPaymentBean.getCreateBy());
+					if(departCode.equals(reportPaymentBean.getDepartment())) {
+						if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
+							sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+							sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+							sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
 						}
+						
+						if(count==0) {
+							userPay = reportPaymentBean.getCreateBy();
+						}else {
+							if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
+								String comma = "";
+								
+								if(StringUtils.isNotBlank(userPay))comma=", ";
+								
+								userPay = userPay.concat(comma).concat(reportPaymentBean.getCreateBy());
+							}
+						}
+						count++;
+						
+						reportPaymentBean.setManualIdStr((countRow+1)+"");
+						glCode = reportPaymentBean.getServiceName().split(" ")[0];
+						resultSources.add(reportPaymentBean);
+					}else {
+						
+						parameters = new HashMap<String, Object>();
+						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("posNo", posNo);
+						parameters.put("accountCode", "accountCode");
+						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+						parameters.put("staff", criteria.getUser());
+						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+						parameters.put("serviceNameHead", serviceName);
+
+						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+						parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+						parameters.put("summaryVat0GL", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatGL", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatGL", String.format("%,.2f", sumAllTotalNoVat));
+						parameters.put("serviceListCount", countRow);
+						parameters.put("userListCount", countRow);
+						parameters.put("glListCount", countRow);
+						parameters.put("serviceName", serviceName);
+						parameters.put("userPayment", userPay);
+						parameters.put("glName", glCode);
+						parameters.put("departmentName", departCode);
+						
+						userPay = "";
+						glCode = reportPaymentBean.getServiceName().split(" ")[0];
+						
+						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JasperPrint jasperPrint = new JasperPrint();
+						
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+						jasperPrints.add(jasperPrint);
+						
+						resultSources = new ArrayList<ReportPaymentBean>();
+						countRow = 0;
+						reportPaymentBean.setManualIdStr((countRow+1)+"");
+						resultSources.add(reportPaymentBean);
+						
+						sumAllVat0 = 0;
+						sumAllTotal = 0;
+						sumAllTotalNoVat = 0;
+						
+						if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
+							sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+							sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+							sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+						}
+						
 					}
-					count++;
 					
-					reportPaymentBean.setManualIdStr((countRow+1)+"");
-					glCode = reportPaymentBean.getServiceName().split(" ")[0];
-					resultSources.add(reportPaymentBean);
 				}else {
 					
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+					parameters.put("posNo", posNo);
+					parameters.put("accountCode", "accountCode");
 					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
@@ -201,6 +269,7 @@ public class PaymentReportPdf {
 					parameters.put("serviceName", serviceName);
 					parameters.put("userPayment", userPay);
 					parameters.put("glName", glCode);
+					parameters.put("departmentName", departCode);
 					
 					userPay = "";
 					glCode = reportPaymentBean.getServiceName().split(" ")[0];
@@ -220,7 +289,7 @@ public class PaymentReportPdf {
 					sumAllTotal = 0;
 					sumAllTotalNoVat = 0;
 					
-					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatus())) {
+					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
 						sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
 						sumAllTotal += reportPaymentBean.getAmount().doubleValue();
 						sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
@@ -228,12 +297,15 @@ public class PaymentReportPdf {
 					
 				}
 				serviceCode = reportPaymentBean.getServiceCode();
+				departCode = reportPaymentBean.getDepartment();
 				count++;
 				countRow++;
 				
-				if(count==resultSource.size()) {
+				if(i==resultSource.size()) {
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+					parameters.put("posNo", posNo);
+					parameters.put("accountCode", "accountCode");
 					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
@@ -256,6 +328,7 @@ public class PaymentReportPdf {
 					parameters.put("serviceName", serviceName);
 					parameters.put("userPayment", userPay);
 					parameters.put("glName", glCode);
+					parameters.put("departmentName", departCode);
 					
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 					JasperPrint jasperPrint = new JasperPrint();
@@ -263,12 +336,15 @@ public class PaymentReportPdf {
 					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 					jasperPrints.add(jasperPrint);
 				}
+				i++;
 			}
 			
 		}else {
 			
 			parameters = new HashMap<String, Object>();
 			parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+			parameters.put("posNo", posNo);
+			parameters.put("accountCode", "accountCode");
 			parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 			parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 			parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));

@@ -1,5 +1,8 @@
 package th.co.maximus.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserBean {
 	
 	private Long id;
@@ -10,6 +13,9 @@ public class UserBean {
 	private String passwordConfirm;
 	private String roleCode;
 	private String loginFlag;
+	
+	List<UserBean> userBeans = new ArrayList<UserBean>();
+	private String centerServiceName;
 	
 	// bean
 	private Principal principal;
@@ -67,6 +73,18 @@ public class UserBean {
 	}
 	public void setLoginFlag(String loginFlag) {
 		this.loginFlag = loginFlag;
+	}
+	public List<UserBean> getUserBeans() {
+		return userBeans;
+	}
+	public void setUserBeans(List<UserBean> userBeans) {
+		this.userBeans = userBeans;
+	}
+	public String getCenterServiceName() {
+		return centerServiceName;
+	}
+	public void setCenterServiceName(String centerServiceName) {
+		this.centerServiceName = centerServiceName;
 	}
 	
 }

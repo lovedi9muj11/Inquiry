@@ -4,6 +4,8 @@ import java.util.Locale;
 
 public class Constants {
 	
+	public static final String CENTER_SERVICE_NAME = "ศูนย์บริการลูกค้า นนทบุรี";
+	
 	public static final String TEST = "TEST";
 	public static final Locale localeTH = new Locale("th", "TH");
 	public static final Locale localeEN = new Locale("en", "EN");

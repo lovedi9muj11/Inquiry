@@ -49,12 +49,16 @@ public class PaymentReport extends BaseExcelRptService {
 		String date = formateDateEN.format(new Date());
 		String time = formateHH.format(new Date());
 		String serviceName = "";
+		int rowServiceOther = 4;
+		int rowCellServiceOther = 0;
 		
 		if(CollectionUtils.isNotEmpty(result)) {
-			if("IBACSS".equals(result.get(0).getServiceType())) {
+			if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {
 				serviceName = "รับชำระค่าใช้บริการ";
-			 }else if("OTHER".equals(result.get(0).getServiceType())) {
+			 }else if(Constants.Service.SERVICE_TYPE_OTHER.equals(result.get(0).getServiceType())) {
 				 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
+				 rowServiceOther = 3;
+				 rowCellServiceOther = 4;
 			 }
 		}
 		
@@ -85,10 +89,12 @@ public class PaymentReport extends BaseExcelRptService {
 		 user.setCellValue("เจ้าหน้าที่  :  "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
 		 user.setCellStyle(txtCenterBor);
 		 
-		 Row row4 = sh.getRow(4);
-		 Cell service = row4.getCell(0);
+
+		 Row row4 = sh.getRow(rowServiceOther);
+		 Cell service = row4.getCell(rowCellServiceOther);
 		 service.setCellValue("บริการ :  "+serviceName);
-		 service.setCellStyle(txtCenterBor);
+		 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {service.setCellStyle(txtCenterBor);}
+		 else {service.setCellStyle(txtCenterHeadBor);}}else {service.setCellStyle(txtCenterBor);}
 		 
 		 int indexRow = 7;
 		 int index = 1;
@@ -122,9 +128,14 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell1Add.setCellValue(serviceName);
 				 cell1.setCellValue(resultReportPayment.getReceiptNoManual());
 				 cell2.setCellValue(resultReportPayment.getAccountSubNo());
-				 cell3.setCellValue(resultReportPayment.getCustomerName());
+				 
+				 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell3.setCellValue(resultReportPayment.getCustomerName());}
+				 else {cell3.setCellValue(resultReportPayment.getDepartment());}}else {cell3.setCellValue("");}
+				 
 //				 cell4.setCellValue(resultReportPayment.getDepartment());
-				 cell5.setCellValue(resultReportPayment.getInvoiceNo());
+				 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell5.setCellValue(resultReportPayment.getInvoiceNo());}
+				 else {cell5.setCellValue(resultReportPayment.getServiceName());}}else {cell3.setCellValue("");}
+				 
 				 cell6.setCellValue(resultReportPayment.getPaymentMethod());
 //				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
 				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNoEx())?resultReportPayment.getRefNoEx():"");
@@ -138,7 +149,7 @@ public class PaymentReport extends BaseExcelRptService {
 				 }
 				 cell12.setCellValue(resultReportPayment.getCreateBy());
 				 
-				 cell.setCellStyle(txtCenterDecimalRight);
+				 cell.setCellStyle(txtTableCenter);
 				 cell1Add.setCellStyle(txtCenterTable);
 				 cell1.setCellStyle(txtCenterTable);
 				 cell2.setCellStyle(txtCenterTable);

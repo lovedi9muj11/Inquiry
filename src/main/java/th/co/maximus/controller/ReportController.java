@@ -132,7 +132,14 @@ public class ReportController {
 			 
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia, critreia.getServiceType());
 			
-			String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/Payment-Report.xlsx");
+			String pathFile = "";
+			
+			if(Constants.Service.SERVICE_TYPE_IBACSS.equals(critreia.getServiceType())) {
+				pathFile = request.getSession().getServletContext().getRealPath("/report/excel/Payment-Report.xlsx");
+			}else {
+				pathFile = request.getSession().getServletContext().getRealPath("/report/excel/Payment-ReportOther.xlsx");
+			}
+			
 			 FileInputStream input_document = new FileInputStream(new File(pathFile));
 			 XSSFWorkbook workbook = new XSSFWorkbook(input_document);
 			
