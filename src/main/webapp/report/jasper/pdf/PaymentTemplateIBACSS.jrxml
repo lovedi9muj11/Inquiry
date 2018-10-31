@@ -70,6 +70,7 @@
 		<fieldDescription><![CDATA[status]]></fieldDescription>
 	</field>
 	<field name="paymentMethod" class="java.lang.String"/>
+	<field name="refNoEx" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -420,15 +421,15 @@
 				<textFieldExpression><![CDATA[$P{userPayment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="7" width="161" height="18" uuid="7efae315-6dfb-496e-b0e7-c6d6beaef6b9"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="448" y="7" width="111" height="18" uuid="7efae315-6dfb-496e-b0e7-c6d6beaef6b9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{serviceListCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="26" width="161" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="448" y="26" width="111" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{userListCount}]]></textFieldExpression>
@@ -461,14 +462,14 @@
 				<textFieldExpression><![CDATA[$P{summaryVatUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="562" y="7" width="50" height="18" uuid="7f15c67e-b596-40ce-ac2e-6a612935e227"/>
+				<reportElement x="564" y="7" width="50" height="18" uuid="7f15c67e-b596-40ce-ac2e-6a612935e227"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="561" y="26" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
+				<reportElement x="564" y="26" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="10" isBold="true"/>
 				</textElement>

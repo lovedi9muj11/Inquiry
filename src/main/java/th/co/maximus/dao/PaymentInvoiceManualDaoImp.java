@@ -175,7 +175,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sql.append(" AND payment_m.INVOICE_NO IS NULL ");
 		}
 		
-		if(!profile.getRoles().get(0).getName().equals("sup")) {
+		if(!Constants.Role.SUPPERVISOR.equals(profile.getRoles().get(0).getName())) {
 			sql.append(" AND payment_m.CREATE_BY = ?");
 			param.add(profile.getUsername());
 		}

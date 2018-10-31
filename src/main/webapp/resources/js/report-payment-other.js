@@ -1,5 +1,6 @@
 var dateFromGlobal = "";
 var dateToGlobal = "";
+var dateToGlobal2 = "";
 var user;
 $(document).ready(function (){
 //	$("#sShowValidate").hide();
@@ -48,10 +49,12 @@ function search(){
 	var dateTo = $('#dateToHour').val() +":"+ $('#dateToMinute').val()+":00";  //$('#dateTo').val() +" "+ 
 	dateFromGlobal = dateFrom;
 	dateToGlobal = dateTo;
+	dateToGlobal2 = $('#dateFrom').val()
 	var data = '';
 	var dataCritaria = {
 			"dateFrom": dateFrom,
 			"dateTo": dateTo,
+			"dateTo2": dateToGlobal2,
 //			"vatRate": $('#vat').val(),
 //			"user":  $('#authorities').val(),
 			"user":  $('#authorities').val()==''?$("#userLogin").val():$('#authorities').val(),
@@ -88,6 +91,7 @@ function clearCriteria(){
 function printReport(){
 	$('#dateFromHidden').val(dateFromGlobal);
 	$('#dateToHidden').val(dateToGlobal);
+	$('#dateToHidden2').val(dateToGlobal2);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
@@ -97,6 +101,7 @@ function printReport(){
 function printReportPDF(){
 	$('#dateFromHidden').val(dateFromGlobal);
 	$('#dateToHidden').val(dateToGlobal);
+	$('#dateToHidden2').val(dateToGlobal2);
 	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
 //	$('#accountIdHidden').val($('#accountId').val());
 	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());

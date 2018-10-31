@@ -117,6 +117,7 @@ public class ReportController {
 			ReportPaymentCriteria critreia = new ReportPaymentCriteria();
 			critreia.setDateFrom(request.getParameter("dateFromHidden"));
 			critreia.setDateTo(request.getParameter("dateToHidden"));
+			critreia.setDateTo2(request.getParameter("dateToHidden2"));
 			critreia.setAccountId(request.getParameter("accountIdHidden"));
 			
 			UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -165,6 +166,7 @@ public class ReportController {
 			ReportPaymentCriteria critreia = new ReportPaymentCriteria();
 			critreia.setDateFrom(request.getParameter("dateFromHidden"));
 			critreia.setDateTo(request.getParameter("dateToHidden"));
+			critreia.setDateTo2(request.getParameter("dateToHidden2"));
 			critreia.setAccountId(request.getParameter("accountIdHidden"));
 			critreia.setUser(request.getParameter("authoritiesHidden"));
 			critreia.setServiceType(request.getParameter("serviceType"));
@@ -180,7 +182,7 @@ public class ReportController {
 				pathFile = request.getSession().getServletContext().getRealPath("/report/jasper/pdf/PaymentTemplate.jrxml");
 			}
 			
-			reportService.ganeratePaymentPDF(pathFile, critreia,result,response);
+			reportService.ganeratePaymentPDF(pathFile, critreia, result, response);
 
 		}
 

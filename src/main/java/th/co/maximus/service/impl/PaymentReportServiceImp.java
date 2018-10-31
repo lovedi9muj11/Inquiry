@@ -100,11 +100,11 @@ public class PaymentReportServiceImp implements PaymentReportService {
 							results.add(payCode);
 						}
 
-						refno.add(res.get(0).getCreditNo()); chkCR=true;
+						refno.add(res.get(0).getCreditNo().substring(12, 16)); chkCR=true;
 					} else if (stockObject.getCode().equals("CH")) {
 						List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 						
-						if(chkCC) {resultBean.setRefNoEx("************" + res.get(0).getChequeNo().substring(3)); chkCC=false;}
+						if(chkCC) {resultBean.setRefNoEx(res.get(0).getChequeNo()); chkCC=false;}
 						
 						if(CollectionUtils.isNotEmpty(res)) {
 							for(int j=0; j<res.size(); j++) {
@@ -212,7 +212,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					String code = stockObject.getCreditNo();
 //					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
 //					results.add(payCode);
-					if(chkCC) {refno.add(code.substring(12, 16)); chkCC=false;}
+//					if(chkCC) {refno.add(code.substring(12, 16)); chkCC=false;}
 					
 					if(CollectionUtils.isNotEmpty(res)) {
 						for(int j=0; j<res.size(); j++) {
@@ -223,7 +223,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 						results.add(payCode);
 					}
 
-					refno.add(res.get(0).getCreditNo()); chkCR=true;
+					refno.add(res.get(0).getCreditNo().substring(12, 16)); chkCR=true;
 				} else if (stockObject.getCode().equals("CH")) {
 					List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getId());
 					
@@ -234,7 +234,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 //					}
 //					
 //					results.add(payCode);
-					if(chkCC) {refno.add( res.get(0).getChequeNo()); chkCC=false;}
+//					if(chkCC) {refno.add( res.get(0).getChequeNo()); chkCC=false;}
 					
 					if(CollectionUtils.isNotEmpty(res)) {
 						for(int j=0; j<res.size(); j++) {

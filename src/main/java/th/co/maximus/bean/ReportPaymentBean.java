@@ -33,6 +33,7 @@ public class ReportPaymentBean {
 	private String refNoEx;
 	private String deductionNo;
 	private String serviceCode;
+	private String vatRate;
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -248,6 +249,14 @@ public class ReportPaymentBean {
 
 	public void setRefNoEx(String refNoEx) {
 		this.refNoEx = refNoEx;
+	}
+
+	public String getVatRate() {
+		return vatRate;
+	}
+
+	public void setVatRate(String vatRate) {
+		this.vatRate = vatRate;
 	}
 
 }

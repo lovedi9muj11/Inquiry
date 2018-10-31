@@ -115,9 +115,9 @@ public class Constants {
 	}
 	
 	public static class Role {
-		public static final String SUPPERVISOR = "sup";
-		public static final String ADMIN = "admin";
-		public static final String USER = "user";
+		public static final String SUPPERVISOR = "SUP";
+		public static final String ADMIN = "ADMIN";
+		public static final String USER = "USER";
 		
 		public static class RoleOnline {
 			public static final String SUPPERVISOR = "Suppervisor";
@@ -144,6 +144,13 @@ public class Constants {
 	
 	public static class PAYMENT_OTHER {
 		public static final String NON_VATE = "nonVat";
+	}
+	
+	public static class VATRATE {
+		public static final String VATE_WORD = "Vat";
+		public static final String NON_VATE = "Non-VAT";
+		public static final String TEN = "10";
+		public static final String ZERO = "0";
 	}
 	
 	public static class PAYTYPE {

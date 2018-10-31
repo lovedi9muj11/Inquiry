@@ -263,6 +263,7 @@
 				<form id="paymentFrom" method="post" class="form-horizontal" role="form">
 					<input type="hidden" name="dateFromHidden" id="dateFromHidden">
 					<input type="hidden" name="dateToHidden" id="dateToHidden">
+					<input type="hidden" name="dateToHidden2" id="dateToHidden2">
 					<input type="hidden" name="machinePaymentNameHidden" id="machinePaymentNameHidden">
 					<input type="hidden" name="accountIdHidden" id="accountIdHidden">
 					<input type="hidden" name="authoritiesHidden" id="authoritiesHidden">

@@ -3,6 +3,7 @@ package th.co.maximus.bean;
 public class ReportPaymentCriteria {
 	private String dateFrom;
 	private String dateTo;
+	private String dateTo2;
 	private String accountId;
 	private String vatRate;
 	private String user;
@@ -65,6 +66,12 @@ public class ReportPaymentCriteria {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getDateTo2() {
+		return dateTo2;
+	}
+	public void setDateTo2(String dateTo2) {
+		this.dateTo2 = dateTo2;
 	}
 	
 	

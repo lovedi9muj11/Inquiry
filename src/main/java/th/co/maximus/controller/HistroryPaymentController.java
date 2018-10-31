@@ -32,9 +32,6 @@ public class HistroryPaymentController {
 	private HistoryPaymentService paymentManualService;
 
 	@Autowired
-	private ClearingPaymentEpisOffline clearingPaymentEpisOffline;
-
-	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
 
 	// @Autowired
