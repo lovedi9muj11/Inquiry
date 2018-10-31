@@ -1764,7 +1764,7 @@ function summaryTax() {
 }
 
 function removeTax() {
-	var moneyss = $("#balanceSum").val();
+	var moneyss = $("#balanceSummarys").val();
 	
 	if(moneyss == ""){
 		moneyss = parseFloat(0);
