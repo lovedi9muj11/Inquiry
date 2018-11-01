@@ -494,7 +494,7 @@ function findvatAmount(){
 	}
 	
 	var vatq = 0;
-	if(vatNanVat == "NON VAT"){
+	if(vatNanVat == "Non-VAT"){
 		vatq = vatRateResult;
 	}else{
 		vatq = $("#vatrate").val();
@@ -508,7 +508,7 @@ function findvatAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(107);
+	var vatCo = parseFloat(vatSummary(vatq));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(result * parseFloat(vatRQ));
@@ -588,7 +588,7 @@ function vatAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(107);
+	var vatCo = parseFloat(vatSummary(vaq));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(result * parseFloat(vatRQ));
@@ -789,7 +789,7 @@ function submitForm(){
 		return $("#startupDate").focus();
 	}
 	var vatrate = 0;
-	if(vatNanVat == "NON VAT"){
+	if(vatNanVat == "Non-VAT"){
 		$("#vatrate").val(parseFloat(0));
 	}
 	
@@ -1900,11 +1900,20 @@ function replaseIndexPriceTotal(str) {
 function checkNonVat() {
 	var vatRate = $("#vatrate").val();
 	
-	if(vatRate === "NON VAT") {
+	if(vatRate === "Non-VAT") {
 		vatRateResult = 0;
-		vatNanVat = "NON VAT";
+		vatNanVat = "Non-VAT";
 	}else{
 		vatRateResult = vatRate;
+	}
+}
+
+function vatSummary(vatRate){
+	var calVat = "1";
+	if(vatRate.length > 1){
+		return calVat + vatRate;
+	}else{
+		return calVat +"0"+ vatRate
 	}
 }
 
@@ -1925,7 +1934,7 @@ function inputAmount(){
 		bable = 0;
 	}
 	var vatq =0;
-	if(vatNanVat == "NON VAT"){
+	if(vatNanVat == "Non-VAT"){
 		vatq = 0;
 	}else{
 		vatq = $("#vatrate").val();
@@ -1936,7 +1945,7 @@ function inputAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(107);
+	var vatCo = parseFloat(vatSummary(vatq));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(bable * parseFloat(vatRQ));

@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService{
 					}else {
 						paymentManualBean.setDocType("RS");
 					}
-				}else if(paymentBean.getVatrate().equals("NON VAT")){
+				}else if(paymentBean.getVatrate().equals("Non-VAT")){
 					paymentManualBean.setDocType("RO");
 				}else{
 					paymentManualBean.setDocType("RF");

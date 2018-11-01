@@ -167,7 +167,7 @@ public class EpisReportController {
 		exportPDFReport.setBeforeVat(invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
 
 		if (Integer.parseInt(invObject.getVatRate()) < 0) {
-			exportPDFReport.setVatRate("(NON VAT)");
+			exportPDFReport.setVatRate("(Non-VAT)");
 		} else {
 			exportPDFReport.setVatRate("(VAT " + invObject.getVatRate() + "%)");
 		}
