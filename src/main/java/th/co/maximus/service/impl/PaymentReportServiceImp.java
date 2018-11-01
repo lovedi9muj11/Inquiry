@@ -182,7 +182,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(serviceType)) {
 			result = paymentManualDao.getReportPaymentOther(criteria,serviceType);
 		}else {
-			result = paymentManualDao.getReportPayment(criteria,serviceType);
+			result = paymentManualDao.getReportPaymentB(criteria,serviceType);
 		}
 		
 		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
@@ -209,7 +209,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					if (stockObject.getCode().equals("DEDUC")) {}
 				} else if (stockObject.getCode().equals("CR")) {
 					List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
-					String code = stockObject.getCreditNo();
+//					String code = stockObject.getCreditNo();
 //					payCode = "บัตรเครดิต" + " " + res.get(0).getCardtype() + " " + "เลขที่ : ************" + code.substring(12, 16);
 //					results.add(payCode);
 //					if(chkCC) {refno.add(code.substring(12, 16)); chkCC=false;}

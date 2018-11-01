@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="1150" pageHeight="768" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="605"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
@@ -27,6 +27,26 @@
 	<parameter name="summaryNoVatGL" class="java.lang.String"/>
 	<parameter name="summaryVat0GL" class="java.lang.String"/>
 	<parameter name="summaryVatGL" class="java.lang.String"/>
+	<parameter name="sumCount" class="java.lang.String"/>
+	<parameter name="sumAllVatUser" class="java.lang.String"/>
+	<parameter name="sumAllTotalUser" class="java.lang.String"/>
+	<parameter name="sumAllTotalNoVatUser" class="java.lang.String"/>
+	<parameter name="chkVat0" class="java.lang.String"/>
+	<parameter name="chkVat1" class="java.lang.String"/>
+	<parameter name="chkVat2" class="java.lang.String"/>
+	<parameter name="vatRate0" class="java.lang.String"/>
+	<parameter name="vatRate1" class="java.lang.String"/>
+	<parameter name="vatRate2" class="java.lang.String"/>
+	<parameter name="vatListCount0" class="java.lang.String"/>
+	<parameter name="vatListCount1" class="java.lang.String"/>
+	<parameter name="vatListCount2" class="java.lang.String"/>
+	<parameter name="vatRateAmount0" class="java.lang.String"/>
+	<parameter name="vatRateAmount1" class="java.lang.String"/>
+	<parameter name="vatRateAmount2" class="java.lang.String"/>
+	<parameter name="vatRateSumAmount0" class="java.lang.String"/>
+	<parameter name="vatRateSumAmount1" class="java.lang.String"/>
+	<parameter name="vatRateSumAmount2" class="java.lang.String"/>
+	<parameter name="lastPage" class="java.lang.String"/>
 	<field name="serviceType" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceType]]></fieldDescription>
 	</field>
@@ -367,7 +387,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="104" splitType="Stretch">
+		<band height="149" splitType="Stretch">
 			<textField>
 				<reportElement x="804" y="7" width="98" height="20" uuid="a24551d8-e2b0-4bc7-837d-ff6fd279a65e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -475,6 +495,224 @@
 				</textElement>
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="449" y="43" width="111" height="18" uuid="496ccdb0-d2a9-4ec9-9dda-6fd36d8abf38">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="43" width="161" height="18" uuid="19307095-b58b-40cd-be19-c8b71f29be36">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{serviceTypeHead}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="563" y="61" width="50" height="18" uuid="2c19be56-a986-4380-bea6-c09dfaed1422">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายการ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="96" width="1105" height="1" uuid="e8b9b56d-7db7-4148-8cbb-293aeb71b568">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="4" y="78" width="161" height="18" uuid="b4dd0224-6883-41b3-8e0e-74ffbb383aa5">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRate1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="97" width="161" height="18" uuid="35a6e5dd-f8cc-409e-bb0d-514fab318e60">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRate2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="79" width="111" height="18" uuid="b3fb98a2-72b7-4977-8bc8-5056d4a5f77f">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatListCount1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="98" width="111" height="18" uuid="440b5fc1-559a-4a39-bf46-173c0e84589d">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatListCount2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="805" y="60" width="98" height="20" uuid="cb9a4932-0483-4dca-b0be-90b65b0ca3d6">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateAmount0}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="565" y="98" width="50" height="18" uuid="558405f2-217f-44b1-8ae1-6b48eced3b12">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายการ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="449" y="61" width="111" height="18" uuid="293f5123-3d5c-4bfa-907d-89890473b076">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatListCount0}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="805" y="42" width="98" height="20" uuid="d708c78b-ba46-41ed-a8d1-7d8f00f25993">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumAllTotalNoVatUser}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="968" y="42" width="82" height="20" uuid="1f5d9080-4d64-49a4-8baa-c63e502f63ff">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumAllTotalUser}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="968" y="78" width="82" height="20" uuid="c66be9df-fefc-4abc-a41f-046e558cfd12">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateSumAmount1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="563" y="43" width="50" height="18" uuid="4cbed38a-848e-44a4-a881-29ca665c5f22">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายการ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="806" y="78" width="98" height="20" uuid="d7b8f95e-0af0-4a99-9309-cce63c87a448">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateAmount1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="967" y="60" width="82" height="20" uuid="1810ab69-91d3-4913-8a61-3413d2a919e2">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateSumAmount0}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="564" y="79" width="50" height="18" uuid="03a91e8c-089c-4ae1-a17b-c06bd6726b3b">
+					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายการ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="78" width="1105" height="1" uuid="f8b48d5e-613f-417f-b7cd-3aa00f54b09a">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="4" y="60" width="1105" height="1" uuid="41ace0de-3b33-4097-96b9-8b885eee181d">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="6" y="115" width="1105" height="1" uuid="52db6c9c-f724-4089-ac8e-ea2f832915e1">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="6" y="42" width="94" height="18" uuid="862cc753-7b4d-4a83-805a-fa360d0e5282">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รวมตามหน่วยงานรับชำระ :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="876" y="42" width="100" height="20" uuid="9042be82-eabb-48aa-abb4-266cde9061b8">
+					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumAllVatUser}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="807" y="97" width="98" height="20" uuid="7937e2a6-b739-49d7-9bf1-74f991e9e98f">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateAmount2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="969" y="97" width="82" height="20" uuid="52396bea-8742-4eed-b9ff-69309c2c3fa6">
+					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRateSumAmount2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="60" width="161" height="18" uuid="322ea19f-f77a-4767-acaf-fa5b8a5ac7bc">
+					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatRate0}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -316,5 +315,23 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		}
 
 	};
+
+	@Override
+	public List<ReportPaymentBean> getReportPaymentB(ReportPaymentCriteria criteria, String serviceType) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" FROM RECEIPT_MANUAL PM ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
+		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo2()+" "+criteria.getDateTo() + "'");
+		
+		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
+		}
+			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+		
+		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PIM.VAT_RATE, PM.CREATE_DATE");
+		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
+	}
 
 }
