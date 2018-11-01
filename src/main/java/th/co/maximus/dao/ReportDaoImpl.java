@@ -229,5 +229,53 @@ public class ReportDaoImpl implements ReportDao{
 	public static final String convertDateString(String str) {
 		return str.replaceAll("([0-9]{2})/([0-9]{2})/([0-9]{4})", "$3-$2-$1");
 
+	}
+
+
+
+	@Override
+	public List<InvPaymentOrderTaxBean> summarryVay(HistoryReportBean creteria ,boolean groupby) {
+		List<InvPaymentOrderTaxBean> collectionss = new ArrayList<InvPaymentOrderTaxBean>();
+		List<Object> param = new LinkedList<Object>();
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT  VAT_RATE, SUM(pim.VAT_AMOUNT) as SUM_VAT_AMOUNT, ");
+		sql.append(" SUM(pim.BEFOR_VAT) as SUM_BEFOR_VAT, SUM(pim.AMOUNT) as SUM_AMOUNT ");
+		sql.append(" FROM RECEIPT_MANUAL py ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
+		sql.append(" WHERE  ");
+		sql.append(" py.DOCTYPE = ? ");
+		param.add(creteria.getTypePrint());
+		if(StringUtils.isNoneEmpty(creteria.getDateFrom())) {
+			
+			String dateFrom = convertDateString(creteria.getDateFrom())+ " " + creteria.getDateFromHour()+ ":"+creteria.getDateFromMinute() +":"+"00"+":" +"000000"; 
+			sql.append(" AND py.CREATE_DATE >= '").append(" "+dateFrom+" ' ");
+			
+		}
+		if(StringUtils.isNoneEmpty(creteria.getDateTo())) {
+			String dateTo = convertDateString(creteria.getDateTo())+ " " + creteria.getDateToHour()+ ":"+creteria.getDateToMinute() +":"+"59"+":" +"999999"; 
+			sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
+		}
+		
+		if(groupby) {
+			sql.append(" GROUP BY VAT_RATE  ");
+		}
+
+	
+		Object[] paramArr = param.toArray();
+		return 	 jdbcTemplate.query(sql.toString(), paramArr, new mapInvEpisOfflineReportBeanSummarry());
 	} 
+	private static final class mapInvEpisOfflineReportBeanSummarry implements RowMapper<InvPaymentOrderTaxBean> {
+
+		@Override
+		public InvPaymentOrderTaxBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			InvPaymentOrderTaxBean invEpisOfflineReportBean = new InvPaymentOrderTaxBean();
+			invEpisOfflineReportBean.setVatRate(rs.getInt("VAT_RATE"));
+			invEpisOfflineReportBean.setBeforeVatSummary(rs.getBigDecimal("SUM_BEFOR_VAT"));
+			invEpisOfflineReportBean.setVatSummary(rs.getBigDecimal("SUM_VAT_AMOUNT"));
+			invEpisOfflineReportBean.setSummarySummary(rs.getBigDecimal("SUM_AMOUNT"));
+		
+			return invEpisOfflineReportBean;
+		}
+
+	}
 }

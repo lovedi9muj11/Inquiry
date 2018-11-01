@@ -38,4 +38,10 @@ public class ReportServiceImpl implements ReportService{
 		return reportDao.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
 	}
 
+	@Override
+	public List<InvPaymentOrderTaxBean> vatSummarry(HistoryReportBean creteria ,boolean groupBy) throws SQLException {
+		// TODO Auto-generated method stub
+		return reportDao.summarryVay(creteria,groupBy);
+	}
+
 }

@@ -14,4 +14,7 @@ public interface ReportDao {
 	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo);
 	
 	public List<InvPaymentOrderTaxBean> inqueryInvPaymentOrderTaxBeanJSONHandler(HistoryReportBean creteria);
+	
+	
+	public List<InvPaymentOrderTaxBean> summarryVay(HistoryReportBean creteria,boolean groupby);
 }
