@@ -25,7 +25,7 @@ public interface PaymentManualDao {
 	
 	public ReceiptOfflineModel findByManualId(long manualId) throws SQLException;
 	
-	public void udpateStatus(long manualId) throws SQLException;
+	public void udpateStatus(long manualId,String status) throws SQLException;
 	
 	public Integer checkSup(String userName) throws SQLException;
 	

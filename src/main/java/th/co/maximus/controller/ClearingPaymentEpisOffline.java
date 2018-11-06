@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
+import th.co.maximus.model.OfflineResultModel;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 
@@ -46,11 +47,16 @@ public class ClearingPaymentEpisOffline {
 	public void save(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
+	
 		if (result != null) {
-			clearingPaymentEpisOfflineService.callOnlinePayment(result);
-
-			for (PaymentMMapPaymentInvBean payment : result) {
-				clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId());
+			List<OfflineResultModel> objMessage =clearingPaymentEpisOfflineService.callOnlinePayment(result);
+			for (OfflineResultModel offlineResultModel : objMessage) {
+				if (offlineResultModel.getStatus().equals("SUCCESS")) {
+					
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"Y");
+				}else {
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"N");
+				}
 			}
 		}
 

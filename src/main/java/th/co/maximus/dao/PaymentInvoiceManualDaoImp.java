@@ -80,7 +80,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setCustomerGroup(rs.getString("CUSTOMER_GROUP"));
 			paymentManual.setDiscountBeforVat(rs.getBigDecimal("DISCOUNTBEFORVAT"));
 			paymentManual.setDiscountSpecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
-
+			paymentManual.setReasonCode(rs.getString("CANCEL_REASON"));
+//			paymentManual.setReasonDesc(rs.getString("DISCOUNTSPECIAL"));
 			return paymentManual;
 		}
 

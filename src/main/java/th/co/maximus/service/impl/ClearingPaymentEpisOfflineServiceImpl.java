@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.dao.TrscreDitrefManualDao;
 import th.co.maximus.model.DuductionEpisOffline;
+import th.co.maximus.model.OfflineResultModel;
 import th.co.maximus.model.PaymentEpisOfflineDTO;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
 import th.co.maximus.model.ReceiptOfflineModel;
@@ -100,27 +102,30 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	}
 
 	@Override
-	public void updateStatusClearing(long manualId) throws Exception {
+	public void updateStatusClearing(long manualId,String status) throws Exception {
 		// TODO Auto-generated method stub
-		 paymentManualDao.udpateStatus(manualId);
+		 paymentManualDao.udpateStatus(manualId,status);
 	}
 
 	@Override
-	public String callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
-		String result = "";
+	public List<OfflineResultModel> callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
+		List<OfflineResultModel> objMessage = new ArrayList<OfflineResultModel>();
+	
+		List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
+		List<PaymentInvoiceEpisOffline> paymentList = new ArrayList<>();
+		List<DuductionEpisOffline> deductionList = new ArrayList<>();
+		List<TrsMethodEpisOffline> methodList = new ArrayList<>();
+		List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
+		List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
+		TmpInvoiceBean invoid = new TmpInvoiceBean();
 		try {
-			PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
-			List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
-			List<PaymentInvoiceEpisOffline> paymentList = new ArrayList<>();
-			List<DuductionEpisOffline> deductionList = new ArrayList<>();
-			List<TrsMethodEpisOffline> methodList = new ArrayList<>();
-			List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
-			List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
-			TmpInvoiceBean invoid = new TmpInvoiceBean();
+
+			
 			Boolean isOther = false;
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
-					Integer manualId = (int) (long) payment.getManualId();
+					PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
+					Integer manualId =  Integer.valueOf(payment.getManualId().toString());
 					ReceiptOfflineModel recrip = findRecipt(manualId);
 					if (recrip != null) {
 						paymentList = findPaymentInvoice(manualId);
@@ -161,7 +166,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						}
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
-						paymentEpisOfflineDTO.setManualID(recrip.getManualID());
+						paymentEpisOfflineDTO.setManualID(manualId +"");
 						List<PaymentInvoiceEpisOffline> paymentList2 = new ArrayList<>();
 						if (!isOther) {
 							for (PaymentInvoiceEpisOffline data : paymentList) {
@@ -202,17 +207,29 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList, String.class);
 			
-			
-			if (postResponse.getBody() != null) {
-				result = postResponse.getBody();
-			} else {
-				result = "N";
+			if(null != postResponse.getBody()) {
+				JSONArray jsonArray = new JSONArray(postResponse.getBody());
+				for(int i=0; i<jsonArray.length(); i++) {
+					OfflineResultModel obj = new OfflineResultModel();
+					
+						obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
+				
+					obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
+					obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
+					obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
+					if(("SUCCESS").equals(obj)) {
+						obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
+					}
+					objMessage.add(obj);
+				}
 			}
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = "N";
 		}
-		return result;
+		
+		return objMessage;
 	}
 
 

@@ -260,13 +260,17 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	}
 
 	@Override
-	public void udpateStatus(long manualId) throws SQLException {
+	public void udpateStatus(long manualId ,String status) throws SQLException {
 
 		StringBuilder sqlStmt = new StringBuilder();
-		sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = 'Y' ");
+		List<Object> param = new LinkedList<Object>();
+
+		sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = ? ");
+		param.add(status);
 		sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
-		Object param = manualId;
-		jdbcTemplate.update(sqlStmt.toString(), param);
+		param.add(manualId);
+		Object[] paramArr = param.toArray();
+		jdbcTemplate.update(sqlStmt.toString(), paramArr);
 
 	}
 

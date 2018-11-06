@@ -40,6 +40,8 @@ public class PaymentMMapPaymentInvBean {
 	private String userApproved;
 	private BigDecimal discountBeforVat;
 	private BigDecimal discountSpecial;
+	private String reasonCode;
+	private String reasonDesc;
 	
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
@@ -320,5 +322,22 @@ public class PaymentMMapPaymentInvBean {
 	public void setDiscountSpecial(BigDecimal discountSpecial) {
 		this.discountSpecial = discountSpecial;
 	}
+
+	public String getReasonCode() {
+		return reasonCode;
+	}
+
+	public void setReasonCode(String reasonCode) {
+		this.reasonCode = reasonCode;
+	}
+
+	public String getReasonDesc() {
+		return reasonDesc;
+	}
+
+	public void setReasonDesc(String reasonDesc) {
+		this.reasonDesc = reasonDesc;
+	}
+	
 	
 }

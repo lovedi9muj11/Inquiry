@@ -168,16 +168,41 @@ function confirmDialog(){
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	if(res.data){
+        		
         		$("#confrimDialog").modal('hide');
         		search();
-        		$("#showLogs").val(res.data);
+//        		$("#showLogs").val(res.data);
         		$("#showLog").modal('show');
+        		getMeassage(res.data);
             	
         	}
         
         	
         }
 	})
+}
+
+function getMeassage(data){
+	var msgS = "Success : ";
+	var msgE = "Error :";
+	for(var i=0; i< data.length;i++){
+		if(data[i].status == "SUCCESS"){
+			if(i == 0){
+				msgS += data[i].recriptNo
+			}else{
+				msgS += data[i].recriptNo +"," ;
+			}
+			
+		}else{
+			if(i == 0){
+				msgE += data[i].recriptNo
+			}else{
+				msgE += data[i].recriptNo +"," ;
+			}
+		}
+	}
+	document.getElementById("showLogs").innerHTML = msgS;
+	document.getElementById("showLoge").innerHTML = msgE;
 }
 
 function closeDialogs(){

@@ -4,16 +4,19 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
@@ -21,13 +24,26 @@ import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.PaymentManualBean;
+import th.co.maximus.dao.CancelPaymentDTO;
+import th.co.maximus.dao.CancelPaymentDTO.Receipt;
 import th.co.maximus.dao.PaymentManualDao;
+import th.co.maximus.model.OfflineResultModel;
+import th.co.maximus.model.PaymentDTO;
+import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.HistoryPaymentService;
 
 @Controller
 public class HistroryPaymentController {
+	@Value("${url.online}")
+	private String url;
 
+	RestTemplate restTemplate;
+	
+	public HistroryPaymentController() {
+		restTemplate = new RestTemplate();
+	}
+	
 	@Autowired
 	private HistoryPaymentService paymentManualService;
 
@@ -39,6 +55,9 @@ public class HistroryPaymentController {
 	
 	@Autowired
 	private PaymentManualDao paymentManualDao;
+	
+	@Autowired
+	private CancelPaymentService cancelPaymentService;
 
 	@RequestMapping(value = { "/gotoHistroryPayment" }, method = RequestMethod.GET)
 	public String gotoHistroryPayment(Model model) {
@@ -141,25 +160,106 @@ public class HistroryPaymentController {
 
 	@RequestMapping(value = { "/histroryPayment/clearing" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public HashMap<String, String> clearing(@RequestBody List<PaymentMMapPaymentInvBean> creteria) throws Exception {
-		String message = "";
-		HashMap<String, String> result = new HashMap<>();
+	public HashMap<String, Object> clearing(@RequestBody List<PaymentMMapPaymentInvBean> creteria) throws Exception {
+		HashMap<String, Object> result = new HashMap<>();
+		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
 		try {
-			String messages = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
-			if (!messages.equals("N")) {
-				for (PaymentMMapPaymentInvBean payment : creteria) {
-					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId());
+			
+			for (OfflineResultModel offlineResultModel : objMessage) {
+				if (offlineResultModel.getStatus().equals("SUCCESS")) {
+					
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"Y");
+				}else {
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"N");
 				}
-				message = "success :"+message;
-			}else{
-				message = "error :"+message;
 			}
+				
 			
 		} catch (Exception e) {
-			message = "error" + e.getMessage();
+			e.printStackTrace();
 		}
-		result.put("data", message);
+		result.put("data", objMessage);
 		return result;
+	}
+	
+	@RequestMapping(value = { "/histroryPayment/cancelPaymentOnline" }, method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public HashMap<String, Object> cancelPaymentOnline() throws Exception {
+		HashMap<String, Object> result = new HashMap<>();
+		List<PaymentMMapPaymentInvBean> list = new ArrayList<>();
+		List<PaymentDTO> dtoList = new ArrayList<>();
+		list = cancelPaymentService.findAllCancelPayments("C");
+		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
+		String postUrl = "";
+		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(list);
+		try {
+			
+			for (OfflineResultModel offlineResultModel : objMessage) {
+				if (offlineResultModel.getStatus().equals("SUCCESS")) {
+					
+					for(PaymentMMapPaymentInvBean payment : list) {
+						if(offlineResultModel.getManualId() == payment.getManualId()) {
+							PaymentDTO manualDTO = new PaymentDTO();
+							
+							manualDTO.setAccountNo(payment.getAccountNo());
+							manualDTO.setBranchCode(payment.getBranchCode());
+							manualDTO.setBranchArea(payment.getBrancharea());
+							manualDTO.setInvoiceNo(payment.getInvoiceNo());
+							manualDTO.setReceiptNoManual(payment.getReceiptNoManual());
+							manualDTO.setRemark(payment.getRemark());
+							manualDTO.setManualId(payment.getManualId());
+							manualDTO.setCreateBy("EPIS5");
+							manualDTO.setCreateDate(new Date());
+							manualDTO.setPaidAmount(payment.getPaidAmount());
+							manualDTO.setPaidDate(payment.getPaidDate());
+							manualDTO.setRecordStatus("");
+							manualDTO.setSource(payment.getSource());
+							manualDTO.setVatAmount(payment.getVatAmount());
+							dtoList.add(manualDTO);
+							
+							cancelDTO = dtoCancel(payment);
+						}
+					}
+					if(dtoList.size()>0) {
+						// หักล้าง
+						postUrl = url.concat("/offlineCancel/paymentManualCancelOnline");
+						restTemplate.postForEntity(postUrl, dtoList, String.class);
+						
+						// ยกเลิก
+						postUrl = url.concat("/offlineCancel/cancelPaymentProductOffline");
+						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+					}
+					
+					
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"Y");
+				}else {
+					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"N");
+				}
+			}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		result.put("data", objMessage);
+		return result;
+	}
+	
+	public CancelPaymentDTO dtoCancel(PaymentMMapPaymentInvBean payment) {
+		CancelPaymentDTO dto = new CancelPaymentDTO();
+		Receipt rp = new Receipt();
+		List<Receipt> rpList = new ArrayList<>();
+		rp.setAccountName(payment.getCustomerName());
+		rp.setAddrLine1(payment.getAddressNewCancelPayment());
+		rp.setNo(payment.getReceiptNoManual());
+		rp.setReasonCode(payment.getReasonCode());
+		rpList.add(rp);
+		dto.setReceipts(rpList);
+		dto.setFlagCancel("Y");
+		dto.setFlgNewReceipt(false);
+		dto.setUserAuthen(payment.getCreateBy());
+		
+		return dto;
 	}
 
 }

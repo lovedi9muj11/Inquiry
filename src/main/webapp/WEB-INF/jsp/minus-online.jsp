@@ -165,6 +165,7 @@
 						<div class="form-group col-md-12">
 							<div class="alert alert-dark" role="alert">
 								<p id="showLogs"></p>
+								<p id="showLoge"></p>
 							</div>
 						</div>
 					</div>

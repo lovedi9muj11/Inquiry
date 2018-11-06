@@ -5,6 +5,7 @@ import java.util.List;
 
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.model.DuductionEpisOffline;
+import th.co.maximus.model.OfflineResultModel;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
 import th.co.maximus.model.ReceiptOfflineModel;
 import th.co.maximus.model.TrsChequerefEpisOffline;
@@ -25,7 +26,7 @@ public interface ClearingPaymentEpisOfflineService {
 
 	public List<TrsChequerefEpisOffline> findTrsCheq(long methodTrsId) throws Exception;
 
-	public void updateStatusClearing(long manualId) throws Exception;
+	public void updateStatusClearing(long manualId,String status) throws Exception;
 	
-	public String callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria);
+	public List<OfflineResultModel>  callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria);
 }
