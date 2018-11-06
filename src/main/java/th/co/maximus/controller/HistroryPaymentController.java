@@ -120,7 +120,7 @@ public class HistroryPaymentController {
 			if (resultRQ.size() > 0) {
 				for (int i = 0; i < resultRQ.size(); i++) {
 					HistoryPaymentRS hisPay = resultRQ.get(i);
-					BigDecimal reVat = new BigDecimal(107);
+					BigDecimal reVat = new BigDecimal(hisPay.getVatRate());
 
 					BigDecimal amount = hisPay.getPaidAmount();
 					BigDecimal vatRQ = amount.multiply(new BigDecimal(hisPay.getVatRate()));

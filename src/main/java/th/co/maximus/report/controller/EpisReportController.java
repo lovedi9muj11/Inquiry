@@ -511,7 +511,7 @@ public class EpisReportController {
 			BigDecimal vatRate = new BigDecimal(
 					StringUtils.isNotBlank(printCollections.get(0).getVatRate()) ? printCollections.get(0).getVatRate()
 							: BigDecimal.ZERO.toString());
-			BigDecimal resVat = new BigDecimal(107);
+			BigDecimal resVat = vatRate;
 
 			BigDecimal beforeVat = total.multiply(vatRate);
 
@@ -920,7 +920,7 @@ public class EpisReportController {
 			// BeforeVat and Vat
 			BigDecimal total = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
 			BigDecimal vatRate = new BigDecimal(colles.getVatRate());
-			BigDecimal resVat = new BigDecimal(107);
+			BigDecimal resVat =vatRate;
 			BigDecimal beforeVat = total.multiply(vatRate);
 			BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
 

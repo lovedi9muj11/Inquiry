@@ -172,7 +172,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							for (PaymentInvoiceEpisOffline data : paymentList) {
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
 									BigDecimal disVat = (new BigDecimal(invoid.getDiscount())
-											.multiply(data.getVatRate())).divide(new BigDecimal("107"));
+											.multiply(data.getVatRate())).divide(data.getVatRate());
 									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
 									data.setDiscountVat(disVat);
 								} else {
