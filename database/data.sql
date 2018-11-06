@@ -44,6 +44,8 @@ INSERT INTO `master_data` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATU
 	(2, 'Trigger_GL', '0 15 10 ? * SUN', 'TriggerGoup', 'null', 'null', 'Map GL', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every week', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(3, 'Trigger_User', '0 15 10 * * ?', 'TriggerGoup', 'null', 'null', 'Sync User', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every day', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
 	(4, 'Trigger_Minus', '0 15 10 * * ?', 'TriggerGoup', 'null', 'null', 'Minus Online', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'every time', 'null', '2018-05-26 00:00:00.000000', 'null', '2018-05-26 00:00:00.000000', NULL),
+	(1000, 'bkk', 'กรุงเทพ', 'BANK_TYPE_EDC', 'null', 'Y', '', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-09-16 00:00:00.000000', 'null', '2018-09-16 00:00:00.000000', NULL),
+	(1001, 'kkb', 'กสิกรไทย', 'BANK_TYPE_EDC', 'null', 'Y', '', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'null', '2018-09-16 00:00:00.000000', 'null', '2018-09-16 00:00:00.000000', NULL),
 	
 	(5, 'VAT_RATE', '10', 'VAT', 'null', 'null', '1', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'EPIS00', '2018-09-16 00:00:00.000000', 'EPIS00', '2018-09-16 00:00:00.000000', NULL),
 	(6, 'VAT00', '0', 'VAT', 'null', 'null', '2', 'null', 'null', 'null', 'null', 'null', 'null', 'null', NULL, 'EPIS0', '2018-09-16 00:00:00.000000', 'EPIS0', '2018-09-16 00:00:00.000000', NULL),

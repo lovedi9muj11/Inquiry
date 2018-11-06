@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.MasterDatasBean;
+import th.co.maximus.constants.Constants;
 
 @Service
 public class MasterDatasDaoImpl implements MasterDatasDao{
@@ -86,5 +87,12 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 		sql.append("SELECT * FROM MASTER_DATA WHERE GROUP_KEY = ? and KEYCODE = ? ");
 		MasterDatasBean master = (MasterDatasBean)jdbcTemplate.queryForObject(sql.toString(), new Object[] { groupCode, keyCode }, new masterData());
 		return master;
+	}
+
+	@Override
+	public List<MasterDatasBean> findByBankEDCName() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.KEYCODE.BANK_TYPE_EDC+"'  ");
+		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 }

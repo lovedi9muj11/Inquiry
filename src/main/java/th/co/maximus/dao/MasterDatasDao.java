@@ -13,6 +13,8 @@ public interface MasterDatasDao {
 	public List<MasterDatasBean> findByVat();
 
 	public List<MasterDatasBean> findByBankName();
+	
+	public List<MasterDatasBean> findByBankEDCName();
 
 	public MasterDatasBean findByKey(String keyCode);
 

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="th.co.maximus.bean.MasterDataBean"%>
+<%@ page import="th.co.maximus.bean.MasterDatasBean"%>
 <%@ page import="th.co.maximus.bean.MapGLBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -34,6 +35,7 @@
 	List<MapGLBean> mapGLServiceName = null;
 	List<MasterDataBean> masterCategory = null;
 	List<MasterDataBean> masterVat = null;
+	List<MasterDatasBean> masterBankEDCCode = null;
 %>
 <%
 	masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode");
@@ -43,6 +45,7 @@
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 	String	costcenter = (String) request.getAttribute("costcenter");
 	masterVat = (List<MasterDataBean>) request.getAttribute("vat");
+	masterBankEDCCode = (List<MasterDatasBean>) request.getAttribute("bankEDC");
 %>
 
 </head>
@@ -552,9 +555,9 @@
 															name="paymentTranPrice.edcType">
 															<option value="">กรุณาเลือก</option>
 															<%
-																for (int i = 0; i < masterBankName.size(); i++) {
+																for (int i = 0; i < masterBankEDCCode.size(); i++) {
 															%>
-															<option value="<%=masterBankName.get(i).getValue()%>"><%=masterBankName.get(i).getText()%></option>
+															<option value="<%=masterBankEDCCode.get(i).getKeyCode()%>"><%=masterBankEDCCode.get(i).getValue()%></option>
 															<%
 																}
 															%>

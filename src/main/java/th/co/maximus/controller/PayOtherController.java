@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MapGLDao;
 import th.co.maximus.dao.MasterDatasDao;
@@ -52,11 +53,13 @@ public class PayOtherController {
 		List<MasterDataBean> bankNameList = new ArrayList<>();
 		List<MasterDataBean> categoryList = new ArrayList<>();
 		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
+		List<MasterDatasBean> bankEDCList = new ArrayList<>();
 
 		bankCodeList = masterDataService.findAllByBankCode();
 		bankNameList = masterDataService.findAllByBankName();
 		categoryList = masterDataService.findAllByCategory();
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
+		bankEDCList = masterDatasDao.findByBankEDCName();
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 		
@@ -67,6 +70,7 @@ public class PayOtherController {
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
 		model.addAttribute("costcenter", costcenter);
+		model.addAttribute("bankEDC", bankEDCList);
 		return "payOther";
 	}
 

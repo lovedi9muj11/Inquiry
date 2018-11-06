@@ -25,10 +25,12 @@
 
 <%
 	List<MasterDatasBean> masterBankCode = null;
+	List<MasterDatasBean> masterBankEDCCode = null;
 	List<MasterDatasBean> vat = null;
 %>
 <%
 	masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
+	masterBankEDCCode = (List<MasterDatasBean>) request.getAttribute("bankEDC");
 	vat = (List<MasterDatasBean>) request.getAttribute("vat");
 %>
 </head>
@@ -506,10 +508,10 @@
 																name="paymentTranPrice.edcType">
 																<option value="">กรุณาเลือก</option>
 																<%
-																	for (int i = 0; i < masterBankCode.size(); i++) {
+																	for (int i = 0; i < masterBankEDCCode.size(); i++) {
 																%>
 																<option id="nameBank"
-																	value="<%=masterBankCode.get(i).getKeyCode()%>"><%=masterBankCode.get(i).getValue()%></option>
+																	value="<%=masterBankEDCCode.get(i).getKeyCode()%>"><%=masterBankEDCCode.get(i).getValue()%></option>
 																<%
 																	}
 																%>

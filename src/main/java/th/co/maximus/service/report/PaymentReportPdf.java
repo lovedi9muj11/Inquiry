@@ -142,17 +142,6 @@ public class PaymentReportPdf {
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-//		parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-//		parameters.put("dateFrom", convertTimeFormat(criteria.getDateFrom()));
-//		parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
-//		parameters.put("staff", criteria.getUser());
-//		parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
-//		parameters.put("serviceNameHead", serviceName);
-//
-//		parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
-//		parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
-//		parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 
 		// read and export pdf
 		response.setContentType("application/pdf");
@@ -181,6 +170,7 @@ public class PaymentReportPdf {
 			int vat10 = 1;
 			int vat0 = 1;
 			int vatNon = 1;
+			int pageNumber = 1;
 			for(ReportPaymentBean reportPaymentBean : resultSource) {
 				
 				
@@ -270,6 +260,7 @@ public class PaymentReportPdf {
 						parameters.put("sumAllVatUser", "");
 						parameters.put("sumAllTotalUser", "");
 						parameters.put("sumAllTotalNoVatUser", "");
+						parameters.put("pageNumber", pageNumber);
 						
 //						userPay = "";
 						glCode = reportPaymentBean.getServiceName().split(" ")[0];
@@ -289,6 +280,7 @@ public class PaymentReportPdf {
 						sumAllVat0 = 0;
 						sumAllTotal = 0;
 						sumAllTotalNoVat = 0;
+						pageNumber++;
 						
 						if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
 							sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
@@ -337,6 +329,7 @@ public class PaymentReportPdf {
 					parameters.put("sumAllVatUser", "");
 					parameters.put("sumAllTotalUser", "");
 					parameters.put("sumAllTotalNoVatUser", "");
+					parameters.put("pageNumber", pageNumber);
 					
 //					userPay = "";
 					glCode = reportPaymentBean.getServiceName().split(" ")[0];
@@ -355,6 +348,7 @@ public class PaymentReportPdf {
 					sumAllVat0 = 0;
 					sumAllTotal = 0;
 					sumAllTotalNoVat = 0;
+					pageNumber++;
 					
 					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
 						sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
@@ -400,6 +394,7 @@ public class PaymentReportPdf {
 					parameters.put("serviceName", serviceName);
 					parameters.put("glName", glCode);
 					parameters.put("departmentName", departCode);
+					parameters.put("pageNumber", pageNumber);
 					
 					parameters.put("lastPage", "Y");
 					parameters.put("userPayment", userPay);
@@ -469,6 +464,7 @@ public class PaymentReportPdf {
 			int vat10 = 1;
 			int vat0 = 1;
 			int vatNon = 1;
+			int pageNumber = 1;
 			
 			for(int i=0; i<resultSource.size(); i++) {
 				
@@ -549,6 +545,7 @@ public class PaymentReportPdf {
 					parameters.put("serviceListCount", resultSources.size());
 					parameters.put("userListCount", resultSources.size());
 					parameters.put("userPayment", userPay);
+					parameters.put("pageNumber", pageNumber);
 					
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 					JasperPrint jasperPrint = new JasperPrint();
@@ -567,6 +564,7 @@ public class PaymentReportPdf {
 					sumAllVat0 = 0;
 					sumAllTotal = 0;
 					sumAllTotalNoVat = 0;
+					pageNumber++;
 					
 					if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
 						sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
@@ -606,6 +604,7 @@ public class PaymentReportPdf {
 					parameters.put("serviceListCount", resultSources.size());
 					parameters.put("userListCount", resultSources.size());
 					parameters.put("userPayment", userPay);
+					parameters.put("pageNumber", pageNumber);
 					
 					parameters.put("lastPage", "Y");
 					parameters.put("userListCount", countRow);

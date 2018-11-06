@@ -101,6 +101,7 @@ public class Constants {
 			public static final String TRIGGER_GL = "Trigger_GL";
 			public static final String TRIGGER_USER = "Trigger_User";
 			public static final String TRIGGER_MINUS = "Trigger_Minus";
+			public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		}
 		
 	}
