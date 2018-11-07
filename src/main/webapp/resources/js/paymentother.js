@@ -732,7 +732,7 @@ function buttonAddBillingList() {
 	var inputServiceDiscount = $("#inputServiceDiscount").val();
 	var inputSpecialDiscount = $("#inputSpecialDiscount").val();
 	var vatRate = $('#vatrate').val();
-	if(vatRate == 'nonVat'){
+	if(vatRate == 'Non-VAT'){
 		vatRate = '0';
 	}
 	var moneyDed1 = $("#moneyDed1").val();
@@ -773,7 +773,7 @@ function buttonAddBillingList() {
 		}
 		
 		var chkVatamount;
-		if("nonVat" == $("#vatrate option:selected").val()) {
+		if("Non-VAT" == $("#vatrate option:selected").val()) {
 			chkVatamount = '-';
 		}else{
 			if(vatamount < 0 ){
@@ -2012,7 +2012,7 @@ function calWT(amount){
 }
 function disVat(serviceAmount,amountType){
 	var vatRate = $('#vatrate').val();
-	if(vatRate == 'notVat'){
+	if(vatRate == 'Non-VAT'){
 		vatRate = '0';
 	}
 	vatRate = parseFloat(vatRate.replace(",", ""));
@@ -2057,7 +2057,7 @@ function autoSelect(){
 	function autoSelectVat(){
 	
 	var event = $("#vatrate").val();
-	if(event == "nonVat"){
+	if(event == "Non-VAT"){
 		 document.getElementById("aftervat").disabled = true;
 	}else{
 		document.getElementById("aftervat").disabled = false;
