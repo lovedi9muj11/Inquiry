@@ -51,7 +51,7 @@ public class ClearingPaymentEpisOffline {
 		if (result != null) {
 			List<OfflineResultModel> objMessage =clearingPaymentEpisOfflineService.callOnlinePayment(result);
 			for (OfflineResultModel offlineResultModel : objMessage) {
-				if (offlineResultModel.getStatus().equals("SUCCESS")) {
+				if (offlineResultModel.getStatus().equals("SUCCESS")) { 
 					
 					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(),"Y");
 				}else {
