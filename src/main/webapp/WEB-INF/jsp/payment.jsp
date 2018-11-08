@@ -241,7 +241,7 @@
 																<%
 																	for (int i = 0; i < vat.size(); i++) {
 																%>
-																<option value="<%=vat.get(i).getValue()%>"><%=vat.get(i).getValue()%></option>
+																<option value="<%=vat.get(i).getValue()%>"><%=vat.get(i).getValue()%>%</option>
 																<%
 																	}
 																%>
