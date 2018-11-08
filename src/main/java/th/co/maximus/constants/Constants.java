@@ -91,9 +91,12 @@ public class Constants {
 		public static final String BANK_TYPE = "BANK_TYPE";
 		public static final String VAT = "VAT";
 		public static final String OTHER = "OTHER";
+		public static final String IBACSS = "IBACSS";
 		public static final String BUSINESS_AREA = "BUSINESS_AREA";
 		public static final String COST_CENTER = "COST_CENTER";
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
+		public static final String IBACSS_CANCEL_REASON = "IBACSS_CANCEL_REASON";
+		public static final String OTHER_CANCEL_REASON = "OTHER_CANCEL_REASON";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		
 		public static class KEYCODE {

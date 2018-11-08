@@ -12,6 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.DropDownBean;
 import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
@@ -20,6 +21,7 @@ import th.co.maximus.bean.TrsMethodManualBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.ReciptNoGenCode;
 import th.co.maximus.core.utils.Utils;
+import th.co.maximus.dao.CancelDao;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
@@ -34,6 +36,7 @@ import th.co.maximus.service.CancelPaymentService;
 
 @Service
 public class CancelPaymentServiceImp implements CancelPaymentService {
+	
 	SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	SimpleDateFormat dateFM = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -57,6 +60,9 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 	
 	@Autowired
 	private TrscreDitrefManualDao  trscreDitrefManualDao;
+	
+	@Autowired
+	private CancelDao cancelDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findAllCancelPayment() throws Exception {
@@ -190,13 +196,14 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 //		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String receiptId = "";
+		String cancelStatusPayment = masterDatasDao.findReasonByCode(paymentMMapPaymentInvBean.getStatusCancelPayment(), paymentMMapPaymentInvBean.getChkPaymentType());
 		int manualID = 0;
 		try {
 			Date date = new Date();
 			// update status
-			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo(Constants.Status.STATUS_CANCEL, paymentMMapPaymentInvBean.getManualId(), paymentMMapPaymentInvBean.getStatusCancelPayment().equals(Constants.CANCEL.CANCEL_SERVICE_01)?Constants.CANCEL.CANCEL_SERVICE:Constants.CANCEL.CANCEL_ADDR, paymentMMapPaymentInvBean.getUserApproved());
+			paymentInvoiceManualDao.updateRecodeStatusFromReceiptNo(Constants.Status.STATUS_CANCEL, paymentMMapPaymentInvBean.getManualId(), cancelStatusPayment, paymentMMapPaymentInvBean.getUserApproved());
 			paymentInvoiceManualDao.updateStatusPaymentInvoice(paymentMMapPaymentInvBean.getManualId());
-			if ("02".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
+			if ("001".equals(paymentMMapPaymentInvBean.getStatusCancelPayment())) {
 				// Insert PaymentManual
 				List<PaymentManualBean> paymentManual = paymentManualDao.findPaymentManualFromNanualId(paymentMMapPaymentInvBean.getManualId());
 				if (!paymentManual.isEmpty()) {
@@ -368,6 +375,16 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			resultBean.setCustomerGroup(Constants.CUSTOMER_GROUP.CUSTOMER_NAME_9);
 		}
 		
+	}
+
+	@Override
+	public List<DropDownBean> reasonCancelIbacss() {
+		return cancelDao.reasonCancelIbacss();
+	}
+
+	@Override
+	public List<DropDownBean> reasonCancelOther() {
+		return cancelDao.reasonCancelOther();
 	}
 
 }

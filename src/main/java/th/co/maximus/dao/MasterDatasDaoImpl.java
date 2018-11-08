@@ -95,4 +95,20 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.KEYCODE.BANK_TYPE_EDC+"'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
+
+	@Override
+	public String findReasonByCode(String code, String type) {
+		StringBuilder sql = new StringBuilder();
+		String groupKey = "";
+		
+		if(Constants.MasterData.IBACSS.equals(type)) {
+			groupKey = Constants.MasterData.IBACSS_CANCEL_REASON;
+		}else {
+			groupKey = Constants.MasterData.OTHER_CANCEL_REASON;
+		}
+		
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+groupKey+"' and KEYCODE = '"+code+"'");
+		return jdbcTemplate.queryForObject(sql.toString() , new masterData()).getValue();
+	}
+
 }

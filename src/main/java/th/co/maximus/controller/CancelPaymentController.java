@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.service.UserService;
+import th.co.maximus.bean.DropDownBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
 import th.co.maximus.core.utils.Utils;
@@ -22,10 +23,10 @@ import th.co.maximus.service.PaymentService;
 
 @Controller
 public class CancelPaymentController {
-	
+
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
-	
+
 	@Autowired
 	private PaymentService paymentService;
 
@@ -39,7 +40,7 @@ public class CancelPaymentController {
 	public String cancalPayment(Model model) {
 		return "cancel-payment-list";
 	}
-	
+
 	@RequestMapping(value = { "/cancalPaymentOther" }, method = RequestMethod.GET)
 	public String cancalPaymentOther(Model model) {
 		return "cancel-payment-list-other";
@@ -49,12 +50,14 @@ public class CancelPaymentController {
 	@ResponseBody
 	public List<PaymentMMapPaymentInvBean> findAll(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		if(creteria.isChkCancel()) {
-			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(), creteria.getInvoiceNo(), creteria.isChkCancel());
-		}else {
-			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(), creteria.getAccountNo(), creteria.isChkCancel());
+		if (creteria.isChkCancel()) {
+			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(),
+					creteria.getInvoiceNo(), creteria.isChkCancel());
+		} else {
+			result = cancelPaymentService.serviceCriteriaFromInvoiceOrReceiptNo(creteria.getReceiptNoManual(),
+					creteria.getAccountNo(), creteria.isChkCancel());
 		}
-			
+
 		return result;
 	}
 
@@ -77,27 +80,27 @@ public class CancelPaymentController {
 			UserDto resultUser = userService.findByUsername(user.getUserName());
 			if (resultUser != null) {
 				if (Utils.check(user.getPassword(), resultUser.getPassword())) {
-					if(resultUser.getRoles().get(0).getName().equals("SUP")) {
+					if (resultUser.getRoles().get(0).getName().equals("SUP")) {
 						result = true;
 					}
-					
+
 				}
 			}
 		}
 		return result;
 	}
 
-	@RequestMapping(value = {"/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = { "/cancelPayment/updateStatus" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public PaymentMMapPaymentInvBean cancelPayment(@RequestBody PaymentMMapPaymentInvBean creteria) {
 		PaymentMMapPaymentInvBean paymentMMapPaymentInvBean = new PaymentMMapPaymentInvBean();
 		PaymentResultReq paymentResultReq = cancelPaymentService.insertAndUpdateCancelPayment(creteria);
 		paymentMMapPaymentInvBean.setReceiptNoManual(paymentResultReq.getDocumentNo());
-		paymentMMapPaymentInvBean.setChkPaymentType(paymentResultReq.getChkPaymentType());
+		paymentMMapPaymentInvBean.setChkPaymentType(creteria.getChkPaymentType());
 		return paymentMMapPaymentInvBean;
 	}
-	
-	@RequestMapping(value = {"/searchReceiptNoById" }, method = RequestMethod.POST, produces = "application/json")
+
+	@RequestMapping(value = { "/searchReceiptNoById" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public PaymentResultReq searchReceiptNoById(@RequestBody PaymentResultReq creteria) {
 		PaymentResultReq paymentResultReq = new PaymentResultReq();
@@ -106,7 +109,23 @@ public class CancelPaymentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	return paymentResultReq;
-		}
+		return paymentResultReq;
+	}
+	
+	@RequestMapping(value = { "/dropdownIbascc" },method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<DropDownBean> dropdownIbascc() {
+		List<DropDownBean> dropDownBeans = new ArrayList<DropDownBean>();
+		dropDownBeans = cancelPaymentService.reasonCancelIbacss();
+		return dropDownBeans;
+	}
+	
+	@RequestMapping(value = { "/dropdownOther" },method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<DropDownBean> dropdownOther() {
+		List<DropDownBean> dropDownBeans = new ArrayList<DropDownBean>();
+		dropDownBeans = cancelPaymentService.reasonCancelOther();
+		return dropDownBeans;
+	}
 
 }

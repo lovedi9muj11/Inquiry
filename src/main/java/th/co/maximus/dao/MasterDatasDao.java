@@ -20,4 +20,6 @@ public interface MasterDatasDao {
 
 	public MasterDatasBean findByGrop(String groupCode, String keyCode);
 	
+	String findReasonByCode(String code, String type);
+	
 }

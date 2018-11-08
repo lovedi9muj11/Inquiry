@@ -236,6 +236,8 @@ $(document).ready(function () {
             }
             search();
         });
+    	
+    	ddOther()
 });
 
 
@@ -427,6 +429,7 @@ function submitCancelPayment(){
 			"statusCancelPayment":$('#problemCancel').val(),
 			"addressNewCancelPayment": $('#address').val(),
 			"customerName": $('#fullName').val(),
+			"chkPaymentType": "OTHER",
 			"userApproved" : userApproved
 	};
 	$.ajax({
@@ -479,20 +482,42 @@ function hidePanel(){
 
 function showReasonCancel(){
 	if($('#problemCancel').val() != ''){
-		if($('#problemCancel').val() == '02'){
+		if($('#problemCancel').val() == '001'){
 			 $("#fullName").val(userFullName);
 			 $("#address").val(customerAddress);
 			$("#reason-cancel").modal('show');
 		}else{
-			var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
-			if(r){
-				$("#reason-cancel").modal('hide');
-				submitCancelPayment();
-			}
+			
+			swal({
+				  title: "คุณต้องการยกเลิกรายการหรือไม่",
+				  text: "",
+				  icon: "warning",
+				  buttons: true,
+				  successMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+//				    swal("yes xxx", {
+//				      icon: "success",
+//				    });
+					  
+					$("#reason-cancel").modal('hide');
+					submitCancelPayment();
+				  } else {
+//				    swal("xxx");
+				  }
+				})
+				
+//			var r = confirm("คุณต้องการยกเลิกรายการหรือไม่ ");
+//			if(r){
+//				$("#reason-cancel").modal('hide');
+//				submitCancelPayment();
+//			}
 			
 		}
 	}else{
-		alert("โปรดระบุตัวเลือก");
+		swal("โปรดระบุตัวเลือก");
+//		alert("โปรดระบุตัวเลือก");
 	}
 };
 
@@ -557,6 +582,28 @@ function searchReceiptNoById(id) {
         success: function (res) {
         	console.log(res.documentNo)
         	$('#documentNo').val(res.documentNo);
+        }
+	})
+}
+
+function ddOther() {
+//	var dataSend = { "manualId": id };
+	$.ajax({
+        type: "GET",
+        url: ctx +"/dropdownOther",
+//        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	$('#problemCancel').append('<option value="">' + PLS_SELECT + '</option>')
+        	
+        	if(undefined!=res) {
+        		for(var i=0; i<res.length; i++) {
+        			$('#problemCancel').append('<option value="' + res[i].key + '">' + res[i].value + '</option>')
+        		}
+        	}
+        	
         }
 	})
 }

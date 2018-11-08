@@ -9,6 +9,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script type="text/javascript">
+var PLS_SELECT = 'กรุณาเลือก';
+</script>
+
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -100,9 +105,9 @@
 							<label class="col-md-4 control-label text-right">เหตุผลยกเลิกรับชำระ<span style="color: red"> *</span></label>
 							<div class="col-md-4">
 								<select class="form-control" id="problemCancel" name="userGroup">
-									<option value="">== เลือก ==</option>
-									<option value="01">รับชำระผิดบริการ </option>
-									<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option>
+<!-- 									<option value="">== เลือก ==</option> -->
+<!-- 									<option value="01">รับชำระผิดบริการ </option> -->
+<!-- 									<option value="02">ชื่อ-ที่อยู่ ไม่ถูกต้อง</option> -->
 								</select>
 							</div>
 						</div>
