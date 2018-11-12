@@ -76,7 +76,7 @@
 												<div class="form-group col-md-6">
 													<label class="col-sm-4 control-label right">BarCode:</label>
 													<div class="col-sm-6">
-														<input class="form-control" type="text" id="barCode" name="barCode">
+														<input class="form-control" type="text" id="barCode" name="barCode" maxlength="62">
 <!-- 														<input class="form-control" type="text" id="barCode" name="barCode" onchange="setDataBC()"> -->
 													</div>
 												</div>

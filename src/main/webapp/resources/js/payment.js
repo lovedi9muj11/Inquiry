@@ -9,12 +9,14 @@ $(document).ready(function() {
 
 	
 	$("#barCode").keypress(function(e){
-		vateRate();
         if ( e.which == 13 ) {
         	console.log('x1')
             var barcode = chars.join("");
-            if(barcode.charAt(0) == "|") barcode = barcode.slice(1,barcode.length);
-            if(barcode.charAt(0) == " ") barcode = barcode.slice(1,barcode.length);
+        	var checkTypeCode = true
+        	
+            if(barcode.charAt(0) == "|") {barcode = barcode.slice(1,barcode.length)}
+            if(barcode.charAt(0) == " ") {barcode = barcode.slice(1,barcode.length)
+            	checkTypeCode = false}
 // alert(barcode.substring(0, 15));
 // alert(barcode.substring(15, 24));
 // alert(barcode.substring(24, 42));
@@ -23,7 +25,15 @@ $(document).ready(function() {
             $("#barCode").val(barcode);
             chars = [];
             e.preventDefault();
-            var setCode = barcode.split("\n");
+            
+            var setCode
+            
+            if(checkTypeCode) {
+            	setCode = barcode.split("\n")
+            }else {
+            	setCode = barcode.split(" ")
+            }
+            
 // alert(ks[0]);
             $.each(setCode, function(x){
 // alert(setCode[x]);
@@ -35,7 +45,7 @@ $(document).ready(function() {
             		var day = setCode[x].substring(9, 11);
             		var today = year+"-"+(month)+"-"+(day) ;
 
-//                	$('#deadlines').val(today);
+                	$('#deadlines').val(today);
             	}
             	if(x==3) {
             		var amount = ((parseFloat(setCode[x]))/100);
