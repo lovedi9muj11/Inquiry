@@ -29,4 +29,6 @@ public interface ClearingPaymentEpisOfflineService {
 	public void updateStatusClearing(long manualId,String status) throws Exception;
 	
 	public List<OfflineResultModel>  callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria);
+	
+	public ReceiptOfflineModel findReciptStatus(Integer manualId,String status) throws SQLException ;
 }

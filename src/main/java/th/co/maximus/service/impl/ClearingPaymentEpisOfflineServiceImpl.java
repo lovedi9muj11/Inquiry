@@ -70,6 +70,12 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		// TODO Auto-generated method stub
 		return paymentManualDao.findByManualId(manualId);
 	}
+	
+	@Override
+	public ReceiptOfflineModel findReciptStatus(Integer manualId,String status) throws SQLException {
+		// TODO Auto-generated method stub
+		return paymentManualDao.findByManualId(manualId,status);
+	}
 
 	@Override
 	public List<PaymentInvoiceEpisOffline> findPaymentInvoice(Integer manualId)throws SQLException {
@@ -119,14 +125,13 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
 		TmpInvoiceBean invoid = new TmpInvoiceBean();
 		try {
-
-			
 			Boolean isOther = false;
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
 					Integer manualId =  Integer.valueOf(payment.getManualId().toString());
-					ReceiptOfflineModel recrip = findRecipt(manualId);
+					ReceiptOfflineModel recrip = findReciptStatus(manualId,payment.getRecordStatus());
+					paymentEpisOfflineDTO.setManualID(manualId.toString());
 					if (recrip != null) {
 						paymentList = findPaymentInvoice(manualId);
 						for (PaymentInvoiceEpisOffline pay : paymentList) {
@@ -211,13 +216,11 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 				JSONArray jsonArray = new JSONArray(postResponse.getBody());
 				for(int i=0; i<jsonArray.length(); i++) {
 					OfflineResultModel obj = new OfflineResultModel();
-					
-						obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
-				
+					obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
 					obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
 					obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
 					obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
-					if(("SUCCESS").equals(obj)) {
+					if(("SUCCESS").equals(obj.getStatus())) {
 						obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
 					}
 					objMessage.add(obj);
