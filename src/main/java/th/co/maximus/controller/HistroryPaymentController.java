@@ -275,6 +275,7 @@ public class HistroryPaymentController {
 		rp.setAddrLine1(payment.getAddressNewCancelPayment());
 		rp.setNo(payment.getReceiptNoManual());
 		rp.setReasonCode(payment.getReasonCode());
+		rp.setIsIbaiss(payment.getServiceType());
 		rpList.add(rp);
 		dto.setReceipts(rpList);
 		dto.setFlagCancel("Y");
