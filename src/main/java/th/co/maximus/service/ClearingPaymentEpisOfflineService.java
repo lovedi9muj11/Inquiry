@@ -1,6 +1,7 @@
 package th.co.maximus.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
@@ -31,4 +32,6 @@ public interface ClearingPaymentEpisOfflineService {
 	public List<OfflineResultModel>  callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria);
 	
 	public ReceiptOfflineModel findReciptStatus(Integer manualId,String status) throws SQLException ;
+	
+	public HashMap<String, Object> clearingCencelPayment() throws Exception ;
 }

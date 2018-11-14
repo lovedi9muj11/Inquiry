@@ -2,8 +2,10 @@ package th.co.maximus.service.impl;
 
 import java.sql.SQLException;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -226,11 +228,13 @@ public class MasterDataServiceImpl implements MasterDataService{
 		return groupTypeDropdownList;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public MasterDataBean findGroupTypeByKeyCode(String groupKey) {
 		List<DropDownBean> months = new ArrayList<DropDownBean>();
 		MasterDataBean masterDataBean = new MasterDataBean();
 		masterDataBean = masterDataDao.findGroupTypeByKeyCode(groupKey);
+		Date dd = new Date();
 		
 		if(null != masterDataBean) {
 			setTime(masterDataBean);
@@ -238,6 +242,27 @@ public class MasterDataServiceImpl implements MasterDataService{
 			monthDropdown(months);
 		}
 		masterDataBean.setDropDownMonths(months);
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "EN"));
+		
+		try {
+			if(!"*".equals(masterDataBean.getMonth())) {
+				dd = df.parse("1/"+masterDataBean.getMonth()+"/"+df.format(new Date().getYear()));
+				
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(dd);
+			    int lastDate = calendar.getActualMaximum(Calendar.DATE);
+
+//			    calendar.set(Calendar.DATE, lastDate);
+//			    int lastDay = calendar.get(Calendar.DAY_OF_WEEK);
+			    
+			    masterDataBean.setMonthNow(lastDate+"");
+			}
+		    
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		
 		//set date local
 		getLocalDateTime(masterDataBean);
