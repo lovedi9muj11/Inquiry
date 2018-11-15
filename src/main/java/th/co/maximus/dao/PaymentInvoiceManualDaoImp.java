@@ -116,7 +116,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	}
 
 	@Override
-	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountId(String accountNo,String payType) {
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountIdNoClearing(String accountNo,String payType) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
@@ -127,6 +127,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			param.add("%" + accountNo + "%");
 		}
 		sql.append(" AND paument_inv.SERVICE_TYPE = ?");
+		sql.append(" AND payment_m.CLEARING = '"+Constants.CLEARING.STATUS_N+"'");
 		param.add(payType);
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
