@@ -38,7 +38,8 @@ public class ClearingPaymentEpisOffline {
 	@ResponseBody
 	public List<PaymentMMapPaymentInvBean> find(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
+//		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
+		result = cancelPaymentService.findAllCancelPaymentsActive(creteria.getClearing());
 		return result;
 	}
 
