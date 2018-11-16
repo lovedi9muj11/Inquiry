@@ -17,6 +17,8 @@ public interface CancelPaymentService {
 	public PaymentResultReq insertAndUpdateCancelPayment(PaymentMMapPaymentInvBean paymentInvBean);
 	
 	public List<PaymentMMapPaymentInvBean> findAllCancelPayments(String clearing) throws Exception;
+	
+	public List<PaymentMMapPaymentInvBean> findAllCancelPaymentsActive(String clearing) throws Exception;
 
 	List<DropDownBean> reasonCancelIbacss();
 	

@@ -19,6 +19,7 @@ public class CancelPaymentDTO {
 		private String canceluserAuthen;
 		private String cancelReason;
 		private String cancelCode;
+		private String isIbaiss;
 		
 		public String getCancelCode() {
 			return cancelCode;
@@ -85,6 +86,13 @@ public class CancelPaymentDTO {
 		public void setAccountNo(String accountNo) {
 			this.accountNo = accountNo;
 		}
+		public String getIsIbaiss() {
+			return isIbaiss;
+		}
+		public void setIsIbaiss(String isIbaiss) {
+			this.isIbaiss = isIbaiss;
+		}
+		
 		
 		
 	}

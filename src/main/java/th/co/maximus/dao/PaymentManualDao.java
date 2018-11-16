@@ -29,5 +29,7 @@ public interface PaymentManualDao {
 	
 	public Integer checkSup(String userName) throws SQLException;
 	
+	public ReceiptOfflineModel findByManualId(long manualId, String status) throws SQLException;
+	
 	
 }

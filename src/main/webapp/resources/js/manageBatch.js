@@ -162,7 +162,7 @@ function findGroupTypeByKeyCode(groupKey) {
 	        	if('*' == res.month){
 	        		lastDay = 28; //ช่วยคิดหน่อย
 	        	}else{
-	        		lastDay = new Date(res.yearNow, res.month, 0);
+	        		lastDay = res.monthNow;
 	        	}
 	        	
 				setDate(lastDay);
