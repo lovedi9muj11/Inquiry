@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,6 @@ import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.PaymentManualBean;
-import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.CancelPaymentDTO;
 import th.co.maximus.dao.CancelPaymentDTO.Receipt;
 import th.co.maximus.dao.PaymentManualDao;
@@ -80,7 +80,7 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(), Constants.Service.SERVICE_TYPE_IBACSS);
+		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(), "IBACSS");
 
 		// }
 		return result;
@@ -96,7 +96,7 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(), Constants.Service.SERVICE_TYPE_OTHER);
+		result = paymentManualService.serviceHistroryPaymentFromAccountNo(creteria.getAccountNo(), "OTHER");
 
 		// }
 		return result;
@@ -246,13 +246,11 @@ public class HistroryPaymentController {
 						postUrl = url
 								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=EPIS5&pw=password");
 //						restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
-//						ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
-						restTemplate.postForEntity(postUrl, dtoList, String.class);
+						ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
 						// ยกเลิก
 						postUrl = url
 								.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=EPIS5&pw=password");
-//						ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+						ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 						clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
 
 					}
