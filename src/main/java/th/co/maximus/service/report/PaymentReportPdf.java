@@ -70,6 +70,8 @@ public class PaymentReportPdf {
 		
 		List<VatBean> vatBeans = new ArrayList<VatBean>();
 		VatBean vatBean10 = new VatBean();
+		VatBean vatBean8 = new VatBean();
+		VatBean vatBean7 = new VatBean();
 		VatBean vatBean0 = new VatBean();
 		VatBean vatBeanNon = new VatBean();
 
@@ -162,12 +164,18 @@ public class PaymentReportPdf {
 			sumAllTotalNoVat = 0;
 			String glCode = "";
 			BigDecimal sumAmountVat10 = BigDecimal.ZERO;
+			BigDecimal sumAmountVat7 = BigDecimal.ZERO;
+			BigDecimal sumAmountVat8 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAll10 = BigDecimal.ZERO;
+			BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+			BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
 			BigDecimal sumAmountVat0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatNon = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
 			int vat10 = 1;
+			int vat8 = 1;
+			int vat7 = 1;
 			int vat0 = 1;
 			int vatNon = 1;
 			int pageNumber = 1;
@@ -180,14 +188,14 @@ public class PaymentReportPdf {
 					sumAmountVatAll10 = sumAmountVatAll10.add(reportPaymentBean.getAmount());
 					vatBean10.setSumAmount(sumAmountVatAll10);
 					vatBean10.setCount(vat10++);
-					vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()));
+					vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
 				}else if(Constants.VATRATE.ZERO.equals(reportPaymentBean.getVatRate())) {
 					sumAmountVat0 = sumAmountVat0.add(reportPaymentBean.getBeforVat());
 					vatBean0.setAmount(sumAmountVat0);
 					sumAmountVatAll0 = sumAmountVatAll0.add(reportPaymentBean.getAmount());
 					vatBean0.setSumAmount(sumAmountVatAll0);
 					vatBean0.setCount(vat0++);
-					vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()));
+					vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
 				}else if(Constants.VATRATE.NON_VATE.equals(reportPaymentBean.getVatRate())) {
 					sumAmountVatNon = sumAmountVatNon.add(reportPaymentBean.getBeforVat());
 					vatBeanNon.setAmount(sumAmountVatNon);
@@ -195,6 +203,20 @@ public class PaymentReportPdf {
 					vatBeanNon.setSumAmount(sumAmountVatAllNon);
 					vatBeanNon.setCount(vatNon++);
 					vatBeanNon.setVatRat(reportPaymentBean.getVatRate());
+				}else if(Constants.VATRATE.EIGHT.equals(reportPaymentBean.getVatRate())) {
+					sumAmountVat8 = sumAmountVat8.add(reportPaymentBean.getBeforVat());
+					vatBean8.setAmount(sumAmountVat8);
+					sumAmountVatAll8 = sumAmountVatAll8.add(reportPaymentBean.getAmount());
+					vatBean8.setSumAmount(sumAmountVatAll8);
+					vatBean8.setCount(vat8++);
+					vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+				}else if(Constants.VATRATE.SEVEN.equals(reportPaymentBean.getVatRate())) {
+					sumAmountVat7 = sumAmountVat7.add(reportPaymentBean.getBeforVat());
+					vatBean7.setAmount(sumAmountVat7);
+					sumAmountVatAll7 = sumAmountVatAll7.add(reportPaymentBean.getAmount());
+					vatBean7.setSumAmount(sumAmountVatAll7);
+					vatBean7.setCount(vat7++);
+					vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
 				}
 				
 				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
@@ -428,6 +450,12 @@ public class PaymentReportPdf {
 //						parameters.put("vatRateAmountNon", String.format("%,.2f", vatBeanNon.getAmount()));
 //						parameters.put("vatRateSumAmountNon", String.format("%,.2f", vatBeanNon.getSumAmount()));
 					}
+					if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
+						vatBeans.add(vatBean7);
+					}
+					if(StringUtils.isNotBlank(vatBean8.getVatRat())) {
+						vatBeans.add(vatBean8);
+					}
 					
 					for(int ii=0; ii<vatBeans.size(); ii++) {
 						parameters.put("chkVat"+ii, "Y");
@@ -461,7 +489,14 @@ public class PaymentReportPdf {
 			BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatNon = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
+			
+			BigDecimal sumAmountVat7 = BigDecimal.ZERO;
+			BigDecimal sumAmountVat8 = BigDecimal.ZERO;
+			BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+			BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
 			int vat10 = 1;
+			int vat8 = 1;
+			int vat7 = 1;
 			int vat0 = 1;
 			int vatNon = 1;
 			int pageNumber = 1;
@@ -474,14 +509,14 @@ public class PaymentReportPdf {
 					sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
 					vatBean10.setSumAmount(sumAmountVatAll10);
 					vatBean10.setCount(vat10++);
-					vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()));
+					vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
 				}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
 					sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
 					vatBean0.setAmount(sumAmountVat0);
 					sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
 					vatBean0.setSumAmount(sumAmountVatAll0);
 					vatBean0.setCount(vat0++);
-					vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()));
+					vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
 				}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
 					sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
 					vatBeanNon.setAmount(sumAmountVatNon);
@@ -489,6 +524,20 @@ public class PaymentReportPdf {
 					vatBeanNon.setSumAmount(sumAmountVatAllNon);
 					vatBeanNon.setCount(vatNon++);
 					vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
+				}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
+					sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
+					vatBean8.setAmount(sumAmountVat8);
+					sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
+					vatBean8.setSumAmount(sumAmountVatAll8);
+					vatBean8.setCount(vat8++);
+					vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+				}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
+					sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
+					vatBean7.setAmount(sumAmountVat7);
+					sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
+					vatBean7.setSumAmount(sumAmountVatAll7);
+					vatBean7.setCount(vat7++);
+					vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
 				}
 				
 				if(i==0) { vatRate = resultSource.get(i).getVatRate(); }
@@ -621,6 +670,12 @@ public class PaymentReportPdf {
 					}
 					if(StringUtils.isNotBlank(vatBeanNon.getVatRat())) {
 						vatBeans.add(vatBeanNon);
+					}
+					if(StringUtils.isNotBlank(vatBean8.getVatRat())) {
+						vatBeans.add(vatBean8);
+					}
+					if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
+						vatBeans.add(vatBean7);
 					}
 					
 					for(int ii=0; ii<vatBeans.size(); ii++) {

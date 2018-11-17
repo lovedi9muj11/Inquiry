@@ -161,6 +161,8 @@ public class Constants {
 		public static final String VATE_WORD = "Vat";
 		public static final String NON_VATE = "Non-VAT";
 		public static final String TEN = "10";
+		public static final String EIGHT = "8";
+		public static final String SEVEN = "7";
 		public static final String ZERO = "0";
 	}
 	

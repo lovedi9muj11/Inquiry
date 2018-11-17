@@ -26,7 +26,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.itextpdf.text.BaseColor;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -38,7 +37,6 @@ import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.draw.DottedLineSeparator;
 import com.lowagie.text.pdf.draw.LineSeparator;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -49,7 +47,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ExportPDFOtherReport;
 import th.co.maximus.bean.ExportPDFReport;
@@ -922,7 +919,11 @@ public class EpisReportController {
 			BigDecimal vatRate = new BigDecimal(colles.getVatRate());
 			BigDecimal resVat =vatRate;
 			BigDecimal beforeVat = total.multiply(vatRate);
-			BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
+			BigDecimal vat = BigDecimal.ZERO;
+			
+			if (beforeVat.compareTo(BigDecimal.ZERO) > 0) {
+				vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
+			}
 
 			BigDecimal beforeVats = total.subtract(vat);
 

@@ -197,15 +197,16 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	}
 
 	@Override
-	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String user) {
+	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String user, String  reasonCode) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" UPDATE RECEIPT_MANUAL payment_m ");
 		sql.append(" SET payment_m.RECORD_STATUS =  ? ");
 		sql.append(" , payment_m.CANCEL_REASON =  ? ");
 		sql.append(" , payment_m.CANCEL_DATE =  ? ");
 		sql.append(" , payment_m.CANCEL_BY =  ? ");
+		sql.append(" , payment_m.CANCEL_REASON_CODE =  ? ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
-		jdbcTemplate.update(sql.toString(), status, cancel, null, user.toUpperCase(), manualId);
+		jdbcTemplate.update(sql.toString(), status, cancel, null, user.toUpperCase(), reasonCode, manualId);
 
 	}
 
