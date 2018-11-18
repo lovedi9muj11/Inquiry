@@ -35,6 +35,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import th.co.maximus.auth.model.UserProfile;
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.bean.VatBean;
@@ -74,6 +75,7 @@ public class PaymentReportPdf {
 		VatBean vatBean7 = new VatBean();
 		VatBean vatBean0 = new VatBean();
 		VatBean vatBeanNon = new VatBean();
+		VatBean vatBean = new VatBean();
 
 		String serviceName = "";
 		String type = "";
@@ -150,6 +152,10 @@ public class PaymentReportPdf {
 		response.setCharacterEncoding("UTF-8");
 		JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
 		
+		List<MasterDataBean> listVat = masterDataService.findByVat();
+		BigDecimal sumAmountVat = BigDecimal.ZERO;
+		BigDecimal sumAmountVatAll = BigDecimal.ZERO;
+		
 		String userPay = "";
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
 			if(CollectionUtils.isNotEmpty(resultSource))serviceCode = resultSource.get(0).getServiceCode();
@@ -173,6 +179,7 @@ public class PaymentReportPdf {
 			BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatNon = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
+			
 			int vat10 = 1;
 			int vat8 = 1;
 			int vat7 = 1;
@@ -181,6 +188,19 @@ public class PaymentReportPdf {
 			int pageNumber = 1;
 			for(ReportPaymentBean reportPaymentBean : resultSource) {
 				
+//				for(int v=0; v<listVat.size(); v++) {
+//					vatBean = new VatBean();
+//					if(Constants.VATRATE.SEVEN.equals(reportPaymentBean.getVatRate())) {
+//						sumAmountVat = sumAmountVat.add(reportPaymentBean.getBeforVat());
+//						vatBean.setAmount(sumAmountVat);
+//						sumAmountVatAll = sumAmountVatAll.add(reportPaymentBean.getAmount());
+//						vatBean.setSumAmount(sumAmountVatAll);
+//						vatBean.setCount(vatNon++);
+//						vatBean.setVatRat(reportPaymentBean.getVatRate());
+//					}else {
+//						
+//					}
+//				}
 				
 				if(Constants.VATRATE.TEN.equals(reportPaymentBean.getVatRate())) {
 					sumAmountVat10 = sumAmountVat10.add(reportPaymentBean.getBeforVat());
@@ -428,27 +448,12 @@ public class PaymentReportPdf {
 					
 					if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
 						vatBeans.add(vatBean10);
-//						parameters.put("chkVat10", "Y");
-//						parameters.put("vatListCount10", vatBean10.getCount());
-//						parameters.put("vatRate10", vatBean10.getVatRat());
-//						parameters.put("vatRateAmount10", String.format("%,.2f", vatBean10.getAmount()));
-//						parameters.put("vatRateSumAmount10", String.format("%,.2f", vatBean10.getSumAmount()));
 					}
 					if(StringUtils.isNotBlank(vatBean0.getVatRat())) {
 						vatBeans.add(vatBean0);
-//						parameters.put("chkVat0", "Y");
-//						parameters.put("vatListCount0", vatBean0.getCount());
-//						parameters.put("vatRate0", vatBean0.getVatRat());
-//						parameters.put("vatRateAmount0", String.format("%,.2f", vatBean0.getAmount()));
-//						parameters.put("vatRateSumAmount0", String.format("%,.2f", vatBean0.getSumAmount()));
 					}
 					if(StringUtils.isNotBlank(vatBeanNon.getVatRat())) {
 						vatBeans.add(vatBeanNon);
-//						parameters.put("chkVatNon", "Y");
-//						parameters.put("vatListCountNon", vatBeanNon.getCount());
-//						parameters.put("vatRateNon", vatBeanNon.getVatRat());
-//						parameters.put("vatRateAmountNon", String.format("%,.2f", vatBeanNon.getAmount()));
-//						parameters.put("vatRateSumAmountNon", String.format("%,.2f", vatBeanNon.getSumAmount()));
 					}
 					if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
 						vatBeans.add(vatBean7);

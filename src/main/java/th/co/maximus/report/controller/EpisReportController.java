@@ -1,7 +1,6 @@
 
 package th.co.maximus.report.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -68,7 +67,6 @@ import th.co.maximus.service.TrsChequeRefManualService;
 import th.co.maximus.service.TrscreDitrefManualService;
 import th.co.maximus.service.TrsmethodManualService;
 
-@SuppressWarnings("deprecation")
 @Controller
 public class EpisReportController {
 	@Autowired
@@ -128,35 +126,35 @@ public class EpisReportController {
 		String JASPER_JRXML_FILENAME = "";
 		if (Constants.DOCTYPE.RF.equals(invObject.getDocType())) {
 			if (invObject.getDiscount().signum() == 0) {
-				if("Non-VAT".equals(invObject.getVatRate())) {
+				if ("Non-VAT".equals(invObject.getVatRate())) {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentNONVAT";
-				}else {
+				} else {
 					JASPER_JRXML_FILENAME = "InvEpisPayment";
 				}
-				
+
 			} else {
-				if("Non-VAT".equals(invObject.getVatRate())) {
+				if ("Non-VAT".equals(invObject.getVatRate())) {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountNONVAT";
-				}else {
+				} else {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscount";
 				}
-				
+
 			}
 		} else {
 			if (invObject.getDiscount().signum() == 0) {
-				if("Non-VAT".equals(invObject.getVatRate())) {
+				if ("Non-VAT".equals(invObject.getVatRate())) {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentPasaulNONVAT";
-				}else{
+				} else {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentPasaul";
 				}
-				
+
 			} else {
-				if("Non-VAT".equals(invObject.getVatRate())) {
+				if ("Non-VAT".equals(invObject.getVatRate())) {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaulNONVAT";
-				}else {
+				} else {
 					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaul";
 				}
-				
+
 			}
 		}
 
@@ -532,7 +530,10 @@ public class EpisReportController {
 
 			BigDecimal beforeVat = total.multiply(vatRate);
 
-			BigDecimal vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
+			BigDecimal vat = BigDecimal.ZERO;
+			if (resVat.compareTo(BigDecimal.ZERO) > 0) {
+				vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
+			}
 
 			BigDecimal beforeVats = total.subtract(vat);
 
@@ -601,22 +602,23 @@ public class EpisReportController {
 			List<InvPaymentOrderTaxBean> collections = reportService.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
 			List<InvPaymentOrderTaxBean> summarryVat = reportService.vatSummarry(creteria, true);
 			List<InvPaymentOrderTaxBean> summarry = reportService.vatSummarry(creteria, false);
-			
+
 			if (collections != null) {
-				InvPaymentOrderTaxBean  a =  previewPaymentPrintOrder(request, response, collections, JASPER_JRXML_FILENAME, creteria);
+				InvPaymentOrderTaxBean a = previewPaymentPrintOrder(request, response, collections,
+						JASPER_JRXML_FILENAME, creteria);
 				response.setContentType("application/pdf");
 				response.setHeader("Content-Disposition", "inline;filename=11222.pdf");
-				createPdf(response,summarryVat,summarry,collections,a);
+				createPdf(response, summarryVat, summarry, collections, a);
 			}
 
 		}
 
-
 	}
 
-	public void createPdf(HttpServletResponse response , List<InvPaymentOrderTaxBean> summarryVat, List<InvPaymentOrderTaxBean> summarry,List<InvPaymentOrderTaxBean> collections ,InvPaymentOrderTaxBean invPaymentOrderTaxBean) throws IOException, DocumentException {
+	public void createPdf(HttpServletResponse response, List<InvPaymentOrderTaxBean> summarryVat,
+			List<InvPaymentOrderTaxBean> summarry, List<InvPaymentOrderTaxBean> collections,
+			InvPaymentOrderTaxBean invPaymentOrderTaxBean) throws IOException, DocumentException {
 		// step 1
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Document document = new Document();
 		PdfPTable table;
 		Paragraph p;
@@ -634,54 +636,76 @@ public class EpisReportController {
 		Font fontTableHead = new Font(courier, 12, Font.NORMAL);
 		Font fontSS = new Font(courier, 8, Font.NORMAL);
 		Font fontEndTable = new Font(courier, 2, Font.NORMAL);
-		Font fontSSS = new Font(courier,4, Font.NORMAL);
+		Font fontSSS = new Font(courier, 4, Font.NORMAL);
 		// step 3
-		String s = "";
 		document.open();
 		// step 4
-			p = new Paragraph(invPaymentOrderTaxBean.getHeadName(),fontHeadNormal);
-		String sum = "       																			                                                    ";
-		String sum1 = "          ";
+		p = new Paragraph(invPaymentOrderTaxBean.getHeadName(), fontHeadNormal);
 		p.setAlignment(Element.ALIGN_CENTER);
 		document.add(p);
-		p = new Paragraph("	หน้า "+(document.getPageNumber()+1) +" จาก "+(document.getPageNumber()+1), fontSmall);
+		p = new Paragraph("	หน้า " + (document.getPageNumber() + 1) + " จาก " + (document.getPageNumber() + 1),
+				fontSmall);
 		p.setAlignment(Element.ALIGN_RIGHT);
 		document.add(p);
 
-		document.add(createParagraphWithSpaces(fontNormal,"บริษัท กสท โทรคมนาคม จำกัด (มหาชน)","%110s", "ระหว่างวันที่ : "+invPaymentOrderTaxBean.getDateForm()+"  ถึง: "+invPaymentOrderTaxBean.getDateTo(),"%110s", "วันเวลาที่พิมพ์ :"+invPaymentOrderTaxBean.getPrintDate()));
-		document.add( new Paragraph(" ", fontSS));
+		document.add(createParagraphWithSpaces(fontNormal, "บริษัท กสท โทรคมนาคม จำกัด (มหาชน)", "%110s",
+				"ระหว่างวันที่ : " + invPaymentOrderTaxBean.getDateForm() + "  ถึง: "
+						+ invPaymentOrderTaxBean.getDateTo(),
+				"%110s", "วันเวลาที่พิมพ์ :" + invPaymentOrderTaxBean.getPrintDate()));
+		document.add(new Paragraph(" ", fontSS));
 //		document.add(createParagraphWithSpaces(fontNormal,"ชื่อสถานประกอบการ :"+invPaymentOrderTaxBean.getBranchArea(),"%84s", "เลขประจำตัวผู้เสียภาษีอากร :"+if(invPaymentOrderTaxBean.getTaxId() != null) {invPaymentOrderTaxBean.getTaxId():"","%70s", ""));
-		document.add( new Paragraph(" ", fontSS));
-		document.add( new Paragraph("สาขาที่  :  "+invPaymentOrderTaxBean.getBranchCodeEmp(), fontNormal));
-		document.add( new Paragraph(" ", fontSS));
+		document.add(new Paragraph(" ", fontSS));
+		document.add(new Paragraph("สาขาที่  :  " + invPaymentOrderTaxBean.getBranchCodeEmp(), fontNormal));
+		document.add(new Paragraph(" ", fontSS));
 		// step 5
 		document.add(ls);
 		table = createFirstTable(fontTableHead);
 		document.add(table);
 		document.add(ls);
 		for (int i = 0; i < collections.size(); i++) {
-			int index = i+1;
-			table = createFirstTable2(fontTableHead,index,collections.get(i));
+			int index = i + 1;
+			table = createFirstTable2(fontTableHead, index, collections.get(i));
 			document.add(table);
 		}
-	
+
 		document.add(ls);
-		document.add( new Paragraph(" ", fontEndTable));
+		document.add(new Paragraph(" ", fontEndTable));
 		document.add(ls);
-		document.add( new Paragraph(" ", fontSSS));
+		document.add(new Paragraph(" ", fontSSS));
 		document.add(ls);
-		p =  new Paragraph("รวมตาม"+ invPaymentOrderTaxBean.getEmpSummaryName(), fontTableHead);
+		p = new Paragraph("รวมตาม" + invPaymentOrderTaxBean.getEmpSummaryName(), fontTableHead);
 		p.setAlignment(Element.ALIGN_MIDDLE);
-	
+
 		for (InvPaymentOrderTaxBean sumvat : summarryVat) {
 			document.add(ls);
-			p =  new Paragraph("รวมอัตรา   "+ sumvat.getVatRate() +"%"+String.format("%237s", 	String.format("%,.2f", sumvat.getBeforeVatSummary().setScale(2, RoundingMode.HALF_DOWN)))+String.format("%30s", String.format("%,.2f", sumvat.getVatSummary().setScale(2, RoundingMode.HALF_DOWN)))+String.format("%30s", String.format("%,.2f", sumvat.getSummarySummary().setScale(2, RoundingMode.HALF_DOWN))), fontTableHead);
+			p = new Paragraph(
+					"รวมอัตรา   " + sumvat.getVatRate() + "%"
+							+ String.format("%237s",
+									String.format("%,.2f",
+											sumvat.getBeforeVatSummary().setScale(2, RoundingMode.HALF_DOWN)))
+							+ String.format("%30s",
+									String.format("%,.2f", sumvat.getVatSummary().setScale(2, RoundingMode.HALF_DOWN)))
+							+ String.format("%30s",
+									String.format("%,.2f",
+											sumvat.getSummarySummary().setScale(2, RoundingMode.HALF_DOWN))),
+					fontTableHead);
 			p.setAlignment(Element.ALIGN_MIDDLE);
 			document.add(p);
-		} 
-		
+		}
+
 		document.add(ls);
-		p =  new Paragraph("รวมทั้งสิ้น        "+String.format("%239s", 	String.format("%,.2f", summarry.get(0).getBeforeVatSummary().setScale(2, RoundingMode.HALF_DOWN)))+String.format("%30s", String.format("%,.2f", summarry.get(0).getVatSummary().setScale(2, RoundingMode.HALF_DOWN)))+String.format("%30s", String.format("%,.2f", summarry.get(0).getSummarySummary().setScale(2, RoundingMode.HALF_DOWN))), fontTableHead);
+		p = new Paragraph(
+				"รวมทั้งสิ้น        "
+						+ String.format("%239s",
+								String.format("%,.2f",
+										summarry.get(0).getBeforeVatSummary().setScale(2, RoundingMode.HALF_DOWN)))
+						+ String.format("%30s",
+								String.format("%,.2f",
+										summarry.get(0).getVatSummary().setScale(2, RoundingMode.HALF_DOWN)))
+						+ String.format("%30s",
+								String.format("%,.2f",
+										summarry.get(0).getSummarySummary().setScale(2, RoundingMode.HALF_DOWN))),
+				fontTableHead);
 		p.setAlignment(Element.ALIGN_MIDDLE);
 		document.add(p);
 		document.add(ls);
@@ -693,9 +717,8 @@ public class EpisReportController {
 //			return out.toByteArray();
 	}
 
-	
-
-	public Paragraph createParagraphWithSpaces(Font font, String value1,String setTab1, String value2,String setTab2, String value3) {
+	public Paragraph createParagraphWithSpaces(Font font, String value1, String setTab1, String value2, String setTab2,
+			String value3) {
 		Paragraph p = new Paragraph();
 		p.setFont(font);
 		p.add(String.format(value1));
@@ -708,74 +731,74 @@ public class EpisReportController {
 	 * Creates our first table
 	 * 
 	 * @return our first table
-	 * @throws DocumentException 
+	 * @throws DocumentException
 	 */
 	public static PdfPTable createFirstTable(Font font) throws DocumentException {
 		PdfPTable table = new PdfPTable(10);
 		table.setWidthPercentage(100f);
 		table.setWidths(new float[] { 2f, 6f, 6f, 8f, 5f, 5f, 5f, 5f, 5f, 5f });
-	
-		PdfPCell cell1 = new PdfPCell(new Phrase("ลำดับ",font));
+
+		PdfPCell cell1 = new PdfPCell(new Phrase("ลำดับ", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("วันเดือนปี",font));
+		cell1 = new PdfPCell(new Phrase("วันเดือนปี", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("เลขที่ใบกำกับภาษี",font));
+		cell1 = new PdfPCell(new Phrase("เลขที่ใบกำกับภาษี", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("ชื่อผู้ซื้อสินค้า / ผู้รับบริการ",font));
+		cell1 = new PdfPCell(new Phrase("ชื่อผู้ซื้อสินค้า / ผู้รับบริการ", font));
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("TAX ID",font));
+		cell1 = new PdfPCell(new Phrase("TAX ID", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("สาขาที่",font));
+		cell1 = new PdfPCell(new Phrase("สาขาที่", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("มูลค่าสินค้าหรือบริการ",font));
+		cell1 = new PdfPCell(new Phrase("มูลค่าสินค้าหรือบริการ", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("จำนวนเงินภาษีมูลค่าเพิ่มL",font));
+		cell1 = new PdfPCell(new Phrase("จำนวนเงินภาษีมูลค่าเพิ่มL", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("จำนวนเงินรวม",font));
+		cell1 = new PdfPCell(new Phrase("จำนวนเงินรวม", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("สถานะ",font));
+		cell1 = new PdfPCell(new Phrase("สถานะ", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase("ลำดับ",font));
+		cell1 = new PdfPCell(new Phrase("ลำดับ", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
@@ -784,76 +807,76 @@ public class EpisReportController {
 
 		return table;
 	}
-	public static PdfPTable createFirstTable2(Font font,int index,InvPaymentOrderTaxBean data) throws DocumentException {
+
+	public static PdfPTable createFirstTable2(Font font, int index, InvPaymentOrderTaxBean data)
+			throws DocumentException {
 		PdfPTable table = new PdfPTable(10);
 		table.setWidthPercentage(100f);
 		table.setWidths(new float[] { 2f, 6f, 6f, 8f, 5f, 5f, 5f, 5f, 5f, 5f });
-	
-		PdfPCell cell1 = new PdfPCell(new Phrase(index+"",font));
+
+		PdfPCell cell1 = new PdfPCell(new Phrase(index + "", font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getDocumentDateReport(),font));
+		cell1 = new PdfPCell(new Phrase(data.getDocumentDateReport(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getDocumentNo(),font));
+		cell1 = new PdfPCell(new Phrase(data.getDocumentNo(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getCustName() ,font));
+		cell1 = new PdfPCell(new Phrase(data.getCustName(), font));
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getTaxId(),font));
+		cell1 = new PdfPCell(new Phrase(data.getTaxId(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getBranchCode(),font));
+		cell1 = new PdfPCell(new Phrase(data.getBranchCode(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getBeforeVatReport(),font));
+		cell1 = new PdfPCell(new Phrase(data.getBeforeVatReport(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getVatReport(),font));
+		cell1 = new PdfPCell(new Phrase(data.getVatReport(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getSummaryReport(),font));
+		cell1 = new PdfPCell(new Phrase(data.getSummaryReport(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-		cell1 = new PdfPCell(new Phrase(data.getPayType(),font));
+		cell1 = new PdfPCell(new Phrase(data.getPayType(), font));
 		cell1.setBorder(PdfPCell.NO_BORDER);
 		cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell1.setFixedHeight(40f);
 		cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell1);
-	
 
 		return table;
 	}
-
 
 //	private static void addCellHead(PdfPTable table, String text, int rowspan,Font font)
 //	{
@@ -864,10 +887,7 @@ public class EpisReportController {
 //	    cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
 //	    table.AddCell(cell);
 //	}
-	private  InvPaymentOrderTaxBean previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response,
-			List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME, HistoryReportBean creteria)
-			throws Exception {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+	private InvPaymentOrderTaxBean previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response, List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
 		List<InvPaymentOrderTaxBean> printCollections = new ArrayList<InvPaymentOrderTaxBean>();
 		InvPaymentOrderTaxBean invObject = (InvPaymentOrderTaxBean) collections.get(0);
 		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
@@ -937,10 +957,10 @@ public class EpisReportController {
 			// BeforeVat and Vat
 			BigDecimal total = colles.getSummary().setScale(2, RoundingMode.HALF_DOWN);
 			BigDecimal vatRate = new BigDecimal(colles.getVatRate());
-			BigDecimal resVat =vatRate;
+			BigDecimal resVat = vatRate;
 			BigDecimal beforeVat = total.multiply(vatRate);
 			BigDecimal vat = BigDecimal.ZERO;
-			
+
 			if (beforeVat.compareTo(BigDecimal.ZERO) > 0) {
 				vat = beforeVat.divide(resVat, 2, RoundingMode.HALF_UP);
 			}
