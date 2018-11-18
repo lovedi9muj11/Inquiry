@@ -128,15 +128,35 @@ public class EpisReportController {
 		String JASPER_JRXML_FILENAME = "";
 		if (Constants.DOCTYPE.RF.equals(invObject.getDocType())) {
 			if (invObject.getDiscount().signum() == 0) {
-				JASPER_JRXML_FILENAME = "InvEpisPayment";
+				if("Non-VAT".equals(invObject.getVatRate())) {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentNONVAT";
+				}else {
+					JASPER_JRXML_FILENAME = "InvEpisPayment";
+				}
+				
 			} else {
-				JASPER_JRXML_FILENAME = "InvEpisPaymentDiscount";
+				if("Non-VAT".equals(invObject.getVatRate())) {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountNONVAT";
+				}else {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscount";
+				}
+				
 			}
 		} else {
 			if (invObject.getDiscount().signum() == 0) {
-				JASPER_JRXML_FILENAME = "InvEpisPaymentPasaul";
+				if("Non-VAT".equals(invObject.getVatRate())) {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentPasaulNONVAT";
+				}else{
+					JASPER_JRXML_FILENAME = "InvEpisPaymentPasaul";
+				}
+				
 			} else {
-				JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaul";
+				if("Non-VAT".equals(invObject.getVatRate())) {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaulNONVAT";
+				}else {
+					JASPER_JRXML_FILENAME = "InvEpisPaymentDiscountPasaul";
+				}
+				
 			}
 		}
 
@@ -163,7 +183,7 @@ public class EpisReportController {
 
 		exportPDFReport.setBeforeVat(invObject.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN));
 
-		if (Integer.parseInt(invObject.getVatRate()) < 0) {
+		if ("Non-VAT".equals(invObject.getVatRate())) {
 			exportPDFReport.setVatRate("(Non-VAT)");
 		} else {
 			exportPDFReport.setVatRate("(VAT " + invObject.getVatRate() + "%)");

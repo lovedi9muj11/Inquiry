@@ -43,8 +43,11 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setBeforVat(paymentBean.getBalanceBeforeTax());
 		paymentInvoiceManualBean.setVatAmount(paymentBean.getVat());
 		paymentInvoiceManualBean.setAmount(paymentBean.getBalanceSummary());
+		if("Non-VAT".equals(paymentBean.getNonVat())) {
+			paymentInvoiceManualBean.setVatRate("Non-VAT");
+		}else {
 			paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
-//		paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
+		}
 		paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
 		paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());
 		paymentInvoiceManualBean.setCustomerSegment("1");
