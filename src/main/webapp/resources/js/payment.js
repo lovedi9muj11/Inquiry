@@ -1936,11 +1936,12 @@ function replaseIndexPriceTotal(str) {
 function checkNonVat() {
 	var vatRate = $("#vatrate").val();
 	
-	if(vatRate === "Non-VAT") {
+	if(vatRate == "Non-VAT") {
 		vatRateResult = 0;
 		vatNanVat = "Non-VAT";
 	}else{
 		vatRateResult = vatRate;
+		vatNanVat = "";
 	}
 }
 
