@@ -84,7 +84,6 @@ $(document).ready(function() {
 			$("#balanceOfTaxPrice").val(parseFloat(0).toFixed(2));
 			$("#balanceSummary").val(parseFloat(0).toFixed(2));
 			$("#balanceOfTaxPrice").on( "keyup",  function() {
-				vateRate()
 				var balanceOfTaxPrice = $("#balanceOfTaxPrice").val();
 				if(balanceOfTaxPrice == ""){
 					balanceOfTaxPrice = parseFloat(0);
@@ -1988,7 +1987,12 @@ function inputAmount(){
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(bable * parseFloat(vatRQ));
-	vat = parseFloat(summaryT / vatCo);
+	if(summaryT == 0 && vatCo == 0){
+		vat = parseFloat(0);
+	}else{
+		vat = summaryT / vatCo;
+	}
+//	vat = parseFloat(summaryT / vatCo);
 	
 	
 	beforeVat = parseFloat(bable - vat);
