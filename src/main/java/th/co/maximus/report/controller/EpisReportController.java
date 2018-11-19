@@ -515,11 +515,11 @@ public class EpisReportController {
 			printCollections2.add(jp);
 		}
 
-		if (printCollections.get(0).getVatRate().equals("nonVat")) {
+		if (printCollections.get(0).getVatRate().equals("Non-VAT")) {
 			exportPDFReport.setVatRateCheck("N");
 			exportPDFReport.setSentStringHeader("N");
 			exportPDFReport.setDiscountSpecialCheck("N");
-
+			
 		} else {
 			BigDecimal total = printCollections.get(0).getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)
 					.add(spDis.setScale(2, RoundingMode.HALF_DOWN));
