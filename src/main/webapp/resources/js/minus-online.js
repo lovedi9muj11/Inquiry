@@ -156,7 +156,7 @@ function confirmDialog(){
 	
 	for(var i = 0; i < $('input[name="check"]:checked').length; i++){
 		var value = $($('input[name="check"]:checked')[i]).val();
-		dataSend = {"manualId" : value};
+		dataSend = {"manualId" : value , "recordStatus":"A"};
 		data.push(dataSend);
 	}
 	$.ajax({
