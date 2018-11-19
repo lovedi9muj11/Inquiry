@@ -237,7 +237,7 @@
 														for="formGroupInputLarge">VAT RATE : </label>
 													<div class="col-sm-2">
 														<select class="form-control" id="vatrate" name="vatrate"
-															onchange="findvatAmount()">
+															onchange="findvatAmount()" disabled="">
 														</select>
 													</div>
 												</div>

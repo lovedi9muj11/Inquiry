@@ -31,14 +31,14 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Date date = new Date();
-		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd 00:00:00");
-		String da = dt.format(paymentBean.getDeadlines());
-		Date da1 = dt.parse(da);
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd 00:00.00.000");
+//		String da = dt.format(paymentBean.getDeadlines());
+		dt.format(date);
 		int userId=0;
 		if(StringUtils.isNotBlank(paymentBean.getInvoiceNo())){
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			paymentManualBean.setPaidDate(new Timestamp(da1.getTime()));
+			paymentManualBean.setPaidDate(new Timestamp(date.getTime()));
 			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());

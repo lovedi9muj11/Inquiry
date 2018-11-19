@@ -539,7 +539,7 @@ function findvatAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(vatRQ);
+	var vatCo = parseFloat(vatSummary(vatRQ));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(result * parseFloat(vatRQ));
@@ -624,7 +624,7 @@ function vatAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(vaq);
+	var vatCo = parseFloat(vatSummary(vaq));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(result * parseFloat(vatRQ));
@@ -1945,16 +1945,18 @@ function checkNonVat() {
 	}
 }
 
-//function vatSummary(vatRate){
-//	if(vatRate){
-//		if("Non-VAT" == vatRate){
-//			return  parseFloat(0);
-//		}else{
-//			return parseFloat(vatRate);
-//		}
-//	}
-//
-//}
+function vatSummary(vatRate){
+	if(vatRate){
+		if("Non-VAT" == vatRate){
+			return  parseFloat(0);
+		}else if(vatRate.length > 1){
+				return "1"+vatRate;
+		}else{
+			return "10"+vatRate;
+		}
+	}
+
+}
 
 function inputAmount(){
 	var dataCheck = parseFloat($("#balanceSumShow").val()).toFixed(2).replace(/,/g, "");
@@ -1984,7 +1986,7 @@ function inputAmount(){
 	var vat = parseFloat(0);
 	var summary = parseFloat(0);
 	var summaryT = parseFloat(0);
-	var vatCo = parseFloat(vatq);
+	var vatCo = parseFloat(vatSummary(vatq));
 	var vatRq = parseFloat(0);
 	
 	summaryT = parseFloat(bable * parseFloat(vatRQ));
