@@ -15,6 +15,8 @@ public interface HistoryPaymentService {
 	
 	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNo(String accountNo,String payType) throws Exception;
 	
+	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNoSearch(String accountNo,String payType) throws Exception;
+	
 	public List<PaymentMMapPaymentInvBean> findPayOrder(HistorySubFindBean paymentInvBean);
 	
 	public List<PaymentMMapPaymentInvBean> findPayOrderFulln(HistorySubFindBean paymentInvBean);
