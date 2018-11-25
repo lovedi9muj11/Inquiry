@@ -46,6 +46,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ExportPDFOtherReport;
 import th.co.maximus.bean.ExportPDFReport;
@@ -600,15 +601,14 @@ public class EpisReportController {
 		if (creteria != null) {
 			String JASPER_JRXML_FILENAME = "InvPaymentOrderTax";
 			List<InvPaymentOrderTaxBean> collections = reportService.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
-			List<InvPaymentOrderTaxBean> summarryVat = reportService.vatSummarry(creteria, true);
-			List<InvPaymentOrderTaxBean> summarry = reportService.vatSummarry(creteria, false);
+//			List<InvPaymentOrderTaxBean> summarryVat = reportService.vatSummarry(creteria, true);
+//			List<InvPaymentOrderTaxBean> summarry = reportService.vatSummarry(creteria, false);
 
 			if (collections != null) {
-				InvPaymentOrderTaxBean a = previewPaymentPrintOrder(request, response, collections,
-						JASPER_JRXML_FILENAME, creteria);
-				response.setContentType("application/pdf");
-				response.setHeader("Content-Disposition", "inline;filename=11222.pdf");
-				createPdf(response, summarryVat, summarry, collections, a);
+				previewPaymentPrintOrder(request, response, collections,						JASPER_JRXML_FILENAME, creteria);
+//				response.setContentType("application/pdf");
+//				response.setHeader("Content-Disposition", "inline;filename=11222.pdf");
+//				createPdf(response, summarryVat, summarry, collections, a);
 			}
 
 		}
@@ -887,11 +887,11 @@ public class EpisReportController {
 //	    cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
 //	    table.AddCell(cell);
 //	}
-	private InvPaymentOrderTaxBean previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response, List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
+	private void previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response, List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
 		List<InvPaymentOrderTaxBean> printCollections = new ArrayList<InvPaymentOrderTaxBean>();
 		InvPaymentOrderTaxBean invObject = (InvPaymentOrderTaxBean) collections.get(0);
 		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
-
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:ss");
 		SimpleDateFormat dtt = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
@@ -1024,21 +1024,21 @@ public class EpisReportController {
 		exportPDFReport
 				.setSummarySummaryStr(String.format("%,.2f", summarySummary.setScale(2, RoundingMode.HALF_DOWN)));
 		collections = printCollections;
-		return exportPDFReport;
+//		return exportPDFReport;
 
-//		parameters.put("ReportSource", exportPDFReport);
+		parameters.put("ReportSource", exportPDFReport);
 
-//		response.setContentType("application/pdf");
-//		response.setCharacterEncoding("UTF-8");
-//		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
-//				+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
-//		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
-//				? new JRBeanCollectionDataSource(printCollections)
-//				: new JREmptyDataSource();
-//		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
-//		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-//
-//		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+		response.setContentType("application/pdf");
+		response.setCharacterEncoding("UTF-8");
+		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
+				+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
+		JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
+				? new JRBeanCollectionDataSource(printCollections)
+				: new JREmptyDataSource();
+		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+
+		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
 
 	public static final String convertDateString(String str) {

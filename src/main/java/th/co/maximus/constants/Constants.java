@@ -117,6 +117,7 @@ public class Constants {
 	public static class CLEARING {
 		public static final String STATUS_Y = "Y";
 		public static final String STATUS_N = "N";
+		public static final String STATUS_ERROR = "E";
 	}
 	
 	public static class USER {

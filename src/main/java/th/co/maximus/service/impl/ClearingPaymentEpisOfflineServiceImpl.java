@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.TmpInvoiceBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.CancelPaymentDTO;
 import th.co.maximus.dao.CancelPaymentDTO.Receipt;
 import th.co.maximus.dao.DeductionManualDao;
@@ -233,6 +234,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 					}
 					objMessage.add(obj);
 				}
+				
 			}
 			
 
@@ -248,7 +250,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		HashMap<String, Object> result = new HashMap<>();
 		List<PaymentMMapPaymentInvBean> list = new ArrayList<>();
 		List<PaymentDTO> dtoList = new ArrayList<>();
-		list = cancelPaymentService.findAllCancelPayments("N");
+		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
@@ -286,12 +288,12 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						
 						postUrl = url.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=EPIS5&pw=password");
 						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-						updateStatusClearing(offlineResultModel.getManualId(), "Y");
+						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
 
 					}
 
 				} else {
-					updateStatusClearing(offlineResultModel.getManualId(), "N");
+					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
 				}
 			}
 
