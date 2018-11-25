@@ -75,6 +75,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setDocType(paymentBean.getDocType());
 			
 			paymentManualBean.setPaytype("F");
+			paymentManualBean.setCustomerGroup(paymentBean.getUserGroup());
 /*			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");
 			}else{

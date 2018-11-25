@@ -37,6 +37,7 @@ public class PaymentMMapPaymentInvBean {
 	private boolean chkCancel;
 	private String serviceName;
 	private String customerGroup;
+	private String customerGroupName;
 	private String userApproved;
 	private BigDecimal discountBeforVat;
 	private BigDecimal discountSpecial;
@@ -337,6 +338,14 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setReasonDesc(String reasonDesc) {
 		this.reasonDesc = reasonDesc;
+	}
+
+	public String getCustomerGroupName() {
+		return customerGroupName;
+	}
+
+	public void setCustomerGroupName(String customerGroupName) {
+		this.customerGroupName = customerGroupName;
 	}
 	
 	
