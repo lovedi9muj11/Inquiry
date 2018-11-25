@@ -98,6 +98,8 @@ public class Constants {
 		public static final String IBACSS_CANCEL_REASON = "IBACSS_CANCEL_REASON";
 		public static final String OTHER_CANCEL_REASON = "OTHER_CANCEL_REASON";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
+		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
+		public static final String USER_GROUP = "UserGoup";
 		
 		public static class KEYCODE {
 			public static final String TRIGGER_MS = "Trigger_MS";
@@ -117,6 +119,7 @@ public class Constants {
 	public static class CLEARING {
 		public static final String STATUS_Y = "Y";
 		public static final String STATUS_N = "N";
+		public static final String STATUS_ERROR = "E";
 	}
 	
 	public static class USER {
