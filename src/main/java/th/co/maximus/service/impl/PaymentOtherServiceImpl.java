@@ -64,7 +64,9 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 //				}
 //				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 //				paymentBean.setDocumentNo(code);
-				if(Constants.PAYMENT_OTHER.NON_VATE.equals(paymentBean.getVatrate())) {
+				
+//				if(Constants.PAYMENT_OTHER.NON_VATE.equals(paymentBean.getVatrate())) {
+				if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
 					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
 					if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
