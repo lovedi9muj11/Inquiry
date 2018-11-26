@@ -35,7 +35,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import th.co.maximus.auth.model.UserProfile;
-import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.bean.VatBean;
@@ -69,13 +68,18 @@ public class PaymentReportPdf {
 		int index = 1;
 		int sumCount = 0;
 		
+		BigDecimal vatRateAmountSum = BigDecimal.ZERO;
+		BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
+		double sumAllVatSum = 0.00;
+		int vatListCountSum = 0;
+		
 		List<VatBean> vatBeans = new ArrayList<VatBean>();
 		VatBean vatBean10 = new VatBean();
 		VatBean vatBean8 = new VatBean();
 		VatBean vatBean7 = new VatBean();
 		VatBean vatBean0 = new VatBean();
 		VatBean vatBeanNon = new VatBean();
-		VatBean vatBean = new VatBean();
+//		VatBean vatBean = new VatBean();
 
 		String serviceName = "";
 		String type = "";
@@ -152,9 +156,9 @@ public class PaymentReportPdf {
 		response.setCharacterEncoding("UTF-8");
 		JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
 		
-		List<MasterDataBean> listVat = masterDataService.findByVat();
-		BigDecimal sumAmountVat = BigDecimal.ZERO;
-		BigDecimal sumAmountVatAll = BigDecimal.ZERO;
+//		List<MasterDataBean> listVat = masterDataService.findByVat();
+//		BigDecimal sumAmountVat = BigDecimal.ZERO;
+//		BigDecimal sumAmountVatAll = BigDecimal.ZERO;
 		
 		String userPay = "";
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
@@ -349,6 +353,7 @@ public class PaymentReportPdf {
 					parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 					parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 					sumAllVatUser += sumAllVat0;
+					sumAllVatSum += sumAllVat0;
 					sumAllTotalUser += sumAllTotal;
 					sumAllTotalNoVatUser += sumAllTotalNoVat;
 					
@@ -468,6 +473,19 @@ public class PaymentReportPdf {
 						parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
 						parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
 						parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+						
+						vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
+						vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
+						vatListCountSum += vatBeans.get(ii).getCount();
+						if(ii==(vatBeans.size()-1)) {
+							parameters.put("chkSumLast"+(ii+1), "Y");
+							parameters.put("chkVat"+(ii+1), "Y");
+							parameters.put("vatListCount"+(ii+1), vatListCountSum);
+							parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
+							parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+							parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
+							parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
+						}
 					}
 					
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
@@ -648,6 +666,7 @@ public class PaymentReportPdf {
 					parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 					parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 					sumAllVatUser += sumAllVat0;
+					sumAllVatSum += sumAllVat0;
 					sumAllTotalUser += sumAllTotal;
 					sumAllTotalNoVatUser += sumAllTotalNoVat;
 					parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
@@ -683,12 +702,30 @@ public class PaymentReportPdf {
 						vatBeans.add(vatBean7);
 					}
 					
+//					BigDecimal vatRateAmountSum = BigDecimal.ZERO;
+//					BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
+//					int vatListCountSum = 0;
+//					BigDecimal vatRateAmountSum = BigDecimal.ZERO;
+					
 					for(int ii=0; ii<vatBeans.size(); ii++) {
 						parameters.put("chkVat"+ii, "Y");
 						parameters.put("vatListCount"+ii, vatBeans.get(ii).getCount());
 						parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
 						parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
 						parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+						
+						vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
+						vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
+						vatListCountSum += vatBeans.get(ii).getCount();
+						if(ii==(vatBeans.size()-1)) {
+							parameters.put("chkSumLast"+(ii+1), "Y");
+							parameters.put("chkVat"+(ii+1), "Y");
+							parameters.put("vatListCount"+(ii+1), vatListCountSum);
+							parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
+							parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+							parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
+							parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
+						}
 					}
 					
 					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();

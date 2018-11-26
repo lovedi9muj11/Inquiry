@@ -68,6 +68,7 @@ public class Constants {
 		
 		public final static String HEARDER_DATE = "ประจำวันที่";
 		public final static String HEARDER_DATE_TIME = "วันเวลาที่พิมพ์";
+		public final static String SUM_TH = "รวมทั้งสิ้น : ";
 	}
 	public static class dataUser {
 		public static final String BRANCHAREA = "1704";

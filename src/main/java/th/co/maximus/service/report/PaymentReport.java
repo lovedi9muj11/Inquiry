@@ -1,5 +1,6 @@
 package th.co.maximus.service.report;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,14 +15,20 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.model.UserBean;
+import th.co.maximus.service.MasterDataService;
 
 @Service("paymentReport")
 public class PaymentReport extends BaseExcelRptService {
+	
+	@Autowired
+	MasterDataService masterDataService;
 	
 	Locale localeTH = new Locale("th", "TH");
 	Locale localeEN = new Locale("en", "EN");
@@ -123,6 +130,7 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell10 = row.createCell(10);
 				 Cell cell11 = row.createCell(11);
 				 Cell cell12 = row.createCell(12);
+				 Cell cell13 = row.createCell(13);
 				 
 				 cell.setCellValue(index);
 				 cell1Add.setCellValue(serviceName);
@@ -137,8 +145,8 @@ public class PaymentReport extends BaseExcelRptService {
 				 else {cell5.setCellValue(resultReportPayment.getServiceName());}}else {cell3.setCellValue("");}
 				 
 				 cell6.setCellValue(resultReportPayment.getPaymentMethod());
-//				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
-				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNoEx())?resultReportPayment.getRefNoEx():"");
+				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
+//				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNoEx())?resultReportPayment.getRefNoEx():"");
 				 cell8.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
 				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
 				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
@@ -148,6 +156,14 @@ public class PaymentReport extends BaseExcelRptService {
 					 cell11.setCellValue("ยกเลิก");
 				 }
 				 cell12.setCellValue(resultReportPayment.getCreateBy());
+				 
+				 // gen name surname
+				 try {
+					 UserBean userBean =  masterDataService.findByUsername(resultReportPayment.getCreateBy());
+					 cell13.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				 
 				 cell.setCellStyle(txtTableCenter);
 				 cell1Add.setCellStyle(txtCenterTable);
@@ -163,6 +179,7 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell10.setCellStyle(txtCenterDecimalRight);
 				 cell11.setCellStyle(txtTableCenter);
 				 cell12.setCellStyle(txtTableCenter);
+				 cell13.setCellStyle(txtTableCenter);
 //				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
 				 if(Constants.Status.ACTIVE.equals(resultReportPayment.getStatus())) {
