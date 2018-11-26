@@ -40,27 +40,27 @@ public class ReciptNoGenCode {
 					.append(" 00:00:00.000000' ");
 			sql.append(" AND pm.CREATE_DATE <= ' ").append(convertDateString(date.toString()))
 					.append(" 23:59:59.999999' ");
-//			sql.append(" AND pm.DOCTYPE = ' ").append(docType).append(" '");
+			sql.append(" AND pm.DOCTYPE = '").append(docType).append("'");
 			result = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
 		} catch (Exception e) {
 			String zeron = "";
 			if(result >9) {
-				zeron ="00"+(result);
-//				zeron ="00"+(result+1);
+//				zeron ="00"+(result);
+				zeron ="00"+(result+1);
 			}else {
-				zeron ="000"+(result);
-//				zeron ="000"+(result+1);
+//				zeron ="000"+(result);
+				zeron ="000"+(result+1);
 			}
 			String codeName = nameCode+branArea+posNo + docType+dates+zeron;		
 			return codeName;
 		}
 		String zeron = "";
 		if(result >9) {
-			zeron ="00"+(result);
-//			zeron ="00"+(result+1);
+//			zeron ="00"+(result);
+			zeron ="00"+(result+1);
 		}else {
-			zeron ="000"+(result);
-//			zeron ="000"+(result+1);
+//			zeron ="000"+(result);
+			zeron ="000"+(result+1);
 		}
 		String codeName = nameCode+branArea+posNo + docType+dates+zeron;		
 		return codeName;
