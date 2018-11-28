@@ -58,6 +58,8 @@ public class PaymentReport extends BaseExcelRptService {
 		String serviceName = "";
 		int rowServiceOther = 4;
 		int rowCellServiceOther = 0;
+//		int rowServiceOther = 3;
+//		int rowCellServiceOther = 0;
 		
 		if(CollectionUtils.isNotEmpty(result)) {
 			if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {
@@ -66,6 +68,8 @@ public class PaymentReport extends BaseExcelRptService {
 				 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
 				 rowServiceOther = 3;
 				 rowCellServiceOther = 4;
+//				 rowServiceOther = 2;
+//				 rowCellServiceOther = 3;
 			 }
 		}
 		
@@ -91,10 +95,10 @@ public class PaymentReport extends BaseExcelRptService {
 		 agency.setCellValue("หน่วยงานรับชำระ  :  "+ criteria.getMachinePaymentName());
 		 agency.setCellStyle(txtCenterBor);
 		 
-		 Row row3 = sh.getRow(3);
-		 Cell user = row3.getCell(0);
-		 user.setCellValue("เจ้าหน้าที่  :  "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
-		 user.setCellStyle(txtCenterBor);
+//		 Row row3 = sh.getRow(3);
+//		 Cell user = row3.getCell(0);
+//		 user.setCellValue("เจ้าหน้าที่  :  "+ criteria.getUser().concat(" ".concat(criteria.getFirstName().concat(" ".concat(criteria.getLastName())))));
+//		 user.setCellStyle(txtCenterBor);
 		 
 
 		 Row row4 = sh.getRow(rowServiceOther);

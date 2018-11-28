@@ -38,11 +38,13 @@
 				<sec:authorize access="hasAuthority('SUP')">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-3 control-label text-right">วันที่ชำระ :</label>
-							<div class='col-md-3'>
+							<label class="col-md-4 control-label text-right">วันที่ชำระ :</label>
+							<div class='col-md-4'>
 								<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
 							</div>
-							<label class="col-md-2 control-label text-right">เริ่มเวลา :</label>
+						</div>
+						<div class="form-group col-md-6">
+						<label class="col-md-2 control-label text-right">เริ่มเวลา :</label>
 							<div class="col-md-2">
 								<select class="form-control" name="dateFromHour" id="dateFromHour">
 									<option value="00">00</option>
@@ -86,9 +88,8 @@
 							<div class="col-md-2"></div>
                                 <label class="col-md-10 error"> <font color="red">วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด</font></label>
                             </div>
-						</div>
-						<div class="form-group col-md-6">
-							<label class="col-md-5 control-label text-right">ถึงเวลา :</label>
+                            
+							<label class="col-md-2 control-label text-right">ถึงเวลา :</label>
 							<div class="col-md-2">
 								<select class="form-control" name="dateToHour" id="dateToHour">
 									<option value="00">00</option>
@@ -138,11 +139,13 @@
 					<sec:authorize access="hasAuthority('USER')">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-3 control-label text-right">วันที่ชำระ :</label>
-							<div class='col-md-3'>
+							<label class="col-md-4 control-label text-right">วันที่ชำระ :</label>
+							<div class='col-md-4'>
 								<input type='date' class="form-control" id="dateFrom" name="dateFrom" disabled/>
 							</div>
-							<label class="col-md-2 control-label text-right">เริ่มเวลา :</label>
+						</div>
+						<div class="form-group col-md-6">
+						<label class="col-md-2 control-label text-right">เริ่มเวลา :</label>
 							<div class="col-md-2">
 								<select class="form-control" name="dateFromHour" id="dateFromHour" disabled>
 									<option value="00">00</option>
@@ -185,9 +188,8 @@
 							<div class="col-md-2"></div>
                                 <label class="col-md-10 error"> <font color="red">วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด</font></label>
                             </div>
-						</div>
-						<div class="form-group col-md-6">
-							<label class="col-md-5 control-label text-right">ถึงเวลา :</label>
+                            
+							<label class="col-md-2 control-label text-right">ถึงเวลา :</label>
 							<div class="col-md-2">
 								<select class="form-control" name="dateToHour" id="dateToHour" disabled>
 									<option value="00">00</option>
@@ -236,13 +238,13 @@
 					
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-3 control-label text-right">เครื่องที่รับชำระ:</label>
+							<label class="col-md-4 control-label text-right">เครื่องที่รับชำระ:</label>
 							<div class="col-md-5">
 								<input type="text" id="machinePaymentName" name="machinePaymentName" value="" class="form-control" disabled/>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<label class="col-md-5 control-label text-right">เจ้าหน้าที่:</label>
+							<label class="col-md-2 control-label text-right">เจ้าหน้าที่:</label>
 							<div class="col-md-5">
 								<select class="form-control" id="authorities" name="authorities"></select>
 							</div>
