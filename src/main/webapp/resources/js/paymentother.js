@@ -621,6 +621,7 @@ function submitForm() {
 		"paymentTranPrice" : listpaymentTranPriceRQ,
 		"inputServiceDepartment":$("#inputServiceDepartment").val()
 	}
+	document.getElementById("submitFormPayment").disabled = true;
 
 	$.ajax({
 		type : "POST",

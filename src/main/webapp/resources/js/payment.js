@@ -875,6 +875,9 @@ function submitForm(){
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	,
 	}
+	
+	
+	document.getElementById("submitFormPayment").disabled = true;
 		 
 	$.ajax({
         type: "POST",

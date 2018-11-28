@@ -109,7 +109,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 		BigDecimal vat = new BigDecimal(7);
 		
 		amount = amount.multiply(vat);
-		amount = amount.divide(new BigDecimal(107),RoundingMode.HALF_UP);
+		amount = amount.divide(new BigDecimal(107),4,RoundingMode.UP);
 		
 		return amount;
 	}
