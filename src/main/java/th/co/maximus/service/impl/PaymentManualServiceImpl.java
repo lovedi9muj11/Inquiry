@@ -63,7 +63,7 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			
 			
 			
-			paymentManualBean.setVatAmount(calVatAmount(paymentManualBean.getAmount()));
+			paymentManualBean.setVatAmount(calVatAmount(paymentManualBean.getAmount(),paymentBean.getVatrate()));
 			paymentManualBean.setSource(Constants.dataUser.SOURCE);
 			paymentManualBean.setClearing("N");
 			paymentManualBean.setRemark(paymentBean.getRemark());
@@ -105,11 +105,16 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 
 
 	@Override
-	public BigDecimal calVatAmount(BigDecimal amount) {
-		BigDecimal vat = new BigDecimal(7);
+	public BigDecimal calVatAmount(BigDecimal amount,String vat) {
+		BigDecimal vats = new BigDecimal(0);
+		if(vat.equals("NON VAT")) {
+			vats = new BigDecimal(0);
+		}else {
+			vats = new BigDecimal(vat);
+		}
 		
-		amount = amount.multiply(vat);
-		amount = amount.divide(new BigDecimal(107),4,RoundingMode.UP);
+		amount = amount.multiply(vats);
+		amount = amount.divide((new BigDecimal(100).add(vats)),4,RoundingMode.UP);
 		
 		return amount;
 	}

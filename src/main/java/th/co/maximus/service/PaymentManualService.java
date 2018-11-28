@@ -10,7 +10,7 @@ import th.co.maximus.payment.bean.PaymentFirstBean;
 public interface PaymentManualService {
 	
 	public int insertPaymentManual(PaymentFirstBean paymentBean)throws ParseException;
-	public BigDecimal calVatAmount(BigDecimal amount);
+	public BigDecimal calVatAmount(BigDecimal amount , String vat);
 	
 	List<PaymentManualBean> PaymentManualAll();
 
