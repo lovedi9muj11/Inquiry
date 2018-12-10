@@ -149,6 +149,7 @@ public class PaymentReportPdf {
 		Date dates = new Date();
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
+		UserBean beanRole = masterDataService.findByUsernameFromRole(bean.getRoleId());
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
 		// read and export pdf
@@ -162,9 +163,14 @@ public class PaymentReportPdf {
 		
 		String userPay = "";
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
-			if(CollectionUtils.isNotEmpty(resultSource))serviceCode = resultSource.get(0).getServiceCode();
 			
-			if(CollectionUtils.isNotEmpty(resultSource))departCode = resultSource.get(0).getDepartment();
+			String userPayment = "";
+			String userPaymentOld = "";
+			
+			if(CollectionUtils.isNotEmpty(resultSource)) {serviceCode = resultSource.get(0).getServiceCode(); departCode = resultSource.get(0).getDepartment(); userPayment = resultSource.get(0).getCreateBy();}
+			
+			UserBean beanSup = new UserBean();
+//			if(CollectionUtils.isNotEmpty(resultSource))departCode = resultSource.get(0).getDepartment();
 			
 			int count = 0;
 			int countRow = 0;
@@ -243,31 +249,107 @@ public class PaymentReportPdf {
 					vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
 				}
 				
-				if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
-					if(departCode.equals(reportPaymentBean.getDepartment())) {
-						if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
-							sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
-							sumAllTotal += reportPaymentBean.getAmount().doubleValue();
-							sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
-						}
-						
-						if(count==0) {
-							userPay = reportPaymentBean.getCreateBy();
-						}else {
-							if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
-								String comma = "";
-								
-								if(StringUtils.isNotBlank(userPay))comma=", ";
-								
-								userPay = userPay.concat(comma).concat(reportPaymentBean.getCreateBy());
+				if(userPayment.equals(reportPaymentBean.getCreateBy())) {
+					userPaymentOld = userPayment;
+					
+					if(serviceCode.equals(reportPaymentBean.getServiceCode())) {
+						if(departCode.equals(reportPaymentBean.getDepartment())) {
+							if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
+								sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+								sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+								sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
 							}
+							
+							if(count==0) {
+								userPay = reportPaymentBean.getCreateBy();
+							}else {
+								if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
+									String comma = "";
+									
+									if(StringUtils.isNotBlank(userPay))comma=", ";
+									
+									userPay = userPay.concat(comma).concat(reportPaymentBean.getCreateBy());
+								}
+							}
+							count++;
+							
+							reportPaymentBean.setManualIdStr((countRow+1)+"");
+							glCode = reportPaymentBean.getServiceName().split(" ")[0];
+							resultSources.add(reportPaymentBean);
+						}else {
+							
+							beanSup = masterDataService.findByUsername(userPaymentOld);
+							
+							parameters = new HashMap<String, Object>();
+							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+							parameters.put("posNo", posNo);
+							parameters.put("accountCode", "accountCode");
+							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+							parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+							parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+							parameters.put("staff", criteria.getUser());
+							parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
+							parameters.put("serviceNameHead", serviceName);
+
+							parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+							parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+							parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+							sumAllVatUser += sumAllVat0;
+							sumAllTotalUser += sumAllTotal;
+							sumAllTotalNoVatUser += sumAllTotalNoVat;
+							
+							parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+							parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+							parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+							parameters.put("summaryVat0GL", String.format("%,.2f", sumAllVat0));
+							parameters.put("summaryVatGL", String.format("%,.2f", sumAllTotal));
+							parameters.put("summaryNoVatGL", String.format("%,.2f", sumAllTotalNoVat));
+							parameters.put("serviceListCount", countRow);
+							parameters.put("glListCount", countRow);
+							parameters.put("departmentListCount", countRow);
+							parameters.put("serviceName", serviceName);
+							parameters.put("glName", glCode);
+							parameters.put("departmentName", departCode);
+							
+							parameters.put("userPayment", "");
+							parameters.put("userListCount", "");
+							parameters.put("sumCount", "");
+							parameters.put("sumAllVatUser", "");
+							parameters.put("sumAllTotalUser", "");
+							parameters.put("sumAllTotalNoVatUser", "");
+							parameters.put("pageNumber", pageNumber);
+							
+//							userPay = "";
+							glCode = reportPaymentBean.getServiceName().split(" ")[0];
+							
+							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+							JasperPrint jasperPrint = new JasperPrint();
+							
+							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+							jasperPrints.add(jasperPrint);
+							
+							resultSources = new ArrayList<ReportPaymentBean>();
+							countRow = 0;
+							count = 0;
+							reportPaymentBean.setManualIdStr((countRow+1)+"");
+							resultSources.add(reportPaymentBean);
+							
+							sumAllVat0 = 0;
+							sumAllTotal = 0;
+							sumAllTotalNoVat = 0;
+							pageNumber++;
+							
+							if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
+								sumAllVat0 += reportPaymentBean.getAmount().doubleValue() - reportPaymentBean.getBeforVat().doubleValue();
+								sumAllTotal += reportPaymentBean.getAmount().doubleValue();
+								sumAllTotalNoVat += reportPaymentBean.getBeforVat().doubleValue();
+							}
+							
 						}
-						count++;
 						
-						reportPaymentBean.setManualIdStr((countRow+1)+"");
-						glCode = reportPaymentBean.getServiceName().split(" ")[0];
-						resultSources.add(reportPaymentBean);
-					}else {
+					} else {
+						
+						beanSup = masterDataService.findByUsername(userPaymentOld);
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
@@ -277,7 +359,7 @@ public class PaymentReportPdf {
 						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 						parameters.put("staff", criteria.getUser());
-						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+						parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 						parameters.put("serviceNameHead", serviceName);
 
 						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
@@ -300,13 +382,17 @@ public class PaymentReportPdf {
 						parameters.put("glName", glCode);
 						parameters.put("departmentName", departCode);
 						
-						parameters.put("userPayment", "");
-						parameters.put("userListCount", "");
+						parameters.put("userPayment", userPaymentOld);
+						parameters.put("userListCount", countRow);
 						parameters.put("sumCount", "");
 						parameters.put("sumAllVatUser", "");
 						parameters.put("sumAllTotalUser", "");
 						parameters.put("sumAllTotalNoVatUser", "");
 						parameters.put("pageNumber", pageNumber);
+						
+						parameters.put("sumAllVatUser1", String.format("%,.2f", sumAllVat0));
+						parameters.put("sumAllTotalUser1", String.format("%,.2f", sumAllTotal));
+						parameters.put("sumAllTotalNoVatUser1", String.format("%,.2f", sumAllTotalNoVat));
 						
 //						userPay = "";
 						glCode = reportPaymentBean.getServiceName().split(" ")[0];
@@ -335,8 +421,9 @@ public class PaymentReportPdf {
 						}
 						
 					}
+				} else {
 					
-				}else {
+					beanSup = masterDataService.findByUsername(userPaymentOld);
 					
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
@@ -346,7 +433,7 @@ public class PaymentReportPdf {
 					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 					parameters.put("staff", criteria.getUser());
-					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+					parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 					parameters.put("serviceNameHead", serviceName);
 
 					parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
@@ -370,9 +457,12 @@ public class PaymentReportPdf {
 					parameters.put("glName", glCode);
 					parameters.put("departmentName", departCode);
 					
-					parameters.put("userPayment", "");
-					parameters.put("userListCount", "");
+					parameters.put("userPayment", userPaymentOld);
+					parameters.put("userListCount", resultSources.size());
 					parameters.put("sumCount", "");
+					parameters.put("sumAllVatUser1", String.format("%,.2f", sumAllVatUser));
+					parameters.put("sumAllTotalUser1", String.format("%,.2f", sumAllTotalUser));
+					parameters.put("sumAllTotalNoVatUser1", String.format("%,.2f", sumAllTotalNoVatUser));
 					parameters.put("sumAllVatUser", "");
 					parameters.put("sumAllTotalUser", "");
 					parameters.put("sumAllTotalNoVatUser", "");
@@ -406,11 +496,15 @@ public class PaymentReportPdf {
 				}
 				serviceCode = reportPaymentBean.getServiceCode();
 				departCode = reportPaymentBean.getDepartment();
+				userPayment = reportPaymentBean.getCreateBy();
 				count++;
 				countRow++;
 				sumCount++;
 				
 				if(i==resultSource.size()) {
+					
+					beanSup = masterDataService.findByUsername(userPayment);
+					
 					parameters = new HashMap<String, Object>();
 					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
 					parameters.put("posNo", posNo);
@@ -419,7 +513,7 @@ public class PaymentReportPdf {
 					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
 					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
 					parameters.put("staff", criteria.getUser());
-					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+					parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 					parameters.put("serviceNameHead", serviceName);
 
 					parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
@@ -444,9 +538,12 @@ public class PaymentReportPdf {
 					parameters.put("pageNumber", pageNumber);
 					
 					parameters.put("lastPage", "Y");
-					parameters.put("userPayment", userPay);
+					parameters.put("userPayment", userPayment);
 					parameters.put("userListCount", countRow);
 					parameters.put("sumCount", sumCount);
+					parameters.put("sumAllVatUser1", String.format("%,.2f", sumAllVat0));
+					parameters.put("sumAllTotalUser1", String.format("%,.2f", sumAllTotal));
+					parameters.put("sumAllTotalNoVatUser1", String.format("%,.2f", sumAllTotalNoVat));
 					parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
 					parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
 					parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
@@ -494,247 +591,499 @@ public class PaymentReportPdf {
 					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 					jasperPrints.add(jasperPrint);
 				}
+				
 				i++;
 			}
 			
 		}else {
 			
-			String vatRate = "";
-			int countRow = 0;
-			sumAllVat0 = 0;
-			sumAllTotal = 0;
-			sumAllTotalNoVat = 0;
-			int count = 0;
-			
-			BigDecimal sumAmountVat10 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAll10 = BigDecimal.ZERO;
-			BigDecimal sumAmountVat0 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatNon = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
-			
-			BigDecimal sumAmountVat7 = BigDecimal.ZERO;
-			BigDecimal sumAmountVat8 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
-			int vat10 = 1;
-			int vat8 = 1;
-			int vat7 = 1;
-			int vat0 = 1;
-			int vatNon = 1;
-			int pageNumber = 1;
-			
-			for(int i=0; i<resultSource.size(); i++) {
+			if(Constants.Role.SUPPERVISOR_2.equals(beanRole.getRoleId()+"")) {
 				
-				if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
-					sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
-					vatBean10.setAmount(sumAmountVat10);
-					sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
-					vatBean10.setSumAmount(sumAmountVatAll10);
-					vatBean10.setCount(vat10++);
-					vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-				}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
-					sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
-					vatBean0.setAmount(sumAmountVat0);
-					sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
-					vatBean0.setSumAmount(sumAmountVatAll0);
-					vatBean0.setCount(vat0++);
-					vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-				}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
-					sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
-					vatBeanNon.setAmount(sumAmountVatNon);
-					sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
-					vatBeanNon.setSumAmount(sumAmountVatAllNon);
-					vatBeanNon.setCount(vatNon++);
-					vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
-				}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
-					sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
-					vatBean8.setAmount(sumAmountVat8);
-					sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
-					vatBean8.setSumAmount(sumAmountVatAll8);
-					vatBean8.setCount(vat8++);
-					vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-				}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
-					sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
-					vatBean7.setAmount(sumAmountVat7);
-					sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
-					vatBean7.setSumAmount(sumAmountVatAll7);
-					vatBean7.setCount(vat7++);
-					vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-				}
+				String vatRate = "";
+				String userPayment = "";
+				String userPaymentOld = "";
+				int countRow = 0;
+				sumAllVat0 = 0;
+				sumAllTotal = 0;
+				sumAllTotalNoVat = 0;
+				int count = 0;
 				
-				if(i==0) { vatRate = resultSource.get(i).getVatRate(); }
+				UserBean beanSup = new UserBean();
 				
-				if(vatRate.equals(resultSource.get(i).getVatRate())) {
+				BigDecimal sumAmountVat10 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll10 = BigDecimal.ZERO;
+				BigDecimal sumAmountVat0 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatNon = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
+				
+				BigDecimal sumAmountVat7 = BigDecimal.ZERO;
+				BigDecimal sumAmountVat8 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
+				int vat10 = 1;
+				int vat8 = 1;
+				int vat7 = 1;
+				int vat0 = 1;
+				int vatNon = 1;
+				int pageNumber = 1;
+				
+				for(int i=0; i<resultSource.size(); i++) {
 					
-					if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
-						sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
-						sumAllTotal += resultSource.get(i).getAmount().doubleValue();
-						sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
+					if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
+						vatBean10.setAmount(sumAmountVat10);
+						sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
+						vatBean10.setSumAmount(sumAmountVatAll10);
+						vatBean10.setCount(vat10++);
+						vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
+						vatBean0.setAmount(sumAmountVat0);
+						sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
+						vatBean0.setSumAmount(sumAmountVatAll0);
+						vatBean0.setCount(vat0++);
+						vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
+						vatBeanNon.setAmount(sumAmountVatNon);
+						sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
+						vatBeanNon.setSumAmount(sumAmountVatAllNon);
+						vatBeanNon.setCount(vatNon++);
+						vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
+					}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
+						vatBean8.setAmount(sumAmountVat8);
+						sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
+						vatBean8.setSumAmount(sumAmountVatAll8);
+						vatBean8.setCount(vat8++);
+						vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
+						vatBean7.setAmount(sumAmountVat7);
+						sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
+						vatBean7.setSumAmount(sumAmountVatAll7);
+						vatBean7.setCount(vat7++);
+						vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
 					}
 					
-					if(count==0) {
-						userPay = resultSource.get(i).getCreateBy();
-					}else {
-						if(0>userPay.indexOf(resultSource.get(i).getCreateBy())) {
-							String comma = "";
+					if(i==0) { vatRate = resultSource.get(i).getVatRate(); userPayment = resultSource.get(i).getCreateBy();}
+					
+					if(userPayment.equals(resultSource.get(i).getCreateBy())) {
+						if(vatRate.equals(resultSource.get(i).getVatRate())) {
 							
-							if(StringUtils.isNotBlank(userPay))comma=", ";
+							if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+								sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
+								sumAllTotal += resultSource.get(i).getAmount().doubleValue();
+								sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
+							}
 							
-							userPay = userPay.concat(comma).concat(resultSource.get(i).getCreateBy());
+							if(count==0) {
+								userPay = resultSource.get(i).getCreateBy();
+							}else {
+								if(0>userPay.indexOf(resultSource.get(i).getCreateBy())) {
+									String comma = "";
+									
+									if(StringUtils.isNotBlank(userPay))comma=", ";
+									
+									userPay = userPay.concat(comma).concat(resultSource.get(i).getCreateBy());
+								}
+							}
+							count++;
+							
+							resultSource.get(i).setManualIdStr((countRow+1)+"");
+							resultSources.add(resultSource.get(i));
+							
 						}
-					}
-					count++;
-					
-					resultSource.get(i).setManualIdStr((countRow+1)+"");
-					resultSources.add(resultSource.get(i));
-					
-				}else {
-					
-					parameters = new HashMap<String, Object>();
-					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-					parameters.put("posNo", posNo);
-					parameters.put("accountCode", "accountCode");
-					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
-					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
-					parameters.put("staff", criteria.getUser());
-					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
-					parameters.put("serviceNameHead", serviceName);
-
-					parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
-					parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
-					parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
-					parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
-					parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
-					parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
-					
-					sumAllVatUser += sumAllVat0;
-					sumAllTotalUser += sumAllTotal;
-					sumAllTotalNoVatUser += sumAllTotalNoVat;
-					
-					parameters.put("serviceName", serviceName);
-					parameters.put("serviceListCount", resultSources.size());
-					parameters.put("userListCount", resultSources.size());
-					parameters.put("userPayment", userPay);
-					parameters.put("pageNumber", pageNumber);
-					
-					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
-					JasperPrint jasperPrint = new JasperPrint();
-					
-					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-					jasperPrints.add(jasperPrint);
-					
-					resultSources = new ArrayList<ReportPaymentBean>();
-					countRow = 0;
-					resultSource.get(i).setManualIdStr((countRow+1)+"");
-					resultSources.add(resultSource.get(i));
-					count = 0;
-					
-					userPay = resultSource.get(i).getCreateBy();
-					
-					sumAllVat0 = 0;
-					sumAllTotal = 0;
-					sumAllTotalNoVat = 0;
-					pageNumber++;
-					
-					if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
-						sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
-						sumAllTotal += resultSource.get(i).getAmount().doubleValue();
-						sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
-					}
-					
-				}
-				
-				vatRate = resultSource.get(i).getVatRate();
-				countRow++;
-				sumCount++;
-				
-				if(i==(resultSource.size()-1)) {
-					parameters = new HashMap<String, Object>();
-					parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-					parameters.put("posNo", posNo);
-					parameters.put("accountCode", "accountCode");
-					parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-					parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
-					parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
-					parameters.put("staff", criteria.getUser());
-					parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
-					parameters.put("serviceNameHead", serviceName);
-
-					parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
-					parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
-					parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
-					sumAllVatUser += sumAllVat0;
-					sumAllVatSum += sumAllVat0;
-					sumAllTotalUser += sumAllTotal;
-					sumAllTotalNoVatUser += sumAllTotalNoVat;
-					parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
-					parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
-					parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
-					
-					parameters.put("serviceName", serviceName);
-					parameters.put("serviceListCount", resultSources.size());
-					parameters.put("userListCount", resultSources.size());
-					parameters.put("userPayment", userPay);
-					parameters.put("pageNumber", pageNumber);
-					
-					parameters.put("lastPage", "Y");
-					parameters.put("userListCount", countRow);
-					parameters.put("sumCount", sumCount);
-					parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
-					parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
-					parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
-					
-					if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
-						vatBeans.add(vatBean10);
-					}
-					if(StringUtils.isNotBlank(vatBean0.getVatRat())) {
-						vatBeans.add(vatBean0);
-					}
-					if(StringUtils.isNotBlank(vatBeanNon.getVatRat())) {
-						vatBeans.add(vatBeanNon);
-					}
-					if(StringUtils.isNotBlank(vatBean8.getVatRat())) {
-						vatBeans.add(vatBean8);
-					}
-					if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
-						vatBeans.add(vatBean7);
-					}
-					
-//					BigDecimal vatRateAmountSum = BigDecimal.ZERO;
-//					BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
-//					int vatListCountSum = 0;
-//					BigDecimal vatRateAmountSum = BigDecimal.ZERO;
-					
-					for(int ii=0; ii<vatBeans.size(); ii++) {
-						parameters.put("chkVat"+ii, "Y");
-						parameters.put("vatListCount"+ii, vatBeans.get(ii).getCount());
-						parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
-						parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
-						parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
 						
-						vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
-						vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
-						vatListCountSum += vatBeans.get(ii).getCount();
-						if(ii==(vatBeans.size()-1)) {
-							parameters.put("chkSumLast"+(ii+1), "Y");
-							parameters.put("chkVat"+(ii+1), "Y");
-							parameters.put("vatListCount"+(ii+1), vatListCountSum);
-							parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
-							parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
-							parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
-							parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
+						userPaymentOld = userPayment;
+					}else {
+						
+						beanSup = masterDataService.findByUsername(userPaymentOld);
+						
+						parameters = new HashMap<String, Object>();
+						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("posNo", posNo);
+						parameters.put("accountCode", "accountCode");
+						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+						parameters.put("staff", criteria.getUser());
+						parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
+						parameters.put("serviceNameHead", serviceName);
+
+						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+						parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+						
+						sumAllVatUser += sumAllVat0;
+						sumAllTotalUser += sumAllTotal;
+						sumAllTotalNoVatUser += sumAllTotalNoVat;
+						
+						parameters.put("serviceName", serviceName);
+						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("userListCount", resultSources.size());
+						parameters.put("userPayment", userPay);
+						parameters.put("pageNumber", pageNumber);
+						
+						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JasperPrint jasperPrint = new JasperPrint();
+						
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+						jasperPrints.add(jasperPrint);
+						
+						resultSources = new ArrayList<ReportPaymentBean>();
+						countRow = 0;
+						resultSource.get(i).setManualIdStr((countRow+1)+"");
+						resultSources.add(resultSource.get(i));
+						count = 0;
+						
+						userPay = resultSource.get(i).getCreateBy();
+						
+						sumAllVat0 = 0;
+						sumAllTotal = 0;
+						sumAllTotalNoVat = 0;
+						pageNumber++;
+						
+						if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+							sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
+							sumAllTotal += resultSource.get(i).getAmount().doubleValue();
+							sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
 						}
+						
 					}
 					
-					JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
-					JasperPrint jasperPrint = new JasperPrint();
+					vatRate = resultSource.get(i).getVatRate();
+					userPayment = resultSource.get(i).getCreateBy();
+					countRow++;
+					sumCount++;
 					
-					jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-					jasperPrints.add(jasperPrint);
+					if(i==(resultSource.size()-1)) {
+						
+						beanSup = masterDataService.findByUsername(userPayment);
+						
+						parameters = new HashMap<String, Object>();
+						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("posNo", posNo);
+						parameters.put("accountCode", "accountCode");
+						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+						parameters.put("staff", criteria.getUser());
+						parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
+						parameters.put("serviceNameHead", serviceName);
+
+						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+						sumAllVatUser += sumAllVat0;
+						sumAllVatSum += sumAllVat0;
+						sumAllTotalUser += sumAllTotal;
+						sumAllTotalNoVatUser += sumAllTotalNoVat;
+						parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+						
+						parameters.put("serviceName", serviceName);
+						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("userListCount", resultSources.size());
+						parameters.put("userPayment", userPay);
+						parameters.put("pageNumber", pageNumber);
+						
+						parameters.put("lastPage", "Y");
+						parameters.put("userListCount", countRow);
+						parameters.put("sumCount", sumCount);
+						parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
+						parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
+						parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
+						
+						if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
+							vatBeans.add(vatBean10);
+						}
+						if(StringUtils.isNotBlank(vatBean0.getVatRat())) {
+							vatBeans.add(vatBean0);
+						}
+						if(StringUtils.isNotBlank(vatBeanNon.getVatRat())) {
+							vatBeans.add(vatBeanNon);
+						}
+						if(StringUtils.isNotBlank(vatBean8.getVatRat())) {
+							vatBeans.add(vatBean8);
+						}
+						if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
+							vatBeans.add(vatBean7);
+						}
+						
+						for(int ii=0; ii<vatBeans.size(); ii++) {
+							parameters.put("chkVat"+ii, "Y");
+							parameters.put("vatListCount"+ii, vatBeans.get(ii).getCount());
+							parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
+							parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
+							parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+							
+							vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
+							vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
+							vatListCountSum += vatBeans.get(ii).getCount();
+							if(ii==(vatBeans.size()-1)) {
+								parameters.put("chkSumLast"+(ii+1), "Y");
+								parameters.put("chkVat"+(ii+1), "Y");
+								parameters.put("vatListCount"+(ii+1), vatListCountSum);
+								parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
+								parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+								parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
+								parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
+							}
+						}
+						
+						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JasperPrint jasperPrint = new JasperPrint();
+						
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+						jasperPrints.add(jasperPrint);
+					}
+					
 				}
 				
+			}else {
+				String vatRate = "";
+				int countRow = 0;
+				sumAllVat0 = 0;
+				sumAllTotal = 0;
+				sumAllTotalNoVat = 0;
+				int count = 0;
+				
+				BigDecimal sumAmountVat10 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll10 = BigDecimal.ZERO;
+				BigDecimal sumAmountVat0 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatNon = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
+				
+				BigDecimal sumAmountVat7 = BigDecimal.ZERO;
+				BigDecimal sumAmountVat8 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+				BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
+				int vat10 = 1;
+				int vat8 = 1;
+				int vat7 = 1;
+				int vat0 = 1;
+				int vatNon = 1;
+				int pageNumber = 1;
+				
+				for(int i=0; i<resultSource.size(); i++) {
+					
+					if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
+						vatBean10.setAmount(sumAmountVat10);
+						sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
+						vatBean10.setSumAmount(sumAmountVatAll10);
+						vatBean10.setCount(vat10++);
+						vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
+						vatBean0.setAmount(sumAmountVat0);
+						sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
+						vatBean0.setSumAmount(sumAmountVatAll0);
+						vatBean0.setCount(vat0++);
+						vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
+						vatBeanNon.setAmount(sumAmountVatNon);
+						sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
+						vatBeanNon.setSumAmount(sumAmountVatAllNon);
+						vatBeanNon.setCount(vatNon++);
+						vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
+					}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
+						vatBean8.setAmount(sumAmountVat8);
+						sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
+						vatBean8.setSumAmount(sumAmountVatAll8);
+						vatBean8.setCount(vat8++);
+						vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
+						sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
+						vatBean7.setAmount(sumAmountVat7);
+						sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
+						vatBean7.setSumAmount(sumAmountVatAll7);
+						vatBean7.setCount(vat7++);
+						vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					}
+					
+					if(i==0) { vatRate = resultSource.get(i).getVatRate(); }
+					
+					if(vatRate.equals(resultSource.get(i).getVatRate())) {
+						
+						if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+							sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
+							sumAllTotal += resultSource.get(i).getAmount().doubleValue();
+							sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
+						}
+						
+						if(count==0) {
+							userPay = resultSource.get(i).getCreateBy();
+						}else {
+							if(0>userPay.indexOf(resultSource.get(i).getCreateBy())) {
+								String comma = "";
+								
+								if(StringUtils.isNotBlank(userPay))comma=", ";
+								
+								userPay = userPay.concat(comma).concat(resultSource.get(i).getCreateBy());
+							}
+						}
+						count++;
+						
+						resultSource.get(i).setManualIdStr((countRow+1)+"");
+						resultSources.add(resultSource.get(i));
+						
+					}else {
+						
+						parameters = new HashMap<String, Object>();
+						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("posNo", posNo);
+						parameters.put("accountCode", "accountCode");
+						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+						parameters.put("staff", criteria.getUser());
+						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+						parameters.put("serviceNameHead", serviceName);
+
+						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+						parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+						
+						sumAllVatUser += sumAllVat0;
+						sumAllTotalUser += sumAllTotal;
+						sumAllTotalNoVatUser += sumAllTotalNoVat;
+						
+						parameters.put("serviceName", serviceName);
+						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("userListCount", resultSources.size());
+						parameters.put("userPayment", userPay);
+						parameters.put("pageNumber", pageNumber);
+						
+						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JasperPrint jasperPrint = new JasperPrint();
+						
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+						jasperPrints.add(jasperPrint);
+						
+						resultSources = new ArrayList<ReportPaymentBean>();
+						countRow = 0;
+						resultSource.get(i).setManualIdStr((countRow+1)+"");
+						resultSources.add(resultSource.get(i));
+						count = 0;
+						
+						userPay = resultSource.get(i).getCreateBy();
+						
+						sumAllVat0 = 0;
+						sumAllTotal = 0;
+						sumAllTotalNoVat = 0;
+						pageNumber++;
+						
+						if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+							sumAllVat0 += resultSource.get(i).getAmount().doubleValue() - resultSource.get(i).getBeforVat().doubleValue();
+							sumAllTotal += resultSource.get(i).getAmount().doubleValue();
+							sumAllTotalNoVat += resultSource.get(i).getBeforVat().doubleValue();
+						}
+						
+					}
+					
+					vatRate = resultSource.get(i).getVatRate();
+					countRow++;
+					sumCount++;
+					
+					if(i==(resultSource.size()-1)) {
+						parameters = new HashMap<String, Object>();
+						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("posNo", posNo);
+						parameters.put("accountCode", "accountCode");
+						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
+						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
+						parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
+						parameters.put("staff", criteria.getUser());
+						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
+						parameters.put("serviceNameHead", serviceName);
+
+						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
+						sumAllVatUser += sumAllVat0;
+						sumAllVatSum += sumAllVat0;
+						sumAllTotalUser += sumAllTotal;
+						sumAllTotalNoVatUser += sumAllTotalNoVat;
+						parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
+						parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
+						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
+						
+						parameters.put("serviceName", serviceName);
+						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("userListCount", resultSources.size());
+						parameters.put("userPayment", userPay);
+						parameters.put("pageNumber", pageNumber);
+						
+						parameters.put("lastPage", "Y");
+						parameters.put("userListCount", countRow);
+						parameters.put("sumCount", sumCount);
+						parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
+						parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
+						parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
+						
+						if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
+							vatBeans.add(vatBean10);
+						}
+						if(StringUtils.isNotBlank(vatBean0.getVatRat())) {
+							vatBeans.add(vatBean0);
+						}
+						if(StringUtils.isNotBlank(vatBeanNon.getVatRat())) {
+							vatBeans.add(vatBeanNon);
+						}
+						if(StringUtils.isNotBlank(vatBean8.getVatRat())) {
+							vatBeans.add(vatBean8);
+						}
+						if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
+							vatBeans.add(vatBean7);
+						}
+						
+//						BigDecimal vatRateAmountSum = BigDecimal.ZERO;
+//						BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
+//						int vatListCountSum = 0;
+//						BigDecimal vatRateAmountSum = BigDecimal.ZERO;
+						
+						for(int ii=0; ii<vatBeans.size(); ii++) {
+							parameters.put("chkVat"+ii, "Y");
+							parameters.put("vatListCount"+ii, vatBeans.get(ii).getCount());
+							parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
+							parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
+							parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+							
+							vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
+							vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
+							vatListCountSum += vatBeans.get(ii).getCount();
+							if(ii==(vatBeans.size()-1)) {
+								parameters.put("chkSumLast"+(ii+1), "Y");
+								parameters.put("chkVat"+(ii+1), "Y");
+								parameters.put("vatListCount"+(ii+1), vatListCountSum);
+								parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
+								parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+								parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
+								parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
+							}
+						}
+						
+						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JasperPrint jasperPrint = new JasperPrint();
+						
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+						jasperPrints.add(jasperPrint);
+					}
+					
+				}
 			}
 			
 //			parameters = new HashMap<String, Object>();

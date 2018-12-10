@@ -133,6 +133,10 @@ public class Constants {
 		public static final String ADMIN = "ADMIN";
 		public static final String USER = "USER";
 		
+		public static final String SUPPERVISOR_2 = "2";
+		public static final String ADMIN_1 = "1";
+		public static final String USER_3 = "3";
+		
 		public static class RoleOnline {
 			public static final String SUPPERVISOR = "Suppervisor";
 			public static final String ADMIN = "ADMIN";

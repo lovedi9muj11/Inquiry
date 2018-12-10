@@ -368,4 +368,10 @@ public class MasterDataServiceImpl implements MasterDataService {
 			masterDataDao.insertBatch(masterDataBean);
 	}
 
+	@Override
+	public UserBean findByUsernameFromRole(Long id) throws SQLException {
+		
+		return userDao.findByUsernameFromRole(id);
+	}
+
 }

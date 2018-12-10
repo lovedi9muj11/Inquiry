@@ -40,6 +40,8 @@ public interface MasterDataService {
 	
 	public UserBean findByUsername(String username)throws SQLException;
 	
+	public UserBean findByUsernameFromRole(Long id)throws SQLException;
+	
 	List<MasterDataBean> showAllMSNGL();
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
