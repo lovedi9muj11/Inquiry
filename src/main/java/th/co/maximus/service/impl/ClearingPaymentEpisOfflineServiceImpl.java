@@ -174,12 +174,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
 						if (isOther) {
-							BigDecimal beforvat = new BigDecimal(0);
-							 List<Map<String, Object>> rs =paymentManualDao.findBeforVat(manualId);
-							for (Map<String, Object> map : rs) {
-								beforvat = beforvat.add(new BigDecimal(map.get("BEFOR_VAT").toString()));
-							}
-							paymentEpisOfflineDTO.setPaidAmount(beforvat);
+						
+							paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
 						} else {
 							paymentEpisOfflineDTO
 									.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
