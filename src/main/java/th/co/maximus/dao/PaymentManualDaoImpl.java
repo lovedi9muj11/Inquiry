@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -367,6 +368,18 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.CREATE_BY, PIM.VAT_RATE, PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
+	}
+
+	@Override
+	public  List<Map<String, Object>> findBeforVat(long manualId) throws SQLException {
+		StringBuilder sqlStmt = new StringBuilder();
+		sqlStmt.append(
+				"SELECT pm.BEFOR_VAT FROM payment_invoice_manual pm ");
+		sqlStmt.append(" WHERE  pm.MANUAL_ID = ? ");
+		List<Object> param = new LinkedList<Object>();
+		param.add(manualId);
+		Object[] paramArr = param.toArray();
+	return jdbcTemplate.queryForList(sqlStmt.toString(), paramArr);
 	}
 
 }

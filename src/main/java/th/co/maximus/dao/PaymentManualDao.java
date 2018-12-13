@@ -1,8 +1,10 @@
 package th.co.maximus.dao;
 
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.bean.ReportPaymentBean;
@@ -30,6 +32,8 @@ public interface PaymentManualDao {
 	public Integer checkSup(String userName) throws SQLException;
 	
 	public ReceiptOfflineModel findByManualId(long manualId, String status) throws SQLException;
+	
+	public List<Map<String, Object>> findBeforVat(long manualId) throws SQLException;
 	
 	
 }

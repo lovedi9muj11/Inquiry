@@ -15,8 +15,12 @@ public class ReceiptOfflineModel {
 	private String accountNo;
 	private String manualID;
 	private BigDecimal amount;
+	private BigDecimal beforVat;
 	
 	public ReceiptOfflineModel(){}
+	public ReceiptOfflineModel(BigDecimal beforVat){
+		this.beforVat = beforVat;
+	}
 	public ReceiptOfflineModel(String invoiceNo,String receiptNo,Date paidDate,String branchArea,String branchCode,BigDecimal paidAmount
 			,String source,String remark,String accountNo,String manualID,BigDecimal amount){
 		
@@ -102,6 +106,13 @@ public class ReceiptOfflineModel {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+	public BigDecimal getBeforVat() {
+		return beforVat;
+	}
+	public void setBeforVat(BigDecimal beforVat) {
+		this.beforVat = beforVat;
+	}
+	
 	
 	
 	
