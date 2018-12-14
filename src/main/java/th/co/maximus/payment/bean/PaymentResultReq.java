@@ -12,6 +12,7 @@ public class PaymentResultReq {
 	private String invoiceNo;
 	private Date invoiceDate;
 	private Date dateLine;
+	private Date dateLinePay;
 	private String invoiceDateRS;
 	private String dateLineRS;
 	private BigDecimal beforeVat;
@@ -59,7 +60,7 @@ public class PaymentResultReq {
 	}
 	
 	public PaymentResultReq(String custNo, String custName, String documentNo,BigDecimal balanceSummary,String invoiceNo,Date invoiceDate,Date dateLine,BigDecimal beforeVat,BigDecimal vat,
-			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount,BigDecimal discount,BigDecimal paidAmount) {
+			BigDecimal balanceOfvat,BigDecimal deduction,BigDecimal balancePrice,String period,BigDecimal balanceAmount,BigDecimal discount,BigDecimal paidAmount, Date dateLinePay) {
 		
 		this.custNo = custNo;
 		this.custName = custName;
@@ -77,6 +78,7 @@ public class PaymentResultReq {
 		this.balanceAmount = balanceAmount;
 		this.discount = discount;
 		this.paidAmount = paidAmount;
+		this.dateLinePay = dateLinePay;
 
 	}
 	
@@ -418,6 +420,14 @@ public class PaymentResultReq {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Date getDateLinePay() {
+		return dateLinePay;
+	}
+
+	public void setDateLinePay(Date dateLinePay) {
+		this.dateLinePay = dateLinePay;
 	}
 	
 }

@@ -144,7 +144,8 @@ public class PaymentController {
 		Date date = paymentResultReq.getInvoiceDate();
 		String invoiceDate = dt.format(date);
 
-		Date dateLineDate = paymentResultReq.getDateLine();
+//		Date dateLineDate = paymentResultReq.getDateLine();
+		Date dateLineDate = paymentResultReq.getDateLinePay();
 		String dateLineSt = dt.format(dateLineDate);
 
 		paymentResultReq.setInvoiceDateRS(invoiceDate);

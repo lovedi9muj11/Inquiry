@@ -82,7 +82,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		PaymentResultReq beanReReq = new PaymentResultReq();
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
-				" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,py.AMOUNT ");
+				" SELECT py.ACCOUNT_NO , pim.CUSTOMER_NAME ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT ,py.INVOICE_NO,tmp.INVOICE_DATE,py.PAID_DATE ,  SUM(pim.BEFOR_VAT) , SUM(pim.VAT_AMOUNT) ,SUM(pim.AMOUNT), (SELECT SUM(dud.AMOUNT) FROM DEDUCTION_MANUAL dud WHERE dud.MANUAL_ID = py.MANUAL_ID AND dud.INVOICE_NO = py.INVOICE_NO GROUP BY dud.INVOICE_NO ) , py.PAID_AMOUNT , pim.PERIOD,pim.AMOUNT,tmp.DISCOUNT,py.AMOUNT, tmp.DATE_LINE ");
 		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
 		sqlStmt.append(
 				" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID =  py.MANUAL_ID AND pim.INVOICE_NO = py.INVOICE_NO ");
@@ -102,7 +102,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 							resultSet.getDate(7), resultSet.getBigDecimal(8), resultSet.getBigDecimal(9),
 							resultSet.getBigDecimal(10), resultSet.getBigDecimal(11), resultSet.getBigDecimal(12),
 							resultSet.getString(13), resultSet.getBigDecimal(14), resultSet.getBigDecimal(15),
-							resultSet.getBigDecimal(16));
+							resultSet.getBigDecimal(16),resultSet.getDate(17));
 
 				}
 				return null;

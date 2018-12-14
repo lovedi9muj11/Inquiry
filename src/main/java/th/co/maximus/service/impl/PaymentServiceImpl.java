@@ -116,6 +116,7 @@ public class PaymentServiceImpl implements PaymentService{
 				tmpInvoiceBean.setUpdateDate(new Timestamp(date.getTime()));
 				tmpInvoiceBean.setRecordStatus("A");
 				tmpInvoiceBean.setIsDiscountFlg(paymentBean.getIsDiscountFlg());
+				tmpInvoiceBean.setDateLine(paymentBean.getDeadlines());
 				if(paymentBean.getTaxOnly() == null) {
 					tmpInvoiceBean.setDiscount(0.00);
 				}else {
