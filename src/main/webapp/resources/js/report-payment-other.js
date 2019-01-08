@@ -130,7 +130,12 @@ function createRow(data, seq) {
 	amount =  formatDouble(data.amount,2);
 	if (data.status == 'C'){
 		statusStr = 'ยกเลิก';
-		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+//		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		if(data.remake != ""){
+			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remake = '-';
+		}
 	}else{
 		if(data.remake != ""){
 			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
@@ -144,7 +149,7 @@ function createRow(data, seq) {
 	
 	
     var t = $('#reportPaymentTb').DataTable();
-    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, serviceName, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
+    var rowNode = t.row.add([manualId, serviceType, receiptNo, accountSubNo, customerName, department, serviceName, createBy ,noRefer , beforVat, vatAmount, amount, statusStr,remake
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -239,6 +240,16 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		Object[] paramArr = param.toArray();
 		
 		jdbcTemplate.update(sql.toString(), paramArr);
+	}
+
+	@Override
+	public String findProperty(String code) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+code+"'");
+		
+		MasterDataBean data = jdbcTemplate.queryForObject(sql.toString(), new masterData());
+		
+		return StringUtils.isNotBlank(data.getProperty2())?data.getProperty2():"";
 	}
 
 }

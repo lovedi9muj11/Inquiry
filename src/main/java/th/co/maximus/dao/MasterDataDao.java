@@ -40,6 +40,8 @@ public interface MasterDataDao {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
+	String findProperty(String code);
+	
 	void insertBatch(MasterDataBean masterDataBean);
 
 	public List<MasterDataBean> findByVat();

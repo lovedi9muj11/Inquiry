@@ -133,7 +133,12 @@ function createRow(data, seq) {
 	deductionNo = data.deductionNo;
 	if (data.status == 'C'){
 		statusStr = 'ยกเลิก';
-		remake = '<a name="invoice" id="invoice" onclick="dialogCancelRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+//		remake = '<a name="invoice" id="invoice" onclick="dialogCancelRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		if(data.remake != ""){
+			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
+		}else {
+			remake = '-';
+		}
 	}else{
 		if(data.remake != ""){
 			remake ='<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
