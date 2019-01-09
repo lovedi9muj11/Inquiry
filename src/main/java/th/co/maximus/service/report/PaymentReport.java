@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.ReportPaymentBean;
@@ -29,6 +30,9 @@ public class PaymentReport extends BaseExcelRptService {
 	
 	@Autowired
 	MasterDataService masterDataService;
+	
+	@Value("${text.branarea}")
+	private String branarea;
 	
 	Locale localeTH = new Locale("th", "TH");
 	Locale localeEN = new Locale("en", "EN");
@@ -135,6 +139,8 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell11 = row.createCell(11);
 				 Cell cell12 = row.createCell(12);
 				 Cell cell13 = row.createCell(13);
+				 Cell cell14 = row.createCell(14);
+				 Cell cell15 = row.createCell(15);
 				 
 				 cell.setCellValue(index);
 				 cell1Add.setCellValue(serviceName);
@@ -159,15 +165,18 @@ public class PaymentReport extends BaseExcelRptService {
 				 }else if("C".equals(resultReportPayment.getStatus())) {
 					 cell11.setCellValue("ยกเลิก");
 				 }
-				 cell12.setCellValue(resultReportPayment.getCreateBy());
+				 cell14.setCellValue(resultReportPayment.getCreateBy());
 				 
 				 // gen name surname
 				 try {
 					 UserBean userBean =  masterDataService.findByUsername(resultReportPayment.getCreateBy());
-					 cell13.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
+					 cell15.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				 
+				 cell12.setCellValue(branarea);
+				 cell13.setCellValue(masterDataService.findByKeyCode(branarea).getValue());
 				 
 				 cell.setCellStyle(txtTableCenter);
 				 cell1Add.setCellStyle(txtCenterTable);
@@ -184,6 +193,8 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell11.setCellStyle(txtTableCenter);
 				 cell12.setCellStyle(txtTableCenter);
 				 cell13.setCellStyle(txtTableCenter);
+				 cell14.setCellStyle(txtTableCenter);
+				 cell15.setCellStyle(txtTableCenter);
 //				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
 				 if(Constants.Status.ACTIVE.equals(resultReportPayment.getStatus())) {

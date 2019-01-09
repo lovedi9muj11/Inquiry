@@ -415,7 +415,8 @@ function format2(d) {
 			'<tbody>'+
 			    '<tr>'+
 			        '<th style="text-align: left;">'+'invoiceNo :'+d.invoiceNo+'</th>'+
-			        '<th style="text-align: right;">'+d.balanceSummaryStr +'</th>'+
+//			        '<th style="text-align: right;">'+d.balanceSummaryStr +'</th>'+
+			        '<th style="text-align: right;">'+d.beforeVatStr +'</th>'+
 			        '<th style="text-align: right;">'+d.discountStr+'</th>'+
 			        '<th style="text-align: right;">'+d.vatStr+'</th>'+
 			        '<th style="text-align: right;">'+d.balanceOfvatStr+'</th>'+

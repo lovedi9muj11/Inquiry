@@ -272,7 +272,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							manualDTO.setReceiptNoManual(payment.getReceiptNoManual());
 							manualDTO.setRemark(payment.getRemark());
 							manualDTO.setManualId(offlineResultModel.getManualIdOnline());
-							manualDTO.setCreateBy("EPIS5");
+							manualDTO.setCreateBy(payment.getCreateBy());
 							manualDTO.setPaidAmount(payment.getPaidAmount());
 							manualDTO.setRecordStatus("");
 							manualDTO.setSource(payment.getSource());
@@ -285,10 +285,10 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						}
 					}
 					if (dtoList.size() > 0) {
-						postUrl = url.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=EPIS5&pw=password");
+						postUrl = url.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
 						restTemplate.postForEntity(postUrl, dtoList, String.class);
 						
-						postUrl = url.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=EPIS5&pw=password");
+						postUrl = url.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
 						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
 

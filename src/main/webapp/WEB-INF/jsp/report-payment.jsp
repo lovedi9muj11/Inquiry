@@ -141,7 +141,7 @@
 						<div class="form-group col-md-6">
 							<label class="col-md-4 control-label text-right">วันที่ชำระ :</label>
 							<div class='col-md-4'>
-								<input type='date' class="form-control" id="dateFrom" name="dateFrom" disabled/>
+								<input type='date' class="form-control" id="dateFrom" name="dateFrom"/>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
