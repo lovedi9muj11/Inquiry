@@ -13,6 +13,7 @@ import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.payment.bean.PaymentBillBean;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentOtherInvoiceManualService;
 
 @Service
@@ -20,11 +21,13 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 
 	@Autowired
 	PaymentInvoiceManualDao paymentInvoiceManualDao;
+	
+	@Autowired
+	MasterDataService masterDataService;
 
 	@Override
 	public void insertPaymentInvoiceManual(PaymentOtherFirstBean paymentBean, int userId) {
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 		Date date = new Date();
 		if (!paymentBean.getDocumentNo().equals("")) {
 			for (int i = 0; i < paymentBean.getPaymentBill().size(); i++) {
@@ -61,6 +64,9 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setBeforVat(paymentBillBean.getInputServiceAmount().doubleValue());
 				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getInputServiceType());
 				paymentInvoiceManualBean.setServiceName(paymentBillBean.getInputServiceName());
+				
+				paymentInvoiceManualBean.setDepartmentcode(paymentBean.getInputServiceDepartment());
+				
 				paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 			}
 			
