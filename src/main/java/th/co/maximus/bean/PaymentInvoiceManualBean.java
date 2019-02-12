@@ -41,6 +41,19 @@ public class PaymentInvoiceManualBean {
 	private String amounttype;
 	private String accountSubNo;
 	private String serviceName;
+	private String departmentcode;
+	
+	
+
+	
+
+	public String getDepartmentcode() {
+		return departmentcode;
+	}
+
+	public void setDepartmentcode(String departmentcode) {
+		this.departmentcode = departmentcode;
+	}
 
 	public Long getPaymentInvoiceManualId() {
 		return paymentInvoiceManualId;

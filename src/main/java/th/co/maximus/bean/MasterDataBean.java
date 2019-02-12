@@ -11,6 +11,8 @@ public class MasterDataBean {
 	private String orderBatch;
 	private String masterdataGroup;
 	private String property2;
+	private String keyCode;
+	private String property1;
 	
 	private String month;
 	private String day;
@@ -23,6 +25,20 @@ public class MasterDataBean {
 	private List<DropDownBean> DropDownBeans;
 	private List<DropDownBean> DropDownMonths; 
 	
+	
+	
+	public String getProperty1() {
+		return property1;
+	}
+	public void setProperty1(String property1) {
+		this.property1 = property1;
+	}
+	public String getKeyCode() {
+		return keyCode;
+	}
+	public void setKeyCode(String keyCode) {
+		this.keyCode = keyCode;
+	}
 	public String getProperty2() {
 		return property2;
 	}
