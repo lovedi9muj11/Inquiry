@@ -95,8 +95,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE)  ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
+				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE)  ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
 		jdbcTemplate.update(sql.toString(), paymentInvoiceManualBean.getManualId(),
 				paymentInvoiceManualBean.getSource(), paymentInvoiceManualBean.getInvoiceNo(),
@@ -114,7 +114,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getDiscountbeforvat(), paymentInvoiceManualBean.getDiscountspecial(),
 				paymentInvoiceManualBean.getAmounttype(), paymentInvoiceManualBean.getDepartment(),
 				paymentInvoiceManualBean.getServiceName(), paymentInvoiceManualBean.getInvoiceDate(),
-				paymentInvoiceManualBean.getServiceCode());
+				paymentInvoiceManualBean.getServiceCode(),paymentInvoiceManualBean.getDepartmentcode());
 
 	}
 
@@ -346,11 +346,12 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT");
+					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT, py.AMOUNT");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
-			sql.append(" WHERE  ");
-			sql.append(" py.DOCTYPE = ? ");
+			sql.append(" WHERE 1=1 ");
+			sql.append(" and py.DOCTYPE = ? ");
+			sql.append(" and pim.SERVICE_TYPE = ? ");
 			if (StringUtils.isNoneEmpty(historyRpt.getDateFrom())
 					&& StringUtils.isNoneEmpty(historyRpt.getDateFromHour())
 					&& StringUtils.isNoneEmpty(historyRpt.getDateFromMinute())) {
@@ -369,9 +370,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" " + dateTo + " ' ");
 			}
 
-			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.CREATE_DATE DESC");
+			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.RECEIPT_NO_MANUAL DESC");
 			// sql.append(" GROUP BY tm.NAME ");
 			param.add(historyRpt.getTypePrint());
+			param.add(historyRpt.getFlagPage());
 			Object[] paramArr = param.toArray();
 			historyPaymentRSs = jdbcTemplate.query(sql.toString(), paramArr, new mapHistory());
 			
@@ -595,6 +597,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			historyPaymentRS.setInvoice(rs.getString("py.INVOICE_NO"));
 			historyPaymentRS.setNumberRun("");
 			historyPaymentRS.setPaidAmount(rs.getBigDecimal("py.PAID_AMOUNT"));
+			historyPaymentRS.setAmount(rs.getBigDecimal("py.AMOUNT"));
 			historyPaymentRS.setRecordStatus(rs.getString("py.RECORD_STATUS"));
 			historyPaymentRS.setTaxId(rs.getString("pim.TAXNO"));
 			historyPaymentRS.setVat(rs.getBigDecimal("pim.VAT_AMOUNT"));
