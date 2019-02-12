@@ -13,6 +13,7 @@ public class HistoryPaymentRS {
 	private String recordStatus;
 	private String documentNo;
 	private BigDecimal paidAmount;
+	private BigDecimal amount;
 	private int vatRate;
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
@@ -118,6 +119,14 @@ public class HistoryPaymentRS {
 
 	public void setNumberRun(String numberRun) {
 		this.numberRun = numberRun;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 	
 	

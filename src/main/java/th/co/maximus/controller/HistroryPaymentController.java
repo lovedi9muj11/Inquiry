@@ -112,8 +112,7 @@ public class HistroryPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/histroryPayment/paymentPrint" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {"/histroryPayment/paymentPrint" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<HistoryPaymentRS> paymentPrint(@RequestBody HistoryReportBean creteria) throws SQLException {
 		List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
@@ -126,15 +125,15 @@ public class HistroryPaymentController {
 			if (resultRQ.size() > 0) {
 				for (int i = 0; i < resultRQ.size(); i++) {
 					HistoryPaymentRS hisPay = resultRQ.get(i);
-					BigDecimal reVat = new BigDecimal(hisPay.getVatRate());
+//					BigDecimal reVat = new BigDecimal(hisPay.getVatRate());
 
-					BigDecimal amount = hisPay.getPaidAmount();
-					BigDecimal vatRQ = amount.multiply(new BigDecimal(hisPay.getVatRate()));
-					BigDecimal vat = BigDecimal.ZERO;
+					BigDecimal amount = hisPay.getAmount();
+//					BigDecimal vatRQ = amount.multiply(new BigDecimal(hisPay.getVatRate()));
+					BigDecimal vat = hisPay.getVat();
 					
-					if (vatRQ.compareTo(BigDecimal.ZERO) > 0) {
-						vat = vatRQ.divide(reVat, 2, RoundingMode.HALF_UP);
-					}
+//					if (vatRQ.compareTo(BigDecimal.ZERO) > 0) {
+//						vat = vatRQ.divide(reVat, 2, RoundingMode.HALF_UP);
+//					}
 
 					BigDecimal beforeVat = amount.subtract(vat);
 

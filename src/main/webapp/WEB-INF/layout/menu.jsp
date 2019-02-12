@@ -100,6 +100,8 @@
 								</li>
 								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบย่อ/แบบเต็ม</a>
 								</li>
+								<li><a href="${contextPath}/reportPaymentTaxOther">รายงานภาษีขายแบบย่อ/แบบเต็มบริการอื่น</a>
+								</li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">ส่งหักล้าง <span class="caret"></span>

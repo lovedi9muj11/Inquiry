@@ -11,17 +11,14 @@
 <head>
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/maximus.css" rel="stylesheet">
 <script type="text/javascript"
 	src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
-<!-- <script type="text/javascript" -->
-<!-- 	src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script> -->
-<script src="${contextPath}/resources/js/report-tax.js"></script>
-<title>รานงานการชำระ</title>
+<script src="${contextPath}/resources/js/report-tax-other.js"></script>
+<title>รานงานการชำระ บริการอื่นๆ</title>
 
 </head>
 
@@ -32,12 +29,12 @@
 		<h1 class="page-header"></h1>
 		<div class="panel" id="panel1">
 			
-				<div class="panel-heading">ค้นหารายงานภาษีขาย</div>
+				<div class="panel-heading">ค้นหารายงานภาษีขาย บริการอื่นๆ</div>
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
-				<form name="reportTaxForm" id="reportTaxForm"  class="form-horizontal" role="form">
+				<form name="reportTaxOtherForm" id="reportTaxOtherForm"  class="form-horizontal" role="form">
 				<input name="rptCode" id="rptCode" value="ExcelFull" type="hidden">
-				<input type="hidden" name="flagPage" id="flagPage" value="IBACSS" />
+				<input type="hidden" name="flagPage" id="flagPage" value="OTHER" />
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">วันที่ชำระ
@@ -184,7 +181,7 @@
 								<!--<div class="box-header"></div>
 						 /.box-header -->
 								<div class="box-body">
-									<table id="reportTax" class="table table-bordered">
+									<table id="reportTaxOther" class="table table-bordered">
 										<thead>
 											<tr>
 												<th style="text-align: center;">ลำดับที่</th>

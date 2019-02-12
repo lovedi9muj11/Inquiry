@@ -10,6 +10,9 @@ public class HistoryReportBean {
 	private String typePrint;
 	private String rptCode;
 	
+	//report menu
+	private String flagPage;
+	
 	public String getDateFrom() {
 		return dateFrom;
 	}
@@ -57,6 +60,12 @@ public class HistoryReportBean {
 	}
 	public void setRptCode(String rptCode) {
 		this.rptCode = rptCode;
+	}
+	public String getFlagPage() {
+		return flagPage;
+	}
+	public void setFlagPage(String flagPage) {
+		this.flagPage = flagPage;
 	}
 	
 }

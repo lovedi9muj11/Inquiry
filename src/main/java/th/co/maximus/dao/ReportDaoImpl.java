@@ -108,11 +108,12 @@ public class ReportDaoImpl implements ReportDao{
 		
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME,py.CREATE_BY, pim.TAXNO ,py.INVOICE_NO , py.BRANCH_AREA, py.BRANCH_CODE ,py.PAID_AMOUNT,py.RECORD_STATUS,pim.VAT_RATE");
+			sql.append(" SELECT py.CREATE_DATE ,py.RECEIPT_NO_MANUAL,pim.CUSTOMER_NAME,py.CREATE_BY, pim.TAXNO ,py.INVOICE_NO , py.BRANCH_AREA, py.BRANCH_CODE ,py.PAID_AMOUNT,py.RECORD_STATUS,pim.VAT_RATE, py.VAT_AMOUNT, py.AMOUNT");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
-			sql.append(" WHERE  ");
-			sql.append(" py.DOCTYPE = ? ");
+			sql.append(" WHERE 1=1 ");
+			sql.append(" and py.DOCTYPE = ? ");
+			sql.append(" and pim.SERVICE_TYPE = ? ");
 			if(StringUtils.isNoneEmpty(creteria.getDateFrom())) {
 				
 				String dateFrom = convertDateString(creteria.getDateFrom())+ " " + creteria.getDateFromHour()+ ":"+creteria.getDateFromMinute() +":"+"00"+":" +"000000"; 
@@ -124,7 +125,10 @@ public class ReportDaoImpl implements ReportDao{
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
 			}
 			
+			sql.append(" ORDER BY py.CREATE_BY ");
+			
 			param.add(creteria.getTypePrint());
+			param.add(creteria.getFlagPage());
 			Object[] paramArr = param.toArray();
 			collectionss = jdbcTemplate.query(sql.toString(), paramArr, new mapInvPaymentOrderTaxBean());
 
@@ -220,7 +224,9 @@ public class ReportDaoImpl implements ReportDao{
 			invPaymentOrderTaxBean.setBranchCode(rs.getString("py.BRANCH_CODE"));
 			invPaymentOrderTaxBean.setSummary(rs.getBigDecimal("py.PAID_AMOUNT"));
 			invPaymentOrderTaxBean.setPayType(rs.getString("py.RECORD_STATUS"));
-			invPaymentOrderTaxBean.setVatRate(rs.getInt("pim.VAT_RATE"));
+			invPaymentOrderTaxBean.setVatRate(rs.getInt("pim.VAT_RATE")+"");
+			invPaymentOrderTaxBean.setVatAmount(rs.getBigDecimal("py.VAT_AMOUNT"));
+			invPaymentOrderTaxBean.setAmount(rs.getBigDecimal("py.AMOUNT"));
 			return invPaymentOrderTaxBean;
 		}
 
@@ -235,7 +241,7 @@ public class ReportDaoImpl implements ReportDao{
 
 	@Override
 	public List<InvPaymentOrderTaxBean> summarryVay(HistoryReportBean creteria ,boolean groupby) {
-		List<InvPaymentOrderTaxBean> collectionss = new ArrayList<InvPaymentOrderTaxBean>();
+//		List<InvPaymentOrderTaxBean> collectionss = new ArrayList<InvPaymentOrderTaxBean>();
 		List<Object> param = new LinkedList<Object>();
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT  VAT_RATE, SUM(pim.VAT_AMOUNT) as SUM_VAT_AMOUNT, ");
@@ -269,7 +275,7 @@ public class ReportDaoImpl implements ReportDao{
 		@Override
 		public InvPaymentOrderTaxBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 			InvPaymentOrderTaxBean invEpisOfflineReportBean = new InvPaymentOrderTaxBean();
-			invEpisOfflineReportBean.setVatRate(rs.getInt("VAT_RATE"));
+			invEpisOfflineReportBean.setVatRate(rs.getInt("VAT_RATE")+"");
 			invEpisOfflineReportBean.setBeforeVatSummary(rs.getBigDecimal("SUM_BEFOR_VAT"));
 			invEpisOfflineReportBean.setVatSummary(rs.getBigDecimal("SUM_VAT_AMOUNT"));
 			invEpisOfflineReportBean.setSummarySummary(rs.getBigDecimal("SUM_AMOUNT"));

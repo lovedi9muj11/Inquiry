@@ -3,7 +3,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.2100000000000009"/>
-	<property name="ireport.x" value="223"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -426,32 +426,7 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="131">
-			<frame>
-				<reportElement x="0" y="0" width="1045" height="30" uuid="31daf5d6-6ef4-4f22-920f-c725391f2449"/>
-				<box>
-					<topPen lineWidth="1.2"/>
-					<bottomPen lineWidth="1.2"/>
-				</box>
-				<staticText>
-					<reportElement x="0" y="0" width="70" height="30" uuid="c301d1d0-0d35-4ec9-9f19-f0c4df14eba7"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
-					</textElement>
-					<text><![CDATA[รวมตาม UserID ]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="70" y="0" width="99" height="30" uuid="a502be11-1ea6-4043-9edb-7598bdefb1d4"/>
-					<textElement>
-						<font fontName="FreesiaUPC" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getEmpSummaryName()]]></textFieldExpression>
-				</textField>
-			</frame>
+		<band height="190">
 			<frame>
 				<reportElement x="1" y="30" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
 				<box>
@@ -571,7 +546,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="1" y="90" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
+				<reportElement x="0" y="150" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -605,6 +580,124 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
 				</textField>
 			</frame>
+			<staticText>
+				<reportElement x="1" y="90" width="42" height="30" uuid="fd19d741-ef2b-492e-8cfd-60a78d955f49"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<text><![CDATA[รวมอัตรา]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="90" width="1045" height="30" uuid="aa19dddf-0c7e-4291-9132-ba739254e40d"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="1" y="120" width="42" height="30" uuid="413c9542-f07a-43d5-b068-759b67c8c8f2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<text><![CDATA[รวมอัตรา]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="90" width="21" height="30" uuid="83cae818-22c2-49d0-962c-222272e34777"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="90" width="27" height="30" uuid="bf598cb2-1d88-4630-b543-c0983800554f"/>
+				<textElement textAlignment="Center">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="696" y="90" width="91" height="30" uuid="33e06658-d852-4002-98ff-10f80693b8a2"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatRqStrSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="878" y="90" width="91" height="30" uuid="9f11385d-7ebe-4a08-b930-6ad462575b1d"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSummaryRqStrSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="787" y="90" width="91" height="30" uuid="a9c08979-0dbd-43fb-baee-058d9ad2163c"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getVatRqStrSummary()]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="1" y="120" width="1045" height="30" uuid="689e789e-7c3c-4073-bfd6-8e838461ccdc"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="70" y="120" width="21" height="30" uuid="034d1776-d919-4a88-a988-d7107b9e0099"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="120" width="26" height="30" uuid="6aa4362c-5977-40fe-b5aa-b38262cad264"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="696" y="120" width="91" height="30" uuid="e5c41ad6-858f-4b56-afec-91ad787f61e9"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatZeroStrSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="878" y="120" width="91" height="30" uuid="c7e475b5-964f-420d-b450-009acb9ff57c"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSummaryZeroStrSummary()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="787" y="120" width="91" height="30" uuid="52663e9c-ba13-49d1-bf3d-243a4e406728"/>
+				<textElement textAlignment="Right">
+					<font fontName="FreesiaUPC" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getVatZeroStrSummary()]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

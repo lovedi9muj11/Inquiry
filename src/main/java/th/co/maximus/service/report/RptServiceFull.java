@@ -65,9 +65,18 @@ public class RptServiceFull extends BaseExcelRptService{
 		BigDecimal vat7 = BigDecimal.ZERO;
 		BigDecimal vat72 = BigDecimal.ZERO;
 		BigDecimal vat73 = BigDecimal.ZERO;
+		
 		BigDecimal vat0 = BigDecimal.ZERO;
 		BigDecimal vat02 = BigDecimal.ZERO;
 		BigDecimal vat03 = BigDecimal.ZERO;
+		
+		BigDecimal vat10 = BigDecimal.ZERO;
+		BigDecimal vat102 = BigDecimal.ZERO;
+		BigDecimal vat103 = BigDecimal.ZERO;
+		
+		BigDecimal vat8 = BigDecimal.ZERO;
+		BigDecimal vat82 = BigDecimal.ZERO;
+		BigDecimal vat83 = BigDecimal.ZERO;
 		
 		String nameBranch = masterDatasDao.findByKey(branArea).getValue();
 		
@@ -111,11 +120,19 @@ public class RptServiceFull extends BaseExcelRptService{
 					if(7 == entity.get(i).getVatRate()) {
 						vat7 = vat7.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
 						vat72 = vat72.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
-						vat73 = vat73.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+						vat73 = vat73.add(entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount());
 					}else if(0 == entity.get(i).getVatRate()) {
 						vat0 = vat0.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
 						vat02 = vat02.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
-						vat03 = vat03.add(entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount());
+						vat03 = vat03.add(entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount());
+					}else if(10 == entity.get(i).getVatRate()) {
+						vat10 = vat10.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+						vat102 = vat102.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+						vat103 = vat103.add(entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount());
+					}else if(8 == entity.get(i).getVatRate()) {
+						vat8 = vat8.add(entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat());
+						vat82 = vat82.add(entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat());
+						vat83 = vat83.add(entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount());
 					}
 				}
 		
@@ -136,10 +153,11 @@ public class RptServiceFull extends BaseExcelRptService{
 				cell3.setCellValue(entity.get(i).getDocumentNo());
 				cell4.setCellValue(entity.get(i).getCustName());
 				cell5.setCellValue(entity.get(i).getTaxId());
-				cell6.setCellValue(entity.get(i).getBranCode().equals("00000") ? "สำนักงานใหญ่" : entity.get(i).getBranCode());
+//				cell6.setCellValue(entity.get(i).getBranCode().equals("00000") ? "สำนักงานใหญ่" : entity.get(i).getBranCode());
+				cell6.setCellValue(entity.get(i).getBranCode());
 				cell7.setCellValue(new Double((entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat()).toString()));
 				cell8.setCellValue(new Double((entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat()).toString()));
-				cell9.setCellValue(new Double((entity.get(i).getPaidAmount()==null?BigDecimal.ZERO:entity.get(i).getPaidAmount()).toString()));
+				cell9.setCellValue(new Double((entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount()).toString()));
 				cell10.setCellValue(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())?Constants.Status.ACTIVE_:Constants.Status.ACTIVE_C);
 				
 				cell1.setCellStyle(txtCenter);
@@ -192,84 +210,168 @@ public class RptServiceFull extends BaseExcelRptService{
 			CellRangeAddress mergedCell = new CellRangeAddress(rowNum, rowNum, 0, 1);
 			borderMergs(mergedCell, sh, workbook);
 			
-			rowNum++;
-			Row sumRow1 = sh.createRow(rowNum);
-			Cell sumCell21 = sumRow1.createCell(0);
-			Cell sumCell22 = sumRow1.createCell(1);
-			Cell sumCell23 = sumRow1.createCell(2);
-			Cell sumCell24 = sumRow1.createCell(3);
-			Cell sumCell25 = sumRow1.createCell(4);
-			Cell sumCell26 = sumRow1.createCell(5);
-			Cell sumCell27 = sumRow1.createCell(6);
-			Cell sumCell28 = sumRow1.createCell(7);
-			Cell sumCell29 = sumRow1.createCell(8);
-			Cell sumCell210 = sumRow1.createCell(9);
+			if(vat10 != BigDecimal.ZERO) {
+				rowNum++;
+				Row sumRow1 = sh.createRow(rowNum);
+				Cell sumCell21 = sumRow1.createCell(0);
+				Cell sumCell22 = sumRow1.createCell(1);
+				Cell sumCell23 = sumRow1.createCell(2);
+				Cell sumCell24 = sumRow1.createCell(3);
+				Cell sumCell25 = sumRow1.createCell(4);
+				Cell sumCell26 = sumRow1.createCell(5);
+				Cell sumCell27 = sumRow1.createCell(6);
+				Cell sumCell28 = sumRow1.createCell(7);
+				Cell sumCell29 = sumRow1.createCell(8);
+				Cell sumCell210 = sumRow1.createCell(9);
+				
+				sumCell21.setCellValue("รวมอัตรา 10%");
+				sumCell22.setCellValue("");
+				sumCell23.setCellValue("");
+				sumCell24.setCellValue("");
+				sumCell25.setCellValue("");
+				sumCell26.setCellValue("");
+				sumCell27.setCellFormula(vat10.toString()); //"SUM(G2:G"+(rowNum-2)+")"
+				sumCell28.setCellFormula(vat102.toString()); //"SUM(H2:H"+(rowNum-2)+")"
+				sumCell29.setCellFormula(vat103.toString()); //"SUM(I2:I"+(rowNum-2)+")"
+				sumCell210.setCellValue("");
+				
+				sumCell21.setCellStyle(summary);
+				sumCell22.setCellStyle(summary);
+				sumCell23.setCellStyle(summary);
+				sumCell24.setCellStyle(summary);
+				sumCell25.setCellStyle(summary);
+				sumCell26.setCellStyle(summary);
+				sumCell27.setCellStyle(numRightBor);
+				sumCell28.setCellStyle(numRightBor);
+				sumCell29.setCellStyle(numRightBor);
+				sumCell210.setCellStyle(summary);
+				
+				CellRangeAddress mergedCell1 = new CellRangeAddress(rowNum, rowNum, 0, 1);
+				borderMergs(mergedCell1, sh, workbook);
+			}
 			
-			sumCell21.setCellValue("รวมอัตรา 7%");
-			sumCell22.setCellValue("");
-			sumCell23.setCellValue("");
-			sumCell24.setCellValue("");
-			sumCell25.setCellValue("");
-			sumCell26.setCellValue("");
-			sumCell27.setCellFormula(vat7.toString()); //"SUM(G2:G"+(rowNum-2)+")"
-			sumCell28.setCellFormula(vat72.toString()); //"SUM(H2:H"+(rowNum-2)+")"
-			sumCell29.setCellFormula(vat73.toString()); //"SUM(I2:I"+(rowNum-2)+")"
-			sumCell210.setCellValue("");
+			if(vat8 != BigDecimal.ZERO) {
+				rowNum++;
+				Row sumRow1 = sh.createRow(rowNum);
+				Cell sumCell21 = sumRow1.createCell(0);
+				Cell sumCell22 = sumRow1.createCell(1);
+				Cell sumCell23 = sumRow1.createCell(2);
+				Cell sumCell24 = sumRow1.createCell(3);
+				Cell sumCell25 = sumRow1.createCell(4);
+				Cell sumCell26 = sumRow1.createCell(5);
+				Cell sumCell27 = sumRow1.createCell(6);
+				Cell sumCell28 = sumRow1.createCell(7);
+				Cell sumCell29 = sumRow1.createCell(8);
+				Cell sumCell210 = sumRow1.createCell(9);
+				
+				sumCell21.setCellValue("รวมอัตรา 8%");
+				sumCell22.setCellValue("");
+				sumCell23.setCellValue("");
+				sumCell24.setCellValue("");
+				sumCell25.setCellValue("");
+				sumCell26.setCellValue("");
+				sumCell27.setCellFormula(vat8.toString()); //"SUM(G2:G"+(rowNum-2)+")"
+				sumCell28.setCellFormula(vat82.toString()); //"SUM(H2:H"+(rowNum-2)+")"
+				sumCell29.setCellFormula(vat83.toString()); //"SUM(I2:I"+(rowNum-2)+")"
+				sumCell210.setCellValue("");
+				
+				sumCell21.setCellStyle(summary);
+				sumCell22.setCellStyle(summary);
+				sumCell23.setCellStyle(summary);
+				sumCell24.setCellStyle(summary);
+				sumCell25.setCellStyle(summary);
+				sumCell26.setCellStyle(summary);
+				sumCell27.setCellStyle(numRightBor);
+				sumCell28.setCellStyle(numRightBor);
+				sumCell29.setCellStyle(numRightBor);
+				sumCell210.setCellStyle(summary);
+				
+				CellRangeAddress mergedCell1 = new CellRangeAddress(rowNum, rowNum, 0, 1);
+				borderMergs(mergedCell1, sh, workbook);
+			}
 			
-			sumCell21.setCellStyle(summary);
-			sumCell22.setCellStyle(summary);
-			sumCell23.setCellStyle(summary);
-			sumCell24.setCellStyle(summary);
-			sumCell25.setCellStyle(summary);
-			sumCell26.setCellStyle(summary);
-			sumCell27.setCellStyle(numRightBor);
-			sumCell28.setCellStyle(numRightBor);
-			sumCell29.setCellStyle(numRightBor);
-			sumCell210.setCellStyle(summary);
+			if(vat7 != BigDecimal.ZERO) {
+				rowNum++;
+				Row sumRow1 = sh.createRow(rowNum);
+				Cell sumCell21 = sumRow1.createCell(0);
+				Cell sumCell22 = sumRow1.createCell(1);
+				Cell sumCell23 = sumRow1.createCell(2);
+				Cell sumCell24 = sumRow1.createCell(3);
+				Cell sumCell25 = sumRow1.createCell(4);
+				Cell sumCell26 = sumRow1.createCell(5);
+				Cell sumCell27 = sumRow1.createCell(6);
+				Cell sumCell28 = sumRow1.createCell(7);
+				Cell sumCell29 = sumRow1.createCell(8);
+				Cell sumCell210 = sumRow1.createCell(9);
+				
+				sumCell21.setCellValue("รวมอัตรา 7%");
+				sumCell22.setCellValue("");
+				sumCell23.setCellValue("");
+				sumCell24.setCellValue("");
+				sumCell25.setCellValue("");
+				sumCell26.setCellValue("");
+				sumCell27.setCellFormula(vat7.toString()); //"SUM(G2:G"+(rowNum-2)+")"
+				sumCell28.setCellFormula(vat72.toString()); //"SUM(H2:H"+(rowNum-2)+")"
+				sumCell29.setCellFormula(vat73.toString()); //"SUM(I2:I"+(rowNum-2)+")"
+				sumCell210.setCellValue("");
+				
+				sumCell21.setCellStyle(summary);
+				sumCell22.setCellStyle(summary);
+				sumCell23.setCellStyle(summary);
+				sumCell24.setCellStyle(summary);
+				sumCell25.setCellStyle(summary);
+				sumCell26.setCellStyle(summary);
+				sumCell27.setCellStyle(numRightBor);
+				sumCell28.setCellStyle(numRightBor);
+				sumCell29.setCellStyle(numRightBor);
+				sumCell210.setCellStyle(summary);
+				
+				CellRangeAddress mergedCell1 = new CellRangeAddress(rowNum, rowNum, 0, 1);
+				borderMergs(mergedCell1, sh, workbook);
+			}
 			
-			CellRangeAddress mergedCell1 = new CellRangeAddress(rowNum, rowNum, 0, 1);
-			borderMergs(mergedCell1, sh, workbook);
-			
-			rowNum++;
-			Row sumRow2 = sh.createRow(rowNum);
-			Cell sumCell31 = sumRow2.createCell(0);
-			Cell sumCell32 = sumRow2.createCell(1);
-			Cell sumCell33 = sumRow2.createCell(2);
-			Cell sumCell34 = sumRow2.createCell(3);
-			Cell sumCell35 = sumRow2.createCell(4);
-			Cell sumCell36 = sumRow2.createCell(5);
-			Cell sumCell37 = sumRow2.createCell(6);
-			Cell sumCell38 = sumRow2.createCell(7);
-			Cell sumCell39 = sumRow2.createCell(8);
-			Cell sumCell310 = sumRow2.createCell(9);
-			
-			sumCell31.setCellValue("รวมอัตรา 0%");
-			sumCell32.setCellValue("");
-			sumCell33.setCellValue("");
-			sumCell34.setCellValue("");
-			sumCell35.setCellValue("");
-			sumCell36.setCellValue("");
-//			sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
-//			sumCell38.setCellFormula("SUM(H"+(rowNum)+":H"+(rowNum-3)+")");
-//			sumCell39.setCellFormula("SUM(I"+(rowNum)+":I"+(rowNum-3)+")");
-			sumCell37.setCellFormula(vat0.toString());
-			sumCell38.setCellFormula(vat02.toString());
-			sumCell39.setCellFormula(vat03.toString());
-			sumCell310.setCellValue("");
-			
-			sumCell31.setCellStyle(summary);
-			sumCell32.setCellStyle(summary);
-			sumCell33.setCellStyle(summary);
-			sumCell34.setCellStyle(summary);
-			sumCell35.setCellStyle(summary);
-			sumCell36.setCellStyle(summary);
-			sumCell37.setCellStyle(numRightBor);
-			sumCell38.setCellStyle(numRightBor);
-			sumCell39.setCellStyle(numRightBor);
-			sumCell310.setCellStyle(summary);
-			
-			CellRangeAddress mergedCell2 = new CellRangeAddress(rowNum, rowNum, 0, 1);
-			borderMergs(mergedCell2, sh, workbook);
+			if(vat0 != BigDecimal.ZERO) {
+				rowNum++;
+				Row sumRow2 = sh.createRow(rowNum);
+				Cell sumCell31 = sumRow2.createCell(0);
+				Cell sumCell32 = sumRow2.createCell(1);
+				Cell sumCell33 = sumRow2.createCell(2);
+				Cell sumCell34 = sumRow2.createCell(3);
+				Cell sumCell35 = sumRow2.createCell(4);
+				Cell sumCell36 = sumRow2.createCell(5);
+				Cell sumCell37 = sumRow2.createCell(6);
+				Cell sumCell38 = sumRow2.createCell(7);
+				Cell sumCell39 = sumRow2.createCell(8);
+				Cell sumCell310 = sumRow2.createCell(9);
+				
+				sumCell31.setCellValue("รวมอัตรา 0%");
+				sumCell32.setCellValue("");
+				sumCell33.setCellValue("");
+				sumCell34.setCellValue("");
+				sumCell35.setCellValue("");
+				sumCell36.setCellValue("");
+//				sumCell37.setCellFormula("SUM(G"+(rowNum)+":G"+(rowNum-3)+")");
+//				sumCell38.setCellFormula("SUM(H"+(rowNum)+":H"+(rowNum-3)+")");
+//				sumCell39.setCellFormula("SUM(I"+(rowNum)+":I"+(rowNum-3)+")");
+				sumCell37.setCellFormula(vat0.toString());
+				sumCell38.setCellFormula(vat02.toString());
+				sumCell39.setCellFormula(vat03.toString());
+				sumCell310.setCellValue("");
+				
+				sumCell31.setCellStyle(summary);
+				sumCell32.setCellStyle(summary);
+				sumCell33.setCellStyle(summary);
+				sumCell34.setCellStyle(summary);
+				sumCell35.setCellStyle(summary);
+				sumCell36.setCellStyle(summary);
+				sumCell37.setCellStyle(numRightBor);
+				sumCell38.setCellStyle(numRightBor);
+				sumCell39.setCellStyle(numRightBor);
+				sumCell310.setCellStyle(summary);
+				
+				CellRangeAddress mergedCell2 = new CellRangeAddress(rowNum, rowNum, 0, 1);
+				borderMergs(mergedCell2, sh, workbook);
+			}
 			
 			rowNum+=2;
 			Row sumRow3 = sh.createRow(rowNum);

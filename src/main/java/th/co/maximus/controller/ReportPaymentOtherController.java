@@ -31,5 +31,10 @@ public class ReportPaymentOtherController {
 		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria,"OTHER");
 		return result;
 	}
+	
+	@RequestMapping(value = { "/reportPaymentTaxOther" }, method = RequestMethod.GET)
+	public String reportPaymentTax(Model model) {
+		return "report-tax-other";
+	}
 
 }
