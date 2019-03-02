@@ -559,7 +559,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setBeforVat(rs.getBigDecimal("pim.BEFOR_VAT"));
 			paymentInvoiceEpisOffline.setVatAmount(rs.getBigDecimal("pim.VAT_AMOUNT"));
 			paymentInvoiceEpisOffline.setAmount(rs.getBigDecimal("pim.AMOUNT"));
-			paymentInvoiceEpisOffline.setVatRate(rs.getBigDecimal("pim.VAT_RATE"));
+			paymentInvoiceEpisOffline.setVatRate(rs.getString("pim.VAT_RATE"));
 			paymentInvoiceEpisOffline.setCustomerName(rs.getString("pim.CUSTOMER_NAME"));
 			paymentInvoiceEpisOffline.setCustomerAddress(rs.getString("pim.CUSTOMER_ADDRESS"));
 			paymentInvoiceEpisOffline.setCustomerSegment(rs.getString("pim.CUSTOMER_SEGMENT"));
