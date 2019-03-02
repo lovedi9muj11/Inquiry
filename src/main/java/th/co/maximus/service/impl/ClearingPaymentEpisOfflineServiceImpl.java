@@ -173,6 +173,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
+						paymentEpisOfflineDTO.setVatAmount(recrip.getVatAmount());
+						paymentEpisOfflineDTO.setVatRate(new BigDecimal(paymentList.get(0).getVatRate()));
 						if (isOther) {
 						
 							paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
@@ -186,11 +188,14 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						List<PaymentInvoiceEpisOffline> paymentList2 = new ArrayList<>();
 						if (!isOther) {
 							for (PaymentInvoiceEpisOffline data : paymentList) {
+								
+							
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
 									BigDecimal disVat = (new BigDecimal(invoid.getDiscount())
-											.multiply(data.getVatRate())).divide(data.getVatRate());
+											.multiply(new BigDecimal(data.getVatRate()))).divide(new BigDecimal(data.getVatRate()));
 									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
 									data.setDiscountVat(disVat);
+								
 								} else {
 									if (null != invoid.getDiscount()) {
 										data.setDiscount(new BigDecimal(invoid.getDiscount()));
@@ -216,9 +221,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			}
 			String postUrl = "";
 			if(isOther){
-				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
+				 postUrl = "http://localhost:8080/EpisWeb/offline/paymentManualSaveOffline"; // /offline/insertPayment
 			}else{
-				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
+				 postUrl = "http://localhost:8080/EpisWeb/offline/paymentManualSaveOffline"; // /offline/insertPayment
 			}
 			
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList, String.class);
