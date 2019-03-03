@@ -221,9 +221,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			}
 			String postUrl = "";
 			if(isOther){
-				 postUrl = "http://localhost:8080/EpisWeb/offline/paymentManualSaveOffline"; // /offline/insertPayment
+				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			}else{
-				 postUrl = "http://localhost:8080/EpisWeb/offline/paymentManualSaveOffline"; // /offline/insertPayment
+				 postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			}
 			
 			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList, String.class);
