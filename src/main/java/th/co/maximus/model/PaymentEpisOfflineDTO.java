@@ -17,6 +17,7 @@ public class PaymentEpisOfflineDTO {
 	private String manualID;
 	private BigDecimal vatAmount;
 	private BigDecimal vatRate;
+	private String creatBy;
 	private List<PaymentInvoiceEpisOffline> paymentInvoice;
 	private List<DuductionEpisOffline> duduction;
 	private List<TrsMethodEpisOffline> trsMethod;
@@ -119,6 +120,15 @@ public class PaymentEpisOfflineDTO {
 		this.paidDate = paidDate;
 	}
 
+	public String getCreatBy() {
+		return creatBy;
+	}
+
+	public void setCreatBy(String creatBy) {
+		this.creatBy = creatBy;
+	}
+
+	
 	
 
 }

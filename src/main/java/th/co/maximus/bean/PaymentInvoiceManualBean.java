@@ -43,6 +43,8 @@ public class PaymentInvoiceManualBean {
 	private String serviceName;
 	private String departmentcode;
 	
+	private BigDecimal discountVat;
+	
 	
 
 	
@@ -326,6 +328,16 @@ public class PaymentInvoiceManualBean {
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
+
+	public BigDecimal getDiscountVat() {
+		return discountVat;
+	}
+
+	public void setDiscountVat(BigDecimal discountVat) {
+		this.discountVat = discountVat;
+	}
+	
+	
 
 	
 	
