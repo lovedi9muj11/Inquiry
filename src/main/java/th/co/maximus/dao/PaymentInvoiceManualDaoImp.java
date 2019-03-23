@@ -369,11 +369,17 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 						+ historyRpt.getDateToMinute() + ":" + "59" + ":" + "999999";
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" " + dateTo + " ' ");
 			}
+			
+			if(StringUtils.isNotEmpty(historyRpt.getUnserLogin())) {
+				sql.append(" and pim.CREATE_BY = ? ");
+			}
 
-			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.RECEIPT_NO_MANUAL DESC");
+//			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.RECEIPT_NO_MANUAL DESC");
+			sql.append(" GROUP by py.MANUAL_ID  ORDER BY py.RECEIPT_NO_MANUAL ASC ");
 			// sql.append(" GROUP BY tm.NAME ");
 			param.add(historyRpt.getTypePrint());
 			param.add(historyRpt.getFlagPage());
+			param.add(historyRpt.getUnserLogin());
 			Object[] paramArr = param.toArray();
 			historyPaymentRSs = jdbcTemplate.query(sql.toString(), paramArr, new mapHistory());
 			
@@ -559,7 +565,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setBeforVat(rs.getBigDecimal("pim.BEFOR_VAT"));
 			paymentInvoiceEpisOffline.setVatAmount(rs.getBigDecimal("pim.VAT_AMOUNT"));
 			paymentInvoiceEpisOffline.setAmount(rs.getBigDecimal("pim.AMOUNT"));
-			paymentInvoiceEpisOffline.setVatRate(rs.getBigDecimal("pim.VAT_RATE"));
+			paymentInvoiceEpisOffline.setVatRate(rs.getString("pim.VAT_RATE"));
 			paymentInvoiceEpisOffline.setCustomerName(rs.getString("pim.CUSTOMER_NAME"));
 			paymentInvoiceEpisOffline.setCustomerAddress(rs.getString("pim.CUSTOMER_ADDRESS"));
 			paymentInvoiceEpisOffline.setCustomerSegment(rs.getString("pim.CUSTOMER_SEGMENT"));
