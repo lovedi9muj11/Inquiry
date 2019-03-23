@@ -15,11 +15,30 @@ public class PaymentEpisOfflineDTO {
 	private String remark;
 	private String accountNo;
 	private String manualID;
+	private BigDecimal vatAmount;
+	private BigDecimal vatRate;
+	private String creatBy;
 	private List<PaymentInvoiceEpisOffline> paymentInvoice;
 	private List<DuductionEpisOffline> duduction;
 	private List<TrsMethodEpisOffline> trsMethod;
 
 	
+	public BigDecimal getVatAmount() {
+		return vatAmount;
+	}
+
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
+	}
+
+	public BigDecimal getVatRate() {
+		return vatRate;
+	}
+
+	public void setVatRate(BigDecimal vatRate) {
+		this.vatRate = vatRate;
+	}
+
 	public PaymentEpisOfflineDTO(){}
 	
 	public String getInvoiceNo() {
@@ -101,6 +120,15 @@ public class PaymentEpisOfflineDTO {
 		this.paidDate = paidDate;
 	}
 
+	public String getCreatBy() {
+		return creatBy;
+	}
+
+	public void setCreatBy(String creatBy) {
+		this.creatBy = creatBy;
+	}
+
+	
 	
 
 }

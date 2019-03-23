@@ -1,5 +1,6 @@
 package th.co.maximus.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +67,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		paymentInvoiceManualBean.setRecordStatus("A");
 		paymentInvoiceManualBean.setDepartment(paymentBean.getDebtCollection());
 		paymentInvoiceManualBean.setInvoiceDate(paymentBean.getInvoiceDate());
+		paymentInvoiceManualBean.setDiscountbeforvat(BigDecimal.ZERO);
 
 		
 		

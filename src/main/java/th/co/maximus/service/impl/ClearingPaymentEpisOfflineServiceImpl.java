@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,8 +172,10 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
+						paymentEpisOfflineDTO.setVatAmount(recrip.getVatAmount());
+						paymentEpisOfflineDTO.setCreatBy(recrip.getCreatBy());
+						paymentEpisOfflineDTO.setVatRate(new BigDecimal(paymentList.get(0).getVatRate()));
 						if (isOther) {
-						
 							paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
 						} else {
 							paymentEpisOfflineDTO
@@ -188,7 +189,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							for (PaymentInvoiceEpisOffline data : paymentList) {
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
 									BigDecimal disVat = (new BigDecimal(invoid.getDiscount())
-											.multiply(data.getVatRate())).divide(data.getVatRate());
+											.multiply(new BigDecimal(data.getVatRate()))).divide(new BigDecimal(data.getVatRate()));
 									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
 									data.setDiscountVat(disVat);
 								} else {
@@ -199,7 +200,6 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 										data.setDiscountVat(BigDecimal.ZERO);
 									}
 								}
-
 								paymentList2.add(data);
 							}
 							paymentEpisOfflineDTO.setPaymentInvoice(paymentList2);

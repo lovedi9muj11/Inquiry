@@ -9,7 +9,7 @@ public class PaymentInvoiceEpisOffline {
 	private BigDecimal beforVat;
 	private BigDecimal vatAmount;
 	private BigDecimal amount;
-	private BigDecimal vatRate;
+	private String vatRate;
 	private String customerName;
 	private String customerAddress;
 	private String customerSegment;
@@ -33,7 +33,7 @@ public class PaymentInvoiceEpisOffline {
 	private BigDecimal discountVat;
 	
 	public PaymentInvoiceEpisOffline(){}
-	public PaymentInvoiceEpisOffline(String invoiceNo,BigDecimal beforVat,BigDecimal vatAmount,BigDecimal amount,BigDecimal vatRate,String customerName,
+	public PaymentInvoiceEpisOffline(String invoiceNo,BigDecimal beforVat,BigDecimal vatAmount,BigDecimal amount,String vatRate,String customerName,
 			String customerAddress,String customerSegment,String customerBranch,String taxNo,String accountSubNo,
 			String period,String serviceType,String remark,Integer quantity,String incomeType,BigDecimal discountBeforvat,BigDecimal discountSpecial,
 			String amountType,String department,String serviceName,String serviceCode,Date invoiceDate){
@@ -87,10 +87,10 @@ public class PaymentInvoiceEpisOffline {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	public BigDecimal getVatRate() {
+	public String getVatRate() {
 		return vatRate;
 	}
-	public void setVatRate(BigDecimal vatRate) {
+	public void setVatRate(String vatRate) {
 		this.vatRate = vatRate;
 	}
 	public String getCustomerName() {
