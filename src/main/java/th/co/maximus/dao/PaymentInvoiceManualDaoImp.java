@@ -474,7 +474,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			invoice.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
 			invoice.setPaidAmount(rs.getBigDecimal("PAID_AMOUNT"));
 			invoice.setAmount(rs.getBigDecimal("AMOUNT"));
-			invoice.setVatRate(rs.getString("VAT_RATE"));
+			invoice.setVatRate(rs.getString("VAT_RATE").equals("Non-VAT") ? null : rs.getString("VAT_RATE"));
 			invoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
 			invoice.setCustometAddress(rs.getString("CUSTOMER_ADDRESS"));
 			invoice.setCustometSegment(rs.getString("CUSTOMER_SEGMENT"));
@@ -559,7 +559,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setBeforVat(rs.getBigDecimal("pim.BEFOR_VAT"));
 			paymentInvoiceEpisOffline.setVatAmount(rs.getBigDecimal("pim.VAT_AMOUNT"));
 			paymentInvoiceEpisOffline.setAmount(rs.getBigDecimal("pim.AMOUNT"));
-			paymentInvoiceEpisOffline.setVatRate(rs.getString("pim.VAT_RATE"));
+			paymentInvoiceEpisOffline.setVatRate(rs.getString("pim.VAT_RATE").equals("Non-VAT") ? null : rs.getString("pim.VAT_RATE"));
 			paymentInvoiceEpisOffline.setCustomerName(rs.getString("pim.CUSTOMER_NAME"));
 			paymentInvoiceEpisOffline.setCustomerAddress(rs.getString("pim.CUSTOMER_ADDRESS"));
 			paymentInvoiceEpisOffline.setCustomerSegment(rs.getString("pim.CUSTOMER_SEGMENT"));
