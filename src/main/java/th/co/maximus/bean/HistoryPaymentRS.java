@@ -18,7 +18,7 @@ public class HistoryPaymentRS {
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
 	private String numberRun;
-	
+	private String createBy;
 	
 	public HistoryPaymentRS(){}
 	
@@ -127,6 +127,14 @@ public class HistoryPaymentRS {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
 	}
 	
 	

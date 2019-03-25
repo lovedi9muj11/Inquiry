@@ -113,7 +113,7 @@ public class ReportDaoImpl implements ReportDao{
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE 1=1 ");
 			sql.append(" and py.DOCTYPE = ? ");
-			sql.append(" and pim.SERVICE_TYPE = ? ");
+//			sql.append(" and pim.SERVICE_TYPE = ? ");
 			if(StringUtils.isNoneEmpty(creteria.getDateFrom())) {
 				
 				String dateFrom = convertDateString(creteria.getDateFrom())+ " " + creteria.getDateFromHour()+ ":"+creteria.getDateFromMinute() +":"+"00"+":" +"000000"; 
@@ -128,7 +128,7 @@ public class ReportDaoImpl implements ReportDao{
 			sql.append(" ORDER BY py.CREATE_BY ");
 			
 			param.add(creteria.getTypePrint());
-			param.add(creteria.getFlagPage());
+//			param.add(creteria.getFlagPage());
 			Object[] paramArr = param.toArray();
 			collectionss = jdbcTemplate.query(sql.toString(), paramArr, new mapInvPaymentOrderTaxBean());
 

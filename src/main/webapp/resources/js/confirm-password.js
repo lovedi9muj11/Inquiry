@@ -77,7 +77,7 @@ $(document).ready(function() {
 			if(pass) {
 				
 				swal({
-					  title: "คุณต้องการเปลี่ยน Password ใช่หรือไม่",
+					  title: "คุณต้องการเปลี่ยนรหัสใช่หรือไม่",
 					  text: "",
 					  icon: "warning",
 					  buttons: true,

@@ -908,12 +908,14 @@ public class EpisReportController {
 		Date date = new Date();
 		
 		String dateDocument = dt.format(date);
+		String oldHeadName = "";
 		if (Constants.DOCTYPE.RF.equals(creteria.getTypePrint())) {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีเต็มรูป");
 			exportPDFReport.setReportStatus("1");
 		} else {
 			exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ");
 		}
+		oldHeadName = exportPDFReport.getHeadName();
 		String fomeDate = "";
 		String endDate = "";
 		if (StringUtils.isNotBlank(creteria.getDateFrom())) {
@@ -982,11 +984,11 @@ public class EpisReportController {
 					colles.setCustName(colles.getCustName());
 					colles.setEmpName(colles.getEmpName());
 					colles.setTaxId(colles.getTaxId());
-//					if (colles.getBranchCode().equals("00000")) {
-//						colles.setBranchCode("สำนักงานใหญ่");
-//					} else {
+					if (colles.getBranchCode().equals("00000")) {
+						colles.setBranchCode("สำนักงานใหญ่");
+					} else {
 						colles.setBranchCode(colles.getBranchCode());
-//					}
+					}
 
 					colles.setSummary(colles.getAmount().setScale(2, RoundingMode.HALF_DOWN));
 
@@ -1092,6 +1094,14 @@ public class EpisReportController {
 					userCreBy = collections.get(i).getEmpName();
 					printCollections = new ArrayList<InvPaymentOrderTaxBean>();
 					exportPDFReport = new InvPaymentOrderTaxBean();
+					exportPDFReport.setHeadName(oldHeadName);
+					exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
+					exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
+					exportPDFReport.setPrintDate(dateDocument);
+					exportPDFReport.setBranchArea(valueBean.getValue());
+					exportPDFReport.setInvoiceNo(taxidCat);
+					exportPDFReport.setBranchCodeEmp(branCode);
+					exportPDFReport.setEmpSummaryName(invObject.getEmpName());
 					vatRate = collections.get(i).getVatRate()+"";
 					
 					autoNumber = 1;
@@ -1114,11 +1124,11 @@ public class EpisReportController {
 					colles.setCustName(colles.getCustName());
 					colles.setEmpName(colles.getEmpName());
 					colles.setTaxId(colles.getTaxId());
-//					if (colles.getBranchCode().equals("00000")) {
-//						colles.setBranchCode("สำนักงานใหญ่");
-//					} else {
+					if (colles.getBranchCode().equals("00000")) {
+						colles.setBranchCode("สำนักงานใหญ่");
+					} else {
 						colles.setBranchCode(colles.getBranchCode());
-//					}
+					}
 
 					colles.setSummary(colles.getAmount().setScale(2, RoundingMode.HALF_DOWN));
 

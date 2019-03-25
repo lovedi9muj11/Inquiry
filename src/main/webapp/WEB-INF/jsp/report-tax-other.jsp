@@ -29,12 +29,13 @@
 		<h1 class="page-header"></h1>
 		<div class="panel" id="panel1">
 			
-				<div class="panel-heading">ค้นหารายงานภาษีขาย บริการอื่นๆ</div>
+				<div class="panel-heading">รายงานภาษีขายใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ</div>
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
 				<form name="reportTaxOtherForm" id="reportTaxOtherForm"  class="form-horizontal" role="form">
 				<input name="rptCode" id="rptCode" value="ExcelFull" type="hidden">
 				<input type="hidden" name="flagPage" id="flagPage" value="OTHER" />
+				<input type="hidden" name="typePrint" id="typePrint" value="RS" />
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">วันที่ชำระ
@@ -139,19 +140,19 @@
 						</div>
 
 					</div>
-					<div class="row">
-					<div class="col-md-4"></div>
-						<div class="form-group col-md-6">
-							<label class="col-md-2 control-label text-right">ประเภทใบเสร็จ
-								:</label>
-							<div class="col-md-6">
-								<select class="form-control" id="typePrint" name="typePrint">
-									<option value="RF">รายการภาษีแบบเต็ม</option>
-									<option value="RS">รายการภาษีแบบย่อ</option>
-								</select>
-							</div>
-						</div>
-					</div>
+<!-- 					<div class="row"> -->
+<!-- 					<div class="col-md-4"></div> -->
+<!-- 						<div class="form-group col-md-6"> -->
+<!-- 							<label class="col-md-2 control-label text-right">ประเภทใบเสร็จ -->
+<!-- 								:</label> -->
+<!-- 							<div class="col-md-6"> -->
+<!-- 								<select class="form-control" id="typePrint" name="typePrint"> -->
+<!-- 									<option value="RF">รายการภาษีแบบเต็ม</option> -->
+<!-- 									<option value="RS">รายการภาษีแบบย่อ</option> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 				</form>
 					<div class="box-footer" style="padding-bottom: 20px">
 						<div class="row">

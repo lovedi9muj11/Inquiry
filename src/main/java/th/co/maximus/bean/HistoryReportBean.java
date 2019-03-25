@@ -10,6 +10,9 @@ public class HistoryReportBean {
 	private String typePrint;
 	private String rptCode;
 	
+//	private boolean chkReportTax;
+	private String unserLogin;
+	
 	//report menu
 	private String flagPage;
 	
@@ -66,6 +69,12 @@ public class HistoryReportBean {
 	}
 	public void setFlagPage(String flagPage) {
 		this.flagPage = flagPage;
+	}
+	public String getUnserLogin() {
+		return unserLogin;
+	}
+	public void setUnserLogin(String unserLogin) {
+		this.unserLogin = unserLogin;
 	}
 	
 }

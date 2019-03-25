@@ -21,7 +21,7 @@ var DEFALUT = 'Defalut';
 <title>Menu</title>
 
 <script type="text/javascript">
-var CONFIRM_SAVE = 'เปลี่ยน Password สำเร็จ ';
+var CONFIRM_SAVE = 'เปลี่ยนรหัสสำเร็จ ';
 var CONFIRM_OK = 'ตกลง';
 var CONFIRM_YES = 'yes';
 var CONFIRM_NO = 'no';
@@ -72,41 +72,41 @@ var CONFIRM_NO = 'no';
 							<div class="col-md-12 col-sm-12">
 								<div class="glass">
 									<div class="form-group">
-										<label class="col-sm-5 control-label">Password : </label>
+										<label class="col-sm-5 control-label">รหัส : </label>
 										<div class="col-sm-2">
 											<input class="form-control" type="password" id="password" name="password" maxlength="21">
 										</div>
 										<div class="hide" id="error-password"><label class="error" style="color: red;">กรุณากรอกข้อมูล</label></div>
-										<div class="hide" id="error-password-incorrect"><label class="error" style="color: red;">Password ไม่ถูกต้อง</label></div>
+										<div class="hide" id="error-password-incorrect"><label class="error" style="color: red;">รหัสไม่ถูกต้อง</label></div>
 									</div>
 									
 									<div class="form-group">
-										<label class="col-md-5 control-label">New Password: </label>
+										<label class="col-md-5 control-label">รหัสใหม่: </label>
 										<div class="col-sm-2">
 											<input class="form-control" type="password" id="newPassword" name="newPassword" maxlength="21">
 										</div>
 										<div class="hide" id="error-newPassword"><label class="error" style="color: red;">กรุณากรอกข้อมูล</label></div>
-										<div class="hide" id="error-newPassword-as"><label class="error" style="color: red;">Password ไม่ตรงกัน</label></div>
+										<div class="hide" id="error-newPassword-as"><label class="error" style="color: red;">รหัสไม่ตรงกัน</label></div>
 										<div class="hide" id="error-newPassword-minl"><label class="error" style="color: red;">กรุณาระบุอย่างน้อย 8 ตัว</label></div>
-										<div class="hide" id="error-password-format"><label class="error" style="color: red;">รูปแบบ Password ไม่ถูกต้อง</label></div>
+										<div class="hide" id="error-password-format"><label class="error" style="color: red;">รูปแบบ รหัสไม่ถูกต้อง</label></div>
 									</div>
 									
 									<div class="form-group">
-										<label class="col-md-5 control-label">Confirm New Password: </label>
+										<label class="col-md-5 control-label">ยืนยันรหัส: </label>
 										<div class="col-sm-2">
 											<input class="form-control" type="password" id="cfNewPassword" name="cfNewPassword" maxlength="21">
 										</div>
 										<div class="hide" id="error-cfNewPassword"><label class="error" style="color: red;">กรุณากรอกข้อมูล</label></div>
-										<div class="hide" id="error-newPassword-as2"><label class="error" style="color: red;">Password ไม่ตรงกัน</label></div>
+										<div class="hide" id="error-newPassword-as2"><label class="error" style="color: red;">รหัสไม่ตรงกัน</label></div>
 										<div class="hide" id="error-newPassword-minl2"><label class="error" style="color: red;">กรุณาระบุอย่างน้อย 8 ตัว</label></div>
-										<div class="hide" id="error-password-format2"><label class="error" style="color: red;">รูปแบบ Password ไม่ถูกต้อง</label></div>
+										<div class="hide" id="error-password-format2"><label class="error" style="color: red;">รูปแบบ รหัสไม่ถูกต้อง</label></div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-12 center split">
-								<button type="button" id="saveBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Confirm</button>
+								<button type="button" id="saveBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>ยืนยัน</button>
 							</div>
 						</div>
 					</div>

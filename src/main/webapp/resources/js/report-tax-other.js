@@ -20,7 +20,7 @@ function search() {
 	reportTaxOther.clear().draw();
 	var data = '';
 	var dataSend = { "dateFrom": $('#dateFrom').val(), "dateFromHour": $('#dateFromHour').val(), "dateFromMinute": $('#dateFromMinute').val()
-					,"dateTo": $('#dateTo').val(), "dateToHour": $('#dateToHour').val(), "dateToMinute": $('#dateToMinute').val() ,"typePrint": $('#typePrint').val(),"flagPage": "OTHER"};
+					,"dateTo": $('#dateTo').val(), "dateToHour": $('#dateToHour').val(), "dateToMinute": $('#dateToMinute').val() ,"typePrint": "RS","flagPage": null};
 	 if ((Date.parse(dataSend.dateFrom+" "+dataSend.dateFromHour+":"+dataSend.dateFromMinute) > Date.parse(dataSend.dateTo+" "+dataSend.dateToHour+":"+dataSend.dateToMinute))) {
 			swal("วันชำระเริ่มต้นต้องไม่มากกว่าวันชำระสิ้นสุด")
 		 	return;
@@ -59,9 +59,9 @@ function createRow(data, seq, table) {
 		recordStatus = "ยกเลิก";
 	}
 	
-//	if(branCode === "00000"){
-//		branCode = "สำนักงานใหญ่";
-//	}
+	if(branCode === "00000"){
+		branCode = "สำนักงานใหญ่";
+	}
 	
 	var str = documentDate;
 	var res = str.split("-");

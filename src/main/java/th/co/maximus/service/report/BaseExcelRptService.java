@@ -220,6 +220,26 @@ public class BaseExcelRptService {
 		cellStyle.setFont(font);
 
 		return cellStyle;
+	}
+	
+	protected CellStyle createCellStyleForTextRightBorderBgGrey25PercentBorder(Workbook workbook, Font font,
+			boolean warpText) {
+		// style for text
+		// font.setFontHeightInPoints((short)10);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		CellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+		cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		cellStyle.setWrapText(warpText);
+		cellStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+		cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+		cellStyle.setFont(font);
+		
+		return cellStyle;
 	} 
 
 	protected CellStyle createCellStyleForTextLeftBorderBgGrey25Percent(Workbook workbook, Font font,

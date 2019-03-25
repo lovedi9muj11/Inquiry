@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -119,7 +122,25 @@ public class HistroryPaymentController {
 		List<HistoryPaymentRS> result = new ArrayList<HistoryPaymentRS>();
 
 		if (creteria != null) {
-
+			UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//			creteria.setChkReportTax(true);
+			
+			Integer supCh = 0;
+			
+			if(StringUtils.isNotBlank(profile.getUsername())) {
+				if(!"".equals(profile.getUsername())) {
+					supCh = paymentManualDao.checkSup(profile.getUsername());
+				}else {
+					supCh = 2;
+				}
+			}
+			
+			if(supCh == 2) {
+				creteria.setUnserLogin("");
+			}else {
+				creteria.setUnserLogin(profile.getUsername());
+			}
+			
 			resultRQ = paymentManualService.findPaymentOrder(creteria);
 
 			if (resultRQ.size() > 0) {

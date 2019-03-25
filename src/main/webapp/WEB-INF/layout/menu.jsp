@@ -98,9 +98,9 @@
 								</li>
 								<li><a href="${contextPath}/reportPaymentOther">รายงานรับชำระค่าบริการอื่น</a>
 								</li>
-								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบย่อ/แบบเต็ม</a>
+								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขายแบบเต็ม</a>
 								</li>
-								<li><a href="${contextPath}/reportPaymentTaxOther">รายงานภาษีขายแบบย่อ/แบบเต็มบริการอื่น</a>
+								<li><a href="${contextPath}/reportPaymentTaxOther">รายงานภาษีขายแบบย่อ</a>
 								</li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
