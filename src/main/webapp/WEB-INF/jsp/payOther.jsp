@@ -91,14 +91,14 @@
 										id="balanceBeforeTax"> <input type="hidden" name="vat"
 										id="vat">
 									<div class="form-group">
-										<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า
-											:<span style="color: red; ">*</span>
+										<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า :
+<!-- 										<span style="color: red; ">*</span> -->
 										</label>
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="custNo"
 												name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
-											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก
-												เลขที่ลูกค้า</p>
+<!-- 											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก -->
+<!-- 												เลขที่ลูกค้า</p> -->
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">

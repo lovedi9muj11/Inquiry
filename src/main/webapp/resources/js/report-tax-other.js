@@ -1,4 +1,5 @@
 var check = false;
+var numI = 1;
 
 $(document).ready(function (){
 	reportTaxOther = $('#reportTaxOther').DataTable({
@@ -17,6 +18,7 @@ $(document).ready(function (){
 
 function search() {
 	check = false;
+	numI = 1;
 	reportTaxOther.clear().draw();
 	var data = '';
 	var dataSend = { "dateFrom": $('#dateFrom').val(), "dateFromHour": $('#dateFromHour').val(), "dateFromMinute": $('#dateFromMinute').val()
@@ -27,7 +29,7 @@ function search() {
 	 }
 	$.ajax({
         type: "POST",
-        url: ctx +"/histroryPayment/paymentPrint",
+        url: ctx +"/tax/reportRS",
         data: JSON.stringify(dataSend),
         dataType: "json",
         async: false,
@@ -42,10 +44,13 @@ function search() {
 };
 
 function createRow(data, seq, table) {
-	no = data.numberRun
-	invoice = data.documentNo;
+	no = numI;
+	posNo = data.posNo;
+	invoice = data.from;
+	invoiceTo = data.to;
 	documentDate = data.documentDate;
 	custName = data.custName;
+	taxNo = data.quantity;
 	taxId = data.taxId;
 	branCode = data.branCode;
 	beforeVat = data.beforeVat;
@@ -67,15 +72,20 @@ function createRow(data, seq, table) {
 	var res = str.split("-");
 	var date = res[2] +"/"+res[1]+ "/"+res[0];
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([no, date, invoice, custName, taxId, branCode,beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), paidAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), recordStatus, vateRate]).draw(true).node();
+    var rowNode = tableInit.row.add([no, date, posNo, invoice, invoiceTo, taxNo,beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), paidAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), recordStatus, vateRate]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
+    $(rowNode).find('td').eq(2).addClass('center');
+    $(rowNode).find('td').eq(3).addClass('center');
+    $(rowNode).find('td').eq(4).addClass('center');
+    $(rowNode).find('td').eq(5).addClass('center');
     $(rowNode).find('td').eq(6).addClass('right');
     $(rowNode).find('td').eq(7).addClass('right');
     $(rowNode).find('td').eq(8).addClass('right');
     $(rowNode).find('td').eq(9).addClass('center');
     $(rowNode).find('td').eq(10).addClass('hide');
 
+    numI = numI+1;
 };
 
 function reportExcel() {

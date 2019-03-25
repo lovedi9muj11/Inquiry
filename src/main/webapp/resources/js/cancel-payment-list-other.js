@@ -295,7 +295,7 @@ function chaengIcon(value){
 }
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
-	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
+//	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
 	no = seq+1;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr
@@ -320,7 +320,7 @@ function createRow(data, seq, table,check) {
 	userFullName = data.customerName;
 	
 	tableInit = $('#'+table).DataTable();
-	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
+	var rowNode = tableInit.row.add([radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
     $(rowNode).find('td').eq(2).addClass('center');

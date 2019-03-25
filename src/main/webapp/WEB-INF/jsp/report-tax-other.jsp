@@ -185,16 +185,19 @@
 									<table id="reportTaxOther" class="table table-bordered">
 										<thead>
 											<tr>
-												<th style="text-align: center;">ลำดับที่</th>
-												<th style="text-align: center;">วันเดือนปี</th>
-												<th style="text-align: center;">เลขที่ใบกำกับภาษี</th>
-												<th style="text-align: center;">ชื่อผู้ซื้อบริการ/ผู้รับบริการ</th>
-												<th style="text-align: center;">เลขที่ประจำตัวผู้เสียภาษี</th>
-												<th style="text-align: center;">สาขาที่</th>
-												<th style="text-align: center;">มูลค่าสินค้าหรือบริการ</th>
-												<th style="text-align: center;">จำนวนเงินภาษีมูลค่าเพิ่ม</th>
-												<th style="text-align: center;">จำนวนเงินรวม</th>
-												<th style="text-align: center;">สถานะ</th>
+												<th rowspan="2" style="text-align: center; width: 4%">ลำดับที่</th>
+												<th rowspan="2" style="text-align: center; width: 10%">วันที่รับชำระ</th>
+												<th rowspan="2" style="text-align: center; width: 8%">Pos No</th>
+								                <th colspan="2" style="text-align: center; width: 30%">ใบกำกับภาษี</th>
+								                <th rowspan="2" style="text-align: center; width: 8%">จำนวนใบกำกับภาษี</th>
+								                <th colspan="3" style="text-align: center; width: 40%">จำนวนเงินทั้งหมด(Total Amount)</th>
+								            </tr>
+											<tr>
+												<th style="text-align: center; width: 15%">From</th>
+												<th style="text-align: center; width: 15%">To</th>
+												<th style="text-align: center;">ไม่รวมภาษีมูลค่าเพิ่ม(Vat Excl)</th>
+												<th style="text-align: center;">ภาษีมูลค่าเพิ่ม(Vat)</th>
+												<th style="text-align: center;">รวมภาษีมูลค่าเพิ่ม(Vat Incl)</th>
 											</tr>
 										</thead>
 									</table>
