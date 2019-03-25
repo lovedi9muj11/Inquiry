@@ -562,10 +562,10 @@ function submitForm() {
 		listpaymentTranPriceRQ.push(listpaymentTranPriceQ);
 	}
 
-	if ($("#custNo").val() == "") {
-		$("#sCustNo").show();
-		return $("#custNo").focus();
-	}
+//	if ($("#custNo").val() == "") {
+//		$("#sCustNo").show();
+//		return $("#custNo").focus();
+//	}
 //	if ($("#custName").val() == "") {
 //		$("#sCustName").show();
 //		return $("#custName").focus();
@@ -932,10 +932,10 @@ function addRow() {
 	 * $("#invoiceNo").focus(); } if(docDed == ""){ alert("กรุณากรอกเลขที่เอกสาร
 	 * กรุณากรอกใหม่ !"); return $("#docDed").focus(); }
 	 */
-	if (custNo == "") {
-		$("#sCustNo").show();
-		return $("#custNo").focus();
-	}
+//	if (custNo == "") {
+//		$("#sCustNo").show();
+//		return $("#custNo").focus();
+//	}
 	if (dmoney == "") {
 		$("#moneyDedTxt").show();
 		return $("#moneyDed").focus();
