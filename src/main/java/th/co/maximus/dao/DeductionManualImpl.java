@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.model.DuductionEpisOffline;
+import th.co.maximus.model.TrsMethodEpisOffline;
 
 @Repository("DeductionManualDao")
 public class DeductionManualImpl implements DeductionManualDao {
@@ -75,32 +76,25 @@ public class DeductionManualImpl implements DeductionManualDao {
 
 	@Override
 	public List<DuductionEpisOffline> findDeductionManual(long manualId) throws Exception {
-		List<DuductionEpisOffline> beanReReq = new ArrayList<DuductionEpisOffline>();
+//		List<DuductionEpisOffline> beanReReq = new ArrayList<DuductionEpisOffline>();
 		
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
 				"SELECT ded.DEDUCTIONNO ,ded.DEDUCTIONTYPE,ded.AMOUNT,ded.PAYMENTDATE,ded.INVOICE_NO,ded.REMARK ");
 		sqlStmt.append(" FROM DEDUCTION_MANUAL ded ");
 		sqlStmt.append(" WHERE  ded.MANUAL_ID = ?  ");
-		beanReReq = jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
-			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setLong(1, manualId);
+		
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		List<DuductionEpisOffline> beanReReq =  jdbcTemplate.query(sqlStmt.toString(),new Object[] { manualId }, new RowMapper() {
+			@Override
+			public DuductionEpisOffline mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+				DuductionEpisOffline bean = new DuductionEpisOffline();
+				bean = new DuductionEpisOffline(resultSet.getString(1), resultSet.getString(2),
+						resultSet.getBigDecimal(3), resultSet.getDate(4), resultSet.getString(5),
+						resultSet.getString(6));
+				return bean;
 			}
-		}, new ResultSetExtractor<List<DuductionEpisOffline>>() {
-			public List<DuductionEpisOffline> extractData(ResultSet resultSet)
-					throws SQLException, DataAccessException {
-				List<DuductionEpisOffline> beanReReq1 = new ArrayList<DuductionEpisOffline>();
-				if (resultSet.next()) {
-					DuductionEpisOffline bean = new DuductionEpisOffline();
-					bean = new DuductionEpisOffline(resultSet.getString(1), resultSet.getString(2),
-							resultSet.getBigDecimal(3), resultSet.getDate(4), resultSet.getString(5),
-							resultSet.getString(6));
 
-					beanReReq1.add(bean);
-
-				}
-				return beanReReq1;
-			}
 		});
 
 		return beanReReq;
