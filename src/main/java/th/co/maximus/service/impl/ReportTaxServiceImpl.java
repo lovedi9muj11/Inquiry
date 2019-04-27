@@ -86,7 +86,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						
 						amount = amount.add(listData.get(i).getAmount());
 						vat = vat.add(listData.get(i).getVat());
-						beforeVat = beforeVat.add(amount.subtract(vat));
+						beforeVat = beforeVat.add(listData.get(i).getAmount().subtract(listData.get(i).getVat()));
 						
 						res.setQuantity(num+"");
 						res.setDocumentDate(listData.get(i).getDocumentDate());
@@ -110,7 +110,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						
 						amount = amount.add(listData.get(i).getAmount());
 						vat = vat.add(listData.get(i).getVat());
-						beforeVat = beforeVat.add(amount.subtract(vat));
+						beforeVat = beforeVat.add(listData.get(i).getAmount().subtract(listData.get(i).getVat()));
 						
 						res.setDocumentDate(listData.get(i).getDocumentDate());
 						res.setQuantity(num+"");

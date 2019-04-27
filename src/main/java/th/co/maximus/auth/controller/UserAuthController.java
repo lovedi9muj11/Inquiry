@@ -122,4 +122,9 @@ public class UserAuthController {
 		return res;
 	}
     
+    @RequestMapping(value = "/change-password", method = RequestMethod.GET)
+    public String changePassword(Model model) throws Exception {
+    	return "confirm-password";
+    }
+    
 }

@@ -55,6 +55,7 @@ public class Constants {
 		public static final String METHOD_WT = "WT";
 		
 		public static final String CC_WT = "เงินสด + WT";
+		public static final String CC = "เงินสด";
 		
 		public static final String STATUS_CANCEL = "C";
 	}
