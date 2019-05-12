@@ -120,8 +120,8 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 		List<Object> param = new LinkedList<Object>();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT  (select  REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
-			sqlStmt.append(" ,(select  PRODUCT_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE GROUP BY REVENUE_TYPE_NAME) as PRODUCT_NAME");
+			sqlStmt.append("SELECT  (select  REVENUE_TYPE_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE AND SERVICE_CODE = py.SERVICECODE  GROUP BY REVENUE_TYPE_NAME) as AMOUNTTYPE");
+			sqlStmt.append(" ,(select  PRODUCT_NAME from MAP_GL_SERVICE_TYPE where  REVENUE_TYPE_CODE = py.AMOUNTTYPE AND SERVICE_CODE = py.SERVICECODE  GROUP BY REVENUE_TYPE_NAME) as PRODUCT_NAME");
 			sqlStmt.append(" ,py.SERVICENAME ,py.SERVICECODE,py.QUANTITY,py.VAT_AMOUNT,py.AMOUNT,py.BEFOR_VAT ,py.CUSTOMER_NAME");
 			sqlStmt.append(" ,py.INVOICE_NO,py.CREATE_DATE  , py.DISCOUNTBEFORVAT, py.DISCOUNTSPECIAL, py.VAT_RATE  ");
 
