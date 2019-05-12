@@ -365,11 +365,17 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao
 					.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
+			int i = 0;
 			for (TrsMethodEpisOffline method : methodResult) {
 				if (paymentMethod.toString().equals("")) {
 					paymentMethod.append(method.getName());
 				} else {
-					paymentMethod.append("+" + method.getName());
+					if("DEDUC".equals(method.getCode())){
+						i = i + 1;
+					}
+					if(i <= 1 || !"DEDUC".equals(method.getCode())){
+					paymentMethod.append("+").append("DEDUC".equals(method.getCode()) ? "WT" : method.getName());
+					}
 				}
 				
 			}
