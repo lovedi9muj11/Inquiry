@@ -75,6 +75,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			boolean chkCC = true;
 			boolean chkCH = false;
 			boolean chkCR = false;
+			boolean chkCCOnlyOne = true;
 			List<String> results = new ArrayList<>();
 			List<String> refno = new ArrayList<>();
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
@@ -84,10 +85,13 @@ public class PaymentReportServiceImp implements PaymentReportService {
 					TrsMethodEpisOffline stockObject = (TrsMethodEpisOffline) methodResult.get(i);
 
 					if (stockObject.getCode().equals("CC")) {
-						payCode = "เงินสด";
-						results.add(payCode);
+						if(chkCCOnlyOne) {
+							payCode = "เงินสด";
+							results.add(payCode);
+						}
 					
 						if(i==0) {resultBean.setRefNoEx(""); chkCC=true;}
+						chkCCOnlyOne = false;
 					} else if (stockObject.getCode().equals("CR")) {
 						List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getId());
 						String code = stockObject.getCreditNo();
