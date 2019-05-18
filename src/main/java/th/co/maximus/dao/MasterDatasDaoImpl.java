@@ -92,7 +92,7 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 	@Override
 	public List<MasterDatasBean> findByBankEDCName() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.KEYCODE.BANK_TYPE_EDC+"'  ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.EDC_CREDIT_CARD_BANK+"'  ");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 

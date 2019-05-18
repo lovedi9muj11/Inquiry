@@ -557,7 +557,7 @@
 															<%
 																for (int i = 0; i < masterBankEDCCode.size(); i++) {
 															%>
-															<option value="<%=masterBankEDCCode.get(i).getKeyCode()%>"><%=masterBankEDCCode.get(i).getValue()%></option>
+															<option value="<%=masterBankEDCCode.get(i).getProperty1()%>"><%=masterBankEDCCode.get(i).getValue()%></option>
 															<%
 																}
 															%>

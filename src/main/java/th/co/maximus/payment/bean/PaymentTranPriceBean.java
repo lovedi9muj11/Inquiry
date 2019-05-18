@@ -14,6 +14,7 @@ public class PaymentTranPriceBean implements Serializable {
 	private String creditType;
 	private String creditNo;
 	private String edcType;
+	private String edcCode;
 	private double creditPrice;
 	private String bankNo;
 	private String checkNo;
@@ -21,6 +22,14 @@ public class PaymentTranPriceBean implements Serializable {
 	private String dateCheck;
 	private String branchCheck;
 	private double moneyCheck;
+	
+	
+	public String getEdcCode() {
+		return edcCode;
+	}
+	public void setEdcCode(String edcCode) {
+		this.edcCode = edcCode;
+	}
 	public String getTypePayment() {
 		return typePayment;
 	}

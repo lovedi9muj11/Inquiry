@@ -7,14 +7,26 @@ public class TrsCreditrefEpisOffline {
 	private String creditNo;
 	private String publisherdec;
 	private String cardtype;
+	private String edcCode;
 	private BigDecimal amount;
 	
 	public TrsCreditrefEpisOffline(){}
-	public TrsCreditrefEpisOffline(String creditNo,String publisherdec,String cardtype,BigDecimal amount){
+	public TrsCreditrefEpisOffline(String creditNo,String publisherdec,String cardtype,BigDecimal amount,String edcCode){
 		this.creditNo = creditNo;
 		this.publisherdec = publisherdec;
 		this.cardtype = cardtype;
 		this.amount = amount;
+		this.edcCode = edcCode;
+		
+	}
+	
+	
+	
+	public String getEdcCode() {
+		return edcCode;
+	}
+	public void setEdcCode(String edcCode) {
+		this.edcCode = edcCode;
 	}
 	public String getCreditNo() {
 		return creditNo;

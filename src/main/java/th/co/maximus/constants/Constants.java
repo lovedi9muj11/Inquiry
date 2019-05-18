@@ -99,6 +99,7 @@ public class Constants {
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
 		public static final String IBACSS_CANCEL_REASON = "IBACSS_CANCEL_REASON";
 		public static final String OTHER_CANCEL_REASON = "OTHER_CANCEL_REASON";
+		public static final String EDC_CREDIT_CARD_BANK = "EDC_CREDIT_CARD_BANK";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		public static final String USER_GROUP = "UserGoup";

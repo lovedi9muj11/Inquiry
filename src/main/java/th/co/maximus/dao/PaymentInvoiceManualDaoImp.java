@@ -417,7 +417,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
-					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,pim.VAT_RATE,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE ");
+					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE ");
 			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
@@ -565,7 +565,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setBeforVat(rs.getBigDecimal("pim.BEFOR_VAT"));
 			paymentInvoiceEpisOffline.setVatAmount(rs.getBigDecimal("pim.VAT_AMOUNT"));
 			paymentInvoiceEpisOffline.setAmount(rs.getBigDecimal("pim.AMOUNT"));
-			paymentInvoiceEpisOffline.setVatRate(rs.getString("pim.VAT_RATE"));
+			paymentInvoiceEpisOffline.setVatRate(rs.getString("VAT_RATE"));
 			paymentInvoiceEpisOffline.setCustomerName(rs.getString("pim.CUSTOMER_NAME"));
 			paymentInvoiceEpisOffline.setCustomerAddress(rs.getString("pim.CUSTOMER_ADDRESS"));
 			paymentInvoiceEpisOffline.setCustomerSegment(rs.getString("pim.CUSTOMER_SEGMENT"));
