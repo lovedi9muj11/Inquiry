@@ -759,6 +759,7 @@ function submitForm(){
 					"bankName" : resultTotalPrice[b][4],
 					"creditNo" : resultTotalPrice[b][3],
 					"edcType" : resultTotalPrice[b][6],
+					"edcCode" : resultTotalPrice[b][6],
 					"creditPrice" :resultTotalPrice[b][5].replace(/,/g, "")
 					}
 		}else if (resultTotalPrice[b][1] == "CH"){

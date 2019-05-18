@@ -18,6 +18,7 @@ public class TrscreDitrefManualBean {
 	private Date createDate;
 	private String updateBy;
 	private Date updateDate;
+	private String  edcCode;
 	
 	public Long getId() {
 		return Id;
@@ -106,6 +107,12 @@ public class TrscreDitrefManualBean {
 	}
 	public void setaMount(Double aMount) {
 		this.aMount = aMount;
+	}
+	public String getEdcCode() {
+		return edcCode;
+	}
+	public void setEdcCode(String edcCode) {
+		this.edcCode = edcCode;
 	}
 	
 	
