@@ -518,8 +518,8 @@ function submitForm() {
 	for (var a = 0; a < resultDeductible.length; a++) {
 		listpaymentTaxQ = []
 		listpaymentTaxQ = {
-			"docDed" : resultDeductible[a][1],
-			"custNo" : resultDeductible[a][2],
+			"custNo" : resultDeductible[a][1],
+			"docDed" : resultDeductible[a][2],
 			"radioDed" : resultDeductible[a][5],
 			"moneyDed" : FormatMoneyShowToNumber(resultDeductible[a][4])*-1
 		}

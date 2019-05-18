@@ -154,7 +154,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 				
 				
 				if(idTrsMethod >0){
-					deductionManualBean.setDeDuctionNo(StringUtils.isNotBlank(paymentBean.getHaveDocNo())?paymentBean.getHaveDocNo():paymentTaxBean.getDocDed());
+					deductionManualBean.setDeDuctionNo(paymentTaxBean.getDocDed());
 					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
 					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed());
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
