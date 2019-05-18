@@ -48,9 +48,9 @@ function createRow(data, seq) {
 	createBy = data.createBy;
 	invoiceNo = data.invoiceNo;
 	period = data.period;
-	amount = formatDouble(data.amount,2);
+	amount = formatDouble(data.paidAmount,2);
 	source = data.paymentMethod;
-	paidAmount = formatDouble(data.paidAmount,2);
+	paidAmount = formatDouble(data.amount,2);
 	vatAmount = formatDouble(data.vatAmount,2);
 	if(data.recordStatus == 'A'){
 		recordStatus = 'ปกติ';

@@ -485,7 +485,9 @@ public class EpisReportController {
 		for (int i = 0; i < collections.size(); i++) {
 			InvEpisOfflineOtherBean stockObject = (InvEpisOfflineOtherBean) collections.get(i);
 			if (stockObject.getPaymentCode().equals("DEDUC")) {
-				checkWT = "WT";
+					checkWT += "WT";
+			}
+			if(checkWT.equals("WT")) {
 				result.add(checkWT);
 			}
 
