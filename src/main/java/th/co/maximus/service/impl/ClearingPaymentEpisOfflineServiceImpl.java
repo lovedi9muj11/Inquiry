@@ -176,6 +176,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setCreatBy(recrip.getCreatBy());
 						if(!"Non-VAT".equals(paymentList.get(0).getVatRate()) && paymentList.get(0).getVatRate() != null){
 							paymentEpisOfflineDTO.setVatRate(new BigDecimal(paymentList.get(0).getVatRate()));
+						}else{
+							paymentEpisOfflineDTO.setVatRate(null);
 						}
 						
 						if (isOther) {
