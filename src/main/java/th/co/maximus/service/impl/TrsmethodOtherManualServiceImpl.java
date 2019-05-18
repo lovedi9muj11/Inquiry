@@ -93,6 +93,7 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 							trscreDitrefManualBean.setMethodManualId(String.valueOf(idTrsMethod));
 							trscreDitrefManualBean.setCreateBy(paymentBean.getUserName());	
 							trscreDitrefManualBean.setUpdateBy(paymentBean.getUserName());
+							trscreDitrefManualBean.setEdcCode(paymentTranPriceBean.getEdcCode());
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){

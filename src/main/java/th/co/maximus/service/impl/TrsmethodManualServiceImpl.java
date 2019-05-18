@@ -101,6 +101,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 							trscreDitrefManualBean.setCreateDate(new Timestamp(date.getTime()));
 							trscreDitrefManualBean.setUpdateBy(profile.getUsername());
 							trscreDitrefManualBean.setUpdateDate(new Timestamp(date.getTime()));
+							trscreDitrefManualBean.setEdcCode(paymentTranPriceBean.getEdcCode());
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){

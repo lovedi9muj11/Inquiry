@@ -23,10 +23,10 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 	@Override
 	public void insertTrscreDitrefManua(TrscreDitrefManualBean trscreDitrefManualBean) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO TRSCREDITREF_MANUAL ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID ,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE) ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?) ");
+		sql.append(" INSERT INTO TRSCREDITREF_MANUAL ( CREDITNO, PUBLISHERDEC, CARDTYPE, AMOUNT, UPDATEDTTM, VERSIONSTAMP, METHOD_MANUAL_ID ,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,EDC_CODE) ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ");
 		jdbcTemplate.update(sql.toString(),  trscreDitrefManualBean.getCreditNo(), trscreDitrefManualBean.getPublisherdec(),trscreDitrefManualBean.getCardType(),trscreDitrefManualBean.getaMount(),
-				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId(),trscreDitrefManualBean.getCreateBy(),trscreDitrefManualBean.getCreateDate(),trscreDitrefManualBean.getUpdateBy(),trscreDitrefManualBean.getUpdateDate());
+				trscreDitrefManualBean.getUpdateDttm(),trscreDitrefManualBean.getVersionStamp(),trscreDitrefManualBean.getMethodManualId(),trscreDitrefManualBean.getCreateBy(),trscreDitrefManualBean.getCreateDate(),trscreDitrefManualBean.getUpdateBy(),trscreDitrefManualBean.getUpdateDate(),trscreDitrefManualBean.getEdcCode());
 		
 	}
 	
@@ -68,7 +68,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 //		TrsCreditrefEpisOffline bean = new TrsCreditrefEpisOffline();
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
-			sqlStmt.append("SELECT tcm.CREDITNO ,tcm.PUBLISHERDEC,tcm.CARDTYPE,tcm.AMOUNT ");
+			sqlStmt.append("SELECT tcm.CREDITNO ,tcm.PUBLISHERDEC,tcm.CARDTYPE,tcm.AMOUNT,tcm.EDC_CODE ");
 			sqlStmt.append(" FROM TRSCREDITREF_MANUAL tcm ");
 			sqlStmt.append(" WHERE  tcm.METHOD_MANUAL_ID = ?  ");
 			
@@ -100,6 +100,7 @@ public class TrscreDitrefManualDaoImpl implements TrscreDitrefManualDao{
 			trsCreditrefEpisOffline.setPublisherdec(rs.getString("tcm.PUBLISHERDEC"));
 			trsCreditrefEpisOffline.setCardtype(rs.getString("tcm.CARDTYPE"));
 			trsCreditrefEpisOffline.setAmount(rs.getBigDecimal("tcm.AMOUNT"));
+			trsCreditrefEpisOffline.setEdcCode(rs.getString("tcm.EDC_CODE"));
 			return trsCreditrefEpisOffline;
 		}
 
