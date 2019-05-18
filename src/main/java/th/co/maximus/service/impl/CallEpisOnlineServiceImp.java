@@ -32,6 +32,9 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 	@Value("${text.branarea}")
 	private String branArea;
 	
+	@Value("${text.posno}")
+	private String posno;
+	
 	@Autowired
 	MasterDataService masterDataService;
 	
@@ -67,6 +70,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.VAT);
 			groupKeys.add(Constants.MasterData.IBACSS_CANCEL_REASON);
 			groupKeys.add(Constants.MasterData.OTHER_CANCEL_REASON);
+			groupKeys.add(Constants.MasterData.EDC_CREDIT_CARD_BANK);
 			
 			String gettUrl = url.concat("/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, groupKeys, String.class);
@@ -149,7 +153,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			UserBean userBean = new UserBean();
 			Principal principal = new Principal(); 
 			List<UserBean> list = new ArrayList<UserBean>();
-			String gettUrl = url.concat("/offline/userSyncByArea.json");
+			String gettUrl = url.concat("/offline/userSyncByArea/"+posno+".json");
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, branchArea, String.class);
 			
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());

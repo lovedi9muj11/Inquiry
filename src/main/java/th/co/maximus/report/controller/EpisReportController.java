@@ -468,7 +468,10 @@ public class EpisReportController {
 
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
-				result.add(payCode);
+				if(payCode.equals("เงินสด")){
+					result.add(payCode);
+				}
+				
 			} else if (stockObject.getPaymentCode().equals("CR")) {
 				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
 				String code = res.get(0).getCreditNo();
@@ -1079,6 +1082,7 @@ public class EpisReportController {
 					
 					exportPDFReport.setEmpSummaryName(userCreBy);
 					exportPDFReport.setVatRate(vatRate);
+					exportPDFReport.setLastPage("N");
 
 					parameters.put("ReportSource", exportPDFReport);
 
@@ -1221,6 +1225,7 @@ public class EpisReportController {
 					
 					exportPDFReport.setEmpSummaryName(userCreBy);
 					exportPDFReport.setVatRate(vatRate);
+					exportPDFReport.setLastPage("Y");
 
 					parameters.put("ReportSource", exportPDFReport);
 
