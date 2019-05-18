@@ -162,6 +162,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 									creditList = findTrsCredit(method.getId());
 									method.setTrsCreditrefEpisOffline(creditList);
 								}
+//								methodList.add(method);
 
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
