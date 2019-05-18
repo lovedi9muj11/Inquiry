@@ -125,7 +125,7 @@ public class ReportDaoImpl implements ReportDao{
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
 			}
 			
-			sql.append(" ORDER BY py.CREATE_BY ");
+			sql.append(" ORDER BY py.RECEIPT_NO_MANUAL ASC ");
 			
 			param.add(creteria.getTypePrint());
 //			param.add(creteria.getFlagPage());

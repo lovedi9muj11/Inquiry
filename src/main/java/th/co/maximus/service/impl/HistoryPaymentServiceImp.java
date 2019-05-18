@@ -110,6 +110,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(bean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
 			boolean chkCC = true;
+			boolean chkOnlyWT = true;
 			
 			for (TrsMethodEpisOffline method : methodResult) {
 				
@@ -133,9 +134,10 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 					
 				}else {
 					String methodName = method.getName();
-					if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName())) {
+					if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName()) && chkOnlyWT) {
 						methodName = Constants.Status.METHOD_WT;
 						paymentMethod.append("+ " + methodName);
+						chkOnlyWT = false;
 					}
 					if(chkCC) {
 						paymentMethod.append("+ " + methodName);

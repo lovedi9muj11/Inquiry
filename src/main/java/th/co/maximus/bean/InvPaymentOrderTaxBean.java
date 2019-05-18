@@ -67,6 +67,7 @@ public class InvPaymentOrderTaxBean {
 	private BigDecimal summaryZero;
 	private String summaryZeroStr;
 	
+	private String lastPage;
 	
 	public InvPaymentOrderTaxBean(){}
 	
@@ -452,6 +453,14 @@ public class InvPaymentOrderTaxBean {
 
 	public void setVatZeroStrSummary(String vatZeroStrSummary) {
 		this.vatZeroStrSummary = vatZeroStrSummary;
+	}
+
+	public String getLastPage() {
+		return lastPage;
+	}
+
+	public void setLastPage(String lastPage) {
+		this.lastPage = lastPage;
 	}
 
 }
