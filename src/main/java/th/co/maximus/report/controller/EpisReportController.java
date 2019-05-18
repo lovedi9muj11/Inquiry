@@ -468,7 +468,10 @@ public class EpisReportController {
 
 			if (stockObject.getPaymentCode().equals("CC")) {
 				payCode = "เงินสด";
-				result.add(payCode);
+				if(payCode.equals("เงินสด")){
+					result.add(payCode);
+				}
+				
 			} else if (stockObject.getPaymentCode().equals("CR")) {
 				List<TrsCreditrefEpisOffline> res = trscreDitrefManualService.findByMethodId(stockObject.getMethodId());
 				String code = res.get(0).getCreditNo();
