@@ -180,12 +180,14 @@ $(document).ready(function() {
 				  $("#messError").hide();
 				  if(balance == "" || balance == "0.00"){
 					  document.getElementById("radioButton").checked = false;
-					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
+//					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
+					  swal("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด")
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
 						  document.getElementById("radioButton").checked = false;
-					alert("กรุณาลบวิธีการรับชำระก่อน");
+//					alert("กรุณาลบวิธีการรับชำระก่อน");
+					swal("กรุณาลบวิธีการรับชำระก่อน")
 					return ;
 				}
 				  if(!checkLogin){
@@ -230,12 +232,14 @@ $(document).ready(function() {
 				  $("#messError").hide();
 				  if(balance == "" || balance == "0.00"){
 					  document.getElementById("radioButtons").checked = false;
-					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
+//					  alert("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด");
+					  swal("คุณต้องชำระยอดเงินก่อนใส่ส่วนลด")
 					 return $("#balanceSummary").focus();
 				  }
 				  if($('#showTotalPriceTable').find('tr').length > 1){
 						  document.getElementById("radioButtons").checked = false;
-					alert("กรุณาลบวิธีการรับชำระก่อน");
+//					alert("กรุณาลบวิธีการรับชำระก่อน");
+					swal("กรุณาลบวิธีการรับชำระก่อน")
 					return ;
 				}
 				  if(!checkLogin){
@@ -367,7 +371,8 @@ function isSelectTaxDiscount(){
 		bable = parseFloat(0);
 	}
 	if(bas > (balance - (summaryTax*-1))){
-		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+//		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+		swal("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่")
 		$("#taxOnly").val(0);
 		taxDiscount();
 		return $("#taxOnly").focus();
@@ -427,7 +432,8 @@ function taxDiscount(){
 		bable = parseFloat(0);
 	}
 	if(bas > (balance - (summaryTax*-1))){
-		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+//		alert("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่");
+		swal("คุณกรอกจำนวนผิดพลาด กรุณากรอกใหม่")
 		$("#taxOnly").val(0);
 		taxDiscount();
 		return $("#taxOnly").focus();
@@ -677,7 +683,8 @@ function submitForm(){
 	var result = $("#balanceSummarys").val();
 	if(parseFloat(result) > 0){
 		
-		alert("ยอดที่ต้องชำระยังจ่ายไม่ครบ กรุณาตรวจสอบใหม่");
+//		alert("ยอดที่ต้องชำระยังจ่ายไม่ครบ กรุณาตรวจสอบใหม่");
+		swal("ยอดที่ต้องชำระยังจ่ายไม่ครบ กรุณาตรวจสอบใหม่")
 		
 		return $("#balanceSummary").focus();
 	}
@@ -958,7 +965,8 @@ function addRow() {
 	var balance = parseFloat(balanceOfTaxPrice.replace(/,/g, ""));
 	var summary =  parseFloat(balanceSummary.replace(/,/g, ""));
 	if(balance < summary){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง")
 // `$("#sBalanceSummary").hide();
 		return $("#balanceSummary").focus();
 	}
@@ -967,7 +975,8 @@ function addRow() {
 	var priceMoney = FormatMoneyShowToNumber($("#moneyDed").val());
 	
 	if(priceMoney <= 0){
-		alert("กรุณากรอกจำนวนเงินภาษีให้ถูกต้อง");
+//		alert("กรุณากรอกจำนวนเงินภาษีให้ถูกต้อง");
+		swal("กรุณากรอกจำนวนเงินภาษีให้ถูกต้อง")
 		// `$("#sBalanceSummary").hide();
 				return $("#moneyDed").focus();
 	}
@@ -1017,7 +1026,8 @@ function addRow() {
 	
 	var plus = parseFloat(parseFloat(summaTax) + parseFloat(moneyDed)) ;
 	if(plus > parseFloat(branSum)){
-		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ");
+//		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ");
+		swal("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ")
 		return $("#moneyDed").focus();
 	}
 	var count = 1;
@@ -1111,7 +1121,8 @@ function myDeleteDed(count) {
 function addDataTableDed() {
 	var d = new Date();
 	if($("#balanceSummarys").val() == ""){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ ")
 	return $("#balanceSummarys").focus();
 	}
 	
@@ -1150,7 +1161,8 @@ function addDataTableDed() {
 		
 		var plus = parseFloat(summaTax) + parseFloat(mon[1]) ;
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ");
+//			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ");
+			swal("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ ")
 			return $("#moneyDed").focus();
 		}
 		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
@@ -1182,11 +1194,13 @@ function addDataTableMoneyTranPrice() {
 	var balanceSumss = $("#balanceSummary").val();
 	
 	if(balanceSumss == ""){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	if(parseFloat(balanceSumss) < parseFloat(0)){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	
@@ -1203,11 +1217,13 @@ function addDataTableMoneyTranPrice() {
 	var money = parseFloat(moneyss.replace(/,/g, ""));
 	
 	if(money == ""){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+//		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		swal("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !")
 		return $("#moneyTran").focus();
 	}
 	if(money < 0){
-		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+//		alert("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !");
+		swal("กรุณากรอกจำนวนเงิน กรุณากรอกใหม่ !")
 		return $("#moneyTran").focus();
 	}
 	var nameMode = "CC";
@@ -1335,7 +1351,8 @@ function addDataSumCreditTranPrice() {
 		var plus = parseFloat(result[4].toString().replace(/,/g, ""))  ;
 		
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
+//			alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
+			swal("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่")
 			return ;
 		}
 
@@ -1372,11 +1389,13 @@ function addDataSumCheckTranPrice() {
 	var balanceSumss = $("#balanceSummary").val();
 	
 	if(balanceSumss == ""){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	if(parseFloat(balanceSumss) < parseFloat(0)){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	var table = document.getElementById("showTotalPriceTable").rows.length;
@@ -1417,7 +1436,8 @@ function addDataSumCheckTranPrice() {
 		}
 		var plus = parseFloat(result[6].toString().replace(/,/g, "")) ;
 		if(plus > parseFloat(branSum)){
-			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
+//			alert("จำนวนเงินเกิน กรุณากรอกใหม่ !จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่");
+			swal("จำนวนเงินเกิน กรุณากรอกใหม่ !จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่")
 			return ;
 		}
 		var numberRun = number + i;
@@ -1447,18 +1467,21 @@ function addDataSumCheckTranPrice() {
 function addDataTableCheck() {
 	var lengthNumber =$("#checkNo").val().length
 	if(lengthNumber < 7){
-		alert("กรุณากรอกเลขที่เช็คให้ครบ 7 หลักด้วยค่ะ");
+//		alert("กรุณากรอกเลขที่เช็คให้ครบ 7 หลักด้วยค่ะ");
+		swal("กรุณากรอกเลขที่เช็คให้ครบ 7 หลักด้วยค่ะ")
 		return $("#checkNo").focus();
 	}
 	
 	var balanceSumss = $("#balanceSummary").val();
 	
 	if(balanceSumss == ""){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	if(parseFloat(balanceSumss) < parseFloat(0)){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	var summaryTax = $("#summaryTax").val();
@@ -1482,11 +1505,13 @@ function addDataTableCheck() {
 		count
 	}
 	if(bankNo == ""){
-		alert("กรุณาเลือกเลขที่ธนาคารใหม่ !");
+//		alert("กรุณาเลือกเลขที่ธนาคารใหม่ !");
+		swal("กรุณาเลือกเลขที่ธนาคารใหม่ !")
 		return $("#bankNo").focus();
 	}
 	if(bankName == ""){
-		alert("กรุณาเลือกชื่อธนาคารใหม่!");
+//		alert("กรุณาเลือกชื่อธนาคารใหม่!");
+		swal("กรุณาเลือกชื่อธนาคารใหม่!")
 		return $("#bankName").focus();
 	}
 // if(branchCheck == ""){
@@ -1494,15 +1519,18 @@ function addDataTableCheck() {
 // return $("#branchCheck").focus();
 // }
 	if(parseFloat(moneyCheck) < parseFloat(0)){
-		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+//		alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
+		swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 		return $("#bankName").focus();
 	}
 	if(checkNo == ""){
-		alert("กรุณากรอกเลขที่เช้คใหม่ !");
+//		alert("กรุณากรอกเลขที่เช้คใหม่ !");
+		swal("กรุณากรอกเลขที่เช้คใหม่ !")
 		return $("#checkNo").focus();
 	}
 	if(dateCheck == ""){
-		alert("กรุณาเลือกวันที่เช็ค!");
+//		alert("กรุณาเลือกวันที่เช็ค!");
+		swal("กรุณาเลือกวันที่เช็ค!")
 		return $("#dateCheck").focus();
 	}
 	
@@ -1510,11 +1538,13 @@ function addDataTableCheck() {
 	var bankName =document.getElementById('bankName').options[document.getElementById('bankName').selectedIndex].text;
 	
 	if(parseFloat(moneyCheck) < parseFloat(0)){
-		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !");
+//		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !");
+		swal("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !")
 		return $("#moneyCheck").focus();
 	}
 	if(moneyCheck == ""){
-		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !");
+//		alert("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !");
+		swal("จำนวนเงินเกินจำนวนที่ต้องชำระ กรุณาตรวจสอบข้อมูลใหม่ !")
 		return $("#moneyCheck").focus();
 	}
 
@@ -1530,17 +1560,20 @@ function addDataTableCheck() {
 function addDataTablecreditTranPrice() {
 	var lengthNumber =$("#creditNo").val().length
 	if(lengthNumber < 16){
-		alert("กรุณากรอกเลขบัตรให้ครบ 16 หลักด้วยค่ะ");
+//		alert("กรุณากรอกเลขบัตรให้ครบ 16 หลักด้วยค่ะ");
+		swal("กรุณากรอกเลขบัตรให้ครบ 16 หลักด้วยค่ะ")
 		return $("#creditNo").focus();
 	}
 	var balanceSumss = $("#balanceSummary").val();
 	
 	if(balanceSumss == ""){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	if(parseFloat(balanceSumss) < parseFloat(0)){
-		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+//		alert("กรุณากรอกจำนวนเงินที่ต้องชำระ");
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ")
 		return $("#balanceSummary").focus();
 	}
 	var table = document.getElementById("creditTable").rows.length;
@@ -1571,24 +1604,29 @@ function addDataTablecreditTranPrice() {
 	}
 	
 	if(creditType == ""){
-		alert("กรุณาเลือกประเภทบัตรเครดิต !");
+//		alert("กรุณาเลือกประเภทบัตรเครดิต !");
+		swal("กรุณาเลือกประเภทบัตรเครดิต !")
 		return $("#creditType").focus();
 	}
 	if(edcType == ""){
-		alert("กรุณากรอกEDC !");
+//		alert("กรุณากรอกEDC !");
+		swal("กรุณากรอกEDC !")
 		return $("#edcType").focus();
 	}
 	if(creditNo == ""){
-		alert("กรุณากรอกเลขบัตรเครดิต !");
+//		alert("กรุณากรอกเลขบัตรเครดิต !");
+		swal("กรุณากรอกเลขบัตรเครดิต !")
 		return $("#creditNo").focus();
 	}
 
 	if(parseFloat(creditPrice) < parseFloat(0)){
-		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
+//		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
+		swal("กรุณากรอก จำนวนเงินบัตรเครดิต")
 		return $("#creditPrice").focus();
 	}
 	if(creditPrice == ""){
-		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
+//		alert("กรุณากรอก จำนวนเงินบัตรเครดิต");
+		swal("กรุณากรอก จำนวนเงินบัตรเครดิต")
 		return $("#creditPrice").focus();
 	}
 
@@ -1637,8 +1675,8 @@ function sumTranPrice() {
 	
 	if(balance < summary){
 //		alert("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง");
-		swal("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง")
 // $("#sBalanceSummary").hide();
+		swal("กรุณากรอกจำนวนเงินที่ต้องชำระให้ถูกต้อง")
 		return $("#balanceSummary").focus();
 	}
 	
@@ -1967,7 +2005,8 @@ function inputAmount(){
 	var result = FormatMoneyShowToNumber($("#balanceSummary").val());
 	
 	if(dataCheck > result){
-		alert("คุณต้องใส่จำนวนเงินให้ถูกต้อง");
+//		alert("คุณต้องใส่จำนวนเงินให้ถูกต้อง");
+		swal("คุณต้องใส่จำนวนเงินให้ถูกต้อง")
 		return $("#balanceSummary").focus();
 	}
 	
@@ -2043,6 +2082,6 @@ function inputAmount(){
 
 function setDataBC() {
 	var x1 = $('#barCode').val();
-	alert(x1.length)
+//	alert(x1.length)
 	$('#barCode').val(x1.replace("|",""));
 }
