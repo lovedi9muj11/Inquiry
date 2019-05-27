@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.service.PaymentReportService;
 
 @Controller
@@ -28,7 +29,7 @@ public class ReportPaymentOtherController {
 	@RequestMapping(value = { "/reportPaymentOther" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<ReportPaymentBean> reportPaymentCriteria(@RequestBody ReportPaymentCriteria creteria) throws Exception {
-		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria,"OTHER");
+		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(creteria, Constants.DOCTYPE.RS);
 		return result;
 	}
 	

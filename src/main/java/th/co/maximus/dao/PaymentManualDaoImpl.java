@@ -175,7 +175,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
-			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+//			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+			
+			sql.append(" AND PM.DOCTYPE = ").append("'" + serviceType + "'");
 		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());

@@ -64,7 +64,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 		String checkWT = "";
 		List<ReportPaymentBean> result = new ArrayList<ReportPaymentBean>();
 		
-		result = paymentManualDao.getReportPayment(criteria,serviceType);
+		result = paymentManualDao.getReportPayment(criteria, serviceType);
 		
 		List<ReportPaymentBean> data = new ArrayList<ReportPaymentBean>();
 
