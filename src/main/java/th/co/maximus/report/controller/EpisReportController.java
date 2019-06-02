@@ -393,6 +393,12 @@ public class EpisReportController {
 		exportPDFReport.setDocumentDate(printCollections.get(0).getDocumentDate());
 		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
 		exportPDFReport.setVatRate(printCollections.get(0).getVatRate());
+		
+		if (StringUtils.isNotBlank(printCollections.get(0).getCustNo())) {
+			exportPDFReport.setCustNoCheck("Y");
+		} else {
+			exportPDFReport.setCustNoCheck("N");
+		}
 
 		if (StringUtils.isNotBlank(printCollections.get(0).getCustName())) {
 			exportPDFReport.setCustNameCheck("Y");
