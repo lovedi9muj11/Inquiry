@@ -48,6 +48,7 @@ public class ExportPDFOtherReport {
 	
 	private String sentStringHeader;
 	private String vatSum;
+	private String custNoCheck;
 	
 	
 	public String getVatSum() {
@@ -283,6 +284,12 @@ public class ExportPDFOtherReport {
 	}
 	public void setCheckSouce(String checkSouce) {
 		this.checkSouce = checkSouce;
+	}
+	public String getCustNoCheck() {
+		return custNoCheck;
+	}
+	public void setCustNoCheck(String custNoCheck) {
+		this.custNoCheck = custNoCheck;
 	}
 	
 	
