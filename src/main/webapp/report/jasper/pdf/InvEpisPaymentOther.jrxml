@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentOther" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" whenResourceMissingType="Error" isIgnorePagination="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -59,14 +59,18 @@
 				<textFieldExpression><![CDATA["/ " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="47" width="80" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="47" width="80" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCusNoCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[เลขที่ลูกค้า :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="47" width="289" height="23" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c"/>
+				<reportElement x="81" y="47" width="289" height="23" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c">
+					<printWhenExpression><![CDATA[$P{ReportSource}.getCusNoCheck() == "Y"]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
