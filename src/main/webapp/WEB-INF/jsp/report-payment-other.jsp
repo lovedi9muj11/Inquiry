@@ -291,8 +291,8 @@
 									<thead>
 										<tr>
 											<th style="text-align: center;width: 5%">ลำดับที่</th>
-											<th style="text-align: center;width: 10%">ประเภทค่าบริการ</th>
-											<th style="text-align: center;width: 13%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
+											<th style="text-align: center;width: 7%">ประเภทค่าบริการ</th>
+											<th style="text-align: center;width: 12%">เลขที่ใบเสร็จ/ใบกำกับภาษี</th>	
 											<th style="text-align: center;width: 10%">เลขที่ลูกค้า</th>
 											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
 											<th style="text-align: center;width: 10%">หน่วยงานรับรายได้</th>
@@ -302,7 +302,7 @@
 											<th style="text-align: center;width: 10%">ยอดเงินก่อนภาษี</th>
 											<th style="text-align: center;width: 10%">ภาษีมูลค่าเพิ่ม</th>
 											<th style="text-align: center;width: 10%">จำนวนเงินรวม</th>
-											<th style="text-align: center;width: 10%">สถานะ</th>
+											<th style="text-align: center;width: 5%">สถานะ</th>
 											<th style="text-align: center;width: 3%">หมายเหตุ</th>
 										</tr>
 									</thead>

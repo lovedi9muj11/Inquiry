@@ -323,22 +323,22 @@ function createRow(data, seq, table,check) {
 	
 	tableInit = $('#'+table).DataTable();
 	var rowNode = tableInit.row.add([invoice,radioSelect, no, receiptNoManual, createDate, dateMake, accountNo, customer, payType, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
-    $(rowNode).find('td').eq(0).addClass('center').width('5px');
-    $(rowNode).find('td').eq(1).addClass('center').width('5px');
-    $(rowNode).find('td').eq(2).addClass('center').width('40px');
-    $(rowNode).find('td').eq(3).addClass('center').width('5px');
-    $(rowNode).find('td').eq(4).addClass('center').width('5px');
-    $(rowNode).find('td').eq(5).addClass('center').width('5px');
-    $(rowNode).find('td').eq(6).addClass('center').width('50px');
-    $(rowNode).find('td').eq(7).addClass('center').width('5px');
-    $(rowNode).find('td').eq(8).addClass('center').width('5px');
-    $(rowNode).find('td').eq(9).addClass('center').width('5px');
-    $(rowNode).find('td').eq(10).addClass('center').width('10px');
-    $(rowNode).find('td').eq(11).addClass('center').width('20px');
-    $(rowNode).find('td').eq(12).addClass('center').width('5px');
-    $(rowNode).find('td').eq(13).addClass('center').width('5px');
-    $(rowNode).find('td').eq(14).addClass('hidden').width('5px');
-    $(rowNode).find('td').eq(15).addClass('center').width('5px');
+    $(rowNode).find('td').eq(0).addClass('center')
+    $(rowNode).find('td').eq(1).addClass('center')
+    $(rowNode).find('td').eq(2).addClass('center')
+    $(rowNode).find('td').eq(3).addClass('center')
+    $(rowNode).find('td').eq(4).addClass('center')
+    $(rowNode).find('td').eq(5).addClass('center')
+    $(rowNode).find('td').eq(6).addClass('center')
+    $(rowNode).find('td').eq(7).addClass('center')
+    $(rowNode).find('td').eq(8).addClass('center')
+    $(rowNode).find('td').eq(9).addClass('center')
+    $(rowNode).find('td').eq(10).addClass('center')
+    $(rowNode).find('td').eq(11).addClass('center')
+    $(rowNode).find('td').eq(12).addClass('center')
+//    $(rowNode).find('td').eq(13).addClass('center')
+//    $(rowNode).find('td').eq(14).addClass('hidden')
+//    $(rowNode).find('td').eq(15).addClass('center')
 
 };
 

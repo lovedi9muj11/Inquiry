@@ -187,7 +187,7 @@
 											<tr>
 												<th rowspan="2" style="text-align: center; width: 4%">ลำดับที่</th>
 												<th rowspan="2" style="text-align: center; width: 10%">วันที่รับชำระ</th>
-												<th rowspan="2" style="text-align: center; width: 8%">Pos No</th>
+												<th rowspan="2" style="text-align: center; width: 8%">เครื่องรับชำระ</th>
 								                <th colspan="2" style="text-align: center; width: 30%">ใบกำกับภาษี</th>
 								                <th rowspan="2" style="text-align: center; width: 8%">จำนวนใบกำกับภาษี</th>
 								                <th colspan="3" style="text-align: center; width: 40%">จำนวนเงินทั้งหมด(Total Amount)</th>

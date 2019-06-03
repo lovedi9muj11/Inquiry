@@ -37,15 +37,15 @@ var PLS_SELECT = 'กรุณาเลือก';
 	</form>
 	<div  style="padding: 30px 10px 50px 50px">
 		<h1 class="page-header"></h1>
-	  <div name="error" id="error"  class="alert alert-danger alert-dismissable fade in" style="display: none;">
+	  <div name="error" id="error"  class="alert alert-danger alert-dismissable fade in" style="display: none; font-size: 150%;">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	    <strong>Error : </strong> รหัสผ่านไม่ถูกต้อง
 	  </div>
-	  <div name="success" id="success"  class="alert alert-success alert-dismissable fade in" style="display: none;">
+	  <div name="success" id="success"  class="alert alert-success alert-dismissable fade in" style="display: none; font-size: 150%;">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	    <strong>ยกเลิกรายการสำเร็จ</strong>
 	  </div>
-	  <div name="notClear" id="notClear"  class="alert alert-warning alert-dismissable fade in" style="display: none;">
+	  <div name="notClear" id="notClear"  class="alert alert-warning alert-dismissable fade in" style="display: none; font-size: 150%;">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	    <strong>ไม่สามารถทำการยกเลิก</strong>
 	  </div>

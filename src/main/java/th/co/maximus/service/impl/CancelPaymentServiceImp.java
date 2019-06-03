@@ -133,6 +133,8 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(resultBean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();
 			boolean chkCC = true;
+			boolean chkOnlyWT = true;
+			
 //			String name = "";
 			for (TrsMethodEpisOffline method : methodResult) {
 				
@@ -156,9 +158,10 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					
 				}else {
 					String methodName = method.getName();
-					if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName())) {
+					if(Constants.Status.METHOD_WT_STR.equalsIgnoreCase(method.getName()) && chkOnlyWT) {
 						methodName = Constants.Status.METHOD_WT;
 						paymentMethod.append("+ " + methodName);
+						chkOnlyWT = false;
 					}
 					if(chkCC) {
 						paymentMethod.append("+ " + methodName);

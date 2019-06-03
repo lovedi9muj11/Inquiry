@@ -46,8 +46,8 @@ function search() {
 function createRow(data, seq, table) {
 	no = numI;
 	posNo = data.posNo;
-	invoice = data.from;
-	invoiceTo = data.to;
+	invoiceTo = data.from;
+	invoice = data.to;
 	documentDate = data.documentDate;
 	custName = data.custName;
 	taxNo = data.quantity;

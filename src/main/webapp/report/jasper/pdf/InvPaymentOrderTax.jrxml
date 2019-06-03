@@ -446,23 +446,12 @@
 					<text><![CDATA[รวมอัตรา]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="42" y="0" width="27" height="30" uuid="5fd5de72-1a15-4b5e-84fe-bc9727d4d76d"/>
-					<textElement textAlignment="Center">
+					<reportElement x="42" y="0" width="118" height="30" uuid="5fd5de72-1a15-4b5e-84fe-bc9727d4d76d"/>
+					<textElement>
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="70" y="0" width="21" height="30" uuid="ea444e42-053d-49cd-bad7-2f69f349ae34"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
-					</textElement>
-					<text><![CDATA[%]]></text>
-				</staticText>
 				<textField>
 					<reportElement x="877" y="0" width="91" height="30" uuid="4632707f-8294-4f20-a907-da824b501ae6"/>
 					<textElement textAlignment="Right">
@@ -633,24 +622,11 @@
 				</textElement>
 				<text><![CDATA[รวมอัตรา]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="70" y="116" width="21" height="30" uuid="83cae818-22c2-49d0-962c-222272e34777">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getLastPage() == "Y"]]></printWhenExpression>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="false"/>
-				</textElement>
-				<text><![CDATA[%]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="43" y="116" width="27" height="30" uuid="bf598cb2-1d88-4630-b543-c0983800554f">
+				<reportElement x="44" y="116" width="117" height="30" uuid="bf598cb2-1d88-4630-b543-c0983800554f">
 					<printWhenExpression><![CDATA[$P{ReportSource}.getLastPage() == "Y"]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>

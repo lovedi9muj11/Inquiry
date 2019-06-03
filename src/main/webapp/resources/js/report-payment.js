@@ -163,7 +163,7 @@ function createRow(data, seq) {
 //    $(rowNode).find('td').eq(6).addClass('left');
     $(rowNode).find('td').eq(6).addClass('center');
     $(rowNode).find('td').eq(7).addClass('center');
-    $(rowNode).find('td').eq(8).addClass('center');
+    $(rowNode).find('td').eq(8).addClass('right');
     $(rowNode).find('td').eq(9).addClass('right');
     $(rowNode).find('td').eq(10).addClass('right');
     $(rowNode).find('td').eq(11).addClass('center');

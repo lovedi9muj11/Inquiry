@@ -276,7 +276,7 @@ function search() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	for (var i = 0; i < res.length; i++) {
-                    createRow(res[i], i, "cancelPaymentTB", true);
+                    createRow(res[i], (i+1), "cancelPaymentTB", true);
                 }
         }
 	})
@@ -296,13 +296,12 @@ function chaengIcon(value){
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
 //	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
-	no = seq+1;
+	invoice =  ''
+	no = seq;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr
-//	dateMake = data.createDateStr;
 	accountNo = data.accountNo;
 	customer = data.customerName;
-//	payType = data.paymentMethod;
 	serviceName = data.serviceName;
 	userGroup = data.customerGroup;
 	amount = formatDouble(data.amount,2);
@@ -313,14 +312,11 @@ function createRow(data, seq, table,check) {
 	}else if(data.recordStatus == 'C'){
 		recordStatus = 'ยกเลิก';
 	}
-	vatAmount = formatDouble(data.vatAmount,2);
-	sumTotal =  data.amount + data.vatAmount;
-	
 	customerAddress = data.customerAddress;
 	userFullName = data.customerName;
 	
 	tableInit = $('#'+table).DataTable();
-	var rowNode = tableInit.row.add([radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus, vatAmount, sumTotal,data.serviceType]).draw(true).node();
+	var rowNode = tableInit.row.add([invoice, radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
     $(rowNode).find('td').eq(2).addClass('center');
@@ -334,9 +330,6 @@ function createRow(data, seq, table,check) {
     $(rowNode).find('td').eq(10).addClass('center');
     $(rowNode).find('td').eq(11).addClass('center');
     $(rowNode).find('td').eq(12).addClass('center');
-    $(rowNode).find('td').eq(13).addClass('center');
-    $(rowNode).find('td').eq(14).addClass('center');
-    $(rowNode).find('td').eq(15).addClass('center');
 
 };
 

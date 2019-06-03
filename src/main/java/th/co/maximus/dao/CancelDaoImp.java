@@ -34,6 +34,7 @@ public class CancelDaoImp implements CancelDao{
 	public List<DropDownBean> reasonCancelIbacss() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+Constants.MasterData.IBACSS_CANCEL_REASON+"'");
+		sql.append(" and PROPERTY_1 = '"+Constants.MasterData.CANCEL_REASON_INDAY+"'");
 		
 		return jdbcTemplate.query(sql.toString() , new DropdownMap());
 	}
@@ -42,6 +43,7 @@ public class CancelDaoImp implements CancelDao{
 	public List<DropDownBean> reasonCancelOther() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+Constants.MasterData.OTHER_CANCEL_REASON+"'");
+		sql.append(" and PROPERTY_1 = '"+Constants.MasterData.CANCEL_REASON_INDAY+"'");
 
 		return jdbcTemplate.query(sql.toString() , new DropdownMap());
 	}
