@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.HistorySubFindBean;
@@ -20,6 +23,7 @@ import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
+import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.dao.TrscreDitrefManualDao;
@@ -47,6 +51,9 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	
 	@Autowired
 	private MasterDatasDao masterDatasDao;
+	
+	@Autowired
+	private PaymentManualDao paymentManualDao;
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> servicePaymentHitrory() {
@@ -197,6 +204,25 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	@Override
 	public List<HistoryPaymentRS> findPaymentOrder(HistoryReportBean historyRpt) throws SQLException {
 		List<HistoryPaymentRS> result = new ArrayList<HistoryPaymentRS>();
+		
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Integer supCh = 0;
+		
+		if(StringUtils.isNotBlank(profile.getUsername())) {
+			if(!"".equals(profile.getUsername())) {
+				supCh = paymentManualDao.checkSup(profile.getUsername());
+			}else {
+				supCh = 2;
+			}
+		}
+		
+		if(supCh == 2) {
+			historyRpt.setUnserLogin("");
+		}else {
+			historyRpt.setUnserLogin(profile.getUsername());
+		}
+		
 		result = paymentInvoiceManualDao.findPaymentOrder(historyRpt);
 
 		return result;

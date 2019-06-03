@@ -24,6 +24,7 @@ public class ReportTaxRSBean {
 	private String to;
 	private String quantity;
 	private String posNo;
+	private String posName;
 	
 	public Date getDocumentDate() {
 		return documentDate;
@@ -132,6 +133,12 @@ public class ReportTaxRSBean {
 	}
 	public void setPosNo(String posNo) {
 		this.posNo = posNo;
+	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
 	}
 	
 }

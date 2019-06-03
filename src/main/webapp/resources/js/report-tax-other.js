@@ -45,7 +45,7 @@ function search() {
 
 function createRow(data, seq, table) {
 	no = numI;
-	posNo = data.posNo;
+	posName = data.posName;
 	invoiceTo = data.from;
 	invoice = data.to;
 	documentDate = data.documentDate;
@@ -72,7 +72,7 @@ function createRow(data, seq, table) {
 	var res = str.split("-");
 	var date = res[2] +"/"+res[1]+ "/"+res[0];
 	tableInit = $('#'+table).DataTable();
-    var rowNode = tableInit.row.add([no, date, posNo, invoice, invoiceTo, taxNo,beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), paidAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), recordStatus, vateRate]).draw(true).node();
+    var rowNode = tableInit.row.add([no, date, posName, invoice, invoiceTo, taxNo,beforeVat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), vat.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), paidAmount.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), recordStatus, vateRate]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
     $(rowNode).find('td').eq(2).addClass('center');
@@ -89,12 +89,15 @@ function createRow(data, seq, table) {
 };
 
 function reportExcel() {
-	$("#reportTaxOtherForm").attr("action", "/Epis-Offlines/paymentPrintOrder").attr("target", "_blank").submit();
+	if(!check){
+		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
+	}else{
+		$("#reportTaxOtherForm").attr("action", "/Epis-Offlines/paymentPrintOrder").attr("target", "_blank").submit();
+	}
 }
 
 function reportPDF() {
 	if(!check){
-//		alert("ยังไม่ม่ข้อมูลในการออกรายงาน");
 		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
 	}else{
 		$("#reportTaxOtherForm").attr("action", "/Epis-Offlines/previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();

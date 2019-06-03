@@ -81,12 +81,15 @@ function createRow(data, seq, table) {
 };
 
 function reportExcel() {
-	$("#reportTaxForm").attr("action", "/Epis-Offlines/paymentPrintOrder").attr("target", "_blank").submit();
+	if(!check){
+		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
+	}else{
+		$("#reportTaxForm").attr("action", "/Epis-Offlines/paymentPrintOrder").attr("target", "_blank").submit();
+	}
 }
 
 function reportPDF() {
 	if(!check){
-//		alert("ยังไม่ม่ข้อมูลในการออกรายงาน");
 		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
 	}else{
 		$("#reportTaxForm").attr("action", "/Epis-Offlines/previewPaymentPrintOrder.pdf").attr("target", "_blank").submit();

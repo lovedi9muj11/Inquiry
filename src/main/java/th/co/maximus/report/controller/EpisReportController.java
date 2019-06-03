@@ -623,7 +623,7 @@ public class EpisReportController {
 //			List<InvPaymentOrderTaxBean> summarryVat = reportService.vatSummarry(creteria, true);
 //			List<InvPaymentOrderTaxBean> summarry = reportService.vatSummarry(creteria, false);
 
-			if (collections != null) {
+			if (CollectionUtils.isNotEmpty(collections)) {
 				previewPaymentPrintOrder(request, response, collections, JASPER_JRXML_FILENAME, creteria);
 //				response.setContentType("application/pdf");
 //				response.setHeader("Content-Disposition", "inline;filename=11222.pdf");
@@ -971,10 +971,12 @@ public class EpisReportController {
 		String userCreBy = "";
 		String vatRate = "";
 		int autoNumber = 1;
+		String vatBefore = "";
 
 		if(CollectionUtils.isNotEmpty(collections)) {
 			userCreBy = collections.get(0).getEmpName();
 			vatRate = collections.get(0).getVatRate()+"";
+			vatBefore = collections.get(0).getVatRate();
 			
 			for (int i = 0; i < collections.size(); i++) {
 				
@@ -983,8 +985,11 @@ public class EpisReportController {
 					if(vatRate.equals(collections.get(i).getVatRate())) {
 						vatRate = collections.get(i).getVatRate()+" % ";
 					}else {
-						vatRate = vatRate.concat((collections.get(i).getVatRate()+" % "));
+						if(!vatBefore.equals(collections.get(i).getVatRate())) {
+							vatRate = vatRate.concat((collections.get(i).getVatRate()+" % "));
+						}
 					}
+					vatBefore = collections.get(i).getVatRate();
 					
 					
 					InvPaymentOrderTaxBean colles = new InvPaymentOrderTaxBean();

@@ -26,6 +26,9 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 	@Value("${text.posno}")
 	private String posNo;
 	
+	@Value("${text.posname}")
+	private String posName;
+	
 	@Autowired
 	private PaymentManualDao paymentManualDao;
 	
@@ -95,7 +98,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
 						res.setBeforeVat(beforeVat.setScale(2, RoundingMode.HALF_DOWN));
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
-						res.setPosNo(posNo);
+						res.setPosName(posName);
 						
 						responeData.add(res);
 						
@@ -121,7 +124,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
 						res.setBeforeVat(beforeVat.setScale(2, RoundingMode.HALF_DOWN));
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
-						res.setPosNo(posNo);
+						res.setPosName(posName);
 						
 						responeData.add(res);
 					}

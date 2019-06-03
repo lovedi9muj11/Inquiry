@@ -125,9 +125,15 @@ public class ReportDaoImpl implements ReportDao{
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" "+dateTo+" ' ");
 			}
 			
+			param.add(creteria.getTypePrint());
+			if(StringUtils.isNotEmpty(creteria.getUnserLogin())) {
+				sql.append(" and pim.CREATE_BY = ? ");
+				
+				param.add(creteria.getUnserLogin());
+			}
+			
 			sql.append(" ORDER BY py.RECEIPT_NO_MANUAL ASC ");
 			
-			param.add(creteria.getTypePrint());
 //			param.add(creteria.getFlagPage());
 			Object[] paramArr = param.toArray();
 			collectionss = jdbcTemplate.query(sql.toString(), paramArr, new mapInvPaymentOrderTaxBean());
