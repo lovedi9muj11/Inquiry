@@ -131,7 +131,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 						<!--<div class="box-header"></div>
 						 /.box-header -->
 						<div class="box-body">
-							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true" cellspacing="0" width="100%">
+							<table id="cancelPaymentTB" class="table table-bordered" data-maintain-selected="true">
 								<thead>
 							        <tr>
 							         	<th id="formate"></th>  
