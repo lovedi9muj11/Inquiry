@@ -30,6 +30,7 @@ public class PaymentDTO {
 	private Long officerId;
 	private String userLogin;
 	private String posId;
+	private String paidDateStr;
 	
 	
 	public String getBranchName() {
@@ -176,6 +177,14 @@ public class PaymentDTO {
 	public void setManualId(Long manualId) {
 		ManualId = manualId;
 	}
+	public String getPaidDateStr() {
+		return paidDateStr;
+	}
+	public void setPaidDateStr(String paidDateStr) {
+		this.paidDateStr = paidDateStr;
+	}
+	
+	
 	
 	
 }

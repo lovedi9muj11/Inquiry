@@ -285,6 +285,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							manualDTO.setVatAmount(payment.getVatAmount());
 							manualDTO.setUserLogin(payment.getCreateBy());
 							manualDTO.setUserName(payment.getCreateBy());
+							manualDTO.setPaidDate(payment.getPaidDate());
+							manualDTO.setPaidDateStr(String.valueOf(payment.getPaidDate()));
 							dtoList.add(manualDTO);
 
 							cancelDTO = dtoCancel(payment);
