@@ -391,7 +391,6 @@ public class EpisReportController {
 		exportPDFReport.setBranArea(valueBean.getProperty1() + " " + valueBean.getValue());
 		exportPDFReport.setBracnCode(printCollections.get(0).getBracnCode());
 		exportPDFReport.setDocumentDate(printCollections.get(0).getDocumentDate());
-		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
 		exportPDFReport.setVatRate(printCollections.get(0).getVatRate());
 		
 		if (StringUtils.isNotBlank(printCollections.get(0).getCustNo())) {
@@ -418,7 +417,8 @@ public class EpisReportController {
 		} else {
 			exportPDFReport.setTaxIdCheck("N");
 		}
-
+		
+		exportPDFReport.setCustNo(printCollections.get(0).getCustNo());
 		exportPDFReport.setCustomerAddress(printCollections.get(0).getCustomerAddress());
 		exportPDFReport.setCustName(printCollections.get(0).getCustName());
 		exportPDFReport.setDocumentNo(printCollections.get(0).getDocumentNo());
