@@ -11,4 +11,6 @@ public interface PaymentReportService {
 	
 	public List<ReportPaymentBean> findPaymnetReportServiceOtherSearch(ReportPaymentCriteria criteria,String serviceType) throws Exception;
 
+	public List<ReportPaymentBean> findPaymnetReportServicePDF(ReportPaymentCriteria criteria, String serviceType)	throws Exception;
+
 }

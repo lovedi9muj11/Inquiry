@@ -34,6 +34,9 @@ public interface PaymentManualDao {
 	public ReceiptOfflineModel findByManualId(long manualId, String status) throws SQLException;
 	
 	public List<Map<String, Object>> findBeforVat(long manualId) throws SQLException;
+
+	List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,
+			String serviceType);
 	
 	
 }

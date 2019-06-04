@@ -182,7 +182,30 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
-	
+	@Override
+	public List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,String serviceType) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" FROM RECEIPT_MANUAL PM ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+//		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
+		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
+//		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
+		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo2()+" "+criteria.getDateTo() + "'");
+		
+//		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
+//		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
+		
+		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
+			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
+		}
+			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+			
+//			sql.append(" AND PM.DOCTYPE = ").append("'" + serviceType + "'");
+		
+		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
+		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
+	}
 	@Override
 	public List<ReportPaymentBean> getReportPaymentOther(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
