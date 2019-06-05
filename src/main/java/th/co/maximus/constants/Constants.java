@@ -32,6 +32,8 @@ public class Constants {
 	/** The Constant EXIT. */
 	public static final String EXIT = "Exit";
 	
+	public static final String EVERY = "*";
+	
 	
 	public static class DateTime {
 		public static final String LOCALE = "TH";

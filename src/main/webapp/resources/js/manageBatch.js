@@ -125,7 +125,7 @@ function setHour() {
 
 function setMinute() {
 	$('#minute').append('<option value="*">' + PLS_SELECT_ALL_MINUTE + '</option>');
-	for(var i=0; i<60; i++) {
+	for(var i=1; i<59; i++) {
 		$('#minute').append('<option value="'+(i+1)+'">' + (i+1) + '</option>');
 	}
 }

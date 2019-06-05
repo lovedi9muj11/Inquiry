@@ -332,7 +332,11 @@ public class MasterDataServiceImpl implements MasterDataService {
 		valueSet.append("0");
 
 		if (StringUtils.isNotBlank(masterDataBean.getMinute())) {
-			valueSet.append(" ");
+			if(Constants.EVERY.equals(masterDataBean.getMinute())) {
+				valueSet.append(" ");
+			}else {
+				valueSet.append(" 0/");
+			}
 			valueSet.append(masterDataBean.getMinute());
 		} else {
 			valueSet.append(" *");
