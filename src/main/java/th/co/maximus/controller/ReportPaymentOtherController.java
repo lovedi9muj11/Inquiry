@@ -29,7 +29,7 @@ public class ReportPaymentOtherController {
 	@RequestMapping(value = { "/reportPaymentOther" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<ReportPaymentBean> reportPaymentCriteria(@RequestBody ReportPaymentCriteria creteria) throws Exception {
-		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServicePDF(creteria, "OTHER");
+		List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServicePDF(creteria, Constants.Service.SERVICE_TYPE_OTHER);
 		return result;
 	}
 	

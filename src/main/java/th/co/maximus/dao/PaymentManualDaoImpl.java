@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -176,8 +177,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
 //			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
-			
+		if(StringUtils.isNoneEmpty(serviceType)) {
 			sql.append(" AND PM.DOCTYPE = ").append("'" + serviceType + "'");
+		}
 		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
