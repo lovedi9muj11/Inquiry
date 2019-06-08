@@ -262,9 +262,10 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
-		try {
+		
 
 			for (OfflineResultModel offlineResultModel : objMessage) {
+				try {
 				if (offlineResultModel.getStatus().equals("SUCCESS")) {
 
 					for (PaymentMMapPaymentInvBean payment : list) {
@@ -301,15 +302,20 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
 
 					}
-
-				} else {
+	
+					} else {
+						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
+					}
+				} catch (Exception e) {
+//					e.printStackTrace();
+					System.err.println("SEND DATA EEROR :" + offlineResultModel.getManualId());
+					System.err.println("SEND DATA EEROR :" + offlineResultModel.getRecriptNo());
+					
 					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		result.put("data", objMessage);
 		return result;
 	}
