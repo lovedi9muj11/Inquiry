@@ -310,7 +310,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 //					e.printStackTrace();
 					System.err.println("SEND DATA EEROR :" + offlineResultModel.getManualId());
 					System.err.println("SEND DATA EEROR :" + offlineResultModel.getRecriptNo());
-					
+					offlineResultModel.setStatus("ERROR");
 					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
 				}
 			}
