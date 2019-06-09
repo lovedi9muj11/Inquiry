@@ -146,7 +146,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 						paymentMethod.append("+ " + methodName);
 						chkOnlyWT = false;
 					}
-					if(chkCC) {
+					if(chkCC && (-1) == paymentMethod.indexOf(Constants.Status.METHOD_WT)) {
 						paymentMethod.append("+ " + methodName);
 						chkCC = false;
 					}

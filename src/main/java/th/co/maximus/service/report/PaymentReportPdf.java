@@ -34,6 +34,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
@@ -326,6 +327,7 @@ public class PaymentReportPdf {
 								glCode = reportPaymentBean.getServiceName().split(" ")[0];
 								
 								JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+								JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 								JasperPrint jasperPrint = new JasperPrint();
 								
 								jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -401,6 +403,7 @@ public class PaymentReportPdf {
 							glCode = reportPaymentBean.getServiceName().split(" ")[0];
 							
 							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							JasperPrint jasperPrint = new JasperPrint();
 							
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -475,6 +478,7 @@ public class PaymentReportPdf {
 						glCode = reportPaymentBean.getServiceName().split(" ")[0];
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						JasperPrint jasperPrint = new JasperPrint();
 						
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -589,6 +593,7 @@ public class PaymentReportPdf {
 						}
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						JasperPrint jasperPrint = new JasperPrint();
 						
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -739,6 +744,7 @@ public class PaymentReportPdf {
 							parameters.put("pageNumber", pageNumber);
 							
 							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							JasperPrint jasperPrint = new JasperPrint();
 							
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -847,6 +853,7 @@ public class PaymentReportPdf {
 							}
 							
 							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							JasperPrint jasperPrint = new JasperPrint();
 							
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -982,6 +989,7 @@ public class PaymentReportPdf {
 						parameters.put("pageNumber", pageNumber);
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						JasperPrint jasperPrint = new JasperPrint();
 						
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
@@ -1091,6 +1099,7 @@ public class PaymentReportPdf {
 						}
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						JasperPrint jasperPrint = new JasperPrint();
 						
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
