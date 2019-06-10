@@ -55,6 +55,8 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 			}else {
 				paymentManualBean.setAmount(new BigDecimal(resRQ - paymentBean.getChang()));
 			}
+				//  เปลี่ยน Value Amount เป็นยอดที่ต้องชำระ
+				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
 //			if(paymentBean.getNonVat().equals("NON VAT")) {
 //				paymentManualBean.setVatRate(-1);
 //			}else {
