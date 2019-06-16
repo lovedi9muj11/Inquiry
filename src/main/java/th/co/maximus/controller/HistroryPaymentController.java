@@ -241,7 +241,7 @@ public class HistroryPaymentController {
 							manualDTO.setReceiptNoManual(payment.getReceiptNoManual());
 							manualDTO.setRemark(payment.getRemark());
 							manualDTO.setManualId(offlineResultModel.getManualIdOnline());
-							manualDTO.setCreateBy("EPIS5");
+							manualDTO.setCreateBy(payment.getCreateBy());
 //							manualDTO.setCreateDate(new Date());
 							manualDTO.setPaidAmount(payment.getPaidAmount());
 //							manualDTO.setPaidDate(payment.getPaidDate());
@@ -268,13 +268,13 @@ public class HistroryPaymentController {
 //						cancelOfflineDTO.setUserName(userName);
 						// หักล้าง
 						postUrl = url
-								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=EPIS5&pw=password");
+								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
 //						restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
 //						ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
 						restTemplate.postForEntity(postUrl, dtoList, String.class);
 						// ยกเลิก
 						postUrl = url
-								.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=EPIS5&pw=password");
+								.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
 //						ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 						clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
@@ -315,9 +315,9 @@ public class HistroryPaymentController {
 	@ResponseBody
 	public ResponseEntity<String> test() throws Exception {
 
-		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
+		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("backofficer01", "password"));
 		ResponseEntity<String> clearing = restTemplate.getForEntity(
-				"http://localhost:8080/EpisWeb/findPosDetailById.json?ap=SSO&un=EPIS5&pw=password", String.class);
+				"http://localhost:8080/EpisWeb/findPosDetailById.json?ap=SSO&un=backofficer01&pw=password", String.class);
 		return clearing;
 	}
 	// http://localhost:8080/EpisWeb/findPosDetailById.json

@@ -132,9 +132,11 @@ public class OfflineBatch implements Job {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
 		if (result != null) {
+			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
-			String postUrl = url.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=EPIS5&pw=password");
+			String postUrl = url.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
 			restTemplate.postForEntity(postUrl, result, String.class);
+		
 			for (OfflineResultModel payment : resultClear) {
 				if ("SUCCESS".equals(payment.getStatus())) {
 					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
