@@ -65,9 +65,13 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 					if(totalAmount < 0) {
 						Double amount = ((paymentTranPriceBean.getMoneyTran()- (totalAmount * -1)));
 						amount = amount - ((paymentBean.getSummaryTax()*-1)-(paymentBean.getTaxOnly()) - chage);
-						trsMethodManualBean.setAmount(amount);
+						// แก้ไข เรื่องการ บันทึกเงืน  22/06/2019
+						trsMethodManualBean.setAmount(paymentBean.getBalanceSummary());
+//						trsMethodManualBean.setAmount(amount);
 					}else {
-						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()- chage));
+						// แก้ไข เรื่องการ บันทึกเงืน  22/06/2019
+						trsMethodManualBean.setAmount(paymentBean.getBalanceSummary());
+//						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()- chage));
 					}
 					trsMethodManualBean.setName("เงินสด");
 					

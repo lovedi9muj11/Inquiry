@@ -378,7 +378,7 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="FreesiaUPC" size="14" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getAmountPaymentStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBalanceSummaryStr()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="Cat_Hl_Common" x="490" y="47" width="184" height="23" uuid="c9b4d999-dd75-4129-9e4e-93bae534f7b8"/>
