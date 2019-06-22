@@ -117,6 +117,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 					}
 
 				}
+				setCustomerGroupName(bean);
 				bean.setCreateDateStr(dateFM.format(bean.getCreateDate()));
 				bean.setPaymentMethod(paymentMethod.toString());
 				result.add(bean);

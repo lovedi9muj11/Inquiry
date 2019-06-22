@@ -2,6 +2,7 @@ package th.co.maximus.bean;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ReportPaymentBean {
 	private Long manualId;
@@ -34,6 +35,8 @@ public class ReportPaymentBean {
 	private String deductionNo;
 	private String serviceCode;
 	private String vatRate;
+	
+	List<ReportPaymentBean> reportPaymentBean;
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -257,6 +260,14 @@ public class ReportPaymentBean {
 
 	public void setVatRate(String vatRate) {
 		this.vatRate = vatRate;
+	}
+
+	public List<ReportPaymentBean> getReportPaymentBean() {
+		return reportPaymentBean;
+	}
+
+	public void setReportPaymentBean(List<ReportPaymentBean> reportPaymentBean) {
+		this.reportPaymentBean = reportPaymentBean;
 	}
 
 }
