@@ -36,9 +36,8 @@ public class PaymentOtherFirstBean implements Serializable{
 	private List<PaymentTranPriceBean> paymentTranPrice;
 	private String docType;
 	private String inputServiceDepartment;
-	
 	private String haveDocNo;
-	
+	private String incomeEdit;
 	
 	public String getDocType() {
 		return docType;
@@ -220,6 +219,12 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setHaveDocNo(String haveDocNo) {
 		this.haveDocNo = haveDocNo;
+	}
+	public String getIncomeEdit() {
+		return incomeEdit;
+	}
+	public void setIncomeEdit(String incomeEdit) {
+		this.incomeEdit = incomeEdit;
 	}
 	
 	

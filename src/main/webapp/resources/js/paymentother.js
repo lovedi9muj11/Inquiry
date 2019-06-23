@@ -620,7 +620,8 @@ function submitForm() {
 		"paymentBill" : listpaymentSaleRQ,
 		"paymentTax" : listpaymentTaxRQ,
 		"paymentTranPrice" : listpaymentTranPriceRQ,
-		"inputServiceDepartment":$("#inputServiceDepartment").val()
+		"inputServiceDepartment":$("#inputServiceDepartment").val(),
+		"incomeEdit":$("#incomeEdit").val()
 	}
 	document.getElementById("submitFormPayment").disabled = true;
 

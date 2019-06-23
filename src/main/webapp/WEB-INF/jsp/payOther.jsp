@@ -257,7 +257,7 @@
 												คุณยังไม่ได้กรอก จำนวนรายการ</p>
 										</div>
 										<div class="col-sm-1">
-											<select class="form-control">
+											<select class="form-control" name="incomeEdit" id="incomeEdit">
 												<%
 													for (int i = 0; i < masterCategory.size(); i++) {
 												%>

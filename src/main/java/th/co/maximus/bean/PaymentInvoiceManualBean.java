@@ -45,6 +45,7 @@ public class PaymentInvoiceManualBean {
 	
 	private BigDecimal discountVat;
 	
+	private String incomeunit;
 	
 
 	
@@ -335,6 +336,14 @@ public class PaymentInvoiceManualBean {
 
 	public void setDiscountVat(BigDecimal discountVat) {
 		this.discountVat = discountVat;
+	}
+
+	public String getIncomeunit() {
+		return incomeunit;
+	}
+
+	public void setIncomeunit(String incomeunit) {
+		this.incomeunit = incomeunit;
 	}
 	
 	

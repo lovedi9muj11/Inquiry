@@ -35,6 +35,7 @@ public class PaymentInvoiceManualModel {
 	private  String   updateBy;
 	private  Timestamp   updateDate;
 	private  String   recordStatus;
+	private String incomeunit;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -182,6 +183,12 @@ public class PaymentInvoiceManualModel {
 	}
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+	public String getIncomeunit() {
+		return incomeunit;
+	}
+	public void setIncomeunit(String incomeunit) {
+		this.incomeunit = incomeunit;
 	}
 	
 	
