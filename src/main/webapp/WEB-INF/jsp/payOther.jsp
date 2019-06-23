@@ -261,7 +261,7 @@
 												<%
 													for (int i = 0; i < masterCategory.size(); i++) {
 												%>
-												<option value="<%=masterCategory.get(i).getText()%>"><%=masterCategory.get(i).getText()%></option>
+												<option value="<%=masterCategory.get(i).getValue()%>"><%=masterCategory.get(i).getText()%></option>
 												<%
 													}
 												%>
