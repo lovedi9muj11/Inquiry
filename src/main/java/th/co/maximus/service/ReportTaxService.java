@@ -9,4 +9,6 @@ import th.co.maximus.bean.ReportTaxRSBean;
 public interface ReportTaxService {
 
 	public List<ReportTaxRSBean> findPaymentTaxRs(HistoryReportBean req) throws SQLException;
+	
+	public ReportTaxRSBean findPaymentTaxRsReport(HistoryReportBean req) throws SQLException;
 }
