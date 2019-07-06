@@ -31,8 +31,17 @@ public class PaymentDTO {
 	private String userLogin;
 	private String posId;
 	private String paidDateStr;
+	private String branchAreaCode;
 	
 	
+	
+	
+	public String getBranchAreaCode() {
+		return branchAreaCode;
+	}
+	public void setBranchAreaCode(String branchAreaCode) {
+		this.branchAreaCode = branchAreaCode;
+	}
 	public String getBranchName() {
 		return branchName;
 	}

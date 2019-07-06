@@ -43,6 +43,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 
 	@Value("${url.online}")
 	private String url;
+	
+	@Value("${text.posno}")
+	private  String posNo;
 
 	RestTemplate restTemplate;
 
@@ -153,6 +156,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 					ReceiptOfflineModel recrip = findReciptStatus(manualId,
 							payment.getRecordStatus());
 					paymentEpisOfflineDTO.setManualID(manualId.toString());
+					paymentEpisOfflineDTO.setPosNo(posNo);
 					if (recrip != null) {
 						paymentList = findPaymentInvoice(manualId);
 						for (PaymentInvoiceEpisOffline pay : paymentList) {
@@ -299,6 +303,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
+		ResponseEntity<String> resultA;
+		ResponseEntity<String> resultB = null;
 
 		for (OfflineResultModel offlineResultModel : objMessage) {
 			try {
@@ -328,6 +334,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 							manualDTO.setPaidDate(payment.getPaidDate());
 							manualDTO.setPaidDateStr(String.valueOf(payment
 									.getPaidDate()));
+							manualDTO.setPosNo(posNo);
+							manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
 							dtoList.add(manualDTO);
 
 							cancelDTO = dtoCancel(payment);
@@ -336,13 +344,15 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 					if (dtoList.size() > 0) {
 						postUrl = url
 								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
-						restTemplate.postForEntity(postUrl, dtoList,
+						resultA = restTemplate.postForEntity(postUrl, dtoList,
 								String.class);
-
-						postUrl = url
-								.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
-						restTemplate.postForEntity(postUrl, cancelDTO,
-								String.class);
+						
+						System.out.println(resultA);
+							postUrl = url
+									.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
+							resultB =  restTemplate.postForEntity(postUrl, cancelDTO,
+									String.class);
+							System.out.println(resultB);
 						updateStatusClearing(offlineResultModel.getManualId(),
 								Constants.CLEARING.STATUS_Y);
 

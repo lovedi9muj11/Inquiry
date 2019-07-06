@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+
 	
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
@@ -418,7 +421,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
-					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE ");
+					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE,pim.INCOMEUNIT ");
 			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
@@ -585,6 +588,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setServiceName(rs.getString("pim.SERVICENAME"));
 			paymentInvoiceEpisOffline.setServiceCode(rs.getString("pim.SERVICECODE"));
 			paymentInvoiceEpisOffline.setInvoiceDate(rs.getDate("pim.INVOICE_DATE"));
+			paymentInvoiceEpisOffline.setIncomeUnit(rs.getString("pim.INCOMEUNIT"));
 			
 			return paymentInvoiceEpisOffline;
 		}

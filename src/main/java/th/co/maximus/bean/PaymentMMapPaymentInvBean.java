@@ -43,7 +43,19 @@ public class PaymentMMapPaymentInvBean {
 	private BigDecimal discountSpecial;
 	private String reasonCode;
 	private String reasonDesc;
+	private String branchAreaCode;
 	
+	
+	
+
+	public String getBranchAreaCode() {
+		return branchAreaCode;
+	}
+
+	public void setBranchAreaCode(String branchAreaCode) {
+		this.branchAreaCode = branchAreaCode;
+	}
+
 	public String getAddressNewCancelPayment() {
 		return addressNewCancelPayment;
 	}

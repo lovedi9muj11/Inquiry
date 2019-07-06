@@ -28,6 +28,8 @@ public class PaymentInvoiceEpisOffline {
 	private String serviceName;
 	private String serviceCode;
 	private Date invoiceDate;
+	private String incomeUnit;
+	private String posNo;
 	
 	private BigDecimal discount;
 	private BigDecimal discountVat;
@@ -63,6 +65,21 @@ public class PaymentInvoiceEpisOffline {
 		
 	}
 	
+	
+	
+	
+	public String getPosNo() {
+		return posNo;
+	}
+	public void setPosNo(String posNo) {
+		this.posNo = posNo;
+	}
+	public String getIncomeUnit() {
+		return incomeUnit;
+	}
+	public void setIncomeUnit(String incomeUnit) {
+		this.incomeUnit = incomeUnit;
+	}
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}

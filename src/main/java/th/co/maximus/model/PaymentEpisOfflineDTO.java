@@ -18,11 +18,21 @@ public class PaymentEpisOfflineDTO {
 	private BigDecimal vatAmount;
 	private BigDecimal vatRate;
 	private String creatBy;
+	private String posNo;
 	private List<PaymentInvoiceEpisOffline> paymentInvoice;
 	private List<DuductionEpisOffline> duduction;
 	private List<TrsMethodEpisOffline> trsMethod;
 
 	
+	
+	public String getPosNo() {
+		return posNo;
+	}
+
+	public void setPosNo(String posNo) {
+		this.posNo = posNo;
+	}
+
 	public BigDecimal getVatAmount() {
 		return vatAmount;
 	}
