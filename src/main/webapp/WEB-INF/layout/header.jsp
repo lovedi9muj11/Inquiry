@@ -44,7 +44,8 @@
 	<nav class="navbar navbar-inverse top-bar navbar-fixed-top" style="background-color: #ee7600;">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<i class="fa fa-bullseye"></i> Offline
+<!-- 				<i class="fa fa-bullseye"></i> Offline -->
+				<img src="images/CATTelecom_Logo.png"  alt=""/>
 			</div>
 			<div class="navbar-right">
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
