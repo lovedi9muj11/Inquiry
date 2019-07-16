@@ -2,9 +2,11 @@ package th.co.maximus.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -305,7 +307,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
 		ResponseEntity<String> resultA;
 		ResponseEntity<String> resultB = null;
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		for (OfflineResultModel offlineResultModel : objMessage) {
 			try {
 				if (offlineResultModel.getStatus().equals("SUCCESS")) {
@@ -332,8 +334,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 							manualDTO.setUserLogin(payment.getCreateBy());
 							manualDTO.setUserName(payment.getCreateBy());
 							manualDTO.setPaidDate(payment.getPaidDate());
-							manualDTO.setPaidDateStr(String.valueOf(payment
-									.getPaidDate()));
+							manualDTO.setPaidDateStr(dateFormat.format(payment.getPaidDate()));
 							manualDTO.setPosNo(posNo);
 							manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
 							dtoList.add(manualDTO);
@@ -343,7 +344,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 					}
 					if (dtoList.size() > 0) {
 						postUrl = url
-								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
+								.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
 						resultA = restTemplate.postForEntity(postUrl, dtoList,
 								String.class);
 						

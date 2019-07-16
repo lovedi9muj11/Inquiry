@@ -2,13 +2,20 @@ package th.co.maximus.bean;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import th.co.maximus.core.utils.converter.CustomDateDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateSerializer;
 
 public class PaymentMMapPaymentInvBean {
 	private Long manualId;
 	private Long paymentId;
 	private String invoiceNo;
 	private String receiptNoManual;
-	private Timestamp paidDate;
+	private Date paidDate;
 	private String brancharea;
 	private String branchCode;
 	private BigDecimal paidAmount;
@@ -152,11 +159,13 @@ public class PaymentMMapPaymentInvBean {
 		this.receiptNoManual = receiptNoManual;
 	}
 
-	public Timestamp getPaidDate() {
+	@JsonSerialize(using = CustomDateSerializer.class)
+	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	public void setPaidDate(Timestamp paidDate) {
+	@JsonDeserialize(using = CustomDateDeserializer.class)
+	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
 

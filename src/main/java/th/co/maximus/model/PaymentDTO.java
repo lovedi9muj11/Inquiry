@@ -3,6 +3,12 @@ package th.co.maximus.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import th.co.maximus.core.utils.converter.CustomDateDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateSerializer;
+
 public class PaymentDTO {
 	private Long paymenId;
 	private String invoiceNo;
@@ -102,9 +108,12 @@ public class PaymentDTO {
 	public void setVatAmount(BigDecimal vatAmount) {
 		this.vatAmount = vatAmount;
 	}
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getPaidDate() {
 		return paidDate;
 	}
+
+	@JsonDeserialize(using = CustomDateDeserializer.class)
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
