@@ -2,10 +2,12 @@ package th.co.maximus.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ReportTaxRSBean {
 	
 	private Date documentDate;
+	private String documentDateStr;
 	private String invoice;
 	private String custName;
 	private String taxId;
@@ -13,18 +15,29 @@ public class ReportTaxRSBean {
 	private String recordStatus;
 	private String documentNo;
 	private BigDecimal paidAmount;
+	private String paidAmountStr;
 	private BigDecimal amount;
 	private int vatRate;
+	private String vatRateStr;
 	private BigDecimal beforeVat;
 	private BigDecimal vat;
+	private String beforeVatStr;
+	private String vatStr;
 	private String numberRun;
 	private String createBy;
+	
+	private String beforVatSummery;
+	private String vatSummery;
+	private String afterVatSummery;
 	
 	private String from;
 	private String to;
 	private String quantity;
+	private String quantitySummery;
 	private String posNo;
 	private String posName;
+	
+	private List<ReportTaxRSBean> reportTaxRSBeanList;
 	
 	public Date getDocumentDate() {
 		return documentDate;
@@ -139,6 +152,66 @@ public class ReportTaxRSBean {
 	}
 	public void setPosName(String posName) {
 		this.posName = posName;
+	}
+	public String getDocumentDateStr() {
+		return documentDateStr;
+	}
+	public void setDocumentDateStr(String documentDateStr) {
+		this.documentDateStr = documentDateStr;
+	}
+	public String getPaidAmountStr() {
+		return paidAmountStr;
+	}
+	public void setPaidAmountStr(String paidAmountStr) {
+		this.paidAmountStr = paidAmountStr;
+	}
+	public String getBeforeVatStr() {
+		return beforeVatStr;
+	}
+	public void setBeforeVatStr(String beforeVatStr) {
+		this.beforeVatStr = beforeVatStr;
+	}
+	public String getVatStr() {
+		return vatStr;
+	}
+	public void setVatStr(String vatStr) {
+		this.vatStr = vatStr;
+	}
+	public String getQuantitySummery() {
+		return quantitySummery;
+	}
+	public void setQuantitySummery(String quantitySummery) {
+		this.quantitySummery = quantitySummery;
+	}
+	public String getVatRateStr() {
+		return vatRateStr;
+	}
+	public void setVatRateStr(String vatRateStr) {
+		this.vatRateStr = vatRateStr;
+	}
+	public List<ReportTaxRSBean> getReportTaxRSBeanList() {
+		return reportTaxRSBeanList;
+	}
+	public void setReportTaxRSBeanList(List<ReportTaxRSBean> reportTaxRSBeanList) {
+		this.reportTaxRSBeanList = reportTaxRSBeanList;
+	}
+	public String getBeforVatSummery() {
+		return beforVatSummery;
+	}
+	public void setBeforVatSummery(String beforVatSummery) {
+		this.beforVatSummery = beforVatSummery;
+	}
+	public String getVatSummery() {
+		return vatSummery;
+	}
+	public void setVatSummery(String vatSummery) {
+		this.vatSummery = vatSummery;
+	}
+	public String getAfterVatSummery() {
+		return afterVatSummery;
+	}
+	public void setAfterVatSummery(String afterVatSummery) {
+		this.afterVatSummery = afterVatSummery;
 	}
 	
 }

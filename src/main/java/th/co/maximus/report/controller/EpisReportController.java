@@ -62,6 +62,7 @@ import th.co.maximus.bean.InvEpisOfflineOtherBean;
 import th.co.maximus.bean.InvEpisOfflineReportBean;
 import th.co.maximus.bean.InvPaymentOrderTaxBean;
 import th.co.maximus.bean.MasterDatasBean;
+import th.co.maximus.bean.ReportTaxRSBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
@@ -71,6 +72,7 @@ import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentOtherService;
 import th.co.maximus.service.ReportService;
+import th.co.maximus.service.ReportTaxService;
 import th.co.maximus.service.TrsChequeRefManualService;
 import th.co.maximus.service.TrscreDitrefManualService;
 import th.co.maximus.service.TrsmethodManualService;
@@ -93,15 +95,24 @@ public class EpisReportController {
 
 	@Autowired
 	private MasterDataService masterDataService;
+	
+	@Autowired
+	private ReportTaxService reportTaxService;
+	
 	private ServletContext context;
+	
 	@Value("${text.prefix}")
 	private String nameCode;
+	
 	@Value("${text.posno}")
 	private String posNo;
+	
 	@Value("${text.branarea}")
 	private String branArea;
+	
 	@Value("${text.branCode}")
 	private String branCode;
+	
 	@Value("${text.taxid.cat}")
 	private String taxidCat;
 
@@ -597,12 +608,6 @@ public class EpisReportController {
 
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name",
-		// "THSarabun.ttf");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.encoding",
-		// "UTF-8");
-		// JRProperties.setProperty("net.sf.jasperreports.default.pdf.embedded",
-		// "true");
 		JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
 				+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
 		JRDataSource jrDataSource = (printCollections2 != null && !printCollections2.isEmpty())
@@ -611,7 +616,6 @@ public class EpisReportController {
 
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-		// exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
 	}
 
 	@RequestMapping(value = { "previewPaymentPrintOrder.pdf" })
@@ -620,18 +624,29 @@ public class EpisReportController {
 		if (creteria != null) {
 			String JASPER_JRXML_FILENAME = "InvPaymentOrderTax";
 			List<InvPaymentOrderTaxBean> collections = reportService.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
-//			List<InvPaymentOrderTaxBean> summarryVat = reportService.vatSummarry(creteria, true);
-//			List<InvPaymentOrderTaxBean> summarry = reportService.vatSummarry(creteria, false);
 
 			if (CollectionUtils.isNotEmpty(collections)) {
 				previewPaymentPrintOrder(request, response, collections, JASPER_JRXML_FILENAME, creteria);
-//				response.setContentType("application/pdf");
-//				response.setHeader("Content-Disposition", "inline;filename=11222.pdf");
-//				createPdf(response, summarryVat, summarry, collections, a);
 			}
 
 		}
 
+	}
+	
+	@RequestMapping(value = { "previewPaymentPrintOrderRS.pdf" })
+	public void paymentPrintRS(HistoryReportBean creteria, HttpServletRequest request, HttpServletResponse response,
+			Model model) throws Exception {
+		if (creteria != null) {
+			String JASPER_JRXML_FILENAME = "InvPaymentOrderTaxRS";
+//			List<InvPaymentOrderTaxBean> collections = reportService.inqueryInvPaymentOrderTaxBeanJSONHandler(creteria);
+			ReportTaxRSBean responeData = reportTaxService.findPaymentTaxRsReport(creteria);
+			
+			if (CollectionUtils.isNotEmpty(responeData.getReportTaxRSBeanList())) {
+				printReportTaxRS(request, response, responeData, JASPER_JRXML_FILENAME, creteria);
+			}
+			
+		}
+		
 	}
 
 	public void createPdf(HttpServletResponse response, List<InvPaymentOrderTaxBean> summarryVat,
@@ -1263,6 +1278,356 @@ public class EpisReportController {
 		} catch (PrinterException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void printReportTaxRS(HttpServletRequest request, HttpServletResponse response, ReportTaxRSBean responeData, String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
+
+		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		List<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
+		
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy HH:ss");
+//		SimpleDateFormat dtt = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		
+		String dateDocument = dt.format(date);
+//		String oldHeadName = "";
+		exportPDFReport.setHeadName("รายงานภาษีใบเสร็จรับเงิน/ใบกำกับภาษีอย่างย่อ");
+//		oldHeadName = exportPDFReport.getHeadName();
+		String fomeDate = "";
+		String endDate = "";
+		if (StringUtils.isNotBlank(creteria.getDateFrom())) {
+			String dateForm = creteria.getDateFrom();
+			String[] res = dateForm.split("-");
+			fomeDate = res[2] + "/" + res[1] + "/" + res[0];
+		}
+		if (StringUtils.isNotBlank(creteria.getDateTo())) {
+			String dateEnd = creteria.getDateTo();
+			String[] res = dateEnd.split("-");
+			endDate = res[2] + "/" + res[1] + "/" + res[0];
+		}
+
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
+		exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
+		exportPDFReport.setPrintDate(dateDocument);
+		exportPDFReport.setBranchArea(valueBean.getValue());
+		exportPDFReport.setInvoiceNo(taxidCat);
+		exportPDFReport.setBranchCodeEmp(branCode);
+
+//		BigDecimal summaryBeforeVt = new BigDecimal(0);
+//		BigDecimal vatSummary = new BigDecimal(0);
+//		BigDecimal summarySummary = new BigDecimal(0);
+//
+//		BigDecimal beforeVtDefult = new BigDecimal(0);
+//		BigDecimal vatRateDefult = new BigDecimal(0);
+//		BigDecimal totalVtDefult = new BigDecimal(0);
+//
+//		BigDecimal beforeVtzero = new BigDecimal(0);
+//		BigDecimal vatRatezero = new BigDecimal(0);
+//		BigDecimal totalVtratezero = new BigDecimal(0);
+//		
+//		BigDecimal beforeVtDefultSummary = new BigDecimal(0);
+//		BigDecimal vatRateDefultSummary = new BigDecimal(0);
+//		BigDecimal totalVtDefultSummary = new BigDecimal(0);
+//		BigDecimal beforeVtzeroSummary = new BigDecimal(0);
+//		BigDecimal vatRatezeroSummary = new BigDecimal(0);
+//		BigDecimal totalVtratezeroSummary = new BigDecimal(0);
+//		
+//		String userCreBy = "";
+//		String vatRate = "";
+//		int autoNumber = 1;
+//		String vatBefore = "";
+
+//		List<InvPaymentOrderTaxBean> collections;
+//		if(CollectionUtils.isNotEmpty(collections)) {
+//			userCreBy = collections.get(0).getEmpName();
+//			vatRate = collections.get(0).getVatRate()+"";
+//			vatBefore = collections.get(0).getVatRate();
+//			
+//			for (int i = 0; i < collections.size(); i++) {
+//				
+//				if(userCreBy.equals(collections.get(i).getEmpName())) {
+//					
+//					if(vatRate.equals(collections.get(i).getVatRate())) {
+//						vatRate = collections.get(i).getVatRate()+" % ";
+//					}else {
+//						if(!vatBefore.equals(collections.get(i).getVatRate())) {
+//							vatRate = vatRate.concat((collections.get(i).getVatRate()+" % "));
+//						}
+//					}
+//					vatBefore = collections.get(i).getVatRate();
+//					
+//					
+//					InvPaymentOrderTaxBean colles = new InvPaymentOrderTaxBean();
+//					colles = collections.get(i);
+//					colles.setAutoNumber(autoNumber);
+//					colles.setDocumentDate(colles.getDocumentDate());
+//					colles.setDocumentNo(colles.getDocumentNo());
+//					colles.setCustName(colles.getCustName());
+//					colles.setEmpName(colles.getEmpName());
+//					colles.setTaxId(colles.getTaxId());
+//					if (colles.getBranchCode().equals("00000")) {
+//						colles.setBranchCode("สำนักงานใหญ่");
+//					} else {
+//						colles.setBranchCode(colles.getBranchCode());
+//					}
+//
+//					colles.setSummary(colles.getAmount().setScale(2, RoundingMode.HALF_DOWN));
+//
+//					BigDecimal total = colles.getAmount().setScale(2, RoundingMode.HALF_DOWN);
+//					BigDecimal vat = colles.getVatAmount();
+//
+//					BigDecimal beforeVats = total.subtract(vat);
+//
+//					colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
+//					colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
+//
+//					if (Constants.Status.ACTIVE.equals(colles.getPayType())) {
+//						if ("0".equals(colles.getVatRate())) {
+//							beforeVtzero = beforeVtzero.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//							vatRatezero = vatRatezero.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//							totalVtratezero = totalVtratezero.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//						} else {
+//							beforeVtDefult = beforeVtDefult.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//							vatRateDefult = vatRateDefult.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//							totalVtDefult = totalVtDefult.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//						}
+//
+//						summaryBeforeVt = summaryBeforeVt.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//						vatSummary = vatSummary.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//						summarySummary = summarySummary.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//					}
+//
+//					colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
+//					colles.setDocumentDateReport(String.valueOf(dtt.format(colles.getDocumentDate()).toString()));
+//					colles.setBeforeVatReport(
+//							String.format("%,.2f", colles.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+//					colles.setVatReport(String.format("%,.2f", colles.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+//					colles.setSummaryReport(String.format("%,.2f", colles.getAmount().setScale(2, RoundingMode.HALF_DOWN)));
+//					if (Constants.Status.ACTIVE.equals(colles.getPayType())) {
+//						colles.setPayType("-");
+//					} else {
+//						colles.setPayType(Constants.Status.ACTIVE_C);
+//					}
+//					printCollections.add(colles);
+//					
+//				}else {
+//					
+//					exportPDFReport.setBeforeVatRq(beforeVtDefult);
+//					beforeVtDefultSummary = beforeVtDefultSummary.add(beforeVtDefult);
+//					exportPDFReport.setBeforeVatRqStr(String.format("%,.2f", beforeVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatRq(vatRateDefult);
+//					vatRateDefultSummary = vatRateDefultSummary.add(vatRateDefult);
+//					exportPDFReport.setVatRqStr(String.format("%,.2f", vatRateDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryRq(totalVtDefult);
+//					totalVtDefultSummary = totalVtDefultSummary.add(totalVtDefult);
+//					exportPDFReport.setSummaryRqStr(String.format("%,.2f", totalVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//
+//					exportPDFReport.setBeforeVatZero(beforeVtzero);
+//					beforeVtzeroSummary = beforeVtzeroSummary.add(beforeVtzero);
+//					exportPDFReport.setBeforeVatZeroStr(String.format("%,.2f", beforeVtzero.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatZero(vatRatezero);
+//					vatRatezeroSummary = vatRatezeroSummary.add(vatRatezero);
+//					exportPDFReport.setVatZeroStr(String.format("%,.2f", vatRatezero.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryZero(totalVtratezero);
+//					totalVtratezeroSummary = totalVtratezeroSummary.add(totalVtratezero);
+//					exportPDFReport.setSummaryZeroStr(String.format("%,.2f", totalVtratezero.setScale(2, RoundingMode.HALF_DOWN)));
+//
+//					exportPDFReport.setBeforeVatSummary(summaryBeforeVt);
+//					exportPDFReport.setBeforeVatSummaryStr(String.format("%,.2f", summaryBeforeVt.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatSummary(vatSummary);
+//					exportPDFReport.setVatSummaryStr(String.format("%,.2f", vatSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummarySummary(summarySummary);
+//					exportPDFReport.setSummarySummaryStr(String.format("%,.2f", summarySummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setBeforeVatRqStrSummary(String.format("%,.2f", beforeVtDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatRqStrSummary(String.format("%,.2f", vatRateDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryRqStrSummary(String.format("%,.2f", totalVtDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setBeforeVatZeroStrSummary(String.format("%,.2f", beforeVtzeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatZeroStrSummary(String.format("%,.2f", vatRatezeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryZeroStrSummary(String.format("%,.2f", totalVtratezeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					
+//					exportPDFReport.setEmpSummaryName(userCreBy);
+//					exportPDFReport.setVatRate(vatRate);
+//					exportPDFReport.setLastPage("N");
+//
+//					parameters.put("ReportSource", exportPDFReport);
+//
+//					response.setContentType("application/pdf");
+//					response.setCharacterEncoding("UTF-8");
+//					JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
+//							+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
+//					JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
+//							? new JRBeanCollectionDataSource(printCollections)
+//							: new JREmptyDataSource();
+//					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+//					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+//					jasperPrints.add(jasperPrint);
+//					
+//					userCreBy = collections.get(i).getEmpName();
+//					printCollections = new ArrayList<InvPaymentOrderTaxBean>();
+//					exportPDFReport = new InvPaymentOrderTaxBean();
+//					exportPDFReport.setHeadName(oldHeadName);
+//					exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
+//					exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
+//					exportPDFReport.setPrintDate(dateDocument);
+//					exportPDFReport.setBranchArea(valueBean.getValue());
+//					exportPDFReport.setInvoiceNo(taxidCat);
+//					exportPDFReport.setBranchCodeEmp(branCode);
+//					exportPDFReport.setEmpSummaryName(invObject.getEmpName());
+//					vatRate = collections.get(i).getVatRate()+"";
+//					
+//					autoNumber = 1;
+//					
+//					summaryBeforeVt = new BigDecimal(0);
+//					vatSummary = new BigDecimal(0);
+//					summarySummary = new BigDecimal(0);
+//					beforeVtDefult = new BigDecimal(0);
+//					vatRateDefult = new BigDecimal(0);
+//					totalVtDefult = new BigDecimal(0);
+//					beforeVtzero = new BigDecimal(0);
+//					vatRatezero = new BigDecimal(0);
+//					totalVtratezero = new BigDecimal(0);
+//					
+//					InvPaymentOrderTaxBean colles = new InvPaymentOrderTaxBean();
+//					colles = collections.get(i);
+//					colles.setAutoNumber(autoNumber);
+//					colles.setDocumentDate(colles.getDocumentDate());
+//					colles.setDocumentNo(colles.getDocumentNo());
+//					colles.setCustName(colles.getCustName());
+//					colles.setEmpName(colles.getEmpName());
+//					colles.setTaxId(colles.getTaxId());
+//					if (colles.getBranchCode().equals("00000")) {
+//						colles.setBranchCode("สำนักงานใหญ่");
+//					} else {
+//						colles.setBranchCode(colles.getBranchCode());
+//					}
+//
+//					colles.setSummary(colles.getAmount().setScale(2, RoundingMode.HALF_DOWN));
+//
+//					BigDecimal total = colles.getAmount().setScale(2, RoundingMode.HALF_DOWN);
+//					BigDecimal vat = colles.getVatAmount();
+//					BigDecimal beforeVats = total.subtract(vat);
+//
+//					colles.setBeforeVat(beforeVats.setScale(2, RoundingMode.HALF_DOWN));
+//					colles.setVat(vat.setScale(2, RoundingMode.HALF_DOWN));
+//
+//					if (Constants.Status.ACTIVE.equals(colles.getPayType())) {
+//						if ("0".equals(colles.getVatRate())) {
+//							beforeVtzero = beforeVtzero.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//							vatRatezero = vatRatezero.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//							totalVtratezero = totalVtratezero.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//						} else {
+//							beforeVtDefult = beforeVtDefult.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//							vatRateDefult = vatRateDefult.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//							totalVtDefult = totalVtDefult.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//						}
+//
+//						summaryBeforeVt = summaryBeforeVt.add(beforeVats).setScale(2, RoundingMode.HALF_DOWN);
+//						vatSummary = vatSummary.add(vat).setScale(2, RoundingMode.HALF_DOWN);
+//						summarySummary = summarySummary.add(colles.getAmount()).setScale(2, RoundingMode.HALF_DOWN);
+//					}
+//
+//					colles.setAutoNumberReport(String.valueOf(colles.getAutoNumber()));
+//					colles.setDocumentDateReport(String.valueOf(dtt.format(colles.getDocumentDate()).toString()));
+//					colles.setBeforeVatReport(
+//							String.format("%,.2f", colles.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+//					colles.setVatReport(String.format("%,.2f", colles.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+//					colles.setSummaryReport(String.format("%,.2f", colles.getAmount().setScale(2, RoundingMode.HALF_DOWN)));
+//					if (Constants.Status.ACTIVE.equals(colles.getPayType())) {
+//						colles.setPayType("-");
+//					} else {
+//						colles.setPayType(Constants.Status.ACTIVE_C);
+//					}
+//					printCollections.add(colles);
+//					
+//				}
+//				
+//				if(i==(collections.size()-1)) {
+//					
+//					exportPDFReport.setBeforeVatRq(beforeVtDefult);
+//					beforeVtDefultSummary = beforeVtDefultSummary.add(beforeVtDefult);
+//					exportPDFReport.setBeforeVatRqStr(String.format("%,.2f", beforeVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatRq(vatRateDefult);
+//					vatRateDefultSummary = vatRateDefultSummary.add(vatRateDefult);
+//					exportPDFReport.setVatRqStr(String.format("%,.2f", vatRateDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryRq(totalVtDefult);
+//					totalVtDefultSummary = totalVtDefultSummary.add(totalVtDefult);
+//					exportPDFReport.setSummaryRqStr(String.format("%,.2f", totalVtDefult.setScale(2, RoundingMode.HALF_DOWN)));
+//
+//					exportPDFReport.setBeforeVatZero(beforeVtzero);
+//					beforeVtzeroSummary = beforeVtzeroSummary.add(beforeVtzero);
+//					exportPDFReport.setBeforeVatZeroStr(String.format("%,.2f", beforeVtzero.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatZero(vatRatezero);
+//					vatRatezeroSummary = vatRatezeroSummary.add(vatRatezero);
+//					exportPDFReport.setVatZeroStr(String.format("%,.2f", vatRatezero.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryZero(totalVtratezero);
+//					totalVtratezeroSummary = totalVtratezeroSummary.add(totalVtratezero);
+//					exportPDFReport.setSummaryZeroStr(String.format("%,.2f", totalVtratezero.setScale(2, RoundingMode.HALF_DOWN)));
+//
+//					exportPDFReport.setBeforeVatSummary(summaryBeforeVt);
+//					exportPDFReport.setBeforeVatSummaryStr(String.format("%,.2f", summaryBeforeVt.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatSummary(vatSummary);
+//					exportPDFReport.setVatSummaryStr(String.format("%,.2f", vatSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummarySummary(summarySummary);
+//					exportPDFReport.setSummarySummaryStr(String.format("%,.2f", summarySummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setBeforeVatRqStrSummary(String.format("%,.2f", beforeVtDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatRqStrSummary(String.format("%,.2f", vatRateDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryRqStrSummary(String.format("%,.2f", totalVtDefultSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setBeforeVatZeroStrSummary(String.format("%,.2f", beforeVtzeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setVatZeroStrSummary(String.format("%,.2f", vatRatezeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					exportPDFReport.setSummaryZeroStrSummary(String.format("%,.2f", totalVtratezeroSummary.setScale(2, RoundingMode.HALF_DOWN)));
+//					
+//					exportPDFReport.setEmpSummaryName(userCreBy);
+//					exportPDFReport.setVatRate(vatRate);
+//					exportPDFReport.setLastPage("Y");
+//
+//					parameters.put("ReportSource", exportPDFReport);
+//
+//					response.setContentType("application/pdf");
+//					response.setCharacterEncoding("UTF-8");
+//					JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
+//							+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
+//					JRDataSource jrDataSource = (responeData != null && !responeData.isEmpty())
+//							? new JRBeanCollectionDataSource(responeData)
+//							: new JREmptyDataSource();
+//					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+//					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+//					jasperPrints.add(jasperPrint);
+//					
+//				}
+//				autoNumber++;
+//			}
+//		}
+		
+		if(CollectionUtils.isNotEmpty(responeData.getReportTaxRSBeanList())) {
+			exportPDFReport.setVatRate(responeData.getVatRateStr());
+			exportPDFReport.setQuantitySummery(responeData.getQuantitySummery());
+			exportPDFReport.setBeforeVatSummaryStr(responeData.getBeforVatSummery());
+			exportPDFReport.setVatSummaryStr(responeData.getVatSummery());
+			exportPDFReport.setSummarySummaryStr(responeData.getAfterVatSummery());
+			parameters.put("ReportSource", exportPDFReport);
+
+			response.setContentType("application/pdf");
+			response.setCharacterEncoding("UTF-8");
+			JasperReport jasperReport = JasperCompileManager.compileReport(context.getRealPath(Constants.report.repotPathc)
+					+ File.separatorChar + JASPER_JRXML_FILENAME + ".jrxml");
+			JRDataSource jrDataSource = (responeData.getReportTaxRSBeanList() != null && !responeData.getReportTaxRSBeanList().isEmpty())
+					? new JRBeanCollectionDataSource(responeData.getReportTaxRSBeanList())
+					: new JREmptyDataSource();
+			JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
+			jasperPrints.add(jasperPrint);
+		}
+		
+		
+		try {
+			pushReportToOutputStream(response, jasperPrints);
+		} catch (PrinterException e) {
+			e.printStackTrace();
+		}
+	
+		
 	}
 	
 	private void pushReportToOutputStream(HttpServletResponse response, List<JasperPrint> jasperPrints) throws IOException, JRException, PrinterException  {

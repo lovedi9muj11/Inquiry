@@ -78,7 +78,7 @@ $(document).ready(function() {
 				}).then(function (data) {
 					for(var i=0; i<data.length; i++) {
 						var element = data[i];
-						$('#inputServiceName').append('<option value="' + element.serviceCode+ '">' + element.serviceName + '</option>');
+						$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
 					}
 				});
 			});

@@ -69,6 +69,9 @@ public class InvPaymentOrderTaxBean {
 	
 	private String lastPage;
 	
+	// tax rs
+	private String quantitySummery;
+	
 	public InvPaymentOrderTaxBean(){}
 	
 	public InvPaymentOrderTaxBean(Date documentDate,String documentNo,String custName,String empName,String taxId,String invoiceNo,
@@ -461,6 +464,14 @@ public class InvPaymentOrderTaxBean {
 
 	public void setLastPage(String lastPage) {
 		this.lastPage = lastPage;
+	}
+
+	public String getQuantitySummery() {
+		return quantitySummery;
+	}
+
+	public void setQuantitySummery(String quantitySummery) {
+		this.quantitySummery = quantitySummery;
 	}
 
 }
