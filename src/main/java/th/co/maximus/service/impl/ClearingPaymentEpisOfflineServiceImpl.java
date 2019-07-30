@@ -252,7 +252,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
 					}
-					paymentEpisOfflineDTO.setChanel("OFFLINE");
+					paymentEpisOfflineDTO.setChannel("OFFLINE");
 					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 				}
 
