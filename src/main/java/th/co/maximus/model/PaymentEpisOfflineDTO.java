@@ -22,15 +22,17 @@ public class PaymentEpisOfflineDTO {
 	private List<PaymentInvoiceEpisOffline> paymentInvoice;
 	private List<DuductionEpisOffline> duduction;
 	private List<TrsMethodEpisOffline> trsMethod;
-	private String chanel;
+	private String channel;
 	
 	
-	public String getChanel() {
-		return chanel;
+	
+
+	public String getChannel() {
+		return channel;
 	}
 
-	public void setChanel(String chanel) {
-		this.chanel = chanel;
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 	public String getPosNo() {
