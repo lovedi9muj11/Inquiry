@@ -22,7 +22,7 @@ public class PaymentEpisOfflineDTO {
 	private List<PaymentInvoiceEpisOffline> paymentInvoice;
 	private List<DuductionEpisOffline> duduction;
 	private List<TrsMethodEpisOffline> trsMethod;
-	private String channel;
+	private String channel; 
 	
 	
 	
