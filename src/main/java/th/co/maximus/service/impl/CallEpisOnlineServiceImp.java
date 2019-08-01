@@ -71,6 +71,8 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.IBACSS_CANCEL_REASON);
 			groupKeys.add(Constants.MasterData.OTHER_CANCEL_REASON);
 			groupKeys.add(Constants.MasterData.EDC_CREDIT_CARD_BANK);
+			groupKeys.add(Constants.MasterData.CUSTOMER_SEGMENT);
+			
 			
 			String gettUrl = url.concat("/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, groupKeys, String.class);
