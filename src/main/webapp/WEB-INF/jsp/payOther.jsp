@@ -635,6 +635,7 @@
 															maxlength="7" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
 															<p id="checkNoTxt" style="color: red; display: none">คุณยังไม่ได้กรอกเลขที่เช็ค</p>
+															<p id="checkNoTxtless" style="color: red; display: none">คุณกรอกเลขที่เช็คไม่ถูกต้อง</p>
 													</div>
 													
 												</div>
