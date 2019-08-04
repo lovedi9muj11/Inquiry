@@ -270,16 +270,16 @@
 					<input type="hidden" name="accountIdHidden" id="accountIdHidden">
 					<input type="hidden" name="authoritiesHidden" id="authoritiesHidden">
 					<input type="hidden" value="IBACSS" name="serviceType" id="serviceType">
-					<div class="row" style="padding-bottom: 10px;padding-right: 2px">
-						<div class="col-md-12 text-right">
-							<button  class="btn btn-warning glyphicon glyphicon-print" style="width: 7%" onclick="printReportPDF()"> PDF</button>
-							<sec:authorize access="hasAuthority('SUP')">
-								<button  class="btn btn-success glyphicon glyphicon-print" style="width: 7%" onclick="printReport()"> Excel</button>
-							</sec:authorize>
-						</div>
-					</div>
+					
 				</form>
-	
+				<div class="row" style="padding-bottom: 10px;padding-right: 2px">
+					<div class="col-md-12 text-right">
+						<button  class="btn btn-warning glyphicon glyphicon-print" style="width: 7%" onclick="printReportPDF()"> PDF</button>
+						<sec:authorize access="hasAuthority('SUP')">
+							<button  class="btn btn-success glyphicon glyphicon-print" style="width: 7%" onclick="printReport()"> Excel</button>
+						</sec:authorize>
+					</div>
+				</div>
 	
 				<div class="row">
 					<div class="col-md-12">
