@@ -111,4 +111,11 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 		return jdbcTemplate.queryForObject(sql.toString() , new masterData()).getValue();
 	}
 
+	@Override
+	public List<MasterDatasBean> findByCMSegment() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT+"' ORDER BY KEYCODE ");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+
 }

@@ -38,14 +38,17 @@ public class PaymentController {
 		List<MasterDatasBean> bankCodeList = new ArrayList<>();
 		List<MasterDatasBean> bankEDCList = new ArrayList<>();
 		List<MasterDatasBean> vatRate = new ArrayList<>();
+		List<MasterDatasBean> custSegment = new ArrayList<MasterDatasBean>();
 
 		bankCodeList = masterDatasDao.findByBankName();
 		bankEDCList = masterDatasDao.findByBankEDCName();
 		vatRate = masterDatasDao.findByVat();
+		custSegment = masterDatasDao.findByCMSegment();
 
 		model.addAttribute("bank", bankCodeList);
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("vat", vatRate);
+		model.addAttribute("custSegment", custSegment);
 
 		return "payment";
 	}

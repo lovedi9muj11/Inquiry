@@ -27,11 +27,13 @@
 	List<MasterDatasBean> masterBankCode = null;
 	List<MasterDatasBean> masterBankEDCCode = null;
 	List<MasterDatasBean> vat = null;
+	List<MasterDatasBean> custSegment = null;
 %>
 <%
 	masterBankCode = (List<MasterDatasBean>) request.getAttribute("bank");
 	masterBankEDCCode = (List<MasterDatasBean>) request.getAttribute("bankEDC");
 	vat = (List<MasterDatasBean>) request.getAttribute("vat");
+	custSegment = (List<MasterDatasBean>) request.getAttribute("custSegment");
 %>
 </head>
 <body>
@@ -133,15 +135,23 @@
 														<select class="form-control" id="userGroup"
 															name="userGroup" onchange="autoSelect()">
 															<option value="">== กรุณาเลือก ==</option>
-															<option value="1">ธุรกิจทั่วไป</option>
-															<option value="2">หน่วยงานรัฐ</option>
-															<option value="3">บุคคลทั่วไป</option>
-															<option value="4">Carrier/Operator/NON POTs</option>
-															<option value="5">Mkt.Arm</option>
-															<option value="6">ISP</option>
-															<option value="7">Reseller/Agent</option>
-															<option value="8">ธุรกิจ กสท</option>
-															<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option>
+<!-- 															<option value="1">ธุรกิจทั่วไป</option> -->
+<!-- 															<option value="2">หน่วยงานรัฐ</option> -->
+<!-- 															<option value="3">บุคคลทั่วไป</option> -->
+<!-- 															<option value="4">Carrier/Operator/NON POTs</option> -->
+<!-- 															<option value="5">Mkt.Arm</option> -->
+<!-- 															<option value="6">ISP</option> -->
+<!-- 															<option value="7">Reseller/Agent</option> -->
+<!-- 															<option value="8">ธุรกิจ กสท</option> -->
+<!-- 															<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option> -->
+															<%
+																for (int i = 0; i < custSegment.size(); i++) {
+															%>
+															<option id="nameBank"
+																value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getProperty3()%></option>
+															<%
+																}
+															%>
 														</select>
 														<p id="suserGroup" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>
