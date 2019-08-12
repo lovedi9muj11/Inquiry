@@ -390,7 +390,9 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			}
 			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
 			resultBean.setPaymentMethod(paymentMethod.toString());
+			resultBean.setBranchAreaCode(resultBean.getBrancharea());
 			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());
+			
 		}
 		
 		

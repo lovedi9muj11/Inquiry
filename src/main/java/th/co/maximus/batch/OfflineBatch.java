@@ -3,6 +3,7 @@ package th.co.maximus.batch;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.quartz.DisallowConcurrentExecution;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,7 @@ import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.model.OfflineResultModel;
+import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.service.CallEpisOnlineService;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
@@ -47,6 +50,9 @@ public class OfflineBatch implements Job {
 
 	@Value("${url.online}")
 	private String url;
+	
+	@Value("${text.posno}")
+	private  String posNo;
 
 	RestTemplate restTemplate;
 
@@ -130,22 +136,70 @@ public class OfflineBatch implements Job {
 
 	public void saveBatch() throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
+		List<PaymentDTO> dtoList = new ArrayList<>();
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		if (result != null) {
 			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
-			String postUrl = url.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
-			restTemplate.postForEntity(postUrl, result, String.class);
-		
-			for (OfflineResultModel payment : resultClear) {
-				if ("SUCCESS".equals(payment.getStatus())) {
-					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
-							Constants.CLEARING.STATUS_Y);
-				} else {
-					clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
-							Constants.CLEARING.STATUS_ERROR);
+			for (OfflineResultModel offlineResultModel : resultClear) {
+				try {
+					if (offlineResultModel.getStatus().equals("SUCCESS")) {
+
+						for (PaymentMMapPaymentInvBean payment : result) {
+							if (offlineResultModel.getManualId() == payment
+									.getManualId()) {
+								PaymentDTO manualDTO = new PaymentDTO();
+
+								manualDTO.setAccountNo(payment.getAccountNo());
+								manualDTO.setBranchCode(payment.getBranchAreaCode());
+								manualDTO.setBranchArea(payment.getBrancharea());
+								manualDTO.setInvoiceNo(payment.getInvoiceNo());
+								manualDTO.setReceiptNoManual(payment
+										.getReceiptNoManual());
+								manualDTO.setRemark(payment.getRemark());
+								manualDTO.setManualId(offlineResultModel
+										.getManualIdOnline());
+								manualDTO.setCreateBy(payment.getCreateBy());
+								manualDTO.setPaidAmount(payment.getPaidAmount());
+								manualDTO.setRecordStatus("");
+								manualDTO.setSource(payment.getSource());
+								manualDTO.setVatAmount(payment.getVatAmount());
+								manualDTO.setUserLogin(payment.getCreateBy());
+								manualDTO.setUserName(payment.getCreateBy());
+								manualDTO.setPaidDate(payment.getPaidDate());
+								manualDTO.setPaidDateStr(dateFormat.format(payment.getPaidDate()));
+								manualDTO.setPosNo(posNo);
+								manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
+								dtoList.add(manualDTO);
+
+							}
+						}
+						if (dtoList.size() > 0) {
+							String postUrl = url.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
+							restTemplate.postForEntity(postUrl, dtoList,String.class);
+							for (OfflineResultModel payment : resultClear) {
+								if ("SUCCESS".equals(payment.getStatus())) {
+									clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
+											Constants.CLEARING.STATUS_Y);
+								} else {
+									clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
+											Constants.CLEARING.STATUS_ERROR);
+								}
+							}
+
+						}
+
+					} 
+				} catch (Exception e) {
+					// e.printStackTrace();
+					System.err.println("SEND DATA EEROR :"
+							+ offlineResultModel.getManualId());
+					System.err.println("SEND DATA EEROR :"
+							+ offlineResultModel.getRecriptNo());
+					offlineResultModel.setStatus("ERROR");
 				}
-			}
+			}	
 		}
 
 	}

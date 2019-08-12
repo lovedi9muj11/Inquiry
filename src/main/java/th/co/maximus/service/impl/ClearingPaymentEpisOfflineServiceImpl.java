@@ -40,14 +40,13 @@ import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.TmpInvoiceService;
 
 @Service
-public class ClearingPaymentEpisOfflineServiceImpl implements
-		ClearingPaymentEpisOfflineService {
+public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpisOfflineService {
 
 	@Value("${url.online}")
 	private String url;
-	
+
 	@Value("${text.posno}")
-	private  String posNo;
+	private String posNo;
 
 	RestTemplate restTemplate;
 
@@ -88,57 +87,49 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 	}
 
 	@Override
-	public ReceiptOfflineModel findReciptStatus(Integer manualId, String status)
-			throws SQLException {
+	public ReceiptOfflineModel findReciptStatus(Integer manualId, String status) throws SQLException {
 		// TODO Auto-generated method stub
 		return paymentManualDao.findByManualId(manualId, status);
 	}
 
 	@Override
-	public List<PaymentInvoiceEpisOffline> findPaymentInvoice(Integer manualId)
-			throws SQLException {
+	public List<PaymentInvoiceEpisOffline> findPaymentInvoice(Integer manualId) throws SQLException {
 		// TODO Auto-generated method stub
 		return paymentInvoiceManualDao.findByManualId(manualId);
 	}
 
 	@Override
-	public List<DuductionEpisOffline> findDeduction(Integer manualId)
-			throws Exception {
+	public List<DuductionEpisOffline> findDeduction(Integer manualId) throws Exception {
 		// TODO Auto-generated method stub
 		return deductionManualDao.findDeductionManual(manualId);
 	}
 
 	@Override
-	public List<TrsMethodEpisOffline> findTrsMethod(Integer manualId)
-			throws Exception {
+	public List<TrsMethodEpisOffline> findTrsMethod(Integer manualId) throws Exception {
 		// TODO Auto-generated method stub
 		return trsMethodManualDao.findByManualId(manualId);
 	}
 
 	@Override
-	public List<TrsCreditrefEpisOffline> findTrsCredit(long methodTrsId)
-			throws Exception {
+	public List<TrsCreditrefEpisOffline> findTrsCredit(long methodTrsId) throws Exception {
 		// TODO Auto-generated method stub
 		return TrscreDitrefManualDao.findByMethodId(methodTrsId);
 	}
 
 	@Override
-	public List<TrsChequerefEpisOffline> findTrsCheq(long methodTrsId)
-			throws SQLException {
+	public List<TrsChequerefEpisOffline> findTrsCheq(long methodTrsId) throws SQLException {
 		// TODO Auto-generated method stub
 		return trsChequeRefManualDao.findByManualId(methodTrsId);
 	}
 
 	@Override
-	public void updateStatusClearing(long manualId, String status)
-			throws Exception {
+	public void updateStatusClearing(long manualId, String status) throws Exception {
 		// TODO Auto-generated method stub
 		paymentManualDao.udpateStatus(manualId, status);
 	}
 
 	@Override
-	public List<OfflineResultModel> callOnlinePayment(
-			List<PaymentMMapPaymentInvBean> creteria) {
+	public List<OfflineResultModel> callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
 		List<OfflineResultModel> objMessage = new ArrayList<OfflineResultModel>();
 
 		List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
@@ -153,10 +144,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
-					Integer manualId = Integer.valueOf(payment.getManualId()
-							.toString());
-					ReceiptOfflineModel recrip = findReciptStatus(manualId,
-							payment.getRecordStatus());
+					Integer manualId = Integer.valueOf(payment.getManualId().toString());
+					ReceiptOfflineModel recrip = findReciptStatus(manualId, payment.getRecordStatus());
 					paymentEpisOfflineDTO.setManualID(manualId.toString());
 					paymentEpisOfflineDTO.setPosNo(posNo);
 					if (recrip != null) {
@@ -185,35 +174,26 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 							}
 							paymentEpisOfflineDTO.setTrsMethod(methodList);
 						}
-						paymentEpisOfflineDTO.setAccountNo(recrip
-								.getAccountNo());
-						paymentEpisOfflineDTO.setReceiptNo(recrip
-								.getReceiptNo());
-						paymentEpisOfflineDTO.setBranchArea(recrip
-								.getBranchArea());
-						paymentEpisOfflineDTO.setBranchCode(recrip
-								.getBranchCode());
-						paymentEpisOfflineDTO.setInvoiceNo(recrip
-								.getInvoiceNo());
+						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
+						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
+						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
+						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
+						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
-						paymentEpisOfflineDTO.setVatAmount(recrip
-								.getVatAmount());
+						paymentEpisOfflineDTO.setVatAmount(recrip.getVatAmount());
 						paymentEpisOfflineDTO.setCreatBy(recrip.getCreatBy());
 						if (!"Non-VAT".equals(paymentList.get(0).getVatRate())
 								&& paymentList.get(0).getVatRate() != null) {
-							paymentEpisOfflineDTO.setVatRate(new BigDecimal(
-									paymentList.get(0).getVatRate()));
+							paymentEpisOfflineDTO.setVatRate(new BigDecimal(paymentList.get(0).getVatRate()));
 						} else {
 							paymentEpisOfflineDTO.setVatRate(null);
 						}
 
 						if (isOther) {
-							paymentEpisOfflineDTO.setPaidAmount(recrip
-									.getPaidAmount());
+							paymentEpisOfflineDTO.setPaidAmount(recrip.getPaidAmount());
 						} else {
-							paymentEpisOfflineDTO.setPaidAmount(recrip
-									.getAmount()
-									.add(new BigDecimal(invoid.getDiscount())));
+							paymentEpisOfflineDTO
+									.setPaidAmount(recrip.getAmount().add(new BigDecimal(invoid.getDiscount())));
 						}
 						paymentEpisOfflineDTO.setSource(recrip.getSource());
 						paymentEpisOfflineDTO.setRemark(recrip.getRemark());
@@ -222,19 +202,14 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 						if (!isOther) {
 							for (PaymentInvoiceEpisOffline data : paymentList) {
 								if ("Y".equals(invoid.getIsDiscountFlg())) {
-									BigDecimal disVat = (new BigDecimal(
-											invoid.getDiscount())
-											.multiply(new BigDecimal(data
-													.getVatRate())))
-											.divide(new BigDecimal(data
-													.getVatRate()));
-									data.setDiscount(new BigDecimal(invoid
-											.getDiscount()).subtract(disVat));
+									BigDecimal disVat = (new BigDecimal(invoid.getDiscount())
+											.multiply(new BigDecimal(data.getVatRate())))
+													.divide(new BigDecimal(data.getVatRate()));
+									data.setDiscount(new BigDecimal(invoid.getDiscount()).subtract(disVat));
 									data.setDiscountVat(disVat);
 								} else {
 									if (null != invoid.getDiscount()) {
-										data.setDiscount(new BigDecimal(invoid
-												.getDiscount()));
+										data.setDiscount(new BigDecimal(invoid.getDiscount()));
 									} else {
 
 										data.setDiscountVat(BigDecimal.ZERO);
@@ -242,11 +217,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 								}
 								paymentList2.add(data);
 							}
-							paymentEpisOfflineDTO
-									.setPaymentInvoice(paymentList2);
+							paymentEpisOfflineDTO.setPaymentInvoice(paymentList2);
 						} else {
-							paymentEpisOfflineDTO
-									.setPaymentInvoice(paymentList);
+							paymentEpisOfflineDTO.setPaymentInvoice(paymentList);
 						}
 						if (deductionList.size() > 0) {
 							paymentEpisOfflineDTO.setDuduction(deductionList);
@@ -264,25 +237,20 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			}
 
-			ResponseEntity<String> postResponse = restTemplate.postForEntity(
-					postUrl, PaymentEpisOfflineDTOList, String.class);
+			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
+					String.class);
 
 			if (null != postResponse.getBody()) {
 				JSONArray jsonArray = new JSONArray(postResponse.getBody());
 				for (int i = 0; i < jsonArray.length(); i++) {
 					OfflineResultModel obj = new OfflineResultModel();
 					System.out.println("manualId :: " + jsonArray.getJSONObject(i).getLong("manualId"));
-					obj.setManualId(jsonArray.getJSONObject(i).getLong(
-							"manualId"));
-					obj.setMessage(jsonArray.getJSONObject(i).getString(
-							"message"));
-					obj.setStatus(jsonArray.getJSONObject(i)
-							.getString("status"));
-					obj.setRecriptNo(jsonArray.getJSONObject(i).getString(
-							"recriptNo"));
+					obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
+					obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
+					obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
+					obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
 					if (("SUCCESS").equals(obj.getStatus())) {
-						obj.setManualIdOnline(jsonArray.getJSONObject(i)
-								.getLong("manualIdOnline"));
+						obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
 					}
 					objMessage.add(obj);
 				}
@@ -301,8 +269,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 		HashMap<String, Object> result = new HashMap<>();
 		List<PaymentMMapPaymentInvBean> list = new ArrayList<>();
 		List<PaymentDTO> dtoList = new ArrayList<>();
-		list = cancelPaymentService
-				.findAllCancelPayments(Constants.CLEARING.STATUS_N);
+		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
@@ -314,19 +281,16 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 				if (offlineResultModel.getStatus().equals("SUCCESS")) {
 
 					for (PaymentMMapPaymentInvBean payment : list) {
-						if (offlineResultModel.getManualId() == payment
-								.getManualId()) {
+						if (offlineResultModel.getManualId() == payment.getManualId()) {
 							PaymentDTO manualDTO = new PaymentDTO();
 
 							manualDTO.setAccountNo(payment.getAccountNo());
 							manualDTO.setBranchCode(payment.getBranchCode());
 							manualDTO.setBranchArea(payment.getBrancharea());
 							manualDTO.setInvoiceNo(payment.getInvoiceNo());
-							manualDTO.setReceiptNoManual(payment
-									.getReceiptNoManual());
+							manualDTO.setReceiptNoManual(payment.getReceiptNoManual());
 							manualDTO.setRemark(payment.getRemark());
-							manualDTO.setManualId(offlineResultModel
-									.getManualIdOnline());
+							manualDTO.setManualId(offlineResultModel.getManualIdOnline());
 							manualDTO.setCreateBy(payment.getCreateBy());
 							manualDTO.setPaidAmount(payment.getPaidAmount());
 							manualDTO.setRecordStatus("");
@@ -344,35 +308,27 @@ public class ClearingPaymentEpisOfflineServiceImpl implements
 						}
 					}
 					if (dtoList.size() > 0) {
-						postUrl = url
-								.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
-						resultA = restTemplate.postForEntity(postUrl, dtoList,
-								String.class);
-						
+						postUrl = url.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
+						resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
+
 						System.out.println(resultA);
-							postUrl = url
-									.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
-							resultB =  restTemplate.postForEntity(postUrl, cancelDTO,
-									String.class);
-							System.out.println(resultB);
-						updateStatusClearing(offlineResultModel.getManualId(),
-								Constants.CLEARING.STATUS_Y);
+						postUrl = url.concat(
+								"/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
+						resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+						System.out.println(resultB);
+						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
 
 					}
 
 				} else {
-					updateStatusClearing(offlineResultModel.getManualId(),
-							Constants.CLEARING.STATUS_ERROR);
+					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
 				}
 			} catch (Exception e) {
 				// e.printStackTrace();
-				System.err.println("SEND DATA EEROR :"
-						+ offlineResultModel.getManualId());
-				System.err.println("SEND DATA EEROR :"
-						+ offlineResultModel.getRecriptNo());
+				System.err.println("SEND DATA EEROR :" + offlineResultModel.getManualId());
+				System.err.println("SEND DATA EEROR :" + offlineResultModel.getRecriptNo());
 				offlineResultModel.setStatus("ERROR");
-				updateStatusClearing(offlineResultModel.getManualId(),
-						Constants.CLEARING.STATUS_ERROR);
+				updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
 			}
 		}
 
