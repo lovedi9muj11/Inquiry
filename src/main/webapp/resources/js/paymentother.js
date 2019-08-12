@@ -78,7 +78,7 @@ $(document).ready(function() {
 				}).then(function (data) {
 					for(var i=0; i<data.length; i++) {
 						var element = data[i];
-						$('#inputServiceName').append('<option value="' + element.serviceCode+ '">' + element.serviceName + '</option>');
+						$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
 					}
 				});
 			});
@@ -393,6 +393,7 @@ function hideDetailPayment() {
 	$("#bankNameTxt").hide();
 	$("#bankNameTxt").hide();
 	$("#checkNoTxt").hide();
+	$("#checkNoTxtless").hide();
 	$("#dateCheckTxt").hide();
 	$("#moneyCheckTxt").hide();
 
@@ -1418,8 +1419,12 @@ function addDataTableCheck() {
 		$("#bankNameTxt").show();
 		return $("#bankName").focus();
 	}
-	if (checkNo.length == "" || checkNo.length < 7) {
+	if (checkNo.length == "" ) {
 		$("#checkNoTxt").show();
+		return $("#checkNo").focus();
+	}
+	if (checkNo.length < 7) {
+		$("#checkNoTxtless").show();
 		return $("#checkNo").focus();
 	}
 	if (dateCheck == "") {
