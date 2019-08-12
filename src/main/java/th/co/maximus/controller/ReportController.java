@@ -162,7 +162,7 @@ public class ReportController {
 	 
 	 @RequestMapping(value = { "/reportPaymentPDF" }, method = RequestMethod.POST)
 		public void paymentReportPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		 request.setAttribute("documentReport", "-1");
+		 	request.setAttribute("documentReport", "-1");
 			ReportPaymentCriteria critreia = new ReportPaymentCriteria();
 			critreia.setDateFrom(request.getParameter("dateFromHidden"));
 			critreia.setDateTo(request.getParameter("dateToHidden"));
@@ -172,7 +172,7 @@ public class ReportController {
 			critreia.setServiceType(request.getParameter("serviceType"));
 			critreia.setVatRate(request.getParameter("vat"));
 			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));
-			 
+			
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServiceOtherSearch(critreia, critreia.getServiceType());
 			
 			String pathFile = "";

@@ -22,4 +22,7 @@ public interface MasterDatasDao {
 	
 	String findReasonByCode(String code, String type);
 	
+	List<MasterDatasBean> findByCMSegment();
+	
+	List<MasterDatasBean> findByCMSegmentByCRM();
 }
