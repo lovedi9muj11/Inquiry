@@ -117,6 +117,12 @@ public class Constants {
 			public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		}
 		
+		public static class PROPERTY_1 {
+			public static final String MS_14 = "14";
+			public static final String MS_12 = "12";
+			public static final String MS_11 = "11";
+		}
+		
 	}
 	
 	public static class GL_SERVICE {

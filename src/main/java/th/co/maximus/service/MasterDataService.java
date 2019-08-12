@@ -50,4 +50,8 @@ public interface MasterDataService {
 
 	List<MasterDataBean> findByVat();
 	
+	List<MasterDatasBean> findByCMSegment();
+	
+	List<MasterDatasBean> findByCMSegmentByCRM();
+	
 }

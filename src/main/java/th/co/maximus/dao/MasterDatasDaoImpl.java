@@ -13,7 +13,7 @@ import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 
 @Service
-public class MasterDatasDaoImpl implements MasterDatasDao{
+public class MasterDatasDaoImpl implements MasterDatasDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -114,7 +114,16 @@ public class MasterDatasDaoImpl implements MasterDatasDao{
 	@Override
 	public List<MasterDatasBean> findByCMSegment() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT+"' ORDER BY KEYCODE ");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT+"' ");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+
+	@Override
+	public List<MasterDatasBean> findByCMSegmentByCRM() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT);
+		sql.append("' AND PROPERTY_1 IN ('"+Constants.MasterData.PROPERTY_1.MS_11+"', '"+Constants.MasterData.PROPERTY_1.MS_12+"', '"+Constants.MasterData.PROPERTY_1.MS_14+"')");
+		sql.append(" ORDER BY PROPERTY_1");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 

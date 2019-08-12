@@ -141,8 +141,8 @@
 												<%
 													for (int i = 0; i < custSegment.size(); i++) {
 												%>
-												<option id="nameBank"
-													value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getProperty3()%></option>
+												<option
+													value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getValue()%></option>
 												<%
 													}
 												%>

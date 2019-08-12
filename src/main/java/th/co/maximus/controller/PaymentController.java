@@ -24,12 +24,17 @@ import th.co.maximus.core.utils.Utils;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentService;
 
 @Controller
 public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
+	
+	@Autowired
+	MasterDataService masterDataService;
+	
 	@Autowired
 	private MasterDatasDao masterDatasDao;
 
@@ -43,7 +48,7 @@ public class PaymentController {
 		bankCodeList = masterDatasDao.findByBankName();
 		bankEDCList = masterDatasDao.findByBankEDCName();
 		vatRate = masterDatasDao.findByVat();
-		custSegment = masterDatasDao.findByCMSegment();
+		custSegment = masterDataService.findByCMSegmentByCRM();
 
 		model.addAttribute("bank", bankCodeList);
 		model.addAttribute("bankEDC", bankEDCList);

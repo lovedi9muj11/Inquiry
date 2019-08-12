@@ -378,4 +378,16 @@ public class MasterDataServiceImpl implements MasterDataService {
 		return userDao.findByUsernameFromRole(id);
 	}
 
+	@Override
+	public List<MasterDatasBean> findByCMSegment() {
+		List<MasterDatasBean> custSegment = masterDatasDao.findByCMSegment();
+		return custSegment;
+	}
+
+	@Override
+	public List<MasterDatasBean> findByCMSegmentByCRM() {
+		List<MasterDatasBean> custSegment = masterDatasDao.findByCMSegmentByCRM();
+		return custSegment;
+	}
+
 }

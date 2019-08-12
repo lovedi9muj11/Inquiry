@@ -61,7 +61,7 @@ public class PayOtherController {
 		categoryList = masterDataService.findAllByCategory();
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
 		bankEDCList = masterDatasDao.findByBankEDCName();
-		custSegment = masterDatasDao.findByCMSegment();
+		custSegment = masterDataService.findByCMSegmentByCRM();
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 		
