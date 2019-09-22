@@ -51,7 +51,7 @@ public class PaymentInvoiceManualServiceImpl implements PaymentInvoiceManualServ
 		}
 		paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
 		paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());
-		paymentInvoiceManualBean.setCustomerSegment("1");
+		paymentInvoiceManualBean.setCustomerSegment(paymentBean.getUserGroup());
 		paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 		paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
 		paymentInvoiceManualBean.setSubNo(paymentBean.getServiceNo());
