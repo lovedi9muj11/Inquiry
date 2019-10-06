@@ -313,7 +313,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 						System.out.println(resultA);
 						postUrl = url.concat(
-								"/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
+								"/cancelPaymentProduct2.json?ap=SSO&un=backofficer01&pw=password");
 						resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 						System.out.println(resultB);
 						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);

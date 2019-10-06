@@ -2,7 +2,6 @@ package th.co.maximus.dao;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CancelPaymentDTO {
@@ -20,7 +19,8 @@ public class CancelPaymentDTO {
 		private String cancelReason;
 		private String cancelCode;
 		private String isIbaiss;
-		
+		private String cancelTaxId;
+		private String cancelBranch;
 		public String getCancelCode() {
 			return cancelCode;
 		}
@@ -64,6 +64,18 @@ public class CancelPaymentDTO {
 			this.reasonDesc = reasonDesc;
 		}
 
+		public String getCancelTaxId() {
+			return cancelTaxId;
+		}
+		public void setCancelTaxId(String cancelTaxId) {
+			this.cancelTaxId = cancelTaxId;
+		}
+		public String getCancelBranch() {
+			return cancelBranch;
+		}
+		public void setCancelBranch(String cancelBranch) {
+			this.cancelBranch = cancelBranch;
+		}
 		public String getAccountName() { return accountName; }
 
 		public void setAccountName(String accountName) { this.accountName = accountName; }
@@ -92,9 +104,7 @@ public class CancelPaymentDTO {
 		public void setIsIbaiss(String isIbaiss) {
 			this.isIbaiss = isIbaiss;
 		}
-		
-		
-		
+
 	}
 	private String bankaccountName;
 	private String bankaccountNo;
@@ -103,7 +113,7 @@ public class CancelPaymentDTO {
 	private String serviceNo;
 	private String reverseType;
 	private String oderId;
-	
+	private String property4;
 	private String reasonCode;
 	private String reasonDesc;
 	private List<Receipt> receipts = new ArrayList<Receipt>();
@@ -111,7 +121,28 @@ public class CancelPaymentDTO {
 	private boolean flgNewReceipt;
 	private String flagCancel;
 	private boolean flagEndDayCloseAcc;
+	private boolean flgNewReceiptABVR;
+	private boolean flagBackDate;
+	private boolean flagCloseAcc;
 	
+	public boolean isFlagBackDate() {
+		return flagBackDate;
+	}
+	public void setFlagBackDate(boolean flagBackDate) {
+		this.flagBackDate = flagBackDate;
+	}
+	public String getProperty4() {
+		return property4;
+	}
+	public void setProperty4(String property4) {
+		this.property4 = property4;
+	}
+	public boolean isFlgNewReceiptABVR() {
+		return flgNewReceiptABVR;
+	}
+	public void setFlgNewReceiptABVR(boolean flgNewReceiptABVR) {
+		this.flgNewReceiptABVR = flgNewReceiptABVR;
+	}
 	public boolean isFlagEndDayCloseAcc() {
 		return flagEndDayCloseAcc;
 	}
@@ -267,6 +298,12 @@ public class CancelPaymentDTO {
 	 */
 	public void setFlgNewReceipt(boolean flgNewReceipt) {
 		this.flgNewReceipt = flgNewReceipt;
+	}
+	public boolean isFlagCloseAcc() {
+		return flagCloseAcc;
+	}
+	public void setFlagCloseAcc(boolean flagCloseAcc) {
+		this.flagCloseAcc = flagCloseAcc;
 	}
 
 	

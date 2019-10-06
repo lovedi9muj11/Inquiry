@@ -181,7 +181,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
-		sql.append(" INNER JOIN master_data ms ON ms.KEYCODE = payment_m.CUSTOMER_GROUP ");
+		sql.append(" INNER JOIN master_data ms ON ms.PROPERTY_1 = payment_m.CUSTOMER_GROUP ");
 		sql.append(" WHERE 1 = 1 ");
 		if(chkCancel) {
 			if (receiptNo != "" && "".equals(code)) {
