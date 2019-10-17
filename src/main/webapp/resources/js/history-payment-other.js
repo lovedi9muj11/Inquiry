@@ -181,7 +181,7 @@ function format(d) {
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
 			    '<thead>'+
 			    '<tr>'+
-			        '<th style="text-align: center;">ประเภทบริการ</th>'+
+			        '<th style="text-align: center;">ประเภทรายได้</th>'+
 			        '<th style="text-align: center;">ชื่อบริการ</th>'+
 			        '<th style="text-align: right;">จำนวนรายการ</th>'+
 			        '<th style="text-align: right;">จำนวนเงินต่อหน่วย</th>'+
