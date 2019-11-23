@@ -69,13 +69,13 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 				if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
 					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
-					if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
+					if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_12) || paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_14) ) {
 						if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
 						}else {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RS);
 						}
-					}else if(paymentBean.getUserGroup().equals("1")) {
+					}else if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_11)) {
 						if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
 						}else {

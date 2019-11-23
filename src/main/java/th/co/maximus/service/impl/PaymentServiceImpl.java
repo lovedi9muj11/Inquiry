@@ -22,6 +22,7 @@ import th.co.maximus.service.PaymentManualService;
 import th.co.maximus.service.PaymentService;
 import th.co.maximus.service.TmpInvoiceService;
 import th.co.maximus.service.TrsmethodManualService;
+import th.co.maximus.constants.Constants;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
@@ -48,13 +49,13 @@ public class PaymentServiceImpl implements PaymentService{
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
 				
-				if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
+				if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_12) || paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_14) ) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
 						paymentManualBean.setDocType("RF");
 					}else {
 						paymentManualBean.setDocType("RS");
 					}
-				}else if(paymentBean.getUserGroup().equals("1")) {
+				}else if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_11)) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
 						paymentManualBean.setDocType("RF");
 					}else {
