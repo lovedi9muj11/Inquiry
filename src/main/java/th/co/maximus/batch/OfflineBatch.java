@@ -53,6 +53,9 @@ public class OfflineBatch implements Job {
 	
 	@Value("${text.posno}")
 	private  String posNo;
+	
+	@Value("${text.branCode}")
+	private  String branCode;
 
 	RestTemplate restTemplate;
 
@@ -152,7 +155,7 @@ public class OfflineBatch implements Job {
 								PaymentDTO manualDTO = new PaymentDTO();
 
 								manualDTO.setAccountNo(payment.getAccountNo());
-								manualDTO.setBranchCode(payment.getBranchAreaCode());
+								manualDTO.setBranchCode(branCode);
 								manualDTO.setBranchArea(payment.getBrancharea());
 								manualDTO.setInvoiceNo(payment.getInvoiceNo());
 								manualDTO.setReceiptNoManual(payment

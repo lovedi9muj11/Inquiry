@@ -47,6 +47,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Value("${text.posno}")
 	private String posNo;
+	
+	@Value("${text.branCode}")
+	private  String branCode;
 
 	RestTemplate restTemplate;
 
@@ -177,7 +180,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setAccountNo(recrip.getAccountNo());
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
 						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
-						paymentEpisOfflineDTO.setBranchCode(recrip.getBranchCode());
+						paymentEpisOfflineDTO.setBranchCode(branCode);
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
 						paymentEpisOfflineDTO.setVatAmount(recrip.getVatAmount());
@@ -285,7 +288,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							PaymentDTO manualDTO = new PaymentDTO();
 
 							manualDTO.setAccountNo(payment.getAccountNo());
-							manualDTO.setBranchCode(payment.getBranchCode());
+							manualDTO.setBranchCode(branCode);
 							manualDTO.setBranchArea(payment.getBrancharea());
 							manualDTO.setInvoiceNo(payment.getInvoiceNo());
 							manualDTO.setReceiptNoManual(payment.getReceiptNoManual());
