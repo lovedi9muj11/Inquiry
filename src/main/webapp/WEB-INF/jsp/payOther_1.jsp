@@ -99,7 +99,7 @@
 										<thead align="center">
 											<tr align="center">
 												
-												<th style='text-align: center;'>ประเภทบริการ</th>
+												<th style='text-align: center;'>ประเภทรายได้</th>
 												<th style='text-align: center;'>ชื่อบริการ</th>
 												<th style='text-align: center;'>จำนวนรายการ</th>
 												<th style='text-align: center;'>จำนวนเงิน</th>

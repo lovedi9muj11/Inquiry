@@ -925,14 +925,14 @@ function findTypePayment() {
 function autoSelect(){
 	var event = $("#userGroup").val();
 	$("#suserGroup").hide();
-	if(event == "1"){
+	if(event == "11"){
 		// 69 ทริ
 		radiobtn = document.getElementById("radioDedCC");
 		radiobtn.checked = true;
-	}else if(event == "2"){
+	}else if(event == "12"){
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
-	}else if(event == "3"){
+	}else if(event == "14"){
 		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
