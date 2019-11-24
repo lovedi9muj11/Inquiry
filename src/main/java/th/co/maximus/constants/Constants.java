@@ -104,6 +104,7 @@ public class Constants {
 		public static final String CANCEL_REASON_INDAY = "INDAY";
 		public static final String EDC_CREDIT_CARD_BANK = "EDC_CREDIT_CARD_BANK";
 		public static final String CUSTOMER_SEGMENT = "CUSTOMER_SEGMENT";
+		public static final String IBACSS_WOIBACSS_CANCEL_REASON = "IBACSS_WOIBACSS_CANCEL_REASON";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		public static final String USER_GROUP = "UserGoup";

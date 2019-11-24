@@ -129,6 +129,7 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
 				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
 				reportPaymentBeanNew.setVatRate(reportPaymentBean.getVatRate());
+				reportPaymentBeanNew.setNoRefer(reportPaymentBean.getDeductionNo());
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {

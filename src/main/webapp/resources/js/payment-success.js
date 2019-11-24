@@ -63,7 +63,7 @@ function openTableSumOther(manualId) {
 				
 			var trE = $("<tr align='center' ></tr>");
 //				var td1 = $("<td align='center' ></td>").text(res[i].amountType);
-				var td1 = $("<td align='center' ></td>").text(res[i].productName);
+				var td1 = $("<td align='center' ></td>").text(res[i].amountType);
 				var td2 = $("<td align='center' ></td>").text(res[i].serviceName);
 				var td3 = $("<td align='center' ></td>").text(res[i].quantity);
 				var td4 = $("<td align='center' ></td>").text(res[i].beforeVatStr);
