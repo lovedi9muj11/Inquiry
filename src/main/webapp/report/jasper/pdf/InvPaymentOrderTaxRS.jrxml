@@ -3,8 +3,8 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.2100000000000009"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="277"/>
+	<property name="ireport.y" value="52"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -310,7 +310,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="733" y="5" width="91" height="20" uuid="617a1f67-b1d3-4574-9fda-d6e1d66ca443"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
@@ -321,9 +321,9 @@
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{beforeVatStr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{beforeVatStr})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="842" y="5" width="70" height="20" uuid="cf5a96d0-5b63-4b5e-a128-6393bff22d24"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
@@ -334,9 +334,9 @@
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{vatStr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{vatStr})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="947" y="5" width="91" height="20" uuid="47886bfb-8e1c-4ec2-9601-0ebe1b32df7a"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
@@ -347,7 +347,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{paidAmountStr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{paidAmountStr})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="482" y="5" width="159" height="20" uuid="d8f95a96-aae8-4f1c-b69d-f43b1cd5095a"/>
@@ -390,26 +390,26 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="947" y="0" width="91" height="30" uuid="4632707f-8294-4f20-a907-da824b501ae6"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="821" y="0" width="91" height="30" uuid="5100f70f-2ddd-4085-95bf-5291f9974049"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="732" y="0" width="91" height="30" uuid="8e2d00cc-3da2-434c-a127-ca801d1d670d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -486,26 +486,26 @@
 					</textElement>
 					<text><![CDATA[รวมทั้งสิ้น]]></text>
 				</staticText>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="732" y="0" width="91" height="30" uuid="220ba5ad-e32c-49d7-b1e9-834772e7f600"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="821" y="0" width="91" height="30" uuid="0a7ed7ed-c11d-497c-a844-f6b38b5d7580"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="948" y="0" width="91" height="30" uuid="39e8b512-a8dc-4e9b-b51e-b6b3645a02a9"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>
@@ -544,26 +544,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="733" y="116" width="91" height="30" uuid="33e06658-d852-4002-98ff-10f80693b8a2"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="949" y="116" width="91" height="30" uuid="9f11385d-7ebe-4a08-b930-6ad462575b1d"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="821" y="116" width="91" height="30" uuid="a9c08979-0dbd-43fb-baee-058d9ad2163c"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="1" y="146" width="1045" height="30" uuid="689e789e-7c3c-4073-bfd6-8e838461ccdc"/>
@@ -615,26 +615,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="733" y="116" width="91" height="30" uuid="9bb40ed9-ab38-4737-a2d4-6cab60396a3c"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="949" y="116" width="91" height="30" uuid="281d84bd-7a2a-4688-b983-bc2c4f2802e8"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="821" y="116" width="91" height="30" uuid="2585775c-7b7c-4cca-947b-588ebe7ce6fb"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummaryStr()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="0" y="25" width="1045" height="31" uuid="06c4324b-f8e2-4969-aa87-bb5922c413cb"/>
@@ -649,26 +649,26 @@
 					</textElement>
 					<text><![CDATA[รวมตามหน่วยงานที่รับชำระ]]></text>
 				</staticText>
-				<textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement x="733" y="1" width="91" height="30" uuid="ab685827-f2f9-48d5-a2bb-aa8c219083ae"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="821" y="0" width="91" height="30" uuid="275be424-6448-4149-9e09-b38efa557d4f"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00">
 					<reportElement x="948" y="0" width="91" height="30" uuid="0c9dbc54-1b4b-47b6-8fe6-95edce33ad1b"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummaryStr()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="110" y="0" width="171" height="30" uuid="515c9b2b-227a-456e-8ed4-ea8172c52b2c"/>

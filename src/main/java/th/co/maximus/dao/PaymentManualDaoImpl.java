@@ -248,8 +248,11 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setRemake(rs.getString("REMARK"));
 			// reportPayment.setNoRefer(rs.getString(""));
 			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract(rs.getBigDecimal("VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
+			reportPayment.setBeforVatOther(rs.getBigDecimal("PIM.AMOUNT").subtract(rs.getBigDecimal("PIM.VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
 			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
+			reportPayment.setAmountOther(rs.getBigDecimal("PIM.AMOUNT"));
 			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
+			reportPayment.setVatAmountOther(rs.getBigDecimal("PIM.VAT_AMOUNT"));
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
 			reportPayment.setCancelReason(rs.getString("CANCEL_REASON"));
 			reportPayment.setVatRate(rs.getString("VAT_RATE"));

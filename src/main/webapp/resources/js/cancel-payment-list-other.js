@@ -304,7 +304,7 @@ function createRow(data, seq, table,check) {
 	customer = data.customerName;
 	serviceName = data.serviceName;
 	userGroup = data.customerGroup;
-	amount = formatDouble(data.amount,2);
+	amount = formatDouble(data.amountOther,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
 	if(data.recordStatus == 'A'){

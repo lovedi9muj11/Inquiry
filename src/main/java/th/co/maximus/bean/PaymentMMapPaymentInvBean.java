@@ -26,8 +26,11 @@ public class PaymentMMapPaymentInvBean {
 	private Timestamp createDate;
 	private String recordStatus;
 	private BigDecimal beforVat;
+	private BigDecimal beforVatOther;
 	private BigDecimal amount;
+	private BigDecimal amountOther;
 	private BigDecimal vatAmount;
+	private BigDecimal vatAmountOther;
 	private String period;
 	private String accountNo;
 	private String payType;
@@ -367,6 +370,30 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setCustomerGroupName(String customerGroupName) {
 		this.customerGroupName = customerGroupName;
+	}
+
+	public BigDecimal getBeforVatOther() {
+		return beforVatOther;
+	}
+
+	public void setBeforVatOther(BigDecimal beforVatOther) {
+		this.beforVatOther = beforVatOther;
+	}
+
+	public BigDecimal getAmountOther() {
+		return amountOther;
+	}
+
+	public void setAmountOther(BigDecimal amountOther) {
+		this.amountOther = amountOther;
+	}
+
+	public BigDecimal getVatAmountOther() {
+		return vatAmountOther;
+	}
+
+	public void setVatAmountOther(BigDecimal vatAmountOther) {
+		this.vatAmountOther = vatAmountOther;
 	}
 	
 	

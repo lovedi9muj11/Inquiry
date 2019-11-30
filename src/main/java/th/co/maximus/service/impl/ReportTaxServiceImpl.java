@@ -316,9 +316,9 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 		resData.setReportTaxRSBeanList(responeData);
 		resData.setVatRateStr(vatRate);
 		resData.setQuantitySummery(numQuantitys);
-		resData.setBeforVatSummery(beforeVatSummery.setScale(2, RoundingMode.HALF_DOWN).toString());
-		resData.setVatSummery(vatSummery.setScale(2, RoundingMode.HALF_DOWN).toString());
-		resData.setAfterVatSummery(afterSummery.setScale(2, RoundingMode.HALF_DOWN).toString());
+		resData.setBeforVatSummery(beforeVatSummery.setScale(2, RoundingMode.HALF_DOWN));
+		resData.setVatSummery(vatSummery.setScale(2, RoundingMode.HALF_DOWN));
+		resData.setAfterVatSummery(afterSummery.setScale(2, RoundingMode.HALF_DOWN));
 		return resData;
 	}
 

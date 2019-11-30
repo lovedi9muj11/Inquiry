@@ -120,15 +120,25 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
 				reportPaymentBeanNew.setPaymentMethod(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"");
-				reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
-				reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
-				reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
+				
+				if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
+					reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVatOther()));
+					reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmountOther()));
+					reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmountOther()));
+					reportPaymentBeanNew.setAmount(reportPaymentBean.getAmountOther());
+					reportPaymentBeanNew.setBeforVat(reportPaymentBean.getBeforVatOther());
+				}else {
+					reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVat()));
+					reportPaymentBeanNew.setVatAmountStr(String.format("%,.2f", reportPaymentBean.getVatAmount()));
+					reportPaymentBeanNew.setAmountStr(String.format("%,.2f", reportPaymentBean.getAmount()));
+					reportPaymentBeanNew.setAmount(reportPaymentBean.getAmount());
+					reportPaymentBeanNew.setBeforVat(reportPaymentBean.getBeforVat());
+				}
+				
 				reportPaymentBeanNew.setServiceCode(reportPaymentBean.getServiceCode());
-				reportPaymentBeanNew.setAmount(reportPaymentBean.getAmount());
-				reportPaymentBeanNew.setBeforVat(reportPaymentBean.getBeforVat());
+				reportPaymentBeanNew.setVatRate(reportPaymentBean.getVatRate());
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
 				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
-				reportPaymentBeanNew.setVatRate(reportPaymentBean.getVatRate());
 				reportPaymentBeanNew.setNoRefer(reportPaymentBean.getDeductionNo());
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
@@ -159,7 +169,7 @@ public class PaymentReportPdf {
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
 		JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
-//		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+		JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 //		List<MasterDataBean> listVat = masterDataService.findByVat();
 //		BigDecimal sumAmountVat = BigDecimal.ZERO;
 //		BigDecimal sumAmountVatAll = BigDecimal.ZERO;
@@ -217,42 +227,45 @@ public class PaymentReportPdf {
 //						}
 //					}
 					
-					if(Constants.VATRATE.TEN.equals(reportPaymentBean.getVatRate())) {
-						sumAmountVat10 = sumAmountVat10.add(reportPaymentBean.getBeforVat());
-						vatBean10.setAmount(sumAmountVat10);
-						sumAmountVatAll10 = sumAmountVatAll10.add(reportPaymentBean.getAmount());
-						vatBean10.setSumAmount(sumAmountVatAll10);
-						vatBean10.setCount(vat10++);
-						vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
-					}else if(Constants.VATRATE.ZERO.equals(reportPaymentBean.getVatRate())) {
-						sumAmountVat0 = sumAmountVat0.add(reportPaymentBean.getBeforVat());
-						vatBean0.setAmount(sumAmountVat0);
-						sumAmountVatAll0 = sumAmountVatAll0.add(reportPaymentBean.getAmount());
-						vatBean0.setSumAmount(sumAmountVatAll0);
-						vatBean0.setCount(vat0++);
-						vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
-					}else if(Constants.VATRATE.NON_VATE.equals(reportPaymentBean.getVatRate())) {
-						sumAmountVatNon = sumAmountVatNon.add(reportPaymentBean.getBeforVat());
-						vatBeanNon.setAmount(sumAmountVatNon);
-						sumAmountVatAllNon = sumAmountVatAllNon.add(reportPaymentBean.getAmount());
-						vatBeanNon.setSumAmount(sumAmountVatAllNon);
-						vatBeanNon.setCount(vatNon++);
-						vatBeanNon.setVatRat(reportPaymentBean.getVatRate());
-					}else if(Constants.VATRATE.EIGHT.equals(reportPaymentBean.getVatRate())) {
-						sumAmountVat8 = sumAmountVat8.add(reportPaymentBean.getBeforVat());
-						vatBean8.setAmount(sumAmountVat8);
-						sumAmountVatAll8 = sumAmountVatAll8.add(reportPaymentBean.getAmount());
-						vatBean8.setSumAmount(sumAmountVatAll8);
-						vatBean8.setCount(vat8++);
-						vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
-					}else if(Constants.VATRATE.SEVEN.equals(reportPaymentBean.getVatRate())) {
-						sumAmountVat7 = sumAmountVat7.add(reportPaymentBean.getBeforVat());
-						vatBean7.setAmount(sumAmountVat7);
-						sumAmountVatAll7 = sumAmountVatAll7.add(reportPaymentBean.getAmount());
-						vatBean7.setSumAmount(sumAmountVatAll7);
-						vatBean7.setCount(vat7++);
-						vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
+						if(Constants.VATRATE.TEN.equals(reportPaymentBean.getVatRate())) {
+							sumAmountVat10 = sumAmountVat10.add(reportPaymentBean.getBeforVat());
+							vatBean10.setAmount(sumAmountVat10);
+							sumAmountVatAll10 = sumAmountVatAll10.add(reportPaymentBean.getAmount());
+							vatBean10.setSumAmount(sumAmountVatAll10);
+							vatBean10.setCount(vat10++);
+							vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+						}else if(Constants.VATRATE.ZERO.equals(reportPaymentBean.getVatRate())) {
+							sumAmountVat0 = sumAmountVat0.add(reportPaymentBean.getBeforVat());
+							vatBean0.setAmount(sumAmountVat0);
+							sumAmountVatAll0 = sumAmountVatAll0.add(reportPaymentBean.getAmount());
+							vatBean0.setSumAmount(sumAmountVatAll0);
+							vatBean0.setCount(vat0++);
+							vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+						}else if(Constants.VATRATE.NON_VATE.equals(reportPaymentBean.getVatRate())) {
+							sumAmountVatNon = sumAmountVatNon.add(reportPaymentBean.getBeforVat());
+							vatBeanNon.setAmount(sumAmountVatNon);
+							sumAmountVatAllNon = sumAmountVatAllNon.add(reportPaymentBean.getAmount());
+							vatBeanNon.setSumAmount(sumAmountVatAllNon);
+							vatBeanNon.setCount(vatNon++);
+							vatBeanNon.setVatRat(reportPaymentBean.getVatRate());
+						}else if(Constants.VATRATE.EIGHT.equals(reportPaymentBean.getVatRate())) {
+							sumAmountVat8 = sumAmountVat8.add(reportPaymentBean.getBeforVat());
+							vatBean8.setAmount(sumAmountVat8);
+							sumAmountVatAll8 = sumAmountVatAll8.add(reportPaymentBean.getAmount());
+							vatBean8.setSumAmount(sumAmountVatAll8);
+							vatBean8.setCount(vat8++);
+							vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+						}else if(Constants.VATRATE.SEVEN.equals(reportPaymentBean.getVatRate())) {
+							sumAmountVat7 = sumAmountVat7.add(reportPaymentBean.getBeforVat());
+							vatBean7.setAmount(sumAmountVat7);
+							sumAmountVatAll7 = sumAmountVatAll7.add(reportPaymentBean.getAmount());
+							vatBean7.setSumAmount(sumAmountVatAll7);
+							vatBean7.setCount(vat7++);
+							vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
+						}
 					}
+					
 					
 					if(userPayment.equals(reportPaymentBean.getCreateBy())) {
 						userPaymentOld = userPayment;
@@ -279,7 +292,7 @@ public class PaymentReportPdf {
 								count++;
 								
 								reportPaymentBean.setManualIdStr((countRow+1)+"");
-								glCode = reportPaymentBean.getServiceName().split(" ")[0];
+								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
 								resultSources.add(reportPaymentBean);
 							}else {
 								
@@ -325,13 +338,13 @@ public class PaymentReportPdf {
 								parameters.put("pageNumber", pageNumber);
 								
 //								userPay = "";
-								glCode = reportPaymentBean.getServiceName().split(" ")[0];
+								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
 								
 								JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 								
 								JasperPrint jasperPrint = new JasperPrint();
 								
-//								JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+								JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 								jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 								jasperPrints.add(jasperPrint);
 								
@@ -402,13 +415,13 @@ public class PaymentReportPdf {
 							parameters.put("sumAllTotalNoVatUser1", String.format("%,.2f", sumAllTotalNoVat));
 							
 //							userPay = "";
-							glCode = reportPaymentBean.getServiceName().split(" ")[0];
+							glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
 							
 							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 							
 							JasperPrint jasperPrint = new JasperPrint();
 							
-//							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 							
@@ -478,13 +491,13 @@ public class PaymentReportPdf {
 						parameters.put("pageNumber", pageNumber);
 						
 //						userPay = "";
-						glCode = reportPaymentBean.getServiceName().split(" ")[0];
+						glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 						
 						JasperPrint jasperPrint = new JasperPrint();
 						
-//						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 						
@@ -600,7 +613,7 @@ public class PaymentReportPdf {
 						
 						JasperPrint jasperPrint = new JasperPrint();
 						
-//						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 					}
@@ -649,41 +662,43 @@ public class PaymentReportPdf {
 				if(CollectionUtils.isNotEmpty(resultSource)) {
 					for(int i=0; i<resultSource.size(); i++) {
 						
-						if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
-							sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
-							vatBean10.setAmount(sumAmountVat10);
-							sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
-							vatBean10.setSumAmount(sumAmountVatAll10);
-							vatBean10.setCount(vat10++);
-							vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-						}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
-							sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
-							vatBean0.setAmount(sumAmountVat0);
-							sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
-							vatBean0.setSumAmount(sumAmountVatAll0);
-							vatBean0.setCount(vat0++);
-							vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-						}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
-							sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
-							vatBeanNon.setAmount(sumAmountVatNon);
-							sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
-							vatBeanNon.setSumAmount(sumAmountVatAllNon);
-							vatBeanNon.setCount(vatNon++);
-							vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
-						}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
-							sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
-							vatBean8.setAmount(sumAmountVat8);
-							sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
-							vatBean8.setSumAmount(sumAmountVatAll8);
-							vatBean8.setCount(vat8++);
-							vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-						}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
-							sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
-							vatBean7.setAmount(sumAmountVat7);
-							sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
-							vatBean7.setSumAmount(sumAmountVatAll7);
-							vatBean7.setCount(vat7++);
-							vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+						if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+							if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
+								sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
+								vatBean10.setAmount(sumAmountVat10);
+								sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
+								vatBean10.setSumAmount(sumAmountVatAll10);
+								vatBean10.setCount(vat10++);
+								vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+							}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
+								sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
+								vatBean0.setAmount(sumAmountVat0);
+								sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
+								vatBean0.setSumAmount(sumAmountVatAll0);
+								vatBean0.setCount(vat0++);
+								vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+							}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
+								sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
+								vatBeanNon.setAmount(sumAmountVatNon);
+								sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
+								vatBeanNon.setSumAmount(sumAmountVatAllNon);
+								vatBeanNon.setCount(vatNon++);
+								vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
+							}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
+								sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
+								vatBean8.setAmount(sumAmountVat8);
+								sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
+								vatBean8.setSumAmount(sumAmountVatAll8);
+								vatBean8.setCount(vat8++);
+								vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+							}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
+								sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
+								vatBean7.setAmount(sumAmountVat7);
+								sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
+								vatBean7.setSumAmount(sumAmountVatAll7);
+								vatBean7.setCount(vat7++);
+								vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+							}
 						}
 						
 						if(i==0) { vatRate = resultSource.get(i).getVatRate(); userPayment = resultSource.get(i).getCreateBy();}
@@ -752,7 +767,7 @@ public class PaymentReportPdf {
 							
 							JasperPrint jasperPrint = new JasperPrint();
 							
-//							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 							
@@ -862,7 +877,7 @@ public class PaymentReportPdf {
 							
 							JasperPrint jasperPrint = new JasperPrint();
 							
-//							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 						}
@@ -902,41 +917,43 @@ public class PaymentReportPdf {
 				
 				for(int i=0; i<resultSource.size(); i++) {
 					
-					if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
-						sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
-						vatBean10.setAmount(sumAmountVat10);
-						sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
-						vatBean10.setSumAmount(sumAmountVatAll10);
-						vatBean10.setCount(vat10++);
-						vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-					}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
-						sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
-						vatBean0.setAmount(sumAmountVat0);
-						sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
-						vatBean0.setSumAmount(sumAmountVatAll0);
-						vatBean0.setCount(vat0++);
-						vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-					}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
-						sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
-						vatBeanNon.setAmount(sumAmountVatNon);
-						sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
-						vatBeanNon.setSumAmount(sumAmountVatAllNon);
-						vatBeanNon.setCount(vatNon++);
-						vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
-					}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
-						sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
-						vatBean8.setAmount(sumAmountVat8);
-						sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
-						vatBean8.setSumAmount(sumAmountVatAll8);
-						vatBean8.setCount(vat8++);
-						vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
-					}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
-						sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
-						vatBean7.setAmount(sumAmountVat7);
-						sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
-						vatBean7.setSumAmount(sumAmountVatAll7);
-						vatBean7.setCount(vat7++);
-						vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+					if(Constants.Status.ACTIVE.equals(resultSource.get(i).getStatusStr())) {
+						if(Constants.VATRATE.TEN.equals(resultSource.get(i).getVatRate())) {
+							sumAmountVat10 = sumAmountVat10.add(resultSource.get(i).getBeforVat());
+							vatBean10.setAmount(sumAmountVat10);
+							sumAmountVatAll10 = sumAmountVatAll10.add(resultSource.get(i).getAmount());
+							vatBean10.setSumAmount(sumAmountVatAll10);
+							vatBean10.setCount(vat10++);
+							vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+						}else if(Constants.VATRATE.ZERO.equals(resultSource.get(i).getVatRate())) {
+							sumAmountVat0 = sumAmountVat0.add(resultSource.get(i).getBeforVat());
+							vatBean0.setAmount(sumAmountVat0);
+							sumAmountVatAll0 = sumAmountVatAll0.add(resultSource.get(i).getAmount());
+							vatBean0.setSumAmount(sumAmountVatAll0);
+							vatBean0.setCount(vat0++);
+							vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+						}else if(Constants.VATRATE.NON_VATE.equals(resultSource.get(i).getVatRate())) {
+							sumAmountVatNon = sumAmountVatNon.add(resultSource.get(i).getBeforVat());
+							vatBeanNon.setAmount(sumAmountVatNon);
+							sumAmountVatAllNon = sumAmountVatAllNon.add(resultSource.get(i).getAmount());
+							vatBeanNon.setSumAmount(sumAmountVatAllNon);
+							vatBeanNon.setCount(vatNon++);
+							vatBeanNon.setVatRat(resultSource.get(i).getVatRate());
+						}else if(Constants.VATRATE.EIGHT.equals(resultSource.get(i).getVatRate())) {
+							sumAmountVat8 = sumAmountVat8.add(resultSource.get(i).getBeforVat());
+							vatBean8.setAmount(sumAmountVat8);
+							sumAmountVatAll8 = sumAmountVatAll8.add(resultSource.get(i).getAmount());
+							vatBean8.setSumAmount(sumAmountVatAll8);
+							vatBean8.setCount(vat8++);
+							vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+						}else if(Constants.VATRATE.SEVEN.equals(resultSource.get(i).getVatRate())) {
+							sumAmountVat7 = sumAmountVat7.add(resultSource.get(i).getBeforVat());
+							vatBean7.setAmount(sumAmountVat7);
+							sumAmountVatAll7 = sumAmountVatAll7.add(resultSource.get(i).getAmount());
+							vatBean7.setSumAmount(sumAmountVatAll7);
+							vatBean7.setCount(vat7++);
+							vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+resultSource.get(i).getVatRate()+" %"));
+						}
 					}
 					
 					if(i==0) { vatRate = resultSource.get(i).getVatRate(); }
@@ -999,7 +1016,7 @@ public class PaymentReportPdf {
 						
 						JasperPrint jasperPrint = new JasperPrint();
 						
-//						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 						
@@ -1110,7 +1127,7 @@ public class PaymentReportPdf {
 						
 						JasperPrint jasperPrint = new JasperPrint();
 						
-//						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 					}

@@ -125,9 +125,9 @@ function createRow(data, seq) {
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
 	noRefer = data.refNo;
-	beforVat = formatDouble(data.beforVat,2);
-	vatAmount =  formatDouble(data.vatAmount,2);
-	amount =  formatDouble(data.amount,2);
+	beforVat = formatDouble(data.beforVatOther,2);
+	vatAmount =  formatDouble(data.vatAmountOther,2);
+	amount =  formatDouble(data.amountOther,2);
 	if (data.status == 'C'){
 		statusStr = 'ยกเลิก';
 //		remake = '<a name="invoice" id="invoice" onclick="dialogRemake('+data.manualId+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
