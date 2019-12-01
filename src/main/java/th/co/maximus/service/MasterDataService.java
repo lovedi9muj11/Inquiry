@@ -54,4 +54,6 @@ public interface MasterDataService {
 	
 	List<MasterDatasBean> findByCMSegmentByCRM();
 	
+	public MasterDatasBean findByGrop(String groupCode, String keyCode);
+	
 }

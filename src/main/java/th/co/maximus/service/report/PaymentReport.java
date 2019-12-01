@@ -17,8 +17,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
@@ -31,8 +33,7 @@ public class PaymentReport extends BaseExcelRptService {
 	@Autowired
 	MasterDataService masterDataService;
 	
-	@Value("${text.branarea}")
-	private String branarea;
+
 	
 	Locale localeTH = new Locale("th", "TH");
 	Locale localeEN = new Locale("en", "EN");
@@ -42,6 +43,7 @@ public class PaymentReport extends BaseExcelRptService {
 	SimpleDateFormat formateHH = new SimpleDateFormat("HH:mm", localeTH);
 	
 	public Workbook generatePaymentReportExcel(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws ParseException {
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//StyleCell
 		Font fontNormal = createFontTHSarabanPSK(workbook, 11, false);
 		CellStyle txtCenterBor = createStyleCellLeft(workbook, fontNormal, true);
@@ -175,8 +177,8 @@ public class PaymentReport extends BaseExcelRptService {
 					e.printStackTrace();
 				}
 				 
-				 cell12.setCellValue(branarea);
-				 cell13.setCellValue(masterDataService.findByKeyCode(branarea).getValue());
+				 cell12.setCellValue(profile.getBranchArea());
+				 cell13.setCellValue(masterDataService.findByKeyCode(profile.getBranchArea()).getValue());
 				 
 				 cell.setCellStyle(txtTableCenter);
 				 cell1Add.setCellStyle(txtCenterTable);

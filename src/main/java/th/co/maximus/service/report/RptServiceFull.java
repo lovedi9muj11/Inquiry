@@ -19,8 +19,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.constants.Constants;
@@ -35,9 +37,7 @@ public class RptServiceFull extends BaseExcelRptService{
 	
 	@Autowired
 	MasterDataService masterDataService;
-	
-	@Value("${text.branarea}")
-	private String branarea;
+
 	
 	protected Logger log = Logger.getLogger(getClass());
 	Locale localeTH = new Locale("th", "TH");
@@ -49,9 +49,6 @@ public class RptServiceFull extends BaseExcelRptService{
 	SimpleDateFormat formateDateEN = new SimpleDateFormat("dd/MM/yyyy", localeEN);
 	SimpleDateFormat formateYearTH = new SimpleDateFormat("yyyy", localeTH);
 	SimpleDateFormat formateHH = new SimpleDateFormat("HH:mm", localeTH);
-	
-	@Value("${text.branarea}")
-	private String branArea;
 
 	public Workbook getReport(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception{
 //		SimpleDateFormat formatter2 = new SimpleDateFormat(Constants.DateTime.DATE_FORMAT, new Locale("th", "TH"));
@@ -67,7 +64,7 @@ public class RptServiceFull extends BaseExcelRptService{
 		CellStyle txtCenter = createCellStyleForTextCenter(workbook, fontNormal, true);
 		CellStyle summary = createCellStyleForTextRightBorderBgGrey25Percent(workbook, fontBold, true);
 		CellStyle summaryBorder = createCellStyleForTextRightBorderBgGrey25PercentBorder(workbook, fontBold, true);
-
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String date = formateDateEN.format(new Date());
 		String time = formateHH.format(new Date());
 		
@@ -119,7 +116,6 @@ public class RptServiceFull extends BaseExcelRptService{
 //		Cell cellH3 = rowHead3.createCell(0);
 //		cellH3.setCellValue(("สาขาที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
 //		cellH3.setCellStyle(txtLeftNoBor);
-		
 		int rowNum = 7;
 
 		if (CollectionUtils.isNotEmpty(entity)) {
@@ -172,8 +168,8 @@ public class RptServiceFull extends BaseExcelRptService{
 				cell8.setCellValue(new Double((entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat()).toString()));
 				cell9.setCellValue(new Double((entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount()).toString()));
 				cell10.setCellValue(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())?Constants.Status.ACTIVE_:Constants.Status.ACTIVE_C);
-				cell11.setCellValue(branarea);
-				cell12.setCellValue(masterDataService.findByKeyCode(branarea).getValue());
+				cell11.setCellValue(profile.getBranchArea());
+				cell12.setCellValue(masterDataService.findByKeyCode(profile.getBranchArea()).getValue());
 				cell13.setCellValue(entity.get(i).getCreateBy());
 				
 				// gen name surname

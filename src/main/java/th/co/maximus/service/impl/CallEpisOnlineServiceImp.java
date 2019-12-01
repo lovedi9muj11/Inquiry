@@ -1,11 +1,13 @@
 package th.co.maximus.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,27 +15,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.JsonObject;
+
 import th.co.maximus.bean.MapGLBean;
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.bean.Principal;
 import th.co.maximus.bean.UserBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.service.CallEpisOnlineService;
 import th.co.maximus.service.MapGLService;
 import th.co.maximus.service.MasOfficerService;
 import th.co.maximus.service.MasterDataService;
+import th.co.maximus.util.GetMacAddress;
 
 @Service
 public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 	
 	@Value("${url.online}")
 	private String url;
-	
-	@Value("${text.branarea}")
-	private String branArea;
-	
-	@Value("${text.posno}")
-	private String posno;
+	@Autowired private MasterDataDao masterDataDao;
+
 	
 	@Autowired
 	MasterDataService masterDataService;
@@ -52,9 +56,56 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 
 	@Override
 	public void callOnline() {
-//		String postUrl = url.concat("/test/test.json"); // /Maximus/Test
-//		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, new BeanClass(), String.class);
-//		System.out.println("Response for Post Request: " + postResponse.getBody());		
+		String mac =  GetMacAddress.getMACAddress();
+		 String pos ="";
+		 String posName="";
+		 String branchArea="";
+		 String branchCode="";
+		 String taxIdCat="";
+		 String costCenter="";
+		String postUrl = url.concat("/offline/posByMac/"+ mac +".json"); 
+		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, null, String.class);
+		System.out.println("Response for Post Request: " + postResponse.getBody());
+		try {
+			JSONArray jsonArray = new JSONArray(postResponse.getBody());
+			for(int i=0; i<jsonArray.length(); i++) {
+				pos = jsonArray.getJSONObject(i).getString("no");
+				posName = jsonArray.getJSONObject(i).getString("name");
+				JSONObject  json = new JSONObject(jsonArray.getJSONObject(i).getString("shop"));
+					branchCode = json.getString("businessPlace");
+					branchArea = json.getString("businessArea");
+					costCenter = json.getString("costCenter");
+					taxIdCat = "0107546000229";
+			}
+			MasterDataBean masterDataPos = new MasterDataBean();
+			masterDataPos.setKeyCode("POS");
+			masterDataPos.setValue(pos);
+			masterDataDao.insertInitProgram(masterDataPos);
+			MasterDataBean masterDataPosName = new MasterDataBean();
+			masterDataPosName.setKeyCode("POS_NAME");
+			masterDataPosName.setValue(posName);
+			masterDataDao.insertInitProgram(masterDataPosName);
+			MasterDataBean masterDataBranchCode = new MasterDataBean();
+			masterDataBranchCode.setKeyCode("BRANCH_CODE");
+			masterDataBranchCode.setValue(branchCode);
+			masterDataDao.insertInitProgram(masterDataBranchCode);
+			MasterDataBean masterDataBranchArea = new MasterDataBean();
+			masterDataBranchArea.setKeyCode("BRANCH_AREA");
+			masterDataBranchArea.setValue(branchArea);
+			masterDataDao.insertInitProgram(masterDataBranchArea);
+			MasterDataBean masterDataCostCenter = new MasterDataBean();
+			masterDataCostCenter.setKeyCode("COST_CENTER");
+			masterDataCostCenter.setValue(costCenter);
+			masterDataDao.insertInitProgram(masterDataCostCenter);
+			MasterDataBean masterDatataxIdCat= new MasterDataBean();
+			masterDatataxIdCat.setKeyCode("TAX_ID_CAT");
+			masterDatataxIdCat.setValue(taxIdCat);
+			masterDataDao.insertInitProgram(masterDatataxIdCat);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -95,9 +146,9 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				masterDataSyncBean.setProperty4( jsonArray.getJSONObject(i).getString("property4"));
 				masterDataSyncBean.setProperty5( jsonArray.getJSONObject(i).getString("property5"));
 				masterDataSyncBean.setCreateBy( jsonArray.getJSONObject(i).getString("createBy"));
-				masterDataSyncBean.setCreateDate(null);
+				masterDataSyncBean.setCreateDate(new Date());
 				masterDataSyncBean.setUpdateBy( jsonArray.getJSONObject(i).getString("updateBy"));
-				masterDataSyncBean.setUpdateDate(null);
+				masterDataSyncBean.setUpdateDate(new Date());
 				masterDataSyncBean.setInitialValue( jsonArray.getJSONObject(i).getString("initialValue"));
 				list.add(masterDataSyncBean);
 			}
@@ -137,7 +188,9 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				glBean.setServiceCode( jsonArray.getJSONObject(i).getString("serviceCode"));
 				glBean.setStatus( jsonArray.getJSONObject(i).getString("status"));
 				glBean.setCreateBy( jsonArray.getJSONObject(i).getString("createBy"));
+				glBean.setCreateDate( new Date());
 				glBean.setUpdateBy( jsonArray.getJSONObject(i).getString("updateBy"));
+				glBean.setUpdateDate( new Date());
 				list.add(glBean);
 			}
 			String respone = mapGLService.insertMapGL(list);
@@ -149,7 +202,19 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 
 	@Override
 	public void callOnlineSyncUser() {
+		 List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
 		Set<String> branchArea = new HashSet<String>();
+		String branArea = "";
+		String posno ="";
+		 for (MasterDataBean masterDataBean : resultList) {
+				if(masterDataBean.getValue().equals("POS")) {
+					posno = masterDataBean.getText();
+				}
+				
+				if(masterDataBean.getValue().equals("BRANCH_AREA")) {
+					branArea = masterDataBean.getText();
+				}
+			}
 		branchArea.add(branArea);
 		
 		try {

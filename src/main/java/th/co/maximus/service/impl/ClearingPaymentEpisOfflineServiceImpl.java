@@ -15,12 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.TmpInvoiceBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.CancelPaymentDTO;
 import th.co.maximus.dao.CancelPaymentDTO.Receipt;
 import th.co.maximus.dao.DeductionManualDao;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.PaymentInvoiceManualDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsChequeRefManualDao;
@@ -38,6 +40,7 @@ import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.TmpInvoiceService;
+import th.co.maximus.util.GetMacAddress;
 
 @Service
 public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpisOfflineService {
@@ -45,20 +48,16 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	@Value("${url.online}")
 	private String url;
 
-	@Value("${text.posno}")
 	private String posNo;
 	
-	@Value("${text.branCode}")
 	private  String branCode;
 
 	RestTemplate restTemplate;
+	
+	@Autowired private MasterDataDao masterDataDao;
 
-	public ClearingPaymentEpisOfflineServiceImpl() {
 
-		restTemplate = new RestTemplate();
-		// restTemplate.set
-	}
-
+	
 	@Autowired
 	private PaymentManualDao paymentManualDao;
 
@@ -82,6 +81,24 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
+	public ClearingPaymentEpisOfflineServiceImpl() {
+
+		restTemplate = new RestTemplate();
+	}
+	
+	public void init() {
+		List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
+		 for (MasterDataBean masterDataBean : resultList) {
+				if(masterDataBean.getValue().equals("POS")) {
+					posNo = masterDataBean.getText();
+				}
+				
+				if(masterDataBean.getValue().equals("BRANCH_CODE")) {
+					branCode = masterDataBean.getText();
+				}
+			}
+	}
+
 
 	@Override
 	public ReceiptOfflineModel findRecipt(Integer manualId) throws SQLException {
@@ -133,6 +150,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Override
 	public List<OfflineResultModel> callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
+		init();
 		List<OfflineResultModel> objMessage = new ArrayList<OfflineResultModel>();
 
 		List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
@@ -272,6 +290,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		HashMap<String, Object> result = new HashMap<>();
 		List<PaymentMMapPaymentInvBean> list = new ArrayList<>();
 		List<PaymentDTO> dtoList = new ArrayList<>();
+		init();
+		String mac = GetMacAddress.getMACAddress();
 		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
@@ -308,20 +328,21 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							dtoList.add(manualDTO);
 
 							cancelDTO = dtoCancel(payment);
+							if (dtoList.size() > 0) {
+								postUrl = url.concat("/paymentManualServiceOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
+
+								System.out.println(resultA);
+								postUrl = url.concat(
+										"/cancelPaymentProduct2Offline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+								resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+								System.out.println(resultB);
+								updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
+
+							}
 						}
 					}
-					if (dtoList.size() > 0) {
-						postUrl = url.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
-						resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
-
-						System.out.println(resultA);
-						postUrl = url.concat(
-								"/cancelPaymentProduct2Offline.json?ap=SSO&un=backofficer01&pw=password");
-						resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-						System.out.println(resultB);
-						updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
-
-					}
+					
 
 				} else {
 					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);

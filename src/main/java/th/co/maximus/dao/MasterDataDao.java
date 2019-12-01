@@ -46,4 +46,6 @@ public interface MasterDataDao {
 
 	public List<MasterDataBean> findByVat();
 
+	void insertInitProgram(MasterDataBean masterDataBean);
+
 }

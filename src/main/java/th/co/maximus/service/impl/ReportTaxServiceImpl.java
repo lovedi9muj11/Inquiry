@@ -24,11 +24,6 @@ import th.co.maximus.service.ReportTaxService;
 
 @Service
 public class ReportTaxServiceImpl implements ReportTaxService{
-	@Value("${text.posno}")
-	private String posNo;
-	
-	@Value("${text.posname}")
-	private String posName;
 	
 	@Autowired
 	private PaymentManualDao paymentManualDao;
@@ -116,7 +111,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setBeforeVatStr(beforeVat.setScale(2, RoundingMode.HALF_DOWN).toString());
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 						res.setPaidAmountStr(amount.setScale(2, RoundingMode.HALF_DOWN).toString());
-						res.setPosName(posName);
+						res.setPosName(profile.getPosName());
 						
 						res.setNumberRun(""+(numRow));
 						numQuantity += Integer.parseInt(res.getQuantity());
@@ -148,7 +143,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setBeforeVatStr(beforeVat.setScale(2, RoundingMode.HALF_DOWN).toString());
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 						res.setPaidAmountStr(amount.setScale(2, RoundingMode.HALF_DOWN).toString());
-						res.setPosName(posName);
+						res.setPosName(profile.getPosName());
 						
 						res.setNumberRun(""+(numRow));
 						numQuantity += Integer.parseInt(res.getQuantity());
@@ -258,7 +253,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 						afterSummery = afterSummery.add(amount);
 						res.setPaidAmountStr(amount.setScale(2, RoundingMode.HALF_DOWN).toString());
-						res.setPosName(posName);
+						res.setPosName(profile.getPosName());
 						
 						res.setNumberRun(""+(numRow));
 						numQuantity += Integer.parseInt(res.getQuantity());
@@ -293,7 +288,7 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 						afterSummery = afterSummery.add(amount);
 						res.setPaidAmountStr(amount.setScale(2, RoundingMode.HALF_DOWN).toString());
-						res.setPosName(posName);
+						res.setPosName(profile.getPosName());
 						
 						res.setNumberRun(""+(numRow));
 						numQuantity += Integer.parseInt(res.getQuantity());

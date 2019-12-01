@@ -255,8 +255,8 @@ public class MasterDataServiceImpl implements MasterDataService {
 				calendar.setTime(dd);
 				int lastDate = calendar.getActualMaximum(Calendar.DATE);
 
-//			    calendar.set(Calendar.DATE, lastDate);
-//			    int lastDay = calendar.get(Calendar.DAY_OF_WEEK);
+				// calendar.set(Calendar.DATE, lastDate);
+				// int lastDay = calendar.get(Calendar.DAY_OF_WEEK);
 
 				masterDataBean.setMonthNow(lastDate + "");
 			}
@@ -309,15 +309,16 @@ public class MasterDataServiceImpl implements MasterDataService {
 	}
 
 	public void getLocalDateTime(MasterDataBean masterDataBean) {
-//		LocalDateTime now = LocalDateTime.now();
-//		int year = now.getYear();
-//		String yearTH = now.format(DateTimeFormatter.ofPattern("yyyy", new Locale("th", "TH")));
-//		int month = now.getMonthValue();
-//		int day = now.getDayOfMonth();
-//		int hour = now.getHour();
-//		int minute = now.getMinute();
-//		int second = now.getSecond();
-//		int millis = now.get(ChronoField.MILLI_OF_SECOND);
+		// LocalDateTime now = LocalDateTime.now();
+		// int year = now.getYear();
+		// String yearTH = now.format(DateTimeFormatter.ofPattern("yyyy", new
+		// Locale("th", "TH")));
+		// int month = now.getMonthValue();
+		// int day = now.getDayOfMonth();
+		// int hour = now.getHour();
+		// int minute = now.getMinute();
+		// int second = now.getSecond();
+		// int millis = now.get(ChronoField.MILLI_OF_SECOND);
 
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy", new Locale("th", "TH"));
@@ -332,9 +333,9 @@ public class MasterDataServiceImpl implements MasterDataService {
 		valueSet.append("0");
 
 		if (StringUtils.isNotBlank(masterDataBean.getMinute())) {
-			if(Constants.EVERY.equals(masterDataBean.getMinute())) {
+			if (Constants.EVERY.equals(masterDataBean.getMinute())) {
 				valueSet.append(" ");
-			}else {
+			} else {
 				valueSet.append(" 0/");
 			}
 			valueSet.append(masterDataBean.getMinute());
@@ -374,7 +375,7 @@ public class MasterDataServiceImpl implements MasterDataService {
 
 	@Override
 	public UserBean findByUsernameFromRole(Long id) throws SQLException {
-		
+
 		return userDao.findByUsernameFromRole(id);
 	}
 
@@ -388,6 +389,12 @@ public class MasterDataServiceImpl implements MasterDataService {
 	public List<MasterDatasBean> findByCMSegmentByCRM() {
 		List<MasterDatasBean> custSegment = masterDatasDao.findByCMSegmentByCRM();
 		return custSegment;
+	}
+
+	@Override
+	public MasterDatasBean findByGrop(String groupCode, String keyCode) {
+		// TODO Auto-generated method stub
+		return masterDatasDao.findByGrop(groupCode, keyCode);
 	}
 
 }

@@ -128,11 +128,12 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllByGropType(String groupType) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA ms  ");
-		sql.append(" WHERE ms.groupType = ");
+		sql.append(" WHERE ms.group_key = ");
 		sql.append("'"+groupType+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
+	
 	@Override
 	public void insertMasterDataSync(MasterDataSyncBean masterDataSyncBean) {
 		String sql = "INSERT INTO MASTER_DATA (KEYCODE, VALUE, GROUP_KEY, TYPE, STATUS, ORDERED, PARENT_ID, REF_ID, PROPERTY_1, PROPERTY_2, PROPERTY_3, PROPERTY_4, PROPERTY_5, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -241,6 +242,19 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		
 		jdbcTemplate.update(sql.toString(), paramArr);
 	}
+	@Override
+	public void insertInitProgram(MasterDataBean masterDataBean) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" UPDATE MASTER_DATA set VALUE = ? WHERE KEYCODE = ? AND GROUP_KEY = 'INIT_PROJECT'");
+		
+		param.add(masterDataBean.getValue());
+		param.add(masterDataBean.getKeyCode());
+		Object[] paramArr = param.toArray();
+		
+		jdbcTemplate.update(sql.toString(), paramArr);
+	}
+
 
 	@Override
 	public String findProperty(String code) {

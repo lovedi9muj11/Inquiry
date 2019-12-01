@@ -7,7 +7,10 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+
+import th.co.maximus.auth.model.UserProfile;
 
 @Repository("ReciptNoGenCode")
 public class ReciptNoGenCode {
@@ -15,12 +18,12 @@ public class ReciptNoGenCode {
 	private JdbcTemplate jdbcTemplate;
 	@Value("${text.prefix}")
 	private String nameCode;
-	@Value("${text.posno}")
-	private String posNo;
-	@Value("${text.branarea}")
-	private String branArea;
+
 	
 	public String genCodeRecipt(String docType) {
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 String posNo = profile.getPos();
+		 String branArea = profile.getBranchArea();
 		StringBuilder sql = new StringBuilder();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd", new Locale("en", "US" ));
 		String date = sdf.format(new Date());

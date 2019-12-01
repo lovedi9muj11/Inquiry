@@ -19,14 +19,17 @@ import th.co.maximus.auth.model.Role;
 import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.auth.repository.UserRepository;
+import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDataDao;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
     @Autowired private UserRepository userRepository;
-    
-	@Value("${text.posno}")
-	private String posNo;
+    @Autowired private MasterDataDao masterDataDao;
+//	@Value("${text.posno}")
+//	private String posNo;
 	
     @Override
     @Transactional(readOnly = true)
@@ -39,7 +42,28 @@ public class UserDetailsServiceImpl implements UserDetailsService{
                 authorities.add(new SimpleGrantedAuthority(role.getName()));
             }
             UserProfile myUserDetails = new UserProfile(user.getUsername(), user.getPassword(), authorities);
-            myUserDetails.setPos(posNo);
+            List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
+            for (MasterDataBean masterDataBean : resultList) {
+				if(masterDataBean.getValue().equals("POS")) {
+					   myUserDetails.setPos(masterDataBean.getText());
+				}
+				if(masterDataBean.getValue().equals("POS_NAME")) {
+					   myUserDetails.setPosName(masterDataBean.getText());
+				}
+				if(masterDataBean.getValue().equals("BRANCH_AREA")) {
+					   myUserDetails.setBranchArea(masterDataBean.getText());
+				}
+				if(masterDataBean.getValue().equals("BRANCH_CODE")) {
+					   myUserDetails.setBranchCode(masterDataBean.getText());
+				}
+				if(masterDataBean.getValue().equals("TAX_ID_CAT")) {
+					   myUserDetails.setTaxIdCat(masterDataBean.getText());
+				}
+				if(masterDataBean.getValue().equals("COST_CENTER")) {
+					   myUserDetails.setCostCenter(masterDataBean.getText());
+				}
+			}
+         
             myUserDetails.setRoles(user.getRoles());
             myUserDetails.setLoginFlag(user.getLoginFlag());
             return myUserDetails;

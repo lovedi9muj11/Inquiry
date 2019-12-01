@@ -13,6 +13,11 @@ public class UserProfile extends User {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String pos;
+	private String posName;
+	private String branchArea;
+	private String branchCode;
+	private String taxIdCat;
+	private String costCenter;
 	private List<Role> roles;
 	private String loginFlag;
 	public UserProfile(String username, String password, boolean enabled, boolean accountNonExpired,
@@ -42,6 +47,36 @@ public class UserProfile extends User {
 	}
 	public void setLoginFlag(String loginFlag) {
 		this.loginFlag = loginFlag;
+	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
+	public String getBranchArea() {
+		return branchArea;
+	}
+	public void setBranchArea(String branchArea) {
+		this.branchArea = branchArea;
+	}
+	public String getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+	public String getTaxIdCat() {
+		return taxIdCat;
+	}
+	public void setTaxIdCat(String taxIdCat) {
+		this.taxIdCat = taxIdCat;
+	}
+	public String getCostCenter() {
+		return costCenter;
+	}
+	public void setCostCenter(String costCenter) {
+		this.costCenter = costCenter;
 	}
 	
 }

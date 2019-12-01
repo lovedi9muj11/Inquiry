@@ -11,6 +11,8 @@ public class Constants {
 	public static final Locale localeEN = new Locale("en", "EN");
 	public static final String SUCCESS = "SUCCESS";
 	
+	public static final String INIT_PROJECT = "INIT_PROJECT";
+	
 	/** The Constant BLANK. */
 	public static final String BLANK = "";
 	

@@ -37,6 +37,7 @@ import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.HistoryPaymentService;
+import th.co.maximus.util.GetMacAddress;
 
 @Controller
 public class HistroryPaymentController {
@@ -220,9 +221,8 @@ public class HistroryPaymentController {
 	public HashMap<String, Object> cancelPaymentOnline() throws Exception {
 		HashMap<String, Object> result = new HashMap<>();
 		List<PaymentMMapPaymentInvBean> list = new ArrayList<>();
-		List<PaymentDTO> dtoList = new ArrayList<>();
 		list = cancelPaymentService.findAllCancelPayments("N");
-		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
+		String mac = GetMacAddress.getMACAddress();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(list);
 		try {
@@ -232,6 +232,8 @@ public class HistroryPaymentController {
 
 					for (PaymentMMapPaymentInvBean payment : list) {
 						if (offlineResultModel.getManualId() == payment.getManualId()) {
+							List<PaymentDTO> dtoList = new ArrayList<>();
+							CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 							PaymentDTO manualDTO = new PaymentDTO();
 
 							manualDTO.setAccountNo(payment.getAccountNo());
@@ -258,28 +260,29 @@ public class HistroryPaymentController {
 							dtoList.add(manualDTO);
 
 							cancelDTO = dtoCancel(payment);
+							if (dtoList.size() > 0) {
+//								cancelPaymentDTO.set
+//								cancelOfflineDTO.setManualDTO(dtoList);
+
+//								cancelOfflineDTO.setUserLogin(userLogin);
+//								cancelOfflineDTO.setUserName(userName);
+								// หักล้าง
+								postUrl = url
+										.concat("/offlineCancel/paymentManualCancelOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+//								restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
+//								ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
+								restTemplate.postForEntity(postUrl, dtoList, String.class);
+								// ยกเลิก
+								postUrl = url
+										.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+//								ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+								restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+								clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
+
+							}
 						}
 					}
-					if (dtoList.size() > 0) {
-//						cancelPaymentDTO.set
-//						cancelOfflineDTO.setManualDTO(dtoList);
-
-//						cancelOfflineDTO.setUserLogin(userLogin);
-//						cancelOfflineDTO.setUserName(userName);
-						// หักล้าง
-						postUrl = url
-								.concat("/offlineCancel/paymentManualCancelOnline.json?ap=SSO&un=backofficer01&pw=password");
-//						restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
-//						ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
-						restTemplate.postForEntity(postUrl, dtoList, String.class);
-						// ยกเลิก
-						postUrl = url
-								.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=SSO&un=backofficer01&pw=password");
-//						ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-						restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-						clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
-
-					}
+					
 
 				} else {
 					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "N");

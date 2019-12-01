@@ -15,22 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import th.co.maximus.auth.config.ConfigureQuartz;
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.model.OfflineResultModel;
 import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.service.CallEpisOnlineService;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
+import th.co.maximus.util.GetMacAddress;
 
 @Component
 @DisallowConcurrentExecution
@@ -47,14 +49,13 @@ public class OfflineBatch implements Job {
 
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
+    @Autowired private MasterDataDao masterDataDao;
 
 	@Value("${url.online}")
 	private String url;
 	
-	@Value("${text.posno}")
 	private  String posNo;
 	
-	@Value("${text.branCode}")
 	private  String branCode;
 
 	RestTemplate restTemplate;
@@ -62,7 +63,17 @@ public class OfflineBatch implements Job {
 	public OfflineBatch() {
 		restTemplate = new RestTemplate();
 	}
-
+	public void init() {
+		 List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
+        for (MasterDataBean masterDataBean : resultList) {
+			if(masterDataBean.getValue().equals("POS")) {
+				posNo = masterDataBean.getText();
+			}
+			if(masterDataBean.getValue().equals("BRANCH_CODE")) {
+				branCode = masterDataBean.getText();
+			}
+		}
+	}
 	private static final Logger log = Logger.getLogger(OfflineBatch.class.getName());
 
 	SimpleDateFormat format = new SimpleDateFormat(
@@ -139,7 +150,8 @@ public class OfflineBatch implements Job {
 
 	public void saveBatch() throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		List<PaymentDTO> dtoList = new ArrayList<>();
+		init();
+		String mac = GetMacAddress.getMACAddress();
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		if (result != null) {
@@ -152,6 +164,7 @@ public class OfflineBatch implements Job {
 						for (PaymentMMapPaymentInvBean payment : result) {
 							if (offlineResultModel.getManualId() == payment
 									.getManualId()) {
+								List<PaymentDTO> dtoList = new ArrayList<>();
 								PaymentDTO manualDTO = new PaymentDTO();
 
 								manualDTO.setAccountNo(payment.getAccountNo());
@@ -175,23 +188,24 @@ public class OfflineBatch implements Job {
 								manualDTO.setPosNo(posNo);
 								manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
 								dtoList.add(manualDTO);
+								if (dtoList.size() > 0) {
+									
+									String postUrl = url.concat("/paymentManualServiceOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+									restTemplate.postForEntity(postUrl, dtoList,String.class);
+//									for (OfflineResultModel payment : resultClear) {
+										if ("SUCCESS".equals(offlineResultModel.getStatus())) {
+											clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
+													Constants.CLEARING.STATUS_Y);
+										} else {
+											clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
+													Constants.CLEARING.STATUS_ERROR);
+										}
+//									}
 
-							}
-						}
-						if (dtoList.size() > 0) {
-							String postUrl = url.concat("/paymentManualServiceOnline.json?ap=SSO&un=backofficer01&pw=password");
-							restTemplate.postForEntity(postUrl, dtoList,String.class);
-							for (OfflineResultModel payment : resultClear) {
-								if ("SUCCESS".equals(payment.getStatus())) {
-									clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
-											Constants.CLEARING.STATUS_Y);
-								} else {
-									clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
-											Constants.CLEARING.STATUS_ERROR);
 								}
 							}
-
 						}
+						
 
 					} 
 				} catch (Exception e) {

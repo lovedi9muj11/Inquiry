@@ -47,8 +47,7 @@ import th.co.maximus.service.MasterDataService;
 @Service("paymentReportPdf")
 public class PaymentReportPdf {
 	
-	@Value("${text.posno}")
-	private String posNo;
+
 	
 	Locale TH = new Locale("th", "TH");
 	SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss", TH);
@@ -61,6 +60,7 @@ public class PaymentReportPdf {
 		List<ReportPaymentBean> resultSources = new ArrayList<ReportPaymentBean>();
 		List<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
 		// DecimalFormat df2 = new DecimalFormat("#0.00");
+		
 		double sumAllTotal = 0.00;
 		double sumAllTotalUser = 0.00;
 		double sumAllTotalNoVat = 0.00;
@@ -287,7 +287,7 @@ public class PaymentReportPdf {
 								
 								parameters = new HashMap<String, Object>();
 								parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-								parameters.put("posNo", posNo);
+								parameters.put("posNo", profile.getPos());
 								parameters.put("accountCode", "accountCode");
 								parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 								parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -360,7 +360,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-							parameters.put("posNo", posNo);
+							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 							parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -436,7 +436,7 @@ public class PaymentReportPdf {
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-						parameters.put("posNo", posNo);
+						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -518,7 +518,7 @@ public class PaymentReportPdf {
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-						parameters.put("posNo", posNo);
+						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -722,7 +722,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-							parameters.put("posNo", posNo);
+							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 							parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -788,7 +788,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-							parameters.put("posNo", posNo);
+							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 							parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -969,7 +969,7 @@ public class PaymentReportPdf {
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-						parameters.put("posNo", posNo);
+						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
@@ -1031,7 +1031,7 @@ public class PaymentReportPdf {
 					if(i==(resultSource.size()-1)) {
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-						parameters.put("posNo", posNo);
+						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
 						parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));

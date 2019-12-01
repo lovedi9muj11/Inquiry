@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
@@ -43,12 +45,11 @@ public class PayOtherController {
 	
 	@Autowired
 	MasterDatasDao masterDatasDao;
-	@Value("${text.branarea}")
-	private String costcenter;
 	
 
 	@RequestMapping(value = { "/payOther" }, method = RequestMethod.GET)
 	public String payOther(Model model) {
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<MasterDataBean> bankCodeList = new ArrayList<>();
 		List<MasterDataBean> bankNameList = new ArrayList<>();
 		List<MasterDataBean> categoryList = new ArrayList<>();
@@ -71,7 +72,7 @@ public class PayOtherController {
 		model.addAttribute("serviceType", serviceTypeList);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
-		model.addAttribute("costcenter", costcenter);
+		model.addAttribute("costcenter", profile.getCostCenter());
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("custSegment", custSegment);
 		return "payOther";

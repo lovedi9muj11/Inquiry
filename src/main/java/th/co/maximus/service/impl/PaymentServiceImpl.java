@@ -37,10 +37,6 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	@Value("${text.prefix}")
 	private String nameCode;
-	@Value("${text.posno}")
-	private String posNo;
-	@Value("${text.branarea}")
-	private String branArea;
 	
 	@Override
 	public int insert(PaymentFirstBean paymentBean) {

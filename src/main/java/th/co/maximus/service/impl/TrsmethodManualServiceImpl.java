@@ -172,7 +172,7 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 				
 				if(idTrsMethod >0){
 					deductionManualBean.setDeDuctionNo(paymentTaxBean.getDocDed());
-					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed());
+					deductionManualBean.setDeDuctionType(paymentTaxBean.getRadioDed().trim());
 					deductionManualBean.setaMount(paymentTaxBean.getMoneyDed() *-1);
 					deductionManualBean.setPaymentDate(new Timestamp(date.getTime()));
 					deductionManualBean.setUpdateDttm(new Timestamp(date.getTime()));

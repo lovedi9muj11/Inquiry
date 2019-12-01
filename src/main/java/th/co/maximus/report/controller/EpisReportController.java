@@ -104,18 +104,6 @@ public class EpisReportController {
 	@Value("${text.prefix}")
 	private String nameCode;
 	
-	@Value("${text.posno}")
-	private String posNo;
-	
-	@Value("${text.branarea}")
-	private String branArea;
-	
-	@Value("${text.branCode}")
-	private String branCode;
-	
-	@Value("${text.taxid.cat}")
-	private String taxidCat;
-
 	@Autowired
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
@@ -178,11 +166,11 @@ public class EpisReportController {
 			}
 		}
 
-		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(profile.getBranchArea());
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		// UserDto resultUser = userService.findByUsername(profile.getUsername());
 		exportPDFReport.setBranArea(valueBean.getValue());
-		exportPDFReport.setBracnCode(" " + branCode + " ");
+		exportPDFReport.setBracnCode(" " + profile.getBranchCode() + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
 		exportPDFReport.setDocumentNo(invObject.getDocumentNo());
@@ -923,6 +911,7 @@ public class EpisReportController {
 //	}
 	
 	private void previewPaymentPrintOrder(HttpServletRequest request, HttpServletResponse response, List<InvPaymentOrderTaxBean> collections, final String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<InvPaymentOrderTaxBean> printCollections = new ArrayList<InvPaymentOrderTaxBean>();
 		InvPaymentOrderTaxBean invObject = (InvPaymentOrderTaxBean) collections.get(0);
 		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
@@ -955,13 +944,13 @@ public class EpisReportController {
 			endDate = res[2] + "/" + res[1] + "/" + res[0];
 		}
 
-		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(profile.getBranchArea());
 		exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
 		exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
 		exportPDFReport.setPrintDate(dateDocument);
 		exportPDFReport.setBranchArea(valueBean.getValue());
-		exportPDFReport.setInvoiceNo(taxidCat);
-		exportPDFReport.setBranchCodeEmp(branCode);
+		exportPDFReport.setInvoiceNo(profile.getTaxIdCat());
+		exportPDFReport.setBranchCodeEmp(profile.getBranchCode());
 		exportPDFReport.setEmpSummaryName(invObject.getEmpName());
 
 		BigDecimal summaryBeforeVt = new BigDecimal(0);
@@ -1131,8 +1120,8 @@ public class EpisReportController {
 					exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
 					exportPDFReport.setPrintDate(dateDocument);
 					exportPDFReport.setBranchArea(valueBean.getValue());
-					exportPDFReport.setInvoiceNo(taxidCat);
-					exportPDFReport.setBranchCodeEmp(branCode);
+					exportPDFReport.setInvoiceNo(profile.getTaxIdCat());
+					exportPDFReport.setBranchCodeEmp(profile.getBranchCode());
 					exportPDFReport.setEmpSummaryName(invObject.getEmpName());
 					vatRate = collections.get(i).getVatRate()+"";
 					
@@ -1281,7 +1270,7 @@ public class EpisReportController {
 	}
 	
 	public void printReportTaxRS(HttpServletRequest request, HttpServletResponse response, ReportTaxRSBean responeData, String JASPER_JRXML_FILENAME, HistoryReportBean creteria) throws Exception {
-
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		InvPaymentOrderTaxBean exportPDFReport = new InvPaymentOrderTaxBean();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<JasperPrint> jasperPrints = new ArrayList<JasperPrint>();
@@ -1307,13 +1296,13 @@ public class EpisReportController {
 			endDate = res[2] + "/" + res[1] + "/" + res[0];
 		}
 
-		MasterDatasBean valueBean = masterDataService.findByKeyCode(branArea);
+		MasterDatasBean valueBean = masterDataService.findByKeyCode(profile.getBranchArea());
 		exportPDFReport.setDateForm(fomeDate + " " + creteria.getDateFromHour() + ":" + creteria.getDateFromMinute());
 		exportPDFReport.setDateTo(endDate + " " + creteria.getDateToHour() + ":" + creteria.getDateToMinute());
 		exportPDFReport.setPrintDate(dateDocument);
 		exportPDFReport.setBranchArea(valueBean.getValue());
-		exportPDFReport.setInvoiceNo(taxidCat);
-		exportPDFReport.setBranchCodeEmp(branCode);
+		exportPDFReport.setInvoiceNo(profile.getTaxIdCat());
+		exportPDFReport.setBranchCodeEmp(profile.getBranchCode());
 
 //		BigDecimal summaryBeforeVt = new BigDecimal(0);
 //		BigDecimal vatSummary = new BigDecimal(0);
