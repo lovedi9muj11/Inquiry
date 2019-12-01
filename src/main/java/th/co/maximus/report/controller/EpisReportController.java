@@ -1592,9 +1592,9 @@ public class EpisReportController {
 		if(CollectionUtils.isNotEmpty(responeData.getReportTaxRSBeanList())) {
 			exportPDFReport.setVatRate(responeData.getVatRateStr());
 			exportPDFReport.setQuantitySummery(responeData.getQuantitySummery());
-			exportPDFReport.setBeforeVatSummaryStr(responeData.getBeforVatSummery());
-			exportPDFReport.setVatSummaryStr(responeData.getVatSummery());
-			exportPDFReport.setSummarySummaryStr(responeData.getAfterVatSummery());
+			exportPDFReport.setBeforeVatSummary(responeData.getBeforVatSummery());
+			exportPDFReport.setVatSummary(responeData.getVatSummery());
+			exportPDFReport.setSummarySummary(responeData.getAfterVatSummery());
 			parameters.put("ReportSource", exportPDFReport);
 
 			response.setContentType("application/pdf");

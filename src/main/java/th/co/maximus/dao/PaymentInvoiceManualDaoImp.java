@@ -71,8 +71,11 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
 			paymentManual.setRecordStatus(rs.getString("RECORD_STATUS"));
 			paymentManual.setBeforVat(rs.getBigDecimal("BEFOR_VAT"));
+			paymentManual.setBeforVatOther(rs.getBigDecimal("paument_inv.BEFOR_VAT"));
 			paymentManual.setAmount(rs.getBigDecimal("AMOUNT"));
+			paymentManual.setAmountOther(rs.getBigDecimal("paument_inv.AMOUNT"));
 			paymentManual.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
+			paymentManual.setVatAmountOther(rs.getBigDecimal("paument_inv.VAT_AMOUNT"));
 			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
 			paymentManual.setPeriod(rs.getString("PERIOD"));
 			paymentManual.setPayType((rs.getString("PAY_TYPE")));
@@ -218,7 +221,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		// }
 		sql.append(" AND payment_m.CREATE_DATE >= '"+dateFM.format(new Date())+" 00:00:00' ");
 		
-		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC ");
+		if(chkCancel) {
+			sql.append(" GROUP by payment_m.MANUAL_ID ");
+		}
+		sql.append(" ORDER BY payment_m.CREATE_DATE DESC ");
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}

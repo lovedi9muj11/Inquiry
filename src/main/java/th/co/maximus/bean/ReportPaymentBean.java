@@ -17,8 +17,11 @@ public class ReportPaymentBean {
 	private Timestamp createDate;
 	private String noRefer;
 	private BigDecimal beforVat;
+	private BigDecimal beforVatOther;
 	private BigDecimal amount;
+	private BigDecimal amountOther;
 	private BigDecimal vatAmount;
+	private BigDecimal vatAmountOther;
 	private String status;
 	private String statusStr;
 
@@ -268,6 +271,30 @@ public class ReportPaymentBean {
 
 	public void setReportPaymentBean(List<ReportPaymentBean> reportPaymentBean) {
 		this.reportPaymentBean = reportPaymentBean;
+	}
+
+	public BigDecimal getBeforVatOther() {
+		return beforVatOther;
+	}
+
+	public void setBeforVatOther(BigDecimal beforVatOther) {
+		this.beforVatOther = beforVatOther;
+	}
+
+	public BigDecimal getAmountOther() {
+		return amountOther;
+	}
+
+	public void setAmountOther(BigDecimal amountOther) {
+		this.amountOther = amountOther;
+	}
+
+	public BigDecimal getVatAmountOther() {
+		return vatAmountOther;
+	}
+
+	public void setVatAmountOther(BigDecimal vatAmountOther) {
+		this.vatAmountOther = vatAmountOther;
 	}
 
 }

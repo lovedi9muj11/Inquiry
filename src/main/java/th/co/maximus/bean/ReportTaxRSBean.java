@@ -26,9 +26,13 @@ public class ReportTaxRSBean {
 	private String numberRun;
 	private String createBy;
 	
-	private String beforVatSummery;
-	private String vatSummery;
-	private String afterVatSummery;
+	private BigDecimal beforVatSummery;
+	private BigDecimal vatSummery;
+	private BigDecimal afterVatSummery;
+	
+	private String beforVatSummeryStr;
+	private String vatSummeryStr;
+	private String afterVatSummeryStr;
 	
 	private String from;
 	private String to;
@@ -195,23 +199,41 @@ public class ReportTaxRSBean {
 	public void setReportTaxRSBeanList(List<ReportTaxRSBean> reportTaxRSBeanList) {
 		this.reportTaxRSBeanList = reportTaxRSBeanList;
 	}
-	public String getBeforVatSummery() {
+	public BigDecimal getBeforVatSummery() {
 		return beforVatSummery;
 	}
-	public void setBeforVatSummery(String beforVatSummery) {
+	public void setBeforVatSummery(BigDecimal beforVatSummery) {
 		this.beforVatSummery = beforVatSummery;
 	}
-	public String getVatSummery() {
+	public BigDecimal getVatSummery() {
 		return vatSummery;
 	}
-	public void setVatSummery(String vatSummery) {
+	public void setVatSummery(BigDecimal vatSummery) {
 		this.vatSummery = vatSummery;
 	}
-	public String getAfterVatSummery() {
+	public BigDecimal getAfterVatSummery() {
 		return afterVatSummery;
 	}
-	public void setAfterVatSummery(String afterVatSummery) {
+	public void setAfterVatSummery(BigDecimal afterVatSummery) {
 		this.afterVatSummery = afterVatSummery;
+	}
+	public String getBeforVatSummeryStr() {
+		return beforVatSummeryStr;
+	}
+	public void setBeforVatSummeryStr(String beforVatSummeryStr) {
+		this.beforVatSummeryStr = beforVatSummeryStr;
+	}
+	public String getVatSummeryStr() {
+		return vatSummeryStr;
+	}
+	public void setVatSummeryStr(String vatSummeryStr) {
+		this.vatSummeryStr = vatSummeryStr;
+	}
+	public String getAfterVatSummeryStr() {
+		return afterVatSummeryStr;
+	}
+	public void setAfterVatSummeryStr(String afterVatSummeryStr) {
+		this.afterVatSummeryStr = afterVatSummeryStr;
 	}
 	
 }
