@@ -167,7 +167,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 
 	@Override
 	public void deleteBeforInsertMS() {
-		String del = "delete from MASTER_DATA where GROUP_KEY <> '"+Constants.MasterData.TRIGGER_GOUP+"' and GROUP_KEY <> '"+Constants.MasterData.BANK_TYPE_EDC+"' and GROUP_KEY <> '"+Constants.MasterData.USER_GROUP+"' ";
+		String del = "delete from MASTER_DATA where GROUP_KEY <> '"+Constants.MasterData.TRIGGER_GOUP+"' and GROUP_KEY <> '"+Constants.MasterData.BANK_TYPE_EDC+"' and GROUP_KEY <> '"+Constants.MasterData.USER_GROUP +"' and GROUP_KEY <> '"+Constants.INIT_PROJECT+"'";
 		jdbcTemplate.update(del);
 	}
 	

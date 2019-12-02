@@ -1,10 +1,20 @@
 package th.co.maximus.batch;
 
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
@@ -15,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
@@ -57,11 +69,22 @@ public class OfflineBatch implements Job {
 	private  String posNo;
 	
 	private  String branCode;
-
+	
+	private final SSLContext sslContext;
+	private final SSLConnectionSocketFactory csf;
+	private final HttpComponentsClientHttpRequestFactory requestFactory;
 	RestTemplate restTemplate;
 
-	public OfflineBatch() {
-		restTemplate = new RestTemplate();
+	public OfflineBatch() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+		csf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
+			@Override
+			public boolean verify(String hostname, SSLSession session) {
+				return true;
+			}
+		});
+		requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.custom().setSSLSocketFactory(csf).build());
+		restTemplate = new RestTemplate(requestFactory);
 	}
 	public void init() {
 		 List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
@@ -84,7 +107,8 @@ public class OfflineBatch implements Job {
 		try {
 			if (Constants.BATCH.JOB_1.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_1");
-				 callEpisOnlineService.callOnlineSyncMasterData();
+				callEpisOnlineService.callOnlineSyncMasterData();
+				callEpisOnlineService.callOnline();
 			} else if (Constants.BATCH.JOB_2.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_2");
 				 callEpisOnlineService.callOnlineSyncMapGL();
@@ -96,7 +120,7 @@ public class OfflineBatch implements Job {
 				saveBatch();
 			} else if (Constants.BATCH.JOB_5.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_5");
-				clearingPaymentEpisOfflineService.clearingCencelPayment();
+//				clearingPaymentEpisOfflineService.clearingCencelPayment();
 			}
 		} catch (Exception e) {
 			log.error("Encountered job execution exception!", e);
@@ -190,9 +214,10 @@ public class OfflineBatch implements Job {
 								dtoList.add(manualDTO);
 								if (dtoList.size() > 0) {
 									
-									String postUrl = url.concat("/paymentManualServiceOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
-									restTemplate.postForEntity(postUrl, dtoList,String.class);
+									String postUrl = url.concat("/paymentManualServiceOnline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
+									ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList,String.class);
 //									for (OfflineResultModel payment : resultClear) {
+									System.out.println(clearing);
 										if ("SUCCESS".equals(offlineResultModel.getStatus())) {
 											clearingPaymentEpisOfflineService.updateStatusClearing(payment.getManualId(),
 													Constants.CLEARING.STATUS_Y);

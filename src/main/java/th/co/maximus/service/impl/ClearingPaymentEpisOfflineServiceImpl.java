@@ -1,6 +1,9 @@
 package th.co.maximus.service.impl;
 
 import java.math.BigDecimal;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,10 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,7 +62,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	private String posNo;
 	
 	private  String branCode;
-
+	private final SSLContext sslContext;
+	private final SSLConnectionSocketFactory csf;
+	private final HttpComponentsClientHttpRequestFactory requestFactory;
 	RestTemplate restTemplate;
 	
 	@Autowired private MasterDataDao masterDataDao;
@@ -81,9 +94,16 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
-	public ClearingPaymentEpisOfflineServiceImpl() {
-
-		restTemplate = new RestTemplate();
+	public ClearingPaymentEpisOfflineServiceImpl() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+		csf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
+			@Override
+			public boolean verify(String hostname, SSLSession session) {
+				return true;
+			}
+		});
+		requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.custom().setSSLSocketFactory(csf).build());
+		restTemplate = new RestTemplate(requestFactory);
 	}
 	
 	public void init() {
@@ -329,12 +349,12 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 							cancelDTO = dtoCancel(payment);
 							if (dtoList.size() > 0) {
-								postUrl = url.concat("/paymentManualServiceOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+								postUrl = url.concat("/paymentManualServiceOnline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
 								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
 
 								System.out.println(resultA);
 								postUrl = url.concat(
-										"/cancelPaymentProduct2Offline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+										"/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
 								resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 								System.out.println(resultB);
 								updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
