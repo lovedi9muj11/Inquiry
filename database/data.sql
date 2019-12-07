@@ -278,4 +278,10 @@ INSERT INTO `master_data` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATU
 	(236, '1305', 'สำนักงานบริการลูกค้า กสท มุกดาหาร', 'BUSINESS_AREA', 'null', 'Y', 'null', 'null', 'null', '01174', '1J30142', 'null', 'null', 'null', NULL, 'EPIS0', '2018-11-25 00:00:00.000000', 'EPIS0', '2018-11-25 00:00:00.000000', NULL),
 	(237,'1','ธนาคารกรุงไทย','EDC_CREDIT_CARD_BANK','null','Y','null','null','null','KTB','null','null','null','null',NULL,'EPIS0','2019-05-12 00:00:00.000','EPIS0','2019-05-12 00:00:00.000',NULL),
 	(238,'2','ธนาคารกรุงเทพ','EDC_CREDIT_CARD_BANK','null','Y','null','null','null','BBL','null','null','null','null',NULL,'EPIS0','2019-05-12 00:00:00.000','EPIS0','2019-05-12 00:00:00.000',NULL),
-	(239,'3','ธนาคารกรุงศรีอยุธยา','EDC_CREDIT_CARD_BANK','null','Y','null','null','null','BAY','null','null','null','null',NULL,'EPIS0','2019-05-12 00:00:00.000','EPIS0','2019-05-12 00:00:00.000',NULL);
+	(239,'3','ธนาคารกรุงศรีอยุธยา','EDC_CREDIT_CARD_BANK','null','Y','null','null','null','BAY','null','null','null','null',NULL,'EPIS0','2019-05-12 00:00:00.000','EPIS0','2019-05-12 00:00:00.000',NULL),
+	(240, 'POS', '01', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(241, 'POS_NAME', 'NON-POS01', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(242, 'BRANCH_AREA', '1704', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(243, 'BRANCH_CODE', '01335', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(244, 'TAX_ID_CAT', '0107546000229', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(245, 'COST_CENTER', '1J60414', 'INIT_PROJECT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

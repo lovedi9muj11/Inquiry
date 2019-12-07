@@ -28,16 +28,17 @@ public class PaymentDTO {
 	private String recordStatus;
 	private String accountNo;
 	private Long ManualId;
-	
-	//offline
+
+	// offline
 	private String branchName;
+	private String branchAreaCode;
 	private String userName;
 	private String posNo;
 	private Long officerId;
 	private String userLogin;
 	private String posId;
+	private String vatRate;
 	private String paidDateStr;
-	private String branchAreaCode;
 	
 	
 	
@@ -159,9 +160,11 @@ public class PaymentDTO {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getCreateDate() {
 		return createDate;
-	}
+	}	
+	@JsonDeserialize(using = CustomDateDeserializer.class)
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
@@ -171,9 +174,11 @@ public class PaymentDTO {
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
+	@JsonDeserialize(using = CustomDateDeserializer.class)
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}

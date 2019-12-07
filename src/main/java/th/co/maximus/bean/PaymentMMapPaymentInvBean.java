@@ -23,7 +23,7 @@ public class PaymentMMapPaymentInvBean {
 	private String clearing;
 	private String remark;
 	private String createBy;
-	private Timestamp createDate;
+	private Date createDate;
 	private String recordStatus;
 	private BigDecimal beforVat;
 	private BigDecimal beforVatOther;
@@ -219,12 +219,12 @@ public class PaymentMMapPaymentInvBean {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-
-	public Timestamp getCreateDate() {
+	@JsonSerialize(using = CustomDateSerializer.class)
+	public Date getCreateDate() {
 		return createDate;
 	}
-
-	public void setCreateDate(Timestamp createDate) {
+	@JsonDeserialize(using = CustomDateDeserializer.class)
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

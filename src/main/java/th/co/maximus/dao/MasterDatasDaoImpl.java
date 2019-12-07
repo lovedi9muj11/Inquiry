@@ -109,7 +109,7 @@ public class MasterDatasDaoImpl implements MasterDatasDao {
 		String groupKey = "";
 		
 		if(Constants.MasterData.IBACSS.equals(type)) {
-			groupKey = Constants.MasterData.IBACSS_CANCEL_REASON;
+			groupKey = Constants.MasterData.IBACSS_WOIBACSS_CANCEL_REASON;
 		}else {
 			groupKey = Constants.MasterData.OTHER_CANCEL_REASON;
 		}

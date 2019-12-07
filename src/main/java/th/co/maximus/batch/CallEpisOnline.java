@@ -28,7 +28,7 @@ public class CallEpisOnline {
 	@RequestMapping(value = "/syncMasterData", method = RequestMethod.GET, produces = "application/json")
 	public Map<String, String> callOnlineSyncMasterData() {
 		try {
-//			callEpisOnlineService.callOnlineSyncMasterData();
+			callEpisOnlineService.callOnlineSyncMasterData();
 			callEpisOnlineService.callOnline();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,10 +1,21 @@
 package th.co.maximus.controller;
 
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +33,21 @@ public class ClearingPaymentEpisOffline {
 	@Value("${url.online}")
 	private String url;
 
+	private final SSLContext sslContext;
+	private final SSLConnectionSocketFactory csf;
+	private final HttpComponentsClientHttpRequestFactory requestFactory;
 	RestTemplate restTemplate;
 
-	public ClearingPaymentEpisOffline() {
-		restTemplate = new RestTemplate();
+	public ClearingPaymentEpisOffline() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+		csf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
+			@Override
+			public boolean verify(String hostname, SSLSession session) {
+				return true;
+			}
+		});
+		requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.custom().setSSLSocketFactory(csf).build());
+		restTemplate = new RestTemplate(requestFactory);
 	}
 
 	@Autowired

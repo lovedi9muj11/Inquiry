@@ -2,15 +2,26 @@ package th.co.maximus.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 
+import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,12 +54,22 @@ import th.co.maximus.util.GetMacAddress;
 public class HistroryPaymentController {
 	@Value("${url.online}")
 	private String url;
-
+	private final SSLContext sslContext;
+	private final SSLConnectionSocketFactory csf;
+	private final HttpComponentsClientHttpRequestFactory requestFactory;
 //	
 	RestTemplate restTemplate;
 
-	public HistroryPaymentController() {
-		restTemplate = new RestTemplate();
+	public HistroryPaymentController() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+		csf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
+			@Override
+			public boolean verify(String hostname, SSLSession session) {
+				return true;
+			}
+		});
+		requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.custom().setSSLSocketFactory(csf).build());
+		restTemplate = new RestTemplate(requestFactory);
 	}
 
 	@Autowired
@@ -268,13 +289,13 @@ public class HistroryPaymentController {
 //								cancelOfflineDTO.setUserName(userName);
 								// หักล้าง
 								postUrl = url
-										.concat("/offlineCancel/paymentManualCancelOnline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+										.concat("/offlineCancel/paymentManualCancelOnline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
 //								restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("EPIS5", "password"));
 //								ResponseEntity<String> clearing = restTemplate.postForEntity(postUrl, dtoList, String.class);
 								restTemplate.postForEntity(postUrl, dtoList, String.class);
 								// ยกเลิก
 								postUrl = url
-										.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=QUEUE&un="+ payment.getCreateBy()+"&mac="+mac);
+										.concat("/offlineCancel/cancelPaymentProductOffline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
 //								ResponseEntity<String> cancel = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 								restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 								clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
@@ -318,9 +339,9 @@ public class HistroryPaymentController {
 	@ResponseBody
 	public ResponseEntity<String> test() throws Exception {
 
-		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("backofficer01", "password"));
+//		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("backofficer01", "password"));
 		ResponseEntity<String> clearing = restTemplate.getForEntity(
-				"http://localhost:8080/EpisWeb/findPosDetailById.json?ap=SSO&un=backofficer01&pw=password", String.class);
+				"https://epis.cattelecom.com:8081/EpisWeb/findPosDetailById.json?ap=SSO&un=backofficer01&pw=password", String.class);
 		return clearing;
 	}
 	// http://localhost:8080/EpisWeb/findPosDetailById.json
