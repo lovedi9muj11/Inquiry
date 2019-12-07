@@ -44,6 +44,7 @@ import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.service.CallEpisOnlineService;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
+import th.co.maximus.service.MinusOnlineService;
 import th.co.maximus.util.GetMacAddress;
 
 @Component
@@ -62,6 +63,8 @@ public class OfflineBatch implements Job {
 	@Autowired
 	private ClearingPaymentEpisOfflineService clearingPaymentEpisOfflineService;
     @Autowired private MasterDataDao masterDataDao;
+    
+    @Autowired MinusOnlineService minusOnlineService;
 
 	@Value("${url.online}")
 	private String url;
@@ -177,10 +180,13 @@ public class OfflineBatch implements Job {
 		init();
 		String mac = GetMacAddress.getMACAddress();
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		if (result != null) {
 			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
+			minusOnlineService.updateStatusForMinusOnline(result);
+			
 			for (OfflineResultModel offlineResultModel : resultClear) {
 				try {
 					if (offlineResultModel.getStatus().equals("SUCCESS")) {

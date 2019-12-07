@@ -9,20 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +48,7 @@ import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.HistoryPaymentService;
+import th.co.maximus.service.MinusOnlineService;
 import th.co.maximus.util.GetMacAddress;
 
 @Controller
@@ -86,6 +87,8 @@ public class HistroryPaymentController {
 
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
+	
+	@Autowired MinusOnlineService minusOnlineService;
 
 	@RequestMapping(value = { "/gotoHistroryPayment" }, method = RequestMethod.GET)
 	public String gotoHistroryPayment(Model model) {
@@ -217,22 +220,28 @@ public class HistroryPaymentController {
 	@ResponseBody
 	public HashMap<String, Object> clearing(@RequestBody List<PaymentMMapPaymentInvBean> creteria) throws Exception {
 		HashMap<String, Object> result = new HashMap<>();
-		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
-		try {
-
-			for (OfflineResultModel offlineResultModel : objMessage) {
-				if (offlineResultModel.getStatus().equals("SUCCESS")) {
-
-					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
-				} else {
-					clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "N");
+		
+		if(CollectionUtils.isNotEmpty(creteria)) {
+			List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
+			minusOnlineService.updateStatusForMinusOnline(creteria);
+			
+			try {
+	
+				for (OfflineResultModel offlineResultModel : objMessage) {
+					if (offlineResultModel.getStatus().equals("SUCCESS")) {
+	
+						clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "Y");
+					} else {
+						clearingPaymentEpisOfflineService.updateStatusClearing(offlineResultModel.getManualId(), "N");
+					}
 				}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			result.put("data", objMessage);
 		}
-		result.put("data", objMessage);
+		
 		return result;
 	}
 

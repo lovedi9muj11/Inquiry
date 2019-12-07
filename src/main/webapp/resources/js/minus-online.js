@@ -71,6 +71,8 @@ function createRow(data, seq) {
 	
 	if(clearing === "Y"){
 		clearing = "ส่งหักล้างแล้ว";
+	}else if(clearing === "W"){
+		clearing = "รอส่งหักล้าง";
 	}else{
 		clearing = "ยังไม่ส่งหักล้าง";
 	}

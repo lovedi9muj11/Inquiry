@@ -50,6 +50,7 @@ import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
+import th.co.maximus.service.MinusOnlineService;
 import th.co.maximus.service.TmpInvoiceService;
 import th.co.maximus.util.GetMacAddress;
 
@@ -91,6 +92,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Autowired
 	private TmpInvoiceService tmpInvoiceService;
+	
+	@Autowired MinusOnlineService minusOnlineService;
 
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
@@ -313,6 +316,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		init();
 		String mac = GetMacAddress.getMACAddress();
 		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
+		minusOnlineService.updateStatusForMinusOnline(list);
+		
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
