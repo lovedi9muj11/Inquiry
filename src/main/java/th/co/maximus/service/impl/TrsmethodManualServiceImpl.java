@@ -70,8 +70,8 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 //						trsMethodManualBean.setAmount(amount);
 					}else {
 						// แก้ไข เรื่องการ บันทึกเงืน  22/06/2019
-						trsMethodManualBean.setAmount(paymentBean.getBalanceSummary());
-//						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()- chage));
+//						trsMethodManualBean.setAmount(paymentBean.getBalanceSummary());
+						trsMethodManualBean.setAmount((paymentTranPriceBean.getMoneyTran()- chage));
 					}
 					trsMethodManualBean.setName("เงินสด");
 					
