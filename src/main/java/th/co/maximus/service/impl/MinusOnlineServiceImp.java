@@ -16,9 +16,9 @@ public class MinusOnlineServiceImp implements MinusOnlineService {
 
 	@Override
 	public void updateStatusForMinusOnline(List<PaymentMMapPaymentInvBean> creteria) throws Exception {
-		for(PaymentMMapPaymentInvBean invBean : creteria) {
-			minusOnlineDao.updateStatusForMinusOnline(invBean);
-		}
+//		for(PaymentMMapPaymentInvBean invBean : creteria) {
+//			minusOnlineDao.updateStatusForMinusOnline(invBean);
+//		}
 	}
 
 }
