@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -61,17 +62,16 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	private String url;
 
 	private String posNo;
-	
-	private  String branCode;
+
+	private String branCode;
 	private final SSLContext sslContext;
 	private final SSLConnectionSocketFactory csf;
 	private final HttpComponentsClientHttpRequestFactory requestFactory;
 	RestTemplate restTemplate;
-	
-	@Autowired private MasterDataDao masterDataDao;
 
+	@Autowired
+	private MasterDataDao masterDataDao;
 
-	
 	@Autowired
 	private PaymentManualDao paymentManualDao;
 
@@ -92,36 +92,39 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 
 	@Autowired
 	private TmpInvoiceService tmpInvoiceService;
-	
-	@Autowired MinusOnlineService minusOnlineService;
 
 	@Autowired
 	private CancelPaymentService cancelPaymentService;
-	public ClearingPaymentEpisOfflineServiceImpl() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
-		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+	
+	@Autowired MinusOnlineService minusOnlineService;
+
+	public ClearingPaymentEpisOfflineServiceImpl()
+			throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy())
+				.build();
 		csf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
 			@Override
 			public boolean verify(String hostname, SSLSession session) {
 				return true;
 			}
 		});
-		requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.custom().setSSLSocketFactory(csf).build());
+		requestFactory = new HttpComponentsClientHttpRequestFactory(
+				HttpClients.custom().setSSLSocketFactory(csf).build());
 		restTemplate = new RestTemplate(requestFactory);
 	}
-	
+
 	public void init() {
 		List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
-		 for (MasterDataBean masterDataBean : resultList) {
-				if(masterDataBean.getValue().equals("POS")) {
-					posNo = masterDataBean.getText();
-				}
-				
-				if(masterDataBean.getValue().equals("BRANCH_CODE")) {
-					branCode = masterDataBean.getText();
-				}
+		for (MasterDataBean masterDataBean : resultList) {
+			if (masterDataBean.getValue().equals("POS")) {
+				posNo = masterDataBean.getText();
 			}
-	}
 
+			if (masterDataBean.getValue().equals("BRANCH_CODE")) {
+				branCode = masterDataBean.getText();
+			}
+		}
+	}
 
 	@Override
 	public ReceiptOfflineModel findRecipt(Integer manualId) throws SQLException {
@@ -353,21 +356,35 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							dtoList.add(manualDTO);
 
 							cancelDTO = dtoCancel(payment);
-							if (dtoList.size() > 0) {
-								postUrl = url.concat("/paymentManualServiceOnline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
-								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
 
+							int listOtherSize = cancelDTO.getReceipts().stream()
+									.filter(a -> a.getIsIbaiss().equalsIgnoreCase("OTHER")).collect(Collectors.toList()).size();
+
+							if (dtoList.size() > 0) {
+								postUrl = url.concat("/paymentManualServiceOnline.json?ap=OFFLINE&username="
+										+ payment.getCreateBy() + "&mac=" + mac);
+								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
 								System.out.println(resultA);
-								postUrl = url.concat(
-										"/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="+ payment.getCreateBy()+"&mac="+mac);
-								resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
-								System.out.println(resultB);
+
+								if (listOtherSize <= 0) {
+									postUrl = url.concat("/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="
+											+ payment.getCreateBy() + "&mac=" + mac);
+									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+									System.out.println(resultB);
+
+								} else {
+									postUrl = url.concat("/cancelPaymentOtherOffline.json?ap=OFFLINE&username="
+											+ payment.getCreateBy() + "&mac=" + mac);
+									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
+									System.out.println(resultB);
+
+								}
+
 								updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_Y);
 
 							}
 						}
 					}
-					
 
 				} else {
 					updateStatusClearing(offlineResultModel.getManualId(), Constants.CLEARING.STATUS_ERROR);
