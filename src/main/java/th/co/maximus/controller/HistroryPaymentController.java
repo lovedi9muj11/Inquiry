@@ -223,7 +223,7 @@ public class HistroryPaymentController {
 		
 		if(CollectionUtils.isNotEmpty(creteria)) {
 			List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
-			minusOnlineService.updateStatusForMinusOnline(creteria);
+			minusOnlineService.updateStatusForMinusOnline(creteria, Constants.CLEARING.STATUS_W);
 			
 			try {
 	
@@ -240,6 +240,10 @@ public class HistroryPaymentController {
 				e.printStackTrace();
 			}
 			result.put("data", objMessage);
+			
+			if(Constants.CLEARING.STATUS_W.equals(creteria.get(0).getClearing())) {
+				minusOnlineService.updateStatusForMinusOnline(creteria, Constants.CLEARING.STATUS_N);
+			}
 		}
 		
 		return result;

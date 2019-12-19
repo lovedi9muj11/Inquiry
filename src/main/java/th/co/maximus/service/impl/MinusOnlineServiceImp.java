@@ -15,10 +15,10 @@ public class MinusOnlineServiceImp implements MinusOnlineService {
 	@Autowired MinusOnlineDao minusOnlineDao;
 
 	@Override
-	public void updateStatusForMinusOnline(List<PaymentMMapPaymentInvBean> creteria) throws Exception {
-//		for(PaymentMMapPaymentInvBean invBean : creteria) {
-//			minusOnlineDao.updateStatusForMinusOnline(invBean);
-//		}
+	public void updateStatusForMinusOnline(List<PaymentMMapPaymentInvBean> creteria, String status) throws Exception {
+		for(PaymentMMapPaymentInvBean invBean : creteria) {
+			minusOnlineDao.updateStatusForMinusOnline(invBean, status);
+		}
 	}
 
 }

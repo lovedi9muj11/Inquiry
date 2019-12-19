@@ -319,7 +319,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		init();
 		String mac = GetMacAddress.getMACAddress();
 		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
-		minusOnlineService.updateStatusForMinusOnline(list);
+		minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_W);
 		
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
@@ -399,6 +399,11 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		}
 
 		result.put("data", objMessage);
+		
+		if(Constants.CLEARING.STATUS_W.equals(list.get(0).getClearing())) {
+			minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_N);
+		}
+		
 		return result;
 	}
 

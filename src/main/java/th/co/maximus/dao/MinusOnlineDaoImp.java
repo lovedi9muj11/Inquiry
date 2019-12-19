@@ -13,13 +13,13 @@ public class MinusOnlineDaoImp implements MinusOnlineDao{
 	private JdbcTemplate jdbcTemplate;
 	
 	@Override
-	public void updateStatusForMinusOnline(PaymentMMapPaymentInvBean creteria) throws Exception {
+	public void updateStatusForMinusOnline(PaymentMMapPaymentInvBean creteria, String status) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" UPDATE receipt_manual ");
 		sql.append(" SET CLEARING =  ? ");
 		sql.append(" WHERE MANUAL_ID = ? ");
 		
-		jdbcTemplate.update(sql.toString(), "W", creteria.getManualId());
+		jdbcTemplate.update(sql.toString(), status, creteria.getManualId());
 	}
 
 }

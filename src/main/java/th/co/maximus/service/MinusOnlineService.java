@@ -8,5 +8,5 @@ import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 
 @Service
 public interface MinusOnlineService {
-	void updateStatusForMinusOnline(List<PaymentMMapPaymentInvBean> creteria) throws Exception;
+	void updateStatusForMinusOnline(List<PaymentMMapPaymentInvBean> creteria, String status) throws Exception;
 }

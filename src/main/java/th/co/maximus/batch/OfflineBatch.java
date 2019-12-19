@@ -12,6 +12,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
@@ -182,10 +183,10 @@ public class OfflineBatch implements Job {
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-		if (result != null) {
+		if (CollectionUtils.isNotEmpty(result)) {
 			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
-			minusOnlineService.updateStatusForMinusOnline(result);
+			minusOnlineService.updateStatusForMinusOnline(result, Constants.CLEARING.STATUS_W);
 			
 			for (OfflineResultModel offlineResultModel : resultClear) {
 				try {
@@ -247,7 +248,11 @@ public class OfflineBatch implements Job {
 							+ offlineResultModel.getRecriptNo());
 					offlineResultModel.setStatus("ERROR");
 				}
-			}	
+			}
+			
+			if(Constants.CLEARING.STATUS_W.equals(result.get(0).getClearing())) {
+				minusOnlineService.updateStatusForMinusOnline(result, Constants.CLEARING.STATUS_N);
+			}
 		}
 
 	}
