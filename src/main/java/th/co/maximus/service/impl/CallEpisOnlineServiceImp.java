@@ -87,7 +87,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 		 String taxIdCat="";
 		 String costCenter="";
 		String postUrl = url.concat("/offline/posByMac/"+ mac +".json"); 
-		ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, null, String.class);
+		ResponseEntity<String> postResponse = restTemplate.getForEntity(postUrl, String.class);
 		System.out.println("Response for Post Request: " + postResponse.getBody());
 		try {
 			JSONArray jsonArray = new JSONArray(postResponse.getBody());
