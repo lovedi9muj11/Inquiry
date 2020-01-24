@@ -42,6 +42,7 @@
 	masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode");
 	masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
 	masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType");
+	mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName");
 	masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment");
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 	String	costcenter = (String) request.getAttribute("costcenter");
@@ -129,7 +130,7 @@
 											<select class="form-control" id="userGroup" name="userGroup"
 												onchange="autoSelect()">
 												<option value="">-- กรุณาเลือก --</option>
-<!-- 												<option value="1">ธุรกิจทั่วไป</option> -->
+ 												<option value="1">ธุรกิจทั่วไป</option> 
 <!-- 												<option value="2">หน่วยงานรัฐ</option> -->
 <!-- 												<option value="3">บุคคลทั่วไป</option> -->
 <!-- 												<option value="4">Carrier/Operator/NON POTs</option> -->

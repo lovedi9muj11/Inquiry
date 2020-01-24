@@ -68,5 +68,13 @@ public class MapGLDaoImp implements MapGLDao{
 		sql.append(" AND mg.SOURCE = '"+Constants.MasterData.OTHER+"' ");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
+	
+	@Override
+	public List<MapGLBean> findBySourceOther() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
+		sql.append(" WHERE mg.SOURCE = '"+Constants.MasterData.OTHER+"' AND mg.STATUS = '1' ");
+		return jdbcTemplate.query(sql.toString() , new mapGL());
+	}
 
 }

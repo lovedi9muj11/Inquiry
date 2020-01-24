@@ -65,6 +65,7 @@ public class PayOtherController {
 		custSegment = masterDataService.findByCMSegmentByCRM();
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
+		List<MapGLBean> serviceName = mapGLDao.findBySourceOther();
 		
 
 		model.addAttribute("bankCode", bankCodeList);
@@ -75,12 +76,20 @@ public class PayOtherController {
 		model.addAttribute("costcenter", profile.getCostCenter());
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("custSegment", custSegment);
+		model.addAttribute("serviceName", serviceName);
 		return "payOther";
 	}
 
 	@RequestMapping(value = { "/getServiceName/{id}" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MapGLBean> getServiceName(@PathVariable("id") String id) {
 		List<MapGLBean> serviceNameList = mapGLDao.findByRevenuType(id);
+		return serviceNameList;
+
+	}
+	
+	@RequestMapping(value = { "/getAllServiceName" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> getAllServiceName() {
+		List<MapGLBean> serviceNameList = mapGLDao.findBySourceOther();
 		return serviceNameList;
 
 	}

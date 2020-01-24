@@ -70,17 +70,34 @@ $(document).ready(function() {
 		
 			$("#inputServiceType").on( "change",  function() {
 				console.log(this);
-				$("#inputServiceName").empty();
-				$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
-				$.ajax({
-				    type: 'GET',
-				    url: ctx +"/getServiceName/"+$(this).val()
-				}).then(function (data) {
-					for(var i=0; i<data.length; i++) {
-						var element = data[i];
-						$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
-					}
-				});
+				var e = document.getElementById("inputServiceType");
+				var strUser = e.options[e.selectedIndex].value;
+				if(strUser !== ''){
+					$("#inputServiceName").empty();
+					$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
+					$.ajax({
+					    type: 'GET',
+					    url: ctx +"/getServiceName/"+$(this).val()
+					}).then(function (data) {
+						for(var i=0; i<data.length; i++) {
+							var element = data[i];
+							$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+						}
+					});
+				}else{
+					$("#inputServiceName").empty();
+					$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
+					$.ajax({
+					    type: 'GET',
+					    url: ctx +"/getAllServiceName"
+					}).then(function (data) {
+						for(var i=0; i<data.length; i++) {
+							var element = data[i];
+							$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+						}
+					});
+				}
+				
 			});
 			
 			$.ajax({
@@ -851,7 +868,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
 	$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	document.getElementById('vatrate').disabled = true;
+	//document.getElementById('vatrate').disabled = true;
 
 }
 function calurateVatRate (amountDiscount ,vatRate){
