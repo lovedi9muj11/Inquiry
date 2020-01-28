@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.auth.model.GroupTypeDropdown;
 import th.co.maximus.bean.MasterDataBean;
+import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.service.MasterDataService;
 
@@ -120,6 +122,13 @@ public class MasterDataController {
 		}
 
 		return status;
+	}
+	
+	@RequestMapping(value = "/findByppt1/{ppt1}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	MasterDatasBean findByppt1(@PathVariable("ppt1")String ppt1) throws Exception {
+		
+		return masterDataService.findByppt1(ppt1);
 	}
 	
 }

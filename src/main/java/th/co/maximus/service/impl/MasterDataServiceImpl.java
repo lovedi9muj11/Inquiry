@@ -397,4 +397,12 @@ public class MasterDataServiceImpl implements MasterDataService {
 		return masterDatasDao.findByGrop(groupCode, keyCode);
 	}
 
+	@Override
+	public MasterDatasBean findByppt1(String ppt1) {
+		if(StringUtils.isNotBlank(ppt1))return masterDatasDao.findByppt1(ppt1);
+		
+		return null;
+		
+	}
+
 }

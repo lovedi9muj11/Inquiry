@@ -134,4 +134,13 @@ public class MasterDatasDaoImpl implements MasterDatasDao {
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
 
+	@Override
+	public MasterDatasBean findByppt1(String ppt1) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT+"'");
+		sql.append(" and PROPERTY_1 = '"+ppt1+"'");
+		
+		return jdbcTemplate.queryForObject(sql.toString() , new masterData());
+	}
+
 }

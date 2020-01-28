@@ -11,7 +11,6 @@ import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,8 +31,6 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-
 	
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInV() {
@@ -85,6 +82,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
 			paymentManual.setServiceName(rs.getString("SERVICENAME"));
 			paymentManual.setCustomerGroup(rs.getString("CUSTOMER_GROUP"));
+//			paymentManual.setCustomerGroupName(findByppt1(paymentManual.getCustomerGroup()));
 			
 //			paymentManual.setCustomerGroupName(rs.getString("VALUE"));
 			

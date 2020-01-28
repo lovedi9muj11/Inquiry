@@ -56,4 +56,6 @@ public interface MasterDataService {
 	
 	public MasterDatasBean findByGrop(String groupCode, String keyCode);
 	
+	public MasterDatasBean findByppt1(String ppt1);
+	
 }

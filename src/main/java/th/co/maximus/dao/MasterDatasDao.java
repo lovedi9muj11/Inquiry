@@ -25,4 +25,6 @@ public interface MasterDatasDao {
 	List<MasterDatasBean> findByCMSegment();
 	
 	List<MasterDatasBean> findByCMSegmentByCRM();
+	
+	MasterDatasBean findByppt1(String ppt1);
 }

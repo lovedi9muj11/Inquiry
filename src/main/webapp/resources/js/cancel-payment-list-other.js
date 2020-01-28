@@ -283,6 +283,21 @@ function search() {
 	
 };
 
+function findppt1(value) {
+	$.ajax({
+        type: "GET",
+        url: ctx +"/findByppt1/"+value,
+//        data: JSON.stringify(dataSend),
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+        	customerGroupName = res.value
+        }
+	})
+	
+};
+
 function clearCriteria(){
 	$('#accountNo').val('');
 	$('#receiptNumber').val('');
@@ -293,6 +308,8 @@ function chaengIcon(value){
 	valueIcon= 'icon'+value;
 	IdSelected = value;
 }
+
+let customerGroupName = '';
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
 //	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
@@ -303,7 +320,9 @@ function createRow(data, seq, table,check) {
 	accountNo = data.accountNo;
 	customer = data.customerName;
 	serviceName = data.serviceName;
-	userGroup = data.customerGroup;
+	findppt1(data.customerGroup)
+	userGroup = customerGroupName;
+	
 	amount = formatDouble(data.amountOther,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
