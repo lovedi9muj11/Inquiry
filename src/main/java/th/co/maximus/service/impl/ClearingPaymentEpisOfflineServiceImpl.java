@@ -16,6 +16,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
@@ -319,11 +320,12 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		init();
 		String mac = GetMacAddress.getMACAddress();
 		list = cancelPaymentService.findAllCancelPayments(Constants.CLEARING.STATUS_N);
-		minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_W);
 		
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
+		if(CollectionUtils.isNotEmpty(objMessage))minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_W);
+		
 		ResponseEntity<String> resultA;
 		ResponseEntity<String> resultB = null;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);

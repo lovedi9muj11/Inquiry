@@ -223,7 +223,7 @@ public class HistroryPaymentController {
 		
 		if(CollectionUtils.isNotEmpty(creteria)) {
 			List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
-			minusOnlineService.updateStatusForMinusOnline(creteria, Constants.CLEARING.STATUS_W);
+			if(CollectionUtils.isNotEmpty(objMessage))minusOnlineService.updateStatusForMinusOnline(creteria, Constants.CLEARING.STATUS_W);
 			
 			try {
 	

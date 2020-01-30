@@ -186,7 +186,7 @@ public class OfflineBatch implements Job {
 		if (CollectionUtils.isNotEmpty(result)) {
 			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
-			minusOnlineService.updateStatusForMinusOnline(result, Constants.CLEARING.STATUS_W);
+			if(CollectionUtils.isNotEmpty(resultClear))minusOnlineService.updateStatusForMinusOnline(result, Constants.CLEARING.STATUS_W);
 			
 			for (OfflineResultModel offlineResultModel : resultClear) {
 				try {
