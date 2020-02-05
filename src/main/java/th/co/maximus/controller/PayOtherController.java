@@ -67,7 +67,7 @@ public class PayOtherController {
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 		List<MapGLBean> serviceName = mapGLDao.findBySourceOther();
 		
-
+		
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
 		model.addAttribute("serviceType", serviceTypeList);
@@ -77,6 +77,9 @@ public class PayOtherController {
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("custSegment", custSegment);
 		model.addAttribute("serviceName", serviceName);
+		
+		
+		
 		return "payOther";
 	}
 

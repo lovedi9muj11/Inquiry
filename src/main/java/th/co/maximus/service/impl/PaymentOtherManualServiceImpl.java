@@ -2,31 +2,44 @@ package th.co.maximus.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.auth.model.UserProfile;
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentOtherManualService;
 @Service
 public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 	@Autowired
 	PaymentManualDao paymentManualDao;
 	
+	@Autowired
+	MasterDataDao masterDataDao;
+	
+	@Autowired
+	MasterDataService masterDataService;
 
 	@Override
 	public int insertPaymentManual(PaymentOtherFirstBean paymentBean) {
-		//UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
+		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		Date date = new Date();
 		int userId=0;
+		String brancharea = "";
 		if(StringUtils.isNotBlank(paymentBean.getDocumentNo())){
 //			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 //			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
@@ -48,7 +61,15 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 //				paymentManualBean.setPaytype("P");
 //			}
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
+			
+			for(int x = 0 ; x <serviceDepartmentList.size(); x++ ) {
+				if(serviceDepartmentList.get(x).getValue().equals(profile.getCostCenter())) {
+					brancharea = serviceDepartmentList.get(x).getValue();
+				}
+			}
+			
+			//paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
+			paymentManualBean.setBrancharea(brancharea); //-- maew24012020
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			
 //			double resRQ = paymentBean.getBalanceSum();

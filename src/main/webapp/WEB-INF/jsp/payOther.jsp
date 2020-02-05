@@ -223,11 +223,11 @@
 										<div class="col-sm-2 ">
 										<select id="inputServiceDepartment"
 												name="inputServiceDepartment" class="form-control">
-												<option value="">-- กรุณาเลือก --</option>
+												<!--  <option value="">-- กรุณาเลือก --</option>-->
 												<%
 													for (int i = 0; i < masterServiceDepartment.size(); i++) {
 												%>
-												<option	value="<%=masterServiceDepartment.get(i).getProperty2()%>" <%= (masterServiceDepartment.get(i).getValue().equals(costcenter))?"selected":""%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
+												<option	value="<%=masterServiceDepartment.get(i).getProperty2()%>" <%=(masterServiceDepartment.get(i).getValue().equals(costcenter) ? "selected":"")%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
 												<%
 													}
 												%>
