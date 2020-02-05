@@ -33,9 +33,11 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 
 	@Override
 	public int insertPaymentManual(PaymentOtherFirstBean paymentBean) {
-		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
+		//String branch = masterDataDao.findByBranchcode();
+		MasterDataBean branch = masterDataDao.findAllByBranchcode();
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		Date date = new Date();
 		int userId=0;
@@ -61,9 +63,8 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 //				paymentManualBean.setPaytype("P");
 //			}
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-			
 			for(int x = 0 ; x <serviceDepartmentList.size(); x++ ) {
-				if(serviceDepartmentList.get(x).getValue().equals(profile.getCostCenter())) {
+				if(serviceDepartmentList.get(x).getValue().equals(branch.getText())) {
 					brancharea = serviceDepartmentList.get(x).getValue();
 				}
 			}

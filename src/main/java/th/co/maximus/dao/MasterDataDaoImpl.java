@@ -265,5 +265,23 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		
 		return StringUtils.isNotBlank(data.getProperty2())?data.getProperty2():"";
 	}
+	
+	@Override
+	public MasterDataBean findByCostCenter() { 
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
+		sql.append(" WHERE ms.KEYCODE = '"+Constants.MasterData.COST_CENTER+"'");
+		
+		return jdbcTemplate.queryForObject(sql.toString() , new masterData());
+	}
+	
+	@Override
+	public MasterDataBean findAllByBranchcode() { 
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA ms  ");
+		sql.append(" WHERE ms.KEYCODE = 'BRANCH_AREA' and ms.GROUP_KEY ='INIT_PROJECT'");
+		
+		return jdbcTemplate.queryForObject(sql.toString() , new masterData());
+	}
 
 }

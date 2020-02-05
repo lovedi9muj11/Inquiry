@@ -25,6 +25,7 @@ import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MapGLDao;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.MasterDatasDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
@@ -46,6 +47,9 @@ public class PayOtherController {
 	@Autowired
 	MasterDatasDao masterDatasDao;
 	
+	@Autowired
+	MasterDataDao masterDataDao;
+	
 
 	@RequestMapping(value = { "/payOther" }, method = RequestMethod.GET)
 	public String payOther(Model model) {
@@ -66,14 +70,14 @@ public class PayOtherController {
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 		List<MapGLBean> serviceName = mapGLDao.findBySourceOther();
-		
+		MasterDataBean cost = masterDataDao.findByCostCenter();
 		
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
 		model.addAttribute("serviceType", serviceTypeList);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
-		model.addAttribute("costcenter", profile.getCostCenter());
+		model.addAttribute("costcenter", cost.getText());
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("custSegment", custSegment);
 		model.addAttribute("serviceName", serviceName);

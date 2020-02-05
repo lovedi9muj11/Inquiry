@@ -48,4 +48,9 @@ public interface MasterDataDao {
 
 	void insertInitProgram(MasterDataBean masterDataBean);
 
+	MasterDataBean findByCostCenter();
+
+	MasterDataBean findAllByBranchcode();
+
+
 }
