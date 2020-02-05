@@ -1108,7 +1108,7 @@ public class EpisReportController {
 					JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
 							? new JRBeanCollectionDataSource(printCollections)
 							: new JREmptyDataSource();
-					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+//					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 					jasperPrints.add(jasperPrint);
 					
@@ -1251,7 +1251,7 @@ public class EpisReportController {
 					JRDataSource jrDataSource = (printCollections != null && !printCollections.isEmpty())
 							? new JRBeanCollectionDataSource(printCollections)
 							: new JREmptyDataSource();
-					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+//					JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 					jasperPrints.add(jasperPrint);
 					
@@ -1604,7 +1604,7 @@ public class EpisReportController {
 			JRDataSource jrDataSource = (responeData.getReportTaxRSBeanList() != null && !responeData.getReportTaxRSBeanList().isEmpty())
 					? new JRBeanCollectionDataSource(responeData.getReportTaxRSBeanList())
 					: new JREmptyDataSource();
-			JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+//			JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 			jasperPrints.add(jasperPrint);
 		}
