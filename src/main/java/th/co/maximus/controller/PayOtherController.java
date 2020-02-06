@@ -70,7 +70,9 @@ public class PayOtherController {
 		// serviceTypeList = masterDataService.findAllByServiceType();
 		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
 		List<MapGLBean> serviceName = mapGLDao.findBySourceOther();
-		MasterDataBean cost = masterDataDao.findByCostCenter();
+		//MasterDataBean cost = masterDataDao.findByCostCenter();
+		MasterDataBean cost = masterDataDao.findAllByBranchcode();
+		
 		
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
