@@ -125,7 +125,7 @@ public class OfflineBatch implements Job {
 			} else if (Constants.BATCH.JOB_5.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_5");
 				clearingPaymentEpisOfflineService.clearingCencelPayment();
-			}
+			} 
 		} catch (Exception e) {
 			log.error("Encountered job execution exception!", e);
 		}

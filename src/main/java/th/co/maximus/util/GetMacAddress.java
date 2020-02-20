@@ -28,7 +28,7 @@ public class GetMacAddress {
 			}
 			macAddress = sb.toString();
 //			System.out.println(ip);
-			System.out.print(macAddress);
+			System.out.println(macAddress);
 				
 		} catch (UnknownHostException e) {
 			

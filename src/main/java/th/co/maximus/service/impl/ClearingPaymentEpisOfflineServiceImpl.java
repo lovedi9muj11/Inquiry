@@ -284,27 +284,27 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			} else {
 				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			}
-
-			ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
-					String.class);
-
-			if (null != postResponse.getBody()) {
-				JSONArray jsonArray = new JSONArray(postResponse.getBody());
-				for (int i = 0; i < jsonArray.length(); i++) {
-					OfflineResultModel obj = new OfflineResultModel();
-					System.out.println("manualId :: " + jsonArray.getJSONObject(i).getLong("manualId"));
-					obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
-					obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
-					obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
-					obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
-					if (("SUCCESS").equals(obj.getStatus())) {
-						obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
+			if(PaymentEpisOfflineDTOList.size() >0) {
+				ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
+						String.class);
+	
+				if (null != postResponse.getBody()) {
+					JSONArray jsonArray = new JSONArray(postResponse.getBody());
+					for (int i = 0; i < jsonArray.length(); i++) {
+						OfflineResultModel obj = new OfflineResultModel();
+						System.out.println("manualId :: " + jsonArray.getJSONObject(i).getLong("manualId"));
+						obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
+						obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
+						obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
+						obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
+						if (("SUCCESS").equals(obj.getStatus())) {
+							obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
+						}
+						objMessage.add(obj);
 					}
-					objMessage.add(obj);
+	
 				}
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -323,6 +323,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
+		if(list.size() > 0) {
 		List<OfflineResultModel> objMessage = callOnlinePayment(list);
 		if(CollectionUtils.isNotEmpty(objMessage))minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_W);
 		
@@ -405,7 +406,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		if(Constants.CLEARING.STATUS_W.equals(list.get(0).getClearing())) {
 			minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_N);
 		}
-		
+		}
 		return result;
 	}
 
