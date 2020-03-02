@@ -255,6 +255,14 @@
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
 													<option value="">-- กรุณาเลือก --</option>
+														<%
+															for (int i = 0; i < mapGLServiceName.size(); i++) {
+														%>
+													<option
+													value="<%=mapGLServiceName.get(i).getProductCode()%>"><%=mapGLServiceName.get(i).getServiceName()%></option>
+														<%
+															}
+														%>
 											</select>
 											<p id="sinputServiceName" style="color: red; display: none">
 												คุณยังไม่ได้เลือก ชื่อบริการ</p>

@@ -132,6 +132,10 @@ public class EpisReportController {
 		Date date = new Date();
 		String dateDocument = dt.format(date);
 		String JASPER_JRXML_FILENAME = "";
+		
+		//maew
+		List<InvEpisOfflineReportBean> printCollections1 = collections;
+		
 		if (Constants.DOCTYPE.RF.equals(invObject.getDocType())) {
 			if (invObject.getDiscount().signum() == 0) {
 				if ("Non-VAT".equals(invObject.getVatRate())) {
@@ -165,11 +169,13 @@ public class EpisReportController {
 
 			}
 		}
-
-		MasterDatasBean valueBean = masterDataService.findByKeyCode(profile.getBranchArea());
+		//MasterDatasBean valueBean = masterDataService.findByKeyCode(profile.getBranchArea());
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		// UserDto resultUser = userService.findByUsername(profile.getUsername());
-		exportPDFReport.setBranArea(valueBean.getValue());
+		//exportPDFReport.setBranArea(valueBean.getValue());
+		MasterDatasBean valueBean1 = masterDataService.findByKeyCode(printCollections1.get(0).getBranArea());
+		exportPDFReport.setBranArea(valueBean1.getProperty1() + " " + valueBean1.getValue());
+		
 		exportPDFReport.setBracnCode(" " + profile.getBranchCode() + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
 		exportPDFReport.setCustNo(invObject.getCustNo());
