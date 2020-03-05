@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.UserProfile;
+import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
+import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentManualService;
 
 @Service
@@ -25,6 +29,11 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 	@Autowired
 	PaymentManualDao paymentManualDao;
 
+	@Autowired
+	MasterDataDao masterDataDao;
+	
+	@Autowired
+	MasterDataService masterDataService;
 
 	@Override
 	public int insertPaymentManual(PaymentFirstBean paymentBean) throws ParseException {
@@ -32,14 +41,24 @@ public class PaymentManualServiceImpl implements PaymentManualService{
 		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Date date = new Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd 00:00.00.000");
+		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
+		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
+		MasterDataBean branch = masterDataDao.findAllByBranchcode();
 //		String da = dt.format(paymentBean.getDeadlines());
 		dt.format(date);
 		int userId=0;
+		String brancharea = "";
 		if(StringUtils.isNotBlank(paymentBean.getInvoiceNo())){
 			paymentManualBean.setInvoiceNo(paymentBean.getInvoiceNo());
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			paymentManualBean.setPaidDate(new Timestamp(date.getTime()));
-			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
+			
+			for(int x = 0 ; x <serviceDepartmentList.size(); x++ ) {
+				if(serviceDepartmentList.get(x).getValue().equals(branch.getText())) {
+					brancharea = serviceDepartmentList.get(x).getValue();
+				}
+			}
+			paymentManualBean.setBrancharea(brancharea);
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
 			paymentManualBean.setPaidAmount(paymentBean.getAmountInvoice());
 			paymentManualBean.setCustomerGroup(paymentBean.getUserGroup());
