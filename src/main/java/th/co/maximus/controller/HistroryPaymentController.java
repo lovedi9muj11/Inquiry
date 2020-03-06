@@ -175,7 +175,7 @@ public class HistroryPaymentController {
 
 					BigDecimal amount = hisPay.getAmount();
 //					BigDecimal vatRQ = amount.multiply(new BigDecimal(hisPay.getVatRate()));
-					BigDecimal vat = hisPay.getVat();
+					BigDecimal vat = hisPay.getVatAmount();
 					
 //					if (vatRQ.compareTo(BigDecimal.ZERO) > 0) {
 //						vat = vatRQ.divide(reVat, 2, RoundingMode.HALF_UP);

@@ -354,7 +354,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT, py.AMOUNT, py.CREATE_BY");
+					" SELECT py.CREATE_DATE ,py.INVOICE_NO,pim.CUSTOMER_NAME , pim.TAXNO ,py.BRANCH_CODE , py.RECORD_STATUS ,py.RECEIPT_NO_MANUAL,py.PAID_AMOUNT,pim.VAT_RATE,pim.VAT_AMOUNT,pim.BEFOR_VAT, py.AMOUNT, py.CREATE_BY, py.VAT_AMOUNT, py.VAT_AMOUNT as VAT_AMOUNTx");
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE 1=1 ");
@@ -616,6 +616,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			historyPaymentRS.setRecordStatus(rs.getString("py.RECORD_STATUS"));
 			historyPaymentRS.setTaxId(rs.getString("pim.TAXNO"));
 			historyPaymentRS.setVat(rs.getBigDecimal("pim.VAT_AMOUNT"));
+			historyPaymentRS.setVatAmount(rs.getBigDecimal("VAT_AMOUNTx"));
 			historyPaymentRS.setVatRate(rs.getInt("pim.VAT_RATE"));
 			historyPaymentRS.setCreateBy(rs.getString("py.CREATE_BY"));
 			return historyPaymentRS;

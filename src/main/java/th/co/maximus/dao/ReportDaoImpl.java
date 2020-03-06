@@ -132,6 +132,7 @@ public class ReportDaoImpl implements ReportDao{
 				param.add(creteria.getUnserLogin());
 			}
 			
+			sql.append(" group by py.RECEIPT_NO_MANUAL ");
 			sql.append(" ORDER BY py.RECEIPT_NO_MANUAL ASC ");
 			
 //			param.add(creteria.getFlagPage());

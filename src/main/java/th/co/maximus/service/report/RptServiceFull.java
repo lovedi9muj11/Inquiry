@@ -164,8 +164,8 @@ public class RptServiceFull extends BaseExcelRptService{
 				cell5.setCellValue(entity.get(i).getTaxId());
 				cell6.setCellValue(entity.get(i).getBranCode().equals("00000") ? "สำนักงานใหญ่" : entity.get(i).getBranCode());
 //				cell6.setCellValue(entity.get(i).getBranCode());
-				cell7.setCellValue(new Double((entity.get(i).getBeforeVat()==null?BigDecimal.ZERO:entity.get(i).getBeforeVat()).toString()));
-				cell8.setCellValue(new Double((entity.get(i).getVat()==null?BigDecimal.ZERO:entity.get(i).getVat()).toString()));
+				cell7.setCellValue(new Double((entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount().subtract(entity.get(i).getVatAmount()==null?BigDecimal.ZERO:entity.get(i).getVatAmount())).toString()));
+				cell8.setCellValue(new Double((entity.get(i).getVatAmount()==null?BigDecimal.ZERO:entity.get(i).getVatAmount()).toString()));
 				cell9.setCellValue(new Double((entity.get(i).getAmount()==null?BigDecimal.ZERO:entity.get(i).getAmount()).toString()));
 				cell10.setCellValue(Constants.Status.ACTIVE.equals(entity.get(i).getRecordStatus())?Constants.Status.ACTIVE_:Constants.Status.ACTIVE_C);
 				cell11.setCellValue(profile.getBranchArea());
