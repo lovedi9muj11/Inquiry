@@ -24,8 +24,17 @@ public class PaymentEpisOfflineDTO {
 	private List<TrsMethodEpisOffline> trsMethod;
 	private String channel; 
 	
+	private String custBranchCode;
 	
 	
+
+	public String getCustBranchCode() {
+		return custBranchCode;
+	}
+
+	public void setCustBranchCode(String custBranchCode) {
+		this.custBranchCode = custBranchCode;
+	}
 
 	public String getChannel() {
 		return channel;

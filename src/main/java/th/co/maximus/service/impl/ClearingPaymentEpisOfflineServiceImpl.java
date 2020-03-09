@@ -226,6 +226,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						paymentEpisOfflineDTO.setReceiptNo(recrip.getReceiptNo());
 						paymentEpisOfflineDTO.setBranchArea(recrip.getBranchArea());
 						paymentEpisOfflineDTO.setBranchCode(branCode);
+						paymentEpisOfflineDTO.setCustBranchCode(recrip.getBranchCode());
 						paymentEpisOfflineDTO.setInvoiceNo(recrip.getInvoiceNo());
 						paymentEpisOfflineDTO.setPaidDate(recrip.getPaidDate());
 						paymentEpisOfflineDTO.setVatAmount(recrip.getVatAmount());

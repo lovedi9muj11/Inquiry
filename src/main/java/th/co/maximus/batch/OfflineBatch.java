@@ -121,7 +121,7 @@ public class OfflineBatch implements Job {
 				 callEpisOnlineService.callOnlineSyncUser();
 			} else if (Constants.BATCH.JOB_4.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_4");
-				saveBatch();
+//				saveBatch();
 			} else if (Constants.BATCH.JOB_5.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_5");
 				clearingPaymentEpisOfflineService.clearingCencelPayment();
@@ -218,6 +218,7 @@ public class OfflineBatch implements Job {
 								manualDTO.setPaidDateStr(dateFormat.format(payment.getPaidDate()));
 								manualDTO.setPosNo(posNo);
 								manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
+								manualDTO.setCustBranch(payment.getBranchCode());
 								dtoList.add(manualDTO);
 								if (dtoList.size() > 0) {
 									

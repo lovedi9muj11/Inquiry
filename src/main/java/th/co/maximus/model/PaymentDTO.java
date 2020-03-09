@@ -40,9 +40,22 @@ public class PaymentDTO {
 	private String vatRate;
 	private String paidDateStr;
 	
+	private String custBranch;
 	
 	
 	
+	public String getVatRate() {
+		return vatRate;
+	}
+	public void setVatRate(String vatRate) {
+		this.vatRate = vatRate;
+	}
+	public String getCustBranch() {
+		return custBranch;
+	}
+	public void setCustBranch(String custBranch) {
+		this.custBranch = custBranch;
+	}
 	public String getBranchAreaCode() {
 		return branchAreaCode;
 	}
