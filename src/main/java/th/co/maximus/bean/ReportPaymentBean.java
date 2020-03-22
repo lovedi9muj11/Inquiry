@@ -38,6 +38,7 @@ public class ReportPaymentBean {
 	private String deductionNo;
 	private String serviceCode;
 	private String vatRate;
+	private String branchName;
 	
 	List<ReportPaymentBean> reportPaymentBean;
 
@@ -295,6 +296,14 @@ public class ReportPaymentBean {
 
 	public void setVatAmountOther(BigDecimal vatAmountOther) {
 		this.vatAmountOther = vatAmountOther;
+	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
 
 }

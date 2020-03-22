@@ -323,7 +323,8 @@ function createRow(data, seq, table,check) {
 	findppt1(data.customerGroup)
 	userGroup = customerGroupName;
 	
-	amount = formatDouble(data.amountOther,2);
+//	amount = formatDouble(data.amountOther,2);
+	amount = formatDouble(data.amount,2);
 	branchCode = data.brancharea;
 	createBy = data.createBy;
 	if(data.recordStatus == 'A'){

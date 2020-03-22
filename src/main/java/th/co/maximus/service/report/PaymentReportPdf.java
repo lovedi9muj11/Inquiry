@@ -145,6 +145,7 @@ public class PaymentReportPdf {
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("ยกเลิก");
 				}
+				reportPaymentBeanNew.setBranchName(reportPaymentBean.getBranchName());
 
 				index++;
 				resultSource.add(reportPaymentBeanNew);
@@ -299,7 +300,7 @@ public class PaymentReportPdf {
 								beanSup = masterDataService.findByUsername(userPaymentOld);
 								
 								parameters = new HashMap<String, Object>();
-								parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+								parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
 								parameters.put("posNo", profile.getPos());
 								parameters.put("accountCode", "accountCode");
 								parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -372,7 +373,7 @@ public class PaymentReportPdf {
 							beanSup = masterDataService.findByUsername(userPaymentOld);
 							
 							parameters = new HashMap<String, Object>();
-							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+							parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -448,7 +449,7 @@ public class PaymentReportPdf {
 						beanSup = masterDataService.findByUsername(userPaymentOld);
 						
 						parameters = new HashMap<String, Object>();
-						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -530,7 +531,7 @@ public class PaymentReportPdf {
 						beanSup = masterDataService.findByUsername(userPayment);
 						
 						parameters = new HashMap<String, Object>();
-						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -736,7 +737,7 @@ public class PaymentReportPdf {
 							beanSup = masterDataService.findByUsername(userPaymentOld);
 							
 							parameters = new HashMap<String, Object>();
-							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -802,7 +803,7 @@ public class PaymentReportPdf {
 							beanSup = masterDataService.findByUsername(userPayment);
 							
 							parameters = new HashMap<String, Object>();
-							parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));

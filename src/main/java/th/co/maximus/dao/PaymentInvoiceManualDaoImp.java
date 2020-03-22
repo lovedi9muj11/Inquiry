@@ -221,6 +221,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		
 		if(chkCancel) {
 			sql.append(" GROUP by payment_m.MANUAL_ID ");
+		} else {
+			sql.append(" GROUP by payment_m.receipt_no_manual ");
 		}
 		sql.append(" ORDER BY payment_m.CREATE_DATE DESC ");
 		Object[] paramArr = param.toArray();

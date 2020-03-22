@@ -162,9 +162,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
 //		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
@@ -187,9 +188,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
 //		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
@@ -211,9 +213,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentOther(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
 //		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + dateFormat.format(new Date())+" "+criteria.getDateFrom() + "'");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
@@ -256,6 +259,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
 			reportPayment.setCancelReason(rs.getString("CANCEL_REASON"));
 			reportPayment.setVatRate(rs.getString("VAT_RATE"));
+			reportPayment.setBranchName(rs.getString("BRANCH_NAME"));
 			return reportPayment;
 		}
 
@@ -386,9 +390,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentB(ReportPaymentCriteria criteria, String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.* ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
+		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo2()+" "+criteria.getDateTo() + "'");
 		
