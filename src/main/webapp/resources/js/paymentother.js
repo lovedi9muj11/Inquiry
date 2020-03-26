@@ -69,7 +69,7 @@ $(document).ready(function() {
 		
 		
 			$("#inputServiceType").on( "change",  function() {
-				console.log(this);
+				var is1 = $("#inputServiceName").val();
 				var e = document.getElementById("inputServiceType");
 				var strUser = e.options[e.selectedIndex].value;
 				if(strUser !== ''){
@@ -81,10 +81,14 @@ $(document).ready(function() {
 					}).then(function (data) {
 						for(var i=0; i<data.length; i++) {
 							var element = data[i];
-							$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+							if(is1 == element.productCode ){
+								$('#inputServiceName').append('<option value="' + element.productCode+ '" selected>' + element.serviceName + '</option>');
+							}else{
+								$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+							}
 						}
 					});
-				}else{
+				}else if(strUser == ''){
 					$("#inputServiceName").empty();
 					$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
 					$.ajax({
@@ -99,6 +103,43 @@ $(document).ready(function() {
 				}
 				
 			});
+			
+			$("#inputServiceName").on( "change",  function() {
+				var is2 = $("#inputServiceType").val();
+				var e = document.getElementById("inputServiceName");
+				var strUser = e.options[e.selectedIndex].value;
+					if(strUser !== ''){
+						$("#inputServiceType").empty();
+						$('#inputServiceType').append('<option value=""> -- กรุณาเลือก -- </option>');
+						$.ajax({
+						    type: 'GET',
+						    url: ctx +"/getAllServiceType/"+$(this).val()
+						}).then(function (data) {
+							for(var i=0; i<data.length; i++) {
+								var element = data[i];
+								if(is2 == element.revenueTypeCode ){
+									$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '" selected>' + element.revenueTypeName + '</option>');
+								}else{
+									$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName + '</option>');
+								}
+							}
+						});
+					}else if(strUser == ''){
+						$("#inputServiceType").empty();
+						$('#inputServiceType').append('<option value=""> -- กรุณาเลือก -- </option>');
+						$.ajax({
+						    type: 'GET',
+						    url: ctx +"/getAllServiceType"
+						}).then(function (data) {
+							for(var i=0; i<data.length; i++) {
+								var element = data[i];
+								$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName+ '</option>');
+							}
+						});
+					}
+				
+			});
+			
 			
 			$.ajax({
 			    type: 'GET',
@@ -868,7 +909,7 @@ $("#sumtableBillingList").find('tbody').append(markup);
 	var table = document.getElementById("sumtableBillingList");
 	var re = replaseIndexV4(table);
 	$("#moneyDed1").val(parseFloat(0).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	//document.getElementById('vatrate').disabled = true;
+	document.getElementById('vatrate').disabled = true;
 
 }
 function calurateVatRate (amountDiscount ,vatRate){

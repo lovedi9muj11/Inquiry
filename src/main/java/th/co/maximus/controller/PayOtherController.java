@@ -103,6 +103,21 @@ public class PayOtherController {
 
 	}
 	
+	@RequestMapping(value = { "/getAllServiceType/{id}" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> getAllServiceType(@PathVariable("id") String id) {
+		List<MapGLBean> serviceTypeList = mapGLDao.findByProductSource(id);
+		return serviceTypeList;
+
+	}
+	
+	@RequestMapping(value = { "/getAllServiceType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> getAllServiceType() {
+		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
+		return serviceTypeList;
+
+	}
+	
+	
 	@RequestMapping(value = { "/getvatRate" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MasterDataBean> getVatRate() {
 		List<MasterDataBean> vat = masterDataService.findByVat();

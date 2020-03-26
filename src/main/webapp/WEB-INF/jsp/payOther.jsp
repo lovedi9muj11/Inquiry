@@ -143,7 +143,7 @@
 													for (int i = 0; i < custSegment.size(); i++) {
 												%>
 												<option
-													value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getValue()%></option>
+													value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getProperty3()%></option>
 												<%
 													}
 												%>
