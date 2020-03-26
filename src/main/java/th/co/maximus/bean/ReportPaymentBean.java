@@ -39,6 +39,8 @@ public class ReportPaymentBean {
 	private String serviceCode;
 	private String vatRate;
 	private String branchName;
+	private String branchCode;
+	private String posName;
 	
 	List<ReportPaymentBean> reportPaymentBean;
 
@@ -304,6 +306,22 @@ public class ReportPaymentBean {
 
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+
+	public String getPosName() {
+		return posName;
+	}
+
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
+
+	public String getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
 	}
 
 }

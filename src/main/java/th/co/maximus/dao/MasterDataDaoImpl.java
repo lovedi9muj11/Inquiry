@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,13 +16,13 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDataSyncBean;
 import th.co.maximus.constants.Constants;
 
-@Repository
+@Service
 public class MasterDataDaoImpl implements MasterDataDao{
 	
 	@Autowired
@@ -282,6 +283,22 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		sql.append(" WHERE ms.KEYCODE = 'BRANCH_AREA' and ms.GROUP_KEY ='INIT_PROJECT'");
 		
 		return jdbcTemplate.queryForObject(sql.toString() , new masterData());
+	}
+
+	@Override
+	public String findProperty2(String code, String branchArea) {
+		StringBuilder posName = new StringBuilder();
+		StringBuilder sql = new StringBuilder("");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+code+"'");
+		sql.append(" AND KEYCODE = '"+branchArea+"'");
+		
+		List<MasterDataBean> list = jdbcTemplate.query(sql.toString(), new masterData());
+		if(CollectionUtils.isNotEmpty(list)) {
+			posName .append(" - ");
+			posName .append(list.get(0).getText());
+		}
+		
+		return posName.toString();
 	}
 
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="1150" pageHeight="768" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="709"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="805"/>
+	<property name="ireport.y" value="102"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
 	<parameter name="dateTo" class="java.lang.String"/>
@@ -66,6 +66,7 @@
 	<parameter name="sumAllVatUser1" class="java.lang.String"/>
 	<parameter name="sumAllTotalUser1" class="java.lang.String"/>
 	<parameter name="sumAllTotalNoVatUser1" class="java.lang.String"/>
+	<parameter name="posNoHead" class="java.lang.String"/>
 	<field name="serviceType" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceType]]></fieldDescription>
 	</field>
@@ -243,17 +244,17 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
-				<text><![CDATA[สถานที่รับชำระ : ]]></text>
+				<text><![CDATA[เครื่องรับชำระ : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="525" y="78" width="107" height="20" uuid="be164782-72f3-4a17-bb0e-e42228f70988"/>
+				<reportElement x="525" y="78" width="76" height="20" uuid="be164782-72f3-4a17-bb0e-e42228f70988"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{serviceTypeHead}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{posNoHead}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="632" y="78" width="31" height="20" uuid="65a647c5-879f-4918-90bb-059c263548ca"/>
+				<reportElement x="601" y="78" width="31" height="20" uuid="65a647c5-879f-4918-90bb-059c263548ca"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC"/>
 				</textElement>
@@ -654,7 +655,7 @@
 				<textFieldExpression><![CDATA[$P{userPayment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="876" y="60" width="100" height="20" uuid="33352245-cedd-42c8-b66f-939e8951b1ec"/>
+				<reportElement x="875" y="60" width="100" height="20" uuid="33352245-cedd-42c8-b66f-939e8951b1ec"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
@@ -890,7 +891,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="874" y="152" width="100" height="20" uuid="48870123-70d1-4ccf-9806-15840da0ca04">
+				<reportElement x="875" y="152" width="100" height="20" uuid="48870123-70d1-4ccf-9806-15840da0ca04">
 					<printWhenExpression><![CDATA[$P{chkSumLast3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -899,7 +900,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="874" y="132" width="100" height="20" uuid="02e2dc1c-5912-4b79-8770-46833962bc78">
+				<reportElement x="875" y="132" width="100" height="20" uuid="02e2dc1c-5912-4b79-8770-46833962bc78">
 					<printWhenExpression><![CDATA[$P{chkSumLast2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -956,6 +957,15 @@
 					<font fontName="FreesiaUPC"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{vatListCount3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="875" y="95" width="100" height="20" uuid="d6b8f397-da21-4167-aa7d-1188ed7ff6d5">
+					<printWhenExpression><![CDATA[$P{chkSumLast1} == "Y"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

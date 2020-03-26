@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +33,14 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
-import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
+import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.bean.VatBean;
 import th.co.maximus.constants.Constants;
+import th.co.maximus.dao.MapGLDaoImp;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
 
@@ -54,6 +55,12 @@ public class PaymentReportPdf {
 	
 	@Autowired
 	private MasterDataService masterDataService;
+	
+	@Autowired
+	private MapGLDaoImp mapGLDaoImp;
+	
+	@Autowired
+	private MasterDataDao masterDataDao;
 
 	public void jasperGanarationPDF(String fileName, ReportPaymentCriteria criteria, List<ReportPaymentBean> date, HttpServletResponse response) throws JRException, ParseException, IOException, SQLException {
 		List<ReportPaymentBean> resultSource = new ArrayList<ReportPaymentBean>();
@@ -119,7 +126,7 @@ public class PaymentReportPdf {
 				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
 				reportPaymentBeanNew.setPaymentMethod(reportPaymentBean.getPaymentMethod());
-				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"");
+				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
 				
 				if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
 					reportPaymentBeanNew.setBeforVatStr(String.format("%,.2f", reportPaymentBean.getBeforVatOther()));
@@ -139,13 +146,15 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setVatRate(reportPaymentBean.getVatRate());
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
 				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
-				reportPaymentBeanNew.setNoRefer(reportPaymentBean.getDeductionNo());
+				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())?reportPaymentBean.getDeductionNo():"-");
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("ยกเลิก");
 				}
 				reportPaymentBeanNew.setBranchName(reportPaymentBean.getBranchName());
+				reportPaymentBeanNew.setPosName(reportPaymentBean.getPosName());
+				reportPaymentBeanNew.setBranchCode(reportPaymentBean.getBranchCode());
 
 				index++;
 				resultSource.add(reportPaymentBeanNew);
@@ -181,7 +190,11 @@ public class PaymentReportPdf {
 			String userPayment = "";
 			String userPaymentOld = "";
 			
-			if(CollectionUtils.isNotEmpty(resultSource)) {serviceCode = resultSource.get(0).getServiceCode(); departCode = resultSource.get(0).getDepartment(); userPayment = resultSource.get(0).getCreateBy();}
+			if(CollectionUtils.isNotEmpty(resultSource)) {
+				serviceCode = resultSource.get(0).getServiceCode();
+				departCode = resultSource.get(0).getDepartment();
+				userPayment = resultSource.get(0).getCreateBy();
+			}
 			
 			UserBean beanSup = new UserBean();
 //			if(CollectionUtils.isNotEmpty(resultSource))departCode = resultSource.get(0).getDepartment();
@@ -293,7 +306,9 @@ public class PaymentReportPdf {
 								count++;
 								
 								reportPaymentBean.setManualIdStr((countRow+1)+"");
-								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+//								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+								List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(reportPaymentBean.getServiceCode());
+								glCode = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
 								resultSources.add(reportPaymentBean);
 							}else {
 								
@@ -301,6 +316,7 @@ public class PaymentReportPdf {
 								
 								parameters = new HashMap<String, Object>();
 								parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
+								parameters.put("posNoHead", reportPaymentBean.getPosName());
 								parameters.put("posNo", profile.getPos());
 								parameters.put("accountCode", "accountCode");
 								parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -314,6 +330,7 @@ public class PaymentReportPdf {
 								parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 								parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 								sumAllVatUser += sumAllVat0;
+								sumAllVatSum += sumAllVat0;
 								sumAllTotalUser += sumAllTotal;
 								sumAllTotalNoVatUser += sumAllTotalNoVat;
 								
@@ -328,7 +345,7 @@ public class PaymentReportPdf {
 								parameters.put("departmentListCount", countRow);
 								parameters.put("serviceName", serviceName);
 								parameters.put("glName", glCode);
-								parameters.put("departmentName", departCode);
+								parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
 								
 								parameters.put("userPayment", "");
 								parameters.put("userListCount", "");
@@ -339,7 +356,9 @@ public class PaymentReportPdf {
 								parameters.put("pageNumber", pageNumber);
 								
 //								userPay = "";
-								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+//								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+								List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(reportPaymentBean.getServiceCode());
+								glCode = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
 								
 								JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 								
@@ -374,6 +393,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
+							parameters.put("posNoHead", reportPaymentBean.getPosName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -387,6 +407,7 @@ public class PaymentReportPdf {
 							parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 							parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 							sumAllVatUser += sumAllVat0;
+							sumAllVatSum += sumAllVat0;
 							sumAllTotalUser += sumAllTotal;
 							sumAllTotalNoVatUser += sumAllTotalNoVat;
 							
@@ -401,7 +422,7 @@ public class PaymentReportPdf {
 							parameters.put("departmentListCount", countRow);
 							parameters.put("serviceName", serviceName);
 							parameters.put("glName", glCode);
-							parameters.put("departmentName", departCode);
+							parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
 							
 							parameters.put("userPayment", userPaymentOld);
 							parameters.put("userListCount", countRow);
@@ -416,7 +437,9 @@ public class PaymentReportPdf {
 							parameters.put("sumAllTotalNoVatUser1", String.format("%,.2f", sumAllTotalNoVat));
 							
 //							userPay = "";
-							glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+//							glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+							List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(reportPaymentBean.getServiceCode());
+							glCode = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
 							
 							JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 							
@@ -450,6 +473,7 @@ public class PaymentReportPdf {
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
+						parameters.put("posNoHead", reportPaymentBean.getPosName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -478,7 +502,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode);
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
 						
 						parameters.put("userPayment", userPaymentOld);
 						parameters.put("userListCount", resultSources.size());
@@ -492,7 +516,9 @@ public class PaymentReportPdf {
 						parameters.put("pageNumber", pageNumber);
 						
 //						userPay = "";
-						glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+//						glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
+						List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(reportPaymentBean.getServiceCode());
+						glCode = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
 						
 						JRDataSource jrDataSource = (resultSources != null && !resultSources.isEmpty()) ? new JRBeanCollectionDataSource(resultSources) : new JREmptyDataSource();
 						
@@ -532,6 +558,7 @@ public class PaymentReportPdf {
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
+						parameters.put("posNoHead", reportPaymentBean.getPosName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -545,6 +572,7 @@ public class PaymentReportPdf {
 						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
 						parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
 						sumAllVatUser += sumAllVat0;
+						sumAllVatSum += sumAllVat0;
 						sumAllTotalUser += sumAllTotal;
 						sumAllTotalNoVatUser += sumAllTotalNoVat;
 						
@@ -559,7 +587,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode);
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
 						parameters.put("pageNumber", pageNumber);
 						
 						parameters.put("lastPage", "Y");
@@ -738,6 +766,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
+							parameters.put("posNoHead", resultSource.get(i).getPosName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -755,6 +784,7 @@ public class PaymentReportPdf {
 							parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
 							
 							sumAllVatUser += sumAllVat0;
+							sumAllVatSum += sumAllVat0;
 							sumAllTotalUser += sumAllTotal;
 							sumAllTotalNoVatUser += sumAllTotalNoVat;
 							
@@ -804,6 +834,7 @@ public class PaymentReportPdf {
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
+							parameters.put("posNoHead", resultSource.get(i).getPosName());
 							parameters.put("posNo", profile.getPos());
 							parameters.put("accountCode", "accountCode");
 							parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -986,7 +1017,8 @@ public class PaymentReportPdf {
 					}else {
 						
 						parameters = new HashMap<String, Object>();
-						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
+						parameters.put("posNoHead", resultSource.get(i).getPosName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
@@ -1004,6 +1036,7 @@ public class PaymentReportPdf {
 						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
 						
 						sumAllVatUser += sumAllVat0;
+						sumAllVatSum += sumAllVat0;
 						sumAllTotalUser += sumAllTotal;
 						sumAllTotalNoVatUser += sumAllTotalNoVat;
 						
@@ -1048,7 +1081,8 @@ public class PaymentReportPdf {
 					
 					if(i==(resultSource.size()-1)) {
 						parameters = new HashMap<String, Object>();
-						parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
+						parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
+						parameters.put("posNoHead", resultSource.get(i).getPosName());
 						parameters.put("posNo", profile.getPos());
 						parameters.put("accountCode", "accountCode");
 						parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));

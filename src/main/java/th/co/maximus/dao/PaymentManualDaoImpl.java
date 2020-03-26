@@ -162,7 +162,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPayment(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
@@ -188,7 +188,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
@@ -213,7 +213,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentOther(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
@@ -260,6 +260,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setCancelReason(rs.getString("CANCEL_REASON"));
 			reportPayment.setVatRate(rs.getString("VAT_RATE"));
 			reportPayment.setBranchName(rs.getString("BRANCH_NAME"));
+			reportPayment.setBranchCode(rs.getString("BRANCH_AREA"));
+			reportPayment.setPosName(rs.getString("POS_NAME"));
 			return reportPayment;
 		}
 
@@ -390,7 +392,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentB(ReportPaymentCriteria criteria, String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.*, m.value branch_name ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");

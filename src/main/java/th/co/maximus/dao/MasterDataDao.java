@@ -42,6 +42,8 @@ public interface MasterDataDao {
 	
 	String findProperty(String code);
 	
+	String findProperty2(String code, String branchArea);
+	
 	void insertBatch(MasterDataBean masterDataBean);
 
 	public List<MasterDataBean> findByVat();
