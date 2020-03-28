@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="1150" pageHeight="768" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="805"/>
-	<property name="ireport.y" value="102"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
 	<parameter name="dateTo" class="java.lang.String"/>
@@ -67,6 +67,8 @@
 	<parameter name="sumAllTotalUser1" class="java.lang.String"/>
 	<parameter name="sumAllTotalNoVatUser1" class="java.lang.String"/>
 	<parameter name="posNoHead" class="java.lang.String"/>
+	<parameter name="pageAll" class="java.lang.String"/>
+	<parameter name="pageIndex" class="java.lang.String"/>
 	<field name="serviceType" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceType]]></fieldDescription>
 	</field>
@@ -113,6 +115,10 @@
 	<field name="refNoEx" class="java.lang.String"/>
 	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page" calculation="Count">
 		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="xxx" class="java.lang.Integer" resetType="Page">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[$V{PAGE_NUMBER}]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -237,7 +243,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["หน้า    "+ $P{pageIndex}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="469" y="78" width="57" height="20" uuid="89ce32bd-91a3-4863-b221-8e95933be667"/>

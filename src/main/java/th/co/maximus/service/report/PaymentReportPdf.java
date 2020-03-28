@@ -76,6 +76,8 @@ public class PaymentReportPdf {
 		double sumAllVatUser = 0.00;
 		int index = 1;
 		int sumCount = 0;
+		int pageIndex = 1;
+		int pageAll = 1;
 		
 		BigDecimal vatRateAmountSum = BigDecimal.ZERO;
 		BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
@@ -146,7 +148,8 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setVatRate(reportPaymentBean.getVatRate());
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
 				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
-				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())?reportPaymentBean.getDeductionNo():"-");
+//				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())?reportPaymentBean.getDeductionNo():"-");
+				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
@@ -226,20 +229,6 @@ public class PaymentReportPdf {
 			
 			if(CollectionUtils.isNotEmpty(resultSource)) {
 				for(ReportPaymentBean reportPaymentBean : resultSource) {
-					
-//					for(int v=0; v<listVat.size(); v++) {
-//						vatBean = new VatBean();
-//						if(Constants.VATRATE.SEVEN.equals(reportPaymentBean.getVatRate())) {
-//							sumAmountVat = sumAmountVat.add(reportPaymentBean.getBeforVat());
-//							vatBean.setAmount(sumAmountVat);
-//							sumAmountVatAll = sumAmountVatAll.add(reportPaymentBean.getAmount());
-//							vatBean.setSumAmount(sumAmountVatAll);
-//							vatBean.setCount(vatNon++);
-//							vatBean.setVatRat(reportPaymentBean.getVatRate());
-//						}else {
-//							
-//						}
-//					}
 					
 					if(Constants.Status.ACTIVE.equals(reportPaymentBean.getStatusStr())) {
 						if(Constants.VATRATE.TEN.equals(reportPaymentBean.getVatRate())) {
@@ -365,6 +354,7 @@ public class PaymentReportPdf {
 								JasperPrint jasperPrint = new JasperPrint();
 								
 //								JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+								parameters.put("pageIndex", pageIndex++);
 								jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 								jasperPrints.add(jasperPrint);
 								
@@ -446,6 +436,7 @@ public class PaymentReportPdf {
 							JasperPrint jasperPrint = new JasperPrint();
 							
 //							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							parameters.put("pageIndex", pageIndex++);
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 							
@@ -525,6 +516,7 @@ public class PaymentReportPdf {
 						JasperPrint jasperPrint = new JasperPrint();
 						
 //						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						parameters.put("pageIndex", pageIndex++);
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 						
@@ -643,6 +635,7 @@ public class PaymentReportPdf {
 						JasperPrint jasperPrint = new JasperPrint();
 						
 //						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						parameters.put("pageIndex", pageIndex++);
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 					}
@@ -799,6 +792,7 @@ public class PaymentReportPdf {
 							JasperPrint jasperPrint = new JasperPrint();
 							
 //							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							parameters.put("pageIndex", pageIndex++);
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 							
@@ -910,6 +904,7 @@ public class PaymentReportPdf {
 							JasperPrint jasperPrint = new JasperPrint();
 							
 //							JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+							parameters.put("pageIndex", pageIndex++);
 							jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 							jasperPrints.add(jasperPrint);
 						}
@@ -1051,6 +1046,7 @@ public class PaymentReportPdf {
 						JasperPrint jasperPrint = new JasperPrint();
 						
 //						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						parameters.put("pageIndex", pageIndex++);
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 						
@@ -1163,6 +1159,7 @@ public class PaymentReportPdf {
 						JasperPrint jasperPrint = new JasperPrint();
 						
 //						JRProperties.setProperty("net.sf.jasperreports.default.pdf.font.name", "th/co/maximus/report/font/newFL.ttf");
+						parameters.put("pageIndex", pageIndex++);
 						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
 						jasperPrints.add(jasperPrint);
 					}
@@ -1170,47 +1167,6 @@ public class PaymentReportPdf {
 				}
 			}
 			
-//			parameters = new HashMap<String, Object>();
-//			parameters.put("serviceTypeHead", criteria.getMachinePaymentName());
-//			parameters.put("posNo", posNo);
-//			parameters.put("accountCode", "accountCode");
-//			parameters.put("printDates", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dates));
-//			parameters.put("dateFrom", convertDateFormat(criteria.getDateFrom()));
-//			parameters.put("dateTo", convertTimeFormat(criteria.getDateTo()));
-//			parameters.put("staff", criteria.getUser());
-//			parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
-//			parameters.put("serviceNameHead", serviceName);
-//
-//			parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
-//			parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
-//			parameters.put("summaryAllNotVat", String.format("%,.2f", sumAllTotalNoVat));
-//			parameters.put("summaryVat0User", String.format("%,.2f", sumAllVat0));
-//			parameters.put("summaryVatUser", String.format("%,.2f", sumAllTotal));
-//			parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
-//			
-//			parameters.put("serviceName", serviceName);
-//			parameters.put("serviceListCount", resultSource.size());
-//			parameters.put("userListCount", resultSource.size());
-			
-//			int count = 0;
-//			for(ReportPaymentBean reportPaymentBean : resultSource) {
-//				if(count==0) {
-//					userPay = reportPaymentBean.getCreateBy();
-//				}else {
-//					if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
-//						userPay = userPay.concat(", ").concat(reportPaymentBean.getCreateBy());
-//					}
-//				}
-//				count++;
-//			}
-			
-//			parameters.put("userPayment", userPay);
-			
-//			JRDataSource jrDataSource = (resultSource != null && !resultSource.isEmpty()) ? new JRBeanCollectionDataSource(resultSource) : new JREmptyDataSource();
-//			JasperPrint jasperPrint = new JasperPrint();
-//			
-//			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
-//			jasperPrints.add(jasperPrint);
 		}
 		
 		try {
