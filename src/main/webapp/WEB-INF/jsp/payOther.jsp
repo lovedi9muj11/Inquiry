@@ -207,10 +207,12 @@
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
+														if(masterServicetype.get(i).getRevenueTypeName() != "null"){
 												%>
 												<option
 													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeName()%></option>
 												<%
+														}
 													}
 												%>
 											</select> 
