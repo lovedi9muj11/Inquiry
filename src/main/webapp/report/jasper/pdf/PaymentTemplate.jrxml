@@ -69,6 +69,7 @@
 	<parameter name="posNoHead" class="java.lang.String"/>
 	<parameter name="pageAll" class="java.lang.String"/>
 	<parameter name="pageIndex" class="java.lang.String"/>
+	<parameter name="pageIndexAll" class="java.lang.String"/>
 	<field name="serviceType" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceType]]></fieldDescription>
 	</field>
@@ -236,7 +237,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["จาก    " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["จาก    " + $P{pageIndexAll}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1018" y="20" width="50" height="18" uuid="fc5158ca-348c-4c0b-81e2-4dd2739d9c04"/>
