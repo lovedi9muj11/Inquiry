@@ -654,6 +654,9 @@ public class PaymentReportPdf {
 			
 			
 		}else {
+//			List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(Constants.INIT_PROJECT_GL);
+//			String glName = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
+			String glName = Constants.INIT_PROJECT_GL;
 			
 			if(Constants.Role.SUPPERVISOR_2.equals(beanRole.getRoleId()+"")) {
 				
@@ -773,6 +776,7 @@ public class PaymentReportPdf {
 							parameters.put("staff", criteria.getUser());
 							parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 							parameters.put("serviceNameHead", serviceName);
+							parameters.put("glName", glName);
 
 							parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 							parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
@@ -843,6 +847,7 @@ public class PaymentReportPdf {
 							parameters.put("staff", criteria.getUser());
 							parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 							parameters.put("serviceNameHead", serviceName);
+							parameters.put("glName", glName);
 
 							parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 							parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
@@ -1029,6 +1034,7 @@ public class PaymentReportPdf {
 						parameters.put("staff", criteria.getUser());
 						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
 						parameters.put("serviceNameHead", serviceName);
+						parameters.put("glName", glName);
 
 						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
@@ -1095,6 +1101,7 @@ public class PaymentReportPdf {
 						parameters.put("staff", criteria.getUser());
 						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
 						parameters.put("serviceNameHead", serviceName);
+						parameters.put("glName", glName);
 
 						parameters.put("summaryVat0", String.format("%,.2f", sumAllVat0));
 						parameters.put("summaryAllVat", String.format("%,.2f", sumAllTotal));
@@ -1135,11 +1142,6 @@ public class PaymentReportPdf {
 						if(StringUtils.isNotBlank(vatBean7.getVatRat())) {
 							vatBeans.add(vatBean7);
 						}
-						
-//						BigDecimal vatRateAmountSum = BigDecimal.ZERO;
-//						BigDecimal vatRateSumAmountSum = BigDecimal.ZERO;
-//						int vatListCountSum = 0;
-//						BigDecimal vatRateAmountSum = BigDecimal.ZERO;
 						
 						for(int ii=0; ii<vatBeans.size(); ii++) {
 							parameters.put("chkVat"+ii, "Y");
