@@ -6,7 +6,7 @@ var isprice = 0;
 
 $(document).ready(function() {
 	// ============ vat Rate by imaew
-
+	$("#barCode").focus();
 	
 	$("#barCode").keypress(function(e){
         if ( e.which == 13 ) {

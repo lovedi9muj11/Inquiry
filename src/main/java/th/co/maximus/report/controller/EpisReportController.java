@@ -174,7 +174,8 @@ public class EpisReportController {
 		// UserDto resultUser = userService.findByUsername(profile.getUsername());
 		//exportPDFReport.setBranArea(valueBean.getValue());
 		MasterDatasBean valueBean1 = masterDataService.findByKeyCode(printCollections1.get(0).getBranArea());
-		exportPDFReport.setBranArea(valueBean1.getProperty1() + " " + valueBean1.getValue());
+//		exportPDFReport.setBranArea(valueBean1.getProperty1() + " " + valueBean1.getValue());
+		exportPDFReport.setBranArea(valueBean1.getValue());
 		
 		exportPDFReport.setBracnCode(" " + profile.getBranchCode() + " ");
 		exportPDFReport.setDocumentDate(invObject.getDocumentDate());
