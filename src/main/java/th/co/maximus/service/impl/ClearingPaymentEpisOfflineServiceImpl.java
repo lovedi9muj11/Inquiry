@@ -5,8 +5,10 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -47,9 +49,11 @@ import th.co.maximus.model.PaymentDTO;
 import th.co.maximus.model.PaymentEpisOfflineDTO;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
 import th.co.maximus.model.ReceiptOfflineModel;
+import th.co.maximus.model.TranferLogs;
 import th.co.maximus.model.TrsChequerefEpisOffline;
 import th.co.maximus.model.TrsCreditrefEpisOffline;
 import th.co.maximus.model.TrsMethodEpisOffline;
+import th.co.maximus.repository.TranferLogsRepository;
 import th.co.maximus.service.CancelPaymentService;
 import th.co.maximus.service.ClearingPaymentEpisOfflineService;
 import th.co.maximus.service.MinusOnlineService;
@@ -98,6 +102,8 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	private CancelPaymentService cancelPaymentService;
 	
 	@Autowired MinusOnlineService minusOnlineService;
+	
+	@Autowired TranferLogsRepository tranferLogsRepository;
 
 	public ClearingPaymentEpisOfflineServiceImpl()
 			throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
@@ -176,10 +182,12 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 	}
 
 	@Override
-	public List<OfflineResultModel> callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria) {
+	public List<OfflineResultModel> callOnlinePayment(List<PaymentMMapPaymentInvBean> creteria ,String system) {
 		init();
 		List<OfflineResultModel> objMessage = new ArrayList<OfflineResultModel>();
-
+		int errorCount = 0;
+		int successCount = 0;
+		StringBuilder errorRecript = new StringBuilder();
 		List<PaymentEpisOfflineDTO> PaymentEpisOfflineDTOList = new ArrayList<>();
 		List<PaymentInvoiceEpisOffline> paymentList = new ArrayList<>();
 		List<DuductionEpisOffline> deductionList = new ArrayList<>();
@@ -187,6 +195,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		List<TrsCreditrefEpisOffline> creditList = new ArrayList<>();
 		List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
 		TmpInvoiceBean invoid = new TmpInvoiceBean();
+		Date startDate = new Date();
 		try {
 			Boolean isOther = false;
 			if (creteria != null) {
@@ -286,28 +295,48 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			}
 			if(PaymentEpisOfflineDTOList.size() >0) {
-				ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
-						String.class);
-	
-				if (null != postResponse.getBody()) {
-					JSONArray jsonArray = new JSONArray(postResponse.getBody());
-					for (int i = 0; i < jsonArray.length(); i++) {
-						OfflineResultModel obj = new OfflineResultModel();
-						System.out.println("manualId :: " + jsonArray.getJSONObject(i).getLong("manualId"));
-						obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
-						obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
-						obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
-						obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
-						if (("SUCCESS").equals(obj.getStatus())) {
-							obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
+				try {
+					ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
+							String.class);
+		
+					if (null != postResponse.getBody()) {
+						JSONArray jsonArray = new JSONArray(postResponse.getBody());
+						for (int i = 0; i < jsonArray.length(); i++) {
+							OfflineResultModel obj = new OfflineResultModel();
+							System.out.println("manualId :: " + jsonArray.getJSONObject(i).getLong("manualId"));
+							obj.setManualId(jsonArray.getJSONObject(i).getLong("manualId"));
+							obj.setMessage(jsonArray.getJSONObject(i).getString("message"));
+							obj.setStatus(jsonArray.getJSONObject(i).getString("status"));
+							obj.setRecriptNo(jsonArray.getJSONObject(i).getString("recriptNo"));
+							if (("SUCCESS").equals(obj.getStatus())) {
+								obj.setManualIdOnline(jsonArray.getJSONObject(i).getLong("manualIdOnline"));
+								successCount++;
+							}else {
+								errorCount++;
+								errorRecript.append(jsonArray.getJSONObject(i).getString("recriptNo")).append("|");
+							}
+							objMessage.add(obj);
 						}
-						objMessage.add(obj);
 					}
-	
+				} catch (Exception e) {
+					for (PaymentEpisOfflineDTO paymentEpisOfflineDTO : PaymentEpisOfflineDTOList) {
+						errorCount++;
+						errorRecript.append(paymentEpisOfflineDTO.getReceiptNo()).append("|");
+					}
 				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			TranferLogs log = new TranferLogs();
+			log.setStartDate(new Timestamp(startDate.getTime()));
+			log.setEndDate(new Timestamp(new Date().getTime()));
+			log.setSystem(system);
+			log.setErrorTask(errorCount);
+			log.setSuccessTask(successCount);
+			log.setErrorRecript(errorRecript.toString());
+			tranferLogsRepository.save(log);
 		}
 
 		return objMessage;
@@ -325,7 +354,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		CancelPaymentDTO cancelDTO = new CancelPaymentDTO();
 		String postUrl = "";
 		if(list.size() > 0) {
-		List<OfflineResultModel> objMessage = callOnlinePayment(list);
+		List<OfflineResultModel> objMessage = callOnlinePayment(list,"BATCH");
 		if(CollectionUtils.isNotEmpty(objMessage))minusOnlineService.updateStatusForMinusOnline(list, Constants.CLEARING.STATUS_W);
 		
 		ResponseEntity<String> resultA;

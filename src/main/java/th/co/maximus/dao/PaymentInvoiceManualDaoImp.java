@@ -228,6 +228,28 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
+	
+	
+	@Override
+	public List<PaymentMMapPaymentInvBean> findCriteriaFromReceiptNo(String[] receiptNo) {
+		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT,Locale.ENGLISH); 
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+//		sql.append(" INNER JOIN master_data ms ON ms.PROPERTY_1 = payment_m.CUSTOMER_GROUP ");
+		sql.append(" WHERE 1 = 1  AND ");
+		for (int i = 0; i < receiptNo.length; i++) {
+			sql.append(" RECEIPT_NO_MANUAL = '"+receiptNo[i]+"'");
+			if(i+1 != receiptNo.length) {
+				sql.append(" OR ");
+			}
+		}
+		
+		
+		return jdbcTemplate.query(sql.toString(), PaymentManual);
+	}
 
 	@Override
 	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String user, String  reasonCode) {

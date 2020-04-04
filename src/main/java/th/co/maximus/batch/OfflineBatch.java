@@ -185,7 +185,7 @@ public class OfflineBatch implements Job {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		if (CollectionUtils.isNotEmpty(result)) {
 			
-			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result);
+			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result,"BATCH");
 			if(CollectionUtils.isNotEmpty(resultClear))minusOnlineService.updateStatusForMinusOnline(result, Constants.CLEARING.STATUS_W);
 			
 			for (OfflineResultModel offlineResultModel : resultClear) {

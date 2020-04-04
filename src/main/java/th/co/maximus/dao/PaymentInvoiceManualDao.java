@@ -47,5 +47,7 @@ public interface PaymentInvoiceManualDao {
 	public InvoiceBean findInvoiceByManualId(Long manualId);
 	
 	public PaymentInvoiceManualBean findInvoiceManualByManualId(Long manualId);
+
+	public	List<PaymentMMapPaymentInvBean> findCriteriaFromReceiptNo(String[] receiptNo);
 	
 } 

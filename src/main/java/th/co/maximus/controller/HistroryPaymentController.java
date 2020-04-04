@@ -220,9 +220,9 @@ public class HistroryPaymentController {
 	@ResponseBody
 	public HashMap<String, Object> clearing(@RequestBody List<PaymentMMapPaymentInvBean> creteria) throws Exception {
 		HashMap<String, Object> result = new HashMap<>();
-		
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(CollectionUtils.isNotEmpty(creteria)) {
-			List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria);
+			List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(creteria,profile.getUsername());
 			if(CollectionUtils.isNotEmpty(objMessage))minusOnlineService.updateStatusForMinusOnline(creteria, Constants.CLEARING.STATUS_W);
 			
 			try {
@@ -258,7 +258,8 @@ public class HistroryPaymentController {
 		list = cancelPaymentService.findAllCancelPayments("N");
 		String mac = GetMacAddress.getMACAddress();
 		String postUrl = "";
-		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(list);
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<OfflineResultModel> objMessage = clearingPaymentEpisOfflineService.callOnlinePayment(list,profile.getUsername());
 		try {
 
 			for (OfflineResultModel offlineResultModel : objMessage) {
