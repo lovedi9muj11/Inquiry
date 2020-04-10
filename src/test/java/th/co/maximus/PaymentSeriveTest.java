@@ -1,5 +1,6 @@
 package th.co.maximus;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import th.co.maximus.core.utils.ReciptNoGenCode;
+import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.payment.bean.PaymentFirstBean;
 import th.co.maximus.payment.bean.PaymentTaxBean;
 import th.co.maximus.payment.bean.PaymentTranPriceBean;
@@ -30,6 +32,7 @@ public class PaymentSeriveTest{
 	@Autowired TrsmethodManualService trsmethodManualService;
 	@Autowired PaymentService paymentService;
 	@Autowired ReciptNoGenCode reciptNoGenCode;
+	@Autowired private PaymentManualDao paymentManualDao;
 	
 	@Ignore
 	@Test
@@ -98,11 +101,15 @@ public class PaymentSeriveTest{
 	public void findById() throws Exception {
 		paymentService.findByid(16);
 	}
-	@Ignore
+	
 	@Test
-	@Rollback
 	public void genCode() {
-		
+		try {
+			paymentManualDao.udpateStatus(43, "Y");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

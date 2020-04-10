@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -40,11 +41,12 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 
 	Locale localEn = new Locale("en", "EN");
 	SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT, localEn);
+	SimpleDateFormat dateFormatClearing = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT.concat(" "+Constants.DateTime.TIME_FORMAT), localEn);
 
 	@Override
 	public int insertPayment(PaymentManualBean paymentManualBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_AMOUNT,CUSTOMER_GROUP)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO RECEIPT_MANUAL (INVOICE_NO, RECEIPT_NO_MANUAL, PAID_DATE, BRANCH_AREA, BRANCH_CODE,PAID_AMOUNT,SOURCE,CLEARING,REMARK,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,ACCOUNT_NO,PAY_TYPE,DOCTYPE,CHANG,AMOUNT,VAT_AMOUNT,CUSTOMER_GROUP, CANCEL_DATE, CLEARING_DATE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "MANUAL_ID" });
@@ -70,6 +72,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 				// pst.setInt(20, paymentManualBean.getVatRate());
 				pst.setBigDecimal(20, paymentManualBean.getVatAmount());
 				pst.setString(21, paymentManualBean.getCustomerGroup());
+				pst.setTimestamp(22, null);
+				pst.setTimestamp(23, null);
 				return pst;
 			}
 		}, keyHolder);
@@ -334,8 +338,9 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		StringBuilder sqlStmt = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 
-		sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = ? ");
+		sqlStmt.append("UPDATE RECEIPT_MANUAL py SET  py.CLEARING = ?, py.CLEARING_DATE = ? ");
 		param.add(status);
+		param.add(dateFormatClearing.format(new Date()));
 		sqlStmt.append(" WHERE  py.MANUAL_ID = ? ");
 		param.add(manualId);
 		Object[] paramArr = param.toArray();

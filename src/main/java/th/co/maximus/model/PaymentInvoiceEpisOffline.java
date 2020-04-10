@@ -33,6 +33,8 @@ public class PaymentInvoiceEpisOffline {
 	
 	private BigDecimal discount;
 	private BigDecimal discountVat;
+	private Date clearingDate;
+	private String clearingDateStr;
 	
 	public PaymentInvoiceEpisOffline(){}
 	public PaymentInvoiceEpisOffline(String invoiceNo,BigDecimal beforVat,BigDecimal vatAmount,BigDecimal amount,String vatRate,String customerName,
@@ -229,6 +231,18 @@ public class PaymentInvoiceEpisOffline {
 	}
 	public void setDiscountVat(BigDecimal discountVat) {
 		this.discountVat = discountVat;
+	}
+	public Date getClearingDate() {
+		return clearingDate;
+	}
+	public void setClearingDate(Date clearingDate) {
+		this.clearingDate = clearingDate;
+	}
+	public String getClearingDateStr() {
+		return clearingDateStr;
+	}
+	public void setClearingDateStr(String clearingDateStr) {
+		this.clearingDateStr = clearingDateStr;
 	}
 
 	
