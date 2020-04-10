@@ -264,7 +264,7 @@ public class EpisReportController {
 			} else if (rs.getCode().equals("CH")) {
 				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(rs.getId());
 				for (int f = 0; f < res.size(); f++) {
-					payCode = "เช็ค " + res.get(f).getPublisher() + "เลขที่ :" + res.get(f).getChequeNo();
+					payCode = "เช็ค " + res.get(f).getPublisher() + " เลขที่ :" + res.get(f).getChequeNo();
 					result.add(payCode);
 				}
 

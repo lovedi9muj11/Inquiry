@@ -83,8 +83,12 @@
 								<li><a href="${contextPath}/gotoHistroryPayment">ประวัติการชำระค่าบริการ</a>
 								</li>
 							</ul>
-													<ul class="dropdown-menu forAnimate" role="menu">
+							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/gotoHistroryPaymentother">ประวัติการชำระค่าบริการอื่น</a>
+								</li>
+							</ul>
+								<ul class="dropdown-menu forAnimate" role="menu">
+								<li><a href="${contextPath}/reportTranfer">ประวัติการส่งข้อมูลเข้าสู่ระบบออนไลน์</a>
 								</li>
 							</ul>
 							</li>

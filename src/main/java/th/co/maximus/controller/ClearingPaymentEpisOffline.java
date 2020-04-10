@@ -16,6 +16,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.model.OfflineResultModel;
 import th.co.maximus.service.CancelPaymentService;
@@ -70,9 +72,9 @@ public class ClearingPaymentEpisOffline {
 	public void save(@RequestBody PaymentMMapPaymentInvBean creteria) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
 		result = cancelPaymentService.findAllCancelPayments(creteria.getClearing());
-	
+		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (result != null) {
-			List<OfflineResultModel> objMessage =clearingPaymentEpisOfflineService.callOnlinePayment(result);
+			List<OfflineResultModel> objMessage =clearingPaymentEpisOfflineService.callOnlinePayment(result,profile.getUsername());
 			for (OfflineResultModel offlineResultModel : objMessage) {
 				if (offlineResultModel.getStatus().equals("SUCCESS")) { 
 					
