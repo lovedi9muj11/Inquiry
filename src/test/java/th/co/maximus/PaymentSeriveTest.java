@@ -102,6 +102,7 @@ public class PaymentSeriveTest{
 		paymentService.findByid(16);
 	}
 	
+	@Ignore
 	@Test
 	public void genCode() {
 		try {
