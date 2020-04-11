@@ -274,7 +274,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
-				"SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID,py.AMOUNT ,py.VAT_AMOUNT , py.CREATE_BY  ");
+				"SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID,py.AMOUNT ,py.VAT_AMOUNT , py.CREATE_BY , py.CREATE_DATE , py.UPDATE_DATE , py.CANCEL_BY  ");
 		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
 		sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = 'A' ");
 		beanReReq = jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
@@ -287,7 +287,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 					return new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3),
 							resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),
 							resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
-							resultSet.getString(10),resultSet.getBigDecimal(11),resultSet.getBigDecimal(12),resultSet.getString(13));
+							resultSet.getString(10),resultSet.getBigDecimal(11),resultSet.getBigDecimal(12),resultSet.getString(13),resultSet.getDate(14),resultSet.getDate(15),resultSet.getString(16));
 				}
 
 				return null;
@@ -303,7 +303,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 
 		StringBuilder sqlStmt = new StringBuilder();
 		sqlStmt.append(
-				"SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID,py.AMOUNT ,py.VAT_AMOUNT , py.CREATE_BY ");
+				"SELECT py.INVOICE_NO , py.RECEIPT_NO_MANUAL ,py.PAID_DATE,py.BRANCH_AREA ,py.BRANCH_CODE,py.PAID_AMOUNT,py.SOURCE,py.REMARK,py.ACCOUNT_NO,py.MANUAL_ID,py.AMOUNT ,py.VAT_AMOUNT , py.CREATE_BY , py.CREATE_DATE , py.UPDATE_DATE , py.CANCEL_BY ");
 		sqlStmt.append(" FROM RECEIPT_MANUAL py ");
 		sqlStmt.append(" WHERE  py.MANUAL_ID = ? AND py.CLEARING = 'N' AND py.RECORD_STATUS = ? ");
 		beanReReq = jdbcTemplate.query(sqlStmt.toString(), new PreparedStatementSetter() {
@@ -318,7 +318,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 					return new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3),
 							resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),
 							resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
-							resultSet.getString(10),resultSet.getBigDecimal(11),resultSet.getBigDecimal(12),resultSet.getString(13));
+							resultSet.getString(10),resultSet.getBigDecimal(11),resultSet.getBigDecimal(12),resultSet.getString(13),resultSet.getDate(14),resultSet.getDate(15),resultSet.getString(16));
 				}
 
 				return null;
