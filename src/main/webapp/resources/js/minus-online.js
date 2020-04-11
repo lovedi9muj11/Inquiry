@@ -71,17 +71,20 @@ function createRow(data, seq) {
 	
 	if(clearing === "Y"){
 		clearing = "ส่งหักล้างแล้ว";
+		clearingDate = data.clearingDateStr;
 	}else if(clearing === "W"){
 		clearing = "รอส่งหักล้าง";
+		clearingDate = "-";
 	}else{
 		clearing = "ยังไม่ส่งหักล้าง";
+		clearingDate = "-";
 	}
 	
 	checkbox = '<input type="checkbox" name="check" value='+data.manualId+'></input>';
 	
 	
     var t = $('#histroryPaymentTB').DataTable();
-    var rowNode = t.row.add([checkbox, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing]).draw(true).node();
+    var rowNode = t.row.add([checkbox, no ,paidDate ,createDate , clearingDate, receiptNoManual, branchCode, createBy ,invoiceNo ,period , amount, source, paidAmount, vatAmount, recordStatus, remark, clearing]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
@@ -91,15 +94,16 @@ function createRow(data, seq) {
     $(rowNode).find('td').eq(6).addClass('left');
     $(rowNode).find('td').eq(7).addClass('left');
     $(rowNode).find('td').eq(8).addClass('left');
-    $(rowNode).find('td').eq(9).addClass('right');
-    $(rowNode).find('td').eq(10).addClass('center');
-    $(rowNode).find('td').eq(11).addClass('right');
+    $(rowNode).find('td').eq(9).addClass('left');
+    $(rowNode).find('td').eq(10).addClass('right');
+    $(rowNode).find('td').eq(11).addClass('center');
     $(rowNode).find('td').eq(12).addClass('right');
-    $(rowNode).find('td').eq(13).addClass('left');
-    $(rowNode).find('td').eq(14).addClass('center');
+    $(rowNode).find('td').eq(13).addClass('right');
+    $(rowNode).find('td').eq(14).addClass('left');
     $(rowNode).find('td').eq(15).addClass('center');
-//    $(rowNode).find('td').eq(16).addClass('center');
     $(rowNode).find('td').eq(16).addClass('center');
+//    $(rowNode).find('td').eq(16).addClass('center');
+    $(rowNode).find('td').eq(17).addClass('center');
 };
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');

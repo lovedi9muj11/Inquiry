@@ -1,7 +1,6 @@
 package th.co.maximus.bean;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -54,8 +53,8 @@ public class PaymentMMapPaymentInvBean {
 	private String reasonCode;
 	private String reasonDesc;
 	private String branchAreaCode;
-	
-	
+	private Date clearingDate;
+	private String clearingDateStr;
 	
 
 	public String getBranchAreaCode() {
@@ -394,6 +393,22 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setVatAmountOther(BigDecimal vatAmountOther) {
 		this.vatAmountOther = vatAmountOther;
+	}
+
+	public Date getClearingDate() {
+		return clearingDate;
+	}
+
+	public void setClearingDate(Date clearingDate) {
+		this.clearingDate = clearingDate;
+	}
+
+	public String getClearingDateStr() {
+		return clearingDateStr;
+	}
+
+	public void setClearingDateStr(String clearingDateStr) {
+		this.clearingDateStr = clearingDateStr;
 	}
 	
 	
