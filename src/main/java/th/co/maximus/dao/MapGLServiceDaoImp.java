@@ -20,7 +20,7 @@ public class MapGLServiceDaoImp implements MapGLServiceDao{
 	
 	@Override
 	public void insertMapGLService(MapGLBean mapGLBean) {
-		String sql = "INSERT INTO MAP_GL_SERVICE_TYPE (GL_CODE, SERVICE_CODE, PRODUCT_CODE, PRODUCT_NAME, SUB_PRODUCT_CODE, SUB_PRODUCT_NAME, SERVICE_NAME, REVENUE_TYPE_CODE, REVENUE_TYPE_NAME, SEGMENT_CODE, SEGMENT_NAME, STATUS, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE, RECORD_STATUS, SOURCE)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO MAP_GL_SERVICE_TYPE (GL_CODE, SERVICE_CODE, PRODUCT_CODE, PRODUCT_NAME, SUB_PRODUCT_CODE, SUB_PRODUCT_NAME, SERVICE_NAME, REVENUE_TYPE_CODE, REVENUE_TYPE_NAME, SEGMENT_CODE, SEGMENT_NAME, STATUS, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE, RECORD_STATUS, SOURCE,ERP_INTERFACE_FLAG)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		java.util.Date now = new java.util.Date();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -44,6 +44,7 @@ public class MapGLServiceDaoImp implements MapGLServiceDao{
 				pst.setDate(16, new Date(now.getTime()));
 				pst.setString(17, mapGLBean.getRecordStatus());
 				pst.setString(18, mapGLBean.getSource());
+				pst.setString(19, mapGLBean.getErpInterfaceFlag());
 				return pst;
 			}
 		});

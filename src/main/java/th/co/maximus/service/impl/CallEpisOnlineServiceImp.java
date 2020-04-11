@@ -211,6 +211,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				glBean.setServiceCode( jsonArray.getJSONObject(i).getString("serviceCode"));
 				glBean.setStatus( jsonArray.getJSONObject(i).getString("status"));
 				glBean.setCreateBy( jsonArray.getJSONObject(i).getString("createBy"));
+				glBean.setErpInterfaceFlag(jsonArray.getJSONObject(i).getString("erpInterfaceFlag"));
 				glBean.setCreateDate( new Date());
 				glBean.setUpdateBy( jsonArray.getJSONObject(i).getString("updateBy"));
 				glBean.setUpdateDate( new Date());

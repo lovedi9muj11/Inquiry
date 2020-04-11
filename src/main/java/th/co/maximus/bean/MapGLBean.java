@@ -16,6 +16,7 @@ public class MapGLBean {
 	private String revenueTypeName;
 	private String segMentCode;
 	private String segMentName;
+	private String erpInterfaceFlag;
 	private String status;
 	private String remark;
 	private String createBy;
@@ -24,6 +25,14 @@ public class MapGLBean {
     private Date updateDate;
     private String recordStatus;
     private String source;
+
+	public String getErpInterfaceFlag() {
+		return erpInterfaceFlag;
+	}
+
+	public void setErpInterfaceFlag(String erpInterfaceFlag) {
+		this.erpInterfaceFlag = erpInterfaceFlag;
+	}
 
 	public Long getId() {
 		return id;
