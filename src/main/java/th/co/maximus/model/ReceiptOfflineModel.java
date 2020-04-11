@@ -18,13 +18,17 @@ public class ReceiptOfflineModel {
 	private BigDecimal beforVat;
 	private BigDecimal vatAmount;
 	private String creatBy;
+	private Date createDate;
+	private Date updateDate;
+	private String approveBy;
 	
 	public ReceiptOfflineModel(){}
 	public ReceiptOfflineModel(BigDecimal beforVat){
 		this.beforVat = beforVat;
 	}
 	public ReceiptOfflineModel(String invoiceNo,String receiptNo,Date paidDate,String branchArea,String branchCode,BigDecimal paidAmount
-			,String source,String remark,String accountNo,String manualID,BigDecimal amount,BigDecimal vatAmount,String creatBy){
+			,String source,String remark,String accountNo,String manualID,BigDecimal amount,BigDecimal vatAmount,String creatBy
+			,Date createDate , Date updateDate , String approveBy){
 		
 		this.invoiceNo = invoiceNo;
 		this.receiptNo = receiptNo;
@@ -39,11 +43,34 @@ public class ReceiptOfflineModel {
 		this.amount = amount;
 		this.vatAmount = vatAmount;
 		this.creatBy = creatBy;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+		this.approveBy = approveBy;
 		
 	}
 	
 	
 	
+	
+	
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 	public BigDecimal getVatAmount() {
 		return vatAmount;
 	}

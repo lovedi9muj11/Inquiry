@@ -25,8 +25,38 @@ public class PaymentEpisOfflineDTO {
 	private String channel; 
 	
 	private String custBranchCode;
+	private Date createDate;
+	private Date updateDate;
+	private String approveBy;
 	
 	
+	
+	
+	
+
+	public String getApproveBy() {
+		return approveBy;
+	}
+
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
 	public String getCustBranchCode() {
 		return custBranchCode;

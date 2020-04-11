@@ -284,6 +284,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						}
 					}
 					paymentEpisOfflineDTO.setChannel("OFFLINE");
+					paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
+					paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
+					paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
 					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 				}
 
@@ -336,7 +339,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			log.setErrorTask(errorCount);
 			log.setSuccessTask(successCount);
 			log.setErrorRecript(errorRecript.toString());
-			tranferLogsRepository.save(log);
+//			tranferLogsRepository.save(log);
 		}
 
 		return objMessage;
@@ -448,6 +451,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		rp.setAddrLine1(payment.getAddressNewCancelPayment());
 		rp.setNo(payment.getReceiptNoManual());
 		rp.setReasonCode(payment.getReasonCode());
+		rp.setReasonDesc(payment.getReasonDesc());
 		rp.setIsIbaiss(payment.getServiceType());
 		rpList.add(rp);
 		dto.setReceipts(rpList);
