@@ -3,13 +3,15 @@ var vatNanVat = "";
 var chars = [];
 var checkLogin = false;
 var isprice = 0;
+let gBarCode = '';
 
 $(document).ready(function() {
 	// ============ vat Rate by imaew
 	$("#barCode").focus();
 	
 	$("#barCode").keypress(function(e){
-        if ( e.which == 13 ) {
+//        if ( e.which == 13 ) {
+    	if ( e.which == 13 ) {
         	console.log('x1')
             var barcode = chars.join("");
         	var checkTypeCode = true
@@ -22,21 +24,22 @@ $(document).ready(function() {
 // alert(barcode.substring(24, 42));
 // alert(barcode.substring(42, 42));
 // alert(barcode);
-            $("#barCode").val(barcode);
+            
+            gBarCode += barcode+"\n";
+        	
+            $("#barCode").val(gBarCode);
             chars = [];
             e.preventDefault();
             
             var setCode
             
             if(checkTypeCode) {
-            	setCode = barcode.split("\n")
+            	setCode = gBarCode.split("\n")
             }else {
-            	setCode = barcode.split(" ")
+            	setCode = gBarCode.split(" ")
             }
             
-// alert(ks[0]);
             $.each(setCode, function(x){
-// alert(setCode[x]);
             	if(x==1) $('#custNo').val(setCode[x]);
             	if(x==2) {
             		$('#invoiceNo').val(setCode[x].substring(0, 9)); 
