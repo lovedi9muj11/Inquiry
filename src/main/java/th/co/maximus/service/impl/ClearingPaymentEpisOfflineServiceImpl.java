@@ -339,7 +339,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			log.setErrorTask(errorCount);
 			log.setSuccessTask(successCount);
 			log.setErrorRecript(errorRecript.toString());
-//			tranferLogsRepository.save(log);
+			tranferLogsRepository.save(log);
 		}
 
 		return objMessage;
