@@ -70,7 +70,10 @@ public class Constants {
 		public static final String EXCELFULL = "ExcelFull";
 		public static final String XXX = "RPTxxx";
 		public static final String REPORT_FULL = "Report";
+		public static final String REPORT_NOT_FULL = "ReportTax";
 		public final static String RPT_EXCEL = "EXCEL";
+		public final static String RPT_CODE_F = "ExcelFull";
+		public final static String RPT_CODE_NF = "ExcelNotFull";
 		
 		public final static String HEARDER_DATE = "ประจำวันที่";
 		public final static String HEARDER_DATE_TIME = "วันเวลาที่พิมพ์";

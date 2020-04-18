@@ -148,7 +148,16 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setServiceName(reportPaymentBean.getServiceName());
 				reportPaymentBeanNew.setStatusStr(reportPaymentBean.getStatus());
 //				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())?reportPaymentBean.getDeductionNo():"-");
-				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
+				
+				String ref = "-";
+				if(StringUtils.isNotBlank(reportPaymentBean.getRefNo())) {
+					ref = reportPaymentBean.getRefNo().concat(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())?", "+reportPaymentBean.getDeductionNo():"");
+				} else if(StringUtils.isNotBlank(reportPaymentBean.getDeductionNo())) {
+					ref = reportPaymentBean.getDeductionNo();
+				}
+				reportPaymentBeanNew.setNoRefer(ref);
+				
+//				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
 				if ("A".equals(reportPaymentBean.getStatus())) {
 					reportPaymentBeanNew.setStatus("-");
 				} else if ("C".equals(reportPaymentBean.getStatus())) {
@@ -187,6 +196,7 @@ public class PaymentReportPdf {
 //		BigDecimal sumAmountVatAll = BigDecimal.ZERO;
 		
 		String llPage = this.isPage(type, resultSources, date, fileName, criteria, response);
+		resultSources = new ArrayList<ReportPaymentBean>();
 		
 		String userPay = "";
 		if(Constants.Service.SERVICE_TYPE_OTHER.equals(type)) {
@@ -210,14 +220,19 @@ public class PaymentReportPdf {
 			sumAllTotal = 0;
 			sumAllTotalNoVat = 0;
 			String glCode = "";
+			BigDecimal sumVatAmount10 = BigDecimal.ZERO;
 			BigDecimal sumAmountVat10 = BigDecimal.ZERO;
-			BigDecimal sumAmountVat7 = BigDecimal.ZERO;
-			BigDecimal sumAmountVat8 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAll10 = BigDecimal.ZERO;
-			BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+			BigDecimal sumVatAmount7 = BigDecimal.ZERO;
+			BigDecimal sumAmountVat7 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAll7 = BigDecimal.ZERO;
+			BigDecimal sumVatAmount8 = BigDecimal.ZERO;
+			BigDecimal sumAmountVat8 = BigDecimal.ZERO;
+			BigDecimal sumAmountVatAll8 = BigDecimal.ZERO;
+			BigDecimal sumVatAmount0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVat0 = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAll0 = BigDecimal.ZERO;
+			BigDecimal sumVatAmountNon = BigDecimal.ZERO;
 			BigDecimal sumAmountVatNon = BigDecimal.ZERO;
 			BigDecimal sumAmountVatAllNon = BigDecimal.ZERO;
 			
@@ -236,6 +251,8 @@ public class PaymentReportPdf {
 							sumAmountVat10 = sumAmountVat10.add(reportPaymentBean.getBeforVat());
 							vatBean10.setAmount(sumAmountVat10);
 							sumAmountVatAll10 = sumAmountVatAll10.add(reportPaymentBean.getAmount());
+							sumVatAmount10 = sumVatAmount10.add(reportPaymentBean.getAmount().subtract(reportPaymentBean.getBeforVat()));
+							vatBean10.setVatAmount(sumVatAmount10);
 							vatBean10.setSumAmount(sumAmountVatAll10);
 							vatBean10.setCount(vat10++);
 							vatBean10.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
@@ -243,6 +260,8 @@ public class PaymentReportPdf {
 							sumAmountVat0 = sumAmountVat0.add(reportPaymentBean.getBeforVat());
 							vatBean0.setAmount(sumAmountVat0);
 							sumAmountVatAll0 = sumAmountVatAll0.add(reportPaymentBean.getAmount());
+							sumVatAmount0 = sumVatAmount0.add(reportPaymentBean.getAmount().subtract(reportPaymentBean.getBeforVat()));
+							vatBean0.setVatAmount(sumVatAmount0);
 							vatBean0.setSumAmount(sumAmountVatAll0);
 							vatBean0.setCount(vat0++);
 							vatBean0.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
@@ -250,6 +269,8 @@ public class PaymentReportPdf {
 							sumAmountVatNon = sumAmountVatNon.add(reportPaymentBean.getBeforVat());
 							vatBeanNon.setAmount(sumAmountVatNon);
 							sumAmountVatAllNon = sumAmountVatAllNon.add(reportPaymentBean.getAmount());
+							sumVatAmountNon = sumVatAmountNon.add(reportPaymentBean.getAmount().subtract(reportPaymentBean.getBeforVat()));
+							vatBeanNon.setVatAmount(sumVatAmountNon);
 							vatBeanNon.setSumAmount(sumAmountVatAllNon);
 							vatBeanNon.setCount(vatNon++);
 							vatBeanNon.setVatRat(reportPaymentBean.getVatRate());
@@ -257,6 +278,8 @@ public class PaymentReportPdf {
 							sumAmountVat8 = sumAmountVat8.add(reportPaymentBean.getBeforVat());
 							vatBean8.setAmount(sumAmountVat8);
 							sumAmountVatAll8 = sumAmountVatAll8.add(reportPaymentBean.getAmount());
+							sumVatAmount8 = sumVatAmount8.add(reportPaymentBean.getAmount().subtract(reportPaymentBean.getBeforVat()));
+							vatBean8.setVatAmount(sumVatAmount8);
 							vatBean8.setSumAmount(sumAmountVatAll8);
 							vatBean8.setCount(vat8++);
 							vatBean8.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
@@ -264,6 +287,8 @@ public class PaymentReportPdf {
 							sumAmountVat7 = sumAmountVat7.add(reportPaymentBean.getBeforVat());
 							vatBean7.setAmount(sumAmountVat7);
 							sumAmountVatAll7 = sumAmountVatAll7.add(reportPaymentBean.getAmount());
+							sumVatAmount7 = sumVatAmount7.add(reportPaymentBean.getAmount().subtract(reportPaymentBean.getBeforVat()));
+							vatBean7.setVatAmount(sumVatAmount7);
 							vatBean7.setSumAmount(sumAmountVatAll7);
 							vatBean7.setCount(vat7++);
 							vatBean7.setVatRat(Constants.VATRATE.VATE_WORD.concat(" "+reportPaymentBean.getVatRate()+" %"));
@@ -615,10 +640,12 @@ public class PaymentReportPdf {
 						
 						for(int ii=0; ii<vatBeans.size(); ii++) {
 							parameters.put("chkVat"+ii, "Y");
+							parameters.put("chkType"+ii, "Y");
 							parameters.put("vatListCount"+ii, vatBeans.get(ii).getCount());
 							parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
 							parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
 							parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+							parameters.put("vatAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getVatAmount()));
 							
 							vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
 							vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
@@ -629,6 +656,7 @@ public class PaymentReportPdf {
 								parameters.put("vatListCount"+(ii+1), vatListCountSum);
 								parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
 								parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+								parameters.put("vatAmount"+(ii+1), String.format("%,.2f", sumAllVatSum));
 								parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
 								parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
 							}
@@ -895,6 +923,7 @@ public class PaymentReportPdf {
 								parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
 								parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
 								parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+								parameters.put("vatAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getVatAmount()));
 								
 								vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
 								vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
@@ -905,6 +934,7 @@ public class PaymentReportPdf {
 									parameters.put("vatListCount"+(ii+1), vatListCountSum);
 									parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
 									parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+									parameters.put("vatAmount"+(ii+1), String.format("%,.2f", sumAllVatSum));
 									parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
 									parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
 								}
@@ -1149,6 +1179,7 @@ public class PaymentReportPdf {
 							parameters.put("vatRate"+ii, vatBeans.get(ii).getVatRat());
 							parameters.put("vatRateAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getAmount()));
 							parameters.put("vatRateSumAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getSumAmount()));
+							parameters.put("vatAmount"+ii, String.format("%,.2f", vatBeans.get(ii).getVatAmount()));
 							
 							vatRateAmountSum = vatRateAmountSum.add(vatBeans.get(ii).getAmount());
 							vatRateSumAmountSum = vatRateSumAmountSum.add(vatBeans.get(ii).getSumAmount());
@@ -1159,6 +1190,7 @@ public class PaymentReportPdf {
 								parameters.put("vatListCount"+(ii+1), vatListCountSum);
 								parameters.put("vatRate"+(ii+1), Constants.report.SUM_TH);
 								parameters.put("sumAllVatAmoutLast", String.format("%,.2f", sumAllVatSum));
+								parameters.put("vatAmount"+(ii+1), String.format("%,.2f", sumAllVatSum));
 								parameters.put("vatRateAmount"+(ii+1), String.format("%,.2f",vatRateAmountSum));
 								parameters.put("vatRateSumAmount"+(ii+1), String.format("%,.2f", vatRateSumAmountSum));
 							}

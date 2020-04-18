@@ -126,7 +126,7 @@ function createRow(data, seq) {
 	department = data.department;
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
-	noRefer = data.refNo;
+	if(data.refNo) {noRefer = data.refNo;} else {noRefer = '-'}
 	beforVat = formatDouble(data.beforVat,2);
 	vatAmount =  formatDouble(data.vatAmount,2);
 	amount =  formatDouble(data.amount,2);

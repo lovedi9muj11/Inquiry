@@ -55,9 +55,11 @@ public class ReportService {
 	}
 	
 	public Workbook controlAllReport(Workbook workbook, String rptCode, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception {
-		if (rptCode.equals(Constants.report.EXCELFULL)) {
+		if (rptCode.equals(Constants.report.RPT_CODE_F)) {
 			workbook = reportExcelService.getReportRptFull(workbook, entity, bean);
-		} 
+		}else if(rptCode.equals(Constants.report.RPT_CODE_NF)) {
+			workbook = reportExcelService.getReportRptFull(workbook, entity, bean);
+		}
 		return workbook;
 	}
 	

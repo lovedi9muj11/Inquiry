@@ -33,7 +33,7 @@
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
 				<form name="reportTaxOtherForm" id="reportTaxOtherForm"  class="form-horizontal" role="form">
-				<input name="rptCode" id="rptCode" value="ExcelFull" type="hidden">
+				<input name="rptCode" id="rptCode" value="ExcelNotFull" type="hidden">
 				<input type="hidden" name="flagPage" id="flagPage" value="OTHER" />
 				<input type="hidden" name="typePrint" id="typePrint" value="RS" />
 					<div class="row">

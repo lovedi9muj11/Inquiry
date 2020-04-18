@@ -83,8 +83,14 @@ public class ReportController {
 	 @RequestMapping(value = {"/paymentPrintOrder"})
 	 public void paymentPrint(HistoryReportBean creteria, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
-//		 String rptCode = request.getParameter("rptCode");
+		 String rptCode = request.getParameter("rptCode");
 		 String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_FULL + ".xls");
+		 if(Constants.report.RPT_CODE_F.equals(rptCode)) {
+			 pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_FULL + ".xls");
+		 }else if(Constants.report.RPT_CODE_NF.equals(rptCode)) {
+			 pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_NOT_FULL + ".xls");
+		 }
+
 		 FileInputStream input_document = new FileInputStream(new File(pathFile));
 		 Workbook workbook = new HSSFWorkbook(input_document);
 		 

@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 public class VatBean {
 	
 	private String vatRat;
+	private String vatRatStr;
+	private BigDecimal vatAmount;
+	private String vatAmountStr;
 	private BigDecimal amount;
 	private String amountStr;
 	private BigDecimal sumAmount;
@@ -46,6 +49,24 @@ public class VatBean {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getVatRatStr() {
+		return vatRatStr;
+	}
+	public void setVatRatStr(String vatRatStr) {
+		this.vatRatStr = vatRatStr;
+	}
+	public BigDecimal getVatAmount() {
+		return vatAmount;
+	}
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
+	}
+	public String getVatAmountStr() {
+		return vatAmountStr;
+	}
+	public void setVatAmountStr(String vatAmountStr) {
+		this.vatAmountStr = vatAmountStr;
 	}
 
 }
