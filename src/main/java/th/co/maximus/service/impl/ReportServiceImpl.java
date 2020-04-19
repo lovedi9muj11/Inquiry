@@ -33,9 +33,9 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo) throws SQLException {
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo ,String other) throws SQLException {
 		// TODO Auto-generated method stub
-		return reportDao.inqueryEpisOfflineOtherJSONHandler(documentNo);
+		return reportDao.inqueryEpisOfflineOtherJSONHandler(documentNo , other);
 	}
 
 	@Override
@@ -67,6 +67,12 @@ public class ReportServiceImpl implements ReportService{
 	public List<InvPaymentOrderTaxBean> vatSummarry(HistoryReportBean creteria ,boolean groupBy) throws SQLException {
 		// TODO Auto-generated method stub
 		return reportDao.summarryVay(creteria,groupBy);
+	}
+
+	@Override
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

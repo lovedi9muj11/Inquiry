@@ -17,4 +17,7 @@ public interface ReportService {
 	public List<InvPaymentOrderTaxBean> inqueryInvPaymentOrderTaxBeanJSONHandler(HistoryReportBean creteria)throws SQLException;
 	
 	public List<InvPaymentOrderTaxBean> vatSummarry(HistoryReportBean creteria ,boolean groupBy)throws SQLException;
+
+	List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo, String other)
+			throws SQLException;
 }

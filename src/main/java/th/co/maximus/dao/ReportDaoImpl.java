@@ -65,7 +65,7 @@ public class ReportDaoImpl implements ReportDao{
 
 
 	@Override
-	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo){
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo ,String other){
 //		List<InvEpisOfflineOtherBean> collections = new ArrayList<InvEpisOfflineOtherBean>();
 		List<InvEpisOfflineOtherBean> collectionss = new ArrayList<InvEpisOfflineOtherBean>();
 		List<Object> param = new LinkedList<Object>();
@@ -78,7 +78,11 @@ public class ReportDaoImpl implements ReportDao{
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" INNER JOIN TRSMETHOD_MANUAL tm ON tm.MANUAL_ID = py.MANUAL_ID");
 			sql.append(" WHERE py.RECEIPT_NO_MANUAL = ?");
-			//sql.append(" GROUP BY pim.SERVICENAME ");
+			
+			if(other.equals("OTHER")) {
+				sql.append(" GROUP BY method_manual_id ");
+			}
+			
 			param.add(documentNo);
 			Object[] paramArr = param.toArray();
 			collectionss = jdbcTemplate.query(sql.toString(), paramArr, new mapInvEpisOfflineOtherBean());
@@ -290,5 +294,11 @@ public class ReportDaoImpl implements ReportDao{
 			return invEpisOfflineReportBean;
 		}
 
+	}
+
+	@Override
+	public List<InvEpisOfflineOtherBean> inqueryEpisOfflineOtherJSONHandler(String documentNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

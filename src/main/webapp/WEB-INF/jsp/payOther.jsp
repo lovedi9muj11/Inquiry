@@ -207,7 +207,7 @@
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
-														if(masterServicetype.get(i).getRevenueTypeName() != "null"){
+														if(masterServicetype.get(i).getRevenueTypeName() != ""){
 												%>
 												<option
 													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeName()%></option>

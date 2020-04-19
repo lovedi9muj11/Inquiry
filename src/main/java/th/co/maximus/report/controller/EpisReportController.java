@@ -346,7 +346,7 @@ public class EpisReportController {
 		String JASPER_JRXML_FILENAME = "InvEpisPaymentOther";
 		request.setAttribute("documentReport", "-1");
 //		String documentNo = request.getParameter("documentNo");
-		List<InvEpisOfflineOtherBean> collections = reportService.inqueryEpisOfflineOtherJSONHandler(documentNo);
+		List<InvEpisOfflineOtherBean> collections = reportService.inqueryEpisOfflineOtherJSONHandler(documentNo , Constants.MasterData.OTHER);
 
 		if (collections != null) {
 			previewEpisOffilneprintOther(request, response, collections, JASPER_JRXML_FILENAME);

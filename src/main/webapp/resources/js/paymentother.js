@@ -70,6 +70,7 @@ $(document).ready(function() {
 		
 			$("#inputServiceType").on( "change",  function() {
 				var is1 = $("#inputServiceName").val();
+				var is2 = $("#inputServiceType").val();
 				var e = document.getElementById("inputServiceType");
 				var strUser = e.options[e.selectedIndex].value;
 				if(strUser !== ''){
@@ -88,7 +89,7 @@ $(document).ready(function() {
 							}
 						}
 					});
-				}else if(strUser == ''){
+				}else if(strUser === ''){
 					$("#inputServiceName").empty();
 					$('#inputServiceName').append('<option value=""> -- กรุณาเลือก -- </option>');
 					$.ajax({
@@ -97,7 +98,7 @@ $(document).ready(function() {
 					}).then(function (data) {
 						for(var i=0; i<data.length; i++) {
 							var element = data[i];
-							$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+							$('#inputServiceName').append('<option value="' + element.productCode+ '" >' + element.serviceName + '</option>');
 						}
 					});
 				}
@@ -106,8 +107,7 @@ $(document).ready(function() {
 			
 			$("#inputServiceName").on( "change",  function() {
 				var is2 = $("#inputServiceType").val();
-				var e = document.getElementById("inputServiceName");
-				var strUser = e.options[e.selectedIndex].value;
+				var strUser = $("#inputServiceName").val();
 					if(strUser !== ''){
 						$("#inputServiceType").empty();
 						$('#inputServiceType').append('<option value=""> -- กรุณาเลือก -- </option>');
@@ -115,16 +115,33 @@ $(document).ready(function() {
 						    type: 'GET',
 						    url: ctx +"/getAllServiceType/"+$(this).val()
 						}).then(function (data) {
-							for(var i=0; i<data.length; i++) {
-								var element = data[i];
-								if(element.revenueTypeName != "null"){
-									if(is2 == element.revenueTypeCode ){
-										$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '" selected>' + element.revenueTypeName + '</option>');
-									}else{
-										$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName + '</option>');
+							let xxx = data[0].revenueTypeCode
+
+							$.ajax({
+							    type: 'GET',
+							    url: ctx +"/getAllServiceType"
+							}).then(function (data) {
+								for(var i=0; i<data.length; i++) {
+									var element = data[i];
+									if(element.revenueTypeName != "null"){
+										if(xxx == element.revenueTypeCode ){
+											$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '" selected>' + element.revenueTypeName + '</option>');
+										}else{
+											$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName + '</option>');
+										}
 									}
 								}
-							}
+							});
+//							for(var i=0; i<data.length; i++) {
+//								var element = data[i];
+//								if(element.revenueTypeName != "null"){
+//									if(is2 == element.revenueTypeCode ){
+//										$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '" selected>' + element.revenueTypeName + '</option>');
+//									}else{
+//										$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName + '</option>');
+//									}
+//								}
+//							}
 						});
 					}else if(strUser == ''){
 						$("#inputServiceType").empty();
@@ -133,10 +150,13 @@ $(document).ready(function() {
 						    type: 'GET',
 						    url: ctx +"/getAllServiceType"
 						}).then(function (data) {
+							if(data) {
+								$("#inputServiceType").val(data[0].revenueTypeCode);
+							}
 							for(var i=0; i<data.length; i++) {
 								var element = data[i];
 								if(element.revenueTypeName != "null"){
-									$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '">' + element.revenueTypeName+ '</option>');
+									$('#inputServiceType').append('<option value="' + element.revenueTypeCode+ '" >' + element.revenueTypeName+ '</option>');
 								}
 							}
 						});
