@@ -82,6 +82,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setServiceType(rs.getString("SERVICE_TYPE"));
 			paymentManual.setServiceName(rs.getString("SERVICENAME"));
 			paymentManual.setCustomerGroup(rs.getString("CUSTOMER_GROUP"));
+			paymentManual.setClearingDate(rs.getTimestamp("CLEARING_DATE"));
 //			paymentManual.setCustomerGroupName(findByppt1(paymentManual.getCustomerGroup()));
 			
 //			paymentManual.setCustomerGroupName(rs.getString("VALUE"));
@@ -90,7 +91,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setDiscountSpecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
 			paymentManual.setReasonCode(rs.getString("CANCEL_REASON_CODE"));
 			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
-//			paymentManual.setReasonDesc(rs.getString("DISCOUNTSPECIAL"));
+			paymentManual.setCancleDate(rs.getString("CANCEL_DATE"));
 			return paymentManual;
 		}
 
@@ -582,7 +583,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
-		sql.append(" WHERE payment_m.CLEARING = ? AND payment_m.RECORD_STATUS = '"+Constants.Status.ACTIVE+"' ");
+		sql.append(" WHERE payment_m.CLEARING = ? OR payment_m.CLEARING = 'W' AND payment_m.RECORD_STATUS = '"+Constants.Status.ACTIVE+"' ");
 		param.add(clearing);
 		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
@@ -618,6 +619,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setServiceCode(rs.getString("pim.SERVICECODE"));
 			paymentInvoiceEpisOffline.setInvoiceDate(rs.getDate("pim.INVOICE_DATE"));
 			paymentInvoiceEpisOffline.setIncomeUnit(rs.getString("pim.INCOMEUNIT"));
+		
+			
 			
 			return paymentInvoiceEpisOffline;
 		}

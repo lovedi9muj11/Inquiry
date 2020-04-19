@@ -196,11 +196,13 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		List<TrsChequerefEpisOffline> chequeList = new ArrayList<>();
 		TmpInvoiceBean invoid = new TmpInvoiceBean();
 		Date startDate = new Date();
+		String recNO = "";
 		try {
 			Boolean isOther = false;
 			if (creteria != null) {
 				for (PaymentMMapPaymentInvBean payment : creteria) {
 					PaymentEpisOfflineDTO paymentEpisOfflineDTO = new PaymentEpisOfflineDTO();
+					recNO = payment.getReceiptNoManual();
 					Integer manualId = Integer.valueOf(payment.getManualId().toString());
 					ReceiptOfflineModel recrip = findReciptStatus(manualId, payment.getRecordStatus());
 					paymentEpisOfflineDTO.setManualID(manualId.toString());
@@ -324,13 +326,16 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 				} catch (Exception e) {
 					for (PaymentEpisOfflineDTO paymentEpisOfflineDTO : PaymentEpisOfflineDTOList) {
 						errorCount++;
-						errorRecript.append(paymentEpisOfflineDTO.getReceiptNo()).append("|");
+						errorRecript.append(paymentEpisOfflineDTO.getReceiptNo()).append(",");
 					}
 				}
 				
 			}
 		} catch (Exception e) {
+
 			e.printStackTrace();
+			errorCount++;
+			errorRecript.append(recNO).append(",");
 		}finally {
 			TranferLogs log = new TranferLogs();
 			log.setStartDate(new Timestamp(startDate.getTime()));
@@ -453,6 +458,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		rp.setReasonCode(payment.getReasonCode());
 		rp.setReasonDesc(payment.getReasonDesc());
 		rp.setIsIbaiss(payment.getServiceType());
+		rp.setCanceldate(payment.getCancleDate());
 		rpList.add(rp);
 		dto.setReceipts(rpList);
 		dto.setFlagCancel("Y");

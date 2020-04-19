@@ -109,15 +109,24 @@ function printReportPDF(){
 	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
 	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentPDF").attr("target", "_blank").submit();
 };
-
+function formatDate(date) {
+	  var hours = date.getHours();
+	  var minutes = date.getMinutes();
+	   
+	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var strTime = hours + ':' + minutes ;
+	  return   date.getDate() + "/" +(date.getMonth()+1)+ "/" + date.getFullYear() + "  " + strTime;
+	}
 function createRow(data, seq) {
 	manualId = seq+1;
-	startDate =  new Date(data.startDate);
-	endDate =  new Date(data.endDate);
+	startDate =  formatDate(new Date(data.startDate));
+	endDate =  formatDate(new Date(data.endDate));
 	successTask =  data.successTask;
 	if(data.errorTask > 0){
 		remake =data.errorTask +'<a name="errorTask" id="errorTask" onclick="dialogRemake('+data.id+')"><span name="icon" id="icon" class="fa fa-envelope"></a>';
 	
+	}else{
+		remake = "";
 	}
 	errorTask =  data.errorTask;
 	system =  data.system;
@@ -126,7 +135,7 @@ function createRow(data, seq) {
     var rowNode = t.row.add([manualId,startDate,endDate,successTask,remake,system]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
-    $(rowNode).find('td').eq(2).addClass('center');
+    $(rowNode).find('td').eq(2).addClass('left');
     $(rowNode).find('td').eq(3).addClass('center');
     $(rowNode).find('td').eq(4).addClass('center');
     $(rowNode).find('td').eq(5).addClass('center');

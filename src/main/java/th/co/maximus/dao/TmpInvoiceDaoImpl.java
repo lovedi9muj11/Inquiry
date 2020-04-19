@@ -1,7 +1,11 @@
 package th.co.maximus.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -35,13 +39,13 @@ public class TmpInvoiceDaoImpl implements TmpInvoiceDao{
 		TmpInvoiceBean tmp = new TmpInvoiceBean();
 		sql.append(" select * from PAYMENT_INVOICE  where PAYMENT_INVOICE.MANUAL_ID = ");
 		sql.append(manualId);
-		java.util.Map<String, Object> map = new HashMap<String, Object >();
-		map  =  jdbcTemplate.queryForMap(sql.toString());
-		
-			tmp.setIsDiscountFlg(map.get("DISCOUNT_FLAG")+"");
-			tmp.setDiscount(Double.parseDouble(map.get("DISCOUNT")+""));	
+		List<Map<String, Object>> map = new ArrayList<Map<String, Object >>();
+		map  =  jdbcTemplate.queryForList(sql.toString());
+		if(CollectionUtils.isNotEmpty(map)) {
+			tmp.setIsDiscountFlg(map.get(0).get("DISCOUNT_FLAG")+"");
+			tmp.setDiscount(Double.parseDouble(map.get(0).get("DISCOUNT")+""));	
+		}
 	
-		
 		return tmp;
 	}
 
