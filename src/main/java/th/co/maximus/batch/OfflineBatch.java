@@ -120,11 +120,11 @@ public class OfflineBatch implements Job {
 				System.out.println("JOB_3");
 				 callEpisOnlineService.callOnlineSyncUser();
 			} else if (Constants.BATCH.JOB_4.equals(context.getTrigger().getKey().getName())) {
-//				System.out.println("JOB_4");
-//				saveBatch();
+				System.out.println("JOB_4");
+				saveBatch();
 			} else if (Constants.BATCH.JOB_5.equals(context.getTrigger().getKey().getName())) {
-				System.out.println("JOB_5");
-				clearingPaymentEpisOfflineService.clearingCencelPayment();
+//				System.out.println("JOB_5");
+//				clearingPaymentEpisOfflineService.clearingCencelPayment();
 			} 
 		} catch (Exception e) {
 			log.error("Encountered job execution exception!", e);
@@ -182,7 +182,7 @@ public class OfflineBatch implements Job {
 		String mac = GetMacAddress.getMACAddress();
 		result = cancelPaymentService.findAllCancelPaymentsActive(Constants.USER.LOGIN_FLAG_N);
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
 		if (CollectionUtils.isNotEmpty(result)) {
 			
 			List<OfflineResultModel> resultClear = clearingPaymentEpisOfflineService.callOnlinePayment(result,"BATCH");

@@ -284,12 +284,13 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						if (deductionList.size() > 0) {
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
+						paymentEpisOfflineDTO.setChannel("OFFLINE");
+						paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
+						paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
+						paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
+						PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 					}
-					paymentEpisOfflineDTO.setChannel("OFFLINE");
-					paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
-					paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
-					paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
-					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
+					
 				}
 
 			}
