@@ -29,11 +29,13 @@ import th.co.maximus.bean.HistorySubFindBean;
 import th.co.maximus.bean.ReportBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.bean.ReportTaxRSBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.service.HistoryPaymentService;
 import th.co.maximus.service.MasterDataService;
 import th.co.maximus.service.PaymentReportService;
+import th.co.maximus.service.ReportTaxService;
 import th.co.maximus.service.report.ReportService;
 
 @Controller
@@ -52,6 +54,9 @@ public class ReportController {
 	
 	@Autowired
 	private MasterDataService masterDataService;
+	
+	@Autowired
+	private ReportTaxService reportTaxService;
 	
 	
 	@RequestMapping(value = { "/printReport.xls" }, method = RequestMethod.POST)
@@ -83,12 +88,16 @@ public class ReportController {
 	 @RequestMapping(value = {"/paymentPrintOrder"})
 	 public void paymentPrint(HistoryReportBean creteria, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 List<HistoryPaymentRS> resultRQ = new ArrayList<HistoryPaymentRS>();
+		 List<ReportTaxRSBean> responeData = new ArrayList<ReportTaxRSBean>();
+		 
 		 String rptCode = request.getParameter("rptCode");
 		 String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_FULL + ".xls");
 		 if(Constants.report.RPT_CODE_F.equals(rptCode)) {
 			 pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_FULL + ".xls");
 		 }else if(Constants.report.RPT_CODE_NF.equals(rptCode)) {
 			 pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + Constants.report.REPORT_NOT_FULL + ".xls");
+			 
+			 responeData = reportTaxService.findPaymentTaxRs(creteria);
 		 }
 
 		 FileInputStream input_document = new FileInputStream(new File(pathFile));
@@ -99,7 +108,7 @@ public class ReportController {
 			
 		 if(creteria != null) {
 			 resultRQ = paymentManualService.findPaymentOrder(creteria);
-			 reportService.controlAllReport(workbook, creteria.getRptCode(), resultRQ, creteria).write(byteArrayOutputStream);
+			 reportService.controlAllReport(workbook, creteria.getRptCode(), resultRQ, creteria, responeData).write(byteArrayOutputStream);
 			 byte[] bytes = byteArrayOutputStream.toByteArray();
 			 
 			response.setContentType("application/vnd.ms-excel");

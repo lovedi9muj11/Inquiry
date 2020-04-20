@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -144,11 +143,14 @@ public class ReportTaxServiceImpl implements ReportTaxService{
 						res.setPaidAmount(amount.setScale(2, RoundingMode.HALF_DOWN));
 						res.setPaidAmountStr(amount.setScale(2, RoundingMode.HALF_DOWN).toString());
 						res.setPosName(profile.getPosName());
+						res.setBranchCode(profile.getBranchCode());
+						res.setBranchArea(profile.getBranchArea());
 						
 						res.setNumberRun(""+(numRow));
 						numQuantity += Integer.parseInt(res.getQuantity());
 						res.setQuantitySummery(numQuantity+" ฉบับ");
 						res.setVatRateStr(vatRate);
+						res.setUserName(listData.get(i).getCreateBy());
 						responeData.add(res);
 					}
 					

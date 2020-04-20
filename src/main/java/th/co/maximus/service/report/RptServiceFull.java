@@ -16,15 +16,14 @@ import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.HistoryPaymentRS;
 import th.co.maximus.bean.HistoryReportBean;
+import th.co.maximus.bean.ReportTaxRSBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.UserBean;
 import th.co.maximus.service.MasterDataService;
@@ -503,6 +502,107 @@ public class RptServiceFull extends BaseExcelRptService{
 //			
 //			CellRangeAddress mergedCell3 = new CellRangeAddress(rowNum, rowNum, 0, 1);
 //			borderMergs(mergedCell3, sh, workbook);
+		}
+		return workbook;
+	}
+	
+	public Workbook getReportNotFull(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean, List<ReportTaxRSBean> rsBeans) throws Exception{
+		SimpleDateFormat formatter3 = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT, new Locale("th", "TH"));
+		Font fontNormal = createFontTHSarabanPSK(workbook, 14, false);
+		Font fontBold = createFontTHSarabanPSK(workbook, 14, true);
+		CellStyle txtCentertNoBor = createStyleCellCenter(workbook, fontBold, false);
+		CellStyle txtRightNoBor = createStyleCellRight(workbook, fontBold, false);
+		CellStyle txtLeft = createCellStyleForTextLeft(workbook, fontNormal, true);
+		CellStyle numRightBor = createCellStyleForNumberTwoDecimalBorder(workbook, fontNormal);
+		CellStyle txtCenter = createCellStyleForTextCenter(workbook, fontNormal, true);
+		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String date = formateDateEN.format(new Date());
+		String time = formateHH.format(new Date());
+		
+		int rowNumHead = 1;
+		
+		Sheet sh = workbook.getSheetAt(0);
+//		Header header = sh.getHeader();
+//		header.setCenter(sh.getHeader().getCenter().concat("ประจำวันที่ "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())))).concat("ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo())))));
+//		header.setLeft(sh.getHeader().getLeft().concat(nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_)).concat("\n").concat("เจ้าหน้าที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
+//		header.setRight(sh.getHeader().getRight().concat(date+" "+time));
+		
+		Footer footer = sh.getFooter();
+		footer.setCenter(sh.getFooter().getCenter());
+//		footer.setLeft(sh.getFooter().getLeft().concat(StringUtils.isNotBlank(bean.getCustName()) ? bean.getCustName():""));
+//		footer.setRight(sh.getFooter().getRight().concat(StringUtils.isNotBlank(bean.getCustName()) ? bean.getCustName() :""));
+		
+		Row rowHead = sh.createRow(rowNumHead++);
+		Cell cellH1 = rowHead.createCell(0);
+		cellH1.setCellValue(("ระหว่างวันที่  "+" ").concat((formatter2.format(formatter3.parse(bean.getDateFrom())).concat(" "+bean.getDateFromHour()).concat(":"+bean.getDateFromMinute()))).concat(" ถึงวันที่".concat(" ").concat(""+formatter2.format(formatter3.parse(bean.getDateTo()))).concat(" "+bean.getDateToHour()).concat(":"+bean.getDateToMinute())));
+		cellH1.setCellStyle(txtCentertNoBor);
+		rowNumHead++;
+		Row rowHead2 = sh.createRow(rowNumHead++);
+//		Cell cellH2 = rowHead2.createCell(0);
+//		cellH2.setCellValue("หน่วยงานรับชำระ : ".concat((nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_))));
+//		cellH2.setCellStyle(txtLeftNoBor);
+		Cell cellH22 = rowHead2.createCell(11);
+		cellH22.setCellValue("วันเวลาพิมพ์  : ".concat(date+" "+time));
+		cellH22.setCellStyle(txtRightNoBor);
+		
+//		Row rowHead3 = sh.createRow(rowNumHead++);
+//		Cell cellH3 = rowHead3.createCell(0);
+//		cellH3.setCellValue(("สาขาที่ : ")+nameBranch.replace(Constants.Service.CENTER_SERVICE, Constants.Service.CENTER_SERVICE_));
+//		cellH3.setCellStyle(txtLeftNoBor);
+		int rowNum = 7;
+		
+		if (CollectionUtils.isNotEmpty(rsBeans)) {
+			for(int i=0; i<rsBeans.size(); i++) {
+				
+				Row row1 = sh.createRow(rowNum++);
+				Cell cell1 = row1.createCell(0);
+				Cell cell2 = row1.createCell(1);
+				Cell cell3 = row1.createCell(2);
+				Cell cell4 = row1.createCell(3);
+				Cell cell5 = row1.createCell(4);
+				Cell cell6 = row1.createCell(5);
+				Cell cell7 = row1.createCell(6);
+				Cell cell8 = row1.createCell(7);
+				Cell cell9 = row1.createCell(8);
+				Cell cell10 = row1.createCell(9);
+				Cell cell11 = row1.createCell(10);
+				Cell cell12 = row1.createCell(11);
+				Cell cell13 = row1.createCell(12);
+				Cell cell14 = row1.createCell(13);
+				
+				cell1.setCellValue(i+1);
+				cell2.setCellValue(formateDateEN.format(entity.get(i).getDocumentDate()).toString());
+				cell3.setCellValue(rsBeans.get(i).getPosName());
+				cell4.setCellValue(rsBeans.get(i).getBranchCode());
+				cell5.setCellValue(rsBeans.get(i).getBranchArea());
+				cell6.setCellValue(masterDataService.findByKeyCode(rsBeans.get(i).getBranchArea()).getValue());
+				cell7.setCellValue(rsBeans.get(i).getUserName());
+				
+				UserBean user = masterDataService.findByUsername(rsBeans.get(i).getUserName());
+				cell8.setCellValue(user.getSurName().concat(" ").concat(user.getLastName()));
+				cell9.setCellValue(rsBeans.get(i).getQuantity());
+				cell10.setCellValue(rsBeans.get(i).getFrom());
+				cell11.setCellValue(rsBeans.get(i).getTo());
+				cell12.setCellValue(new Double((rsBeans.get(i).getBeforeVat()==null?BigDecimal.ZERO:rsBeans.get(i).getBeforeVat()).toString()));
+				cell13.setCellValue(new Double((rsBeans.get(i).getVat()==null?BigDecimal.ZERO:rsBeans.get(i).getVat()).toString()));
+				cell14.setCellValue(new Double((rsBeans.get(i).getPaidAmount()==null?BigDecimal.ZERO:rsBeans.get(i).getPaidAmount()).toString()));
+				
+				cell1.setCellStyle(txtCenter);
+				cell2.setCellStyle(txtLeft);
+				cell3.setCellStyle(txtLeft);
+				cell4.setCellStyle(txtLeft);
+				cell5.setCellStyle(txtLeft);
+				cell6.setCellStyle(txtLeft);
+				cell7.setCellStyle(txtLeft);
+				cell8.setCellStyle(txtLeft);
+				cell9.setCellStyle(numRightBor);
+				cell10.setCellStyle(txtLeft);
+				cell11.setCellStyle(txtLeft);
+				cell12.setCellStyle(numRightBor);
+				cell13.setCellStyle(numRightBor);
+				cell14.setCellStyle(numRightBor);
+				
+			}
 		}
 		return workbook;
 	}
