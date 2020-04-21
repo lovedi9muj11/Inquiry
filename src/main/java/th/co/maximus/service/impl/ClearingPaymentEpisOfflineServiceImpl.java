@@ -410,14 +410,18 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 								System.out.println(resultA);
 								TimeUnit.SECONDS.sleep(10);
 								if (listOtherSize <= 0) {
+									System.out.println("CANCEL IBASS");
 									postUrl = url.concat("/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="
 											+ payment.getCreateBy() + "&mac=" + mac);
+									System.out.println(postUrl);
 									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 									System.out.println(resultB);
 
 								} else {
+									System.out.println("CANCEL Other");
 									postUrl = url.concat("/cancelPaymentOtherOffline.json?ap=OFFLINE&username="
 											+ payment.getCreateBy() + "&mac=" + mac);
+									System.out.println(postUrl);
 									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 									System.out.println(resultB);
 
