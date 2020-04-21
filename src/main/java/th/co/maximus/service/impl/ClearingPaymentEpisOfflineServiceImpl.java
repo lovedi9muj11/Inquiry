@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.HostnameVerifier;
@@ -368,7 +369,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		
 		ResponseEntity<String> resultA;
 		ResponseEntity<String> resultB = null;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
 		for (OfflineResultModel offlineResultModel : objMessage) {
 			try {
 				if (offlineResultModel.getStatus().equals("SUCCESS")) {
@@ -407,7 +408,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 										+ payment.getCreateBy() + "&mac=" + mac);
 								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
 								System.out.println(resultA);
-
+								TimeUnit.SECONDS.sleep(10);
 								if (listOtherSize <= 0) {
 									postUrl = url.concat("/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="
 											+ payment.getCreateBy() + "&mac=" + mac);
