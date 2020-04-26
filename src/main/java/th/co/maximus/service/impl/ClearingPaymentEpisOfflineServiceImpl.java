@@ -396,8 +396,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							manualDTO.setPaidDateStr(dateFormat.format(payment.getPaidDate()));
 							manualDTO.setPosNo(posNo);
 							manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
+							manualDTO.setCencelFlag("Y");
 							dtoList.add(manualDTO);
-
+							payment.setCancelflag("Y");
 							cancelDTO = dtoCancel(payment);
 
 							int listOtherSize = cancelDTO.getReceipts().stream()

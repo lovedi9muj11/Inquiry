@@ -6,8 +6,8 @@ import java.util.Date;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import th.co.maximus.core.utils.converter.CustomDateDeserializer;
-import th.co.maximus.core.utils.converter.CustomDateSerializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeSerializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeDeserializer;
 
 public class PaymentMMapPaymentInvBean {
 	private Long manualId;
@@ -56,9 +56,18 @@ public class PaymentMMapPaymentInvBean {
 	private Date clearingDate;
 	private String clearingDateStr;
 	private String cancleDate;
+	private String cancelflag;
 	
 	
 	
+
+	public String getCancelflag() {
+		return cancelflag;
+	}
+
+	public void setCancelflag(String cancelflag) {
+		this.cancelflag = cancelflag;
+	}
 
 	public String getCancleDate() {
 		return cancleDate;
@@ -172,12 +181,12 @@ public class PaymentMMapPaymentInvBean {
 		this.receiptNoManual = receiptNoManual;
 	}
 
-	@JsonSerialize(using = CustomDateSerializer.class)
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
@@ -229,11 +238,11 @@ public class PaymentMMapPaymentInvBean {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-	@JsonSerialize(using = CustomDateSerializer.class)
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getCreateDate() {
 		return createDate;
 	}
-	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
