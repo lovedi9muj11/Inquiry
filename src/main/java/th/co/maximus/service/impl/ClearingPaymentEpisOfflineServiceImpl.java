@@ -295,12 +295,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 				}
 
 			}
-			String postUrl = "";
-			if (isOther) {
-				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
-			} else {
-				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
-			}
+			 String	postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			if(PaymentEpisOfflineDTOList.size() >0) {
 				try {
 					ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
@@ -398,7 +393,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
 							manualDTO.setCencelFlag("Y");
 							dtoList.add(manualDTO);
-							payment.setCancelflag("Y");
+							payment.setCancelflag("F");
 							cancelDTO = dtoCancel(payment);
 
 							int listOtherSize = cancelDTO.getReceipts().stream()
@@ -471,7 +466,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		dto.setFlagCancel("Y");
 		dto.setFlgNewReceipt(false);
 		dto.setUserAuthen(payment.getCreateBy());
-
+		dto.setCancelflagOffline("Y");
 		return dto;
 	}
 

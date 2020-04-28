@@ -319,7 +319,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		}, new ResultSetExtractor<ReceiptOfflineModel>() {
 			public ReceiptOfflineModel extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 				if (resultSet.next()) {
-					return new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(3),
+					return new ReceiptOfflineModel(resultSet.getString(1), resultSet.getString(2), new java.util.Date(resultSet.getTimestamp(3).getTime()),
 							resultSet.getString(4), resultSet.getString(5), resultSet.getBigDecimal(6),
 							resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
 							resultSet.getString(10),resultSet.getBigDecimal(11),resultSet.getBigDecimal(12),resultSet.getString(13),resultSet.getDate(14),resultSet.getDate(15),resultSet.getString(16));

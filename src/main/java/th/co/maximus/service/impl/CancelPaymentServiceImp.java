@@ -384,8 +384,11 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				}
 				
 			}
-			resultBean.setPaidDateStr(dt.format(resultBean.getCreateDate()));
+			//ตรงนี้ 
+			resultBean.setPaidDateStr(dt.format(resultBean.getPaidDate()));
+			System.out.println("setPaidDateStr "+dt.format(resultBean.getCreateDate()));
 			if (null != resultBean.getPeriod()) {
+				System.out.println("setPaidDate "+ Utils.periodFormat((resultBean.getPeriod())));
 				resultBean.setPeriod(Utils.periodFormat((resultBean.getPeriod())));
 			}
 			if (null != resultBean.getClearingDate()) {

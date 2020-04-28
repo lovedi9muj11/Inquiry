@@ -4,6 +4,8 @@ package th.co.maximus.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CancelPaymentDTO {
 
 	public static class Receipt {
@@ -21,6 +23,7 @@ public class CancelPaymentDTO {
 		private String isIbaiss;
 		private String cancelTaxId;
 		private String cancelBranch;
+		
 		public String getCancelCode() {
 			return cancelCode;
 		}
@@ -106,6 +109,7 @@ public class CancelPaymentDTO {
 		}
 
 	}
+	private String cancelflagOffline;
 	private String bankaccountName;
 	private String bankaccountNo;
 	private String bankName;
@@ -125,6 +129,13 @@ public class CancelPaymentDTO {
 	private boolean flagBackDate;
 	private boolean flagCloseAcc;
 	
+	
+	public String getCancelflagOffline() {
+		return cancelflagOffline;
+	}
+	public void setCancelflagOffline(String cancelflagOffline) {
+		this.cancelflagOffline = cancelflagOffline;
+	}
 	public boolean isFlagBackDate() {
 		return flagBackDate;
 	}
