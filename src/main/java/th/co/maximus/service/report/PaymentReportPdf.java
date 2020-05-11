@@ -215,6 +215,7 @@ public class PaymentReportPdf {
 			
 			int count = 0;
 			int countRow = 0;
+			int countRowSum = 0;
 			int i = 1;
 			sumAllVat0 = 0;
 			sumAllTotal = 0;
@@ -320,7 +321,7 @@ public class PaymentReportPdf {
 								}
 								count++;
 								
-								reportPaymentBean.setManualIdStr((countRow+1)+"");
+								reportPaymentBean.setManualIdStr((countRowSum+1)+"");
 //								glCode = reportPaymentBean.getServiceName(); //.split(" ")[0];
 								List<MapGLBean> resListGL = mapGLDaoImp.findBySourceOtherProdCode(reportPaymentBean.getServiceCode());
 								glCode = CollectionUtils.isNotEmpty(resListGL)?resListGL.get(0).getGlCode():"";
@@ -387,8 +388,9 @@ public class PaymentReportPdf {
 								
 								resultSources = new ArrayList<ReportPaymentBean>();
 								countRow = 0;
+								countRowSum = 0;
 								count = 0;
-								reportPaymentBean.setManualIdStr((countRow+1)+"");
+								reportPaymentBean.setManualIdStr((countRowSum+1)+"");
 								resultSources.add(reportPaymentBean);
 								
 								sumAllVat0 = 0;
@@ -470,8 +472,9 @@ public class PaymentReportPdf {
 							
 							resultSources = new ArrayList<ReportPaymentBean>();
 							countRow = 0;
+							countRowSum = 0;
 							count = 0;
-							reportPaymentBean.setManualIdStr((countRow+1)+"");
+							reportPaymentBean.setManualIdStr((countRowSum+1)+"");
 							resultSources.add(reportPaymentBean);
 							
 							sumAllVat0 = 0;
@@ -489,6 +492,14 @@ public class PaymentReportPdf {
 					} else {
 						
 						beanSup = masterDataService.findByUsername(userPaymentOld);
+						
+						if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
+							String comma = "";
+							
+							if(StringUtils.isNotBlank(userPay))comma=", ";
+							
+							userPay = userPay.concat(comma).concat(reportPaymentBean.getCreateBy());
+						}
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -551,7 +562,8 @@ public class PaymentReportPdf {
 						
 						resultSources = new ArrayList<ReportPaymentBean>();
 						countRow = 0;
-						reportPaymentBean.setManualIdStr((countRow+1)+"");
+						countRowSum = 0;
+						reportPaymentBean.setManualIdStr((countRowSum+1)+"");
 						resultSources.add(reportPaymentBean);
 						
 						sumAllVat0 = 0;
@@ -569,9 +581,13 @@ public class PaymentReportPdf {
 					serviceCode = reportPaymentBean.getServiceCode();
 					departCode = reportPaymentBean.getDepartment();
 					userPayment = reportPaymentBean.getCreateBy();
+					
+					if(Constants.Status.ACTIVE.equalsIgnoreCase(reportPaymentBean.getStatusStr())) {
+						countRow++;
+						sumCount++;
+					}
+					countRowSum++;
 					count++;
-					countRow++;
-					sumCount++;
 					
 					if(i==resultSource.size()) {
 						
@@ -612,8 +628,10 @@ public class PaymentReportPdf {
 						parameters.put("pageNumber", pageNumber);
 						
 						parameters.put("lastPage", "Y");
-						parameters.put("userPayment", userPayment);
+//						parameters.put("userPayment", userPayment);
+						parameters.put("userPayment", userPay);
 						parameters.put("userListCount", countRow);
+						parameters.put("userListCounts", sumCount);
 						parameters.put("sumCount", sumCount);
 						parameters.put("sumAllVatUser1", String.format("%,.2f", sumAllVat0));
 						parameters.put("sumAllTotalUser1", String.format("%,.2f", sumAllTotal));
@@ -621,6 +639,10 @@ public class PaymentReportPdf {
 						parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
 						parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
 						parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
+						
+						parameters.put("sumAllVatUser1s", String.format("%,.2f", sumAllVatUser));
+						parameters.put("sumAllTotalUser1s", String.format("%,.2f", sumAllTotalUser));
+						parameters.put("sumAllTotalNoVatUser1s", String.format("%,.2f", sumAllTotalNoVatUser));
 						
 						if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
 							vatBeans.add(vatBean10);
@@ -901,6 +923,10 @@ public class PaymentReportPdf {
 							parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
 							parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
 							
+							parameters.put("sumAllVatUser1s", String.format("%,.2f", sumAllVatUser));
+							parameters.put("sumAllTotalUser1s", String.format("%,.2f", sumAllTotalUser));
+							parameters.put("sumAllTotalNoVatUser1s", String.format("%,.2f", sumAllTotalNoVatUser));
+							
 							if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
 								vatBeans.add(vatBean10);
 							}
@@ -1156,6 +1182,10 @@ public class PaymentReportPdf {
 						parameters.put("sumAllVatUser", String.format("%,.2f", sumAllVatUser));
 						parameters.put("sumAllTotalUser", String.format("%,.2f", sumAllTotalUser));
 						parameters.put("sumAllTotalNoVatUser", String.format("%,.2f", sumAllTotalNoVatUser));
+						
+						parameters.put("sumAllVatUser1s", String.format("%,.2f", sumAllVatUser));
+						parameters.put("sumAllTotalUser1s", String.format("%,.2f", sumAllTotalUser));
+						parameters.put("sumAllTotalNoVatUser1s", String.format("%,.2f", sumAllTotalNoVatUser));
 						
 						if(StringUtils.isNotBlank(vatBean10.getVatRat())) {
 							vatBeans.add(vatBean10);

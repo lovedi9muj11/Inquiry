@@ -47,7 +47,7 @@ public class ReciptNoGenCode {
 			result = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
 		} catch (Exception e) {
 			String zeron = "";
-			if(result >9) {
+			if(result >8) {
 //				zeron ="00"+(result);
 				zeron ="00"+(result+1);
 			}else {
@@ -58,7 +58,7 @@ public class ReciptNoGenCode {
 			return codeName;
 		}
 		String zeron = "";
-		if(result >9) {
+		if(result >8) {
 //			zeron ="00"+(result);
 			zeron ="00"+(result+1);
 		}else {

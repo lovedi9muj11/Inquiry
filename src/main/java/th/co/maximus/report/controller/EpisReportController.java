@@ -264,7 +264,7 @@ public class EpisReportController {
 			} else if (rs.getCode().equals("CH")) {
 				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(rs.getId());
 				for (int f = 0; f < res.size(); f++) {
-					payCode = "เช็ค " + res.get(f).getPublisher() + " เลขที่ :" + res.get(f).getChequeNo();
+					payCode = "เช็ค " + res.get(f).getPublisher() +" สาขา : "+res.get(0).getBranch()+" เลขที่ :" + res.get(f).getChequeNo();
 					result.add(payCode);
 				}
 
@@ -492,7 +492,7 @@ public class EpisReportController {
 				result.add(payCode);
 			} else if (stockObject.getPaymentCode().equals("CH")) {
 				List<TrsChequerefEpisOffline> res = trsChequeRefManualService.findTrsCredit(stockObject.getMethodId());
-				payCode = "เช็ค " + res.get(0).getPublisher() + " เลขที่ :" + res.get(0).getChequeNo();
+				payCode = "เช็ค " + res.get(0).getPublisher() + " สาขา : "+res.get(0).getBranch()+" เลขที่ :" + res.get(0).getChequeNo();
 				result.add(payCode);
 			}
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -16,14 +17,14 @@
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Hl_Common" isDefault="true" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
+	<style name="Cat_Hl_Common" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
 	<style name="Cat_Ct_Common" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="12"/>
 	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFReport"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<pageHeader>
-		<band height="164">
+		<band height="176">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -64,7 +65,7 @@
 				<text><![CDATA[ชื่อ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="91" y="70" width="460" height="23" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f">
+				<reportElement x="91" y="70" width="380" height="23" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f">
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckCustomerName() == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -110,11 +111,12 @@
 				<text><![CDATA[ที่อยู่ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="91" y="93" width="473" height="23" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec">
+				<reportElement x="91" y="93" width="380" height="23" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec">
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckAddress() == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustomerAddress()]]></textFieldExpression>
 			</textField>
@@ -137,14 +139,15 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getTaxId()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="91" y="139" width="692" height="23" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
+				<reportElement x="91" y="139" width="380" height="37" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getPaymentCode()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="139" width="80" height="23" uuid="33926f71-4de2-4588-9429-97b162038670"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="139" width="80" height="37" uuid="33926f71-4de2-4588-9429-97b162038670"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>

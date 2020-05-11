@@ -43,7 +43,7 @@
 		<fieldDescription><![CDATA[discountbeforvatStr]]></fieldDescription>
 	</field>
 	<pageHeader>
-		<band height="162">
+		<band height="172">
 			<textField>
 				<reportElement x="710" y="29" width="32" height="18" backcolor="#FFFFFF" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
 				<textElement textAlignment="Center">
@@ -137,6 +137,7 @@
 				</reportElement>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustomerAddress()]]></textFieldExpression>
 			</textField>
@@ -159,14 +160,15 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getTaxId()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="139" width="399" height="23" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
+				<reportElement x="81" y="139" width="399" height="33" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getPaymentCode()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="0" y="139" width="80" height="23" uuid="33926f71-4de2-4588-9429-97b162038670"/>
+				<reportElement style="Cat_Hl_Common" x="0" y="139" width="80" height="33" uuid="33926f71-4de2-4588-9429-97b162038670"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
