@@ -40,6 +40,9 @@ public class ReportTaxRSBean {
 	private String quantitySummery;
 	private String posNo;
 	private String posName;
+	private String branchCode;
+	private String branchArea;
+	private String userName;
 	
 	private List<ReportTaxRSBean> reportTaxRSBeanList;
 	
@@ -234,6 +237,24 @@ public class ReportTaxRSBean {
 	}
 	public void setAfterVatSummeryStr(String afterVatSummeryStr) {
 		this.afterVatSummeryStr = afterVatSummeryStr;
+	}
+	public String getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+	public String getBranchArea() {
+		return branchArea;
+	}
+	public void setBranchArea(String branchArea) {
+		this.branchArea = branchArea;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

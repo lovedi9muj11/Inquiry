@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.HostnameVerifier;
@@ -284,21 +285,17 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 						if (deductionList.size() > 0) {
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
+						paymentEpisOfflineDTO.setChannel("OFFLINE");
+						paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
+						paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
+						paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
+						PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
 					}
-					paymentEpisOfflineDTO.setChannel("OFFLINE");
-					paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
-					paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
-					paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
-					PaymentEpisOfflineDTOList.add(paymentEpisOfflineDTO);
+					
 				}
 
 			}
-			String postUrl = "";
-			if (isOther) {
-				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
-			} else {
-				postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
-			}
+			 String	postUrl = url.concat("/offline/paymentManualSaveOffline"); // /offline/insertPayment
 			if(PaymentEpisOfflineDTOList.size() >0) {
 				try {
 					ResponseEntity<String> postResponse = restTemplate.postForEntity(postUrl, PaymentEpisOfflineDTOList,
@@ -367,7 +364,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		
 		ResponseEntity<String> resultA;
 		ResponseEntity<String> resultB = null;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
 		for (OfflineResultModel offlineResultModel : objMessage) {
 			try {
 				if (offlineResultModel.getStatus().equals("SUCCESS")) {
@@ -394,8 +391,9 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							manualDTO.setPaidDateStr(dateFormat.format(payment.getPaidDate()));
 							manualDTO.setPosNo(posNo);
 							manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
+							manualDTO.setCencelFlag("Y");
 							dtoList.add(manualDTO);
-
+							payment.setCancelflag("F");
 							cancelDTO = dtoCancel(payment);
 
 							int listOtherSize = cancelDTO.getReceipts().stream()
@@ -406,16 +404,20 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 										+ payment.getCreateBy() + "&mac=" + mac);
 								resultA = restTemplate.postForEntity(postUrl, dtoList, String.class);
 								System.out.println(resultA);
-
+								TimeUnit.SECONDS.sleep(10);
 								if (listOtherSize <= 0) {
+									System.out.println("CANCEL IBASS");
 									postUrl = url.concat("/cancelPaymentProduct2Offline.json?ap=OFFLINE&username="
 											+ payment.getCreateBy() + "&mac=" + mac);
+									System.out.println(postUrl);
 									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 									System.out.println(resultB);
 
 								} else {
+									System.out.println("CANCEL Other");
 									postUrl = url.concat("/cancelPaymentOtherOffline.json?ap=OFFLINE&username="
 											+ payment.getCreateBy() + "&mac=" + mac);
+									System.out.println(postUrl);
 									resultB = restTemplate.postForEntity(postUrl, cancelDTO, String.class);
 									System.out.println(resultB);
 
@@ -464,7 +466,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		dto.setFlagCancel("Y");
 		dto.setFlgNewReceipt(false);
 		dto.setUserAuthen(payment.getCreateBy());
-
+		dto.setCancelflagOffline("Y");
 		return dto;
 	}
 

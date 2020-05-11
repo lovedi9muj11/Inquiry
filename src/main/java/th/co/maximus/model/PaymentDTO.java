@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import th.co.maximus.core.utils.converter.CustomDateDeserializer;
 import th.co.maximus.core.utils.converter.CustomDateSerializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeSerializer;
 
 public class PaymentDTO {
 	private Long paymenId;
@@ -42,8 +44,16 @@ public class PaymentDTO {
 	
 	private String custBranch;
 	
+	private String cencelFlag;
 	
 	
+	
+	public String getCencelFlag() {
+		return cencelFlag;
+	}
+	public void setCencelFlag(String cencelFlag) {
+		this.cencelFlag = cencelFlag;
+	}
 	public String getVatRate() {
 		return vatRate;
 	}
@@ -122,12 +132,12 @@ public class PaymentDTO {
 	public void setVatAmount(BigDecimal vatAmount) {
 		this.vatAmount = vatAmount;
 	}
-	@JsonSerialize(using = CustomDateSerializer.class)
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}

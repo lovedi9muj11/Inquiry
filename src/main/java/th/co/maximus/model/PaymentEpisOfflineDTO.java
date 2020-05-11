@@ -4,6 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import th.co.maximus.core.utils.converter.CustomDateTimeDeserializer;
+import th.co.maximus.core.utils.converter.CustomDateTimeSerializer;
+
 public class PaymentEpisOfflineDTO {
 	private String invoiceNo;
 	private String receiptNo;
@@ -172,9 +178,11 @@ public class PaymentEpisOfflineDTO {
 	public void setManualID(String manualID) {
 		this.manualID = manualID;
 	}
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getPaidDate() {
 		return paidDate;
 	}
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}

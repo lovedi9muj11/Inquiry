@@ -339,7 +339,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoice.setSource(rs.getString("SOURCE"));
 			paymentInvoice.setInvoiceNo(rs.getString("INVOICE_NO"));
 			paymentInvoice.setBeforVat(rs.getDouble("BEFOR_VAT"));
-			paymentInvoice.setVatAmount(rs.getInt("VAT_AMOUNT"));
+			paymentInvoice.setVatAmount(rs.getDouble("VAT_AMOUNT"));
 			paymentInvoice.setAmount(rs.getDouble("AMOUNT"));
 			paymentInvoice.setVatRate(rs.getString("VAT_RATE"));
 			paymentInvoice.setCustomerName(rs.getString("CUSTOMER_NAME"));
@@ -583,7 +583,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		List<Object> param = new LinkedList<Object>();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID");
-		sql.append(" WHERE payment_m.CLEARING = ? OR payment_m.CLEARING = 'W' AND payment_m.RECORD_STATUS = '"+Constants.Status.ACTIVE+"' ");
+		sql.append(" WHERE (payment_m.CLEARING = ? OR payment_m.CLEARING = 'W') AND payment_m.RECORD_STATUS = '"+Constants.Status.ACTIVE+"' ");
 		param.add(clearing);
 		sql.append("  GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();

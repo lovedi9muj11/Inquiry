@@ -23,6 +23,7 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.bean.ReportTaxRSBean;
 import th.co.maximus.constants.Constants;
 
 @Service("reportService")
@@ -54,11 +55,11 @@ public class ReportService {
 		return result;
 	}
 	
-	public Workbook controlAllReport(Workbook workbook, String rptCode, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception {
+	public Workbook controlAllReport(Workbook workbook, String rptCode, List<HistoryPaymentRS> entity, HistoryReportBean bean, List<ReportTaxRSBean> rsBeans) throws Exception {
 		if (rptCode.equals(Constants.report.RPT_CODE_F)) {
 			workbook = reportExcelService.getReportRptFull(workbook, entity, bean);
 		}else if(rptCode.equals(Constants.report.RPT_CODE_NF)) {
-			workbook = reportExcelService.getReportRptFull(workbook, entity, bean);
+			workbook = reportExcelService.getReportRptNotFull(workbook, entity, bean, rsBeans);
 		}
 		return workbook;
 	}

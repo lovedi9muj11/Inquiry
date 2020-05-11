@@ -18,6 +18,7 @@ import th.co.maximus.bean.HistoryReportBean;
 import th.co.maximus.bean.ReportBean;
 import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
+import th.co.maximus.bean.ReportTaxRSBean;
 
 @Service("reportExcelService")
 public class ReportExcelService extends BaseExcelRptService {
@@ -36,6 +37,10 @@ public class ReportExcelService extends BaseExcelRptService {
 	
 	public Workbook getReportRptFull(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean) throws Exception {
 		return rptServiceFull.getReport(workbook, entity, bean);
+	}
+	
+	public Workbook getReportRptNotFull(Workbook workbook, List<HistoryPaymentRS> entity, HistoryReportBean bean, List<ReportTaxRSBean> rsBeans) throws Exception {
+		return rptServiceFull.getReportNotFull(workbook, entity, bean, rsBeans);
 	}
 	
 	public Workbook reportPaymentExcelService(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws Exception{
