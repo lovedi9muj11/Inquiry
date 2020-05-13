@@ -80,25 +80,10 @@ public class ReportPaymentController {
 		StringBuilder  sql = new StringBuilder();
 		sql.append(" SELECT * FROM TRANFER_LOGS");
 		sql.append(" WHERE  ");
-		sql.append(" ( ");
 		sql.append(" STARTDATE").append(" >= "+"'" +  creteria.getDateFrom() + "'");
 		sql.append(" AND ");
-		sql.append(" STARTDATE").append(" <= "+"'" +  creteria.getDateFrom() + "' ) ");
-
-		sql.append(" OR ("); 
-		sql.append(" ENDDATE").append(" >= "+"'" +  creteria.getDateFrom() + "'");
-		sql.append(" AND ");
-		sql.append(" ENDDATE").append(" >= "+"'" +  creteria.getDateTo()+" "+creteria.getDateTo2() + "'"+"  ) ");
-
-		sql.append(" OR (");
-		sql.append(" ENDDATE").append(" <= "+"'" +  creteria.getDateFrom() + "'");
-		sql.append(" AND ");
-		sql.append(" ENDDATE").append(" >= "+"'" +  creteria.getDateTo()+" "+creteria.getDateTo2() + "'"+"  ) ");
-
-		sql.append(" OR ( ");
-		sql.append(" STARTDATE").append(" <= "+"'" +  creteria.getDateFrom() + "'");
-		sql.append(" AND ");
-		sql.append(" ENDDATE").append(" >= "+"'" +  creteria.getDateTo()+" "+creteria.getDateTo2() + "'"+"  ) ");
+		sql.append(" STARTDATE").append(" <= "+"'" + creteria.getDateTo2() +" "+ creteria.getDateTo() + "'");
+		
 		javax.persistence.Query query = entityManager.createNativeQuery(sql.toString() , TranferLogs.class);
 //		query.setParameter("startDate", creteria.getDateFrom());
 		System.out.println(creteria.getDateFrom());

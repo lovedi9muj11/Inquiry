@@ -43,8 +43,8 @@
 						<label class="col-md-4 control-label text-right">สถานะรายการ</label>
 						<div class="col-md-4">
 							<select class="form-control" id="clearing" name="clearing">
-								<option value="N">ยังไม่ได้หักล้าง</option>
-								<option value="Y">หักล้างแล้ว</option>
+								<option value="N">ยังไม่ได้ส่งข้อมูลเข้าออนไลน์</option>
+								<option value="Y">ส่งข้อมูลเข้าออนไลน์แล้ว</option>
 							</select>
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 				<!-- Button -->
 				<div class="col-md-12 text-right">
 					<button id="send" name="send" class="btn btn-success"
-						onclick="dialogRemakes()" style="width: 7%">ส่งหักล้างทั้งหมด</button>
+						onclick="dialogRemakes()" style="width: 7%">ส่งข้อมูลทั้งหมด</button>
 				</div>
 			</div>
 		</div>
@@ -89,9 +89,9 @@
 									<tr>
 										<th style="text-align: center; width: 1%"></th>
 										<th style="text-align: center; width: 1%">#</th>
-										<th style="text-align: center; width: 6%">วันที่ทำรายการ</th>
+										<th style="text-align: center; width: 10%">วันที่ทำรายการ</th>
 										<th style="text-align: center; width: 6%">วันที่ออกใบเสร็จรับเงิน</th>
-										<th style="text-align: center; width: 6%">วันที่ส่งหักล้าง</th>
+										<th style="text-align: center; width: 6%">วันที่ส่งข้อมูลเช้าออนไลน์</th>
 										<th style="text-align: center; width: 10%">เลขที่ใบเสร็จรับเงิน</th>
 										<th style="text-align: center; width: 10%">สถานที่รับชำระ</th>
 										<th style="text-align: center; width: 5%">ผู้รับชำระ</th>
@@ -186,7 +186,7 @@
 					<h4 class="modal-title" id="myModalLabel">แสดงผล</h4>
 				</div>
 				<div class="modal-body">
-								<p>กรุณาเลือกรายการที่ต้องหักล้าง</p>
+								<p>กรุณาเลือกรายการที่ต้องส่งข้อมูล</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" id="modal-btn-si"

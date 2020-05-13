@@ -16,6 +16,7 @@ public class CancelPaymentDTO {
 		private String accountName;
 		private String addrLine1;
 		private String canceldate;
+		private String cancelBy;
 		private String accountNo;
 		private String canceluserAuthen;
 		private String cancelReason;
@@ -24,6 +25,12 @@ public class CancelPaymentDTO {
 		private String cancelTaxId;
 		private String cancelBranch;
 		
+		public String getCancelBy() {
+			return cancelBy;
+		}
+		public void setCancelBy(String cancelBy) {
+			this.cancelBy = cancelBy;
+		}
 		public String getCancelCode() {
 			return cancelCode;
 		}

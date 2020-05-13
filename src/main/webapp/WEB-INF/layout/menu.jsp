@@ -108,12 +108,12 @@
 								</li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">ส่งหักล้าง <span class="caret"></span>
+							data-toggle="dropdown">ส่งข้อมูลเข้าออนไลน์ <span class="caret"></span>
 								<span style="font-size: 18px;"
 								class="pull-right hidden-xs glyphicon glyphicon-road"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/minusOnline">ส่งหักล้าง</a></li>
+								<li><a href="${contextPath}/minusOnline">ส่งข้อมูลเข้าออนไลน์</a></li>
 							</ul></li>
 					</sec:authorize>
 				</ul>

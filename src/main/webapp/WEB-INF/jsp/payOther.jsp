@@ -261,8 +261,7 @@
 															for (int i = 0; i < mapGLServiceName.size(); i++) {
 														%>
 													<option
-													value="<%=mapGLServiceName.get(i).getProductCode()%>"><%=mapGLServiceName.get(i).getServiceName()%></option>
-														<%
+													value="<%=mapGLServiceName.get(i).getServiceCode()%>"><%=mapGLServiceName.get(i).getServiceName()%></option>														<%
 															}
 														%>
 											</select>

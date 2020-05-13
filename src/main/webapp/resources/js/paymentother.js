@@ -83,9 +83,9 @@ $(document).ready(function() {
 						for(var i=0; i<data.length; i++) {
 							var element = data[i];
 							if(is1 == element.productCode ){
-								$('#inputServiceName').append('<option value="' + element.productCode+ '" selected>' + element.serviceName + '</option>');
+								$('#inputServiceName').append('<option value="' + element.serviceCode+ '" selected>' + element.serviceName + '</option>');
 							}else{
-								$('#inputServiceName').append('<option value="' + element.productCode+ '">' + element.serviceName + '</option>');
+								$('#inputServiceName').append('<option value="' + element.serviceCode+ '">' + element.serviceName + '</option>');
 							}
 						}
 					});
@@ -98,7 +98,7 @@ $(document).ready(function() {
 					}).then(function (data) {
 						for(var i=0; i<data.length; i++) {
 							var element = data[i];
-							$('#inputServiceName').append('<option value="' + element.productCode+ '" >' + element.serviceName + '</option>');
+							$('#inputServiceName').append('<option value="' + element.serviceCode+ '" >' + element.serviceName + '</option>');
 						}
 					});
 				}

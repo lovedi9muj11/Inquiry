@@ -57,9 +57,17 @@ public class PaymentMMapPaymentInvBean {
 	private String clearingDateStr;
 	private String cancleDate;
 	private String cancelflag;
+	private String cancleBy;
 	
 	
-	
+
+	public String getCancleBy() {
+		return cancleBy;
+	}
+
+	public void setCancleBy(String cancleBy) {
+		this.cancleBy = cancleBy;
+	}
 
 	public String getCancelflag() {
 		return cancelflag;

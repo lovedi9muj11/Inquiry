@@ -115,11 +115,19 @@ function formatDate(date) {
 	   
 	  minutes = minutes < 10 ? '0'+minutes : minutes;
 	  var strTime = hours + ':' + minutes ;
+	  return   date.getDate() + "/" +(date.getMonth()+1)+ "/" + date.getFullYear();
+	}
+function formatDateTime(date) {
+	  var hours = date.getHours();
+	  var minutes = date.getMinutes();
+	   
+	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var strTime = hours + ':' + minutes ;
 	  return   date.getDate() + "/" +(date.getMonth()+1)+ "/" + date.getFullYear() + "  " + strTime;
 	}
 function createRow(data, seq) {
 	manualId = seq+1;
-	startDate =  formatDate(new Date(data.startDate));
+	startDate =  formatDateTime(new Date(data.startDate));
 	endDate =  formatDate(new Date(data.endDate));
 	successTask =  data.successTask;
 	if(data.errorTask > 0){

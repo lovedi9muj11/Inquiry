@@ -70,13 +70,13 @@ function createRow(data, seq) {
 	accountNo = data.accountNo;
 	
 	if(clearing === "Y"){
-		clearing = "ส่งหักล้างแล้ว";
+		clearing = "ส่งข้อมูลเข้าออนไลน์แล้ว";
 		clearingDate = data.clearingDateStr;
 	}else if(clearing === "W"){
-		clearing = "รอส่งหักล้าง";
+		clearing = "รอส่งข้อมูลเข้าออนไลน์";
 		clearingDate = "-";
 	}else{
-		clearing = "ยังไม่ส่งหักล้าง";
+		clearing = "ยังไม่ส่งข้อมูลเข้าออนไลน์";
 		clearingDate = "-";
 	}
 	

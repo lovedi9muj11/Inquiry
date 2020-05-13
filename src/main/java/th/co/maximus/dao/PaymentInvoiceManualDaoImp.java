@@ -83,6 +83,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setServiceName(rs.getString("SERVICENAME"));
 			paymentManual.setCustomerGroup(rs.getString("CUSTOMER_GROUP"));
 			paymentManual.setClearingDate(rs.getTimestamp("CLEARING_DATE"));
+			
 //			paymentManual.setCustomerGroupName(findByppt1(paymentManual.getCustomerGroup()));
 			
 //			paymentManual.setCustomerGroupName(rs.getString("VALUE"));
@@ -91,7 +92,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setDiscountSpecial(rs.getBigDecimal("DISCOUNTSPECIAL"));
 			paymentManual.setReasonCode(rs.getString("CANCEL_REASON_CODE"));
 			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
+			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
 			paymentManual.setCancleDate(rs.getString("CANCEL_DATE"));
+			paymentManual.setCancleBy(rs.getString("CANCEL_BY"));
 			return paymentManual;
 		}
 

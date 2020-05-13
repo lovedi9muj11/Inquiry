@@ -106,7 +106,7 @@ public class PayOtherController {
 	
 	@RequestMapping(value = { "/getAllServiceType/{id}" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MapGLBean> getAllServiceType(@PathVariable("id") String id) {
-		List<MapGLBean> serviceTypeList = mapGLDao.findByProductSource(id);
+		List<MapGLBean> serviceTypeList = mapGLDao.findByServiceSource(id);
 		return serviceTypeList;
 
 	}

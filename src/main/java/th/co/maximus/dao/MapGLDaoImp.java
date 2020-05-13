@@ -70,10 +70,10 @@ public class MapGLDaoImp implements MapGLDao{
 	}
 	
 	@Override
-	public List<MapGLBean> findByProductSource(String revennuId) {
+	public List<MapGLBean> findByServiceSource(String revennuId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
-		sql.append(" WHERE mg.PRODUCT_CODE = '"+revennuId+"' ");
+		sql.append(" WHERE mg.SERVICE_CODE = '"+revennuId+"' ");
 		sql.append(" AND mg.SOURCE = '"+Constants.MasterData.OTHER+"' ");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}

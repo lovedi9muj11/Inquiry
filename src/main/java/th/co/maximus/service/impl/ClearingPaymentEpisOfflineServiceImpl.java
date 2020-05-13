@@ -334,14 +334,17 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 			errorCount++;
 			errorRecript.append(recNO).append(",");
 		}finally {
-			TranferLogs log = new TranferLogs();
-			log.setStartDate(new Timestamp(startDate.getTime()));
-			log.setEndDate(new Timestamp(new Date().getTime()));
-			log.setSystem(system);
-			log.setErrorTask(errorCount);
-			log.setSuccessTask(successCount);
-			log.setErrorRecript(errorRecript.toString());
-			tranferLogsRepository.save(log);
+			if(errorCount != 0 || successCount != 0 ) {
+				TranferLogs log = new TranferLogs();
+				log.setStartDate(new Timestamp(startDate.getTime()));
+				log.setEndDate(new Timestamp(new Date().getTime()));
+				log.setSystem(system);
+				log.setErrorTask(errorCount);
+				log.setSuccessTask(successCount);
+				log.setErrorRecript(errorRecript.toString());
+				tranferLogsRepository.save(log);
+			}
+			
 		}
 
 		return objMessage;
@@ -461,6 +464,7 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		rp.setReasonDesc(payment.getReasonDesc());
 		rp.setIsIbaiss(payment.getServiceType());
 		rp.setCanceldate(payment.getCancleDate());
+		rp.setCancelBy(payment.getCancleBy());
 		rpList.add(rp);
 		dto.setReceipts(rpList);
 		dto.setFlagCancel("Y");
