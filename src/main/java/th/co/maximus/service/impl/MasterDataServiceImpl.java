@@ -404,5 +404,12 @@ public class MasterDataServiceImpl implements MasterDataService {
 		return null;
 		
 	}
+	
+	@Override
+	public List<MasterDatasBean> findByCussegment(String userGroup) {
+		List<MasterDatasBean> custSegment = masterDatasDao.findByCussegmentValue(userGroup);
+		return custSegment;
+	}
+	
 
 }

@@ -190,5 +190,15 @@ public class PayOtherController {
 
 		return moneyformat;
 	}
+	
+	@RequestMapping(value = { "/getWT/{userGroup}" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody MasterDatasBean getWT(@PathVariable("userGroup") String userGroup) {
+		String keycode;
+		List<MasterDatasBean> getwt = masterDataService.findByCussegment(userGroup);
+		keycode = getwt.get(0).getProperty5();
+		
+		return  masterDatasDao.findByKey(keycode);
+
+	}
 
 }

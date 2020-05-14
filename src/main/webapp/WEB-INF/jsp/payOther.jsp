@@ -129,8 +129,7 @@
 										<div class="col-sm-2">
 											<select class="form-control" id="userGroup" name="userGroup"
 												onchange="autoSelect()">
-												<option value="">-- กรุณาเลือก --</option>
- 												<option value="1">ธุรกิจทั่วไป</option> 
+												<option value="">-- กรุณาเลือก --</option> 
 <!-- 												<option value="2">หน่วยงานรัฐ</option> -->
 <!-- 												<option value="3">บุคคลทั่วไป</option> -->
 <!-- 												<option value="4">Carrier/Operator/NON POTs</option> -->

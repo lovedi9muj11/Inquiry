@@ -129,7 +129,7 @@ public class MasterDatasDaoImpl implements MasterDatasDao {
 	public List<MasterDatasBean> findByCMSegmentByCRM() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT);
-		sql.append("' AND PROPERTY_1 IN ('"+Constants.MasterData.PROPERTY_1.MS_11+"', '"+Constants.MasterData.PROPERTY_1.MS_12+"', '"+Constants.MasterData.PROPERTY_1.MS_14+"')");
+		sql.append("' AND PROPERTY_1 IN ('"+Constants.MasterData.PROPERTY_1.MS_11+"', '"+Constants.MasterData.PROPERTY_1.MS_12+"', '"+Constants.MasterData.PROPERTY_1.MS_14+"','"+Constants.MasterData.PROPERTY_1.MS_1+"')");
 		sql.append(" ORDER BY PROPERTY_1");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
@@ -142,5 +142,15 @@ public class MasterDatasDaoImpl implements MasterDatasDao {
 		
 		return jdbcTemplate.queryForObject(sql.toString() , new masterData());
 	}
+	
+	@Override
+	public List<MasterDatasBean> findByCussegmentValue(String userGroup) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE GROUP_KEY = '"+Constants.MasterData.CUSTOMER_SEGMENT);
+		sql.append("' AND PROPERTY_1 = '"+userGroup+"'");
+		return jdbcTemplate.query(sql.toString() , new masterData());
+	}
+	
+	
 
 }

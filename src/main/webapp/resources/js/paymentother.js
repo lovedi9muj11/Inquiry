@@ -2084,8 +2084,8 @@ function calVat() {
 	
 	var amountDiscount = disDiscount(serviceAmount);
 	var amountBeforVat = disVat(amountDiscount,radioResult);
-	var wt = calWT(amountBeforVat);
-	$("#moneyDed1").val(parseFloat(wt).toFixed(2));
+	calWT(amountBeforVat);
+	
 	
 	
 }
@@ -2093,12 +2093,16 @@ function calVat() {
 function calWT(amount){
 	var userGroup = $("#userGroup").val();
 	var wt;
-	if(userGroup == 2){
-		wt = amount*1/100;
-	}else{
-		wt = amount*3/100;
-	}
-	return wt;
+	
+	$.ajax({
+	    type: 'GET',
+	    url: ctx +"/getWT/"+userGroup
+	}).then(function (data) {
+			wt = amount*parseInt(data.value)/100;
+			$("#moneyDed1").val(parseFloat(wt).toFixed(2));
+	});
+	
+	
 }
 function disVat(serviceAmount,amountType){
 	var vatRate = $('#vatrate').val();
