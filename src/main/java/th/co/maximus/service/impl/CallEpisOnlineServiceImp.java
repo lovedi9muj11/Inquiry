@@ -142,6 +142,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.BUSINESS_AREA);
 			groupKeys.add(Constants.MasterData.OTHER_PAYMENT_UNIT);
 			groupKeys.add(Constants.MasterData.VAT);
+			groupKeys.add(Constants.MasterData.WT);
 //			groupKeys.add(Constants.MasterData.IBACSS_CANCEL_REASON); /**change*/
 			groupKeys.add(Constants.MasterData.OTHER_CANCEL_REASON);
 			groupKeys.add(Constants.MasterData.EDC_CREDIT_CARD_BANK);

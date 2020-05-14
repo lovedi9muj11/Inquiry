@@ -114,7 +114,7 @@ public class Constants {
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		public static final String USER_GROUP = "UserGoup";
-		
+		public static final String WT = "WT";
 		public static class KEYCODE {
 			public static final String TRIGGER_MS = "Trigger_MS";
 			public static final String TRIGGER_GL = "Trigger_GL";
