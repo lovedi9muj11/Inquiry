@@ -249,6 +249,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			ResponseEntity<String> getResponse = restTemplate.postForEntity(gettUrl, branchArea, String.class);
 			
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());
+			System.out.println(getResponse.getBody());
 			for(int i=0; i<jsonArray.length(); i++) {
 				userBean = new UserBean();
 				principal = new Principal();

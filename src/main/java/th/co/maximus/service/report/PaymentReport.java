@@ -64,6 +64,7 @@ public class PaymentReport extends BaseExcelRptService {
 		String serviceName = "";
 		int rowServiceOther = 4;
 		int rowCellServiceOther = 0;
+		boolean chkType = true;
 //		int rowServiceOther = 3;
 //		int rowCellServiceOther = 0;
 		
@@ -73,7 +74,8 @@ public class PaymentReport extends BaseExcelRptService {
 			 }else if(Constants.Service.SERVICE_TYPE_OTHER.equals(result.get(0).getServiceType())) {
 				 serviceName = "รับชำระค่าใช้บริการอื่น ๆ ";
 				 rowServiceOther = 3;
-				 rowCellServiceOther = 4;
+				 rowCellServiceOther = 5;
+				 chkType = false;
 //				 rowServiceOther = 2;
 //				 rowCellServiceOther = 3;
 			 }
@@ -86,8 +88,8 @@ public class PaymentReport extends BaseExcelRptService {
 		//set row date header and style cell
 		 Row row1 = sh.getRow(1);
 		 Cell company = row1.getCell(0);
-		 Cell dateFromToCriteria = row1.getCell(4);
-		 Cell datePrint = row1.getCell(10);
+		 Cell dateFromToCriteria = row1.getCell(5);
+		 Cell datePrint = row1.getCell(11);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
 //		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom())+" "+"- "+ convertTimeFormat(criteria.getDateTo()));
 		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom()));
@@ -122,16 +124,19 @@ public class PaymentReport extends BaseExcelRptService {
 //		 double sumVat7 = 0.00;
 //		 DecimalFormat df2 = new DecimalFormat("#0.00");
 		 
-		 
+		 int sum1 = 8;
+		 int sum2 = 9;
+		 int sum3 = 10;
 		 if(result.size() > 0 && !result.isEmpty()) {
 			 for(ReportPaymentBean resultReportPayment : result) {
+				 int countType = 4;
 				 Row row = sh.createRow(indexRow);
 				 Cell cell = row.createCell(0);
 				 Cell cell1Add = row.createCell(1);
 				 Cell cell1 = row.createCell(2);
 				 Cell cell2 = row.createCell(3);
+				 
 				 Cell cell3 = row.createCell(4);
-//				 Cell cell4 = row.createCell(5);
 				 Cell cell5 = row.createCell(5);
 				 Cell cell6 = row.createCell(6);
 				 Cell cell7 = row.createCell(7);
@@ -143,60 +148,117 @@ public class PaymentReport extends BaseExcelRptService {
 				 Cell cell13 = row.createCell(13);
 				 Cell cell14 = row.createCell(14);
 				 Cell cell15 = row.createCell(15);
+				 Cell cell16 = null;
 				 
 				 cell.setCellValue(index);
 				 cell1Add.setCellValue(serviceName);
 				 cell1.setCellValue(resultReportPayment.getReceiptNoManual());
 				 cell2.setCellValue(resultReportPayment.getAccountSubNo());
 				 
-				 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell3.setCellValue(resultReportPayment.getCustomerName());}
-				 else {cell3.setCellValue(resultReportPayment.getDepartment());}}else {cell3.setCellValue("");}
-				 
-//				 cell4.setCellValue(resultReportPayment.getDepartment());
-				 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell5.setCellValue(resultReportPayment.getInvoiceNo());}
-				 else {cell5.setCellValue(resultReportPayment.getServiceName());}}else {cell3.setCellValue("");}
-				 
-				 cell6.setCellValue(resultReportPayment.getPaymentMethod());
-				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
-//				 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNoEx())?resultReportPayment.getRefNoEx():"");
-				 cell8.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
-				 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
-				 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
-				 if("A".equals(resultReportPayment.getStatus())) {
-					 cell11.setCellValue("-");
-				 }else if("C".equals(resultReportPayment.getStatus())) {
-					 cell11.setCellValue("ยกเลิก");
+				 if(!chkType) {
+					 sum1 = 9;
+					 sum2 = 10;
+					 sum3 = 11;
+					 cell16 = row.createCell(16);
+					 
+					 cell3.setCellValue(resultReportPayment.getCustomerName());
+					 
+					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell5.setCellValue(resultReportPayment.getCustomerName());}
+					 else {cell5.setCellValue(resultReportPayment.getDepartment());}}else {cell5.setCellValue("");}
+					 
+					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell6.setCellValue(resultReportPayment.getInvoiceNo());}
+					 else {cell6.setCellValue(resultReportPayment.getServiceName());}}else {cell5.setCellValue("");}
+					 
+					 cell7.setCellValue(resultReportPayment.getPaymentMethod());
+					 cell8.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
+					 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
+					 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
+					 cell11.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
+					 if("A".equals(resultReportPayment.getStatus())) {
+						 cell12.setCellValue("-");
+					 }else if("C".equals(resultReportPayment.getStatus())) {
+						 cell12.setCellValue("ยกเลิก");
+					 }
+					 cell15.setCellValue(resultReportPayment.getCreateBy());
+					 
+					 // gen name surname
+					 try {
+						 UserBean userBean =  masterDataService.findByUsername(resultReportPayment.getCreateBy());
+						 cell16.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					 
+					 cell13.setCellValue(profile.getBranchArea());
+					 cell14.setCellValue(masterDataService.findByKeyCode(profile.getBranchArea()).getValue());
+					 
+					 cell.setCellStyle(txtTableCenter);
+					 cell1Add.setCellStyle(txtCenterTable);
+					 cell1.setCellStyle(txtCenterTable);
+					 cell2.setCellStyle(txtCenterTable);
+					 cell3.setCellStyle(txtCenterTable);
+//					 cell4.setCellStyle(txtCenterTable);
+					 cell5.setCellStyle(txtCenterTable);
+					 cell6.setCellStyle(txtTableCenter);
+					 cell7.setCellStyle(txtTableCenter);
+					 cell8.setCellStyle(txtTableCenter);
+					 cell9.setCellStyle(txtCenterDecimalRight);
+					 cell10.setCellStyle(txtCenterTableRight);
+					 cell11.setCellStyle(txtCenterDecimalRight);
+					 cell12.setCellStyle(txtTableCenter);
+					 cell13.setCellStyle(txtTableCenter);
+					 cell14.setCellStyle(txtTableCenter);
+					 cell15.setCellStyle(txtTableCenter);
+					 cell16.setCellStyle(txtTableCenter);
+				 }else {
+					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell3.setCellValue(resultReportPayment.getCustomerName());}
+					 else {cell3.setCellValue(resultReportPayment.getDepartment());}}else {cell3.setCellValue("");}
+					 
+					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell5.setCellValue(resultReportPayment.getInvoiceNo());}
+					 else {cell5.setCellValue(resultReportPayment.getServiceName());}}else {cell3.setCellValue("");}
+					 
+					 cell6.setCellValue(resultReportPayment.getPaymentMethod());
+					 cell7.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
+					 cell8.setCellValue(String.format("%,.2f", resultReportPayment.getBeforVat()));
+					 cell9.setCellValue(String.format("%,.2f", resultReportPayment.getVatAmount()));
+					 cell10.setCellValue(String.format("%,.2f", resultReportPayment.getAmount()));
+					 if("A".equals(resultReportPayment.getStatus())) {
+						 cell11.setCellValue("-");
+					 }else if("C".equals(resultReportPayment.getStatus())) {
+						 cell11.setCellValue("ยกเลิก");
+					 }
+					 cell14.setCellValue(resultReportPayment.getCreateBy());
+					 
+					 // gen name surname
+					 try {
+						 UserBean userBean =  masterDataService.findByUsername(resultReportPayment.getCreateBy());
+						 cell15.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					 
+					 cell12.setCellValue(profile.getBranchArea());
+					 cell13.setCellValue(masterDataService.findByKeyCode(profile.getBranchArea()).getValue());
+					 
+					 cell.setCellStyle(txtTableCenter);
+					 cell1Add.setCellStyle(txtCenterTable);
+					 cell1.setCellStyle(txtCenterTable);
+					 cell2.setCellStyle(txtCenterTable);
+					 cell3.setCellStyle(txtCenterTable);
+//					 cell4.setCellStyle(txtCenterTable);
+					 cell5.setCellStyle(txtCenterTable);
+					 cell6.setCellStyle(txtTableCenter);
+					 cell7.setCellStyle(txtTableCenter);
+					 cell8.setCellStyle(txtCenterDecimalRight);
+					 cell9.setCellStyle(txtCenterTableRight);
+					 cell10.setCellStyle(txtCenterDecimalRight);
+					 cell11.setCellStyle(txtTableCenter);
+					 cell12.setCellStyle(txtTableCenter);
+					 cell13.setCellStyle(txtTableCenter);
+					 cell14.setCellStyle(txtTableCenter);
+					 cell15.setCellStyle(txtTableCenter);
 				 }
-				 cell14.setCellValue(resultReportPayment.getCreateBy());
-				 
-				 // gen name surname
-				 try {
-					 UserBean userBean =  masterDataService.findByUsername(resultReportPayment.getCreateBy());
-					 cell15.setCellValue(userBean.getSurName().concat(" ".concat(userBean.getLastName())));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				 
-				 cell12.setCellValue(profile.getBranchArea());
-				 cell13.setCellValue(masterDataService.findByKeyCode(profile.getBranchArea()).getValue());
-				 
-				 cell.setCellStyle(txtTableCenter);
-				 cell1Add.setCellStyle(txtCenterTable);
-				 cell1.setCellStyle(txtCenterTable);
-				 cell2.setCellStyle(txtCenterTable);
-				 cell3.setCellStyle(txtCenterTable);
-//				 cell4.setCellStyle(txtCenterTable);
-				 cell5.setCellStyle(txtCenterTable);
-				 cell6.setCellStyle(txtTableCenter);
-				 cell7.setCellStyle(txtTableCenter);
-				 cell8.setCellStyle(txtCenterDecimalRight);
-				 cell9.setCellStyle(txtCenterTableRight);
-				 cell10.setCellStyle(txtCenterDecimalRight);
-				 cell11.setCellStyle(txtTableCenter);
-				 cell12.setCellStyle(txtTableCenter);
-				 cell13.setCellStyle(txtTableCenter);
-				 cell14.setCellStyle(txtTableCenter);
-				 cell15.setCellStyle(txtTableCenter);
+				
 //				 String vatConverStr = resultReportPayment.getVatAmount()+"";
 				 
 				 if(Constants.Status.ACTIVE.equals(resultReportPayment.getStatus())) {
@@ -221,16 +283,16 @@ public class PaymentReport extends BaseExcelRptService {
 //		 cellTotalSummary.setCellValue("ผลรวมทั้งหมด");
 //		 cellTotalSummary.setCellStyle(txtCenterTable);
 		 
-		 Cell totalSummaryNoVat = textTotalSummary.createCell(8);
+		 Cell totalSummaryNoVat = textTotalSummary.createCell(sum1);
 		 totalSummaryNoVat.setCellValue(String.format("%,.2f", sumAllNoVat));
 		 totalSummaryNoVat.setCellStyle(txtCenterTable);
 		 totalSummaryNoVat.setCellStyle(borderCell);
 		 
-		 Cell totalVat0 = textTotalSummary.createCell(9);
+		 Cell totalVat0 = textTotalSummary.createCell(sum2);
 		 totalVat0.setCellValue(String.format("%,.2f", sumVat0));
 		 totalVat0.setCellStyle(borderCell);
 		 
-		 Cell totalSummary = textTotalSummary.createCell(10);
+		 Cell totalSummary = textTotalSummary.createCell(sum3);
 		 totalSummary.setCellValue(String.format("%,.2f", sumAllTotal));
 		 totalSummary.setCellStyle(borderCell);
 		 
