@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPaymentOther" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" whenResourceMissingType="Error" isIgnorePagination="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -95,28 +95,28 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="620" y="93" width="167" height="23" backcolor="#FFFFFF" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
+				<reportElement x="600" y="93" width="187" height="23" backcolor="#FFFFFF" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDateDocument()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="540" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
+				<reportElement style="Cat_Hl_Common" x="520" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[วันที่  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="620" y="70" width="167" height="23" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
+				<reportElement x="600" y="70" width="187" height="23" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="540" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
+				<reportElement style="Cat_Hl_Common" x="520" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
