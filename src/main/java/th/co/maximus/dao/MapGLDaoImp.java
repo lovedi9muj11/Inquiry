@@ -91,7 +91,7 @@ public class MapGLDaoImp implements MapGLDao{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT * FROM MAP_GL_SERVICE_TYPE mg  ");
 		sql.append(" WHERE mg.SOURCE = '"+Constants.MasterData.OTHER+"' AND mg.STATUS = '1' ");
-		sql.append(" AND mg.PRODUCT_CODE =  '"+prodCode+"'");
+		sql.append(" AND mg.SERVICE_CODE =  '"+prodCode+"'");
 		return jdbcTemplate.query(sql.toString() , new mapGL());
 	}
 
