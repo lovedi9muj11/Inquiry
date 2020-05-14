@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -16,7 +16,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
-	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
+	<style name="Cat_Wt_Title" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Hl_Common" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="14" isBold="true"/>
 	<style name="Cat_Ct_Common" forecolor="#000000" fill="Solid" fontName="FreesiaUPC" fontSize="12"/>
 	<parameter name="ReportSource" class="th.co.maximus.bean.ExportPDFReport"/>
@@ -74,28 +74,28 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="644" y="93" width="139" height="23" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
+				<reportElement x="607" y="93" width="175" height="23" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDateDocument()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="564" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
+				<reportElement style="Cat_Hl_Common" x="527" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[วันที่  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="644" y="70" width="139" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
+				<reportElement x="607" y="70" width="176" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="564" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
+				<reportElement style="Cat_Hl_Common" x="527" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>

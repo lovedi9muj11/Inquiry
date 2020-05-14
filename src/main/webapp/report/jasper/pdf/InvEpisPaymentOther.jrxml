@@ -95,28 +95,28 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="600" y="93" width="187" height="23" backcolor="#FFFFFF" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
+				<reportElement x="620" y="93" width="167" height="23" backcolor="#FFFFFF" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDateDocument()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="520" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
+				<reportElement style="Cat_Hl_Common" x="540" y="93" width="80" height="23" uuid="1dc14f8c-1b3a-4777-8bbd-bc943daf6c77"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[วันที่  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="600" y="70" width="187" height="23" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
+				<reportElement x="620" y="70" width="167" height="23" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="520" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
+				<reportElement style="Cat_Hl_Common" x="540" y="70" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
