@@ -312,14 +312,15 @@ function chaengIcon(value){
 let customerGroupName = '';
 function createRow(data, seq, table,check) {
 	radioSelect =  '<input type="radio" name="select" value="'+data.manualId+'"> <input type="hidden"  value="'+data.serviceType+'"><input type="hidden" name="clearing" id="clearing" value="'+data.clearing+'">'
-//	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
-	invoice =  ''
+	invoice =  '<a name="invoice" id="invoice" onclick="chaengIcon('+data.manualId+')"><span name="icon'+data.manualId+'" id="icon'+data.manualId+'" class="glyphicon glyphicon-plus"></a>'
+//	invoice =  ''
 	no = seq;
 	receiptNoManual = data.receiptNoManual;
 	createDate = data.createDateStr
 	accountNo = data.accountNo;
 	customer = data.customerName;
-	serviceName = data.serviceName;
+//	serviceName = data.serviceName;
+	serviceName = '';
 	findppt1(data.customerGroup)
 	userGroup = customerGroupName;
 	
@@ -334,9 +335,10 @@ function createRow(data, seq, table,check) {
 	}
 	customerAddress = data.customerAddress;
 	userFullName = data.customerName;
+	reason = '-';
 	
 	tableInit = $('#'+table).DataTable();
-	var rowNode = tableInit.row.add([invoice, radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, serviceName, amount, branchCode, createBy, recordStatus]).draw(true).node();
+	var rowNode = tableInit.row.add([invoice, radioSelect, no, receiptNoManual, createDate, accountNo, customer, userGroup, amount, branchCode, createBy, recordStatus, reason]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('center');
     $(rowNode).find('td').eq(2).addClass('center');
@@ -350,6 +352,7 @@ function createRow(data, seq, table,check) {
     $(rowNode).find('td').eq(10).addClass('center');
     $(rowNode).find('td').eq(11).addClass('center');
     $(rowNode).find('td').eq(12).addClass('center');
+    $(rowNode).find('td').eq(13).addClass('center');
 
 };
 
@@ -386,10 +389,18 @@ function format(d) {
 	var i = 0;
 	for(i=0; i < d.length; i++){
 		txt = txt+ '<tr>'+
-			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
-			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
-			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+//			        '<th style="text-align: left;">'+'ServiceName :'+d[i].serviceName+'</th>'+
+//			        '<th style="text-align: right;">'+d[i].quantity +'</th>'+
+//			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+//			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
+//			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
+			        '<th style="text-align: left;">'+d[i].amountType+'</th>'+
+			        '<th style="text-align: left;">'+d[i].serviceName+'</th>'+
+			        '<th style="text-align: right;">'+d[i].quantity+'</th>'+
+			        '<th style="text-align: right;">'+d[i].beforeVatStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].vatStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountStr+'</th>'+
+			        '<th style="text-align: right;">'+d[i].discountspacalStr+'</th>'+
 			        '<th style="text-align: right;">'+d[i].amountStr+'</th>'+
 			    '</tr>'
 	}
@@ -397,11 +408,19 @@ function format(d) {
     return '<table class="table table-bordered" cellspacing="0" width="100%">'+
 			    '<thead>'+
 			    '<tr>'+
-			        '<th style="text-align: left;">รายการ</th>'+
-			        '<th style="text-align: right;">จำนวน</th>'+
-			        '<th style="text-align: right;">ส่วนลด</th>'+
+//			        '<th style="text-align: left;">รายการ</th>'+
+//			        '<th style="text-align: right;">จำนวน</th>'+
+//			        '<th style="text-align: right;">ส่วนลด</th>'+
+//			        '<th style="text-align: right;">ภาษีมูลค่าเพิ่ม</th>'+
+//			        '<th style="text-align: right;">จำนวนเงิน</th>'+
+				    '<th style="text-align: center;">ประเภทรายได้</th>'+
+			        '<th style="text-align: center;">ชื่อบริการ</th>'+
+			        '<th style="text-align: right;">จำนวนรายการ</th>'+
+			        '<th style="text-align: right;">จำนวนเงินต่อหน่วย</th>'+
 			        '<th style="text-align: right;">ภาษีมูลค่าเพิ่ม</th>'+
-			        '<th style="text-align: right;">จำนวนเงิน</th>'+
+			        '<th style="text-align: right;">ส่วนลด</th>'+
+			        '<th style="text-align: right;">ส่วนลดพิเศษ</th>'+
+			        '<th style="text-align: right;">ยอดเงินรวม</th>'+
 			    '</tr>'+
 			'</thead>'+
 			'<tbody>'+

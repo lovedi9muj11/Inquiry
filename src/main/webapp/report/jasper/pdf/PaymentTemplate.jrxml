@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="1150" pageHeight="768" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="805"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="102"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
@@ -312,35 +311,28 @@
 				<text><![CDATA[ลำดับที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="1" width="136" height="20" uuid="04e485db-4f47-4618-860c-3f8d837785ea"/>
+				<reportElement x="49" y="1" width="136" height="20" uuid="04e485db-4f47-4618-860c-3f8d837785ea"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[เลขที่ใบเสร็จรับเงิน/ใบกำกับภาษี ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="194" y="1" width="61" height="20" uuid="2a801a1c-27bf-4a32-947c-088372b5327f"/>
+				<reportElement x="213" y="1" width="71" height="20" uuid="2a801a1c-27bf-4a32-947c-088372b5327f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ เลขที่ลูกค้า]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="262" y="1" width="109" height="20" uuid="4fe54c9f-2118-413d-ad71-8d1083c0b009"/>
+				<reportElement x="329" y="1" width="118" height="20" uuid="4fe54c9f-2118-413d-ad71-8d1083c0b009"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ชื่อผู้ซื้อสินค้า/ผู้รับบริการ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="378" y="1" width="100" height="20" uuid="5bf1c662-cabb-4646-903d-e1c66c66a408"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="true"/>
-				</textElement>
-				<text><![CDATA[หน่วยงานรับรายได้]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="488" y="1" width="144" height="20" uuid="8283ffa7-3238-4033-a9e4-166ad86c3be3"/>
+				<reportElement x="480" y="1" width="144" height="20" uuid="8283ffa7-3238-4033-a9e4-166ad86c3be3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
@@ -400,32 +392,25 @@
 				<textFieldExpression><![CDATA[$F{manualIdStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="68" y="-2" width="100" height="20" uuid="ecedef69-4942-4bd6-9094-5aba135d0faf"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<reportElement x="51" y="-2" width="134" height="20" uuid="ecedef69-4942-4bd6-9094-5aba135d0faf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptNoManual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="210" y="-1" width="61" height="20" uuid="64d557af-6ae0-4ed0-a98e-56af74935d88"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<reportElement x="214" y="-1" width="70" height="20" uuid="64d557af-6ae0-4ed0-a98e-56af74935d88"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{accountSubNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="-1" width="100" height="20" uuid="8ebfa187-0d51-4517-9513-bd4b68bcfce6"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<reportElement x="329" y="-1" width="118" height="20" uuid="8ebfa187-0d51-4517-9513-bd4b68bcfce6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="403" y="-2" width="50" height="19" uuid="c13a931e-ab4c-40a1-ac64-6cbb351e896a"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="638" y="0" width="127" height="19" uuid="2dc5b121-1f51-4809-8796-01c594d46d90"/>
@@ -463,8 +448,8 @@
 				<textFieldExpression><![CDATA[$F{amountStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="516" y="-1" width="96" height="20" uuid="460277e2-f52b-424b-9d5f-3dc8b37cd669"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<reportElement x="480" y="-1" width="144" height="20" uuid="460277e2-f52b-424b-9d5f-3dc8b37cd669"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoiceNo}]]></textFieldExpression>

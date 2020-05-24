@@ -192,7 +192,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	@Override
 	public List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name ");
+		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name, ");
+		sql.append(" (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = PM.BRANCH_AREA and property_2 = PIM.DEPARTMENT ) department_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
@@ -212,7 +213,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		if(!Constants.Service.SERVICE_TYPE_OTHER.equals(serviceType)) { sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL "); }
 		
 		sql.append(" ORDER BY PM.DOCTYPE, PM.CREATE_DATE ");
-		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
+		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper1());
 	}
 	@Override
 	public List<ReportPaymentBean> getReportPaymentOther(ReportPaymentCriteria criteria,String serviceType) {
@@ -269,6 +270,42 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			return reportPayment;
 		}
 
+	}
+	
+	private static final class reportPaymentMapper1 implements RowMapper<ReportPaymentBean> {
+		
+		@Override
+		public ReportPaymentBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ReportPaymentBean reportPayment = new ReportPaymentBean();
+			reportPayment.setManualId(rs.getLong("MANUAL_ID"));
+			reportPayment.setServiceType(rs.getString("SERVICE_TYPE"));
+			reportPayment.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
+			reportPayment.setAccountSubNo(rs.getString("ACCOUNT_NO"));
+			reportPayment.setCustomerName(rs.getString("CUSTOMER_NAME"));
+			reportPayment.setDepartment(rs.getString("DEPARTMENT"));
+			reportPayment.setInvoiceNo(rs.getString("INVOICE_NO"));
+			reportPayment.setServiceName(rs.getString("SERVICENAME"));
+			reportPayment.setServiceCode(rs.getString("SERVICECODE"));
+			reportPayment.setCreateBy(rs.getString("CREATE_BY"));
+			reportPayment.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			reportPayment.setRemake(rs.getString("REMARK"));
+			// reportPayment.setNoRefer(rs.getString(""));
+			reportPayment.setBeforVat(rs.getBigDecimal("AMOUNT").subtract(rs.getBigDecimal("VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
+			reportPayment.setBeforVatOther(rs.getBigDecimal("PIM.AMOUNT").subtract(rs.getBigDecimal("PIM.VAT_AMOUNT")).setScale(2, BigDecimal.ROUND_HALF_UP));
+			reportPayment.setAmount(rs.getBigDecimal("AMOUNT"));
+			reportPayment.setAmountOther(rs.getBigDecimal("PIM.AMOUNT"));
+			reportPayment.setVatAmount(rs.getBigDecimal("VAT_AMOUNT"));
+			reportPayment.setVatAmountOther(rs.getBigDecimal("PIM.VAT_AMOUNT"));
+			reportPayment.setStatus(rs.getString("RECORD_STATUS"));
+			reportPayment.setCancelReason(rs.getString("CANCEL_REASON"));
+			reportPayment.setVatRate(rs.getString("VAT_RATE"));
+			reportPayment.setBranchName(rs.getString("BRANCH_NAME"));
+			reportPayment.setBranchCode(rs.getString("BRANCH_AREA"));
+			reportPayment.setPosName(rs.getString("POS_NAME"));
+			reportPayment.setDepartmentName(rs.getString("department_name"));
+			return reportPayment;
+		}
+		
 	}
 
 	@Override

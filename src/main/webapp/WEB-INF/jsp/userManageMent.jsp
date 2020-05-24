@@ -55,15 +55,16 @@
 							<div class="panel-body">
 								<div class="glass">
 									<div class="form-group">
-										<label class="col-sm-4 control-label right">Sync User<font color="red">*</font> : </label>
+										<label class="col-sm-4 control-label right">1. Sync MapGL<font color="red">*</font> : </label>
 										<div class="col-sm-4">
-											<button type="button" id="userBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
+											<button type="button" id="glBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
 									</div><br>
+									
 <!-- 									</div> -->
 <!-- 									<div class="glass"> -->
 									<div class="form-group">
-										<label class="col-sm-4 control-label right">Master Data<font color="red">*</font> : </label>
+										<label class="col-sm-4 control-label right">2. Master Data<font color="red">*</font> : </label>
 										<div class="col-sm-4">
 											<button type="button" id="msBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
@@ -71,11 +72,12 @@
 <!-- 									</div> -->
 <!-- 									<div class="glass"> -->
 									<div class="form-group">
-										<label class="col-sm-4 control-label right">Sync MapGL<font color="red">*</font> : </label>
+										<label class="col-sm-4 control-label right">3. Sync User<font color="red">*</font> : </label>
 										<div class="col-sm-4">
-											<button type="button" id="glBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
+											<button type="button" id="userBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
 										</div>
-									</div>
+									</div><br>
+									
 								</div>
 							</div>
 						</div>

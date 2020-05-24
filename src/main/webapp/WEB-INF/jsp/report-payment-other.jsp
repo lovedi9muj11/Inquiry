@@ -32,7 +32,7 @@
 		<div style="padding: 30px 10px 50px 50px">
 			<h1 class="page-header"></h1>
 			<div class="panel" id="panel1">
-				<div class="panel-heading">ค้นหารายงานการชำระเงิน</div>
+				<div class="panel-heading">รายงานการรับชำระเงินค่าบริการอื่น</div>
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}"/>
 				<div class="panel-body">
 				<sec:authorize access="hasAuthority('SUP')">
@@ -275,9 +275,9 @@
 				<div class="row" style="padding-bottom: 10px;padding-right: 2px">
 					<div class="col-md-12 text-right">
 						<button  class="btn btn-warning glyphicon glyphicon-print" style="width: 7%" onclick="printReportPDF()"> PDF</button>
-						<sec:authorize access="hasAuthority('SUP')">
+<%-- 						<sec:authorize access="hasAuthority('SUP')"> --%>
 							<button  class="btn btn-success glyphicon glyphicon-print" style="width: 7%" onclick="printReport()"> Excel</button>
-						</sec:authorize>
+<%-- 						</sec:authorize> --%>
 					</div>
 				</div>
 	
@@ -297,7 +297,7 @@
 											<th style="text-align: center;width: 10%">เลขที่ลูกค้า</th>
 											<th style="text-align: center;width: 10%">ชื่อผู้ซื้อสินค้า/ผู้รับบริการ</th>
 											<th style="text-align: center;width: 10%">หน่วยงานรับรายได้</th>
-											<th style="text-align: center;width: 15%">เลขที่ใบแจ้งค่าบริการ/ชื่อบริการ</th>
+											<th style="text-align: center;width: 15%">ชื่อบริการ</th>
 											<th style="text-align: center;width: 5%">ชำระโดย</th>
 											<th style="text-align: center;width: 10%">เลขที่อ้างอิง</th>
 											<th style="text-align: center;width: 10%">ยอดเงินก่อนภาษี</th>

@@ -12,6 +12,7 @@ public class ReportPaymentBean {
 	private String invoiceNo;
 	private String customerName;
 	private String department;
+	private String departmentName;
 	private String serviceName;
 	private String createBy;
 	private Timestamp createDate;
@@ -322,6 +323,14 @@ public class ReportPaymentBean {
 
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 }

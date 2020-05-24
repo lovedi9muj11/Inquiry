@@ -91,7 +91,7 @@
 										<th style="text-align: center; width: 1%">#</th>
 										<th style="text-align: center; width: 10%">วันที่ทำรายการ</th>
 										<th style="text-align: center; width: 6%">วันที่ออกใบเสร็จรับเงิน</th>
-										<th style="text-align: center; width: 6%">วันที่ส่งข้อมูลเช้าออนไลน์</th>
+										<th style="text-align: center; width: 6%">วันที่ส่งข้อมูลเข้าออนไลน์</th>
 										<th style="text-align: center; width: 10%">เลขที่ใบเสร็จรับเงิน</th>
 										<th style="text-align: center; width: 10%">สถานที่รับชำระ</th>
 										<th style="text-align: center; width: 5%">ผู้รับชำระ</th>

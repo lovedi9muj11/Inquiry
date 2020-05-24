@@ -155,7 +155,15 @@ function findGroupTypeByKeyCode(groupKey) {
 	        	$('#monthdd').val(res.month);
 	        	$('#daydd').val(res.day);
 	        	$('#hourdd').val(res.hour);
-	        	$('#mindd').val(res.minute);
+	        	
+	        	var str = res.minute;
+	        	var n = str.search("/");
+	        	if((-1)!=n) {
+	        		var ans = str.split('/')
+	        		$('#mindd').val(ans[1]);
+	        	}else {
+	        		$('#mindd').val(res.minute);
+	        	}
 	        	
 	        	setMonth(res.dropDownMonths);
 	        	

@@ -72,6 +72,8 @@
 						                <th style="text-align: center;width: 11%">วันที่ทำรายการ</th>
 						                <th style="text-align: center;;width: 11%">วันที่ออกใบเสร็จรับเงิน</th>
 						                <th style="text-align: center;;width: 10%">เลขที่ใบเสร็จรับเงิน</th>
+						                <th style="text-align: center;;width: 10%">เลขที่ลูกค้า</th>
+						                <th style="text-align: center;;width: 10%">ชื่อลูกค้า</th>
 						                <th style="text-align: center;;width: 10%">สถานที่รับชำระ</th>
 						                <th style="text-align: center;;width: 8%">ผู้รับชำระ</th>
 						                <th style="text-align: center;;width: 10%">ยอดเงินค่าบริการ</th>

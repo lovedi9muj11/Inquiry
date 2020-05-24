@@ -2,6 +2,7 @@ var dateFromGlobal = "";
 var dateToGlobal = "";
 var dateToGlobal2 = "";
 var user;
+var check = false;
 $(document).ready(function (){
 //	$("#sShowValidate").hide();
 	var userName = $('#userName').val();
@@ -41,6 +42,7 @@ function initCriteria(){
 };
 
 function search(){
+	check = false;
 	$("#sShowValidate").hide();
 	$("#error-end-date").addClass("hide");
 	$("#error-end-date2").addClass("hide");
@@ -72,6 +74,7 @@ function search(){
 	        success: function (res) {
 		    	for (var i = 0; i < res.length; i++) {
 		                createRow(res[i], i);
+		                check = true;
 		            }
 	        }
 		});
@@ -89,23 +92,31 @@ function clearCriteria(){
 };
 
 function printReport(){
-	$('#dateFromHidden').val(dateFromGlobal);
-	$('#dateToHidden').val(dateToGlobal);
-	$('#dateToHidden2').val(dateToGlobal2);
-	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
-//	$('#accountIdHidden').val($('#accountId').val());
-	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
-	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentExcel").attr("target", "_blank").submit();
+	if(!check){
+		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
+	}else{
+		$('#dateFromHidden').val(dateFromGlobal);
+		$('#dateToHidden').val(dateToGlobal);
+		$('#dateToHidden2').val(dateToGlobal2);
+		$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
+		$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
+		$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentExcel").attr("target", "_blank").submit();
+	}
+	
 };
 
 function printReportPDF(){
-	$('#dateFromHidden').val(dateFromGlobal);
-	$('#dateToHidden').val(dateToGlobal);
-	$('#dateToHidden2').val(dateToGlobal2);
-	$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
-//	$('#accountIdHidden').val($('#accountId').val());
-	$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
-	$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentPDF").attr("target", "_blank").submit();
+	if(!check){
+		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
+	}else{
+		$('#dateFromHidden').val(dateFromGlobal);
+		$('#dateToHidden').val(dateToGlobal);
+		$('#dateToHidden2').val(dateToGlobal2);
+		$('#machinePaymentNameHidden').val($('#machinePaymentName').val());
+		$('#authoritiesHidden').val($('#authorities').val()==''?$("#userLogin").val():$('#authorities').val());
+		$("#paymentFrom").attr("action", "/Epis-Offlines/reportPaymentPDF").attr("target", "_blank").submit();
+	}
+	
 };
 
 function createRow(data, seq) {
@@ -121,7 +132,8 @@ function createRow(data, seq) {
 	receiptNo = data.receiptNoManual;
 	accountSubNo = data.accountSubNo;
 	customerName = data.customerName;
-	department = data.department;
+//	department = data.department;
+	department = data.departmentName;
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
 	if(data.refNo) {noRefer = data.refNo;} else {noRefer = '-'}

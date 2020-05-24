@@ -841,7 +841,8 @@ public class PaymentReportPdf {
 							sumAllTotalNoVatUser += sumAllTotalNoVat;
 							
 							parameters.put("serviceName", serviceName);
-							parameters.put("serviceListCount", resultSources.size());
+//							parameters.put("serviceListCount", resultSources.size());
+							parameters.put("serviceListCount", countRow);
 							parameters.put("userListCount", resultSources.size());
 							parameters.put("userPayment", userPay);
 							parameters.put("pageNumber", pageNumber);
@@ -879,8 +880,10 @@ public class PaymentReportPdf {
 						
 						vatRate = resultSource.get(i).getVatRate();
 						userPayment = resultSource.get(i).getCreateBy();
-						countRow++;
-						sumCount++;
+						if(Constants.Status.ACTIVE.equalsIgnoreCase(resultSource.get(i).getStatusStr())) {
+							countRow++;
+							sumCount++;
+						}
 						
 						if(i==(resultSource.size()-1)) {
 							
@@ -911,7 +914,8 @@ public class PaymentReportPdf {
 							parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
 							
 							parameters.put("serviceName", serviceName);
-							parameters.put("serviceListCount", resultSources.size());
+//							parameters.put("serviceListCount", resultSources.size());
+							parameters.put("serviceListCount", countRow);
 							parameters.put("userListCount", resultSources.size());
 							parameters.put("userPayment", userPay);
 							parameters.put("pageNumber", pageNumber);
@@ -1105,7 +1109,8 @@ public class PaymentReportPdf {
 						sumAllTotalNoVatUser += sumAllTotalNoVat;
 						
 						parameters.put("serviceName", serviceName);
-						parameters.put("serviceListCount", resultSources.size());
+//						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("serviceListCount", countRow);
 						parameters.put("userListCount", resultSources.size());
 						parameters.put("userPayment", userPay);
 						parameters.put("pageNumber", pageNumber);
@@ -1142,8 +1147,10 @@ public class PaymentReportPdf {
 					}
 					
 					vatRate = resultSource.get(i).getVatRate();
-					countRow++;
-					sumCount++;
+					if(Constants.Status.ACTIVE.equalsIgnoreCase(resultSource.get(i).getStatusStr())) {
+						countRow++;
+						sumCount++;
+					}
 					
 					if(i==(resultSource.size()-1)) {
 						parameters = new HashMap<String, Object>();
@@ -1171,7 +1178,8 @@ public class PaymentReportPdf {
 						parameters.put("summaryNoVatUser", String.format("%,.2f", sumAllTotalNoVat));
 						
 						parameters.put("serviceName", serviceName);
-						parameters.put("serviceListCount", resultSources.size());
+//						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("serviceListCount", countRow);
 						parameters.put("userListCount", resultSources.size());
 						parameters.put("userPayment", userPay);
 						parameters.put("pageNumber", pageNumber);
@@ -1800,7 +1808,8 @@ public class PaymentReportPdf {
 							parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 							parameters.put("serviceNameHead", serviceName);
 							parameters.put("serviceName", serviceName);
-							parameters.put("serviceListCount", resultSources.size());
+//							parameters.put("serviceListCount", resultSources.size());
+							parameters.put("serviceListCount", countRow);
 							parameters.put("userListCount", resultSources.size());
 							parameters.put("userPayment", userPay);
 							parameters.put("pageNumber", pageNumber);
@@ -1847,7 +1856,8 @@ public class PaymentReportPdf {
 							parameters.put("fullNameUser", beanSup.getSurName() + " " + beanSup.getLastName());
 							parameters.put("serviceNameHead", serviceName);
 							parameters.put("serviceName", serviceName);
-							parameters.put("serviceListCount", resultSources.size());
+//							parameters.put("serviceListCount", resultSources.size());
+							parameters.put("serviceListCount", countRow);
 							parameters.put("userListCount", resultSources.size());
 							parameters.put("userPayment", userPay);
 							parameters.put("pageNumber", pageNumber);
@@ -1998,7 +2008,8 @@ public class PaymentReportPdf {
 						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
 						parameters.put("serviceNameHead", serviceName);
 						parameters.put("serviceName", serviceName);
-						parameters.put("serviceListCount", resultSources.size());
+//						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("serviceListCount", countRow);
 						parameters.put("userListCount", resultSources.size());
 						parameters.put("userPayment", userPay);
 						parameters.put("pageNumber", pageNumber);
@@ -2040,7 +2051,8 @@ public class PaymentReportPdf {
 						parameters.put("fullNameUser", bean.getSurName() + " " + bean.getLastName());
 						parameters.put("serviceNameHead", serviceName);
 						parameters.put("serviceName", serviceName);
-						parameters.put("serviceListCount", resultSources.size());
+//						parameters.put("serviceListCount", resultSources.size());
+						parameters.put("serviceListCount", countRow);
 						parameters.put("userListCount", resultSources.size());
 						parameters.put("userPayment", userPay);
 						parameters.put("pageNumber", pageNumber);

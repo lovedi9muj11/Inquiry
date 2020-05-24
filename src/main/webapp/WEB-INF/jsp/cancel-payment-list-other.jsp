@@ -135,16 +135,17 @@ var PLS_SELECT = 'กรุณาเลือก';
 							         	<th id="formate"></th>  
 								        <th id="radioSelect"></th>  
 								        <th style="text-align: center;">#</th>   				                         
-						                <th style="text-align: center;">เลขที่ใบเสร็จรับเงิน</th>
+						                <th style="text-align: center; width:100px">เลขที่ใบเสร็จรับเงิน</th>
 						                <th style="text-align: center;">วันที่รับชำระ</th>
 						                <th style="text-align: center;">เลขที่ลูกค้า</th>
 						                <th style="text-align: center;">ชื่อลูกค้า</th>
 						                <th style="text-align: center;">กลุ่มผู้ใช้บริการ</th>
-						                <th style="text-align: center; width:250px;">ชื่อบริการ</th>
+<!-- 						                <th style="text-align: center; width:250px;">ชื่อบริการ</th> -->
 						                <th style="text-align: center;">จำนวนเงิน</th>
-						                <th style="text-align: center;">สถานที่รับชำระ</th>
+						                <th style="text-align: center; width:150px">สถานที่รับชำระ</th>
 						                <th style="text-align: center;">ผู้รับชำระ</th>
 						                <th style="text-align: center;">สถานะ</th>
+						                <th style="text-align: center;">หมายเหตุ</th>
 							        </tr>
 						    	</thead>
 							</table>

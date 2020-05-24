@@ -107,26 +107,29 @@ function createRow(data, seq) {
 //	actionP = plus+del;
 	
 	accountNo = data.accountNo;
+	custName = data.customerName;
 	
     var t = $('#histroryPaymentTB').DataTable();
     tableInit = t;
-    var rowNode = t.row.add([plus_invoice, no ,paidDate ,createDate ,receiptNoManual, branchCode, createBy , paidAmount, discountBeforVat, discountSpecial, source, amount, recordStatus, remark, accountNo
+    var rowNode = t.row.add([plus_invoice, no ,paidDate ,createDate ,receiptNoManual, accountNo, custName, branchCode, createBy , paidAmount, discountBeforVat, discountSpecial, source, amount, recordStatus, remark, accountNo
     ]).draw(true).node();
     $(rowNode).find('td').eq(0).addClass('center');
     $(rowNode).find('td').eq(1).addClass('left');
     $(rowNode).find('td').eq(2).addClass('left');
     $(rowNode).find('td').eq(3).addClass('left');
     $(rowNode).find('td').eq(4).addClass('left');
-    $(rowNode).find('td').eq(5).addClass('left');
+    $(rowNode).find('td').eq(5).addClass('center');
     $(rowNode).find('td').eq(6).addClass('center');
-    $(rowNode).find('td').eq(7).addClass('center');
+    $(rowNode).find('td').eq(7).addClass('left');
     $(rowNode).find('td').eq(8).addClass('center');
     $(rowNode).find('td').eq(9).addClass('center');
     $(rowNode).find('td').eq(10).addClass('center');
+    $(rowNode).find('td').eq(11).addClass('center');
+    $(rowNode).find('td').eq(12).addClass('center');
 //    $(rowNode).find('td').eq(11).addClass('right');
-    $(rowNode).find('td').eq(11).addClass('right');
-    $(rowNode).find('td').eq(12).addClass('left');
-    $(rowNode).find('td').eq(13).addClass('center');
+    $(rowNode).find('td').eq(13).addClass('right');
+    $(rowNode).find('td').eq(14).addClass('left');
+    $(rowNode).find('td').eq(15).addClass('center');
 }
 
 function chaengIcon(value){
