@@ -1,6 +1,8 @@
 package th.co.maximus.service.impl;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -97,7 +99,14 @@ public class TrsmethodOtherManualServiceImpl implements TrsmethodOtherManualServ
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
-							Date date1 = new Date(paymentTranPriceBean.getDateCheck());
+							//Date date1 = new Date(paymentTranPriceBean.getDateCheck());
+							Date date1 = null;
+							try {
+								date1 = new SimpleDateFormat("dd/MM/yyyy").parse(paymentTranPriceBean.getDateCheck());
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
 							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
 							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
 							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());

@@ -206,12 +206,12 @@
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
-														if(masterServicetype.get(i).getRevenueTypeName() != ""){
+														//if(masterServicetype.get(i).getRevenueTypeName() != ""){
 												%>
 												<option
-													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeName()%></option>
+													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeCode()%>-<%=masterServicetype.get(i).getRevenueTypeName()%></option>
 												<%
-														}
+														//}
 													}
 												%>
 											</select> 
@@ -260,7 +260,7 @@
 															for (int i = 0; i < mapGLServiceName.size(); i++) {
 														%>
 													<option
-													value="<%=mapGLServiceName.get(i).getServiceCode()%>"><%=mapGLServiceName.get(i).getServiceName()%></option>														<%
+													value="<%=mapGLServiceName.get(i).getServiceCode()%>"><%=mapGLServiceName.get(i).getGlCode()%>-<%=mapGLServiceName.get(i).getServiceName()%></option>														<%
 															}
 														%>
 											</select>
@@ -416,7 +416,7 @@
 													</label> <label> <input type="radio" name="radioDed"
 														id="radioDedCC" value="02"> 3 เตรส
 													</label> <label> <input type="radio" name="radioDed"
-														id="radioDedCT" value="03"> 69 ตรี
+														id="radioDedCT" value="03"> พรฎ300
 													</label>
 												</div>
 											</div>
