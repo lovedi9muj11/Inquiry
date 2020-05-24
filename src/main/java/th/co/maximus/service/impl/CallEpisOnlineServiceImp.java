@@ -148,6 +148,8 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.EDC_CREDIT_CARD_BANK);
 			groupKeys.add(Constants.MasterData.CUSTOMER_SEGMENT);
 			groupKeys.add(Constants.MasterData.IBACSS_WOIBACSS_CANCEL_REASON);
+			groupKeys.add(Constants.MasterData.SEGMENT);
+			groupKeys.add(Constants.MasterData.PRODUCT);
 			
 			
 			String gettUrl = url.concat("/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
