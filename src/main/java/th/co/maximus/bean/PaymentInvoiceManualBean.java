@@ -46,9 +46,18 @@ public class PaymentInvoiceManualBean {
 	private BigDecimal discountVat;
 	
 	private String incomeunit;
+	private String departmentArea;
 	
 
 	
+
+	public String getDepartmentArea() {
+		return departmentArea;
+	}
+
+	public void setDepartmentArea(String departmentArea) {
+		this.departmentArea = departmentArea;
+	}
 
 	public String getDepartmentcode() {
 		return departmentcode;

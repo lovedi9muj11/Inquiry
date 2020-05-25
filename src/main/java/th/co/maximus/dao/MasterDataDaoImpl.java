@@ -183,6 +183,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
 			masterDataBean.setOrderBatch(rs.getString("ORDERED"));
 			masterDataBean.setProperty2(rs.getString("PROPERTY_2"));
+			masterDataBean.setProperty1(rs.getString("PROPERTY_1"));
 			return masterDataBean;
 		}
 
@@ -299,6 +300,15 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		}
 		
 		return posName.toString();
+	}
+
+	@Override
+	public String findByProperty(String property2) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+property2+"'");
+		
+		List<MasterDataBean> list = jdbcTemplate.query(sql.toString(), new masterData());
+		return list.get(0).getProperty1();
 	}
 
 }

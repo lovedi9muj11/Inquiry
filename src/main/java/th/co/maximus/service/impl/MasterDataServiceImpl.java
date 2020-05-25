@@ -411,5 +411,12 @@ public class MasterDataServiceImpl implements MasterDataService {
 		return custSegment;
 	}
 	
+	@Override
+	public String findProperty1ByProperty2(String property2) {
+		// TODO Auto-generated method stub
+		return masterDataDao.findByProperty(property2);
+	}
+	
+	
 
 }

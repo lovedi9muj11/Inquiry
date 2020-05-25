@@ -60,5 +60,7 @@ public interface MasterDataService {
 
 	List<MasterDatasBean> findByCussegment(String userGroup);
 
+	String findProperty1ByProperty2(String property2);
+
 	
 }
