@@ -206,12 +206,12 @@
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
-														//if(masterServicetype.get(i).getRevenueTypeName() != ""){
+														if(masterServicetype.get(i).getRevenueTypeName().toUpperCase() != "NULL"){
 												%>
 												<option
 													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeCode()%>-<%=masterServicetype.get(i).getRevenueTypeName()%></option>
 												<%
-														//}
+														}
 													}
 												%>
 											</select> 
