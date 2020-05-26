@@ -12,6 +12,12 @@
 
 <html>
 <head>
+
+<script type="text/javascript">
+	var WORD_5 = 'การรับชำระรหัสบัญชีนี้ ผู้ใช้งานจะต้องบันทึกข้อมูล \n เข้า SAP แบบ Manual';
+	var PLS_SELECT = 'กรุณาเลือก';
+</script>
+
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/lib/select2.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
@@ -206,12 +212,12 @@
 												<option value="">-- กรุณาเลือก --</option>
 												<%
 													for (int i = 0; i < masterServicetype.size(); i++) {
-														//if(masterServicetype.get(i).getRevenueTypeName() != ""){
+														if(masterServicetype.get(i).getRevenueTypeName().toUpperCase() != "NULL"){
 												%>
 												<option
 													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeCode()%>-<%=masterServicetype.get(i).getRevenueTypeName()%></option>
 												<%
-														//}
+														}
 													}
 												%>
 											</select> 
@@ -1088,6 +1094,58 @@
 
 
 		</form>
+	</div>
+	
+	<!-- dialog confirm authentication.. -->
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="map-gl-other" >
+	  <div class="modal-dialog modal-sm" style="width:750px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">header word</h4>
+	      </div>
+	      	<div class="modal-body">
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label">test 1</label>
+						<div class="col-md-8">
+							<input type="text" id="test1" name="test1" class="form-control">
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label">test 2</label>
+						<div class="col-md-8">
+							<input type="text" id="test2" name="test2" class="form-control">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label">test 1x</label>
+						<div class="col-md-8">
+							<select class="groupType col-md-6" name="xxx1" id="xxx1" list="groupTypeDropdown" listKey="value" listValue="name">
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label">test 2x</label>
+						<div class="col-md-8">
+							<select class="groupType col-md-6" name="xxx2" id="xxx2" list="groupTypeDropdown" listKey="value" listValue="name">
+							</select>
+						</div>
+					</div>
+				</div>
+
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmReason(true)">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmReason(false)">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 </body>
