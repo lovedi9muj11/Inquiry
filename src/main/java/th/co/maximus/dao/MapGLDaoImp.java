@@ -39,6 +39,7 @@ public class MapGLDaoImp implements MapGLDao{
 			glBean.setStatus(rs.getString("STATUS"));
 			glBean.setRemark(rs.getString("REMARK"));
 			glBean.setRecordStatus(rs.getString("RECORD_STATUS"));
+			glBean.setErpInterfaceFlag(rs.getString("ERP_INTERFACE_FLAG"));
 			
 			return glBean;
 		}

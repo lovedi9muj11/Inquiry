@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
+import th.co.maximus.bean.SetOtherMapGLResponse;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.MapGLDao;
 import th.co.maximus.dao.MasterDataDao;
@@ -53,7 +51,6 @@ public class PayOtherController {
 
 	@RequestMapping(value = { "/payOther" }, method = RequestMethod.GET)
 	public String payOther(Model model) {
-		UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<MasterDataBean> bankCodeList = new ArrayList<>();
 		List<MasterDataBean> bankNameList = new ArrayList<>();
 		List<MasterDataBean> categoryList = new ArrayList<>();
@@ -198,6 +195,17 @@ public class PayOtherController {
 		keycode = getwt.get(0).getProperty5();
 		
 		return  masterDatasDao.findByKey(keycode);
+
+	}
+	
+	@RequestMapping(value = { "/other/setGL" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody SetOtherMapGLResponse set4gl() {
+		SetOtherMapGLResponse response = new SetOtherMapGLResponse();
+		
+		List<MapGLBean> glBeans = mapGLDao.findBySourceOther();
+		response.setMapGLBean(glBeans);
+
+		return  response;
 
 	}
 

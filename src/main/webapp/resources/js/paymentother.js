@@ -1,3 +1,5 @@
+let mapGLObj
+
 $(document).ready(function() {
 	
 	
@@ -31,8 +33,14 @@ $(document).ready(function() {
 				
 			});
 			
+			// set mapgl for pay
+			set4gl()
 			
-			
+			$('.groupType').select2({
+			    width: '50%'
+			});
+			$('#xxx1').empty();
+			$('#xxx2').empty();
 			
 //			$("#moneyTran").on( "change",  function() {
 //				if($("#moneyTran").val() == ""){
@@ -108,6 +116,9 @@ $(document).ready(function() {
 			$("#inputServiceName").on( "change",  function() {
 				var is2 = $("#inputServiceType").val();
 				var strUser = $("#inputServiceName").val();
+				
+				checkMapGL(strUser, is2)
+				
 					if(strUser !== ''){
 						$("#inputServiceType").empty();
 						$('#inputServiceType').append('<option value=""> -- กรุณาเลือก -- </option>');
@@ -2157,3 +2168,61 @@ function autoSelect(){
 		document.getElementById("aftervat").disabled = false;
 	}
 }
+	
+	function set4gl() {
+		
+		$.ajax({
+		    type: 'GET',
+		    url: ctx +"/other/setGL",
+		    dataType: "json",
+	        async: true,
+	        contentType: "application/json; charset=utf-8",
+		}).then(function (res) {
+			mapGLObj = res.mapGLBean
+		});
+		
+	}
+	
+	function checkMapGL(code1, code2) {
+		let resObjs =  mapGLObj.filter(function(Obj) {
+			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
+		});
+		if(0 < resObjs.length) {
+			$("#map-gl-other").modal('show');
+			findSegmentNProduct()
+			if('2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+				
+				return true
+			}else if('5' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+				swal(WORD_5)
+				return true
+			}
+			
+		}
+		
+		return false
+	}
+	
+	function modalConfirmReason(callback){
+		if(callback){
+			$("#map-gl-other").modal('hide');
+		}else{
+			$("#map-gl-other").modal('hide');
+		}
+
+	}
+	
+	function findSegmentNProduct() {
+		$('#xxx1').append('<option value="*">' + PLS_SELECT + '</option>');
+		$('#xxx2').append('<option value="*">' + PLS_SELECT + '</option>');
+//		$.ajax({
+//		    type: 'GET',
+//		    url: ctx +"/other/setGL",
+//		    dataType: "json",
+//	        async: true,
+//	        contentType: "application/json; charset=utf-8",
+//		}).then(function (res) {
+//			mapGLObj = res.mapGLBean
+//		});
+		
+	}
