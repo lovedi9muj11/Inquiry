@@ -302,13 +302,4 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		return posName.toString();
 	}
 
-	@Override
-	public String findByProperty(String property2) {
-		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+property2+"'");
-		
-		List<MasterDataBean> list = jdbcTemplate.query(sql.toString(), new masterData());
-		return list.get(0).getProperty1();
-	}
-
 }

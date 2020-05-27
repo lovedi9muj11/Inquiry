@@ -234,7 +234,7 @@
 												<%
 													for (int i = 0; i < masterServiceDepartment.size(); i++) {
 												%>
-												<option	value="<%=masterServiceDepartment.get(i).getProperty2()%>" <%=(masterServiceDepartment.get(i).getValue().equals(costcenter) ? "selected":"")%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
+												<option	value="<%=masterServiceDepartment.get(i).getProperty1()%>|<%=masterServiceDepartment.get(i).getProperty2()%>" <%=(masterServiceDepartment.get(i).getValue().equals(costcenter) ? "selected":"")%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
 												<%
 													}
 												%>

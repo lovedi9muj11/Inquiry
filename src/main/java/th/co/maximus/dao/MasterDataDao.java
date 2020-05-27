@@ -54,7 +54,6 @@ public interface MasterDataDao {
 
 	MasterDataBean findAllByBranchcode();
 
-	public String findByProperty(String property2);
 
 
 
