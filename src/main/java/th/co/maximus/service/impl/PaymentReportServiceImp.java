@@ -430,6 +430,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 				}
 
 			}
+			resultBean.setDepartmentArea(resultBean.getDepartmentArea());
 			resultBean.setRefNo(refnoDis);
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);

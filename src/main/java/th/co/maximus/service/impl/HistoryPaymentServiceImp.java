@@ -110,9 +110,17 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 	}
 	
 	@Override
-	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNoSearch(String accountNo,String payType) throws Exception {
+	public List<PaymentMMapPaymentInvBean> serviceHistroryPaymentFromAccountNoSearch(PaymentMMapPaymentInvBean invBean,String payType) throws Exception {
 		List<PaymentMMapPaymentInvBean> result = new ArrayList<>();
-		for (PaymentMMapPaymentInvBean bean : paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountIdNoSearch(accountNo,payType)) {
+		
+		List<PaymentMMapPaymentInvBean> invBeans = new ArrayList<PaymentMMapPaymentInvBean>();
+		if(Constants.Service.SERVICE_TYPE_IBACSS.equals(payType)) {
+			invBeans = paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountIdNoSearch(invBean.getAccountNo(), payType);
+		}else {
+			invBeans = paymentInvoiceManualDao.findPaymentMuMapPaymentInVAccountIdNoSearchOther(invBean, payType);
+		}
+		
+		for (PaymentMMapPaymentInvBean bean : invBeans) {
 //			if ("N".equals(bean.getClearing())) {
 			List<TrsMethodEpisOffline> methodResult = trsMethodManualDao.findByManualId(Long.valueOf(bean.getManualId()));
 			StringBuffer paymentMethod = new StringBuffer();

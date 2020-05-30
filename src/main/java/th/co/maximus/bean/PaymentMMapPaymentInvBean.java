@@ -59,7 +59,9 @@ public class PaymentMMapPaymentInvBean {
 	private String cancelflag;
 	private String cancleBy;
 	
-	
+	//condition
+	private String taxId;
+	private String custName;
 
 	public String getCancleBy() {
 		return cancleBy;
@@ -437,6 +439,22 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setClearingDateStr(String clearingDateStr) {
 		this.clearingDateStr = clearingDateStr;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
 	
 	

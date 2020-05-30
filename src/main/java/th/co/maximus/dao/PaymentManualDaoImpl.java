@@ -267,6 +267,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setBranchName(rs.getString("BRANCH_NAME"));
 			reportPayment.setBranchCode(rs.getString("BRANCH_AREA"));
 			reportPayment.setPosName(rs.getString("POS_NAME"));
+			reportPayment.setDepartmentArea(rs.getString("DEPARTMENT_AREA"));
 			return reportPayment;
 		}
 

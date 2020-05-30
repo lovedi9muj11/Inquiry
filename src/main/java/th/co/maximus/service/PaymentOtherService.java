@@ -20,4 +20,6 @@ public interface PaymentOtherService {
 	public void saveCasualOther(CasualCustomerBean bean) throws Exception;
 	
 	public CasualCustomerBean findCasualByTaxId(String taxId) throws Exception;
+	
+	public List<CasualCustomerBean> findCasualByTaxIdNName(String taxId, String name) throws Exception;
 }

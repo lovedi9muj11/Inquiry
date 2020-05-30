@@ -168,6 +168,37 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		Object[] paramArr = param.toArray();
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
+	
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountIdNoSearchOther(PaymentMMapPaymentInvBean invBean, String payType) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" WHERE 1 = 1");
+		
+		if (!("").equals(invBean.getAccountNo())) {
+			sql.append(" AND payment_m.ACCOUNT_NO like ?");
+			param.add("%" + invBean.getAccountNo() + "%");
+		}
+		
+		if (!("").equals(invBean.getTaxId())) {
+			sql.append(" AND paument_inv.TAXNO = ?");
+			param.add(invBean.getTaxId());
+		}
+		
+		if (!("").equals(invBean.getCustName())) {
+			sql.append(" AND paument_inv.CUSTOMER_NAME = ?");
+			param.add(invBean.getCustName());
+		}
+		
+		sql.append(" AND paument_inv.SERVICE_TYPE = ?");
+//		sql.append(" AND payment_m.CLEARING = '"+Constants.CLEARING.STATUS_N+"'");
+		param.add(payType);
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
+	}
 
 	@Override
 	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVFromId(long manual_id) {
@@ -667,5 +698,5 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		}
 		return dateResult;
 	}
-	
+
 }

@@ -291,7 +291,8 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		StringBuilder posName = new StringBuilder();
 		StringBuilder sql = new StringBuilder("");
 		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+code+"'");
-		sql.append(" AND KEYCODE = '"+branchArea+"'");
+//		sql.append(" AND KEYCODE = '"+branchArea+"'");
+		sql.append(" AND PROPERTY_1 = '"+branchArea+"'");
 		
 		List<MasterDataBean> list = jdbcTemplate.query(sql.toString(), new masterData());
 		if(CollectionUtils.isNotEmpty(list)) {

@@ -132,4 +132,9 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 	public CasualCustomerBean findCasualByTaxId(String taxId) throws Exception {
 		return casualCustomerDao.findByTaxId(taxId);
 	}
+
+	@Override
+	public List<CasualCustomerBean> findCasualByTaxIdNName(String taxId, String name) throws Exception {
+		return casualCustomerDao.findByTaxIdNName(taxId, name);
+	}
 }

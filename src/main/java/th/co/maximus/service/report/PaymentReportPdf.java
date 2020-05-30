@@ -102,6 +102,7 @@ public class PaymentReportPdf {
 				ReportPaymentBean reportPaymentBeanNew = new ReportPaymentBean();
 				reportPaymentBeanNew.setManualIdStr(index + "");
 				reportPaymentBeanNew.setServiceType(reportPaymentBean.getServiceType().equals("IBACSS") ? "รับชำระค่าใช้บริการ" : "รับชำระค่าใช้บริการอื่นๆ");
+				reportPaymentBeanNew.setDepartmentArea(reportPaymentBean.getDepartmentArea());
 				serviceName = reportPaymentBeanNew.getServiceType();
 				reportPaymentBeanNew.setReceiptNoManual(reportPaymentBean.getReceiptNoManual());
 				if (null != reportPaymentBean.getAccountSubNo()) {
@@ -361,7 +362,7 @@ public class PaymentReportPdf {
 								parameters.put("departmentListCount", countRow);
 								parameters.put("serviceName", serviceName);
 								parameters.put("glName", glCode);
-								parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+								parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 								
 								parameters.put("userPayment", "");
 								parameters.put("userListCount", "");
@@ -441,7 +442,7 @@ public class PaymentReportPdf {
 							parameters.put("departmentListCount", countRow);
 							parameters.put("serviceName", serviceName);
 							parameters.put("glName", glCode);
-							parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+							parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 							
 							parameters.put("userPayment", userPaymentOld);
 							parameters.put("userListCount", countRow);
@@ -532,7 +533,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 						
 						parameters.put("userPayment", userPaymentOld);
 						parameters.put("userListCount", resultSources.size());
@@ -624,7 +625,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 						parameters.put("pageNumber", pageNumber);
 						
 						parameters.put("lastPage", "Y");
@@ -1486,7 +1487,7 @@ public class PaymentReportPdf {
 								parameters.put("departmentListCount", countRow);
 								parameters.put("serviceName", serviceName);
 								parameters.put("glName", glCode);
-								parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+								parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 								
 								parameters.put("userPayment", "");
 								parameters.put("userListCount", "");
@@ -1537,7 +1538,7 @@ public class PaymentReportPdf {
 							parameters.put("departmentListCount", countRow);
 							parameters.put("serviceName", serviceName);
 							parameters.put("glName", glCode);
-							parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+							parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 							
 							parameters.put("userPayment", userPaymentOld);
 							parameters.put("userListCount", countRow);
@@ -1587,7 +1588,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 						
 						parameters.put("userPayment", userPaymentOld);
 						parameters.put("userListCount", resultSources.size());
@@ -1643,7 +1644,7 @@ public class PaymentReportPdf {
 						parameters.put("departmentListCount", countRow);
 						parameters.put("serviceName", serviceName);
 						parameters.put("glName", glCode);
-						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getBranchCode()));
+						parameters.put("departmentName", departCode+masterDataDao.findProperty2(departCode, reportPaymentBean.getDepartmentArea()));
 						parameters.put("pageNumber", pageNumber);
 						
 						parameters.put("lastPage", "Y");

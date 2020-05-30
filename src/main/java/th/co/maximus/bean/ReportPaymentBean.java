@@ -13,6 +13,7 @@ public class ReportPaymentBean {
 	private String customerName;
 	private String department;
 	private String departmentName;
+	private String departmentArea;
 	private String serviceName;
 	private String createBy;
 	private Timestamp createDate;
@@ -331,6 +332,14 @@ public class ReportPaymentBean {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
+	}
+
+	public String getDepartmentArea() {
+		return departmentArea;
+	}
+
+	public void setDepartmentArea(String departmentArea) {
+		this.departmentArea = departmentArea;
 	}
 
 }
