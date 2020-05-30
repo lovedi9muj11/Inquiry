@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -88,6 +89,24 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 		List<CasualCustomerBean> data = jdbcTemplate.query(sql.toString(), new mapCasualModel());
 		
 		return CollectionUtils.isNotEmpty(data)?data.get(0):null;
+	}
+
+	@Override
+	public List<CasualCustomerBean> findByTaxIdNName(String taxId, String name) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM casual_customer WHERE 1=1 ");
+		
+		if(StringUtils.isNotBlank(taxId)) {
+			sql.append(" and TAX_ID = '"+taxId+"'");
+		}
+		
+		if(StringUtils.isNotBlank(name)) {
+			sql.append(" and NAME = '"+name+"'");
+		}
+		
+		List<CasualCustomerBean> data = jdbcTemplate.query(sql.toString(), new mapCasualModel());
+		
+		return CollectionUtils.isNotEmpty(data)?data:null;
 	}
 
 }

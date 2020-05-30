@@ -108,7 +108,7 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNoSearch(creteria.getAccountNo(), Constants.Service.SERVICE_TYPE_IBACSS);
+		result = paymentManualService.serviceHistroryPaymentFromAccountNoSearch(creteria, Constants.Service.SERVICE_TYPE_IBACSS);
 
 		// }
 		return result;
@@ -124,7 +124,7 @@ public class HistroryPaymentController {
 		// result = cancelPaymentService.findAllCancelPayment();
 		// }else {
 
-		result = paymentManualService.serviceHistroryPaymentFromAccountNoSearch(creteria.getAccountNo(), Constants.Service.SERVICE_TYPE_OTHER);
+		result = paymentManualService.serviceHistroryPaymentFromAccountNoSearch(creteria, Constants.Service.SERVICE_TYPE_OTHER);
 
 		// }
 		return result;

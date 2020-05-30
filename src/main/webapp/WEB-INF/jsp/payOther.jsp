@@ -21,6 +21,8 @@
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/lib/select2.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <title>Payment</title>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/typeahead.bundle.js"></script>
@@ -104,10 +106,9 @@
 <!-- 										<span style="color: red; ">*</span> -->
 										</label>
 										<div class="col-sm-2">
-											<input class="form-control" type="text" id="custNo"
-												name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
-<!-- 											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก -->
-<!-- 												เลขที่ลูกค้า</p> -->
+											<input class="form-control" style="width = 80%;" type="text" id="custNo" name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
+											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
+											<input type="checkbox" id="chkOther" name="chkOther" onclick="fnChkOther()"> ลูกค้าขาจร
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
@@ -122,8 +123,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="taxId"
 												name="taxId" placeholder="Tax ID" maxlength="13">
-											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX
-												ID</p>
+											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX ID</p>
 										</div>
 									</div>
 								</div>
@@ -133,25 +133,7 @@
 											for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span
 											style="color: red;">*</span></label>
 										<div class="col-sm-2">
-											<select class="form-control" id="userGroup" name="userGroup"
-												onchange="autoSelect()">
-												<option value="">-- กรุณาเลือก --</option> 
-<!-- 												<option value="2">หน่วยงานรัฐ</option> -->
-<!-- 												<option value="3">บุคคลทั่วไป</option> -->
-<!-- 												<option value="4">Carrier/Operator/NON POTs</option> -->
-<!-- 												<option value="5">Mkt.Arm</option> -->
-<!-- 												<option value="6">ISP</option> -->
-<!-- 												<option value="7">Reseller/Agent</option> -->
-<!-- 												<option value="8">ธุรกิจ กสท</option> -->
-<!-- 												<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option> -->
-												<%
-													for (int i = 0; i < custSegment.size(); i++) {
-												%>
-												<option
-													value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getProperty3()%></option>
-												<%
-													}
-												%>
+											<select class="form-control" id="userGroup" name="userGroup" onchange="autoSelect()">
 											</select>
 										</div>
 										<p id="suserGroup" style="color: red; display: none">คุณยังไม่ได้เลือก
@@ -186,6 +168,15 @@
 										</div>
 									</div>
 
+								</div>
+								
+								<div class="form-horizontal">
+									<div class="form-group">
+										<div class="col-sm-12 text-center">
+											<a class="btn btn-info" onclick="findOtherCustomer()" id="findOther"><span class="glyphicon glyphicon-search"></span> ค้นหาลูกค้าขาจร</a>
+											<a class="btn btn-danger" onclick="clearOtherCustomer()" id="clearOther"><span class="glyphicon glyphicon-refresh"></span> ล้างข้อมูล</a>
+										</div>
+									</div>
 								</div>
 
 							</div>
@@ -1096,7 +1087,6 @@
 		</form>
 	</div>
 	
-	<!-- dialog confirm authentication.. -->
 	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="map-gl-other" >
 	  <div class="modal-dialog modal-sm" style="width:750px">
 	    <div class="modal-content">
@@ -1104,20 +1094,6 @@
 	        <h4 class="modal-title" id="myModalLabel">header word</h4>
 	      </div>
 	      	<div class="modal-body">
-<!-- 				<div class="row"> -->
-<!-- 					<div class="form-group col-md-12"> -->
-<!-- 						<label class="col-md-4 control-label">test 1</label> -->
-<!-- 						<div class="col-md-8"> -->
-<!-- 							<input type="text" id="test1" name="test1" class="form-control"> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group col-md-12"> -->
-<!-- 						<label class="col-md-4 control-label">test 2</label> -->
-<!-- 						<div class="col-md-8"> -->
-<!-- 							<input type="text" id="test2" name="test2" class="form-control"> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 				
 				<div class="row">
 					<div class="form-group col-md-12">
@@ -1145,6 +1121,62 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmReason(true)">ตกลง</button>
 	        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmReason(false)">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="other-customer" >
+	  <div class="modal-dialog modal-sm" style="width:750px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel"><span style="font-size: 18px;" class="hidden-xs glyphicon glyphicon-user"></span> ค้นหาลูกค้าขาจร</h4>
+	      </div>
+	      	<div class="modal-body">
+				
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label md-offset-2">เลขประจำตัวผู้เสียภาษี :</label>
+						<div class="col-md-8">
+							<input type="text" id="taxOtherId" name="taxOtherId" class="form-control">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-4 control-label md-offset-2">ชื่อลูกค้า/ชื่อนิติบุคคล/ราชการ :</label>
+						<div class="col-md-8">
+							<input type="text" id="nameOtherId" name="nameOtherId" class="form-control">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="glass">
+							<div class="table-responsive">
+								<table id="custOtherList" class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th style="text-align: center;" width="10%">#</th>
+											<th style="text-align: center;" width="40%">ชื่อลูกค้า</th>
+											<th style="text-align: center;" width="40%">TAX ID</th>
+											<th style="text-align: center;" width="10%"></th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+	     	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmOtherCust(true)">ตกลง</button>
+	        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmOtherCust(false)">ยกเลิก</button>
 	      </div>
 	    </div>
 	  </div>
