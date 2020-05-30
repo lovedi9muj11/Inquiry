@@ -104,8 +104,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA)  ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
+				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA, SEGMENT_OTHER, PRODUCT_OTHER)  ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
 		jdbcTemplate.update(sql.toString(), paymentInvoiceManualBean.getManualId(),
 				paymentInvoiceManualBean.getSource(), paymentInvoiceManualBean.getInvoiceNo(),
@@ -125,7 +125,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getServiceName(), paymentInvoiceManualBean.getInvoiceDate(),
 				paymentInvoiceManualBean.getServiceCode(),paymentInvoiceManualBean.getDepartmentcode(),
 				paymentInvoiceManualBean.getIncomeunit(),
-				paymentInvoiceManualBean.getDepartmentArea());
+				paymentInvoiceManualBean.getDepartmentArea(),
+				paymentInvoiceManualBean.getSegmentCode(),
+				paymentInvoiceManualBean.getProductCode());
 
 	}
 
@@ -238,10 +240,10 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	
 	@Override
 	public List<PaymentMMapPaymentInvBean> findCriteriaFromReceiptNo(String[] receiptNo) {
-		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT,Locale.ENGLISH); 
+//		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT,Locale.ENGLISH); 
 		StringBuilder sql = new StringBuilder();
-		List<Object> param = new LinkedList<Object>();
-		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		List<Object> param = new LinkedList<Object>();
+//		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 //		sql.append(" INNER JOIN master_data ms ON ms.PROPERTY_1 = payment_m.CUSTOMER_GROUP ");

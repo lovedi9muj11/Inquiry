@@ -1,4 +1,6 @@
 let mapGLObj
+let productCode
+let segmentCode
 
 $(document).ready(function() {
 	
@@ -35,12 +37,16 @@ $(document).ready(function() {
 			
 			// set mapgl for pay
 			set4gl()
+			$("#serror").hide();
+			$("#perror").hide();
 			
 			$('.groupType').select2({
 			    width: '50%'
 			});
-			$('#xxx1').empty();
-			$('#xxx2').empty();
+			$('#segmentDD').empty();
+			$('#productDD').empty();
+			$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+			$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
 			
 //			$("#moneyTran").on( "change",  function() {
 //				if($("#moneyTran").val() == ""){
@@ -715,6 +721,8 @@ function submitForm() {
 		"paymentTax" : listpaymentTaxRQ,
 		"paymentTranPrice" : listpaymentTranPriceRQ,
 		"inputServiceDepartment":$("#inputServiceDepartment").val(),
+		"productCode":productCode,
+		"segmentCode":segmentCode,
 		"incomeEdit":$("#incomeEdit").val()
 	}
 	document.getElementById("submitFormPayment").disabled = true;
@@ -2179,6 +2187,7 @@ function autoSelect(){
 	        contentType: "application/json; charset=utf-8",
 		}).then(function (res) {
 			mapGLObj = res.mapGLBean
+			findSegmentNProduct(res.masterSegments, res.masterProducts)
 		});
 		
 	}
@@ -2188,10 +2197,8 @@ function autoSelect(){
 			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
 		});
 		if(0 < resObjs.length) {
-			$("#map-gl-other").modal('show');
-			findSegmentNProduct()
 			if('2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
-				
+				$("#map-gl-other").modal('show');
 				return true
 			}else if('5' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
 				swal(WORD_5)
@@ -2205,16 +2212,26 @@ function autoSelect(){
 	
 	function modalConfirmReason(callback){
 		if(callback){
-			$("#map-gl-other").modal('hide');
+			if(validateOtherDropdown()) {
+				productCode = $("#productDD").val()
+				segmentCode = $("#segmentDD").val()
+				$("#map-gl-other").modal('hide');
+			}
 		}else{
 			$("#map-gl-other").modal('hide');
 		}
-
 	}
 	
-	function findSegmentNProduct() {
-		$('#xxx1').append('<option value="*">' + PLS_SELECT + '</option>');
-		$('#xxx2').append('<option value="*">' + PLS_SELECT + '</option>');
+	function findSegmentNProduct(masterSegments, masterProducts) {
+		
+		for(var i=0; i<masterSegments.length; i++) {
+			$('#segmentDD').append('<option value="'+(masterSegments[i].value)+'">' + (masterSegments[i].text) + '</option>');
+		}
+		
+		for(var i=0; i<masterProducts.length; i++) {
+			$('#productDD').append('<option value="'+(masterProducts[i].value)+'">' + (masterProducts[i].text) + '</option>');
+		}
+		
 //		$.ajax({
 //		    type: 'GET',
 //		    url: ctx +"/other/setGL",
@@ -2225,4 +2242,40 @@ function autoSelect(){
 //			mapGLObj = res.mapGLBean
 //		});
 		
+	}
+	
+	function validateOtherDropdown() {
+		if(''!=$("#productDD").val() && ''!=$("#segmentDD").val()) {
+			$("#serror").hide();
+			$("#perror").hide();
+			return true
+		}else{
+			if(''==$("#segmentDD").val() && ''==$("#productDD").val()) {
+				$("#serror").show();
+				$("#perror").show();
+				return false
+			}else if(''==$("#segmentDD").val()) {
+				$("#perror").hide();
+				$("#serror").show();
+				return false
+			}else if(''==$("#productDD").val()) {
+				$("#serror").hide();
+				$("#perror").show();
+				return false
+			}
+		}
+		
+		function findByTaxId() {
+			var taxId = $("#taxId").val();
+			
+			$.ajax({
+			    type: 'GET',
+			    url: ctx +"/other/findtax"+taxId,
+			    dataType: "json",
+		        async: true,
+		        contentType: "application/json; charset=utf-8",
+			}).then(function (res) {
+				mapGLObj = res.mapGLBean
+			});
+			}
 	}

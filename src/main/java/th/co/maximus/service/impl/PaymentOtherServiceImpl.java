@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import th.co.maximus.bean.CasualCustomerBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.ReciptNoGenCode;
+import th.co.maximus.dao.CasualCustomerDao;
 import th.co.maximus.dao.PaymentOtherManualDao;
 import th.co.maximus.payment.bean.PaymentOtherFirstBean;
 import th.co.maximus.payment.bean.PaymentResultReq;
@@ -31,6 +33,9 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 
 	@Autowired
 	ReciptNoGenCode reciptNoGenCode;
+	
+	@Autowired
+	CasualCustomerDao casualCustomerDao;
 
 	@Value("${text.prefix}")
 	private String nameCode;
@@ -43,25 +48,6 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
 				
-//				if(paymentBean.getUserGroup().equals("1") || paymentBean.getUserGroup().equals("2") ) {
-//					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-//						paymentManualBean.setDocType("F");
-//					}else {
-//						paymentManualBean.setDocType("S");
-//					}
-//				}else if(paymentBean.getUserGroup().equals("3")) {
-//					if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-//						paymentManualBean.setDocType("F");
-//					}else {
-//						paymentManualBean.setDocType("S");
-//					}
-//				}else {
-//					paymentManualBean.setDocType("F");
-//				}
-//				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
-//				paymentBean.setDocumentNo(code);
-				
-//				if(Constants.PAYMENT_OTHER.NON_VATE.equals(paymentBean.getVatrate())) {
 				if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
 					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
@@ -85,6 +71,17 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 				String code = reciptNoGenCode.genCodeRecipt(paymentManualBean.getDocType());
 				paymentBean.setDocumentNo(code);
 				paymentBean.setDocType(paymentManualBean.getDocType());
+				
+				if(StringUtils.isBlank(paymentBean.getCustNo())) {
+					CasualCustomerBean customerBean = new CasualCustomerBean();
+					customerBean.setName(paymentBean.getCustName());
+					customerBean.setTaxId(paymentBean.getTaxId());
+					customerBean.setServiceCode(paymentBean.getUserGroup());
+					customerBean.setBranch(paymentBean.getCustBrach());
+					customerBean.setAddress(paymentBean.getCustAddress());
+					
+					saveCasualOther(customerBean);
+				}
 				
 			paymentId = paymentOtherManualService.insertPaymentManual(paymentBean);
 			if(paymentId>0){
@@ -120,5 +117,19 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 	public List<PaymentResultReq> findListByid(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return paymentOtherManualDao.findListById(id);
+	}
+
+	@Override
+	public void saveCasualOther(CasualCustomerBean bean) throws Exception {
+		if(null == casualCustomerDao.findByTaxId(bean.getTaxId())) {
+			casualCustomerDao.insert(bean);
+		}else {
+			casualCustomerDao.update(bean);
+		}
+	}
+
+	@Override
+	public CasualCustomerBean findCasualByTaxId(String taxId) throws Exception {
+		return casualCustomerDao.findByTaxId(taxId);
 	}
 }

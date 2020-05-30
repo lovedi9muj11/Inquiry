@@ -47,7 +47,8 @@ public class PaymentInvoiceManualBean {
 	
 	private String incomeunit;
 	private String departmentArea;
-	
+	private String productCode;
+	private String segmentCode;
 
 	
 
@@ -353,6 +354,22 @@ public class PaymentInvoiceManualBean {
 
 	public void setIncomeunit(String incomeunit) {
 		this.incomeunit = incomeunit;
+	}
+
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public String getSegmentCode() {
+		return segmentCode;
+	}
+
+	public void setSegmentCode(String segmentCode) {
+		this.segmentCode = segmentCode;
 	}
 	
 	

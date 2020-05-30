@@ -8,10 +8,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.PaymentManualBean;
 import th.co.maximus.constants.Constants;
@@ -98,6 +96,8 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			
 			paymentManualBean.setPaytype("F");
 			paymentManualBean.setCustomerGroup(paymentBean.getUserGroup());
+			paymentManualBean.setSegmentCode(paymentBean.getSegmentCode());
+			paymentManualBean.setProductCode(paymentBean.getProductCode());
 /*			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
 				paymentManualBean.setPaytype("F");
 			}else{

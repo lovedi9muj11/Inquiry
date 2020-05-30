@@ -30,6 +30,8 @@ public class PaymentManualBean {
 	private java.math.BigDecimal   vatAmount;
 	private String customerGroup;
 	private String cancelReason;
+	private String productCode;
+	private String segmentCode;
 	
 	
 	public java.math.BigDecimal getVatAmount() {
@@ -183,6 +185,18 @@ public class PaymentManualBean {
 	}
 	public void setCancelReason(String cancelReason) {
 		this.cancelReason = cancelReason;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getSegmentCode() {
+		return segmentCode;
+	}
+	public void setSegmentCode(String segmentCode) {
+		this.segmentCode = segmentCode;
 	}
 
 	

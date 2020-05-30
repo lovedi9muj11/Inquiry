@@ -1,7 +1,6 @@
 package th.co.maximus.payment.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class PaymentOtherFirstBean implements Serializable{
@@ -38,6 +37,8 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String inputServiceDepartment;
 	private String haveDocNo;
 	private String incomeEdit;
+	private String productCode;
+	private String segmentCode;
 	
 	public String getDocType() {
 		return docType;
@@ -225,6 +226,18 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setIncomeEdit(String incomeEdit) {
 		this.incomeEdit = incomeEdit;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getSegmentCode() {
+		return segmentCode;
+	}
+	public void setSegmentCode(String segmentCode) {
+		this.segmentCode = segmentCode;
 	}
 	
 	

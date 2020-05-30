@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.maximus.bean.CasualCustomerBean;
 import th.co.maximus.bean.MapGLBean;
 import th.co.maximus.bean.MasterDataBean;
 import th.co.maximus.bean.MasterDatasBean;
@@ -198,12 +199,27 @@ public class PayOtherController {
 
 	}
 	
+	@RequestMapping(value = { "/other/findtax/{taxid}" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody CasualCustomerBean findtax(@PathVariable("taxid") String taxid) {
+		try {
+			return  paymentOtherService.findCasualByTaxId(taxid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	@RequestMapping(value = { "/other/setGL" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody SetOtherMapGLResponse set4gl() {
 		SetOtherMapGLResponse response = new SetOtherMapGLResponse();
 		
 		List<MapGLBean> glBeans = mapGLDao.findBySourceOther();
+		List<MasterDataBean> masterSegments = masterDataDao.findSegmentOther();
+		List<MasterDataBean> masterProducts = masterDataDao.findProductOther();
+		
 		response.setMapGLBean(glBeans);
+		response.setMasterSegments(masterSegments);
+		response.setMasterProducts(masterProducts);
 
 		return  response;
 
