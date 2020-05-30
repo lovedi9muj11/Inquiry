@@ -33,6 +33,9 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 			for (int i = 0; i < paymentBean.getPaymentBill().size(); i++) {
 				PaymentInvoiceManualBean paymentInvoiceManualBean = new PaymentInvoiceManualBean();
 				PaymentBillBean paymentBillBean = new PaymentBillBean();
+		        String[] arrOfStr = paymentBean.getInputServiceDepartment().split("\\|");
+		        String property1 = arrOfStr[0];
+	        	String property2 = arrOfStr[1];
 				paymentInvoiceManualBean.setManualId(Long.valueOf(userId));
 				paymentInvoiceManualBean.setSource("OFFLINE");
 				paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
@@ -57,7 +60,7 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				//paymentInvoiceManualBean.setIncometype(paymentBillBean.getInputServiceType());
 				paymentInvoiceManualBean.setDiscountbeforvat(paymentBillBean.getInputServiceDiscount());
 				paymentInvoiceManualBean.setDiscountspecial(paymentBillBean.getInputSpecialDiscount());
-				paymentInvoiceManualBean.setDepartment(paymentBean.getInputServiceDepartment());
+				paymentInvoiceManualBean.setDepartment(property2);
 				paymentInvoiceManualBean.setVatAmount(paymentBillBean.getVatSale().doubleValue());
 				paymentInvoiceManualBean.setAmount(paymentBillBean.getSummaryinvoice().doubleValue());
 				paymentInvoiceManualBean.setServiceCode(paymentBillBean.getInputServiceCode());
@@ -65,10 +68,12 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getInputServiceType());
 				paymentInvoiceManualBean.setServiceName(paymentBillBean.getInputServiceName());
 				
-				paymentInvoiceManualBean.setDepartmentcode(paymentBean.getInputServiceDepartment());
+				paymentInvoiceManualBean.setDepartmentcode(property2);
 				paymentInvoiceManualBean.setIncomeunit(paymentBean.getIncomeEdit());
+				paymentInvoiceManualBean.setSegmentCode(paymentBean.getSegmentCode());
+				paymentInvoiceManualBean.setProductCode(paymentBean.getProductCode());
 				
-				paymentInvoiceManualBean.setDepartmentArea(masterDataService.findProperty1ByProperty2(paymentBean.getInputServiceDepartment()));
+				paymentInvoiceManualBean.setDepartmentArea(property1);
 				paymentInvoiceManualDao.insert(paymentInvoiceManualBean);
 			}
 			

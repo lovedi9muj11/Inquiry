@@ -303,12 +303,19 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	}
 
 	@Override
-	public String findByProperty(String property2) {
+	public List<MasterDataBean> findSegmentOther() {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and PROPERTY_2 = '"+property2+"'");
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+Constants.MasterData.SEGMENT+"' ");
 		
-		List<MasterDataBean> list = jdbcTemplate.query(sql.toString(), new masterData());
-		return list.get(0).getProperty1();
+		return jdbcTemplate.query(sql.toString(), new masterData());
+	}
+	
+	@Override
+	public List<MasterDataBean> findProductOther() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+Constants.MasterData.PRODUCT+"' ");
+		
+		return jdbcTemplate.query(sql.toString(), new masterData());
 	}
 
 }

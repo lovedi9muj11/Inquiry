@@ -234,7 +234,7 @@
 												<%
 													for (int i = 0; i < masterServiceDepartment.size(); i++) {
 												%>
-												<option	value="<%=masterServiceDepartment.get(i).getProperty2()%>" <%=(masterServiceDepartment.get(i).getValue().equals(costcenter) ? "selected":"")%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
+												<option	value="<%=masterServiceDepartment.get(i).getProperty1()%>|<%=masterServiceDepartment.get(i).getProperty2()%>" <%=(masterServiceDepartment.get(i).getValue().equals(costcenter) ? "selected":"")%>><%=masterServiceDepartment.get(i).getProperty2()%> : <%=masterServiceDepartment.get(i).getText()%></option>
 												<%
 													}
 												%>
@@ -1104,37 +1104,39 @@
 	        <h4 class="modal-title" id="myModalLabel">header word</h4>
 	      </div>
 	      	<div class="modal-body">
+<!-- 				<div class="row"> -->
+<!-- 					<div class="form-group col-md-12"> -->
+<!-- 						<label class="col-md-4 control-label">test 1</label> -->
+<!-- 						<div class="col-md-8"> -->
+<!-- 							<input type="text" id="test1" name="test1" class="form-control"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="form-group col-md-12"> -->
+<!-- 						<label class="col-md-4 control-label">test 2</label> -->
+<!-- 						<div class="col-md-8"> -->
+<!-- 							<input type="text" id="test2" name="test2" class="form-control"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label">test 1</label>
+						<label class="col-md-4 control-label md-offset-2">Segment :</label>
 						<div class="col-md-8">
-							<input type="text" id="test1" name="test1" class="form-control">
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label">test 2</label>
-						<div class="col-md-8">
-							<input type="text" id="test2" name="test2" class="form-control">
+							<select class="groupType col-md-6" name="segmentDD" id="segmentDD" list="groupTypeDropdown" listKey="value" listValue="name">
+							</select>
+							<p id="serror" style="color: red; display: none;">กรุณาเลือก</p>
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label">test 1x</label>
+						<label class="col-md-4 control-label md-offset-2">Product :</label>
 						<div class="col-md-8">
-							<select class="groupType col-md-6" name="xxx1" id="xxx1" list="groupTypeDropdown" listKey="value" listValue="name">
+							<select class="groupType col-md-6" name="productDD" id="productDD" list="groupTypeDropdown" listKey="value" listValue="name">
 							</select>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label">test 2x</label>
-						<div class="col-md-8">
-							<select class="groupType col-md-6" name="xxx2" id="xxx2" list="groupTypeDropdown" listKey="value" listValue="name">
-							</select>
+							<p id="perror" style="color: red; display: none;">กรุณาเลือก</p>
 						</div>
 					</div>
 				</div>
