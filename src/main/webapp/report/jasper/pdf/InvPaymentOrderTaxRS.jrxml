@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvPaymentOrderTax" pageWidth="1100" pageHeight="595" orientation="Landscape" columnWidth="1045" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" isSummaryWithPageHeaderAndFooter="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvPaymentOrderTax" pageWidth="851" pageHeight="595" orientation="Landscape" columnWidth="796" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" isSummaryWithPageHeaderAndFooter="true" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.2100000000000009"/>
-	<property name="ireport.x" value="277"/>
-	<property name="ireport.y" value="52"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Cat_Bg_Title" isDefault="true" mode="Opaque" backcolor="#808080" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Bt_Title" isDefault="true" mode="Opaque" forecolor="#000000" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
 	<style name="Cat_Wt_Title" isDefault="true" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" fontName="FreesiaUPC" fontSize="16" isBold="true"/>
@@ -30,14 +30,14 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="956" y="29" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
+				<reportElement x="684" y="29" width="50" height="18" uuid="c7681eee-4361-4460-a00b-e89c92583bc6"/>
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["หน้า    "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="995" y="29" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
+				<reportElement x="723" y="29" width="50" height="18" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf"/>
 				<textElement textAlignment="Center">
 					<font fontName="FreesiaUPC" size="10" isBold="false"/>
 				</textElement>
@@ -46,49 +46,49 @@
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="0" y="47" width="180" height="23" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4"/>
 				<textElement>
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[บริษัท กสท โทรคมนาคม จำกัด (มหาชน)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="355" y="47" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65"/>
+				<reportElement style="Cat_Hl_Common" x="239" y="47" width="80" height="23" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65"/>
 				<textElement textAlignment="Right">
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ระหว่างวันที่ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="437" y="47" width="116" height="23" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f"/>
+				<reportElement x="321" y="47" width="99" height="23" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f"/>
 				<textElement>
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDateForm()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="957" y="47" width="124" height="23" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
-				<textElement>
+				<reportElement x="685" y="47" width="88" height="23" uuid="d7d436de-cdd0-41f5-a899-81eba3715974"/>
+				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getPrintDate()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="582" y="47" width="120" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
+				<reportElement x="448" y="47" width="110" height="23" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242"/>
 				<textElement>
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDateTo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="877" y="47" width="80" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
+				<reportElement style="Cat_Hl_Common" x="624" y="47" width="61" height="23" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d"/>
 				<textElement textAlignment="Right">
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[วันเวลาที่พิมพ์ :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="1" y="82" width="90" height="23" uuid="baa1c58c-f9d8-4698-851a-0511348f9be3"/>
 				<textElement>
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ชื่อสถานประกอบการ :]]></text>
 			</staticText>
@@ -100,14 +100,14 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBranchArea()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="381" y="82" width="116" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677"/>
+				<reportElement style="Cat_Hl_Common" x="265" y="82" width="116" height="23" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677"/>
 				<textElement>
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="497" y="82" width="174" height="23" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff"/>
+				<reportElement x="381" y="82" width="174" height="23" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff"/>
 				<textElement>
 					<font fontName="FreesiaUPC" isBold="false"/>
 				</textElement>
@@ -123,21 +123,21 @@
 			<staticText>
 				<reportElement style="Cat_Hl_Common" x="0" y="116" width="43" height="23" uuid="33926f71-4de2-4588-9429-97b162038670"/>
 				<textElement>
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[สาขาที่  :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="551" y="47" width="29" height="23" uuid="dd48c13c-f6f4-463e-8942-f5eaca0ee2b6"/>
+				<reportElement style="Cat_Hl_Common" x="417" y="47" width="29" height="23" uuid="dd48c13c-f6f4-463e-8942-f5eaca0ee2b6"/>
 				<textElement textAlignment="Right">
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ถึง :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="1" y="0" width="1044" height="29" uuid="393d1a25-ea66-478f-92db-99e66feb34e3"/>
+				<reportElement x="1" y="0" width="795" height="29" uuid="393d1a25-ea66-478f-92db-99e66feb34e3"/>
 				<textElement textAlignment="Center">
-					<font fontName="FreesiaUPC" size="20" isBold="false"/>
+					<font fontName="FreesiaUPC" size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getHeadName()]]></textFieldExpression>
 			</textField>
@@ -146,19 +146,19 @@
 	<columnHeader>
 		<band height="40">
 			<frame>
-				<reportElement x="0" y="0" width="1045" height="40" uuid="6005dfe4-5659-4cd7-83c1-3b685b2dc25c"/>
+				<reportElement x="0" y="0" width="794" height="40" uuid="6005dfe4-5659-4cd7-83c1-3b685b2dc25c"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
 				</box>
 				<staticText>
-					<reportElement x="645" y="0" width="83" height="40" uuid="30c74415-5cef-42f2-bc25-228109f2114e"/>
+					<reportElement x="501" y="0" width="42" height="40" uuid="30c74415-5cef-42f2-bc25-228109f2114e"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[จำนวนฉบับ]]></text>
 				</staticText>
@@ -169,34 +169,34 @@
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ลำดับ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="47" y="0" width="117" height="40" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
+					<reportElement x="44" y="0" width="80" height="40" uuid="2486cde1-67c2-4c7f-8929-4b290cce49ec"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[วันเดือนปี]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="167" y="0" width="145" height="40" uuid="df12d27a-58c4-4a5f-a5f1-ecc9db116b53"/>
+					<reportElement x="123" y="0" width="104" height="40" uuid="df12d27a-58c4-4a5f-a5f1-ecc9db116b53"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[เครื่องที่รับชำระ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="325" y="0" width="316" height="20" uuid="9731d79f-7887-4400-b547-bf3bb04fbee6">
+					<reportElement x="227" y="0" width="260" height="20" uuid="9731d79f-7887-4400-b547-bf3bb04fbee6">
 						<property name="local_mesure_unity" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -204,38 +204,50 @@
 						<topPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ใบกำกับภาษี]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="325" y="20" width="159" height="20" uuid="78fe6fa0-9b8b-49e4-b88b-53ce23efb6b7"/>
-					<textElement textAlignment="Center"/>
+					<reportElement x="227" y="20" width="125" height="20" uuid="78fe6fa0-9b8b-49e4-b88b-53ce23efb6b7"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[จาก]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="483" y="20" width="159" height="20" uuid="f636b14f-5be9-4469-8da5-41f9dc24ee25"/>
-					<textElement textAlignment="Center"/>
+					<reportElement x="362" y="20" width="125" height="20" uuid="f636b14f-5be9-4469-8da5-41f9dc24ee25"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[ถึง]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="728" y="20" width="101" height="20" uuid="6cdc2400-4de6-4a34-86ac-6cf9eb6fe727"/>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[จำนวนเงินก่อนภาษีมูลค่าเพิ่ม]]></text>
+					<reportElement x="555" y="20" width="86" height="20" uuid="6cdc2400-4de6-4a34-86ac-6cf9eb6fe727"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ก่อนภาษีมูลค่าเพิ่ม]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="846" y="20" width="91" height="20" uuid="fff7a7ad-e4e9-4118-b6de-e53eaa2c4117"/>
-					<textElement textAlignment="Center"/>
+					<reportElement x="640" y="20" width="63" height="20" uuid="fff7a7ad-e4e9-4118-b6de-e53eaa2c4117"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[ภาษีมูลค่าเพิ่ม]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="943" y="20" width="102" height="20" uuid="a5b412dc-313f-434f-84fa-4afdc5a1aa86"/>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[จำนวนเงินรวมภาษีมูลค่าเพิ่ม]]></text>
+					<reportElement x="703" y="20" width="91" height="20" uuid="a5b412dc-313f-434f-84fa-4afdc5a1aa86"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[รวมภาษีมูลค่าเพิ่ม]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="728" y="0" width="316" height="20" uuid="8846e1a9-50f4-4123-ac1b-529acb043a47"/>
-					<textElement textAlignment="Center"/>
+					<reportElement x="555" y="0" width="239" height="20" uuid="8846e1a9-50f4-4123-ac1b-529acb043a47"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[จำนวนเงินทั้งหมด]]></text>
 				</staticText>
 			</frame>
@@ -246,7 +258,7 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="46" y="5" width="118" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
+				<reportElement x="43" y="5" width="81" height="20" uuid="220df7b9-1c5f-49d2-8337-28a1269a5fc4"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -259,7 +271,7 @@
 				<textFieldExpression><![CDATA[$F{documentDateStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="167" y="5" width="146" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
+				<reportElement x="123" y="5" width="105" height="20" uuid="bc66d4a7-ad81-43c4-8e67-1012a37311ff"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -272,7 +284,7 @@
 				<textFieldExpression><![CDATA[$F{posName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="325" y="5" width="159" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
+				<reportElement x="227" y="5" width="125" height="20" uuid="85328bf7-98e0-4f3b-be18-017b29a2662f"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -285,7 +297,7 @@
 				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="1" y="36" width="1044" height="1" uuid="ea661817-b0f0-4ec2-8874-c9fa6e1c7081"/>
+				<reportElement x="1" y="36" width="794" height="1" uuid="ea661817-b0f0-4ec2-8874-c9fa6e1c7081"/>
 				<graphicElement>
 					<pen lineWidth="3.0" lineStyle="Double"/>
 				</graphicElement>
@@ -298,7 +310,7 @@
 				<textFieldExpression><![CDATA[$F{numberRun}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="645" y="5" width="83" height="20" uuid="81fe1ddd-7284-4e7c-856e-3a83b7d10d39"/>
+				<reportElement x="501" y="5" width="42" height="20" uuid="81fe1ddd-7284-4e7c-856e-3a83b7d10d39"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -311,7 +323,7 @@
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="733" y="5" width="91" height="20" uuid="617a1f67-b1d3-4574-9fda-d6e1d66ca443"/>
+				<reportElement x="555" y="5" width="85" height="20" uuid="617a1f67-b1d3-4574-9fda-d6e1d66ca443"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -320,11 +332,12 @@
 				</box>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new BigDecimal($F{beforeVatStr})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="842" y="5" width="70" height="20" uuid="cf5a96d0-5b63-4b5e-a128-6393bff22d24"/>
+				<reportElement x="641" y="5" width="62" height="20" uuid="cf5a96d0-5b63-4b5e-a128-6393bff22d24"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -333,11 +346,12 @@
 				</box>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new BigDecimal($F{vatStr})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="947" y="5" width="91" height="20" uuid="47886bfb-8e1c-4ec2-9601-0ebe1b32df7a"/>
+				<reportElement x="703" y="5" width="91" height="20" uuid="47886bfb-8e1c-4ec2-9601-0ebe1b32df7a"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -346,11 +360,12 @@
 				</box>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" size="14" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new BigDecimal($F{paidAmountStr})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="482" y="5" width="159" height="20" uuid="d8f95a96-aae8-4f1c-b69d-f43b1cd5095a"/>
+				<reportElement x="362" y="5" width="125" height="20" uuid="d8f95a96-aae8-4f1c-b69d-f43b1cd5095a"/>
 				<box>
 					<topPen lineStyle="Dotted"/>
 					<leftPen lineStyle="Dotted"/>
@@ -367,7 +382,7 @@
 	<summary>
 		<band height="218">
 			<frame>
-				<reportElement x="1" y="56" width="1045" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
+				<reportElement x="1" y="56" width="795" height="30" uuid="a7a696d5-4365-4b25-8735-ca2fa7a50786"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -379,7 +394,7 @@
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[รวมอัตรา]]></text>
 				</staticText>
@@ -391,29 +406,32 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="947" y="0" width="91" height="30" uuid="4632707f-8294-4f20-a907-da824b501ae6"/>
+					<reportElement x="702" y="0" width="91" height="30" uuid="4632707f-8294-4f20-a907-da824b501ae6"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="821" y="0" width="91" height="30" uuid="5100f70f-2ddd-4085-95bf-5291f9974049"/>
+					<reportElement x="640" y="0" width="63" height="30" uuid="5100f70f-2ddd-4085-95bf-5291f9974049"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="732" y="0" width="91" height="30" uuid="8e2d00cc-3da2-434c-a127-ca801d1d670d"/>
+					<reportElement x="554" y="0" width="85" height="30" uuid="8e2d00cc-3da2-434c-a127-ca801d1d670d"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="86" width="1045" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497"/>
+				<reportElement x="0" y="86" width="795" height="30" uuid="accd74ad-577a-4af2-923c-bd2aa7164497"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -425,7 +443,7 @@
 						<bottomPen lineWidth="1.0"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[รวมอัตรา]]></text>
 				</staticText>
@@ -452,29 +470,32 @@
 					<text><![CDATA[0]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="733" y="0" width="91" height="30" uuid="4d71468c-9953-4d6d-a015-81f5bf489ea5"/>
+					<reportElement x="555" y="0" width="85" height="30" uuid="4d71468c-9953-4d6d-a015-81f5bf489ea5"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="821" y="0" width="91" height="30" uuid="eb8ca117-ffff-4f62-944c-620f4343264e"/>
+					<reportElement x="640" y="0" width="63" height="30" uuid="eb8ca117-ffff-4f62-944c-620f4343264e"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="949" y="0" width="91" height="30" uuid="7bcbd890-8e8f-4c6a-8140-036ae9c5a96f"/>
+					<reportElement x="704" y="0" width="91" height="30" uuid="7bcbd890-8e8f-4c6a-8140-036ae9c5a96f"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="176" width="1045" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
+				<reportElement x="0" y="176" width="795" height="37" uuid="5ba8e79b-dbeb-42e3-b6ab-1e79e84987ce"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -482,28 +503,31 @@
 				<staticText>
 					<reportElement x="0" y="0" width="42" height="30" uuid="64572ed5-9a0e-4952-9cc2-364bb303d173"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[รวมทั้งสิ้น]]></text>
 				</staticText>
 				<textField pattern="#,##0.00">
-					<reportElement x="732" y="0" width="91" height="30" uuid="220ba5ad-e32c-49d7-b1e9-834772e7f600"/>
+					<reportElement x="554" y="0" width="85" height="30" uuid="220ba5ad-e32c-49d7-b1e9-834772e7f600"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="821" y="0" width="91" height="30" uuid="0a7ed7ed-c11d-497c-a844-f6b38b5d7580"/>
+					<reportElement x="640" y="0" width="63" height="30" uuid="0a7ed7ed-c11d-497c-a844-f6b38b5d7580"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="948" y="0" width="91" height="30" uuid="39e8b512-a8dc-4e9b-b51e-b6b3645a02a9"/>
+					<reportElement x="703" y="0" width="91" height="30" uuid="39e8b512-a8dc-4e9b-b51e-b6b3645a02a9"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
@@ -515,12 +539,19 @@
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รวมอัตรา]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="116" width="1045" height="30" uuid="aa19dddf-0c7e-4291-9132-ba739254e40d"/>
+				<reportElement x="0" y="116" width="795" height="30" uuid="aa19dddf-0c7e-4291-9132-ba739254e40d"/>
+				<box>
+					<topPen lineWidth="1.2"/>
+					<bottomPen lineWidth="1.2"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement x="1" y="146" width="795" height="30" uuid="689e789e-7c3c-4073-bfd6-8e838461ccdc"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -533,7 +564,7 @@
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" isBold="false"/>
+					<font fontName="FreesiaUPC" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รวมอัตรา]]></text>
 			</staticText>
@@ -545,33 +576,29 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getVatRate()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="733" y="116" width="91" height="30" uuid="33e06658-d852-4002-98ff-10f80693b8a2"/>
+				<reportElement x="555" y="116" width="85" height="30" uuid="33e06658-d852-4002-98ff-10f80693b8a2"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="949" y="116" width="91" height="30" uuid="9f11385d-7ebe-4a08-b930-6ad462575b1d"/>
+				<reportElement x="704" y="116" width="91" height="30" uuid="9f11385d-7ebe-4a08-b930-6ad462575b1d"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="821" y="116" width="91" height="30" uuid="a9c08979-0dbd-43fb-baee-058d9ad2163c"/>
+				<reportElement x="640" y="116" width="63" height="30" uuid="a9c08979-0dbd-43fb-baee-058d9ad2163c"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 			</textField>
-			<frame>
-				<reportElement x="1" y="146" width="1045" height="30" uuid="689e789e-7c3c-4073-bfd6-8e838461ccdc"/>
-				<box>
-					<topPen lineWidth="1.2"/>
-					<bottomPen lineWidth="1.2"/>
-				</box>
-			</frame>
 			<staticText>
 				<reportElement x="70" y="146" width="21" height="30" uuid="034d1776-d919-4a88-a988-d7107b9e0099"/>
 				<box>
@@ -595,49 +622,55 @@
 				<text><![CDATA[0]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="732" y="146" width="91" height="30" uuid="e5c41ad6-858f-4b56-afec-91ad787f61e9"/>
+				<reportElement x="554" y="146" width="85" height="30" uuid="e5c41ad6-858f-4b56-afec-91ad787f61e9"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="948" y="146" width="91" height="30" uuid="c7e475b5-964f-420d-b450-009acb9ff57c"/>
+				<reportElement x="703" y="146" width="91" height="30" uuid="c7e475b5-964f-420d-b450-009acb9ff57c"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="821" y="146" width="91" height="30" uuid="52663e9c-ba13-49d1-bf3d-243a4e406728"/>
+				<reportElement x="640" y="146" width="63" height="30" uuid="52663e9c-ba13-49d1-bf3d-243a4e406728"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="733" y="116" width="91" height="30" uuid="9bb40ed9-ab38-4737-a2d4-6cab60396a3c"/>
+				<reportElement x="555" y="116" width="85" height="30" uuid="9bb40ed9-ab38-4737-a2d4-6cab60396a3c"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="949" y="116" width="91" height="30" uuid="281d84bd-7a2a-4688-b983-bc2c4f2802e8"/>
+				<reportElement x="704" y="116" width="91" height="30" uuid="281d84bd-7a2a-4688-b983-bc2c4f2802e8"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="821" y="116" width="91" height="30" uuid="2585775c-7b7c-4cca-947b-588ebe7ce6fb"/>
+				<reportElement x="640" y="116" width="63" height="30" uuid="2585775c-7b7c-4cca-947b-588ebe7ce6fb"/>
 				<textElement textAlignment="Right">
 					<font fontName="FreesiaUPC" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="0" y="25" width="1045" height="31" uuid="06c4324b-f8e2-4969-aa87-bb5922c413cb"/>
+				<reportElement x="0" y="25" width="795" height="31" uuid="06c4324b-f8e2-4969-aa87-bb5922c413cb"/>
 				<box>
 					<topPen lineWidth="1.2"/>
 					<bottomPen lineWidth="1.2"/>
@@ -645,28 +678,31 @@
 				<staticText>
 					<reportElement x="0" y="0" width="103" height="30" uuid="ce8a076d-8246-47eb-a927-b9ef818421db"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="FreesiaUPC" isBold="false"/>
+						<font fontName="FreesiaUPC" isBold="true"/>
 					</textElement>
 					<text><![CDATA[รวมตามหน่วยงานที่รับชำระ]]></text>
 				</staticText>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="733" y="1" width="91" height="30" uuid="ab685827-f2f9-48d5-a2bb-aa8c219083ae"/>
+					<reportElement x="555" y="1" width="85" height="30" uuid="ab685827-f2f9-48d5-a2bb-aa8c219083ae"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBeforeVatSummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="821" y="0" width="91" height="30" uuid="275be424-6448-4149-9e09-b38efa557d4f"/>
+					<reportElement x="640" y="0" width="63" height="30" uuid="275be424-6448-4149-9e09-b38efa557d4f"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getVatSummary()]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00">
-					<reportElement x="948" y="0" width="91" height="30" uuid="0c9dbc54-1b4b-47b6-8fe6-95edce33ad1b"/>
+					<reportElement x="703" y="0" width="91" height="30" uuid="0c9dbc54-1b4b-47b6-8fe6-95edce33ad1b"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
+						<paragraph rightIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{ReportSource}.getSummarySummary()]]></textFieldExpression>
 				</textField>
@@ -678,7 +714,7 @@
 					<textFieldExpression><![CDATA[$P{ReportSource}.getBranchArea()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="661" y="0" width="52" height="30" uuid="8b01246f-fe85-45c9-9d46-613a6fe17ee0"/>
+					<reportElement x="501" y="0" width="42" height="30" uuid="8b01246f-fe85-45c9-9d46-613a6fe17ee0"/>
 					<textElement textAlignment="Right">
 						<font fontName="FreesiaUPC" isBold="false"/>
 					</textElement>
