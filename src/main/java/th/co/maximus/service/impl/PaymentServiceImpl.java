@@ -45,13 +45,13 @@ public class PaymentServiceImpl implements PaymentService{
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
 				
-				if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_12) || paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_14) ) {
+				if(paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_12) || paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_14) ) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
 						paymentManualBean.setDocType("RF");
 					}else {
 						paymentManualBean.setDocType("RS");
 					}
-				}else if(paymentBean.getUserGroup().equals(Constants.MasterData.PROPERTY_1.MS_11)) {
+				}else if(paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_11)) {
 					if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
 						paymentManualBean.setDocType("RF");
 					}else {

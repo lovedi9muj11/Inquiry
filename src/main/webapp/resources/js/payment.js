@@ -4,10 +4,14 @@ var chars = [];
 var checkLogin = false;
 var isprice = 0;
 let gBarCode = '';
+let userGroupGBs
+let keyCode
 
 $(document).ready(function() {
 	// ============ vat Rate by imaew
 	$("#barCode").focus();
+	
+	findUserGroup()
 	
 	$("#barCode").keypress(function(e){
 //        if ( e.which == 13 ) {
@@ -885,6 +889,7 @@ function submitForm(){
 			 "summaryTax": parseFloat($("#summaryTax").val().replace(/,/g, "")) ,
 			 "paymentTax":listpaymentTaxRQ  ,
 			 "paymentTranPrice" :listpaymentTranPriceRQ	,
+			 "keyCode" : keyCode,
 	}
 	
 	
@@ -946,6 +951,15 @@ function autoSelect(){
 	if(event !== ""){
 		$("#suserGroup").hide();
 	}
+	
+	if(userGroupGBs) {
+		let resObjs =  userGroupGBs.filter(function(Obj) {
+			return Obj.property1 == event;
+		});
+		
+		if(resObjs)keyCode = resObjs[0].keyCode
+	}
+	
 }
 
 function findBank() {
@@ -2088,3 +2102,28 @@ function setDataBC() {
 //	alert(x1.length)
 	$('#barCode').val(x1.replace("|",""));
 }
+
+	function findUserGroup() {
+		$.ajax({
+		    type: 'GET',
+		    url: ctx +"/ibacss/find/usergroup",
+		    dataType: "json",
+	        async: true,
+	        contentType: "application/json; charset=utf-8",
+		}).then(function (res) {
+			userGroupGBs = res
+			setUserGroup(userGroupGBs)
+		});
+	}
+	
+	function setUserGroup(userGroups) {
+		
+		if(userGroups) {
+			$('#userGroup').empty();
+			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
+			for(var i=0; i<userGroups.length; i++) {
+				$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+			}
+		}
+		
+	}

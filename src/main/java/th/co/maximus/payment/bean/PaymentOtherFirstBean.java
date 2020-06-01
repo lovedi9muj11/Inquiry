@@ -39,6 +39,7 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String incomeEdit;
 	private String productCode;
 	private String segmentCode;
+	private String keyCode;
 	
 	public String getDocType() {
 		return docType;
@@ -238,6 +239,12 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setSegmentCode(String segmentCode) {
 		this.segmentCode = segmentCode;
+	}
+	public String getKeyCode() {
+		return keyCode;
+	}
+	public void setKeyCode(String keyCode) {
+		this.keyCode = keyCode;
 	}
 	
 	

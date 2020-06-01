@@ -11,6 +11,10 @@
 <head>
 <title>Payment</title>
 
+<script type="text/javascript">
+	var PLS_SELECT = 'กรุณาเลือก';
+</script>
+
 <script src="${contextPath}/resources/lib/jquery-3.3.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/typeahead.bundle.js"></script>
@@ -132,26 +136,7 @@
 														for="formGroupInputLarge">กลุ่มผู้ใช้บริการ :<span
 														style="color: red;">*</span></label>
 													<div class="col-sm-2">
-														<select class="form-control" id="userGroup"
-															name="userGroup" onchange="autoSelect()">
-															<option value="">== กรุณาเลือก ==</option>
-<!-- 															<option value="1">ธุรกิจทั่วไป</option> -->
-<!-- 															<option value="2">หน่วยงานรัฐ</option> -->
-<!-- 															<option value="3">บุคคลทั่วไป</option> -->
-<!-- 															<option value="4">Carrier/Operator/NON POTs</option> -->
-<!-- 															<option value="5">Mkt.Arm</option> -->
-<!-- 															<option value="6">ISP</option> -->
-<!-- 															<option value="7">Reseller/Agent</option> -->
-<!-- 															<option value="8">ธุรกิจ กสท</option> -->
-<!-- 															<option value="9">สถานฑูต/องค์กรระหว่างประเทศ</option> -->
-															<%
-																for (int i = 0; i < custSegment.size(); i++) {
-															%>
-															<option
-																value="<%=custSegment.get(i).getProperty1()%>"><%=custSegment.get(i).getProperty3()%></option>
-															<%
-																}
-															%>
+														<select class="form-control" id="userGroup" name="userGroup" onchange="autoSelect()">
 														</select>
 														<p id="suserGroup" style="color: red; display: none;">
 															คุณยังไม่ได้เลือก กลุ่มผู้ใช้บริการ</p>

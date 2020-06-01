@@ -4,6 +4,7 @@ let segmentCode
 let custOtherList
 let chkOther = false
 let userGroupGBs
+let keyCode
 
 $(document).ready(function() {
 	
@@ -750,7 +751,8 @@ function submitForm() {
 		"inputServiceDepartment":$("#inputServiceDepartment").val(),
 		"productCode":productCode,
 		"segmentCode":segmentCode,
-		"incomeEdit":$("#incomeEdit").val()
+		"incomeEdit":$("#incomeEdit").val(),
+		"keyCode" : keyCode,
 	}
 	document.getElementById("submitFormPayment").disabled = true;
 
@@ -2193,6 +2195,14 @@ function autoSelect(){
 		radiobtns = document.getElementById("radioDedCT");
 		radiobtns.checked = true;
 	}
+	
+	if(userGroupGBs) {
+		let resObjs =  userGroupGBs.filter(function(Obj) {
+			return Obj.property1 == event;
+		});
+		
+		if(resObjs)keyCode = resObjs[0].keyCode
+	}
 }
 	function autoSelectVat(){
 	
@@ -2281,7 +2291,7 @@ function autoSelect(){
 			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
 			if(chkOther) {
 				for(var i=0; i<userGroups.length; i++) {
-					if(userGroups[i].keyCode == '1' || userGroups[i].keyCode == '2' || userGroups[i].keyCode == '3') {
+					if(userGroups[i].property1 == '1' || userGroups[i].property1 == '2' || userGroups[i].property1 == '3') {
 						$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
 					}
 				}
