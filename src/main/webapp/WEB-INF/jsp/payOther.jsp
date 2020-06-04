@@ -77,9 +77,9 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
-								<button name="submitFormPayment" type="button"
-									id="submitFormPayment" class="btn btn-success btn-lg"
-									onclick="submitForm()">
+								<input type="checkbox" id="taxOnly" name="taxOnly" value="taxOnly1">
+								<label for="taxOnly"> ใบกำกับภาษีอย่างเดียว</label>
+								<button name="submitFormPayment" type="button" id="submitFormPayment" class="btn btn-success btn-lg" onclick="submitForm()">
 									<span class="glyphicon glyphicon-share"> บันทึกและพิมพ์</span>
 								</button>
 							</div>

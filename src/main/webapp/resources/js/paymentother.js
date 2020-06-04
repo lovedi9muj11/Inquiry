@@ -751,6 +751,7 @@ function submitForm() {
 		"segmentCode":segmentCode,
 		"incomeEdit":$("#incomeEdit").val(),
 		"keyCode" : keyCode,
+		"taxOnly" : $('#taxOnly').is(":checked"),
 	}
 	document.getElementById("submitFormPayment").disabled = true;
 
@@ -2233,7 +2234,7 @@ function autoSelect(){
 		let resObjs =  mapGLObj.filter(function(Obj) {
 			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
 		});
-		$("#map-gl-other").modal('show');
+
 		if(0 < resObjs.length) {
 			if('2' == resObjs[0].glCode.substring(0, 1) && 'Y' == resObjs[0].erpInterfaceFlag) {
 				$("#map-gl-other").modal('show');

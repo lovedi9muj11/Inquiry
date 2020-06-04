@@ -208,6 +208,7 @@ public class Constants {
 		public static final String RO = "RO";
 		public static final String RS = "RS";
 		public static final String RF = "RF";
+		public static final String TX = "TX";
 	}
 	
 	public static class CUSTOMER_GROUP {

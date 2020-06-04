@@ -40,6 +40,7 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String productCode;
 	private String segmentCode;
 	private String keyCode;
+	private boolean taxOnly;
 	
 	public String getDocType() {
 		return docType;
@@ -245,6 +246,12 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setKeyCode(String keyCode) {
 		this.keyCode = keyCode;
+	}
+	public boolean isTaxOnly() {
+		return taxOnly;
+	}
+	public void setTaxOnly(boolean taxOnly) {
+		this.taxOnly = taxOnly;
 	}
 	
 	

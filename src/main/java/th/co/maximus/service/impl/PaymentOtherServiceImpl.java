@@ -48,7 +48,9 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 		try {
 				PaymentManualBean paymentManualBean = new PaymentManualBean();
 				
-				if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
+				if(paymentBean.isTaxOnly()) {
+					paymentManualBean.setDocType(Constants.DOCTYPE.TX);
+				}else if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
 					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
 					if(paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_12) || paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_14) ) {
