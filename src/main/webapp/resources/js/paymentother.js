@@ -4,6 +4,8 @@ let segmentCode
 let custOtherList
 let chkOther = false
 let userGroupGBs
+let masterSegmentsGBs
+let masterProductsGBs
 let keyCode
 
 $(document).ready(function() {
@@ -47,10 +49,6 @@ $(document).ready(function() {
 			$('.groupType').select2({
 			    width: '50%'
 			});
-			$('#segmentDD').empty();
-			$('#productDD').empty();
-			$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
-			$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
 			
 			findUserGroup()
 			
@@ -2224,6 +2222,8 @@ function autoSelect(){
 	        contentType: "application/json; charset=utf-8",
 		}).then(function (res) {
 			mapGLObj = res.mapGLBean
+			masterSegmentsGBs = res.masterSegments
+			masterProductsGBs = res.masterProducts
 			findSegmentNProduct(res.masterSegments, res.masterProducts)
 		});
 		
@@ -2233,11 +2233,12 @@ function autoSelect(){
 		let resObjs =  mapGLObj.filter(function(Obj) {
 			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
 		});
+		$("#map-gl-other").modal('show');
 		if(0 < resObjs.length) {
-			if('2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+			if('2' == resObjs[0].glCode.substring(0, 1) && 'Y' == resObjs[0].erpInterfaceFlag) {
 				$("#map-gl-other").modal('show');
 				return true
-			}else if('5' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+			}else if('5' == resObjs[0].glCode.substring(0, 1) || '2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
 				swal(WORD_5)
 				return true
 			}
@@ -2260,6 +2261,11 @@ function autoSelect(){
 	}
 	
 	function findSegmentNProduct(masterSegments, masterProducts) {
+		
+		$('#segmentDD').empty();
+		$('#productDD').empty();
+		$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+		$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
 		
 		for(var i=0; i<masterSegments.length; i++) {
 			$('#segmentDD').append('<option value="'+(masterSegments[i].value)+'">' + (masterSegments[i].text) + '</option>');
@@ -2438,5 +2444,40 @@ function autoSelect(){
 			document.getElementById("custNo").disabled = false
 			setUserGroup(userGroupGBs)
 		}
+	}
+	
+	function segmentSelect() {
+		let smCode = $("#segmentDD").val()
+		
+		let resObjs =  masterProductsGBs.filter(function(Obj) {
+			return Obj.value.substring(0, 5) == smCode;
+		});
+		
+		if(resObjs) {
+			$('#productDD').empty();
+			$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+			
+			for(var i=0; i<resObjs.length; i++) {
+				$('#productDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+			}
+		}
+	}
+	
+	function productSelect() {
+		let smCode = $("#segmentDD").val()
+		let pdCode = $("#productDD").val()
+		
+		let resObjs =  masterSegmentsGBs.filter(function(Obj) {
+			return Obj.value == pdCode.substring(0, 5);
+		});
+		
+//		if(resObjs) {
+//			$('#segmentDD').empty();
+//			$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+//			
+//			for(var i=0; i<resObjs.length; i++) {
+//				$('#segmentDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+//			}
+//		}
 	}
 	

@@ -164,7 +164,7 @@ public class HistoryPaymentServiceImp implements HistoryPaymentService {
 				bean.setPeriod(Utils.periodFormat(bean.getPeriod()));
 			}
 			bean.setBrancharea(masterDatasDao.findByKey(bean.getBrancharea()).getValue());
-			bean.setCreateDateStr(dt.format(bean.getCreateDate()));
+			if(null!=bean.getCreateDate())bean.setCreateDateStr(dt.format(bean.getCreateDate()));
 			bean.setPaymentMethod(paymentMethod.toString().substring(1));
 			result.add(bean);
 //			}

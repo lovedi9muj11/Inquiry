@@ -1099,7 +1099,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-4 control-label md-offset-2">Segment :</label>
 						<div class="col-md-8">
-							<select class="groupType col-md-6" name="segmentDD" id="segmentDD" list="groupTypeDropdown" listKey="value" listValue="name">
+							<select class="groupType col-md-6" name="segmentDD" id="segmentDD" list="groupTypeDropdown" listKey="value" listValue="name" onchange="segmentSelect()">
 							</select>
 							<p id="serror" style="color: red; display: none;">กรุณาเลือก</p>
 						</div>
@@ -1110,7 +1110,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-4 control-label md-offset-2">Product :</label>
 						<div class="col-md-8">
-							<select class="groupType col-md-6" name="productDD" id="productDD" list="groupTypeDropdown" listKey="value" listValue="name">
+							<select class="groupType col-md-6" name="productDD" id="productDD" list="groupTypeDropdown" listKey="value" listValue="name" onchange="productSelect()">
 							</select>
 							<p id="perror" style="color: red; display: none;">กรุณาเลือก</p>
 						</div>
