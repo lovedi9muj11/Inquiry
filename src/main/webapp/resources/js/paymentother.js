@@ -1,8 +1,11 @@
 let mapGLObj
 let productCode
 let segmentCode
+let productName
+let segmentName
 let custOtherList
 let chkOther = false
+let chkOtherTax1 = false
 let userGroupGBs
 let masterSegmentsGBs
 let masterProductsGBs
@@ -519,6 +522,7 @@ function submitForm() {
 	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replace(",", ""));
 	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
 	var balance = balanceOfTaxs + summaryTax ;
+	
 	if ($("#balanceSum").val() < balance) {
 	 swal("ยอดเงินรับมาไม่ถูกต้อง")
 	}else{
@@ -533,16 +537,13 @@ function submitForm() {
 	var resultTotalPrice = [];
 	var resultTblSale = [];
 	
-	
-		
-	
-
 	// get radio
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
 		}
 	}
+	
 	// ภาษี หัก ณ ที่จ่าย
 	var table = document.getElementById("sumDeductibleTable");
 	var rowLength = table.rows.length;
@@ -557,7 +558,6 @@ function submitForm() {
 		resultDeductible.push(deductible);
 
 	}
-	
 	
 	// ตารางขาย
 	var tblSale = document.getElementById("sumtableBillingList");
@@ -690,6 +690,7 @@ function submitForm() {
 		$("#suserGroup").show();
 		return $("#userGroup").focus();
 	}
+	
 	if (chkOther) {
 		if($("#taxId").val() == '') {
 			$('#staxId').show();
@@ -699,6 +700,23 @@ function submitForm() {
 		if($("#custNo").val() == '') {
 			$('#sCustNo').show();
 			return $("#custNo").focus();
+		}
+	}
+	
+	if(chkOtherTax1) {
+		if($('#custName').val() == '' || $('#custAddress').val() == '') {
+			if($('#custName').val() == '') {
+				$('#sCustName').show();
+				$('#scustAddress').hide();
+				return $("#custName").focus();
+			}else if($('#custAddress').val() == '') {
+				$('#scustAddress').show();
+				$('#sCustName').hide();
+				return $("#custAddress").focus();
+			}
+		}else{
+			$('#sCustName').hide();
+			$('#scustAddress').hide();
 		}
 	}
 //	if ($("#custBrach").val() == "") {
@@ -749,6 +767,8 @@ function submitForm() {
 		"inputServiceDepartment":$("#inputServiceDepartment").val(),
 		"productCode":productCode,
 		"segmentCode":segmentCode,
+		"productName":productName,
+		"segmentName":segmentName,
 		"incomeEdit":$("#incomeEdit").val(),
 		"keyCode" : keyCode,
 		"taxOnly" : $('#taxOnly').is(":checked"),
@@ -2225,7 +2245,7 @@ function autoSelect(){
 			mapGLObj = res.mapGLBean
 			masterSegmentsGBs = res.masterSegments
 			masterProductsGBs = res.masterProducts
-			findSegmentNProduct(res.masterSegments, res.masterProducts)
+//			findSegmentNProduct(res.masterSegments, res.masterProducts)
 		});
 		
 	}
@@ -2237,16 +2257,29 @@ function autoSelect(){
 
 		if(0 < resObjs.length) {
 			if('2' == resObjs[0].glCode.substring(0, 1) && 'Y' == resObjs[0].erpInterfaceFlag) {
-				$("#map-gl-other").modal('show');
+				showProductSegment()
+				$("#shPS").show()
 				return true
 			}else if('5' == resObjs[0].glCode.substring(0, 1) || '2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
-				swal(WORD_5)
+//				swal(WORD_5)
+				$("#shPS").hide()
+				$("#error").show()
+				return true
+			}else {
+				$("#error").hide()
+				$("#shPS").hide()
 				return true
 			}
-			
 		}
 		
 		return false
+	}
+	
+	function showProductSegment() {
+		findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		
+		$("#map-gl-other").modal('show');
+		$("#error").hide()
 	}
 	
 	function modalConfirmReason(callback){
@@ -2254,6 +2287,8 @@ function autoSelect(){
 			if(validateOtherDropdown()) {
 				productCode = $("#productDD").val()
 				segmentCode = $("#segmentDD").val()
+				productName = $("#productDD option:selected").text()
+				segmentName = $("#segmentDD option:selected").text()
 				$("#map-gl-other").modal('hide');
 			}
 		}else{
@@ -2435,6 +2470,10 @@ function autoSelect(){
 		document.getElementById("taxId").disabled = false
 	}
 	
+	function fnTaxOnly() {
+		chkOtherTax1 = !chkOtherTax1
+	}
+	
 	function fnChkOther() {
 		chkOther = !chkOther
 		
@@ -2449,17 +2488,24 @@ function autoSelect(){
 	
 	function segmentSelect() {
 		let smCode = $("#segmentDD").val()
+		let pdCode = $("#productDD").val()
 		
-		let resObjs =  masterProductsGBs.filter(function(Obj) {
-			return Obj.value.substring(0, 5) == smCode;
-		});
-		
-		if(resObjs) {
-			$('#productDD').empty();
-			$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+		if('' === smCode) {
+			findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		}else {
+			let resObjs =  masterProductsGBs.filter(function(Obj) {
+				return Obj.value.substring(0, 5) == smCode;
+			});
 			
-			for(var i=0; i<resObjs.length; i++) {
-				$('#productDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+			if(resObjs.length > 0) {
+				$('#productDD').empty();
+				$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+				
+				for(var i=0; i<resObjs.length; i++) {
+					$('#productDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+				}
+				
+				$("#productDD").val(pdCode)
 			}
 		}
 	}
@@ -2468,17 +2514,22 @@ function autoSelect(){
 		let smCode = $("#segmentDD").val()
 		let pdCode = $("#productDD").val()
 		
-		let resObjs =  masterSegmentsGBs.filter(function(Obj) {
-			return Obj.value == pdCode.substring(0, 5);
-		});
-		
-//		if(resObjs) {
-//			$('#segmentDD').empty();
-//			$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
-//			
-//			for(var i=0; i<resObjs.length; i++) {
-//				$('#segmentDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
-//			}
-//		}
+		if('' === pdCode) {
+			findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		}else {
+			let resObjs =  masterSegmentsGBs.filter(function(Obj) {
+				return Obj.value == pdCode.substring(0, 5);
+			});
+			
+			if(resObjs.length > 0) {
+				$('#segmentDD').empty();
+				$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+				
+				for(var i=0; i<resObjs.length; i++) {
+					$('#segmentDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+				}
+				$("#segmentDD").val(smCode)
+			}
+		}
 	}
 	

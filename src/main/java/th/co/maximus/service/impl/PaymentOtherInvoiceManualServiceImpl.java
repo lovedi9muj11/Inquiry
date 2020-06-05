@@ -71,7 +71,9 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setDepartmentcode(property2);
 				paymentInvoiceManualBean.setIncomeunit(paymentBean.getIncomeEdit());
 				paymentInvoiceManualBean.setSegmentCode(paymentBean.getSegmentCode());
+				paymentInvoiceManualBean.setSegmentName(paymentBean.getSegmentName());
 				paymentInvoiceManualBean.setProductCode(paymentBean.getProductCode());
+				paymentInvoiceManualBean.setProductName(paymentBean.getProductName());
 				
 				paymentInvoiceManualBean.setDepartmentArea(property1);
 				paymentInvoiceManualDao.insert(paymentInvoiceManualBean);

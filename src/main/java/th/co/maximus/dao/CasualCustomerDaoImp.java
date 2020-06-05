@@ -42,7 +42,7 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 	@Override
 	public void insert(CasualCustomerBean bean) throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO casual_customer ");
+		sql.append("INSERT INTO OTHER_TEMP_CUSTOMER ");
 		sql.append("(NAME, TAX_ID, SERVICE_CODE, BRANCH, ADDRESS, REMARK, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE) ");
 		sql.append("VALUES (?,?,?,?,?,?,?,?,?,?) ");
 		
@@ -68,7 +68,7 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 	public void update(CasualCustomerBean bean) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" UPDATE casual_customer set NAME = ?, SERVICE_CODE = ?, BRANCH = ?, ADDRESS = ? WHERE TAX_ID = ? ");
+		sql.append(" UPDATE OTHER_TEMP_CUSTOMER set NAME = ?, SERVICE_CODE = ?, BRANCH = ?, ADDRESS = ? WHERE TAX_ID = ? ");
 		
 		param.add(bean.getName());
 		param.add(bean.getServiceCode());
@@ -84,7 +84,7 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 	@Override
 	public CasualCustomerBean findByTaxId(String taxId) throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM casual_customer WHERE 1=1 and TAX_ID = '"+taxId+"'");
+		sql.append(" SELECT * FROM OTHER_TEMP_CUSTOMER WHERE 1=1 and TAX_ID = '"+taxId+"'");
 		
 		List<CasualCustomerBean> data = jdbcTemplate.query(sql.toString(), new mapCasualModel());
 		
@@ -94,7 +94,7 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 	@Override
 	public List<CasualCustomerBean> findByTaxIdNName(String taxId, String name) throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM casual_customer WHERE 1=1 ");
+		sql.append(" SELECT * FROM OTHER_TEMP_CUSTOMER WHERE 1=1 ");
 		
 		if(StringUtils.isNotBlank(taxId)) {
 			sql.append(" and TAX_ID = '"+taxId+"'");

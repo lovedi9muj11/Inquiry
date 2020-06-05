@@ -111,20 +111,20 @@ public class OfflineBatch implements Job {
 		try {
 			if (Constants.BATCH.JOB_1.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_1");
-				callEpisOnlineService.callOnlineSyncMasterData();
-				callEpisOnlineService.callOnline();
+//				callEpisOnlineService.callOnlineSyncMasterData();
+//				callEpisOnlineService.callOnline();
 			} else if (Constants.BATCH.JOB_2.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_2");
-				 callEpisOnlineService.callOnlineSyncMapGL();
+//				 callEpisOnlineService.callOnlineSyncMapGL();
 			} else if (Constants.BATCH.JOB_3.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_3");
-				 callEpisOnlineService.callOnlineSyncUser();
+//				 callEpisOnlineService.callOnlineSyncUser();
 			} else if (Constants.BATCH.JOB_4.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_4");
-				saveBatch();
+//				saveBatch();
 			} else if (Constants.BATCH.JOB_5.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_5");
-				clearingPaymentEpisOfflineService.clearingCencelPayment();
+//				clearingPaymentEpisOfflineService.clearingCencelPayment();
 			} 
 		} catch (Exception e) {
 			log.error("Encountered job execution exception!", e);

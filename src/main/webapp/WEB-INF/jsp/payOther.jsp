@@ -77,7 +77,7 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group" align="right">
 							<div class="col-md-12 col-sm-12">
-								<input type="checkbox" id="taxOnly" name="taxOnly" value="taxOnly1">
+								<input type="checkbox" id="taxOnly" name="taxOnly" value="taxOnly1" onclick="fnTaxOnly()">
 								<label for="taxOnly"> ใบกำกับภาษีอย่างเดียว</label>
 								<button name="submitFormPayment" type="button" id="submitFormPayment" class="btn btn-success btn-lg" onclick="submitForm()">
 									<span class="glyphicon glyphicon-share"> บันทึกและพิมพ์</span>
@@ -86,8 +86,16 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-md-12 offset-md-2">
+						<div id="error" class="alert alert-danger alert-dismissable fade in" style="display: none; font-size: 150%;">
+						    <label id="fn25" >การรับชำระรหัสบัญชีนี้ ผู้ใช้งานจะต้องบันทึกข้อมูล เข้า SAP แบบ Manual</label>
+						</div>
+					</div>
+				</div>
 
-				<div class="row" style="margin-top: 20px;">
+				<div class="row">
 					<input type="hidden" id="userName1" name="userName1"
 						value="${pageContext.request.userPrincipal.name}">
 					<!-- <div class="col-md-12 col-sm-12"> -->
@@ -112,8 +120,7 @@
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
-											<input class="form-control" type="text" id="custName"
-												name="custName" placeholder="ชื่อ"  maxlength="300">
+											<input class="form-control" type="text" id="custName" name="custName" placeholder="ชื่อ"  maxlength="300">
 											<p id="sCustName" style="color: red; display: none">
 												คุณยังไม่ได้กรอกชื่อ</p>
 										</div>
@@ -121,8 +128,7 @@
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">Tax ID :</label>
 										<div class="col-sm-2">
-											<input class="form-control" type="text" id="taxId"
-												name="taxId" placeholder="Tax ID" maxlength="13">
+											<input class="form-control" type="text" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13">
 											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX ID</p>
 										</div>
 									</div>
@@ -158,11 +164,9 @@
 								</div>
 								<div class="form-horizontal">
 									<div class="form-group">
-										<label class="col-sm-2 control-label right"
-											for="formGroupInputLarge">ที่อยู่ :</label>
+										<label class="col-sm-2 control-label right" for="formGroupInputLarge">ที่อยู่ :</label>
 										<div class="col-sm-6">
-											<textarea class="form-control" rows="3" id="custAddress"
-												name="custAddress"  maxlength="300"></textarea>
+											<textarea class="form-control" rows="3" id="custAddress" name="custAddress"  maxlength="300"></textarea>
 											<p id="scustAddress" style="color: red; display: none">
 												คุณยังไม่ได้กรอก ที่อยู่</p>
 										</div>
@@ -247,8 +251,7 @@
 
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">ชื่อบริการ :<span
-											style="color: red;">*</span></label>
+										<label class="control-label col-sm-2">ชื่อบริการ :<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
 											<select class="form-control" id="inputServiceName"
 												name="inputServiceName">
@@ -261,8 +264,11 @@
 															}
 														%>
 											</select>
-											<p id="sinputServiceName" style="color: red; display: none">
-												คุณยังไม่ได้เลือก ชื่อบริการ</p>
+											<p id="sinputServiceName" style="color: red; display: none"> คุณยังไม่ได้เลือก ชื่อบริการ</p>
+											
+											<button type="button" style="display: none;" id="shPS" class="btn btn-warning btn-sm" onclick="showProductSegment()">
+												<span class="glyphicon glyphicon-plus">เลือกเซกเม้นต์และผลิตภัณฑ์</span>
+											</button>
 										</div>
 										<label class="control-label col-sm-2">จำนวนรายการ :<span
 											style="color: red; ">*</span></label>
@@ -1091,13 +1097,13 @@
 	  <div class="modal-dialog modal-sm" style="width:750px">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title" id="myModalLabel">header word</h4>
+	        <h4 class="modal-title" id="myModalLabel">เลือกเซกเม้นต์และผลิตภัณฑ์</h4>
 	      </div>
 	      	<div class="modal-body">
 				
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label md-offset-2">Segment :</label>
+						<label class="col-md-4 control-label md-offset-2">ชื่อเซกเม้นต์ :</label>
 						<div class="col-md-8">
 							<select class="groupType col-md-6" name="segmentDD" id="segmentDD" list="groupTypeDropdown" listKey="value" listValue="name" onchange="segmentSelect()">
 							</select>
@@ -1108,7 +1114,7 @@
 				
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label md-offset-2">Product :</label>
+						<label class="col-md-4 control-label md-offset-2">ชื่อผลิตภัณฑ์ :</label>
 						<div class="col-md-8">
 							<select class="groupType col-md-6" name="productDD" id="productDD" list="groupTypeDropdown" listKey="value" listValue="name" onchange="productSelect()">
 							</select>
