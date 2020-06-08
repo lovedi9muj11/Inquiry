@@ -109,4 +109,12 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 		return CollectionUtils.isNotEmpty(data)?data:null;
 	}
 
+	@Override
+	public List<CasualCustomerBean> findAll() throws Exception {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM OTHER_TEMP_CUSTOMER ");
+		
+		return jdbcTemplate.query(sql.toString(), new mapCasualModel());
+	}
+
 }

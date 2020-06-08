@@ -12,4 +12,6 @@ public interface CasualCustomerDao {
 	public CasualCustomerBean findByTaxId(String taxId) throws Exception;
 	
 	public List<CasualCustomerBean> findByTaxIdNName(String taxId, String name) throws Exception;
+	
+	public List<CasualCustomerBean> findAll() throws Exception;
 }
