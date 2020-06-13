@@ -873,9 +873,13 @@ function buttonAddBillingList() {
 		$("#sinputServiceAmount").show();
 		return $("#inputServiceAmount").focus();
 	}
+	
+	var inputServiceTypeName = ''
+	if($('#inputServiceType').val() != '') {
+		inputServiceTypeName = $("#inputServiceType option:selected").text();
+	}
 
 	var table = document.getElementById("sumtableBillingList").rows.length;
-	var inputServiceTypeName = $("#inputServiceType option:selected").text(); // หน่วยรับได้
 	var inputServiceType = $("#inputServiceType").val(); // หน่วยรับได้
 	var inputServiceDepartment = $("#inputServiceDepartment").val();
 	var inputServiceCode = $("#inputServiceName").val();
@@ -2442,6 +2446,9 @@ function autoSelect(){
 			return Obj.taxId == data;
 		});
 		if(resObjs) {
+			document.getElementById("chkOther").checked = true;
+			fnChkOther()
+			
 			let resObj = resObjs[0]
 //			console.log(resObjs[0])
 			document.getElementById("custNo").disabled = true
@@ -2457,6 +2464,7 @@ function autoSelect(){
 			custOtherList.clear().draw();
 			$("#taxOtherId").val('')
 			$("#nameOtherId").val('')
+			
 		}
 	}
 	
@@ -2476,7 +2484,7 @@ function autoSelect(){
 	}
 	
 	function fnChkOther() {
-		chkOther = !chkOther
+		chkOther = document.getElementById("chkOther").checked
 		
 		if(chkOther) {
 			document.getElementById("custNo").disabled = true
