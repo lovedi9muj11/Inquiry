@@ -1159,6 +1159,13 @@
 				</div>
 				
 				<div class="row">
+					<div class="form-group col-md-12 text-center">
+				        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmOtherCust(true)">ค้นหา</button>
+				        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmOtherCust(false)">ยกเลิก</button>
+					</div>
+				</div>
+				
+				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="glass">
 							<div class="table-responsive">
@@ -1180,10 +1187,6 @@
 				</div>
 
 	     	</div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmOtherCust(true)">ตกลง</button>
-	        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmOtherCust(false)">ยกเลิก</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>
