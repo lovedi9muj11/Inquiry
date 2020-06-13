@@ -105,14 +105,13 @@ public class Constants {
 		public static final String BUSINESS_AREA = "BUSINESS_AREA";
 		public static final String COST_CENTER = "COST_CENTER";
 		public static final String OTHER_PAYMENT_UNIT = "OTHER_PAYMENT_UNIT";
-		public static final String IBACSS_CANCEL_REASON = "IBACSS_CANCEL_REASON";
-		public static final String OTHER_CANCEL_REASON = "OTHER_CANCEL_REASON";
+		public static final String IBACSS_CANCEL_REASON = "OFFLINE_IBACSS_WOIBACSS_CANCEL_REASON";
+		public static final String OTHER_CANCEL_REASON = "OFFLINE_OTHER_CANCEL_REASON";
 		public static final String CANCEL_REASON_INDAY = "INDAY";
 		public static final String EDC_CREDIT_CARD_BANK = "EDC_CREDIT_CARD_BANK";
 		public static final String CUSTOMER_SEGMENT = "CUSTOMER_SEGMENT";
 		public static final String SEGMENT = "SEGMENT";
 		public static final String PRODUCT = "PRODUCT";
-		public static final String IBACSS_WOIBACSS_CANCEL_REASON = "IBACSS_WOIBACSS_CANCEL_REASON";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		public static final String USER_GROUP = "UserGoup";
@@ -124,6 +123,10 @@ public class Constants {
 			public static final String TRIGGER_MINUS = "Trigger_Minus";
 			public static final String TRIGGER_CLEARING = "Trigger_Clearing";
 			public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
+			
+			public static final String MS_14 = "3";
+			public static final String MS_12 = "2";
+			public static final String MS_11 = "1";
 		}
 		
 		public static class PROPERTY_1 {
@@ -205,6 +208,7 @@ public class Constants {
 		public static final String RO = "RO";
 		public static final String RS = "RS";
 		public static final String RF = "RF";
+		public static final String TX = "TX";
 	}
 	
 	public static class CUSTOMER_GROUP {

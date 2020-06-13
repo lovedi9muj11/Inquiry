@@ -46,6 +46,8 @@ public class PaymentFirstBean implements Serializable{
 	private String nonVat;
 	private String docType;
 	private String isDiscountFlg;
+	private String keyCode;;
+	
 	public String getCustName() {
 		return custName;
 	}
@@ -261,6 +263,12 @@ public class PaymentFirstBean implements Serializable{
 	}
 	public void setIsDiscountFlg(String isDiscountFlg) {
 		this.isDiscountFlg = isDiscountFlg;
+	}
+	public String getKeyCode() {
+		return keyCode;
+	}
+	public void setKeyCode(String keyCode) {
+		this.keyCode = keyCode;
 	}
 	
 	

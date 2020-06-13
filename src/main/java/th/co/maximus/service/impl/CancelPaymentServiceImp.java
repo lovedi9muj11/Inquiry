@@ -385,7 +385,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 				
 			}
 			//ตรงนี้ 
-			resultBean.setPaidDateStr(dt.format(resultBean.getPaidDate()));
+			if(null!=resultBean.getPaidDate())resultBean.setPaidDateStr(dt.format(resultBean.getPaidDate()));
 			System.out.println("setPaidDateStr "+dt.format(resultBean.getCreateDate()));
 			if (null != resultBean.getPeriod()) {
 				System.out.println("setPaidDate "+ Utils.periodFormat((resultBean.getPeriod())));
@@ -396,7 +396,7 @@ public class CancelPaymentServiceImp implements CancelPaymentService {
 			}else {
 				resultBean.setClearingDateStr("-");
 			}
-			resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
+			if(null!=resultBean.getCreateDate())resultBean.setCreateDateStr(dt.format(resultBean.getCreateDate()));
 			resultBean.setPaymentMethod(paymentMethod.toString());
 			resultBean.setBranchAreaCode(resultBean.getBrancharea());
 			resultBean.setBrancharea(masterDatasDao.findByKey(resultBean.getBrancharea()).getValue());

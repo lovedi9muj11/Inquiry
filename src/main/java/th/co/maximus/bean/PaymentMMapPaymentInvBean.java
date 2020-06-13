@@ -68,6 +68,9 @@ public class PaymentMMapPaymentInvBean {
 	
 	
 	
+	//condition
+	private String taxId;
+	private String custName;
 
 	public String getDepartmentArea() {
 		return departmentArea;
@@ -469,6 +472,22 @@ public class PaymentMMapPaymentInvBean {
 
 	public void setClearingDateStr(String clearingDateStr) {
 		this.clearingDateStr = clearingDateStr;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
 	
 	

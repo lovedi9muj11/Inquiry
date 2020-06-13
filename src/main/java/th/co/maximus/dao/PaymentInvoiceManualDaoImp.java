@@ -107,8 +107,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA, SEGMENT_OTHER, PRODUCT_OTHER)  ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
+				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA, SEGMENT_CODE, SEGMENT_NAME, PRODUCT_CODE, PRODUCT_NAME)  ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
 		jdbcTemplate.update(sql.toString(), paymentInvoiceManualBean.getManualId(),
 				paymentInvoiceManualBean.getSource(), paymentInvoiceManualBean.getInvoiceNo(),
@@ -130,7 +130,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getIncomeunit(),
 				paymentInvoiceManualBean.getDepartmentArea(),
 				paymentInvoiceManualBean.getSegmentCode(),
-				paymentInvoiceManualBean.getProductCode());
+				paymentInvoiceManualBean.getSegmentName(),
+				paymentInvoiceManualBean.getProductCode(),
+				paymentInvoiceManualBean.getProductName());
 
 	}
 
@@ -164,6 +166,37 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sql.append(" AND payment_m.ACCOUNT_NO like ?");
 			param.add("%" + accountNo + "%");
 		}
+		sql.append(" AND paument_inv.SERVICE_TYPE = ?");
+//		sql.append(" AND payment_m.CLEARING = '"+Constants.CLEARING.STATUS_N+"'");
+		param.add(payType);
+		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
+		Object[] paramArr = param.toArray();
+		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
+	}
+	
+	@Override
+	public List<PaymentMMapPaymentInvBean> findPaymentMuMapPaymentInVAccountIdNoSearchOther(PaymentMMapPaymentInvBean invBean, String payType) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
+		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+		sql.append(" WHERE 1 = 1");
+		
+		if (!("").equals(invBean.getAccountNo())) {
+			sql.append(" AND payment_m.ACCOUNT_NO like ?");
+			param.add("%" + invBean.getAccountNo() + "%");
+		}
+		
+		if (!("").equals(invBean.getTaxId())) {
+			sql.append(" AND paument_inv.TAXNO = ?");
+			param.add(invBean.getTaxId());
+		}
+		
+		if (!("").equals(invBean.getCustName())) {
+			sql.append(" AND paument_inv.CUSTOMER_NAME = ?");
+			param.add(invBean.getCustName());
+		}
+		
 		sql.append(" AND paument_inv.SERVICE_TYPE = ?");
 //		sql.append(" AND payment_m.CLEARING = '"+Constants.CLEARING.STATUS_N+"'");
 		param.add(payType);
@@ -670,5 +703,5 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		}
 		return dateResult;
 	}
-	
+
 }

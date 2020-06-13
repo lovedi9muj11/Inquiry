@@ -344,6 +344,10 @@ public class EpisReportController {
 			@PathVariable("documentReport") String documentNo) throws Exception {
 		// String documentNo = "";
 		String JASPER_JRXML_FILENAME = "InvEpisPaymentOther";
+		int docNo = documentNo.indexOf(Constants.DOCTYPE.TX);
+		if(docNo > -1) {
+			 JASPER_JRXML_FILENAME = "InvEpisPaymentOtherTX";
+		}
 		request.setAttribute("documentReport", "-1");
 //		String documentNo = request.getParameter("documentNo");
 		List<InvEpisOfflineOtherBean> collections = reportService.inqueryEpisOfflineOtherJSONHandler(documentNo , Constants.MasterData.OTHER);

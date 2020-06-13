@@ -180,13 +180,6 @@
 				<text><![CDATA[ชำระด้วย  :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="2" y="2" width="246" height="27" uuid="ca69c0bb-e4a3-464b-908d-1e25b8b3ee17"/>
-				<textElement textAlignment="Right">
-					<font fontName="FreesiaUPC" size="18" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ใบเสร็จรับเงิน]]></text>
-			</staticText>
-			<staticText>
 				<reportElement mode="Transparent" x="281" y="47" width="120" height="23" backcolor="#FFFFFF" uuid="1d85371a-fea9-4e12-885d-fb7e10254537"/>
 				<textElement>
 					<font size="12"/>
@@ -200,15 +193,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBranArea()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="340" y="2" width="228" height="27" backcolor="#FFFFFF" uuid="ab6ed77e-1cf9-4fb9-a8a3-b4c21573c3c6">
-					<printWhenExpression><![CDATA[$P{ReportSource}.getSentStringHeader() == "Y"]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<text><![CDATA[อย่างย่อ]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="284" y="116" width="197" height="23" backcolor="#FFFFFF" uuid="6f8474cc-e071-43c2-a607-2bb8e260e97c"/>
 				<textElement>
@@ -226,13 +210,13 @@
 				<text><![CDATA[สาขา :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="248" y="2" width="90" height="27" backcolor="#FFFFFF" uuid="a6f25ce8-1276-4e77-a296-f2ac865e5b69">
+				<reportElement mode="Transparent" x="2" y="2" width="566" height="27" backcolor="#FFFFFF" uuid="a6f25ce8-1276-4e77-a296-f2ac865e5b69">
 					<printWhenExpression><![CDATA[$P{ReportSource}.getVatRateCheck()=="Y"]]></printWhenExpression>
 				</reportElement>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="18"/>
 				</textElement>
-				<text><![CDATA[/ใบกำกับภาษี]]></text>
+				<text><![CDATA[ใบกำกับภาษี]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

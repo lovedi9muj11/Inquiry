@@ -21,6 +21,8 @@ $(document).ready(function () {
 	
 	$('#clearCriteria').click(function(){
 		$('#billAccount').val('');
+		$('#taxId').val('');
+		$('#custName').val('');
 		search();
 	});
 	
@@ -54,7 +56,7 @@ $(document).ready(function () {
 function search(){
 	histroryTB.clear().draw();
 	var data = '';
-	var dataSend = {"accountNo": $('#billAccount').val()};
+	var dataSend = {"accountNo": $('#billAccount').val(), "taxId": $('#taxId').val(), "custName": $('#custName').val()};
 	$.ajax({
         type: "POST",
         url: ctx +"/histroryPaymentByother/find",

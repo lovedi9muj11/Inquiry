@@ -209,6 +209,16 @@ public class PayOtherController {
 		return null;
 	}
 	
+	@RequestMapping(value = { "/other/find/usergroup" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MasterDatasBean> findUsergroup() {
+		try {
+			return  masterDataService.findByCMSegment();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	@RequestMapping(value = { "/other/setGL" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody SetOtherMapGLResponse set4gl() {
 		SetOtherMapGLResponse response = new SetOtherMapGLResponse();
@@ -223,6 +233,21 @@ public class PayOtherController {
 
 		return  response;
 
+	}
+	
+	@RequestMapping(value = { "/other/findOtherCustomer" }, method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody List<CasualCustomerBean> findOtherCustomer(@RequestBody CasualCustomerBean customerBean) {
+		
+		List<CasualCustomerBean> response = new ArrayList<CasualCustomerBean>();
+		
+		try {
+			response = paymentOtherService.findCasualByTaxIdNName(customerBean.getTaxId(), customerBean.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return  response;
+		
 	}
 
 }

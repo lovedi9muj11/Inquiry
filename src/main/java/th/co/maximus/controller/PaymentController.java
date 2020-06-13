@@ -48,7 +48,7 @@ public class PaymentController {
 		bankCodeList = masterDatasDao.findByBankName();
 		bankEDCList = masterDatasDao.findByBankEDCName();
 		vatRate = masterDatasDao.findByVat();
-		custSegment = masterDataService.findByCMSegmentByCRM();
+//		custSegment = masterDataService.findByCMSegment();
 
 		model.addAttribute("bank", bankCodeList);
 		model.addAttribute("bankEDC", bankEDCList);
@@ -186,6 +186,16 @@ public class PaymentController {
 			e.printStackTrace();
 		}
 		return String.valueOf(paymentId);
+	}
+    
+    @RequestMapping(value = { "/ibacss/find/usergroup" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MasterDatasBean> findUsergroup() {
+		try {
+			return  masterDataService.findByCMSegment();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

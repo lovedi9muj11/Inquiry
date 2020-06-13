@@ -39,6 +39,10 @@ public class PaymentOtherFirstBean implements Serializable{
 	private String incomeEdit;
 	private String productCode;
 	private String segmentCode;
+	private String productName;
+	private String segmentName;
+	private String keyCode;
+	private boolean taxOnly;
 	
 	public String getDocType() {
 		return docType;
@@ -238,6 +242,30 @@ public class PaymentOtherFirstBean implements Serializable{
 	}
 	public void setSegmentCode(String segmentCode) {
 		this.segmentCode = segmentCode;
+	}
+	public String getKeyCode() {
+		return keyCode;
+	}
+	public void setKeyCode(String keyCode) {
+		this.keyCode = keyCode;
+	}
+	public boolean isTaxOnly() {
+		return taxOnly;
+	}
+	public void setTaxOnly(boolean taxOnly) {
+		this.taxOnly = taxOnly;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getSegmentName() {
+		return segmentName;
+	}
+	public void setSegmentName(String segmentName) {
+		this.segmentName = segmentName;
 	}
 	
 	

@@ -1,6 +1,15 @@
 let mapGLObj
 let productCode
 let segmentCode
+let productName
+let segmentName
+let custOtherList
+let chkOther = false
+let chkOtherTax1 = false
+let userGroupGBs
+let masterSegmentsGBs
+let masterProductsGBs
+let keyCode
 
 $(document).ready(function() {
 	
@@ -43,10 +52,19 @@ $(document).ready(function() {
 			$('.groupType').select2({
 			    width: '50%'
 			});
-			$('#segmentDD').empty();
-			$('#productDD').empty();
-			$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
-			$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+			
+			findUserGroup()
+			
+			custOtherList = $('#custOtherList').DataTable({
+				"filter" : false,
+				"info" : false,
+				"paging": false,
+				"columnDefs": [{
+					"searchable": false,
+					"orderable": false,
+					"targets": 0
+				}]
+			});
 			
 //			$("#moneyTran").on( "change",  function() {
 //				if($("#moneyTran").val() == ""){
@@ -504,6 +522,7 @@ function submitForm() {
 	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replace(",", ""));
 	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
 	var balance = balanceOfTaxs + summaryTax ;
+	
 	if ($("#balanceSum").val() < balance) {
 	 swal("ยอดเงินรับมาไม่ถูกต้อง")
 	}else{
@@ -518,16 +537,13 @@ function submitForm() {
 	var resultTotalPrice = [];
 	var resultTblSale = [];
 	
-	
-		
-	
-
 	// get radio
 	for (var x = 0; x < radioButtons.length; x++) {
 		if (radioButtons[x].checked) {
 			radioResult = radioButtons[x].value;
 		}
 	}
+	
 	// ภาษี หัก ณ ที่จ่าย
 	var table = document.getElementById("sumDeductibleTable");
 	var rowLength = table.rows.length;
@@ -542,7 +558,6 @@ function submitForm() {
 		resultDeductible.push(deductible);
 
 	}
-	
 	
 	// ตารางขาย
 	var tblSale = document.getElementById("sumtableBillingList");
@@ -675,6 +690,35 @@ function submitForm() {
 		$("#suserGroup").show();
 		return $("#userGroup").focus();
 	}
+	
+	if (chkOther) {
+		if($("#taxId").val() == '') {
+			$('#staxId').show();
+			return $("#taxId").focus();
+		}
+	}else {
+		if($("#custNo").val() == '') {
+			$('#sCustNo').show();
+			return $("#custNo").focus();
+		}
+	}
+	
+	if(chkOtherTax1) {
+		if($('#custName').val() == '' || $('#custAddress').val() == '') {
+			if($('#custName').val() == '') {
+				$('#sCustName').show();
+				$('#scustAddress').hide();
+				return $("#custName").focus();
+			}else if($('#custAddress').val() == '') {
+				$('#scustAddress').show();
+				$('#sCustName').hide();
+				return $("#custAddress").focus();
+			}
+		}else{
+			$('#sCustName').hide();
+			$('#scustAddress').hide();
+		}
+	}
 //	if ($("#custBrach").val() == "") {
 //		$("#scustBrach").show();
 //		return $("#custBrach").focus();
@@ -723,7 +767,11 @@ function submitForm() {
 		"inputServiceDepartment":$("#inputServiceDepartment").val(),
 		"productCode":productCode,
 		"segmentCode":segmentCode,
-		"incomeEdit":$("#incomeEdit").val()
+		"productName":productName,
+		"segmentName":segmentName,
+		"incomeEdit":$("#incomeEdit").val(),
+		"keyCode" : keyCode,
+		"taxOnly" : $('#taxOnly').is(":checked"),
 	}
 	document.getElementById("submitFormPayment").disabled = true;
 
@@ -2166,6 +2214,14 @@ function autoSelect(){
 		radiobtns = document.getElementById("radioDedCT");
 		radiobtns.checked = true;
 	}
+	
+	if(userGroupGBs) {
+		let resObjs =  userGroupGBs.filter(function(Obj) {
+			return Obj.property1 == event;
+		});
+		
+		if(resObjs)keyCode = resObjs[0].keyCode
+	}
 }
 	function autoSelectVat(){
 	
@@ -2187,7 +2243,9 @@ function autoSelect(){
 	        contentType: "application/json; charset=utf-8",
 		}).then(function (res) {
 			mapGLObj = res.mapGLBean
-			findSegmentNProduct(res.masterSegments, res.masterProducts)
+			masterSegmentsGBs = res.masterSegments
+			masterProductsGBs = res.masterProducts
+//			findSegmentNProduct(res.masterSegments, res.masterProducts)
 		});
 		
 	}
@@ -2196,18 +2254,32 @@ function autoSelect(){
 		let resObjs =  mapGLObj.filter(function(Obj) {
 			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
 		});
+
 		if(0 < resObjs.length) {
-			if('2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
-				$("#map-gl-other").modal('show');
+			if('2' == resObjs[0].glCode.substring(0, 1) && 'Y' == resObjs[0].erpInterfaceFlag) {
+				showProductSegment()
+				$("#shPS").show()
 				return true
-			}else if('5' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
-				swal(WORD_5)
+			}else if('5' == resObjs[0].glCode.substring(0, 1) || '2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+//				swal(WORD_5)
+				$("#shPS").hide()
+				$("#error").show()
+				return true
+			}else {
+				$("#error").hide()
+				$("#shPS").hide()
 				return true
 			}
-			
 		}
 		
 		return false
+	}
+	
+	function showProductSegment() {
+		findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		
+		$("#map-gl-other").modal('show');
+		$("#error").hide()
 	}
 	
 	function modalConfirmReason(callback){
@@ -2215,6 +2287,8 @@ function autoSelect(){
 			if(validateOtherDropdown()) {
 				productCode = $("#productDD").val()
 				segmentCode = $("#segmentDD").val()
+				productName = $("#productDD option:selected").text()
+				segmentName = $("#segmentDD option:selected").text()
 				$("#map-gl-other").modal('hide');
 			}
 		}else{
@@ -2224,6 +2298,11 @@ function autoSelect(){
 	
 	function findSegmentNProduct(masterSegments, masterProducts) {
 		
+		$('#segmentDD').empty();
+		$('#productDD').empty();
+		$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+		$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+		
 		for(var i=0; i<masterSegments.length; i++) {
 			$('#segmentDD').append('<option value="'+(masterSegments[i].value)+'">' + (masterSegments[i].text) + '</option>');
 		}
@@ -2232,15 +2311,38 @@ function autoSelect(){
 			$('#productDD').append('<option value="'+(masterProducts[i].value)+'">' + (masterProducts[i].text) + '</option>');
 		}
 		
-//		$.ajax({
-//		    type: 'GET',
-//		    url: ctx +"/other/setGL",
-//		    dataType: "json",
-//	        async: true,
-//	        contentType: "application/json; charset=utf-8",
-//		}).then(function (res) {
-//			mapGLObj = res.mapGLBean
-//		});
+	}
+	
+	function findUserGroup() {
+		$.ajax({
+		    type: 'GET',
+		    url: ctx +"/other/find/usergroup",
+		    dataType: "json",
+	        async: true,
+	        contentType: "application/json; charset=utf-8",
+		}).then(function (res) {
+			userGroupGBs = res
+			setUserGroup(userGroupGBs)
+		});
+	}
+	
+	function setUserGroup(userGroups) {
+		
+		if(userGroups) {
+			$('#userGroup').empty();
+			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
+			if(chkOther) {
+				for(var i=0; i<userGroups.length; i++) {
+					if(userGroups[i].property1 == '1' || userGroups[i].property1 == '2' || userGroups[i].property1 == '3') {
+						$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+					}
+				}
+			}else {
+				for(var i=0; i<userGroups.length; i++) {
+					$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+				}
+			}
+		}
 		
 	}
 	
@@ -2265,17 +2367,169 @@ function autoSelect(){
 			}
 		}
 		
-		function findByTaxId() {
-			var taxId = $("#taxId").val();
+	}
+	
+	function findByTaxId() {
+		var taxId = $("#taxId").val();
+		
+		$.ajax({
+		    type: 'GET',
+		    url: ctx +"/other/findtax"+taxId,
+		    dataType: "json",
+	        async: true,
+	        contentType: "application/json; charset=utf-8",
+		}).then(function (res) {
+			mapGLObj = res.mapGLBean
+		});
+	}
+	
+	function findOtherCustomer() {
+		$("#other-customer").modal('show');
+	}
+	
+	let responseGB
+	function modalConfirmOtherCust(status) {
+		if(status) {
+			custOtherList.clear().draw();
+			dataSend = {
+					"taxId" : $("#taxOtherId").val(),
+					"name" : $("#nameOtherId").val(),
+			}
 			
 			$.ajax({
-			    type: 'GET',
-			    url: ctx +"/other/findtax"+taxId,
-			    dataType: "json",
-		        async: true,
-		        contentType: "application/json; charset=utf-8",
-			}).then(function (res) {
-				mapGLObj = res.mapGLBean
-			});
-			}
+				type : "POST",
+				url : ctx +"/other/findOtherCustomer",
+				data : JSON.stringify(dataSend),
+				dataType : "json",
+				async : false,
+				contentType : "application/json; charset=utf-8",
+				success : function(res) {
+					if (res) {
+						responseGB = res
+						for (var i = 0; i < res.length; i++) {
+							createRowCustOtherList(res[i], i);
+		                }
+					}
+				}
+			})
+			
+		}else {
+			$("#other-customer").modal('hide');
+			custOtherList.clear().draw();
+			$("#taxOtherId").val('')
+			$("#nameOtherId").val('')
+		}
 	}
+	
+	function createRowCustOtherList(data, seq) {
+	    colSeq = (seq + 1);
+	    colCur2 = data.name;
+	    colCur3 = data.taxId;
+	    colCur4 = '<button type="button" class="btn btn-success" onclick="pickData('+data.taxId+')"><span name="icon" id="icon" class="fa fa-plus">เลือก</buttona>';
+	
+	    var t = $('#custOtherList').DataTable();
+	    var rowNode = t.row.add([ colSeq, colCur2, colCur3, colCur4 ]).draw(true).node();
+	    $(rowNode).find('td').eq(0).addClass('center');
+	    $(rowNode).find('td').eq(1).addClass('center');
+	    $(rowNode).find('td').eq(2).addClass('center');
+	    $(rowNode).find('td').eq(3).addClass('center');
+	}
+	
+	function pickData(data) {
+//		console.log(data)
+		let resObjs =  responseGB.filter(function(Obj) {
+			return Obj.taxId == data;
+		});
+		if(resObjs) {
+			let resObj = resObjs[0]
+//			console.log(resObjs[0])
+			document.getElementById("custNo").disabled = true
+			document.getElementById("taxId").disabled = true
+			
+			$('#custName').val(resObj.name)
+			$('#taxId').val(resObj.taxId)
+			$('#userGroup').val(resObj.serviceCode)
+			$('#custBrach').val(resObj.branch)
+			$('#custAddress').val(resObj.address)
+			
+			$("#other-customer").modal('hide');
+			custOtherList.clear().draw();
+			$("#taxOtherId").val('')
+			$("#nameOtherId").val('')
+		}
+	}
+	
+	function clearOtherCustomer() {
+		$('#custName').val('')
+		$('#taxId').val('')
+		$('#userGroup').val('')
+		$('#custBrach').val('')
+		$('#custAddress').val('')
+		
+		document.getElementById("custNo").disabled = false
+		document.getElementById("taxId").disabled = false
+	}
+	
+	function fnTaxOnly() {
+		chkOtherTax1 = !chkOtherTax1
+	}
+	
+	function fnChkOther() {
+		chkOther = !chkOther
+		
+		if(chkOther) {
+			document.getElementById("custNo").disabled = true
+			setUserGroup(userGroupGBs)
+		}else {
+			document.getElementById("custNo").disabled = false
+			setUserGroup(userGroupGBs)
+		}
+	}
+	
+	function segmentSelect() {
+		let smCode = $("#segmentDD").val()
+		let pdCode = $("#productDD").val()
+		
+		if('' === smCode) {
+			findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		}else {
+			let resObjs =  masterProductsGBs.filter(function(Obj) {
+				return Obj.value.substring(0, 5) == smCode;
+			});
+			
+			if(resObjs.length > 0) {
+				$('#productDD').empty();
+				$('#productDD').append('<option value="">' + PLS_SELECT + '</option>');
+				
+				for(var i=0; i<resObjs.length; i++) {
+					$('#productDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+				}
+				
+				$("#productDD").val(pdCode)
+			}
+		}
+	}
+	
+	function productSelect() {
+		let smCode = $("#segmentDD").val()
+		let pdCode = $("#productDD").val()
+		
+		if('' === pdCode) {
+			findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
+		}else {
+			let resObjs =  masterSegmentsGBs.filter(function(Obj) {
+				return Obj.value == pdCode.substring(0, 5);
+			});
+			
+			if(resObjs.length > 0) {
+				$('#segmentDD').empty();
+				$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
+				
+				for(var i=0; i<resObjs.length; i++) {
+					$('#segmentDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
+				}
+				$("#segmentDD").val(smCode)
+			}
+		}
+	}
+	

@@ -49,6 +49,8 @@ public class PaymentInvoiceManualBean {
 	private String departmentArea;
 	private String productCode;
 	private String segmentCode;
+	private String productName;
+	private String segmentName;
 
 	
 
@@ -370,6 +372,22 @@ public class PaymentInvoiceManualBean {
 
 	public void setSegmentCode(String segmentCode) {
 		this.segmentCode = segmentCode;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getSegmentName() {
+		return segmentName;
+	}
+
+	public void setSegmentName(String segmentName) {
+		this.segmentName = segmentName;
 	}
 	
 	

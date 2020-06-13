@@ -34,32 +34,12 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 		//UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<MasterDataBean> serviceDepartmentList = new ArrayList<>();
 		serviceDepartmentList = masterDataService.findAllByServiceDepartment();
-		//String branch = masterDataDao.findByBranchcode();
 		MasterDataBean branch = masterDataDao.findAllByBranchcode();
 		PaymentManualBean paymentManualBean = new PaymentManualBean();
 		Date date = new Date();
 		int userId=0;
 		String brancharea = "";
 		if(StringUtils.isNotBlank(paymentBean.getDocumentNo())){
-//			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
-//			paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
-//			paymentManualBean.setBranchCode("001");
-//			paymentManualBean.setPaidAmount(paymentBean.getSummaryTax());
-//			paymentManualBean.setSource(Constants.dataUser.SOURCE);
-//			paymentManualBean.setClearing("N");
-//			paymentManualBean.setRemark(paymentBean.getRemark());
-//			paymentManualBean.setCreateBy(profile.getUsername());
-//			paymentManualBean.setCreateDate(new Timestamp(date.getTime()));
-//			paymentManualBean.setUpdateBy(profile.getUsername());
-//			paymentManualBean.setUpdateDate(new Timestamp(date.getTime()));
-//			paymentManualBean.setRecordStatus("A");
-//			paymentManualBean.setAccountNo(paymentBean.getInputCustomerBillNo());
-//			
-//			if(paymentBean.getBalanceSummary()>= paymentBean.getBalanceSummary()){
-//				paymentManualBean.setPaytype("F");
-//			}else{
-//				paymentManualBean.setPaytype("P");
-//			}
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			for(int x = 0 ; x <serviceDepartmentList.size(); x++ ) {
 				if(serviceDepartmentList.get(x).getValue().equals(branch.getText())) {
@@ -67,18 +47,8 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 				}
 			}
 			
-			//paymentManualBean.setBrancharea(Constants.dataUser.BRANCHAREA);
 			paymentManualBean.setBrancharea(brancharea); //-- maew24012020
 			paymentManualBean.setBranchCode(paymentBean.getCustBrach());
-			
-//			double resRQ = paymentBean.getBalanceSum();
-//			if(resRQ > paymentBean.getBalanceSum()) {
-//				paymentManualBean.setPaidAmount(paymentBean.getBalanceSum() - paymentBean.getChange());
-//				paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSum()));
-//			}else {
-//				paymentManualBean.setPaidAmount(resRQ- paymentBean.getChange());
-//				paymentManualBean.setAmount(new BigDecimal(resRQ- paymentBean.getChange()));
-//			}
 			paymentManualBean.setPaidAmount(paymentBean.getBalanceSummary());
 			paymentManualBean.setAmount(new BigDecimal(paymentBean.getBalanceSummary()));
 			paymentManualBean.setVatAmount(new BigDecimal(paymentBean.getVats()));
@@ -98,46 +68,6 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 			paymentManualBean.setCustomerGroup(paymentBean.getUserGroup());
 			paymentManualBean.setSegmentCode(paymentBean.getSegmentCode());
 			paymentManualBean.setProductCode(paymentBean.getProductCode());
-/*			if(paymentBean.getBalanceSum()>= paymentBean.getBalanceSummary()){
-				paymentManualBean.setPaytype("F");
-			}else{
-				paymentManualBean.setPaytype("P");
-			}
-	//comment 30-10-18		*/
-			
-//			if(paymentBean.getUserGroup().equals("01") || paymentBean.getUserGroup().equals("02") ) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else if(paymentBean.getUserGroup().equals("03")) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) ||StringUtils.isNotBlank(paymentBean.getCustAddress() ) || StringUtils.isNotBlank(paymentBean.getTaxId())|| StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else {
-//				paymentManualBean.setDocType("F");
-//			}
-			
-//			if(paymentBean.getUserGroup().equals("2") || paymentBean.getUserGroup().equals("3") ) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
-//					
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else if(paymentBean.getUserGroup().equals("1")) {
-//				if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
-//					
-//					paymentManualBean.setDocType("F");
-//				}else {
-//					paymentManualBean.setDocType("S");
-//				}
-//			}else {
-//				paymentManualBean.setDocType("F");
-//			}
 			
 			try {
 				userId=	paymentManualDao.insertPayment(paymentManualBean);

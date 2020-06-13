@@ -41,15 +41,11 @@
 				<div class="col-md-12 col-sm-12">
 					<div class="form-group" align="right">
 						<div class="col-md-12 col-sm-12">
-							<button name="btnSubmit" id="btnSubmit" type="button"
-								class="btn btn-info btn-lg" onclick="submitOther()">
-								<span class="glyphicon glyphicon-file">
-									พิมพ์ใบเสร็จ</span>
+							<button name="btnSubmit" id="btnSubmit" type="button" class="btn btn-info btn-lg" onclick="submitOther()">
+								<span class="glyphicon glyphicon-file"> พิมพ์ใบเสร็จ</span>
 							</button>
-							<button name="submitFormPayment" type="button"
-								class="btn btn-danger btn-lg" onclick="backPaymentOther()">
-								<span class="glyphicon glyphicon-chevron-left">
-									กลับไปยังหน้าชำระ</span>
+							<button name="submitFormPayment" type="button" class="btn btn-danger btn-lg" onclick="backPaymentOther()">
+								<span class="glyphicon glyphicon-chevron-left"> กลับไปยังหน้าชำระ</span>
 							</button>
 						</div>
 					</div>

@@ -35,9 +35,21 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label text-right">เลขที่ลูกค้า</label>
-						<div class="col-md-4">
+						<label class="col-md-3 control-label text-right">เลขที่ลูกค้า</label>
+						<div class="col-md-3">
 							<input type="text" id="billAccount" name="billAccount" class="form-control text-left">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-3 control-label text-right">เลขประจำตัวผู้เสียภาษี</label>
+						<div class="col-md-3">
+							<input type="text" id="taxId" name="taxId" class="form-control text-left">
+						</div>
+						<label class="col-md-3 control-label text-right">ชื่อลูกค้า/ชื่อนิติบุคคล/ราชการ</label>
+						<div class="col-md-3">
+							<input type="text" id="custName" name="custName" class="form-control text-left">
 						</div>
 					</div>
 				</div>
