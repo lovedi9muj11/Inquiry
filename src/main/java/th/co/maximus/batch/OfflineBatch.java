@@ -219,6 +219,7 @@ public class OfflineBatch implements Job {
 								manualDTO.setPosNo(posNo);
 								manualDTO.setBranchAreaCode(payment.getBranchAreaCode());
 								manualDTO.setCustBranch(payment.getBranchCode());
+//								manualDTO.set(payment.getBranchCode());
 								manualDTO.setCencelFlag("N");
 								dtoList.add(manualDTO);
 								if (dtoList.size() > 0) {

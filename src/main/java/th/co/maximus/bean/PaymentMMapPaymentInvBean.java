@@ -59,7 +59,39 @@ public class PaymentMMapPaymentInvBean {
 	private String cancelflag;
 	private String cancleBy;
 	
+	//---- joey WAwow 30/05/2020
+	private String departmentArea;
+	private String segmentOther;
+	private String productOther;
 	
+	
+	
+	
+	
+
+	public String getDepartmentArea() {
+		return departmentArea;
+	}
+
+	public void setDepartmentArea(String departmentArea) {
+		this.departmentArea = departmentArea;
+	}
+
+	public String getSegmentOther() {
+		return segmentOther;
+	}
+
+	public void setSegmentOther(String segmentOther) {
+		this.segmentOther = segmentOther;
+	}
+
+	public String getProductOther() {
+		return productOther;
+	}
+
+	public void setProductOther(String productOther) {
+		this.productOther = productOther;
+	}
 
 	public String getCancleBy() {
 		return cancleBy;

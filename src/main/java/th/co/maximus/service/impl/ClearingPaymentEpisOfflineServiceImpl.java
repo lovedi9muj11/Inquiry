@@ -286,6 +286,14 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 							paymentEpisOfflineDTO.setDuduction(deductionList);
 						}
 						paymentEpisOfflineDTO.setChannel("OFFLINE");
+						
+						List<MasterDataBean> result = masterDataDao.findAllByGropType(Constants.MasterData.CUSTOMER_SEGMENT);
+						
+						String custgroup = result.stream().filter(x-> x.getProperty1().equals(recrip.getCustomerGroup()))
+						.map(m-> m.getText())
+						.findFirst().orElse("");
+						
+						paymentEpisOfflineDTO.setCustomerGroup(custgroup);
 						paymentEpisOfflineDTO.setCreateDate(recrip.getCreateDate());
 						paymentEpisOfflineDTO.setUpdateDate(recrip.getUpdateDate());
 						paymentEpisOfflineDTO.setApproveBy(recrip.getApproveBy());
