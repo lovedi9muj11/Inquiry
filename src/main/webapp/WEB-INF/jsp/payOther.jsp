@@ -202,8 +202,9 @@
 							<div role="tabpanel" class="tab-pane active" id="tab_1">
 								<div class="form-horizontal">
 									<div class="form-group">
-										<label class="control-label col-sm-2">ประเภทรายได้ :<span
-											style="color: red;">*</span></label>
+										<label class="control-label col-sm-2">ประเภทรายได้ :
+<!-- 											<span style="color: red;">*</span> -->
+										</label>
 										<div class="col-sm-2">
 										
 											 <select id="inputServiceType" name="inputServiceType"

@@ -852,10 +852,10 @@ function buttonAddBillingList() {
     
     
 	hideDetailPayment();
-	if ($("#inputServiceType").val() == "") {
-		$("#sinputServiceType").show();
-		return $("#inputServiceType").focus();
-	}
+//	if ($("#inputServiceType").val() == "") {
+//		$("#sinputServiceType").show();
+//		return $("#inputServiceType").focus();
+//	}
 	if ($("#inputServiceDepartment").val() == "") {
 		$("#sinputServiceDepartment").show();
 		return $("#inputServiceDepartment").focus();
