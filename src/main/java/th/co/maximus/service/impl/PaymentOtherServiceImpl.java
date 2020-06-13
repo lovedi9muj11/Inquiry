@@ -53,13 +53,13 @@ public class PaymentOtherServiceImpl implements PaymentOtherService {
 				}else if(Constants.VATRATE.NON_VATE.equals(paymentBean.getVatrate())) {
 					paymentManualBean.setDocType(Constants.DOCTYPE.RO);
 				}else {
-					if(paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_12) || paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_14) ) {
+					if(Constants.MasterData.KEYCODE.MS_12.equals(paymentBean.getKeyCode()) || Constants.MasterData.KEYCODE.MS_14.equals(paymentBean.getKeyCode()) ) {
 						if(StringUtils.isNotBlank(paymentBean.getCustName()) &&StringUtils.isNotBlank(paymentBean.getCustAddress() )) {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
 						}else {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RS);
 						}
-					}else if(paymentBean.getKeyCode().equals(Constants.MasterData.KEYCODE.MS_11)) {
+					}else if(Constants.MasterData.KEYCODE.MS_11.equals(paymentBean.getKeyCode())) {
 						if(StringUtils.isNotBlank(paymentBean.getCustName()) && StringUtils.isNotBlank(paymentBean.getCustAddress() ) && StringUtils.isNotBlank(paymentBean.getTaxId())&& StringUtils.isNotBlank(paymentBean.getCustBrach()) ) {
 							paymentManualBean.setDocType(Constants.DOCTYPE.RF);
 						}else {

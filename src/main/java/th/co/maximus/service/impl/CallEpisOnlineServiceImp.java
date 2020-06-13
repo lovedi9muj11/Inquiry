@@ -149,6 +149,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			groupKeys.add(Constants.MasterData.CUSTOMER_SEGMENT);
 			groupKeys.add(Constants.MasterData.SEGMENT);
 			groupKeys.add(Constants.MasterData.PRODUCT);
+			groupKeys.add(Constants.MasterData.OTHER_TEMP_CUSTOMER_SEGMENT);
 			
 			
 			String gettUrl = url.concat("/offline/masterDataSyncByGroupKey.json"); // /offline/insertPayment //masterdatasync1
