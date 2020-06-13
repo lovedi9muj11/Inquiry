@@ -113,10 +113,15 @@
 										<label class="col-sm-2 control-label right" for="custNo">เลขที่ลูกค้า :
 <!-- 										<span style="color: red; ">*</span> -->
 										</label>
-										<div class="col-sm-2">
-											<input class="form-control" style="width = 80%;" type="text" id="custNo" name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
+										<div class="col-sm-1">
+											<input class="form-control" type="text" id="custNo" name="custNo" placeholder="เลขที่ลูกค้า" maxlength="35">
 											<p id="sCustNo" style="color: red; display: none">คุณยังไม่ได้กรอก เลขที่ลูกค้า</p>
 											<input type="checkbox" id="chkOther" name="chkOther" onclick="fnChkOther()"> ลูกค้าขาจร
+										</div>
+										<div class="col-sm-1">
+											<button name="submitFormPayment" type="button" id="findOther" class="btn btn-info btn-sm" onclick="findOtherCustomer()">
+												<span class="glyphicon glyphicon-search"> ค้นหาลูกค้าขาจร</span>
+											</button>
 										</div>
 										<label class="col-sm-2 control-label right" for="custName">ชื่อ:</label>
 										<div class="col-sm-2">
@@ -177,7 +182,6 @@
 								<div class="form-horizontal">
 									<div class="form-group">
 										<div class="col-sm-12 text-center">
-											<a class="btn btn-info" onclick="findOtherCustomer()" id="findOther"><span class="glyphicon glyphicon-search"></span> ค้นหาลูกค้าขาจร</a>
 											<a class="btn btn-danger" onclick="clearOtherCustomer()" id="clearOther"><span class="glyphicon glyphicon-refresh"></span> ล้างข้อมูล</a>
 										</div>
 									</div>
@@ -1159,6 +1163,13 @@
 				</div>
 				
 				<div class="row">
+					<div class="form-group col-md-12 text-center">
+				        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmOtherCust(true)">ค้นหา</button>
+				        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmOtherCust(false)">ยกเลิก</button>
+					</div>
+				</div>
+				
+				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="glass">
 							<div class="table-responsive">
@@ -1180,10 +1191,6 @@
 				</div>
 
 	     	</div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" id="modal-btn-si" onclick="modalConfirmOtherCust(true)">ตกลง</button>
-	        <button type="button" class="btn btn-danger" id="modal-btn-no" onclick="modalConfirmOtherCust(false)">ยกเลิก</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>

@@ -182,7 +182,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1");
 		
-		if (!("").equals(invBean.getAccountNo())) {
+		if (StringUtils.isNotBlank(invBean.getAccountNo())) {
 			sql.append(" AND payment_m.ACCOUNT_NO like ?");
 			param.add("%" + invBean.getAccountNo() + "%");
 		}

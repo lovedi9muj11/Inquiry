@@ -2,6 +2,7 @@ var checkClick = true;
 var valueIcon = "";
 var IdSelected = "";
 var tableInit;
+var custOtherList;
 
 $(document).ready(function () {
 //	document.getElementById("showResultTableRQ").style.display = "none";
@@ -51,12 +52,23 @@ $(document).ready(function () {
 	     	});
 	    }
 	});
+	
+	custOtherList = $('#custOtherList').DataTable({
+		"filter" : false,
+		"info" : false,
+		"paging": false,
+		"columnDefs": [{
+			"searchable": false,
+			"orderable": false,
+			"targets": 0
+		}]
+	});
 });
 
 function search(){
 	histroryTB.clear().draw();
 	var data = '';
-	var dataSend = {"accountNo": $('#billAccount').val(), "taxId": $('#taxId').val(), "custName": $('#custName').val()};
+	var dataSend = {"accountNo": $('#billAccount').val()};
 	$.ajax({
         type: "POST",
         url: ctx +"/histroryPaymentByother/find",
@@ -201,3 +213,89 @@ function format(d) {
 			'</tbody>'
 		'</table>';
 };
+
+	function findOtherCustomer() {
+		$("#other-customer").modal('show');
+	}
+	
+	let responseGB
+	function modalConfirmOtherCust(status) {
+		if(status) {
+			custOtherList.clear().draw();
+			dataSend = {
+					"taxId" : $("#taxOtherId").val(),
+					"name" : $("#nameOtherId").val(),
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : ctx +"/other/findOtherCustomer",
+				data : JSON.stringify(dataSend),
+				dataType : "json",
+				async : false,
+				contentType : "application/json; charset=utf-8",
+				success : function(res) {
+					if (res) {
+						responseGB = res
+						for (var i = 0; i < res.length; i++) {
+							createRowCustOtherList(res[i], i);
+		                }
+					}
+				}
+			})
+			
+		}else {
+			$("#other-customer").modal('hide');
+			custOtherList.clear().draw();
+			$("#taxOtherId").val('')
+			$("#nameOtherId").val('')
+		}
+	}
+	
+	function createRowCustOtherList(data, seq) {
+	    colSeq = (seq + 1);
+	    colCur2 = data.name;
+	    colCur3 = data.taxId;
+	    colCur4 = '<button type="button" class="btn btn-success" onclick="pickData('+data.taxId+')"><span name="icon" id="icon" class="fa fa-plus">เลือก</buttona>';
+	
+	    var t = $('#custOtherList').DataTable();
+	    var rowNode = t.row.add([ colSeq, colCur2, colCur3, colCur4 ]).draw(true).node();
+	    $(rowNode).find('td').eq(0).addClass('center');
+	    $(rowNode).find('td').eq(1).addClass('center');
+	    $(rowNode).find('td').eq(2).addClass('center');
+	    $(rowNode).find('td').eq(3).addClass('center');
+	}
+	
+	function pickData(data) {
+		let resObjs =  responseGB.filter(function(Obj) {
+			return Obj.taxId == data;
+		});
+		if(resObjs) {
+			let resObj = resObjs[0]
+			
+			searchOther(resObj.taxId, resObj.name);
+			$("#other-customer").modal('hide');
+			custOtherList.clear().draw();
+			$("#taxOtherId").val('')
+			$("#nameOtherId").val('')
+		}
+	}
+	
+	function searchOther(taxId, custName){
+		histroryTB.clear().draw();
+		var data = '';
+		var dataSend = {"taxId": taxId, "custName": custName};
+		$.ajax({
+	        type: "POST",
+	        url: ctx +"/histroryPaymentByother/find",
+	        data: JSON.stringify(dataSend),
+	        dataType: "json",
+	        async: false,
+	        contentType: "application/json; charset=utf-8",
+	        success: function (res) {
+	        	for (var i = 0; i < res.length; i++) {
+	                    createRow(res[i], i);
+	                }
+	        }
+		})
+	};

@@ -2252,7 +2252,8 @@ function autoSelect(){
 	
 	function checkMapGL(code1, code2) {
 		let resObjs =  mapGLObj.filter(function(Obj) {
-			return Obj.serviceCode == code1 && Obj.revenueTypeCode == code2;
+			return Obj.serviceCode == code1 ;
+//			&& Obj.revenueTypeCode == code2
 		});
 
 		if(0 < resObjs.length) {

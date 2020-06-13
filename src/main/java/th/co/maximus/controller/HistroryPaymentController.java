@@ -114,8 +114,7 @@ public class HistroryPaymentController {
 		return result;
 	}
 
-	@RequestMapping(value = {
-			"/histroryPaymentByother/find" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = {"/histroryPaymentByother/find" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<PaymentMMapPaymentInvBean> findByother(@RequestBody PaymentMMapPaymentInvBean creteria)
 			throws Exception {
