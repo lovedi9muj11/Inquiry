@@ -34,11 +34,20 @@ public class PaymentEpisOfflineDTO {
 	private Date createDate;
 	private Date updateDate;
 	private String approveBy;
+	private String customerGroup;
 	
 	
 	
 	
 	
+
+	public String getCustomerGroup() {
+		return customerGroup;
+	}
+
+	public void setCustomerGroup(String customerGroup) {
+		this.customerGroup = customerGroup;
+	}
 
 	public String getApproveBy() {
 		return approveBy;

@@ -21,6 +21,7 @@ public class ReceiptOfflineModel {
 	private Date createDate;
 	private Date updateDate;
 	private String approveBy;
+	private String customerGroup;
 	
 	public ReceiptOfflineModel(){}
 	public ReceiptOfflineModel(BigDecimal beforVat){
@@ -28,7 +29,7 @@ public class ReceiptOfflineModel {
 	}
 	public ReceiptOfflineModel(String invoiceNo,String receiptNo,Date paidDate,String branchArea,String branchCode,BigDecimal paidAmount
 			,String source,String remark,String accountNo,String manualID,BigDecimal amount,BigDecimal vatAmount,String creatBy
-			,Date createDate , Date updateDate , String approveBy){
+			,Date createDate , Date updateDate , String approveBy,String customerGroup){
 		
 		this.invoiceNo = invoiceNo;
 		this.receiptNo = receiptNo;
@@ -46,6 +47,7 @@ public class ReceiptOfflineModel {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.approveBy = approveBy;
+		this.customerGroup = customerGroup;
 		
 	}
 	
@@ -53,6 +55,12 @@ public class ReceiptOfflineModel {
 	
 	
 	
+	public String getCustomerGroup() {
+		return customerGroup;
+	}
+	public void setCustomerGroup(String customerGroup) {
+		this.customerGroup = customerGroup;
+	}
 	public String getApproveBy() {
 		return approveBy;
 	}

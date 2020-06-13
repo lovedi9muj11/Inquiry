@@ -36,11 +36,13 @@ public class PaymentInvoiceEpisOffline {
 	private Date clearingDate;
 	private String clearingDateStr;
 	
+	private String departmentArea;
+	
 	public PaymentInvoiceEpisOffline(){}
 	public PaymentInvoiceEpisOffline(String invoiceNo,BigDecimal beforVat,BigDecimal vatAmount,BigDecimal amount,String vatRate,String customerName,
 			String customerAddress,String customerSegment,String customerBranch,String taxNo,String accountSubNo,
 			String period,String serviceType,String remark,Integer quantity,String incomeType,BigDecimal discountBeforvat,BigDecimal discountSpecial,
-			String amountType,String department,String serviceName,String serviceCode,Date invoiceDate){
+			String amountType,String department,String serviceName,String serviceCode,Date invoiceDate,String departmentArea){
 		this.invoiceNo = invoiceNo;
 		this.beforVat = beforVat;
 		this.vatAmount = vatAmount;
@@ -64,12 +66,19 @@ public class PaymentInvoiceEpisOffline {
 		this.serviceName = serviceName;
 		this.serviceCode = serviceCode;
 		this.invoiceDate = invoiceDate;
+		this.departmentArea = departmentArea;
 		
 	}
 	
 	
 	
 	
+	public String getDepartmentArea() {
+		return departmentArea;
+	}
+	public void setDepartmentArea(String departmentArea) {
+		this.departmentArea = departmentArea;
+	}
 	public String getPosNo() {
 		return posNo;
 	}
