@@ -95,6 +95,9 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
 			paymentManual.setCancleDate(rs.getString("CANCEL_DATE"));
 			paymentManual.setCancleBy(rs.getString("CANCEL_BY"));
+			paymentManual.setDepartmentArea(rs.getString("paument_inv.DEPARTMENT_AREA"));
+//			paymentManual.setSegmentOther(rs.getString("paument_inv.SEGMENT_OTHER"));
+//			paymentManual.setProductOther(rs.getString("paument_inv.PRODUCT_OTHER"));
 			return paymentManual;
 		}
 
@@ -179,7 +182,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 		sql.append(" WHERE 1 = 1");
 		
-		if (!("").equals(invBean.getAccountNo())) {
+		if (StringUtils.isNotBlank(invBean.getAccountNo())) {
 			sql.append(" AND payment_m.ACCOUNT_NO like ?");
 			param.add("%" + invBean.getAccountNo() + "%");
 		}
@@ -490,7 +493,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		try {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
-					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE,pim.INCOMEUNIT ");
+					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE,pim.INCOMEUNIT , pim.DEPARTMENT_AREA ");
 			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
@@ -658,7 +661,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setServiceCode(rs.getString("pim.SERVICECODE"));
 			paymentInvoiceEpisOffline.setInvoiceDate(rs.getDate("pim.INVOICE_DATE"));
 			paymentInvoiceEpisOffline.setIncomeUnit(rs.getString("pim.INCOMEUNIT"));
-		
+			paymentInvoiceEpisOffline.setDepartmentArea(rs.getString("pim.DEPARTMENT_AREA"));
 			
 			
 			return paymentInvoiceEpisOffline;
