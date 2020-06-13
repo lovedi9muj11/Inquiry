@@ -36,6 +36,9 @@ public class PaymentInvoiceEpisOffline {
 	private Date clearingDate;
 	private String clearingDateStr;
 	
+	private String segmentCode;
+	private String productCode;
+	
 	private String departmentArea;
 	
 	public PaymentInvoiceEpisOffline(){}
@@ -70,9 +73,18 @@ public class PaymentInvoiceEpisOffline {
 		
 	}
 	
-	
-	
-	
+	public String getSegmentCode() {
+		return segmentCode;
+	}
+	public void setSegmentCode(String segmentCode) {
+		this.segmentCode = segmentCode;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
 	public String getDepartmentArea() {
 		return departmentArea;
 	}
