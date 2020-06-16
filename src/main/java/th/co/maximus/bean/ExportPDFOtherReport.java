@@ -50,6 +50,8 @@ public class ExportPDFOtherReport {
 	private String vatSum;
 	private String custNoCheck;
 	
+	private String title;
+	
 	
 	public String getVatSum() {
 		return vatSum;
@@ -291,6 +293,13 @@ public class ExportPDFOtherReport {
 	public void setCustNoCheck(String custNoCheck) {
 		this.custNoCheck = custNoCheck;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 	
 	
 	
