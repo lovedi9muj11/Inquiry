@@ -67,21 +67,19 @@ public class PayOtherController {
 		//custSegment = masterDataService.findByCMSegment();
 		custSegment = masterDataService.findByCMSegmentByCRM();
 		// serviceTypeList = masterDataService.findAllByServiceType();
-		List<MapGLBean> serviceTypeList = mapGLDao.findBySource(Constants.MasterData.OTHER);
-		List<MapGLBean> serviceName = mapGLDao.findBySourceOther();
+		
+		
 		//MasterDataBean cost = masterDataDao.findByCostCenter();
 		MasterDataBean cost = masterDataDao.findAllByBranchcode();
 		
 		
 		model.addAttribute("bankCode", bankCodeList);
 		model.addAttribute("bankName", bankNameList);
-		model.addAttribute("serviceType", serviceTypeList);
 		model.addAttribute("serviceDepartment", serviceDepartmentList);
 		model.addAttribute("category", categoryList);
 		model.addAttribute("costcenter", cost.getText());
 		model.addAttribute("bankEDC", bankEDCList);
 		model.addAttribute("custSegment", custSegment);
-		model.addAttribute("serviceName", serviceName);
 		
 		
 		
@@ -248,6 +246,26 @@ public class PayOtherController {
 		
 		return  response;
 		
+	}
+	
+	@RequestMapping(value = { "/other/find/servicetype" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> findServicetype() {
+		try {
+			return  mapGLDao.findBySource(Constants.MasterData.OTHER);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = { "/other/find/servicename" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MapGLBean> findServicename() {
+		try {
+			return  mapGLDao.findBySourceOther();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

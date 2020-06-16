@@ -49,8 +49,6 @@
 <%
 	masterBankCode = (List<MasterDataBean>) request.getAttribute("bankCode");
 	masterBankName = (List<MasterDataBean>) request.getAttribute("bankName");
-	masterServicetype = (List<MapGLBean>) request.getAttribute("serviceType");
-	mapGLServiceName = (List<MapGLBean>) request.getAttribute("serviceName");
 	masterServiceDepartment = (List<MasterDataBean>) request.getAttribute("serviceDepartment");
 	masterCategory = (List<MasterDataBean>) request.getAttribute("category");
 	String	costcenter = (String) request.getAttribute("costcenter");
@@ -182,7 +180,7 @@
 								<div class="form-horizontal">
 									<div class="form-group">
 										<div class="col-sm-12 text-center">
-											<a class="btn btn-danger" onclick="clearOtherCustomer()" id="clearOther"><span class="glyphicon glyphicon-refresh"></span> ล้างข้อมูล</a>
+											<a class="btn btn-warning" onclick="clearOtherCustomer()" id="clearOther"><span class="glyphicon glyphicon-refresh"></span> ล้างข้อมูล</a>
 										</div>
 									</div>
 								</div>
@@ -207,20 +205,7 @@
 										</label>
 										<div class="col-sm-2">
 										
-											 <select id="inputServiceType" name="inputServiceType"
-												class="form-control" >
-												<option value="">-- กรุณาเลือก --</option>
-												<%
-													for (int i = 0; i < masterServicetype.size(); i++) {
-														if(masterServicetype.get(i).getRevenueTypeName().toUpperCase() != "NULL"){
-												%>
-												<option
-													value="<%=masterServicetype.get(i).getRevenueTypeCode()%>"><%=masterServicetype.get(i).getRevenueTypeCode()%>-<%=masterServicetype.get(i).getRevenueTypeName()%></option>
-												<%
-														}
-													}
-												%>
-											</select> 
+											 <select id="inputServiceType" name="inputServiceType" class="form-control"  onchange="mapServiceType()" ></select> 
 											<p id="sinputServiceType" style="color: red; display: none">
 												คุณยังไม่ได้เลือก ประเภทรายได้</p>
 										</div>
@@ -258,16 +243,7 @@
 									<div class="form-group">
 										<label class="control-label col-sm-2">ชื่อบริการ :<span style="color: red;">*</span></label>
 										<div class="col-sm-2">
-											<select class="form-control" id="inputServiceName"
-												name="inputServiceName">
-													<option value="">-- กรุณาเลือก --</option>
-														<%
-															for (int i = 0; i < mapGLServiceName.size(); i++) {
-														%>
-													<option
-													value="<%=mapGLServiceName.get(i).getServiceCode()%>"><%=mapGLServiceName.get(i).getGlCode()%>-<%=mapGLServiceName.get(i).getServiceName()%></option>														<%
-															}
-														%>
+											<select class="form-control" id="inputServiceName" name="inputServiceName"  onchange="mapServiceName()" >
 											</select>
 											<p id="sinputServiceName" style="color: red; display: none"> คุณยังไม่ได้เลือก ชื่อบริการ</p>
 											
