@@ -124,7 +124,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getUpdateDate(), paymentInvoiceManualBean.getRecordStatus(),
 				paymentInvoiceManualBean.getQuantity(), paymentInvoiceManualBean.getIncometype(),
 				paymentInvoiceManualBean.getDiscountbeforvat(), paymentInvoiceManualBean.getDiscountspecial(),
-				"", paymentInvoiceManualBean.getDepartment(),
+				paymentInvoiceManualBean.getAmounttype(), paymentInvoiceManualBean.getDepartment(),
 				paymentInvoiceManualBean.getServiceName(), paymentInvoiceManualBean.getInvoiceDate(),
 				paymentInvoiceManualBean.getServiceCode(),paymentInvoiceManualBean.getDepartmentcode(),
 				paymentInvoiceManualBean.getIncomeunit(),
