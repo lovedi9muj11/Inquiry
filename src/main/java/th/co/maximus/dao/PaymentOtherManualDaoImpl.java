@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -205,7 +206,7 @@ public class PaymentOtherManualDaoImpl implements PaymentOtherManualDao {
 			paymentResultReq.setServiceName(rs.getString("SERVICENAME"));
 			paymentResultReq.setServiceCode(rs.getString("SERVICECODE"));
 			paymentResultReq.setProductName(rs.getString("PRODUCT_NAME"));
-			paymentResultReq.setAmountType(rs.getString("AMOUNTTYPE"));
+			paymentResultReq.setAmountType(StringUtils.isNotBlank(rs.getString("AMOUNTTYPE"))?rs.getString("AMOUNTTYPE"):"");
 			paymentResultReq.setQuantity(rs.getString("QUANTITY"));
 			paymentResultReq.setAmount(rs.getBigDecimal("AMOUNT"));
 			paymentResultReq.setAmountStr(String.format("%,.2f", paymentResultReq.getAmount()));

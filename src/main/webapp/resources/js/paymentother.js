@@ -47,6 +47,7 @@ $(document).ready(function() {
 			});
 			
 			// set mapgl for pay
+			document.getElementById("findOther").disabled = true;
 			set4gl()
 			$("#serror").hide();
 			$("#perror").hide();
@@ -2222,6 +2223,9 @@ function autoSelect(){
 	function showProductSegment() {
 		findSegmentNProduct(masterSegmentsGBs, masterProductsGBs)
 		
+		if(productCode)$("#productDD").val(productCode)
+		if(segmentCode)$("#segmentDD").val(segmentCode)
+		
 		$("#map-gl-other").modal('show');
 		$("#error").hide()
 	}
@@ -2383,7 +2387,6 @@ function autoSelect(){
 	}
 	
 	function pickData(data) {
-//		console.log(data)
 		let resObjs =  responseGB.filter(function(Obj) {
 			return Obj.taxId == data;
 		});
@@ -2392,7 +2395,6 @@ function autoSelect(){
 			fnChkOther()
 			
 			let resObj = resObjs[0]
-//			console.log(resObjs[0])
 			document.getElementById("custNo").disabled = true
 			document.getElementById("taxId").disabled = true
 			
@@ -2430,9 +2432,11 @@ function autoSelect(){
 		
 		if(chkOther) {
 			document.getElementById("custNo").disabled = true
+			document.getElementById("findOther").disabled = false;
 			setUserGroup(userGroupGBs)
 		}else {
 			document.getElementById("custNo").disabled = false
+			document.getElementById("findOther").disabled = true;
 			setUserGroup(userGroupGBs)
 		}
 	}
@@ -2477,6 +2481,7 @@ function autoSelect(){
 				$('#segmentDD').append('<option value="">' + PLS_SELECT + '</option>');
 				
 				for(var i=0; i<resObjs.length; i++) {
+					smCode = resObjs[i].value
 					$('#segmentDD').append('<option value="'+(resObjs[i].value)+'">' + (resObjs[i].text) + '</option>');
 				}
 				$("#segmentDD").val(smCode)
@@ -2599,17 +2604,29 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 			});
 			
 			if(resObjs.length > 0) {
+				var svt = '';
 				$('#inputServiceType').empty();
 				$('#inputServiceType').append('<option value="">' + PLS_SELECT + '</option>');
 				
 				for(var i=0; i<resObjs.length; i++) {
 					if(serviceTypes[i].revenueTypeName.toUpperCase() != 'NULL'){
+//						svt = resObjs[i].revenueTypeCode
 						$('#inputServiceType').append('<option value="'+(resObjs[i].revenueTypeCode)+'">' + (resObjs[i].revenueTypeCode)+ '-' +(resObjs[i].revenueTypeName) + '</option>');
 					}
 				}
 				
 				$("#inputServiceType").val(svType)
 			}
+		}
+	}
+	
+	function checkTaxIdNumber() {
+		var taxId = $('#taxId').val()
+		
+		var res = isNaN(taxId);
+		if(res) {
+			$('#taxId').val('')
+			return
 		}
 	}
 	

@@ -98,7 +98,7 @@ function reportExcel() {
 
 function reportPDF() {
 	if(!check){
-		swal("ยังไม่ม่ข้อมูลในการออกรายงาน")
+		swal("ยังไม่มีข้อมูลในการออกรายงาน")
 	}else{
 		$("#reportTaxOtherForm").attr("action", "/Epis-Offlines/previewPaymentPrintOrderRS.pdf").attr("target", "_blank").submit();
 	}

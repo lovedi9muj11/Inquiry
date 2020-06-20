@@ -101,7 +101,7 @@ public class CasualCustomerDaoImp implements CasualCustomerDao {
 		}
 		
 		if(StringUtils.isNotBlank(name)) {
-			sql.append(" and NAME = '"+name+"'");
+			sql.append(" and NAME like '%"+name+"%'");
 		}
 		
 		List<CasualCustomerBean> data = jdbcTemplate.query(sql.toString(), new mapCasualModel());

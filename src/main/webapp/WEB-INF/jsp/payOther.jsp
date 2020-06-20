@@ -131,7 +131,7 @@
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">Tax ID :</label>
 										<div class="col-sm-2">
-											<input class="form-control" type="number" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13">
+											<input class="form-control" type="text" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13" onblur="checkTaxIdNumber()">
 											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX ID</p>
 										</div>
 									</div>
@@ -1078,13 +1078,13 @@
 	  <div class="modal-dialog modal-sm" style="width:750px">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title" id="myModalLabel">เลือกเซกเม้นต์และผลิตภัณฑ์</h4>
+	        <h4 class="modal-title" id="myModalLabel">เลือกเซกเมนต์และผลิตภัณฑ์</h4>
 	      </div>
 	      	<div class="modal-body">
 				
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-4 control-label md-offset-2">ชื่อเซกเม้นต์ :</label>
+						<label class="col-md-4 control-label md-offset-2">ชื่อเซกเมนต์ :</label>
 						<div class="col-md-8">
 							<select class="groupType col-md-6" name="segmentDD" id="segmentDD" list="groupTypeDropdown" listKey="value" listValue="name" onchange="segmentSelect()">
 							</select>
