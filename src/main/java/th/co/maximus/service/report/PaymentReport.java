@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -89,7 +88,7 @@ public class PaymentReport extends BaseExcelRptService {
 		 Row row1 = sh.getRow(1);
 		 Cell company = row1.getCell(0);
 		 Cell dateFromToCriteria = row1.getCell(5);
-		 Cell datePrint = row1.getCell(11);
+		 Cell datePrint = row1.getCell(12);
 		 company.setCellValue("บริษัท กสท โทรคมนาคม จำกัด (มหาชน)");
 //		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom())+" "+"- "+ convertTimeFormat(criteria.getDateTo()));
 		 dateFromToCriteria.setCellValue(Constants.report.HEARDER_DATE+" "+ convertDateFormat(criteria.getDateFrom()));
@@ -129,7 +128,6 @@ public class PaymentReport extends BaseExcelRptService {
 		 int sum3 = 10;
 		 if(result.size() > 0 && !result.isEmpty()) {
 			 for(ReportPaymentBean resultReportPayment : result) {
-				 int countType = 4;
 				 Row row = sh.createRow(indexRow);
 				 Cell cell = row.createCell(0);
 				 Cell cell1Add = row.createCell(1);
@@ -138,16 +136,28 @@ public class PaymentReport extends BaseExcelRptService {
 				 
 				 Cell cell3 = row.createCell(4);
 				 Cell cell5 = row.createCell(5);
-				 Cell cell6 = row.createCell(6);
-				 Cell cell7 = row.createCell(7);
-				 Cell cell8 = row.createCell(8);
-				 Cell cell9 = row.createCell(9);
-				 Cell cell10 = row.createCell(10);
-				 Cell cell11 = row.createCell(11);
-				 Cell cell12 = row.createCell(12);
-				 Cell cell13 = row.createCell(13);
-				 Cell cell14 = row.createCell(14);
-				 Cell cell15 = row.createCell(15);
+				 
+				 int cellNum = 6;
+				 if(Constants.Service.SERVICE_TYPE_OTHER.equals(result.get(0).getServiceType())) {
+					 Cell cell17 = row.createCell(cellNum++);
+					 if(StringUtils.isNotBlank(resultReportPayment.getServiceName())) {
+						 cell17.setCellValue(resultReportPayment.getServiceName().split("-")[0]);
+					 }else{
+						 cell17.setCellValue("-");
+					 }
+					 cell17.setCellStyle(txtCenterTable);
+				 }
+				 
+				 Cell cell6 = row.createCell(cellNum++);
+				 Cell cell7 = row.createCell(cellNum++);
+				 Cell cell8 = row.createCell(cellNum++);
+				 Cell cell9 = row.createCell(cellNum++);
+				 Cell cell10 = row.createCell(cellNum++);
+				 Cell cell11 = row.createCell(cellNum++);
+				 Cell cell12 = row.createCell(cellNum++);
+				 Cell cell13 = row.createCell(cellNum++);
+				 Cell cell14 = row.createCell(cellNum++);
+				 Cell cell15 = row.createCell(cellNum++);
 				 Cell cell16 = null;
 				 
 				 cell.setCellValue(index);
@@ -159,7 +169,7 @@ public class PaymentReport extends BaseExcelRptService {
 					 sum1 = 9;
 					 sum2 = 10;
 					 sum3 = 11;
-					 cell16 = row.createCell(16);
+					 cell16 = row.createCell(cellNum++);
 					 
 					 cell3.setCellValue(resultReportPayment.getCustomerName());
 					 

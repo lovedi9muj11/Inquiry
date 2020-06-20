@@ -184,6 +184,10 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 //			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
 		if(StringUtils.isNoneEmpty(serviceType)) {
 			sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+			
+			if(Constants.Service.SERVICE_TYPE_OTHER.equals(serviceType)) {
+				sql.append(" AND PM.DOCTYPE NOT IN ('"+Constants.DOCTYPE.TX+"')");
+			}
 		}
 		
 		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
@@ -211,6 +215,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 //			sql.append(" AND PM.DOCTYPE = ").append("'" + serviceType + "'");
 		
 		if(!Constants.Service.SERVICE_TYPE_OTHER.equals(serviceType)) { sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL "); }
+		else { sql.append(" AND PM.DOCTYPE NOT IN ('"+Constants.DOCTYPE.TX+"')"); }
 		
 		sql.append(" ORDER BY PM.DOCTYPE, PM.CREATE_DATE ");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper1());
@@ -231,6 +236,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");
 		}
 		sql.append(" AND PIM.SERVICE_TYPE = ").append("'" + serviceType + "'");
+		sql.append(" AND PM.DOCTYPE NOT IN ('"+Constants.DOCTYPE.TX+"')");
 		
 //		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ");
 		sql.append(" ORDER BY  PM.RECEIPT_NO_MANUAL, PIM.SERVICECODE, PIM.DEPARTMENT,  PM.CREATE_DATE ");
@@ -304,6 +310,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			reportPayment.setBranchCode(rs.getString("BRANCH_AREA"));
 			reportPayment.setPosName(rs.getString("POS_NAME"));
 			reportPayment.setDepartmentName(rs.getString("department_name"));
+			reportPayment.setDepartmentArea(rs.getString("DEPARTMENT_AREA"));
 			return reportPayment;
 		}
 		

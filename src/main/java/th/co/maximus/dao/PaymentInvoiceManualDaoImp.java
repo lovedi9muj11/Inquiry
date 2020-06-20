@@ -426,7 +426,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			sql.append(" FROM RECEIPT_MANUAL py");
 			sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL pim ON pim.MANUAL_ID = py.MANUAL_ID ");
 			sql.append(" WHERE 1=1 ");
-			sql.append(" and py.DOCTYPE = ? ");
+			sql.append(" and py.DOCTYPE IN "+"('"+historyRpt.getTypePrint()+"',"+"'"+Constants.DOCTYPE.TX+"')");
 			if (StringUtils.isNoneEmpty(historyRpt.getDateFrom())
 					&& StringUtils.isNoneEmpty(historyRpt.getDateFromHour())
 					&& StringUtils.isNoneEmpty(historyRpt.getDateFromMinute())) {
@@ -445,7 +445,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				sql.append(" AND py.CREATE_DATE <= ' ").append(" " + dateTo + " ' ");
 			}
 			
-			param.add(historyRpt.getTypePrint());
+//			param.add(historyRpt.getTypePrint());
 			if(StringUtils.isNotEmpty(historyRpt.getUnserLogin())) {
 				sql.append(" and pim.CREATE_BY = ? ");
 				

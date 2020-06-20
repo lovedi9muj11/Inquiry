@@ -13,6 +13,7 @@ import th.co.maximus.bean.ReportPaymentBean;
 import th.co.maximus.bean.ReportPaymentCriteria;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.DeductionManualImpl;
+import th.co.maximus.dao.MasterDataDao;
 import th.co.maximus.dao.PaymentManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
 import th.co.maximus.model.TrsChequerefEpisOffline;
@@ -39,6 +40,9 @@ public class PaymentReportServiceImp implements PaymentReportService {
 	
 	@Autowired
 	private TrsChequeRefManualService trsChequeRefManualService;
+	
+	@Autowired
+	private MasterDataDao masterDataDao;
 
 	@Override
 	public List<ReportPaymentBean> findPaymnetReportService(ReportPaymentCriteria criteria,String serviceType) throws Exception {
@@ -301,7 +305,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
 			resultBean.setServiceCode(resultBean.getServiceCode());
-//			resultBean.setDepartment(masterDataDao.findProperty(resultBean.getDepartment()));
+			resultBean.setDepartment(resultBean.getDepartment()+masterDataDao.findProperty2(resultBean.getDepartment(), resultBean.getDepartmentArea()));
 			data.add(resultBean);
 		}
 		

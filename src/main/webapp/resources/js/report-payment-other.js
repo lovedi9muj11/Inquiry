@@ -132,8 +132,8 @@ function createRow(data, seq) {
 	receiptNo = data.receiptNoManual;
 	accountSubNo = data.accountSubNo;
 	customerName = data.customerName;
-//	department = data.department;
-	department = data.departmentName;
+	department = data.department;
+//	department = data.departmentName;
 	invoiceNo = data.invoiceNo;
 	createBy = data.paymentMethod;
 	if(data.refNo) {noRefer = data.refNo;} else {noRefer = '-'}

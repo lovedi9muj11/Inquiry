@@ -123,8 +123,13 @@ public class PaymentReportPdf {
 				if (null != reportPaymentBean.getInvoiceNo()) {
 					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getInvoiceNo());
 				} else {
-					
-					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
+//					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
+					if(StringUtils.isNotBlank(reportPaymentBean.getServiceName())) {
+						String[] ssName = reportPaymentBean.getServiceName().split("-");
+						reportPaymentBeanNew.setInvoiceNo(ssName[1]);
+					}else {
+						reportPaymentBeanNew.setInvoiceNo("-");
+					}
 				}
 				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
 				reportPaymentBeanNew.setPaymentMethod(reportPaymentBean.getPaymentMethod());
@@ -1348,6 +1353,7 @@ public class PaymentReportPdf {
 				reportPaymentBeanNew.setBranchName(reportPaymentBean.getBranchName());
 				reportPaymentBeanNew.setPosName(reportPaymentBean.getPosName());
 				reportPaymentBeanNew.setBranchCode(reportPaymentBean.getBranchCode());
+				reportPaymentBeanNew.setDepartmentArea(reportPaymentBean.getDepartmentArea());
 
 				index++;
 				resultSource.add(reportPaymentBeanNew);

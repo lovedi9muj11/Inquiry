@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplate" language="groovy" pageWidth="891" pageHeight="441" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="851" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="298"/>
+	<property name="ireport.x" value="243"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="serviceTypeHead" class="java.lang.String"/>
 	<parameter name="dateFrom" class="java.lang.String"/>
@@ -168,7 +168,7 @@
 				<text><![CDATA[ประจำวันที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="464" y="38" width="19" height="20" uuid="e399ab32-6ca6-4035-a9f0-352977f3e033"/>
+				<reportElement x="474" y="38" width="19" height="20" uuid="e399ab32-6ca6-4035-a9f0-352977f3e033"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true" isItalic="false"/>
 				</textElement>
@@ -182,7 +182,7 @@
 				<textFieldExpression><![CDATA[$P{dateFrom}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="474" y="38" width="95" height="20" uuid="d14ec674-f8fa-4f41-8434-ab1b3f965440"/>
+				<reportElement x="481" y="38" width="95" height="20" uuid="d14ec674-f8fa-4f41-8434-ab1b3f965440"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isItalic="false"/>
 				</textElement>
