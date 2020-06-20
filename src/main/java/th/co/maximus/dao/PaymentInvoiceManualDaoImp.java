@@ -124,7 +124,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getUpdateDate(), paymentInvoiceManualBean.getRecordStatus(),
 				paymentInvoiceManualBean.getQuantity(), paymentInvoiceManualBean.getIncometype(),
 				paymentInvoiceManualBean.getDiscountbeforvat(), paymentInvoiceManualBean.getDiscountspecial(),
-				paymentInvoiceManualBean.getAmounttype(), paymentInvoiceManualBean.getDepartment(),
+				"", paymentInvoiceManualBean.getDepartment(),
 				paymentInvoiceManualBean.getServiceName(), paymentInvoiceManualBean.getInvoiceDate(),
 				paymentInvoiceManualBean.getServiceCode(),paymentInvoiceManualBean.getDepartmentcode(),
 				paymentInvoiceManualBean.getIncomeunit(),
@@ -187,12 +187,12 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			param.add("%" + invBean.getAccountNo() + "%");
 		}
 		
-		if (!("").equals(invBean.getTaxId())) {
+		if (StringUtils.isNotBlank(invBean.getTaxId())) {
 			sql.append(" AND paument_inv.TAXNO = ?");
 			param.add(invBean.getTaxId());
 		}
 		
-		if (!("").equals(invBean.getCustName())) {
+		if (StringUtils.isNotBlank(invBean.getCustName())) {
 			sql.append(" AND paument_inv.CUSTOMER_NAME = ?");
 			param.add(invBean.getCustName());
 		}
@@ -494,7 +494,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			StringBuilder sqlStmt = new StringBuilder();
 			sqlStmt.append(
 					"SELECT pim.INVOICE_NO ,pim.BEFOR_VAT,pim.VAT_AMOUNT,pim.AMOUNT,(CASE WHEN pim.VAT_RATE = 'Non-VAT' THEN null ELSE pim.VAT_RATE END) AS  VAT_RATE ,pim.CUSTOMER_NAME,pim.CUSTOMER_ADDRESS,pim.CUSTOMER_SEGMENT,pim.CUSTOMER_BRANCH,pim.TAXNO,pim.ACCOUNTSUBNO,pim.PERIOD,pim.SERVICE_TYPE,pim.REMARK,pim.QUANTITY,pim.INCOMETYPE,pim.DISCOUNTBEFORVAT,pim.DISCOUNTSPECIAL,pim.AMOUNTTYPE,pim.DEPARTMENT,pim.SERVICENAME,pim.SERVICECODE,pim.INVOICE_DATE,pim.INCOMEUNIT , pim.DEPARTMENT_AREA ");
-			sqlStmt.append(" pim.SEGMENT_CODE , pim.PRODUCT_CODE ");
+			sqlStmt.append(" ,pim.SEGMENT_CODE , pim.PRODUCT_CODE ");
 			sqlStmt.append(" FROM PAYMENT_INVOICE_MANUAL pim ");
 			sqlStmt.append(" WHERE  pim.MANUAL_ID = ?  ");
 
@@ -664,7 +664,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentInvoiceEpisOffline.setIncomeUnit(rs.getString("pim.INCOMEUNIT"));
 			paymentInvoiceEpisOffline.setDepartmentArea(rs.getString("pim.DEPARTMENT_AREA"));
 			paymentInvoiceEpisOffline.setSegmentCode(rs.getString("pim.SEGMENT_CODE"));
-			paymentInvoiceEpisOffline.setDepartmentArea(rs.getString("pim.PRODUCT_CODE"));
+			paymentInvoiceEpisOffline.setProductCode(rs.getString("pim.PRODUCT_CODE"));
 			
 			return paymentInvoiceEpisOffline;
 		}
