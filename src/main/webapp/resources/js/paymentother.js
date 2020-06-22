@@ -871,6 +871,7 @@ function buttonAddBillingList() {
 
 		let billList = {
 				"serviceTypeName" : inputServiceTypeName,
+				"count" : count,
 				"serviceType" : inputServiceType,
 				"serviceName" : inputServiceName,
 				"serviceCode" : inputServiceCode,
@@ -953,6 +954,13 @@ function calurateVatRate (amountDiscount ,vatRate){
 	
 }
 function deleteTableSale(count) {
+	
+	let resObjs =  billLists.filter(function(Obj) {
+		return Obj.count != count;
+	});
+	
+	billLists = resObjs
+	
 	var balanceSummary = $("#balanceSummary").val();
 	var balanceBeforeTaxRQ = $("#balanceBeforeTax").val();
 	var vatRQ = $("#vat").val();
