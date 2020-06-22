@@ -369,19 +369,19 @@ public class EpisReportController {
 		String dateDocument = dt.format(date);
 
 		if (StringUtils.isNotBlank(printCollections.get(0).getVatRate())) {
-			//exportPDFReport.setVatRateCheck("Y");
+			exportPDFReport.setVatRateCheck("Y");
 
 			if (Constants.DOCTYPE.RF.equals(printCollections.get(0).getDoctype())) {
-				//exportPDFReport.setSentStringHeader("N");
+				exportPDFReport.setSentStringHeader("N");
 				exportPDFReport.setTitle("ใบเสร็จรับเงิน/ใบกำกับภาษี");
 			} else if (Constants.DOCTYPE.RS.equals(printCollections.get(0).getDoctype())) {
-				//exportPDFReport.setSentStringHeader("Y");
+				exportPDFReport.setSentStringHeader("Y");
 				exportPDFReport.setTitle("ใบเสร็จรับเงิน/ใบกำกับภาษี อย่างย่อ");
 			}
 
 		} else {
-			//exportPDFReport.setVatRateCheck("N");
-			//exportPDFReport.setSentStringHeader("N");
+			exportPDFReport.setVatRateCheck("N");
+			exportPDFReport.setSentStringHeader("N");
 			exportPDFReport.setTitle("ใบเสร็จรับเงิน");
 			exportPDFReport.setDiscountSpecialCheck("N");
 		}

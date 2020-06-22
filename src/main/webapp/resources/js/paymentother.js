@@ -2144,14 +2144,14 @@ function disDiscount(amountBeforVat){
 function autoSelect(){
 	var event = $("#userGroup").val();
 	
-	if(event == "11"){
-		// 69 ทริ
+	if(event == "1"){
+		// 69 ทวิ
 		radiobtn = document.getElementById("radioDedCC");
 		radiobtn.checked = true;
-	}else if(event == "12"){
+	}else if(event == "2"){
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
-	}else if(event == "14"){
+	}else if(event == "3"){
 		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
@@ -2284,13 +2284,13 @@ function autoSelect(){
 			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
 			if(chkOther) {
 				for(var i=0; i<userGroups.length; i++) {
-					if(userGroups[i].property1 == '1' || userGroups[i].property1 == '2' || userGroups[i].property1 == '3') {
-						$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+					if(userGroups[i].keyCode == '1' || userGroups[i].keyCode == '2' || userGroups[i].keyCode == '3') {
+						$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
 					}
 				}
 			}else {
 				for(var i=0; i<userGroups.length; i++) {
-					$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+					$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
 				}
 			}
 		}
