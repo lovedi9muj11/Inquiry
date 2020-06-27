@@ -150,6 +150,14 @@ public class MasterDatasDaoImpl implements MasterDatasDao {
 		sql.append("' AND PROPERTY_1 = '"+userGroup+"'");
 		return jdbcTemplate.query(sql.toString() , new masterData());
 	}
+
+	@Override
+	public List<MasterDatasBean> findListByKey(String keyCode) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM MASTER_DATA WHERE GROUP_KEY = ? ");
+		List<MasterDatasBean> master = jdbcTemplate.query(sql.toString(), new Object[] { keyCode }, new masterData());
+		return master;
+	}
 	
 	
 

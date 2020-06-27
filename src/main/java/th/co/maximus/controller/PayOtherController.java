@@ -208,9 +208,14 @@ public class PayOtherController {
 	}
 	
 	@RequestMapping(value = { "/other/find/usergroup" }, method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<MasterDatasBean> findUsergroup() {
+	public @ResponseBody MasterDatasBean findUsergroup() {
 		try {
-			return  masterDataService.findByCMSegment();
+			MasterDatasBean res = new MasterDatasBean();
+			
+			res.setUsergroup(masterDataService.findByCMSegment());
+			res.setUsergroupOther(masterDataService.findByCMSegmentOther(Constants.MasterData.OTHER_TEMP_CUSTOMER_SEGMENT));
+			
+			return  res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -7,6 +7,7 @@ let custOtherList
 let chkOther = false
 let chkOtherTax1 = false
 let userGroupGBs
+let userGroupGBOthers
 let masterSegmentsGBs
 let masterProductsGBs
 let keyCode
@@ -2180,8 +2181,11 @@ function autoSelect(){
 	var event = $("#vatrate").val();
 	if(event == "Non-VAT"){
 		 document.getElementById("aftervat").disabled = true;
+		 document.getElementById("taxOnly").disabled = true;
+		 document.getElementById("taxOnly").checked = false;
 	}else{
 		document.getElementById("aftervat").disabled = false;
+		document.getElementById("taxOnly").disabled = false;
 	}
 }
 	
@@ -2280,7 +2284,8 @@ function autoSelect(){
 	        async: true,
 	        contentType: "application/json; charset=utf-8",
 		}).then(function (res) {
-			userGroupGBs = res
+			userGroupGBs = res.usergroup
+			userGroupGBOthers = res.usergroupOther
 			setUserGroup(userGroupGBs)
 		});
 	}
@@ -2295,6 +2300,24 @@ function autoSelect(){
 					if(userGroups[i].keyCode == '1' || userGroups[i].keyCode == '2' || userGroups[i].keyCode == '3') {
 						$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
 					}
+				}
+			}else {
+				for(var i=0; i<userGroups.length; i++) {
+					$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
+				}
+			}
+		}
+		
+	}
+	
+	function setUserGroupOther() {
+		
+		if(userGroupGBOthers) {
+			$('#userGroup').empty();
+			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
+			if(chkOther) {
+				for(var i=0; i<userGroupGBOthers.length; i++) {
+					$('#userGroup').append('<option value="'+(userGroupGBOthers[i].keyCode)+'">' + (userGroupGBOthers[i].value) + '</option>');
 				}
 			}else {
 				for(var i=0; i<userGroups.length; i++) {
@@ -2441,7 +2464,7 @@ function autoSelect(){
 		if(chkOther) {
 			document.getElementById("custNo").disabled = true
 			document.getElementById("findOther").disabled = false;
-			setUserGroup(userGroupGBs)
+			setUserGroupOther()
 		}else {
 			document.getElementById("custNo").disabled = false
 			document.getElementById("findOther").disabled = true;
@@ -2618,13 +2641,12 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 				
 				for(var i=0; i<resObjs.length; i++) {
 					if(serviceTypes[i].revenueTypeName.toUpperCase() != 'NULL'){
-//						svt = resObjs[i].revenueTypeCode
+						svType = resObjs[i].revenueTypeCode
 						$('#inputServiceType').append('<option value="'+(resObjs[i].revenueTypeCode)+'">' + (resObjs[i].revenueTypeCode)+ '-' +(resObjs[i].revenueTypeName) + '</option>');
 					}
 				}
-				
-				$("#inputServiceType").val(svType)
 			}
+			$("#inputServiceType").val(svType)
 		}
 	}
 	

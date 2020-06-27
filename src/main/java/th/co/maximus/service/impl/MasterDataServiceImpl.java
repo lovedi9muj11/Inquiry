@@ -410,8 +410,11 @@ public class MasterDataServiceImpl implements MasterDataService {
 		List<MasterDatasBean> custSegment = masterDatasDao.findByCussegmentValue(userGroup);
 		return custSegment;
 	}
-	
-	
-	
+
+	@Override
+	public List<MasterDatasBean> findByCMSegmentOther(String keyCode) {
+		List<MasterDatasBean> custSegment = masterDatasDao.findListByKey(keyCode);
+		return custSegment;
+	}
 
 }

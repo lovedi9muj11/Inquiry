@@ -166,9 +166,9 @@ public class PaymentReport extends BaseExcelRptService {
 				 cell2.setCellValue(resultReportPayment.getAccountSubNo());
 				 
 				 if(!chkType) {
-					 sum1 = 9;
-					 sum2 = 10;
-					 sum3 = 11;
+					 sum1 = 10;
+					 sum2 = 11;
+					 sum3 = 12;
 					 cell16 = row.createCell(cellNum++);
 					 
 					 cell3.setCellValue(resultReportPayment.getCustomerName());
@@ -177,7 +177,7 @@ public class PaymentReport extends BaseExcelRptService {
 					 else {cell5.setCellValue(resultReportPayment.getDepartment());}}else {cell5.setCellValue("");}
 					 
 					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell6.setCellValue(resultReportPayment.getInvoiceNo());}
-					 else {cell6.setCellValue(resultReportPayment.getServiceName());}}else {cell5.setCellValue("");}
+					 else {cell6.setCellValue(cutGlCode(resultReportPayment.getServiceName()));}}else {cell5.setCellValue("");}
 					 
 					 cell7.setCellValue(resultReportPayment.getPaymentMethod());
 					 cell8.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
@@ -352,5 +352,16 @@ public class PaymentReport extends BaseExcelRptService {
 	private String convertTimeFormat(String dateFormat) throws ParseException {
 	    Date date = new SimpleDateFormat("HH:mm:ss").parse(dateFormat);
 	    return new SimpleDateFormat("HH:mm:ss").format(date);
+	}
+	
+	String cutGlCode(String str) {
+		if(StringUtils.isNotBlank(str)) {
+			String[] strRes = str.split("-");
+			if(strRes.length>0) {
+				str = strRes[1];
+			}
+			return str;
+		}
+		return "";
 	}
 }

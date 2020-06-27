@@ -1,5 +1,7 @@
 package th.co.maximus.bean;
 
+import java.util.List;
+
 public class MasterDatasBean {
 	private Long id;
 	private String keyCode;
@@ -17,6 +19,10 @@ public class MasterDatasBean {
 	private String property5;
 	private String remark;
 	private String recordStatus;
+	
+	private List<MasterDatasBean> usergroup;
+	private List<MasterDatasBean> usergroupOther;
+	
 	public Long getId() {
 		return id;
 	}
@@ -112,6 +118,18 @@ public class MasterDatasBean {
 	}
 	public void setRecordStatus(String recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+	public List<MasterDatasBean> getUsergroup() {
+		return usergroup;
+	}
+	public void setUsergroup(List<MasterDatasBean> usergroup) {
+		this.usergroup = usergroup;
+	}
+	public List<MasterDatasBean> getUsergroupOther() {
+		return usergroupOther;
+	}
+	public void setUsergroupOther(List<MasterDatasBean> usergroupOther) {
+		this.usergroupOther = usergroupOther;
 	}
 	
 

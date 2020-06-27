@@ -17,6 +17,8 @@ public interface MasterDatasDao {
 	public List<MasterDatasBean> findByBankEDCName();
 
 	public MasterDatasBean findByKey(String keyCode);
+	
+	public List<MasterDatasBean> findListByKey(String keyCode);
 
 	public MasterDatasBean findByGrop(String groupCode, String keyCode);
 	
