@@ -551,8 +551,8 @@ public class EpisReportController {
 		if (printCollections.get(0).getVatRate().equals("Non-VAT")) {
 			
 			exportPDFReport.setTitle("ใบเสร็จรับเงิน");
-			//exportPDFReport.setVatRateCheck("N");
-			//exportPDFReport.setSentStringHeader("N");
+			exportPDFReport.setVatRateCheck("N");
+			exportPDFReport.setSentStringHeader("N");
 			exportPDFReport.setDiscountSpecialCheck("N");
 			
 		} else {
