@@ -66,7 +66,9 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setServiceCode(paymentBillBean.getInputServiceCode());
 				paymentInvoiceManualBean.setBeforVat(paymentBillBean.getInputServiceAmount().doubleValue());
 				paymentInvoiceManualBean.setAmounttype(paymentBillBean.getInputServiceType());
-				paymentInvoiceManualBean.setServiceName(paymentBillBean.getInputServiceName());
+				
+				String[] servicename = paymentBillBean.getInputServiceName().split("-",2);
+				paymentInvoiceManualBean.setServiceName(servicename[1]);
 				
 				paymentInvoiceManualBean.setDepartmentcode(property2);
 				paymentInvoiceManualBean.setIncomeunit(paymentBean.getIncomeEdit());
