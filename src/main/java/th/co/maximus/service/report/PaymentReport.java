@@ -357,9 +357,8 @@ public class PaymentReport extends BaseExcelRptService {
 	String cutGlCode(String str) {
 		if(StringUtils.isNotBlank(str)) {
 			String[] strRes = str.split("-");
-			if(strRes.length>0) {
-				str = strRes[1];
-			}
+			if(strRes.length==1) { str = strRes[0]; }
+			else if(strRes.length>1) { str = strRes[1]; }
 			return str;
 		}
 		return "";

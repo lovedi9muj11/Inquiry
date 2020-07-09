@@ -126,7 +126,8 @@ public class PaymentReportPdf {
 //					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 					if(StringUtils.isNotBlank(reportPaymentBean.getServiceName())) {
 						String[] ssName = reportPaymentBean.getServiceName().split("-");
-						reportPaymentBeanNew.setInvoiceNo(ssName[1]);
+						if(ssName.length==1) { reportPaymentBeanNew.setInvoiceNo(ssName[0]); }
+						else if(ssName.length>1) { reportPaymentBeanNew.setInvoiceNo(ssName[1]); }
 					}else {
 						reportPaymentBeanNew.setInvoiceNo("-");
 					}
