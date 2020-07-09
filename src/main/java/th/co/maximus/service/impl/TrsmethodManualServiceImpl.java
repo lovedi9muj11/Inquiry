@@ -1,6 +1,8 @@
 package th.co.maximus.service.impl;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import th.co.maximus.bean.DeductionManualBean;
 import th.co.maximus.bean.TrsChequeRefManualBean;
 import th.co.maximus.bean.TrsMethodManualBean;
 import th.co.maximus.bean.TrscreDitrefManualBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.dao.DeductionManualDao;
 import th.co.maximus.dao.TrsChequeRefManualDao;
 import th.co.maximus.dao.TrsMethodManualDao;
@@ -109,7 +112,14 @@ public class TrsmethodManualServiceImpl implements TrsmethodManualService{
 							trscreDitrefManualDao.insertTrscreDitrefManua(trscreDitrefManualBean);
 							
 						}else if(paymentTranPriceBean.getTypePayment().equals("CH")){
-							Date date1 = new Date(paymentTranPriceBean.getDateCheck());
+							SimpleDateFormat df = new SimpleDateFormat(Constants.DateTime.DATE_FORMAT);
+							Date date1 = new Date();
+							
+							try {
+								date1 = new Timestamp(df.parse(paymentTranPriceBean.getDateCheck()).getTime());
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
 							trsChequeRefManualBean.setChequeNo(paymentTranPriceBean.getCheckNo());
 							trsChequeRefManualBean.setPublisherId(paymentTranPriceBean.getBankNo());
 							trsChequeRefManualBean.setPublisher(paymentTranPriceBean.getBankName());
