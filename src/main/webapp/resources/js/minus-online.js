@@ -31,9 +31,14 @@ function search(){
         async: false,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
+        	let disableSendOnline = true
         	for (var i = 0; i < res.length; i++) {
                     createRow(res[i], i);
+                    if(res[i].clearing != 'Y') {
+                    	disableSendOnline = false
+                    }
                 }
+        	document.getElementById("send").disabled = disableSendOnline;
         }
 	})
 };

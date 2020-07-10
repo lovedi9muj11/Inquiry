@@ -43,6 +43,7 @@ public class ReportPaymentBean {
 	private String branchName;
 	private String branchCode;
 	private String posName;
+	private String glCode;
 	
 	List<ReportPaymentBean> reportPaymentBean;
 
@@ -340,6 +341,14 @@ public class ReportPaymentBean {
 
 	public void setDepartmentArea(String departmentArea) {
 		this.departmentArea = departmentArea;
+	}
+
+	public String getGlCode() {
+		return glCode;
+	}
+
+	public void setGlCode(String glCode) {
+		this.glCode = glCode;
 	}
 
 }

@@ -35,3 +35,11 @@ function  FormatMoneyShowToNumber(str){
 	var a = str.replace(/,/g , "");
 	return parseFloat(a);
 }
+
+function checkTaxIdNumber(event) {
+	var chk = String.fromCharCode(event.which);
+	
+	if(!(/[0-9]/.test(chk))) {
+		event.preventDefault();
+	}
+}

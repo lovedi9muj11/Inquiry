@@ -141,7 +141,8 @@ public class PaymentReport extends BaseExcelRptService {
 				 if(Constants.Service.SERVICE_TYPE_OTHER.equals(result.get(0).getServiceType())) {
 					 Cell cell17 = row.createCell(cellNum++);
 					 if(StringUtils.isNotBlank(resultReportPayment.getServiceName())) {
-						 cell17.setCellValue(resultReportPayment.getServiceName().split("-")[0]);
+//						 cell17.setCellValue(resultReportPayment.getServiceName().split("-")[0]);
+						 cell17.setCellValue(resultReportPayment.getGlCode());
 					 }else{
 						 cell17.setCellValue("-");
 					 }

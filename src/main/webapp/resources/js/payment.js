@@ -933,14 +933,15 @@ function findTypePayment() {
 function autoSelect(){
 	var event = $("#userGroup").val();
 	$("#suserGroup").hide();
-	if(event == "11"){
+	
+	if(event == "1"){
 		// 69 ทริ
 		radiobtn = document.getElementById("radioDedCC");
 		radiobtn.checked = true;
-	}else if(event == "12"){
+	}else if(event == "2"){
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
-	}else if(event == "14"){
+	}else if(event == "3"){
 		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
@@ -2122,7 +2123,7 @@ function setDataBC() {
 			$('#userGroup').empty();
 			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
 			for(var i=0; i<userGroups.length; i++) {
-				$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+				$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
 			}
 		}
 		

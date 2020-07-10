@@ -107,8 +107,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	public void insert(PaymentInvoiceManualBean paymentInvoiceManualBean) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA, SEGMENT_CODE, SEGMENT_NAME, PRODUCT_CODE, PRODUCT_NAME)  ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
+				"INSERT INTO PAYMENT_INVOICE_MANUAL (MANUAL_ID,SOURCE, INVOICE_NO,BEFOR_VAT,VAT_AMOUNT,AMOUNT,VAT_RATE, CUSTOMER_NAME, CUSTOMER_ADDRESS, CUSTOMER_SEGMENT, CUSTOMER_BRANCH, TAXNO, ACCOUNTSUBNO, PERIOD,SERVICE_TYPE, CLEARING, PRINT_RECEIPT, REMARK, CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE,RECORD_STATUS,QUANTITY,INCOMETYPE,DISCOUNTBEFORVAT,DISCOUNTSPECIAL,AMOUNTTYPE,DEPARTMENT,SERVICENAME,INVOICE_DATE,SERVICECODE,DEPARTMENTCODE,INCOMEUNIT,DEPARTMENT_AREA, SEGMENT_CODE, SEGMENT_NAME, PRODUCT_CODE, PRODUCT_NAME, GL_CODE)  ");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 
 		jdbcTemplate.update(sql.toString(), paymentInvoiceManualBean.getManualId(),
 				paymentInvoiceManualBean.getSource(), paymentInvoiceManualBean.getInvoiceNo(),
@@ -132,7 +132,8 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 				paymentInvoiceManualBean.getSegmentCode(),
 				paymentInvoiceManualBean.getSegmentName(),
 				paymentInvoiceManualBean.getProductCode(),
-				paymentInvoiceManualBean.getProductName());
+				paymentInvoiceManualBean.getProductName(),
+				paymentInvoiceManualBean.getGlCode());
 
 	}
 

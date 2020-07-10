@@ -51,6 +51,7 @@ public class PaymentInvoiceManualBean {
 	private String segmentCode;
 	private String productName;
 	private String segmentName;
+	private String glCode;
 
 	
 
@@ -389,10 +390,14 @@ public class PaymentInvoiceManualBean {
 	public void setSegmentName(String segmentName) {
 		this.segmentName = segmentName;
 	}
-	
-	
 
-	
-	
+	public String getGlCode() {
+		return glCode;
+	}
+
+	public void setGlCode(String glCode) {
+		this.glCode = glCode;
+	}
+
 
 }

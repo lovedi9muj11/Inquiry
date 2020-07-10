@@ -131,7 +131,7 @@
 										<label class="col-sm-2 control-label right"
 											for="formGroupInputLarge">Tax ID :</label>
 										<div class="col-sm-2">
-											<input class="form-control" type="text" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13" onblur="checkTaxIdNumber()">
+											<input class="form-control" type="text" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13" onkeypress="checkTaxIdNumber(event)">
 											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX ID</p>
 										</div>
 									</div>

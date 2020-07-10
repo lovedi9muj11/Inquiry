@@ -171,6 +171,7 @@ public class PaymentReportServiceImp implements PaymentReportService {
 			resultBean.setDeductionNo(deductionNo);
 			resultBean.setPaymentMethod(paymentCodeRes);
 			resultBean.setServiceCode(resultBean.getServiceCode());
+			resultBean.setGlCode(resultBean.getGlCode());
 //			resultBean.setDepartment(masterDataDao.findProperty(resultBean.getDepartment()));
 			data.add(resultBean);
 		}

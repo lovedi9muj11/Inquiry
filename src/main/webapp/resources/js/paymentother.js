@@ -2621,10 +2621,10 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 	}
 	
 	function mapServiceName() {
-		let svType = $("#inputServiceType").val()
+		let svType = ""
 		let svName = $("#inputServiceName").val()
 		
-		checkMapGL(svName,svType )
+		checkMapGL(svName, svType)
 		
 		if('' === svName) {
 			findServiceTypeServiceName(serviceTypes,serviceNames)
@@ -2634,10 +2634,11 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 				return Obj.serviceCode == svName;
 			});
 			
+			$('#inputServiceType').empty();
+			$('#inputServiceType').append('<option value="">' + PLS_SELECT + '</option>');
+			
 			if(resObjs.length > 0) {
 				var svt = '';
-				$('#inputServiceType').empty();
-				$('#inputServiceType').append('<option value="">' + PLS_SELECT + '</option>');
 				
 				for(var i=0; i<resObjs.length; i++) {
 					if(serviceTypes[i].revenueTypeName.toUpperCase() != 'NULL'){
@@ -2650,14 +2651,14 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 		}
 	}
 	
-	function checkTaxIdNumber() {
-		var taxId = $('#taxId').val()
-		
-		var res = isNaN(taxId);
-		if(res) {
-			$('#taxId').val('')
-			return
-		}
-	}
+//	function checkTaxIdNumber() {
+//		var taxId = $('#taxId').val()
+//		
+//		var res = isNaN(taxId);
+//		if(res) {
+//			$('#taxId').val('')
+//			return
+//		}
+//	}
 	
 	

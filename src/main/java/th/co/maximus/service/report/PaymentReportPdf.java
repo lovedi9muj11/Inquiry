@@ -132,7 +132,8 @@ public class PaymentReportPdf {
 						reportPaymentBeanNew.setInvoiceNo("-");
 					}
 				}
-				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy());
+				UserBean bean = masterDataService.findByUsername(reportPaymentBean.getCreateBy());
+				reportPaymentBeanNew.setCreateBy(reportPaymentBean.getCreateBy()+" "+bean.getSurName()+" "+bean.getLastName());
 				reportPaymentBeanNew.setPaymentMethod(reportPaymentBean.getPaymentMethod());
 				reportPaymentBeanNew.setNoRefer(StringUtils.isNotBlank(reportPaymentBean.getRefNo())?reportPaymentBean.getRefNo():"-");
 				
@@ -598,7 +599,7 @@ public class PaymentReportPdf {
 					
 					if(i==resultSource.size()) {
 						
-						beanSup = masterDataService.findByUsername(userPayment);
+						beanSup = masterDataService.findByUsername(userPayment.split(" ")[0]);
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
