@@ -442,8 +442,8 @@ public class EpisReportController {
 		exportPDFReport.setRemark(printCollections.get(0).getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
 
-		exportPDFReport.setSurName("(" + bean.getSurName());
-		exportPDFReport.setLastname(bean.getLastName() + ")");
+		exportPDFReport.setSurName(bean.getSurName());
+		exportPDFReport.setLastname(bean.getLastName());
 		// exportPDFReport.setServiceName(invObject.getServiceName());
 		exportPDFReport.setAmount(printCollections.get(0).getAmount());
 		// exportPDFReport.setDiscountbeforvat(invObject.getDiscountbeforvat().setScale(2,
@@ -609,6 +609,7 @@ public class EpisReportController {
 		exportPDFReport.setPaymentCode(paymentCodeRes);
 
 		parameters.put("ReportSource", exportPDFReport);
+		parameters.put("P_LAST_PAGE_NUMBER", printCollections2.size()/4);
 
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
