@@ -932,16 +932,26 @@ function findTypePayment() {
 
 function autoSelect(){
 	var event = $("#userGroup").val();
+	let keyCheck = '';
+	
+	if(userGroupGBs) {
+		let resObjs =  userGroupGBs.filter(function(Obj) {
+			return Obj.property1 == event;
+		});
+		
+		keyCheck = resObjs[0].keyCode
+	}
+	
 	$("#suserGroup").hide();
 	
-	if(event == "1"){
+	if(keyCheck == "1"){
 		// 69 ทริ
 		radiobtn = document.getElementById("radioDedCC");
 		radiobtn.checked = true;
-	}else if(event == "2"){
+	}else if(keyCheck == "2"){
 		radiobtns = document.getElementById("radioDedCD");
 		radiobtns.checked = true;
-	}else if(event == "3"){
+	}else if(keyCheck == "3"){
 		radiobtns = document.getElementById("radioDedCC");
 		radiobtns.checked = true;
 	}else{
@@ -2123,7 +2133,8 @@ function setDataBC() {
 			$('#userGroup').empty();
 			$('#userGroup').append('<option value="">' + PLS_SELECT + '</option>');
 			for(var i=0; i<userGroups.length; i++) {
-				$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
+				$('#userGroup').append('<option value="'+(userGroups[i].property1)+'">' + (userGroups[i].property3) + '</option>');
+//				$('#userGroup').append('<option value="'+(userGroups[i].keyCode)+'">' + (userGroups[i].property3) + '</option>');
 			}
 		}
 		
