@@ -227,6 +227,7 @@ function generateDropDown(value){
 function dialogRemake(value){
 	$("#remake_dialog").modal('show');
 //	var dataSend = {"manualId": value.source};
+	$('#reportRecriptTb').DataTable().clear()
 	$.ajax({
         type: "POST",
         url: ctx +"/findByRecriptList",

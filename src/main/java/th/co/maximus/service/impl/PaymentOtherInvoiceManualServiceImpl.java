@@ -41,7 +41,7 @@ public class PaymentOtherInvoiceManualServiceImpl implements PaymentOtherInvoice
 				paymentInvoiceManualBean.setVatRate(paymentBean.getVatrate());
 				paymentInvoiceManualBean.setCustomerName(paymentBean.getCustName());
 				paymentInvoiceManualBean.setCustomerAddress(paymentBean.getCustAddress());
-				paymentInvoiceManualBean.setCustomerSegment("1");
+				paymentInvoiceManualBean.setCustomerSegment(paymentBean.getUserGroup());
 				paymentInvoiceManualBean.setCustomerBranch(paymentBean.getCustBrach());
 				paymentInvoiceManualBean.setTaxNo(paymentBean.getTaxId());
 				paymentInvoiceManualBean.setServiceType("OTHER");

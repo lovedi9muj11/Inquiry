@@ -477,7 +477,7 @@ function submitForm() {
 			"inputServiceAmount" : FormatMoneyShowToNumber(element.serviceAmount),
 			"inputServiceDiscount" : FormatMoneyShowToNumber(element.serviceDiscount),
 			"inputSpecialDiscount" : FormatMoneyShowToNumber(element.specialDiscount),
-			"vatSale" : '-' == element.chkVatamount?0:element.chkVatamount,
+			"vatSale" : '-' == element.chkVatamount?0:FormatMoneyShowToNumber(element.chkVatamount),
 			"summaryinvoice" : FormatMoneyShowToNumber(element.amountTotal.toString())
 		}
 		tblbills.push(bill);

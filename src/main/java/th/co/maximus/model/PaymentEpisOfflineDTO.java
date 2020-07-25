@@ -56,19 +56,19 @@ public class PaymentEpisOfflineDTO {
 	public void setApproveBy(String approveBy) {
 		this.approveBy = approveBy;
 	}
-
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getCreateDate() {
 		return createDate;
 	}
-
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
+	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
-
+	@JsonDeserialize(using = CustomDateTimeDeserializer.class)
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
