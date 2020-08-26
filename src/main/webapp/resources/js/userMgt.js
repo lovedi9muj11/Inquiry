@@ -10,11 +10,11 @@ $(document).ready(function() {
 //		} ]
 //		});
 	
-	$('#userBtn').click(syncUser);
+	$('#userBtn').click(clickSyncUser);
 	
-	$('#msBtn').click(syncMasterData);
+	$('#msBtn').click(clickSyncMasterData);
 	
-	$('#glBtn').click(syncMapGl);
+	$('#glBtn').click(clickMapGL);
 });
 
 
@@ -76,6 +76,12 @@ function reportClick() {
 	
 }
 
+function clickSyncUser() {
+	HoldOn.open();
+	setTimeout(syncUser, 3000);
+	
+}
+
 function syncUser() {
 	console.log('syncUser')
 	
@@ -88,13 +94,21 @@ function syncUser() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res);
+        	HoldOn.close();
         	swal('Sync Data Success')
         },
 		 error: function (e) {
 		      	console.log(e)
+		      	HoldOn.close();
 		      	swal('Sync Data Error')
 		      }
 	})
+}
+
+function clickMapGL() {
+	HoldOn.open();
+	setTimeout(syncMapGl, 3000);
+	
 }
 
 function syncMapGl() {
@@ -109,13 +123,21 @@ function syncMapGl() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res);
+        	HoldOn.close();
           	swal('Sync Data Success')
         },
 		 error: function (e) {
 		      	console.log(e)
+		      	HoldOn.close();
 		      	swal('Sync Data Error')
 		      }
 	})
+}
+
+function clickSyncMasterData() {
+	HoldOn.open();
+	setTimeout(syncMasterData, 3000);
+	
 }
 
 function syncMasterData() {
@@ -130,10 +152,12 @@ function syncMasterData() {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
         	console.log(res)
+        	HoldOn.close();
         	swal('Sync Data Success')
         },
 		 error: function (e) {
 	      	console.log(e)
+	      	HoldOn.close();
 	      	swal('Sync Data Error')
 	      }
 	})

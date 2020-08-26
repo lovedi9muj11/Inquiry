@@ -2634,6 +2634,7 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 	function mapServiceName() {
 		let svType = ""
 		let svName = $("#inputServiceName").val()
+//		let svNameText = $("#inputServiceName option:selected").text()
 		
 		checkMapGL(svName, svType)
 		
@@ -2643,6 +2644,7 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 		}else {
 			let resObjs =  serviceTypes.filter(function(Obj) {
 				return Obj.serviceCode == svName;
+//				return Obj.glCode == svName;
 			});
 			
 			$('#inputServiceType').empty();

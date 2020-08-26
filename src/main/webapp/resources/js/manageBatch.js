@@ -18,17 +18,13 @@ $(document).ready(function() {
 	
 	$('#groupType').change(function () {
 		var groupTypeVal = $('#groupType').val();
+		$('#month').empty();
+		$('#date').empty();
+		$('#hour').empty();
+		$('#minute').empty();
 		if(''==groupTypeVal) {
-			$('#month').empty();
-			$('#date').empty();
-			$('#hour').empty();
-			$('#minute').empty();
 			setValue();
 		}else{
-			$('#month').empty();
-			$('#date').empty();
-			$('#hour').empty();
-			$('#minute').empty();
 			findGroupTypeByKeyCode(groupTypeVal);
 			
 		}
