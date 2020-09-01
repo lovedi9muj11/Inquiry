@@ -2642,8 +2642,14 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 			findServiceTypeServiceName(serviceTypes,serviceNames)
 			$("#inputServiceType").val('')
 		}else {
-			let resObjs =  serviceTypes.filter(function(Obj) {
+			let sCode = serviceNames.filter(function(Obj) {
 				return Obj.serviceCode == svName;
+			});
+			
+			let glCode = sCode[0].glCode;
+			
+			let resObjs =  serviceTypes.filter(function(Obj) {
+				return Obj.glCode == glCode;
 //				return Obj.glCode == svName;
 			});
 			

@@ -427,7 +427,7 @@
 				<textFieldExpression><![CDATA[$F{amountStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="327" y="-1" width="96" height="20" uuid="460277e2-f52b-424b-9d5f-3dc8b37cd669"/>
+				<reportElement x="327" y="-1" width="107" height="20" uuid="460277e2-f52b-424b-9d5f-3dc8b37cd669"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>

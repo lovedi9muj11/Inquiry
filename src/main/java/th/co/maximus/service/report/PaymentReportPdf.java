@@ -125,9 +125,11 @@ public class PaymentReportPdf {
 				} else {
 //					reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName()==null?"-":reportPaymentBean.getServiceName());
 					if(StringUtils.isNotBlank(reportPaymentBean.getServiceName())) {
-						String[] ssName = reportPaymentBean.getServiceName().split("-");
-						if(ssName.length==1) { reportPaymentBeanNew.setInvoiceNo(ssName[0]); }
-						else if(ssName.length>1) { reportPaymentBeanNew.setInvoiceNo(ssName[1]); }
+//						String[] ssName = reportPaymentBean.getServiceName().split("-");
+//						if(ssName.length==1) { reportPaymentBeanNew.setInvoiceNo(ssName[0]); }
+//						else if(ssName.length>1) { reportPaymentBeanNew.setInvoiceNo(ssName[1]); }
+						
+						reportPaymentBeanNew.setInvoiceNo(reportPaymentBean.getServiceName());
 					}else {
 						reportPaymentBeanNew.setInvoiceNo("-");
 					}
@@ -336,7 +338,7 @@ public class PaymentReportPdf {
 								resultSources.add(reportPaymentBean);
 							}else {
 								
-								beanSup = masterDataService.findByUsername(userPaymentOld);
+								beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 								
 								parameters = new HashMap<String, Object>();
 								parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -416,7 +418,7 @@ public class PaymentReportPdf {
 							
 						} else {
 							
-							beanSup = masterDataService.findByUsername(userPaymentOld);
+							beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -499,7 +501,7 @@ public class PaymentReportPdf {
 						}
 					} else {
 						
-						beanSup = masterDataService.findByUsername(userPaymentOld);
+						beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 						
 						if(0>userPay.indexOf(reportPaymentBean.getCreateBy())) {
 							String comma = "";
@@ -821,7 +823,7 @@ public class PaymentReportPdf {
 							userPaymentOld = userPayment;
 						}else {
 							
-							beanSup = masterDataService.findByUsername(userPaymentOld);
+							beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());
@@ -1477,7 +1479,7 @@ public class PaymentReportPdf {
 								resultSources.add(reportPaymentBean);
 							}else {
 								
-								beanSup = masterDataService.findByUsername(userPaymentOld);
+								beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 								
 								parameters = new HashMap<String, Object>();
 								parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -1528,7 +1530,7 @@ public class PaymentReportPdf {
 							
 						} else {
 							
-							beanSup = masterDataService.findByUsername(userPaymentOld);
+							beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -1578,7 +1580,7 @@ public class PaymentReportPdf {
 						}
 					} else {
 						
-						beanSup = masterDataService.findByUsername(userPaymentOld);
+						beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 						
 						parameters = new HashMap<String, Object>();
 						parameters.put("serviceTypeHead", reportPaymentBean.getBranchName());
@@ -1803,7 +1805,7 @@ public class PaymentReportPdf {
 							userPaymentOld = userPayment;
 						}else {
 							
-							beanSup = masterDataService.findByUsername(userPaymentOld);
+							beanSup = masterDataService.findByUsername(userPaymentOld.split(" ")[0]);
 							
 							parameters = new HashMap<String, Object>();
 							parameters.put("serviceTypeHead", resultSource.get(i).getBranchName());

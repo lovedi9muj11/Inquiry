@@ -168,7 +168,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-4 control-label md-offset-2">เลขประจำตัวผู้เสียภาษี :</label>
 						<div class="col-md-8">
-							<input type="text" id="taxOtherId" name="taxOtherId" class="form-control">
+							<input type="text" id="taxOtherId" name="taxOtherId" class="form-control" onkeypress="checkTaxIdNumber(event)">
 						</div>
 					</div>
 				</div>

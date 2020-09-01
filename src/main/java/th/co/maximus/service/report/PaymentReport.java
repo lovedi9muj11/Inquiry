@@ -178,7 +178,8 @@ public class PaymentReport extends BaseExcelRptService {
 					 else {cell5.setCellValue(resultReportPayment.getDepartment());}}else {cell5.setCellValue("");}
 					 
 					 if(CollectionUtils.isNotEmpty(result)) {if(Constants.Service.SERVICE_TYPE_IBACSS.equals(result.get(0).getServiceType())) {cell6.setCellValue(resultReportPayment.getInvoiceNo());}
-					 else {cell6.setCellValue(cutGlCode(resultReportPayment.getServiceName()));}}else {cell5.setCellValue("");}
+//					 else {cell6.setCellValue(cutGlCode(resultReportPayment.getServiceName()));}}else {cell5.setCellValue("");}
+					 else {cell6.setCellValue(resultReportPayment.getServiceName());}}else {cell5.setCellValue("");}
 					 
 					 cell7.setCellValue(resultReportPayment.getPaymentMethod());
 					 cell8.setCellValue(StringUtils.isNotBlank(resultReportPayment.getRefNo())?resultReportPayment.getRefNo():"");
