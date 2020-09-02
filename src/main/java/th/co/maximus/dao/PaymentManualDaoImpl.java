@@ -239,7 +239,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" AND PM.DOCTYPE NOT IN ('"+Constants.DOCTYPE.TX+"')");
 		
 //		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ");
-		sql.append(" ORDER BY  PM.RECEIPT_NO_MANUAL, PIM.SERVICECODE, PIM.DEPARTMENT,  PM.CREATE_DATE ");
+		sql.append(" ORDER BY  PIM.SERVICECODE, PM.RECEIPT_NO_MANUAL, PIM.DEPARTMENT,  PM.CREATE_DATE ");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
 
