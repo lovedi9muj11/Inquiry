@@ -190,7 +190,8 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 			}
 		}
 		
-		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
+//		sql.append(" GROUP BY PM.RECEIPT_NO_MANUAL ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
+		sql.append(" ORDER BY PM.DOCTYPE, PM.CREATE_DATE");
 		return jdbcTemplate.query(sql.toString(), new reportPaymentMapper());
 	}
 	@Override
