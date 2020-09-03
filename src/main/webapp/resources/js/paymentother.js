@@ -2646,10 +2646,10 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 				return Obj.serviceCode == svName;
 			});
 			
-			let glCode = sCode[0].glCode;
+			let segMentCode = sCode[0].segMentCode;
 			
 			let resObjs =  serviceTypes.filter(function(Obj) {
-				return Obj.glCode == glCode;
+				return Obj.productCode.substring(0, 5) == segMentCode;
 //				return Obj.glCode == svName;
 			});
 			
