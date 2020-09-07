@@ -158,24 +158,24 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			for(int i=0; i<jsonArray.length(); i++) {
 				masterDataSyncBean = new MasterDataSyncBean();
 //				masterDataSyncBean.setId( jsonArray.getJSONObject(i).getLong("id") );
-				masterDataSyncBean.setKey( jsonArray.getJSONObject(i).getString("key"));
-				masterDataSyncBean.setValue( jsonArray.getJSONObject(i).getString("value"));
-				masterDataSyncBean.setGroupKey( jsonArray.getJSONObject(i).getString("groupKey"));
-				masterDataSyncBean.setType( jsonArray.getJSONObject(i).getString("type"));
-				masterDataSyncBean.setStatus( jsonArray.getJSONObject(i).getString("status"));
-				masterDataSyncBean.setOrdered( jsonArray.getJSONObject(i).getString("ordered"));
-				masterDataSyncBean.setParentId( jsonArray.getJSONObject(i).getString("parentId"));
-				masterDataSyncBean.setRefId( jsonArray.getJSONObject(i).getString("refId"));
-				masterDataSyncBean.setProperty1( jsonArray.getJSONObject(i).getString("property1"));
-				masterDataSyncBean.setProperty2( jsonArray.getJSONObject(i).getString("property2"));
-				masterDataSyncBean.setProperty3( jsonArray.getJSONObject(i).getString("property3"));
-				masterDataSyncBean.setProperty4( jsonArray.getJSONObject(i).getString("property4"));
-				masterDataSyncBean.setProperty5( jsonArray.getJSONObject(i).getString("property5"));
-				masterDataSyncBean.setCreateBy( jsonArray.getJSONObject(i).getString("createBy"));
+				masterDataSyncBean.setKey( isNull2Null(jsonArray.getJSONObject(i).getString("key")));
+				masterDataSyncBean.setValue( isNull2Null(jsonArray.getJSONObject(i).getString("value")));
+				masterDataSyncBean.setGroupKey( isNull2Null(jsonArray.getJSONObject(i).getString("groupKey")));
+				masterDataSyncBean.setType( isNull2Null(jsonArray.getJSONObject(i).getString("type")));
+				masterDataSyncBean.setStatus( isNull2Null(jsonArray.getJSONObject(i).getString("status")));
+				masterDataSyncBean.setOrdered( isNull2Null(jsonArray.getJSONObject(i).getString("ordered")));
+				masterDataSyncBean.setParentId( isNull2Null(jsonArray.getJSONObject(i).getString("parentId")));
+				masterDataSyncBean.setRefId( isNull2Null(jsonArray.getJSONObject(i).getString("refId")));
+				masterDataSyncBean.setProperty1( isNull2Null(jsonArray.getJSONObject(i).getString("property1")));
+				masterDataSyncBean.setProperty2( isNull2Null(jsonArray.getJSONObject(i).getString("property2")));
+				masterDataSyncBean.setProperty3( isNull2Null(jsonArray.getJSONObject(i).getString("property3")));
+				masterDataSyncBean.setProperty4( isNull2Null(jsonArray.getJSONObject(i).getString("property4")));
+				masterDataSyncBean.setProperty5( isNull2Null(jsonArray.getJSONObject(i).getString("property5")));
+				masterDataSyncBean.setCreateBy( isNull2Null(jsonArray.getJSONObject(i).getString("createBy")));
 				masterDataSyncBean.setCreateDate(new Date());
-				masterDataSyncBean.setUpdateBy( jsonArray.getJSONObject(i).getString("updateBy"));
+				masterDataSyncBean.setUpdateBy( isNull2Null(jsonArray.getJSONObject(i).getString("updateBy")));
 				masterDataSyncBean.setUpdateDate(new Date());
-				masterDataSyncBean.setInitialValue( jsonArray.getJSONObject(i).getString("initialValue"));
+				masterDataSyncBean.setInitialValue( isNull2Null(jsonArray.getJSONObject(i).getString("initialValue")));
 				list.add(masterDataSyncBean);
 			}
 			
@@ -200,23 +200,23 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			JSONArray jsonArray = new JSONArray(getResponse.getBody());
 			for(int i=0; i<jsonArray.length(); i++) {
 				glBean = new MapGLBean();
-				glBean.setGlCode( jsonArray.getJSONObject(i).getString("glCode"));
-				glBean.setProductCode( jsonArray.getJSONObject(i).getString("productCode"));
-				glBean.setProductName( jsonArray.getJSONObject(i).getString("productName"));
-				glBean.setSubProductCode( jsonArray.getJSONObject(i).getString("subProductCode"));
-				glBean.setSubProductName( jsonArray.getJSONObject(i).getString("subProductName"));
-				glBean.setServiceName( jsonArray.getJSONObject(i).getString("serviceName"));
-				glBean.setRevenueTypeCode( jsonArray.getJSONObject(i).getString("revenueTypeCode"));
-				glBean.setRevenueTypeName( jsonArray.getJSONObject(i).getString("revenueTypeName"));
-				glBean.setSegMentCode( jsonArray.getJSONObject(i).getString("segmentCode"));
-				glBean.setSegMentName( jsonArray.getJSONObject(i).getString("segmentName"));
-				glBean.setSource( jsonArray.getJSONObject(i).getString("source"));
-				glBean.setServiceCode( jsonArray.getJSONObject(i).getString("serviceCode"));
-				glBean.setStatus( jsonArray.getJSONObject(i).getString("status"));
-				glBean.setCreateBy( jsonArray.getJSONObject(i).getString("createBy"));
-				glBean.setErpInterfaceFlag(jsonArray.getJSONObject(i).getString("erpInterfaceFlag"));
+				glBean.setGlCode( isNull2Null(jsonArray.getJSONObject(i).getString("glCode")));
+				glBean.setProductCode( isNull2Null(jsonArray.getJSONObject(i).getString("productCode")));
+				glBean.setProductName( isNull2Null(jsonArray.getJSONObject(i).getString("productName")));
+				glBean.setSubProductCode( isNull2Null(jsonArray.getJSONObject(i).getString("subProductCode")));
+				glBean.setSubProductName( isNull2Null(jsonArray.getJSONObject(i).getString("subProductName")));
+				glBean.setServiceName( isNull2Null(jsonArray.getJSONObject(i).getString("serviceName")));
+				glBean.setRevenueTypeCode( isNull2Null(jsonArray.getJSONObject(i).getString("revenueTypeCode")));
+				glBean.setRevenueTypeName( isNull2Null(jsonArray.getJSONObject(i).getString("revenueTypeName")));
+				glBean.setSegMentCode( isNull2Null(jsonArray.getJSONObject(i).getString("segmentCode")));
+				glBean.setSegMentName( isNull2Null(jsonArray.getJSONObject(i).getString("segmentName")));
+				glBean.setSource( isNull2Null(jsonArray.getJSONObject(i).getString("source")));
+				glBean.setServiceCode( isNull2Null(jsonArray.getJSONObject(i).getString("serviceCode")));
+				glBean.setStatus( isNull2Null(jsonArray.getJSONObject(i).getString("status")));
+				glBean.setCreateBy( isNull2Null(jsonArray.getJSONObject(i).getString("createBy")));
+				glBean.setErpInterfaceFlag( isNull2Null(jsonArray.getJSONObject(i).getString("erpInterfaceFlag")));
 				glBean.setCreateDate( new Date());
-				glBean.setUpdateBy( jsonArray.getJSONObject(i).getString("updateBy"));
+				glBean.setUpdateBy( isNull2Null(jsonArray.getJSONObject(i).getString("updateBy")));
 				glBean.setUpdateDate( new Date());
 				list.add(glBean);
 			}
@@ -273,6 +273,12 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	String isNull2Null(String str) {
+		if(!"null".equals(str)) return str;
+		
+		return null;
 	}
 
 }
