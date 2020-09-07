@@ -9,6 +9,7 @@ import th.co.maximus.bean.InvoiceBean;
 import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
+import th.co.maximus.model.PaymentMaualModel;
 
 public interface PaymentInvoiceManualDao {
 	
@@ -50,6 +51,6 @@ public interface PaymentInvoiceManualDao {
 	
 	public PaymentInvoiceManualBean findInvoiceManualByManualId(Long manualId);
 
-	public	List<PaymentMMapPaymentInvBean> findCriteriaFromReceiptNo(String[] receiptNo);
+	public	List<PaymentMaualModel> findCriteriaFromReceiptNo(String[] receiptNo);
 	
 } 

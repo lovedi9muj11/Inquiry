@@ -114,16 +114,21 @@ function formatDate(date) {
 	  var minutes = date.getMinutes();
 	   
 	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var day = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
+	  var month = (date.getMonth()+1) < 10 ? '0'+(date.getMonth()+1) : (date.getMonth()+1);
+	  
 	  var strTime = hours + ':' + minutes ;
-	  return   date.getDate() + "/" +(date.getMonth()+1)+ "/" + date.getFullYear();
+	  return   day + "/" +month+ "/" + date.getFullYear();
 	}
 function formatDateTime(date) {
 	  var hours = date.getHours();
 	  var minutes = date.getMinutes();
 	   
 	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var day = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
+	  var month = (date.getMonth()+1) < 10 ? '0'+(date.getMonth()+1) : (date.getMonth()+1);
 	  var strTime = hours + ':' + minutes ;
-	  return   date.getDate() + "/" +(date.getMonth()+1)+ "/" + date.getFullYear() + "  " + strTime;
+	  return   day + "/" +month+ "/" + date.getFullYear() + "  " + strTime;
 	}
 function createRow(data, seq) {
 	manualId = seq+1;

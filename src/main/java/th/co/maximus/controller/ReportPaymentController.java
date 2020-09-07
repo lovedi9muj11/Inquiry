@@ -106,7 +106,7 @@ public class ReportPaymentController {
 	
 	@RequestMapping(value = { "/findByRecriptList" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<PaymentMMapPaymentInvBean> findDropdownAccountMaster(@RequestBody String rec) {
+	public List<PaymentMaualModel> findDropdownAccountMaster(@RequestBody String rec) {
 //		List<MasterDataBean> result = masterDataDao.findAllByGropType("GL_ACCOUNT");
 //		List<MapGLBean> result = mapGLDao.findAll();
 		StringBuilder  sql1 = new StringBuilder();
@@ -119,7 +119,7 @@ public class ReportPaymentController {
 		System.out.println(reList);
 		StringBuilder  sql2 = new StringBuilder();
 
-		List<PaymentMMapPaymentInvBean> result = paymentInvoiceManualDao.findCriteriaFromReceiptNo(reList);
+		List<PaymentMaualModel> result = paymentInvoiceManualDao.findCriteriaFromReceiptNo(reList);
 
 		return  result;
 	}

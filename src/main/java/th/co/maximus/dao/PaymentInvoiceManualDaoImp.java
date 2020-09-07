@@ -25,6 +25,7 @@ import th.co.maximus.bean.PaymentInvoiceManualBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.constants.Constants;
 import th.co.maximus.model.PaymentInvoiceEpisOffline;
+import th.co.maximus.model.PaymentMaualModel;
 
 @Repository("PaymentInvoiceManualDao")
 public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
@@ -276,13 +277,13 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 	
 	
 	@Override
-	public List<PaymentMMapPaymentInvBean> findCriteriaFromReceiptNo(String[] receiptNo) {
+	public List<PaymentMaualModel> findCriteriaFromReceiptNo(String[] receiptNo) {
 //		SimpleDateFormat dateFM = new SimpleDateFormat(Constants.DateTime.DB_DATE_FORMAT,Locale.ENGLISH); 
 		StringBuilder sql = new StringBuilder();
 //		List<Object> param = new LinkedList<Object>();
 //		UserProfile profile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		sql.append(" SELECT * FROM RECEIPT_MANUAL payment_m ");
-		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
+//		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL paument_inv ON payment_m.MANUAL_ID = paument_inv.MANUAL_ID ");
 //		sql.append(" INNER JOIN master_data ms ON ms.PROPERTY_1 = payment_m.CUSTOMER_GROUP ");
 		sql.append(" WHERE 1 = 1  AND ");
 		for (int i = 0; i < receiptNo.length; i++) {
@@ -293,8 +294,35 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		}
 		
 		
-		return jdbcTemplate.query(sql.toString(), PaymentManual);
+		return jdbcTemplate.query(sql.toString(), PaymentReceipt);
 	}
+	
+	private static final RowMapper<PaymentMaualModel> PaymentReceipt = new RowMapper<PaymentMaualModel>() {
+		// Utils utils = new Utils();
+
+		@Override
+		public PaymentMaualModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentMaualModel paymentManual = new PaymentMaualModel();
+			paymentManual.setManualId(rs.getLong("MANUAL_ID"));
+			paymentManual.setPaymentId(rs.getLong("PAYMENT_ID"));
+			paymentManual.setInvoiceNo(rs.getString("INVOICE_NO"));
+			paymentManual.setReceiptNoManual(rs.getString("RECEIPT_NO_MANUAL"));
+			paymentManual.setPaidDate(rs.getTimestamp("PAID_DATE"));
+			paymentManual.setBrancharea(rs.getString("BRANCH_AREA"));
+			paymentManual.setBranchCode(rs.getString("BRANCH_CODE"));
+//			paymentManual.setPaidAmount(rs.getBigDecimal("PAID_AMOUNT"));
+			paymentManual.setSource(rs.getString("SOURCE"));
+			paymentManual.setClearing(rs.getString("CLEARING"));
+			paymentManual.setRemark(rs.getString("REMARK"));
+			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
+			paymentManual.setCreateDate(rs.getTimestamp("CREATE_DATE"));
+			paymentManual.setAccountNo(rs.getString("ACCOUNT_NO"));
+			paymentManual.setCreateBy(rs.getString("CREATE_BY"));
+
+			return paymentManual;
+		}
+
+	};
 
 	@Override
 	public void updateRecodeStatusFromReceiptNo(String status, long manualId, String cancel, String user, String  reasonCode) {
