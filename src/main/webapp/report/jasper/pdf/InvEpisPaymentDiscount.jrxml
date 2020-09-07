@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.1000000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -493,19 +492,12 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="Cat_Hl_Common" x="500" y="98" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="14" isBold="false"/>
-				</textElement>
-				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="518" y="121" width="239" height="23" uuid="e46f9315-14d6-45a8-a172-149dbe834977"/>
+				<reportElement x="494" y="98" width="287" height="23" uuid="e46f9315-14d6-45a8-a172-149dbe834977"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()+"  "+"(ผู้รับชำระ)"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

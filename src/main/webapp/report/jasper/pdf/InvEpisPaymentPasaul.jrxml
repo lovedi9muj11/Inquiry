@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.zoom" value="1.464100000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -474,19 +474,12 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="Cat_Hl_Common" x="329" y="82" width="235" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="357" y="96" width="164" height="23" uuid="052d4662-6749-4d89-bb9f-be603bfd0b98"/>
+				<reportElement x="329" y="82" width="235" height="23" uuid="052d4662-6749-4d89-bb9f-be603bfd0b98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()+"  "+"(ผู้รับชำระ)"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

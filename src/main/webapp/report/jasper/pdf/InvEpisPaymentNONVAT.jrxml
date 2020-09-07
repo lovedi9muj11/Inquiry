@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvEpisPayment" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="787" leftMargin="30" rightMargin="25" topMargin="25" bottomMargin="25" uuid="0e48b0a0-6ddd-4796-ac07-8d03dfaf3486">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -433,19 +432,12 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="Cat_Hl_Common" x="500" y="98" width="287" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="14" isBold="false"/>
-				</textElement>
-				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="529" y="121" width="231" height="23" uuid="8f39fdf4-957e-4c4a-ada3-f58695082c49"/>
+				<reportElement x="502" y="98" width="267" height="23" uuid="8f39fdf4-957e-4c4a-ada3-f58695082c49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()+"  "+"(ผู้รับชำระ)"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

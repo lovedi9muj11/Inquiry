@@ -566,7 +566,7 @@
 															for="formGroupInputLarge">เลขที่เช็ค:</label>
 														<div class="col-sm-4">
 															<input class="form-control" type="text" id="checkNo"
-																maxlength="7" name="paymentTranPrice.checkNo"
+																maxlength="10" name="paymentTranPrice.checkNo"
 																placeholder="เลขที่เช็ค">
 														</div>
 													</div>

@@ -480,13 +480,6 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="302" y="75" width="267" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
-			</staticText>
-			<staticText>
 				<reportElement style="Cat_Hl_Common" x="19" y="0" width="545" height="46" uuid="70692f7b-0192-480c-9f1a-5792ee41540f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true"/>
@@ -497,11 +490,11 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษีฉบับนี้จริง]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="333" y="98" width="216" height="23" uuid="936076b9-12de-494d-bfac-a16927ee1c7b"/>
+				<reportElement x="302" y="75" width="257" height="23" uuid="936076b9-12de-494d-bfac-a16927ee1c7b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()+"  "+"(ผู้รับชำระ)"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

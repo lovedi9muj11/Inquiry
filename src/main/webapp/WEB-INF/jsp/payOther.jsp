@@ -635,7 +635,7 @@
 														for="formGroupInputLarge">เลขที่เช็ค:</label>
 													<div class="col-sm-4">
 														<input class="form-control" type="text" id="checkNo"
-															maxlength="7" name="paymentTranPrice.checkNo"
+															maxlength="10" name="paymentTranPrice.checkNo"
 															placeholder="เลขที่เช็ค">
 															<p id="checkNoTxt" style="color: red; display: none">คุณยังไม่ได้กรอกเลขที่เช็ค</p>
 															<p id="checkNoTxtless" style="color: red; display: none">คุณกรอกเลขที่เช็คไม่ถูกต้อง</p>

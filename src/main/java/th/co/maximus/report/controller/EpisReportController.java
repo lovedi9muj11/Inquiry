@@ -53,7 +53,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
-import net.sf.jasperreports.engine.util.JRProperties;
 import th.co.maximus.auth.model.UserProfile;
 import th.co.maximus.bean.ExportPDFOtherReport;
 import th.co.maximus.bean.ExportPDFReport;
@@ -305,12 +304,15 @@ public class EpisReportController {
 
 		exportPDFReport.setPaymentCode(paymentCodeRes);
 		exportPDFReport.setSouce(bran);
+		
+		BigDecimal calAmount = invObject.getAmountPayment();
 		if (invObject.getDiscount().signum() == 0) {
 			exportPDFReport.setDiscount(invObject.getDiscount());
 			exportPDFReport.setCheckDiscount("N");
 		} else {
 			exportPDFReport.setDiscount(invObject.getDiscount());
 			exportPDFReport.setCheckDiscount("Y");
+			calAmount = calAmount.subtract(invObject.getDiscount());
 		}
 		exportPDFReport.setDiscount(invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setAmountPayment(invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN));
@@ -319,7 +321,7 @@ public class EpisReportController {
 		exportPDFReport
 				.setDiscountStr(String.format("%,.2f", invObject.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setAmountPaymentStr(
-				String.format("%,.2f", invObject.getAmountPayment().setScale(2, RoundingMode.HALF_DOWN)));
+				String.format("%,.2f", calAmount.setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport.setBalanceSummaryStr(
 				String.format("%,.2f", invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN)));
 		exportPDFReport

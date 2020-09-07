@@ -479,19 +479,12 @@ $P{ReportSource}.getBranAreaCheck() == "N"]]></printWhenExpression>
 				</textElement>
 				<text><![CDATA[ลงชื่อ.....................................................................................ผู้ส่งมอบเช็ค]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="Cat_Hl_Common" x="300" y="46" width="190" height="23" uuid="1b2d1f8d-ec3a-4fc7-b5a1-fdf86c4f08df"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="FreesiaUPC" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[ลงชื่อ.....................................................................................ผู้รับชำระ]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="300" y="60" width="190" height="23" uuid="8f39fdf4-957e-4c4a-ada3-f58695082c49"/>
+				<reportElement x="300" y="49" width="190" height="23" uuid="8f39fdf4-957e-4c4a-ada3-f58695082c49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ReportSource}.getSurName() + "   " + $P{ReportSource}.getLastname()+"  "+"(ผู้รับชำระ)"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
