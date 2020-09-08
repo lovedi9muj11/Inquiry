@@ -110,11 +110,11 @@ public class OfflineBatch implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		try {
 			if (Constants.BATCH.JOB_1.equals(context.getTrigger().getKey().getName())) {
-				System.out.println("JOB_1");x
+				System.out.println("JOB_1");
 				callEpisOnlineService.callOnlineSyncMasterData();
 				callEpisOnlineService.callOnline();
 			} else if (Constants.BATCH.JOB_2.equals(context.getTrigger().getKey().getName())) {
-				System.out.println("JOB_2");x
+				System.out.println("JOB_2");
 				 callEpisOnlineService.callOnlineSyncMapGL();
 			} else if (Constants.BATCH.JOB_3.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_3");
