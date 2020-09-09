@@ -42,7 +42,7 @@ public class PaymentOtherManualServiceImpl implements PaymentOtherManualService{
 		if(StringUtils.isNotBlank(paymentBean.getDocumentNo())){
 			paymentManualBean.setReceiptNoManual(paymentBean.getDocumentNo());
 			for(int x = 0 ; x <serviceDepartmentList.size(); x++ ) {
-				if(serviceDepartmentList.get(x).getValue().equals(branch.getText())) {
+				if(StringUtils.isNotBlank(serviceDepartmentList.get(x).getValue()))if(serviceDepartmentList.get(x).getValue().equals(branch.getText())) {
 					brancharea = serviceDepartmentList.get(x).getValue();
 				}
 			}
