@@ -2443,6 +2443,7 @@ function autoSelect(){
 			$('#custName').val(resObj.name)
 			$('#taxId').val(resObj.taxId)
 			$('#userGroup').val(resObj.serviceCode)
+			autoSelect()
 			$('#custBrach').val(resObj.branch)
 			$('#custAddress').val(resObj.address)
 			
