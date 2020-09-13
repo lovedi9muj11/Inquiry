@@ -609,9 +609,22 @@ public class EpisReportController {
 
 		exportPDFReport.setSouce(bran);
 		exportPDFReport.setPaymentCode(paymentCodeRes);
-
+		
 		parameters.put("ReportSource", exportPDFReport);
-		parameters.put("P_LAST_PAGE_NUMBER", printCollections2.size()/4);
+		
+		int LAST_PAGE = 0;
+		BigDecimal bd1 = new BigDecimal(printCollections2.size());
+		BigDecimal bd2 = new BigDecimal(4);
+		BigDecimal bdDivide = bd1.divide(bd2,2,RoundingMode.HALF_UP);
+		String bdTostring = bdDivide.toString();
+		Double parsedb = Double.parseDouble(bdTostring);
+		Double mathdata = Math.ceil(parsedb);
+		if( mathdata < 1.00 ) {
+			LAST_PAGE = 1;
+		}else {
+			LAST_PAGE = mathdata.intValue();
+		}
+		parameters.put("P_LAST_PAGE_NUMBER", LAST_PAGE);
 
 		response.setContentType("application/pdf");
 		response.setCharacterEncoding("UTF-8");
