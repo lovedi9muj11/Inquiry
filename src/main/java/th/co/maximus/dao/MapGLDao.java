@@ -9,6 +9,7 @@ public interface MapGLDao {
 	List<MapGLBean> findAll();
 	List<MapGLBean> findByRevenuType(String revennuId);
 	List<MapGLBean> findBySource(String source);
+	List<MapGLBean> findBySourceAll(String source);
 	List<MapGLBean> findBySourceOther();
 	List<MapGLBean> findByServiceSource(String revennuId);
 	List<MapGLBean> findBySourceOtherProdCode(String prodCode);
