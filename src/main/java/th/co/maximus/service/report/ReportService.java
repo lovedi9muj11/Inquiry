@@ -77,6 +77,23 @@ public class ReportService {
 	}
 	
 	public Workbook reportPayment(Workbook workbook, ReportPaymentCriteria criteria, List<ReportPaymentBean>  result) throws Exception {
+		if(Constants.Service.SERVICE_TYPE_OTHER.equals(criteria.getServiceType())) {
+			List<ReportPaymentBean>  results = new ArrayList<ReportPaymentBean>();
+			for(ReportPaymentBean data : result) {
+				ReportPaymentBean dataSet = new ReportPaymentBean();
+				dataSet = data;
+				dataSet.setBeforVatStr(String.format("%,.2f", data.getBeforVatOther()));
+				dataSet.setVatAmountStr(String.format("%,.2f", data.getVatAmountOther()));
+				dataSet.setAmountStr(String.format("%,.2f", data.getAmountOther()));
+				dataSet.setAmount(data.getAmountOther());
+				dataSet.setVatAmount(data.getVatAmountOther());
+				dataSet.setBeforVat(data.getBeforVatOther());
+				
+				results.add(dataSet);
+			}
+			result = results;
+		}
+		
 		return reportExcelService.reportPaymentExcelService(workbook, criteria, result);
 	} 
 	

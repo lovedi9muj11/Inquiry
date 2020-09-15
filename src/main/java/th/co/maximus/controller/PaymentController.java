@@ -159,17 +159,17 @@ public class PaymentController {
 		paymentResultReq.setInvoiceDateRS(invoiceDate);
 		paymentResultReq.setDateLineRS(dateLineSt);
 
-		paymentResultReq.setBalanceSummaryStr(
-				String.format("%,.2f", paymentResultReq.getPaidAmount().setScale(2, RoundingMode.HALF_DOWN)));
-		paymentResultReq.setBeforeVatStr(
-				String.format("%,.2f", paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
-		paymentResultReq
-				.setVatStr(String.format("%,.2f", paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN)));
-		paymentResultReq.setBalanceOfvatStr(
-				String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
+		if(null!=paymentResultReq.getDiscount() && paymentResultReq.getDiscount().compareTo(BigDecimal.ZERO) > 0) {
+			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", (paymentResultReq.getPaidAmount().subtract(paymentResultReq.getDiscount())).setScale(2, RoundingMode.HALF_DOWN)));
+		}else {
+			paymentResultReq.setBalanceSummaryStr(String.format("%,.2f", paymentResultReq.getPaidAmount().setScale(2, RoundingMode.HALF_DOWN)));
+		}
+		
+		paymentResultReq.setBeforeVatStr(String.format("%,.2f", paymentResultReq.getBeforeVat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setVatStr(String.format("%,.2f", paymentResultReq.getVat().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setBalanceOfvatStr(String.format("%,.2f", paymentResultReq.getBalanceOfvat().setScale(2, RoundingMode.HALF_DOWN)));
 		paymentResultReq.setBalancePriceStr(String.format("%,.2f", price));
-		paymentResultReq.setDiscountStr(
-				String.format("%,.2f", paymentResultReq.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
+		paymentResultReq.setDiscountStr(String.format("%,.2f", paymentResultReq.getDiscount().setScale(2, RoundingMode.HALF_DOWN)));
 		paymentResultReq.setManualId(manualId);
 		return paymentResultReq;
 	}

@@ -145,7 +145,7 @@ public class ReportController {
 			critreia.setServiceType(request.getParameter("serviceType"));
 			critreia.setVatRate(request.getParameter("vat"));
 			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));
-			 
+			
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportService(critreia, critreia.getServiceType());
 			
 			String pathFile = "";
