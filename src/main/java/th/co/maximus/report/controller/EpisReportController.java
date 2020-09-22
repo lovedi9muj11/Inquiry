@@ -183,8 +183,8 @@ public class EpisReportController {
 		exportPDFReport.setBalanceSummary(invObject.getBalanceSummary().setScale(2, RoundingMode.HALF_DOWN));
 		exportPDFReport.setRemark(invObject.getRemark());
 		exportPDFReport.setDateDocument(dateDocument);
-		exportPDFReport.setSurName("(" + bean.getSurName());
-		exportPDFReport.setLastname(bean.getLastName() + ")");
+		exportPDFReport.setSurName(bean.getSurName());
+		exportPDFReport.setLastname(bean.getLastName());
 
 		exportPDFReport.setServiceNo(invObject.getServiceNo());
 		if (StringUtils.isNotBlank(invObject.getServiceNo())) {

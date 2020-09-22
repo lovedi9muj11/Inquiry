@@ -2226,7 +2226,8 @@ function autoSelect(){
 				showProductSegment()
 				$("#shPS").show()
 				return true
-			}else if('5' == resObjs[0].glCode.substring(0, 1) || '2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+//			}else if('5' == resObjs[0].glCode.substring(0, 1) || '2' == resObjs[0].glCode.substring(0, 1) && 'N' == resObjs[0].erpInterfaceFlag) {
+			}else if('N' == resObjs[0].erpInterfaceFlag) {
 //				swal(WORD_5)
 				$("#shPS").hide()
 				$("#error").show()
