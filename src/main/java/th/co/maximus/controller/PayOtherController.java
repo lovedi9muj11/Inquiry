@@ -256,7 +256,8 @@ public class PayOtherController {
 	@RequestMapping(value = { "/other/find/servicetype" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MapGLBean> findServicetype() {
 		try {
-			return  mapGLDao.findBySourceAll(Constants.MasterData.OTHER);
+			return  mapGLDao.findBySource(Constants.MasterData.OTHER);
+//			return  mapGLDao.findBySourceAll(Constants.MasterData.OTHER);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

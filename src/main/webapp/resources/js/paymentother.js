@@ -2160,6 +2160,14 @@ function autoSelect(){
 		});
 		
 		keyCheck = resObjs[0].keyCode
+		
+		if(chkOther) {
+			let objs =  userGroupGBOthers.filter(function(Obj) {
+				return Obj.keyCode == event;
+			});
+			if('3TRE_AVERAGE_CHARGE'==objs[0].property5) { keyCheck = '1' }
+			else if('69BIS_AVERAGE_CHARGE'==objs[0].property5) { keyCheck = '2' }
+		}
 	}
 	
 	if(keyCheck == "1"){
@@ -2648,10 +2656,12 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 				return Obj.serviceCode == svName;
 			});
 			
-			let segMentCode = sCode[0].segMentCode;
+//			let segMentCode = sCode[0].segMentCode;  why
+			let revenueTypeCode = sCode[0].revenueTypeCode;
 			
 			let resObjs =  serviceTypes.filter(function(Obj) {
-				return Obj.productCode.substring(0, 5) == segMentCode;
+//				return Obj.productCode.substring(0, 5) == segMentCode;  why
+				return Obj.revenueTypeCode == revenueTypeCode;
 //				return Obj.glCode == svName;
 			});
 			
