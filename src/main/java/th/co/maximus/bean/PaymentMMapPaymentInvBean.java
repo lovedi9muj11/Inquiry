@@ -55,7 +55,7 @@ public class PaymentMMapPaymentInvBean {
 	private String branchAreaCode;
 	private Date clearingDate;
 	private String clearingDateStr;
-	private String cancleDate;
+	private Date cancleDate;
 	private String cancelflag;
 	private String cancleBy;
 	
@@ -112,11 +112,11 @@ public class PaymentMMapPaymentInvBean {
 		this.cancelflag = cancelflag;
 	}
 
-	public String getCancleDate() {
+	public Date getCancleDate() {
 		return cancleDate;
 	}
 
-	public void setCancleDate(String cancleDate) {
+	public void setCancleDate(Date cancleDate) {
 		this.cancleDate = cancleDate;
 	}
 

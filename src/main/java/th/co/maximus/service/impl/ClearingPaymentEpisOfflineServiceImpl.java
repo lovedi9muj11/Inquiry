@@ -465,13 +465,14 @@ public class ClearingPaymentEpisOfflineServiceImpl implements ClearingPaymentEpi
 		CancelPaymentDTO dto = new CancelPaymentDTO();
 		Receipt rp = new Receipt();
 		List<Receipt> rpList = new ArrayList<>();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
 		rp.setAccountName(payment.getCustomerName());
 		rp.setAddrLine1(payment.getAddressNewCancelPayment());
 		rp.setNo(payment.getReceiptNoManual());
 		rp.setReasonCode(payment.getReasonCode());
 		rp.setReasonDesc(payment.getReasonDesc());
 		rp.setIsIbaiss(payment.getServiceType());
-		rp.setCanceldate(payment.getCancleDate());
+		rp.setCanceldate(dateFormat.format(payment.getCancleDate()));
 		rp.setCancelBy(payment.getCancleBy());
 		rpList.add(rp);
 		dto.setReceipts(rpList);

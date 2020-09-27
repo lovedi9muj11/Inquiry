@@ -94,7 +94,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 			paymentManual.setReasonCode(rs.getString("CANCEL_REASON_CODE"));
 			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
 			paymentManual.setReasonDesc(rs.getString("CANCEL_REASON"));
-			paymentManual.setCancleDate(rs.getString("CANCEL_DATE"));
+			paymentManual.setCancleDate(rs.getTimestamp("CANCEL_DATE"));
 			paymentManual.setCancleBy(rs.getString("CANCEL_BY"));
 			paymentManual.setDepartmentArea(rs.getString("paument_inv.DEPARTMENT_AREA"));
 //			paymentManual.setSegmentOther(rs.getString("paument_inv.SEGMENT_OTHER"));
@@ -334,7 +334,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		sql.append(" , payment_m.CANCEL_BY =  ? ");
 		sql.append(" , payment_m.CANCEL_REASON_CODE =  ? ");
 		sql.append(" WHERE payment_m.MANUAL_ID = ? ");
-		jdbcTemplate.update(sql.toString(), status, cancel, null, user.toUpperCase(), reasonCode, manualId);
+		jdbcTemplate.update(sql.toString(), status, cancel, null, user, reasonCode, manualId);
 
 	}
 
