@@ -235,7 +235,7 @@
 				<text><![CDATA[สาขา :]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Transparent" x="2" y="2" width="566" height="27" uuid="2e7c3794-7a8a-4540-bae7-d5acf5147ee1">
+				<reportElement mode="Transparent" x="2" y="4" width="566" height="27" uuid="2e7c3794-7a8a-4540-bae7-d5acf5147ee1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -379,7 +379,7 @@
 		<band height="126">
 			<frame>
 				<reportElement mode="Transparent" x="0" y="0" width="570" height="126" uuid="7df8e3f4-7add-4b21-b0e7-6a9dc22a28dc">
-					<printWhenExpression><![CDATA[$P{P_LAST_PAGE_NUMBER} ==  $V{PAGE_NUMBER}]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{P_LAST_PAGE_NUMBER} ==  $V{PAGE_NUMBER} || $P{P_LAST_PAGE_NUMBER} == 1]]></printWhenExpression>
 				</reportElement>
 				<textField>
 					<reportElement x="458" y="27" width="102" height="13" backcolor="#FFFFFF" uuid="0b5f4e26-83df-4619-a892-9fe06b9f6f63">
@@ -508,7 +508,7 @@
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-					<paragraph lineSpacing="Proportional" lineSpacingSize="3.0"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
 				</textElement>
 				<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษี จะมีผลสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้แล้ว
 อนึ่งผู้จ่ายเช็คขอรับรองว่า  ได้ส่งเช็ควันเดียวกับวันที่ระบุในใบกำกับภาษีฉบับนี้จริง]]></text>

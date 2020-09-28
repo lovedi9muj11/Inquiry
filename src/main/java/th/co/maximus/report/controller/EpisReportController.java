@@ -619,8 +619,8 @@ public class EpisReportController {
 		String bdTostring = bdDivide.toString();
 		Double parsedb = Double.parseDouble(bdTostring);
 		Double mathdata = Math.ceil(parsedb);
-		if( mathdata < 1.00 ) {
-			LAST_PAGE = 1;
+		if( mathdata <= 1.0 ) {
+			LAST_PAGE = 1 ;
 		}else {
 			LAST_PAGE = mathdata.intValue();
 		}
