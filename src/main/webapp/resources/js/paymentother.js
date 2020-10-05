@@ -2617,7 +2617,6 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 	function mapServiceType() {
 		let svTypes = $("#inputServiceType").val()
 		let svNames = $("#inputServiceName").val()
-		
 		if('' === svTypes) {
 			findServiceTypeServiceName(serviceTypes,serviceNames)
 			$("#inputServiceName").val('')
@@ -2627,16 +2626,20 @@ function findServiceTypeServiceName(servicetypeList, servicenameList) {
 			});
 			
 			if(resObjs.length > 0) {
-				$('#inputServiceName').empty();
-				$('#inputServiceName').append('<option value="">' + PLS_SELECT + '</option>');
 				
-				for(var i=0; i<resObjs.length; i++) {
+					$('#inputServiceName').empty();
+					$('#inputServiceName').append('<option value="">' + PLS_SELECT + '</option>');
 					
-						$('#inputServiceName').append('<option value="'+(resObjs[i].serviceCode)+'">' + (resObjs[i].glCode)+ '-' +(resObjs[i].serviceName) + '</option>');
+					for(var i=0; i<resObjs.length; i++) {
+						
+							$('#inputServiceName').append('<option value="'+(resObjs[i].serviceCode)+'"  >' + (resObjs[i].glCode)+ '-' +(resObjs[i].serviceName) + '</option>');
+						
+					}
+					if(resObjs.length == 1){
+						svNames = resObjs[0].serviceCode;
+					}
 					
-				}
-				
-				$("#inputServiceName").val(svNames)
+				$("#inputServiceName ").val(svNames)
 			}
 		}
 	}
