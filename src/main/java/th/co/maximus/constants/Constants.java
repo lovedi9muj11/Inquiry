@@ -113,6 +113,7 @@ public class Constants {
 		public static final String SEGMENT = "SEGMENT";
 		public static final String PRODUCT = "PRODUCT";
 		public static final String OTHER_TEMP_CUSTOMER_SEGMENT = "OTHER_TEMP_CUSTOMER_SEGMENT";
+		public static final String PROFIT_COST_CENTER = "PROFIT_COST_CENTER";
 		public static final String TRIGGER_GOUP = "TriggerGoup";
 		public static final String BANK_TYPE_EDC = "BANK_TYPE_EDC";
 		public static final String USER_GROUP = "UserGoup";
