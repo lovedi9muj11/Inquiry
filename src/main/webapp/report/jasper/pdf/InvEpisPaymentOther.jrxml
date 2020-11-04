@@ -246,7 +246,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font size="14"/>
+					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getTitle()]]></textFieldExpression>
 			</textField>
