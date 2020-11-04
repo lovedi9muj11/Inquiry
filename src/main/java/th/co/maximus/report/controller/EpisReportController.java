@@ -400,8 +400,9 @@ public class EpisReportController {
 			exportPDFReport.setDiscountSpecial(spDis.setScale(2, RoundingMode.HALF_DOWN));
 			exportPDFReport.setDiscountSpecialCheck("N");
 		}
-
+		System.out.println("xxxxxxxxxx "+printCollections.get(0).getBranArea());
 		MasterDatasBean valueBean = masterDataService.findByKeyCode(printCollections.get(0).getBranArea());
+		
 		UserBean bean = masterDataService.findByUsername(profile.getUsername());
 		exportPDFReport.setBranArea(valueBean.getProperty1() + " " + valueBean.getValue());
 		exportPDFReport.setBracnCode(printCollections.get(0).getBracnCode());

@@ -886,16 +886,33 @@ function buttonAddBillingList() {
 		}
 		
 		billLists.push(billList);
+		
+		var stype =inputServiceTypeName.split("-")
+		var sname =inputServiceName.split("-")
+		
+		if(stype.length > 1){
+			stype = stype[1]
+		}else{
+			stype = inputServiceTypeName
+		}
+		
+		if(sname.length > 1){
+			sname = sname[1]
+		}else{
+			sname = inputServiceName
+		}
+		
+		
 	var markup = "<tr><td>"
 		+ count
 		+ "</td><td>"
-		+ inputServiceTypeName
+		+ stype
 		+ "<input class='form-control' type='hidden'	name='inputServiceType'value='"
 		+ inputServiceType
 		+ "' />"
 		+ "</td><td>"
 		+ "<input class='form-control' type='text'	name='serviceNametxt'value='"
-		+ inputServiceName
+		+ sname
 		+ "' />"
 		+ "<input class='form-control' type='hidden'	name='serviceCodetxt'value='"
 		+ inputServiceCode
@@ -956,11 +973,35 @@ function calurateVatRate (amountDiscount ,vatRate){
 }
 function deleteTableSale(count) {
 	
+	
 	let resObjs =  billLists.filter(function(Obj) {
 		return Obj.count != count;
 	});
 	
 	billLists = resObjs
+	var x = 1
+	tblbills = []
+	billLists.forEach( element => {
+		bill = {
+				"amountTotal": element.amountTotal,
+				"chkVatamount": element.chkVatamount,
+				"count": x,
+				"moneyDed1": element.serviceAmount,
+				"serviceAmount": element.serviceAmount,
+				"serviceCode": element.serviceCode,
+				"serviceDiscount": element.serviceDiscount,
+				"serviceMoreData": element.serviceMoreData,
+				"serviceName": element.serviceName,
+				"serviceType": element.serviceType,
+				"serviceTypeName": element.serviceTypeName,
+				"specialDiscount": element.specialDiscount
+		}
+		x++
+		tblbills.push(bill);
+	})
+	
+	billLists = tblbills;
+	
 	
 	var balanceSummary = $("#balanceSummary").val();
 	var balanceBeforeTaxRQ = $("#balanceBeforeTax").val();

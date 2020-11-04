@@ -139,7 +139,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			
 			Set<String> groupKeys = new HashSet<String>();
 			groupKeys.add(Constants.MasterData.BANK_TYPE);
-			groupKeys.add(Constants.MasterData.BUSINESS_AREA);
+			//groupKeys.add(Constants.MasterData.BUSINESS_AREA);
 			groupKeys.add(Constants.MasterData.OTHER_PAYMENT_UNIT);
 			groupKeys.add(Constants.MasterData.VAT);
 			groupKeys.add(Constants.MasterData.WT);
