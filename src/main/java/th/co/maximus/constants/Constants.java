@@ -166,9 +166,11 @@ public class Constants {
 		public static final String USER_3 = "3";
 		
 		public static class RoleOnline {
-			public static final String SUPPERVISOR = "SUPPERVISOR";
+			public static final String SUPPERVISOR = "SUPERVISOR";
 			public static final String ADMIN = "ADMIN";
 			public static final String USER = "BACKOFFICE";
+			public static final long SUPPERVISOR_8 = 8;
+			public static final long USER_3 = 3;
 			
 			
 		}
