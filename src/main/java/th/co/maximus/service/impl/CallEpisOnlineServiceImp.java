@@ -262,6 +262,7 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				userBean.setPassword(jsonArray.getJSONObject(i).getString("password"));
 				
 				JSONObject object = jsonArray.getJSONObject(i).getJSONObject("principal");
+				principal.setId(object.getLong("id"));
 				principal.setName(object.getString("name"));
 				
 				userBean.setPrincipal(principal);

@@ -30,9 +30,9 @@ public class MasOfficerServiceImpl implements MasOfficerService{
 				try {
 					int idUser = masOfficerDao.insertUserService(userBeanList.get(i));
 					long id = userBeanList.get(i).getPrincipal().getId();
-//					String roleName = userBeanList.get(i).getPrincipal().getName();
+					String roleName = userBeanList.get(i).getPrincipal().getName();
 //					int idRole = masOfficerDao.findRoleByRoleName(checkRoleName(roleName));
-					int idRole = masOfficerDao.findRoleByRoleName(checkRoleId(id));
+					int idRole = masOfficerDao.findRoleByRoleName(checkRoleId(id,roleName));
 					masOfficerDao.insertUserRole(idUser, idRole);
 				}catch (Exception ex) {
 //					ex.printStackTrace();
@@ -61,10 +61,10 @@ public class MasOfficerServiceImpl implements MasOfficerService{
 		return result;
 	}
 	
-	public String checkRoleId(long id) {
+	public String checkRoleId(long id , String name) {
 		String result = "";
 		
-		if(Constants.Role.RoleOnline.SUPPERVISOR_8 == (id)) {
+		if(Constants.Role.RoleOnline.SUPPERVISOR_8 == (id) || Constants.Role.RoleOnline.SUPPERVISOR.equals(name.toUpperCase())) {
 			result = Constants.Role.SUPPERVISOR;
 		}else {
 			result = Constants.Role.USER;
