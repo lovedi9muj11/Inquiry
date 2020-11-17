@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.co.maximus.auth.model.UserDto;
 import th.co.maximus.auth.model.UserProfile;
+import th.co.maximus.auth.repository.UserRepository;
 import th.co.maximus.auth.service.SecurityService;
 import th.co.maximus.auth.service.UserService;
 import th.co.maximus.auth.validator.UserValidator;
@@ -33,6 +34,8 @@ public class UserAuthController {
     @Autowired private SecurityService securityService;
 
     @Autowired private UserValidator userValidator;
+    
+    @Autowired private UserRepository userRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -76,7 +79,10 @@ public class UserAuthController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	UserProfile userPro = (UserProfile) auth.getPrincipal();
 		
-    	if(Constants.USER.LOGIN_FLAG_Y.equalsIgnoreCase(userPro.getLoginFlag())) {
+    	UserDto user = userRepository.findByUsername(userPro.getUsername());
+    	String lgFlag = userPro.getLoginFlag();
+    	if(null!=user)lgFlag = user.getLoginFlag();
+    	if(Constants.USER.LOGIN_FLAG_Y.equalsIgnoreCase(lgFlag)) {
     		return "confirm-password";
     	}else {
     		return "welcome";

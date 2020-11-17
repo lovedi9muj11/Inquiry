@@ -383,6 +383,7 @@ function hideShowdat() {
 	$("#sCustName").hide();
 	$("#sCustNo").hide();
 	$("#staxId").hide();
+	$("#staxId2").hide();
 	$("#scustAddress").hide();
 	$("#scustBrach").hide();
 	$("#suserGroup").hide();
@@ -426,6 +427,7 @@ function hideDetailPayment() {
 }
 
 function submitForm() {
+	let pass = true;
 	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replace(",", ""));
 	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
 	var balance = balanceOfTaxs + summaryTax ;
@@ -618,8 +620,12 @@ function submitForm() {
 	if (chkOther) {
 		if($("#taxId").val() == '') {
 			$('#staxId').show();
-			return $("#taxId").focus();
+			pass = false;
+		}else if($("#taxId").val().length < 13) {
+			$('#staxId2').show();
+			pass = false;
 		}
+		if(!pass)return $("#taxId").focus();
 	}else {
 		if($("#custNo").val() == '') {
 			$('#sCustNo').show();
@@ -2154,6 +2160,12 @@ function calVat() {
 function calWT(amount){
 	var userGroup = $("#userGroup").val();
 	var wt;
+	
+	if(chkOther) {
+		if(userGroup=='13') userGroup='1'
+		else if(userGroup=='14') userGroup='2'
+		else if(userGroup=='15') userGroup='3'
+	}
 	
 	$.ajax({
 	    type: 'GET',

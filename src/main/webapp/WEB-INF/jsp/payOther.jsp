@@ -133,6 +133,7 @@
 										<div class="col-sm-2">
 											<input class="form-control" type="text" id="taxId" name="taxId" placeholder="Tax ID" maxlength="13" onkeypress="checkTaxIdNumber(event)">
 											<p id="staxId" style="color: red; display: none">คุณยังไม่ได้กรอก TAX ID</p>
+											<p id="staxId2" style="color: red; display: none">กรุณากรอกให้ครบ 13 หลัก</p>
 										</div>
 									</div>
 								</div>
