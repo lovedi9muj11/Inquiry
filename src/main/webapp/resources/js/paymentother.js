@@ -901,9 +901,15 @@ function buttonAddBillingList() {
 		}else{
 			stype = inputServiceTypeName
 		}
-		
-		if(sname.length > 1){
-			sname = sname[1]
+		var len = sname.length;
+		var sn = 1;
+		var text="";
+		if(len > 1){
+			for(; sn < len; sn++ ){
+				if(sn === 1)text += sname[sn];
+				if(sn > 1)text += '-'+sname[sn];
+			}
+			sname = text;
 		}else{
 			sname = inputServiceName
 		}
