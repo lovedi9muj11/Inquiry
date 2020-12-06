@@ -260,6 +260,10 @@ public class MasterDataServiceImpl implements MasterDataService {
 
 				masterDataBean.setMonthNow(lastDate + "");
 			}
+			
+			if("2".equals(masterDataBean.getFlagH())) {
+				masterDataBean.setHour(masterDataBean.getHour().split("/")[1]);
+			}
 
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -343,12 +347,21 @@ public class MasterDataServiceImpl implements MasterDataService {
 			valueSet.append(" *");
 		}
 
-		if (StringUtils.isNotBlank(masterDataBean.getHour())) {
-			valueSet.append(" ");
+		if(StringUtils.isNotBlank(masterDataBean.getHour())) {
+			if("1".equals(masterDataBean.getFlagH())) {
+				valueSet.append(" ");
+			}else {
+				valueSet.append(" 0/");
+			}
 			valueSet.append(masterDataBean.getHour());
-		} else {
-			valueSet.append(" *");
 		}
+		
+//		if (StringUtils.isNotBlank(masterDataBean.getHour())) {
+//			valueSet.append(" ");
+//			valueSet.append(masterDataBean.getHour());
+//		} else {
+//			valueSet.append(" *");
+//		}
 
 		if (StringUtils.isNotBlank(masterDataBean.getDay())) {
 			valueSet.append(" ");
