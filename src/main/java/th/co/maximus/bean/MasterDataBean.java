@@ -17,6 +17,7 @@ public class MasterDataBean {
 	private String month;
 	private String day;
 	private String hour;
+	private String flagH;
 	private String minute;
 	
 	private String yearNow;
@@ -128,6 +129,12 @@ public class MasterDataBean {
 	}
 	public void setMonthNow(String monthNow) {
 		this.monthNow = monthNow;
+	}
+	public String getFlagH() {
+		return flagH;
+	}
+	public void setFlagH(String flagH) {
+		this.flagH = flagH;
 	}
 	
 

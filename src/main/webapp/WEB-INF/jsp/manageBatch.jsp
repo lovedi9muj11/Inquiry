@@ -83,7 +83,10 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 											</select>
 										</div>
 										
-										<label class="col-md-1 control-label right">ชั่วโมง : </label>
+										<div class="col-md-1">
+											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour" value="1" checked> เวลา </label>
+											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour2" value="2"> ชั่วโมง </label>
+										</div>
 										<div class="col-sm-2">
 											<select class="groupType col-md-6" name="hour" id="hour" list="groupTypeDropdown" listKey="value" listValue="name">
 											</select>

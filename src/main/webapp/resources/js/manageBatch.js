@@ -22,6 +22,9 @@ $(document).ready(function() {
 		$('#date').empty();
 		$('#hour').empty();
 		$('#minute').empty();
+		radioHour = document.getElementById("radioHour");
+    	radioHour.checked = true;
+//		document.getElementById("radioHour").value = "1";
 		if(''==groupTypeVal) {
 			setValue();
 		}else{
@@ -64,11 +67,19 @@ $(document).ready(function() {
 //		if(''==$("#date").val())return swal('date')
 //		if(''==$("#hour").val())return swal('hour')
 //		if(''==$("#minute").val())return swal('minute')
-		
+//		var radioHour = document.getElementById("radioHour");
+		var radioHour = document.getElementsByName("radioHour");
+		var radioResult = "";
+		for (var x = 0; x < radioHour.length; x++) {
+			if (radioHour[x].checked) {
+				radioResult = radioHour[x].value;
+			}
+		} 
 		var masterDataBean = {
 			"month":$("#month").val() ,
 			"day":$("#date").val() ,
 			"hour":$("#hour").val() ,
+			"flagH":radioResult ,
 			"minute":$("#minute").val() ,
 			"orderBatch":$("#groupType").val()
 		}
@@ -82,11 +93,9 @@ $(document).ready(function() {
 	        contentType: "application/json; charset=utf-8",
 	        success: function (res) {
 	        	swal('Insert : '+res.responseText)
-//	        	alert(res.responseText)
 	        },
 	        error : function (res) {
 	        	swal('Insert : '+res.responseText)
-//	        	alert(res.responseText)
 	        }
 		});
 		
@@ -113,7 +122,7 @@ function setDate(days) {
 }
 
 function setHour() {
-	$('#hour').append('<option value="*">' + PLS_SELECT_ALL_HOUR + '</option>');
+//	$('#hour').append('<option value="*">' + PLS_SELECT_ALL_HOUR + '</option>');
 	for(var i=0; i<24; i++) {
 		$('#hour').append('<option value="'+(i+1)+'">' + (i+1) + '</option>');
 	}
@@ -151,6 +160,14 @@ function findGroupTypeByKeyCode(groupKey) {
 	        	$('#monthdd').val(res.month);
 	        	$('#daydd').val(res.day);
 	        	$('#hourdd').val(res.hour);
+	        	
+	        	if(res.flagH=='1') {
+	        		radioHour = document.getElementById("radioHour");
+		        	radioHour.checked = true;
+	        	}else {
+	        		radioHour = document.getElementById("radioHour2");
+		        	radioHour.checked = true;
+	        	}
 	        	
 	        	var str = res.minute;
 	        	var n = str.search("/");
