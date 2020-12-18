@@ -24,7 +24,8 @@ $(document).ready(function() {
 		$('#minute').empty();
 		radioHour = document.getElementById("radioHour");
     	radioHour.checked = true;
-//		document.getElementById("radioHour").value = "1";
+    	radioMin = document.getElementById("radioMin");
+    	radioMin.checked = true;
 		if(''==groupTypeVal) {
 			setValue();
 		}else{
@@ -42,8 +43,7 @@ $(document).ready(function() {
 		var firstDay = new Date(yearNow, monthVal, 1);
 		var lastDay = new Date(yearNow, monthVal, 0);
 		
-//		alert(firstDay.getDate())
-//		alert(lastDay.getDate())
+		if('*' == monthVal)lastDay = 28; //ช่วยคิดหน่อย
 		
 		if('*'!=monthVal) {
 			$('#date').empty();
@@ -57,6 +57,14 @@ $(document).ready(function() {
 			setDate(lastDay.getDate());
 			setHour();
 			setMinute();
+			
+			if('L'==monthVal)document.getElementById("date").disabled = true;
+			else document.getElementById("date").disabled = false;
+		}else {
+			document.getElementById("date").disabled = false;
+			
+			$('#date').empty();
+			setDate(lastDay);
 		}
 		
 	});
@@ -67,19 +75,26 @@ $(document).ready(function() {
 //		if(''==$("#date").val())return swal('date')
 //		if(''==$("#hour").val())return swal('hour')
 //		if(''==$("#minute").val())return swal('minute')
-//		var radioHour = document.getElementById("radioHour");
 		var radioHour = document.getElementsByName("radioHour");
+		var radioMin = document.getElementsByName("radioMin");
 		var radioResult = "";
 		for (var x = 0; x < radioHour.length; x++) {
 			if (radioHour[x].checked) {
 				radioResult = radioHour[x].value;
 			}
-		} 
+		}
+		var radioMinResult = "";
+		for (var x = 0; x < radioMin.length; x++) {
+			if (radioMin[x].checked) {
+				radioMinResult = radioMin[x].value;
+			}
+		}
 		var masterDataBean = {
 			"month":$("#month").val() ,
 			"day":$("#date").val() ,
 			"hour":$("#hour").val() ,
 			"flagH":radioResult ,
+			"flagM":radioMinResult ,
 			"minute":$("#minute").val() ,
 			"orderBatch":$("#groupType").val()
 		}
@@ -103,7 +118,10 @@ $(document).ready(function() {
 	
 });
 
+var monthLists = "JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC";
 function setMonth(months) {
+	let monthLists2 = monthLists.split(',')
+	console.log(monthLists2.length)
 	$('#month').append('<option value="*">' + PLS_SELECT_ALL_MONTH + '</option>');
 	$('#month').append('<option value="L">' + PLS_SELECT_ALL_MONTH_LAST_DAY + '</option>');
 	for(var i=0; i<months.length; i++) {
@@ -123,15 +141,15 @@ function setDate(days) {
 
 function setHour() {
 //	$('#hour').append('<option value="*">' + PLS_SELECT_ALL_HOUR + '</option>');
-	for(var i=0; i<24; i++) {
-		$('#hour').append('<option value="'+(i+1)+'">' + (i+1) + '</option>');
+	for(var i=0; i<25; i++) {
+		$('#hour').append('<option value="'+(i)+'">' + (i) + '</option>');
 	}
 }
 
 function setMinute() {
-	$('#minute').append('<option value="*">' + PLS_SELECT_ALL_MINUTE + '</option>');
-	for(var i=1; i<59; i++) {
-		$('#minute').append('<option value="'+(i+1)+'">' + (i+1) + '</option>');
+//	$('#minute').append('<option value="*">' + PLS_SELECT_ALL_MINUTE + '</option>');
+	for(var i=0; i<60; i++) {
+		$('#minute').append('<option value="'+(i)+'">' + (i) + '</option>');
 	}
 }
 
@@ -169,6 +187,14 @@ function findGroupTypeByKeyCode(groupKey) {
 		        	radioHour.checked = true;
 	        	}
 	        	
+	        	if(res.flagM=='1') {
+	        		radioMin = document.getElementById("radioMin");
+	        		radioMin.checked = true;
+	        	}else {
+	        		radioMin = document.getElementById("radioMin2");
+	        		radioMin.checked = true;
+	        	}
+	        	
 	        	var str = res.minute;
 	        	var n = str.search("/");
 	        	if((-1)!=n) {
@@ -186,7 +212,10 @@ function findGroupTypeByKeyCode(groupKey) {
 	        		lastDay = res.monthNow;
 	        	}
 	        	
-				setDate(lastDay);
+	        	if('L'==res.month)document.getElementById("date").disabled = true;
+	        	else document.getElementById("date").disabled = false;
+				
+	        	setDate(lastDay);
 				$('#date').val($('#daydd').val());
 				setHour();
 				$('#hour').val($('#hourdd').val());

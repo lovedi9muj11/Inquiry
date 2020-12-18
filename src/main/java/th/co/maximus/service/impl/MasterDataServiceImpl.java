@@ -248,7 +248,7 @@ public class MasterDataServiceImpl implements MasterDataService {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "EN"));
 
 		try {
-			if (!"*".equals(masterDataBean.getMonth())) {
+			if (!"*".equals(masterDataBean.getMonth()) && !"L".equals(masterDataBean.getMonth())) {
 				dd = df.parse("1/" + masterDataBean.getMonth() + "/" + df.format(new Date().getYear()));
 
 				Calendar calendar = Calendar.getInstance();
@@ -262,7 +262,17 @@ public class MasterDataServiceImpl implements MasterDataService {
 			}
 			
 			if("2".equals(masterDataBean.getFlagH())) {
-				masterDataBean.setHour(masterDataBean.getHour().split("/")[1]);
+				if("*".equals(masterDataBean.getHour()))masterDataBean.setHour("1");
+				else if(!"0".equals(masterDataBean.getHour())) masterDataBean.setHour(masterDataBean.getHour().split("/")[1]);
+			}
+			
+			if("2".equals(masterDataBean.getFlagM())) {
+				if("*".equals(masterDataBean.getMinute()))masterDataBean.setMinute("1");
+				else if("0".equals(masterDataBean.getMinute())) masterDataBean.setMinute(masterDataBean.getMinute().split("/")[1]);
+			}
+			
+			if("*".equals(masterDataBean.getDay()) || "?".equals(masterDataBean.getDay())) {
+				masterDataBean.setDay("*");
 			}
 
 		} catch (ParseException e) {
@@ -278,8 +288,15 @@ public class MasterDataServiceImpl implements MasterDataService {
 	public void setTime(MasterDataBean masterDataBean) {
 		if (StringUtils.isNotBlank(masterDataBean.getText())) {
 			String[] list = masterDataBean.getText().split(" ");
-			masterDataBean.setMonth(list[4]);
-			masterDataBean.setDay(list[3]);
+			
+			if("L".equals(list[3])) {
+				masterDataBean.setMonth(list[3]);
+				masterDataBean.setDay("*");
+			}else {
+				masterDataBean.setMonth(list[4]);
+				masterDataBean.setDay(list[3]);
+			}
+			
 			masterDataBean.setHour(list[2]);
 			masterDataBean.setMinute(list[1]);
 		} else {
@@ -337,42 +354,56 @@ public class MasterDataServiceImpl implements MasterDataService {
 		valueSet.append("0");
 
 		if (StringUtils.isNotBlank(masterDataBean.getMinute())) {
-			if (Constants.EVERY.equals(masterDataBean.getMinute())) {
-				valueSet.append(" ");
-			} else {
-				valueSet.append(" 0/");
+			valueSet.append(" ");
+			if(masterDataBean.getMinute().equals("0")) {
+				valueSet.append(masterDataBean.getMinute());
+			}else {
+				if("2".equals(masterDataBean.getFlagM())) {
+					if("1".equals(masterDataBean.getMinute())) {
+						valueSet.append("*");
+					}else {
+						valueSet.append("*/");
+						valueSet.append(masterDataBean.getMinute());
+					}
+				}
 			}
-			valueSet.append(masterDataBean.getMinute());
 		} else {
-			valueSet.append(" *");
+			valueSet.append(" 0");
 		}
 
 		if(StringUtils.isNotBlank(masterDataBean.getHour())) {
-			if("1".equals(masterDataBean.getFlagH())) {
-				valueSet.append(" ");
+			valueSet.append(" ");
+			if(masterDataBean.getHour().equals("0")) {
+				valueSet.append(masterDataBean.getHour());
 			}else {
-				valueSet.append(" 0/");
+				if("2".equals(masterDataBean.getFlagH())) {
+					if("1".equals(masterDataBean.getHour())) {
+						valueSet.append("*");
+					}else {
+						valueSet.append("*/");
+						valueSet.append(masterDataBean.getHour());
+					}
+				}
+				
 			}
-			valueSet.append(masterDataBean.getHour());
 		}
 		
-//		if (StringUtils.isNotBlank(masterDataBean.getHour())) {
-//			valueSet.append(" ");
-//			valueSet.append(masterDataBean.getHour());
-//		} else {
-//			valueSet.append(" *");
-//		}
-
-		if (StringUtils.isNotBlank(masterDataBean.getDay())) {
-			valueSet.append(" ");
-			valueSet.append(masterDataBean.getDay());
-		} else {
-			valueSet.append(" *");
+		if(!"L".equals(masterDataBean.getMonth())) {
+			if (StringUtils.isNotBlank(masterDataBean.getDay())) {
+				valueSet.append(" ");
+				valueSet.append(masterDataBean.getDay());
+			} else {
+				valueSet.append(" *");
+			}
 		}
 
 		if (StringUtils.isNotBlank(masterDataBean.getMonth())) {
 			valueSet.append(" ");
 			valueSet.append(masterDataBean.getMonth());
+			
+			if("L".equals(masterDataBean.getMonth())) {
+				valueSet.append(" *");
+			}
 		} else {
 			valueSet.append("*");
 		}

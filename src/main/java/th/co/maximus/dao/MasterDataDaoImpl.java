@@ -185,6 +185,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			masterDataBean.setProperty2(rs.getString("PROPERTY_2"));
 			masterDataBean.setProperty1(rs.getString("PROPERTY_1"));
 			masterDataBean.setFlagH(rs.getString("FLAG_H"));
+			masterDataBean.setFlagM(rs.getString("FLAG_M"));
 			return masterDataBean;
 		}
 
@@ -237,10 +238,11 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public void insertBatch(MasterDataBean masterDataBean) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" UPDATE MASTER_DATA set VALUE = ?, FLAG_H = ? WHERE KEYCODE = ?");
+		sql.append(" UPDATE MASTER_DATA set VALUE = ?, FLAG_H = ?, FLAG_M = ? WHERE KEYCODE = ?");
 		
 		param.add(masterDataBean.getValue());
 		param.add(masterDataBean.getFlagH());
+		param.add(masterDataBean.getFlagM());
 		param.add(masterDataBean.getOrderBatch());
 		Object[] paramArr = param.toArray();
 		
