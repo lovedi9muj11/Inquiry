@@ -198,7 +198,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 	public List<ReportPaymentBean> getReportPaymentPDF(ReportPaymentCriteria criteria,String serviceType) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT PM.*,PIM.*, m.value branch_name, (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = 'POS_NAME') pos_name, ");
-		sql.append(" (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = PM.BRANCH_AREA and property_2 = PIM.DEPARTMENT ) department_name ");
+		sql.append(" (SELECT VALUE FROM MASTER_DATA WHERE KEYCODE = PM.BRANCH_AREA and property_2 = PIM.DEPARTMENT and status = 'Y' ) department_name ");
 		sql.append(" FROM RECEIPT_MANUAL PM ");
 		sql.append(" INNER JOIN PAYMENT_INVOICE_MANUAL PIM ON PM.MANUAL_ID = PIM.MANUAL_ID ");
 		sql.append(" LEFT JOIN MASTER_DATA m ON PM.BRANCH_AREA = m.KEYCODE ");
@@ -206,6 +206,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
 		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo2()+" "+criteria.getDateTo() + "'");
+		sql.append("  and m.group_key = 'BUSINESS_AREA' ");
 		
 //		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo() + "'");
@@ -232,6 +233,7 @@ public class PaymentManualDaoImpl implements PaymentManualDao {
 		sql.append(" WHERE PM.CREATE_DATE >=").append("'" + criteria.getDateFrom() + "'");
 //		sql.append("  AND PM.CREATE_DATE <= ").append("'" + dateFormat.format(new Date())+" "+criteria.getDateTo() + "'");
 		sql.append("  AND PM.CREATE_DATE <= ").append("'" + criteria.getDateTo2()+" "+criteria.getDateTo() + "'");
+		sql.append("  and m.group_key = 'BUSINESS_AREA' ");
 		
 		if (!"".equals(criteria.getUser()) && criteria.getUser() != null) {
 			sql.append(" AND PM.CREATE_BY = ").append("'" + criteria.getUser() + "'");

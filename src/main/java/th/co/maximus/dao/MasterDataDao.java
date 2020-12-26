@@ -39,6 +39,7 @@ public interface MasterDataDao {
 	List<MasterDataBean> showAllMSNGL();
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
+	MasterDataBean findGroupTypeByKeyCode2(String groupKey);
 	
 	String findProperty(String code);
 	

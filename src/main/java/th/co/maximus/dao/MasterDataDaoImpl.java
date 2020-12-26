@@ -233,6 +233,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		
 		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
 	}
+	
+	@Override
+	public MasterDataBean findGroupTypeByKeyCode2(String groupKey) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and KEYCODE = '"+groupKey+"' and group_key = 'BUSINESS_AREA'");
+		
+		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
+	}
 
 	@Override
 	public void insertBatch(MasterDataBean masterDataBean) {
