@@ -87,7 +87,7 @@ public class UserController {
 		
 		MasterDataBean masterDataBean = new MasterDataBean();
 		masterDataBean = masterDataDao.findGroupTypeByKeyCode("BRANCH_AREA");
-		userBean.setCenterServiceName(masterDataDao.findGroupTypeByKeyCode2(masterDataBean.getText()).getText());
+		userBean.setCenterServiceName(masterDataDao.findGroupTypeByKeyCode(masterDataBean.getText()).getText());
 		return userBean;
 	}
 	

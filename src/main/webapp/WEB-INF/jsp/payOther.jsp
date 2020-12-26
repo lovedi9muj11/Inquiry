@@ -534,8 +534,8 @@
 														<select class="form-control" id="creditType"
 															name="paymentTranPrice.creditType">
 															<option value="">กรุณาเลือก</option>
-															<option value="visa">VISA</option>
-															<option value="masterCard">MASTER-CARD</option>
+															<option value="VISA">VISA</option>
+															<option value="MASTERCARD">MASTER-CARD</option>
 														</select>
 														<p id="creditTypeTxt" style="color: red; display: none">คุณยังไม่ได้เลือก
 															ประเภทของบัตรเครดิต</p>
