@@ -185,8 +185,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getTaxId()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="82" y="102" width="399" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="82" y="102" width="484" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="f1e2424b-e328-42b6-b31d-89654d57417e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box padding="2"/>
