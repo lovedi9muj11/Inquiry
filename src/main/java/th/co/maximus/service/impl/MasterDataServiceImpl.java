@@ -268,7 +268,7 @@ public class MasterDataServiceImpl implements MasterDataService {
 			
 			if("2".equals(masterDataBean.getFlagM())) {
 				if("*".equals(masterDataBean.getMinute()))masterDataBean.setMinute("1");
-				else if("0".equals(masterDataBean.getMinute())) masterDataBean.setMinute(masterDataBean.getMinute().split("/")[1]);
+				else if(!"0".equals(masterDataBean.getMinute())) masterDataBean.setMinute(masterDataBean.getMinute().split("/")[1]);
 			}
 			
 			if("*".equals(masterDataBean.getDay()) || "?".equals(masterDataBean.getDay())) {
