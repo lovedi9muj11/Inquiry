@@ -778,11 +778,10 @@ function findBankNo() {
 		$('#bankName').val(bankName);
 
 }
-
+var current = "";
 var billLists = [];
 function buttonAddBillingList() {
-    
-    
+	current = "addbill";
 	hideDetailPayment();
 //	if ($("#inputServiceType").val() == "") {
 //		$("#sinputServiceType").show();
@@ -984,11 +983,13 @@ function calurateVatRate (amountDiscount ,vatRate){
 	
 }
 function deleteTableSale(count) {
-	
+	current ="delbill";
 	
 	let resObjs =  billLists.filter(function(Obj) {
 		return Obj.count != count;
 	});
+	
+	
 	
 	billLists = resObjs
 	var x = 1
@@ -1158,6 +1159,8 @@ function tdAutoNumber() {
 	return txt;
 }
 function myDeleteDed(count) {
+	current = "delwt";
+	
 	var bas = $("#balanceSummarys").val();
 	var balance = parseFloat(bas.replace(",", ""));
 	var tableDed = document.getElementById("showDeductibleTable");
@@ -1172,10 +1175,13 @@ function myDeleteDed(count) {
 		for (var i = 1; i < tableDed.rows.length; i++) {
 
 			if (count == i) {
+				
 				var oCells = table.rows.item(i).cells;
+				sumded -= parseInt(currentList[count-1])
 				var total = parseFloat(oCells[3].innerHTML.replace(",", ""));
 				var balances = parseFloat(parseFloat(balance)
 						+ parseFloat(total ));
+				
 				if (balances < result) {
 					// balance = result;
 					$("#change").val(
@@ -1187,6 +1193,12 @@ function myDeleteDed(count) {
 				// $("#balanceSummaryShow").val(balance.toFixed(2));
 
 				// vatAmount();
+				for( var i = 0; i < currentList.length; i++){ 
+			        if (i == count-1) { 
+			        	currentList.splice(i, 1); 
+			        }
+			    }
+				
 				tableDed.deleteRow(count);
 				table.deleteRow(count);
 				removeTax();
@@ -1197,8 +1209,14 @@ function myDeleteDed(count) {
 	replaseIndexV3(tableDed);
 
 }
+var sumded = 0;
+var currentList = [];
 
 function addDataTableDed() {
+	current = "addwt";
+	sumded += parseInt($("#moneyDed").val());
+	currentList.push(parseInt($("#moneyDed").val()));
+	
 	var oTable = document.getElementById('deductibleTable');
 	var tableDed = document.getElementById("showDeductibleTable");
 	var result = [];
@@ -1255,7 +1273,8 @@ function addDataTableDed() {
 		document.getElementById("deductibleTable").deleteRow(i - 1);
 	}
 	$("#balanceSummarys").val(parseFloat(balance *-1).toFixed(2).replace(",", ""));
-
+	
+	
 	 summaryTax();
 	// vatAmount();
 	replaseIndexV3(tableDed);
@@ -1887,8 +1906,6 @@ function replaseIndex(str) {
 			}
 			cells[0].innerHTML = i;
 			if (cells[2].innerHTML) {
-				console.log(suminputmon)
-				console.log(cells[2].innerHTML)
 
 				suminputmon = suminputmon
 						+ FormatMoneyShowToNumber(cells[2].innerHTML);
@@ -1994,7 +2011,6 @@ function replaseIndexV3(str) {
 	 totalSum();
 
 }
-
 function replaseIndexV4(str) {
 	var sumInputmon = 0;
 	var beforeSaleShow = 0;
@@ -2066,16 +2082,25 @@ function replaseIndexV4(str) {
 	$("#salespacial").val(
 			spacial.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-//	$("#summaryTax").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	var summoneyDed = $("#moneyDed").val();
-	$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") - summoneyDed);
+	var x = parseInt(summaryTax) - parseInt(sumded);
+	
+if(current == "addbill"){
+	$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	//$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+}else if(current == "addwt"){
+	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+}
+else if(current == "delbill"){
+	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+}
+else if(current == "delwt"){
+	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+}
 
 	// totalSum();
 	return sumInputmon;
 }
 function totalSum() {
-	console.log("totalSum");
 	var sumtotal = FormatMoneyShowToNumber($("#balanceOfTaxs").val());
 	var income = FormatMoneyShowToNumber($("#balanceSumShow").val());
 	var summaryTax = FormatMoneyShowToNumber($("#summaryTax").val());
