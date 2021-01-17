@@ -169,6 +169,22 @@ $(document).ready(function() {
 				
 				$("#balanceSummary").val(FormatMoneyShowToNumber(balanceOfTaxPrice).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 				inputAmount();
+				
+				var inputServiceAmount = $("#balanceSummary").val();
+				
+				
+				var serviceAmount = parseFloat(inputServiceAmount.replace(/,/g, "")); // จำนวนต่อหน่วย
+				if(serviceAmount == 0 || serviceAmount == ""){
+					$("#sinputServiceAmount").show();
+					if(serviceMoreData == 0 || serviceMoreData == ""){
+						$("#sinputServiceMoreData").show();
+						return false;
+					}
+					return false;
+				}
+				
+				
+				calWT(serviceAmount);
 			});
 			$("#balanceSummary").on( "keyup",  function() {
 				inputAmount();
@@ -1106,11 +1122,9 @@ function myDeleteDed(count) {
 	
 
 	if (table.rows.length > 0) {
-
-		
-				
-				
 				var oCells = tableDed.rows.item(count).cells;
+				var x = count-1;
+				sumded -= parseInt(currentList[x])
 				
 				var total = parseFloat(oCells[2].innerHTML.replace(/,/g, ""));
 				var balances =	parseFloat(parseFloat(balance) + parseFloat(total *-1));
@@ -1118,8 +1132,12 @@ function myDeleteDed(count) {
 
 //				balances = balances - resultChange;
 //				
-//					$("#balanceSummarys").val(balances.toFixed(2));
-				// $("#balanceSummaryShow").val(balance.toFixed(2));
+			     $("#balanceSummarys").val(balances.toFixed(2));
+				 $("#balanceSummaryShow").val(balance.toFixed(2));
+				 
+				 
+				 $("#summaryTax").val(summaryTax + parseFloat(total *-1))
+				 
 					for (var i = 1; i < table.rows.length; i++) {
 						var oCell = table.rows.item(i).cells;
 						if(oCell[0].outerText == oCells[3].innerHTML){
@@ -1134,6 +1152,13 @@ function myDeleteDed(count) {
 					$("#change").val(parseFloat(0).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				}
 				
+				
+				for( var i = 0; i < currentList.length; i++){ 
+			        if (i == count-1) { 
+			        	currentList.splice(i, 1); 
+			        }
+			    }
+				
 				tableDed.deleteRow(count);
 				
 				
@@ -1141,10 +1166,23 @@ function myDeleteDed(count) {
 	replaseIndexSumTax(tableDed);
 	// replaseIndexSumTax(tableDed);
 	
-	$("#moneyDed").val("0.00");
+	var inputServiceAmount = $("#balanceSummary").val();
+	var serviceAmount = parseFloat(inputServiceAmount.replace(/,/g, "")); // จำนวนต่อหน่วย // จำนวนต่อหน่วย
+	if(serviceAmount == 0 || serviceAmount == ""){
+		$("#sinputServiceAmount").show();
+		if(serviceMoreData == 0 || serviceMoreData == ""){
+			$("#sinputServiceMoreData").show();
+			return false;
+		}
+		return false;
+	}
+	
+	calWT(serviceAmount);
 
 }
 
+var sumded = 0;
+var currentList = [];
 
 function addDataTableDed() {
 	var d = new Date();
@@ -1153,6 +1191,9 @@ function addDataTableDed() {
 		swal("กรุณากรอกจำนวนเงินที่ต้องชำระ ")
 	return $("#balanceSummarys").focus();
 	}
+	
+	sumded += parseInt($("#moneyDed").val());
+	currentList.push(parseInt($("#moneyDed").val()));
 	
 	var oTable = document.getElementById('deductibleTable');
 	var tableDed = document.getElementById("showDeductibleTable");
@@ -1215,6 +1256,24 @@ function addDataTableDed() {
 	
 	summaryTax();
 	// vatAmount();
+	
+	
+	
+	
+	var inputServiceAmount = $("#balanceSummary").val();
+	var serviceAmount = parseFloat(inputServiceAmount.replace(/,/g, "")); // จำนวนต่อหน่วย// จำนวนต่อหน่วย
+	if(serviceAmount == 0 || serviceAmount == ""){
+		$("#sinputServiceAmount").show();
+		if(serviceMoreData == 0 || serviceMoreData == ""){
+			$("#sinputServiceMoreData").show();
+			return false;
+		}
+		return false;
+	}
+	
+	calWT(serviceAmount);
+	
+	
 	
 }
 // เงินสด
@@ -1877,45 +1936,38 @@ function removeTax() {
 	}else{
 		moneyss = parseFloat(moneyss.replace(/,/g, ""));
 	}
-	var table = document.getElementById("showDeductibleTable");
-	var rowLength = table.rows.length;
-	var summary = parseFloat(0);
-	for (var i = 1; i < rowLength; i++) {
-		var oCells = table.rows.item(i).cells;
-		var total = oCells[2].innerHTML.replace(/,/g, "");
-		var res = total.split("-");
-		
-		summary = parseFloat(res[1]);
-	}
-	if (rowLength <= 0) {
-		summary = parseFloat(0);
-	}
-	if (summary < 0) {
-		summary = parseFloat(0);
-	}
-	moneyss = parseFloat(moneyss)+ parseFloat(summary);
-	
-	
-	var tax = $("#summaryTax").val();
-	tax = parseFloat(tax.replace(/,/g, ""));
-	if(summary == 0){
-		tax = parseFloat(0);
-	}else{
-		tax = parseFloat(tax - (summary*-1));
-	}
+
 	
 	var change = $("#change").val();
 	var resultChange = parseFloat(change.replace(/,/g, ""));
 
 	moneyss = moneyss - resultChange;
 	
-	$("#summaryTax").val(tax.toFixed(2));
+	
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#balanceSummarys").val(parseFloat(moneyss).toFixed(2));
 	$("#balanceSummaryShow").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyTran").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#creditPrice").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	$("#moneyCheck").val(moneyss.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	
+	
+	var inputServiceAmount = $("#balanceSummary").val();
+	
+	
+	var serviceAmount = parseFloat(inputServiceAmount.replace(/,/g, "")); // จำนวนต่อหน่วย
+	if(serviceAmount == 0 || serviceAmount == ""){
+		$("#sinputServiceAmount").show();
+		if(serviceMoreData == 0 || serviceMoreData == ""){
+			$("#sinputServiceMoreData").show();
+			return false;
+		}
+		return false;
+	}
+	
+	
+	calWT(serviceAmount);
+	
 }
 function replaseIndexCredit(str) {
 
@@ -2139,3 +2191,35 @@ function setDataBC() {
 		}
 		
 	}
+	
+
+	// add Cal WT
+function calWT(amount) {
+	var userGroup = $("#userGroup").val();
+	var wt;
+	var sq = $("#summaryTax").val();
+	var summaryTax = parseFloat(sq.replace(/,/g, ""));
+	
+
+	if (userGroup == '13')
+		userGroup = '1'
+	else if (userGroup == '14')
+		userGroup = '2'
+	else if (userGroup == '15')
+		userGroup = '3'
+			
+			
+
+	$.ajax({
+		type : 'GET',
+		url : ctx + "/getWT/" + userGroup
+	}).then(function(data) {
+		wt = (amount * parseInt(data.value) / 100) - (summaryTax * -1) ;
+		$("#moneyDed").val(parseFloat(wt).toFixed(2));
+	});
+
+}
+	
+	
+	
+	
