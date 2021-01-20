@@ -110,6 +110,20 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 											</select>
 										</div>
 									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-6 control-label">หมายเหตุ : </label>
+										<div class="col-sm-2">
+											<label class="control-label">*เวลา - กำหนดเป็นช่วงเวลา</label>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-6 control-label"></label>
+										<div class="col-sm-3">
+											<label class="control-label">*ชั่วโมง/นาที - กำหนดเป็นทุกๆ กี่ชั่วโมง/ทุกๆ กี่นาที</label>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
