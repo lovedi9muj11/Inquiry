@@ -84,8 +84,8 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 										</div>
 										
 										<div class="col-md-1">
-											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour" value="1" checked> เวลา </label>
-											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour2" value="2"> ชั่วโมง </label>
+											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour" value="1" onclick="batchHMode('1')" checked> เวลา </label>
+											<label class="control-label right"><input type="radio" name="radioHour" id="radioHour2" value="2" onclick="batchHMode('2')"> ชั่วโมง </label>
 										</div>
 										<div class="col-sm-2">
 											<select class="groupType col-md-6" name="hour" id="hour" list="groupTypeDropdown" listKey="value" listValue="name">
@@ -102,8 +102,8 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 										
 <!-- 										<label class="col-md-1 control-label right">นาที : </label> -->
 										<div class="col-md-1">
-											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin" value="1" checked> เวลา </label>
-											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin2" value="2"> นาที </label>
+											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin" value="1" checked disabled"> เวลา </label>
+											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin2" value="2" disabled> นาที </label>
 										</div>
 										<div class="col-sm-2">
 											<select class="groupType col-md-6" name="minute" id="minute" list="groupTypeDropdown" listKey="value" listValue="name">

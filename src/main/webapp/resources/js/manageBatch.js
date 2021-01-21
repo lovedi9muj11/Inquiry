@@ -71,10 +71,6 @@ $(document).ready(function() {
 	
 	$('#saveBtn').click(function() {
 		if(''==$("#groupType").val())return swal(PLS_SELECT+' '+PLS_SELECT_ALL_TYPE)
-//		if(''==$("#month").val())return swal(PLS_SELECT+' '+PLS_SELECT_MONTH)
-//		if(''==$("#date").val())return swal('date')
-//		if(''==$("#hour").val())return swal('hour')
-//		if(''==$("#minute").val())return swal('minute')
 		var radioHour = document.getElementsByName("radioHour");
 		var radioMin = document.getElementsByName("radioMin");
 		var radioResult = "";
@@ -300,4 +296,9 @@ function isDate(txtDate) {
 	}
 	
 	return true; 
+}
+
+function batchHMode(value) {
+	if(value=='1')$('#radioMin').prop('checked',true);
+	else if(value=='2')$('#radioMin2').prop('checked',true);
 }

@@ -16,6 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -183,10 +184,14 @@ public class ReportController {
 			critreia.setDateTo(request.getParameter("dateToHidden"));
 			critreia.setDateTo2(request.getParameter("dateToHidden2"));
 			critreia.setAccountId(request.getParameter("accountIdHidden"));
-			critreia.setUser(request.getParameter("authoritiesHidden"));
+			
 			critreia.setServiceType(request.getParameter("serviceType"));
 			critreia.setVatRate(request.getParameter("vat"));
 			critreia.setMachinePaymentName(request.getParameter("machinePaymentNameHidden"));
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	UserProfile userPro = (UserProfile) auth.getPrincipal();
+	    	critreia.setUser(userPro.getUsername());
 			
 			List<ReportPaymentBean> result = paymentReportService.findPaymnetReportServiceOtherSearch(critreia, critreia.getServiceType());
 			
