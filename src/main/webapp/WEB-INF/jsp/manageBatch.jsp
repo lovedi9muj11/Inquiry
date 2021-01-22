@@ -102,7 +102,7 @@ var PLS_SELECT_ALL_MINUTE = 'ทุกนาที';
 										
 <!-- 										<label class="col-md-1 control-label right">นาที : </label> -->
 										<div class="col-md-1">
-											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin" value="1" checked disabled"> เวลา </label>
+											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin" value="1" checked disabled> เวลา </label>
 											<label class="control-label right"><input type="radio" name="radioMin" id="radioMin2" value="2" disabled> นาที </label>
 										</div>
 										<div class="col-sm-2">
