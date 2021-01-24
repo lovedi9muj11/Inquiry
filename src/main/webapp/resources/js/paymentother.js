@@ -1214,7 +1214,8 @@ var currentList = [];
 
 function addDataTableDed() {
 	current = "addwt";
-	sumded += parseInt($("#moneyDed").val());
+	var xx = $("#moneyDed").val().replaceAll(",", "")
+	sumded += parseInt(xx);
 	currentList.push(parseInt($("#moneyDed").val()));
 	
 	var oTable = document.getElementById('deductibleTable');
