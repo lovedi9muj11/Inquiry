@@ -341,7 +341,7 @@ function disBtn() {
 function vatAmount() {
 	var result = $("#balanceSum").val();
 	if ($("#balanceSum").val() !== '') {
-		result = parseFloat($("#balanceSum").val().replace(",", ""));
+		result = parseFloat($("#balanceSum").val().replaceAll(",", ""));
 	}
 	var vaq = $('#vatrate').val();
 	if(vaq == 'notVat'){
@@ -428,8 +428,8 @@ function hideDetailPayment() {
 
 function submitForm() {
 	let pass = true;
-	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replace(",", ""));
-	var summaryTax = parseFloat($("#summaryTax").val().replace(",", ""));
+	var balanceOfTaxs = parseFloat($("#balanceOfTaxs").val().replaceAll(",", ""));
+	var summaryTax = parseFloat($("#summaryTax").val().replaceAll(",", ""));
 	var balance = balanceOfTaxs + summaryTax ;
 	
 	if ($("#balanceSum").val() < balance) {
@@ -1168,7 +1168,7 @@ function myDeleteDed(count) {
 	var erq = $("#balanceSummary").val();
 	var result = parseFloat(erq.replace(",", ""));
 	var st = $("#summaryTax").val();
-	var summaryTax = parseFloat(st.replace(",", ""));
+	var summaryTax = parseFloat(st.replaceAll(",", ""));
 	var summaryTa = parseFloat(0);
 
 	if (table.rows.length > 0) {
@@ -1216,7 +1216,7 @@ function addDataTableDed() {
 	current = "addwt";
 	var xx = $("#moneyDed").val().replaceAll(",", "")
 	sumded += parseInt(xx);
-	currentList.push(parseInt($("#moneyDed").val()));
+	currentList.push(parseInt(xx));
 	
 	var oTable = document.getElementById('deductibleTable');
 	var tableDed = document.getElementById("showDeductibleTable");
@@ -1308,13 +1308,13 @@ function addDataTableMoneyTranPrice() {
 	if (sumx == "") {
 		sumx = parseFloat(0).toFixed(2);
 	}
-	var summaryTax = parseFloat(sumx.replace(",", ""));
+	var summaryTax = parseFloat(sumx.replaceAll(",", ""));
 
 	var ba2 = $("#balanceSum").val();
 	if (ba2 == "") {
 		ba2 = parseFloat(0).toFixed(2);
 	}
-	var balanceS = parseFloat(ba2.replace(",", ""));
+	var balanceS = parseFloat(ba2.replaceAll(",", ""));
 	if (balanceS == "") {
 		balanceS = parseFloat(0);
 	}
@@ -1322,7 +1322,7 @@ function addDataTableMoneyTranPrice() {
 	if (bag2 == "") {
 		bag2 = parseFloat(0).toFixed(2);
 	}
-	var branSum = parseFloat(bag2.replace(",", ""));
+	var branSum = parseFloat(bag2.replaceAll(",", ""));
 
 	var markup = "<tr><td>"
 			+ numberRun
@@ -1343,9 +1343,9 @@ function addDataTableMoneyTranPrice() {
 	$("#moneyTran").val("");
 	
 	var beq = $("#balanceSummarys").val();
-	var balan = parseFloat(beq.replace(",", ""));
+	var balan = parseFloat(beq.replaceAll(",", ""));
 	var ceq = $("#balanceSummarys").val();
-	var changeRQ = parseFloat(ceq.replace(",", ""));
+	var changeRQ = parseFloat(ceq.replaceAll(",", ""));
 
 	changeRQ = parseFloat(money) - parseFloat(balan);
 	balan = parseFloat(balan) - parseFloat(money);
@@ -1357,7 +1357,7 @@ function addDataTableMoneyTranPrice() {
 	}
 
 	var sop = $("#balanceSummary").val();
-	var sumPrice = parseFloat(sop.replace(",", ""));
+	var sumPrice = parseFloat(sop.replaceAll(",", ""));
 
 	$("#balanceSummarys").val(balan.toFixed(2));
 //	$("#moneyTran").val(balan.toFixed(2));
@@ -1576,7 +1576,7 @@ function addDataTableCheck() {
 	if (moneyCa == "") {
 		moneyCa = parseFloat(0).toFixed(2);
 	}
-	var moneyCheck = parseFloat(moneyCa.replace(",", ""));
+	var moneyCheck = parseFloat(moneyCa.replaceAll(",", ""));
 	var count = parseInt(1);
 	for (count; count < table; count++) {
 		count
@@ -1651,10 +1651,10 @@ function addDataTablecreditTranPrice() {
 	if (crepi == "") {
 		crepi = parseFloat(0).toFixed(2);
 	}
-	var creditPrice = parseFloat(crepi.replace(",", ""));
+	var creditPrice = parseFloat(crepi.replaceAll(",", ""));
 	var nameMode = "บัตรเครดิต";
 	var sumTax = $("#summaryTax").val();
-	var summaryTax = parseFloat(sumTax.replace(",", ""));
+	var summaryTax = parseFloat(sumTax.replaceAll(",", ""));
 	// var moneyT = parseFloat(creditPrice - parseFloat(summaryTax));
 	if (edcType == "001") {
 		edcType = "ธนาคารกรุงไทย";
@@ -2082,19 +2082,19 @@ function replaseIndexV4(str) {
 	$("#salespacial").val(
 			spacial.toFixed(2).toString().replace(
 					/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-	var x = parseInt(summaryTax) - parseInt(sumded);
+	var sumtx = parseInt(summaryTax) - parseInt(sumded);
 	
 if(current == "addbill"){
-	$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyDed").val(summaryTax.toFixed(2).toString().replaceAll(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 	//$("#moneyDed").val(summaryTax.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }else if(current == "addwt"){
-	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyDed").val(sumtx.toFixed(2).toString().replaceAll(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 else if(current == "delbill"){
-	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyDed").val(sumtx.toFixed(2).toString().replaceAll(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 else if(current == "delwt"){
-	$("#moneyDed").val(x.toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+	$("#moneyDed").val(sumtx.toFixed(2).toString().replaceAll(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 }
 
 	// totalSum();
