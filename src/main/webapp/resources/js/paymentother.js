@@ -1100,7 +1100,7 @@ function addRow() {
 		return $("#moneyDed").focus();
 	}
 
-	var moneyDed = parseFloat(dmoney.replace(",", ""));
+	var moneyDed = dmoney;
 	var count = 1;
 
 	for (count; count < table; count++) {
@@ -1126,7 +1126,7 @@ function addRow() {
 			+ "</td><td>"
 			+ radioResult
 			+ "</td><td>"
-			+ "-"+moneyDed.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+			+ "-"+moneyDed.replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")
 			+ "<td style='display: none'>"+ radioResultValue + "</td>"
 			+ "</td><td><a onclick='myDeleteFunction("
 			+ tdAutoNumber()
@@ -1229,7 +1229,7 @@ function addDataTableDed() {
 	var basu = $("#balanceSummarys").val();
 	var branSum = parseFloat(basu.replace(",", ""));
 	var sq = $("#summaryTax").val();
-	var summaTax = parseFloat(sq.replace(",", ""));
+	var summaTax = parseFloat(sq);
 	for (var i = parseFloat(1); i < rowLength; i++) {
 		var oCells = oTable.rows.item(i).cells;
 		result = [];
@@ -1242,14 +1242,13 @@ function addDataTableDed() {
 		if (summaTax == "") {
 			summaTax = parseFloat(0);
 		}
-		var plus = parseFloat(parseFloat(summaTax) + parseFloat(result[4]));
+		var plus = parseFloat(summaTax) + parseFloat(result[4]);
 		if (plus > parseFloat(branSum)) {
 			swal("จำนวนเงินเกิน กรุณากรอกใหม่ !")
 			//alert("จำนวนเงินเกิน กรุณากรอกใหม่ !");
 			return;
 		}
-		var prict = result[4].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
-				"$1,")
+		var prict = result[4]
 		var numberRun = number + i;
 		var markup = "<tr><td>"
 				+ numberRun
@@ -1265,7 +1264,7 @@ function addDataTableDed() {
 				+ "</td><td>" + result[2] + "</td><td>" + result[3]
 				+ "</td><td>" + result[4] + "</td><td>" + result[5] + "</td></tr>";
 		$("#sumDeductibleTable").find('tbody').append(markup1);
-		var prict1 = prict.replace(",", "");
+		var prict1 = prict
 		balance = parseFloat(balance) - parseFloat(prict1 );
 
 	}
@@ -2205,7 +2204,7 @@ function calWT(amount){
 	    url: ctx +"/getWT/"+userGroup
 	}).then(function (data) {
 			wt = amount*parseInt(data.value)/100;
-			$("#moneyDed1").val(parseFloat(wt).toFixed(2));
+			$("#moneyDed1").val(parseFloat(wt).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,"));
 	});
 	
 	
