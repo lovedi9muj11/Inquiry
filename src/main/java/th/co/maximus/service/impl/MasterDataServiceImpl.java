@@ -262,12 +262,12 @@ public class MasterDataServiceImpl implements MasterDataService {
 			}
 			
 			if("2".equals(masterDataBean.getFlagH())) {
-				if("*".equals(masterDataBean.getHour()))masterDataBean.setHour("1");
+				if("*".equals(masterDataBean.getHour()))System.out.println("every H");
 				else if(!"0".equals(masterDataBean.getHour())) masterDataBean.setHour(masterDataBean.getHour().split("/")[1]);
 			}
 			
 			if("2".equals(masterDataBean.getFlagM())) {
-				if("*".equals(masterDataBean.getMinute()))masterDataBean.setMinute("1");
+				if("*".equals(masterDataBean.getMinute()))System.out.println("every M");
 				else if(!"0".equals(masterDataBean.getMinute())) masterDataBean.setMinute(masterDataBean.getMinute().split("/")[1]);
 			}
 			
@@ -365,6 +365,8 @@ public class MasterDataServiceImpl implements MasterDataService {
 						valueSet.append("*/");
 						valueSet.append(masterDataBean.getMinute());
 					}
+				}else {
+					valueSet.append(masterDataBean.getMinute());
 				}
 			}
 		} else {
@@ -383,6 +385,8 @@ public class MasterDataServiceImpl implements MasterDataService {
 						valueSet.append("*/");
 						valueSet.append(masterDataBean.getHour());
 					}
+				}else {
+					valueSet.append(masterDataBean.getHour());
 				}
 				
 			}

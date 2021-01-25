@@ -136,17 +136,31 @@ function setDate(days) {
 }
 
 function setHour() {
-//	$('#hour').append('<option value="*">' + PLS_SELECT_ALL_HOUR + '</option>');
-	for(var i=0; i<25; i++) {
-		$('#hour').append('<option value="'+(i)+'">' + (i) + '</option>');
+	if('1'==hourValue) {
+		for(var i=0; i<25; i++) {
+			$('#hour').append('<option value="'+(i)+'">' + (i) + '</option>');
+		}
+	}else {
+		$('#hour').append('<option value="*">' + PLS_SELECT_ALL_HOUR + '</option>');
+		for(var i=2; i<25; i++) {
+			$('#hour').append('<option value="'+(i)+'">' + (i) + '</option>');
+		}
 	}
 }
 
 function setMinute() {
 //	$('#minute').append('<option value="*">' + PLS_SELECT_ALL_MINUTE + '</option>');
-	for(var i=0; i<60; i++) {
-		$('#minute').append('<option value="'+(i)+'">' + (i) + '</option>');
+	if('1'==minValue) {
+		for(var i=0; i<60; i++) {
+			$('#minute').append('<option value="'+(i)+'">' + (i) + '</option>');
+		}
+	}else {
+		$('#minute').append('<option value="*">' + PLS_SELECT_ALL_MINUTE + '</option>');
+		for(var i=2; i<60; i++) {
+			$('#minute').append('<option value="'+(i)+'">' + (i) + '</option>');
+		}
 	}
+	
 }
 
 function setValue() {
@@ -159,6 +173,8 @@ function setValue() {
 	$('#minute').append('<option value="'+'">' + PLS_SELECT + '</option>');
 }
 
+var hourValue;
+var minValue;
 function findGroupTypeByKeyCode(groupKey) {
 	var masterDataBean = { "group":groupKey};
 	var lastDay;
@@ -175,6 +191,8 @@ function findGroupTypeByKeyCode(groupKey) {
 	        	$('#daydd').val(res.day);
 	        	$('#hourdd').val(res.hour);
 	        	
+	        	hourValue = res.flagH
+	        	minValue = res.flagM
 	        	if(res.flagH=='1') {
 	        		radioHour = document.getElementById("radioHour");
 		        	radioHour.checked = true;
@@ -299,6 +317,13 @@ function isDate(txtDate) {
 }
 
 function batchHMode(value) {
+	hourValue = value
+	minValue = value
 	if(value=='1')$('#radioMin').prop('checked',true);
 	else if(value=='2')$('#radioMin2').prop('checked',true);
+	
+	$('#hour').empty();
+	$('#minute').empty();
+	setHour()
+	setMinute()
 }
