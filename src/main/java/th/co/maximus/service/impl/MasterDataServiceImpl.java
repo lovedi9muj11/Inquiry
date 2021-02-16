@@ -359,7 +359,7 @@ public class MasterDataServiceImpl implements MasterDataService {
 				valueSet.append(masterDataBean.getMinute());
 			}else {
 				if("2".equals(masterDataBean.getFlagM())) {
-					if("1".equals(masterDataBean.getMinute())) {
+					if("*".equals(masterDataBean.getMinute())) {
 						valueSet.append("*");
 					}else {
 						valueSet.append("*/");
@@ -379,7 +379,7 @@ public class MasterDataServiceImpl implements MasterDataService {
 				valueSet.append(masterDataBean.getHour());
 			}else {
 				if("2".equals(masterDataBean.getFlagH())) {
-					if("1".equals(masterDataBean.getHour())) {
+					if("*".equals(masterDataBean.getHour())) {
 						valueSet.append("*");
 					}else {
 						valueSet.append("*/");
