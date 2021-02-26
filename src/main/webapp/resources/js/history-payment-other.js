@@ -10,6 +10,7 @@ $(document).ready(function () {
 	histroryTB = $('#histroryPaymentTB').DataTable({
 		"filter" : false,
 		"info" : false,
+		"scrollX": true,
 //		"order": [[ 2, 'asc' ]],
 		"columnDefs": [ {
 			"searchable": false
@@ -57,6 +58,7 @@ $(document).ready(function () {
 		"filter" : false,
 		"info" : false,
 		"paging": false,
+		"scrollX": true,
 		"columnDefs": [{
 			"searchable": false,
 			"orderable": false,

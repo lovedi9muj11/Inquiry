@@ -3,6 +3,7 @@ $(document).ready(function () {
 		"filter" : false,
 		"info" : false,
 //		"order": [[ 2, 'asc' ]],
+		"scrollX": true,
 		"columnDefs": [ {
 			"searchable": false
 //			"orderable": false

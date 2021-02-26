@@ -16,6 +16,7 @@ import th.co.maximus.auth.service.UserService;
 import th.co.maximus.bean.DropDownBean;
 import th.co.maximus.bean.PaymentMMapPaymentInvBean;
 import th.co.maximus.bean.UserBean;
+import th.co.maximus.constants.Constants;
 import th.co.maximus.core.utils.Utils;
 import th.co.maximus.payment.bean.PaymentResultReq;
 import th.co.maximus.service.CancelPaymentService;
@@ -80,7 +81,7 @@ public class CancelPaymentController {
 			UserDto resultUser = userService.findByUsername(user.getUserName());
 			if (resultUser != null) {
 				if (Utils.check(user.getPassword(), resultUser.getPassword())) {
-					if (resultUser.getRoles().get(0).getName().equals("SUP")) {
+					if (resultUser.getRoles().get(0).getName().equals(Constants.Role.SUPPERVISOR)) {
 						result = true;
 					}
 
