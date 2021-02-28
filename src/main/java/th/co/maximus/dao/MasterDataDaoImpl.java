@@ -157,9 +157,9 @@ public class MasterDataDaoImpl implements MasterDataDao{
 				pst.setString(13, masterDataSyncBean.getProperty5());
 //				pst.setString(14, masterDataSyncBean.getRemark());
 				pst.setString(14, masterDataSyncBean.getCreateBy());
-				pst.setDate(15, new Date(now.getTime()));
+				pst.setDate(15, null);
 				pst.setString(16, masterDataSyncBean.getUpdateBy());
-				pst.setDate(17, new Date(now.getTime()));
+				pst.setDate(17, null);
 //				pst.setString(19, masterDataSyncBean.getRecordStatus());
 				return pst;
 			}

@@ -172,9 +172,9 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				masterDataSyncBean.setProperty4( isNull2Null(jsonArray.getJSONObject(i).getString("property4")));
 				masterDataSyncBean.setProperty5( isNull2Null(jsonArray.getJSONObject(i).getString("property5")));
 				masterDataSyncBean.setCreateBy( isNull2Null(jsonArray.getJSONObject(i).getString("createBy")));
-				masterDataSyncBean.setCreateDate(new Date());
+//				masterDataSyncBean.setCreateDate(new Date());
 				masterDataSyncBean.setUpdateBy( isNull2Null(jsonArray.getJSONObject(i).getString("updateBy")));
-				masterDataSyncBean.setUpdateDate(new Date());
+//				masterDataSyncBean.setUpdateDate(new Date());
 				masterDataSyncBean.setInitialValue( isNull2Null(jsonArray.getJSONObject(i).getString("initialValue")));
 				list.add(masterDataSyncBean);
 			}
@@ -215,9 +215,9 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 				glBean.setStatus( isNull2Null(jsonArray.getJSONObject(i).getString("status")));
 				glBean.setCreateBy( isNull2Null(jsonArray.getJSONObject(i).getString("createBy")));
 				glBean.setErpInterfaceFlag( isNull2Null(jsonArray.getJSONObject(i).getString("erpInterfaceFlag")));
-				glBean.setCreateDate( new Date());
+//				glBean.setCreateDate( new Date());
 				glBean.setUpdateBy( isNull2Null(jsonArray.getJSONObject(i).getString("updateBy")));
-				glBean.setUpdateDate( new Date());
+//				glBean.setUpdateDate( new Date());
 				list.add(glBean);
 			}
 			String respone = mapGLService.insertMapGL(list);

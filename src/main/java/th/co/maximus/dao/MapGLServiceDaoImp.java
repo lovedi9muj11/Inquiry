@@ -39,9 +39,9 @@ public class MapGLServiceDaoImp implements MapGLServiceDao{
 				pst.setString(12, mapGLBean.getStatus());
 //				pst.setString(13, mapGLBean.getRemark());
 				pst.setString(13, mapGLBean.getCreateBy());
-				pst.setDate(14, new Date(now.getTime()));
+				pst.setDate(14, null);
 				pst.setString(15, mapGLBean.getUpdateBy());
-				pst.setDate(16, new Date(now.getTime()));
+				pst.setDate(16, null);
 				pst.setString(17, mapGLBean.getRecordStatus());
 				pst.setString(18, mapGLBean.getSource());
 				pst.setString(19, mapGLBean.getErpInterfaceFlag());
