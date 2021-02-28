@@ -82,7 +82,7 @@
 				<box padding="2"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-					<paragraph lineSpacingSize="1.5"/>
+					<paragraph lineSpacingSize="1.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustNo()]]></textFieldExpression>
 			</textField>
@@ -104,6 +104,7 @@
 				<box padding="2"/>
 				<textElement>
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
+					<paragraph lineSpacingSize="1.5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustName()]]></textFieldExpression>
 			</textField>
