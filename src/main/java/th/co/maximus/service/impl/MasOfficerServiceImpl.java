@@ -29,10 +29,13 @@ public class MasOfficerServiceImpl implements MasOfficerService{
 //				}
 				try {
 					int idUser = masOfficerDao.insertUserService(userBeanList.get(i));
+					System.out.println("idUser : "+ idUser);
 					long id = userBeanList.get(i).getPrincipal().getId();
 					String roleName = userBeanList.get(i).getPrincipal().getName();
+					System.out.println("roleName : "+ roleName);
 //					int idRole = masOfficerDao.findRoleByRoleName(checkRoleName(roleName));
 					int idRole = masOfficerDao.findRoleByRoleName(checkRoleId(id,roleName));
+					System.out.println("idRole : "+ idRole);
 					masOfficerDao.insertUserRole(idUser, idRole);
 				}catch (Exception ex) {
 //					ex.printStackTrace();

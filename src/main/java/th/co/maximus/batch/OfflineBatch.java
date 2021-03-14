@@ -107,7 +107,7 @@ public class OfflineBatch implements Job {
 			Constants.DateTime.DATE_FORMAT.concat(" " + Constants.DateTime.DB_TIME_FORMAT), Constants.localeEN);
 
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public synchronized void execute(JobExecutionContext context) throws JobExecutionException {
 		try {
 			if (Constants.BATCH.JOB_1.equals(context.getTrigger().getKey().getName())) {
 				System.out.println("JOB_1");

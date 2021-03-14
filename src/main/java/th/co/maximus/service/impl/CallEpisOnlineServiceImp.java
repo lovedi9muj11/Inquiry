@@ -86,10 +86,12 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 		 String branchCode="";
 		 String taxIdCat="";
 		 String costCenter="";
+		 String ntShopname ="";
+		 String ntBuplace ="";
 		String postUrl = url.concat("/offline/posByMac/"+ mac +".json"); 
 		ResponseEntity<String> postResponse = restTemplate.getForEntity(postUrl, String.class);
 		System.out.println("Response for Post Request: " + postResponse.getBody());
-		try {
+		try { 
 			JSONArray jsonArray = new JSONArray(postResponse.getBody());
 			for(int i=0; i<jsonArray.length(); i++) {
 				pos = jsonArray.getJSONObject(i).getString("no");
@@ -98,7 +100,11 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 					branchCode = json.getString("businessPlace");
 					branchArea = json.getString("businessArea");
 					costCenter = json.getString("costCenter");
+					branchArea = json.getString("businessArea");
+					costCenter = json.getString("costCenter");
 					taxIdCat = "0107546000229";
+					ntShopname = json.getString("ntShopname");
+					ntBuplace = json.getString("ntBuplace");
 			}
 			MasterDataBean masterDataPos = new MasterDataBean();
 			masterDataPos.setKeyCode("POS");
@@ -124,6 +130,14 @@ public class CallEpisOnlineServiceImp implements CallEpisOnlineService{
 			masterDatataxIdCat.setKeyCode("TAX_ID_CAT");
 			masterDatataxIdCat.setValue(taxIdCat);
 			masterDataDao.insertInitProgram(masterDatataxIdCat);
+			MasterDataBean masterDatanNtbuplace = new MasterDataBean();
+			masterDatanNtbuplace.setKeyCode("NT_BUPLACE");
+			masterDatanNtbuplace.setValue(ntBuplace);
+			masterDataDao.insertInitProgram(masterDatanNtbuplace);
+			MasterDataBean masterDataNtshopName = new MasterDataBean();
+			masterDataNtshopName.setKeyCode("NT_SHOPNAME");
+			masterDataNtshopName.setValue(ntShopname);
+			masterDataDao.insertInitProgram(masterDataNtshopName);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentTemplateIBACSS" language="groovy" pageWidth="875" pageHeight="421" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="835" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b9d09e0-4ce0-446b-9577-a779418e6fa7">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="217"/>
@@ -271,7 +272,7 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="27" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<line>
 				<reportElement x="4" y="0" width="832" height="1" uuid="8969c4a8-036e-4c77-9607-8e91985bfd45"/>
 			</line>
@@ -358,7 +359,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
 				<reportElement x="10" y="-2" width="22" height="20" uuid="35085949-7a1e-4981-b637-7c4d87d22fad"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -402,10 +403,10 @@
 				<textFieldExpression><![CDATA[$F{accountSubNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="219" y="0" width="97" height="20" uuid="8ebfa187-0d51-4517-9513-bd4b68bcfce6"/>
+				<reportElement x="219" y="0" width="97" height="27" uuid="8ebfa187-0d51-4517-9513-bd4b68bcfce6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
-					<paragraph lineSpacing="1_1_2"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
 			</textField>
@@ -440,23 +441,23 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="160" splitType="Stretch">
+		<band height="153" splitType="Stretch">
 			<textField>
-				<reportElement x="563" y="7" width="78" height="20" uuid="a24551d8-e2b0-4bc7-837d-ff6fd279a65e"/>
+				<reportElement x="562" y="0" width="78" height="20" uuid="a24551d8-e2b0-4bc7-837d-ff6fd279a65e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryAllNotVat}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="7" width="78" height="20" uuid="eb9d8d3b-035a-4b25-97b9-bfbe0abcd858"/>
+				<reportElement x="718" y="0" width="78" height="20" uuid="eb9d8d3b-035a-4b25-97b9-bfbe0abcd858"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryAllVat}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="7" width="78" height="20" uuid="a3f6b488-d661-4669-bd32-53cd3928f610"/>
+				<reportElement x="640" y="0" width="78" height="20" uuid="a3f6b488-d661-4669-bd32-53cd3928f610"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
@@ -466,90 +467,90 @@
 				<reportElement x="4" y="0" width="832" height="1" uuid="02946f2a-4b2e-411a-a7aa-c37e4d9491a6"/>
 			</line>
 			<staticText>
-				<reportElement x="5" y="8" width="108" height="18" uuid="2766768f-73be-4d7d-b543-ffd34988e0c9"/>
+				<reportElement x="4" y="1" width="108" height="18" uuid="2766768f-73be-4d7d-b543-ffd34988e0c9"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รวมตามบริการ :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="28" width="108" height="18" uuid="4085592d-e719-401f-a420-854c31faef29"/>
+				<reportElement x="4" y="21" width="108" height="18" uuid="4085592d-e719-401f-a420-854c31faef29"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รวมตามเจ้าหน้าที่ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="113" y="7" width="140" height="18" uuid="7851236f-e627-4498-baf3-1cff4a42ee74"/>
+				<reportElement x="112" y="1" width="140" height="18" uuid="7851236f-e627-4498-baf3-1cff4a42ee74"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{serviceName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="113" y="28" width="140" height="18" uuid="eadbae0f-2454-45b6-b309-590419b47559"/>
+				<reportElement x="112" y="21" width="140" height="18" uuid="eadbae0f-2454-45b6-b309-590419b47559"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{userPayment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="7" width="111" height="18" uuid="7efae315-6dfb-496e-b0e7-c6d6beaef6b9"/>
+				<reportElement x="279" y="0" width="111" height="18" uuid="7efae315-6dfb-496e-b0e7-c6d6beaef6b9"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{serviceListCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="28" width="111" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
+				<reportElement x="279" y="21" width="111" height="18" uuid="ceb0967a-9542-458a-a5d2-cf1d866e79a4"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{userListCount}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="4" y="25" width="832" height="1" uuid="26143833-312f-42f1-89a9-8354fa180dbb"/>
+				<reportElement x="3" y="18" width="832" height="1" uuid="26143833-312f-42f1-89a9-8354fa180dbb"/>
 			</line>
 			<line>
-				<reportElement x="4" y="46" width="832" height="1" uuid="f141960b-f3f9-4f25-b66e-555fe62befb8"/>
+				<reportElement x="3" y="39" width="832" height="1" uuid="f141960b-f3f9-4f25-b66e-555fe62befb8"/>
 			</line>
 			<textField>
-				<reportElement x="563" y="28" width="78" height="20" uuid="aceda45f-2ffe-4ef5-80a8-a86d4f47b436"/>
+				<reportElement x="562" y="21" width="78" height="20" uuid="aceda45f-2ffe-4ef5-80a8-a86d4f47b436"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryNoVatUser}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="28" width="78" height="20" uuid="c8149046-aced-4b06-99b9-7c265646ae1c"/>
+				<reportElement x="640" y="21" width="78" height="20" uuid="c8149046-aced-4b06-99b9-7c265646ae1c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVat0User}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="28" width="78" height="20" uuid="ca2a961d-91fa-4295-bd7c-59d95ac70aea"/>
+				<reportElement x="718" y="21" width="78" height="20" uuid="ca2a961d-91fa-4295-bd7c-59d95ac70aea"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summaryVatUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="396" y="7" width="50" height="18" uuid="7f15c67e-b596-40ce-ac2e-6a612935e227"/>
+				<reportElement x="395" y="0" width="50" height="18" uuid="7f15c67e-b596-40ce-ac2e-6a612935e227"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="28" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
+				<reportElement x="395" y="21" width="50" height="18" uuid="c89022c3-a63d-4c5a-9713-8c067e33797b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="FreesiaUPC" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="281" y="49" width="111" height="18" uuid="496ccdb0-d2a9-4ec9-9dda-6fd36d8abf38">
+				<reportElement x="280" y="42" width="111" height="18" uuid="496ccdb0-d2a9-4ec9-9dda-6fd36d8abf38">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -558,7 +559,7 @@
 				<textFieldExpression><![CDATA[$P{sumCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="113" y="49" width="140" height="18" uuid="19307095-b58b-40cd-be19-c8b71f29be36">
+				<reportElement x="112" y="42" width="140" height="18" uuid="19307095-b58b-40cd-be19-c8b71f29be36">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -567,7 +568,7 @@
 				<textFieldExpression><![CDATA[$P{serviceTypeHead}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="395" y="71" width="50" height="18" uuid="2c19be56-a986-4380-bea6-c09dfaed1422">
+				<reportElement x="394" y="64" width="50" height="18" uuid="2c19be56-a986-4380-bea6-c09dfaed1422">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -576,12 +577,12 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="5" y="112" width="832" height="1" uuid="e8b9b56d-7db7-4148-8cbb-293aeb71b568">
+				<reportElement x="4" y="105" width="832" height="1" uuid="e8b9b56d-7db7-4148-8cbb-293aeb71b568">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="8" y="92" width="161" height="18" uuid="b4dd0224-6883-41b3-8e0e-74ffbb383aa5">
+				<reportElement x="7" y="85" width="161" height="18" uuid="b4dd0224-6883-41b3-8e0e-74ffbb383aa5">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -590,7 +591,7 @@
 				<textFieldExpression><![CDATA[$P{vatRate1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="9" y="115" width="161" height="18" uuid="35a6e5dd-f8cc-409e-bb0d-514fab318e60">
+				<reportElement x="8" y="108" width="161" height="18" uuid="35a6e5dd-f8cc-409e-bb0d-514fab318e60">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -599,7 +600,7 @@
 				<textFieldExpression><![CDATA[$P{vatRate2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="282" y="93" width="111" height="18" uuid="b3fb98a2-72b7-4977-8bc8-5056d4a5f77f">
+				<reportElement x="281" y="86" width="111" height="18" uuid="b3fb98a2-72b7-4977-8bc8-5056d4a5f77f">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -608,7 +609,7 @@
 				<textFieldExpression><![CDATA[$P{vatListCount1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="116" width="111" height="18" uuid="440b5fc1-559a-4a39-bf46-173c0e84589d">
+				<reportElement x="282" y="109" width="111" height="18" uuid="440b5fc1-559a-4a39-bf46-173c0e84589d">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -617,7 +618,7 @@
 				<textFieldExpression><![CDATA[$P{vatListCount2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="70" width="78" height="20" uuid="cb9a4932-0483-4dca-b0be-90b65b0ca3d6">
+				<reportElement x="562" y="63" width="78" height="20" uuid="cb9a4932-0483-4dca-b0be-90b65b0ca3d6">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -626,7 +627,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateAmount0}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="397" y="116" width="50" height="18" uuid="558405f2-217f-44b1-8ae1-6b48eced3b12">
+				<reportElement x="396" y="109" width="50" height="18" uuid="558405f2-217f-44b1-8ae1-6b48eced3b12">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -635,7 +636,7 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="281" y="71" width="111" height="18" uuid="293f5123-3d5c-4bfa-907d-89890473b076">
+				<reportElement x="280" y="64" width="111" height="18" uuid="293f5123-3d5c-4bfa-907d-89890473b076">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -644,7 +645,7 @@
 				<textFieldExpression><![CDATA[$P{vatListCount0}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="48" width="78" height="20" uuid="d708c78b-ba46-41ed-a8d1-7d8f00f25993">
+				<reportElement x="562" y="41" width="78" height="20" uuid="d708c78b-ba46-41ed-a8d1-7d8f00f25993">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -653,7 +654,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllTotalNoVatUser}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="48" width="78" height="20" uuid="1f5d9080-4d64-49a4-8baa-c63e502f63ff">
+				<reportElement x="718" y="41" width="78" height="20" uuid="1f5d9080-4d64-49a4-8baa-c63e502f63ff">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -662,7 +663,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllTotalUser}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="92" width="78" height="20" uuid="c66be9df-fefc-4abc-a41f-046e558cfd12">
+				<reportElement x="718" y="85" width="78" height="20" uuid="c66be9df-fefc-4abc-a41f-046e558cfd12">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -671,7 +672,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateSumAmount1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="395" y="49" width="50" height="18" uuid="4cbed38a-848e-44a4-a881-29ca665c5f22">
+				<reportElement x="394" y="42" width="50" height="18" uuid="4cbed38a-848e-44a4-a881-29ca665c5f22">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -680,7 +681,7 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="563" y="92" width="78" height="20" uuid="d7b8f95e-0af0-4a99-9309-cce63c87a448">
+				<reportElement x="562" y="85" width="78" height="20" uuid="d7b8f95e-0af0-4a99-9309-cce63c87a448">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -689,7 +690,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateAmount1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="70" width="78" height="20" uuid="1810ab69-91d3-4913-8a61-3413d2a919e2">
+				<reportElement x="718" y="63" width="78" height="20" uuid="1810ab69-91d3-4913-8a61-3413d2a919e2">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -698,7 +699,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateSumAmount0}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="396" y="93" width="50" height="18" uuid="03a91e8c-089c-4ae1-a17b-c06bd6726b3b">
+				<reportElement x="395" y="86" width="50" height="18" uuid="03a91e8c-089c-4ae1-a17b-c06bd6726b3b">
 					<printWhenExpression><![CDATA[$P{chkVat1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -707,22 +708,22 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="4" y="90" width="832" height="1" uuid="f8b48d5e-613f-417f-b7cd-3aa00f54b09a">
+				<reportElement x="3" y="83" width="832" height="1" uuid="f8b48d5e-613f-417f-b7cd-3aa00f54b09a">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="4" y="68" width="832" height="1" uuid="41ace0de-3b33-4097-96b9-8b885eee181d">
+				<reportElement x="3" y="61" width="832" height="1" uuid="41ace0de-3b33-4097-96b9-8b885eee181d">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="6" y="135" width="832" height="1" uuid="52db6c9c-f724-4089-ac8e-ea2f832915e1">
+				<reportElement x="5" y="128" width="832" height="1" uuid="52db6c9c-f724-4089-ac8e-ea2f832915e1">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="6" y="48" width="107" height="18" uuid="862cc753-7b4d-4a83-805a-fa360d0e5282">
+				<reportElement x="5" y="41" width="107" height="18" uuid="862cc753-7b4d-4a83-805a-fa360d0e5282">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -731,7 +732,7 @@
 				<text><![CDATA[รวมตามหน่วยงานรับชำระ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="641" y="48" width="78" height="20" uuid="9042be82-eabb-48aa-abb4-266cde9061b8">
+				<reportElement x="640" y="41" width="78" height="20" uuid="9042be82-eabb-48aa-abb4-266cde9061b8">
 					<printWhenExpression><![CDATA[$P{lastPage} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -740,7 +741,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatUser}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="115" width="78" height="20" uuid="7937e2a6-b739-49d7-9bf1-74f991e9e98f">
+				<reportElement x="562" y="108" width="78" height="20" uuid="7937e2a6-b739-49d7-9bf1-74f991e9e98f">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -749,7 +750,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateAmount2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="115" width="78" height="20" uuid="52396bea-8742-4eed-b9ff-69309c2c3fa6">
+				<reportElement x="718" y="108" width="78" height="20" uuid="52396bea-8742-4eed-b9ff-69309c2c3fa6">
 					<printWhenExpression><![CDATA[$P{chkVat2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -758,7 +759,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateSumAmount2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="70" width="161" height="18" uuid="322ea19f-f77a-4767-acaf-fa5b8a5ac7bc">
+				<reportElement x="6" y="63" width="161" height="18" uuid="322ea19f-f77a-4767-acaf-fa5b8a5ac7bc">
 					<printWhenExpression><![CDATA[$P{chkVat0} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -767,7 +768,7 @@
 				<textFieldExpression><![CDATA[$P{vatRate0}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="396" y="140" width="50" height="18" uuid="dc8fcde5-cfa5-40e8-83ed-d1d5c128d889">
+				<reportElement x="395" y="133" width="50" height="18" uuid="dc8fcde5-cfa5-40e8-83ed-d1d5c128d889">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -776,12 +777,12 @@
 				<text><![CDATA[รายการ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="5" y="159" width="832" height="1" uuid="3a7b288c-0594-4c45-a820-890406e86220">
+				<reportElement x="4" y="152" width="832" height="1" uuid="3a7b288c-0594-4c45-a820-890406e86220">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="282" y="140" width="111" height="18" uuid="e320a602-4948-4d4c-803a-d2429035414c">
+				<reportElement x="281" y="133" width="111" height="18" uuid="e320a602-4948-4d4c-803a-d2429035414c">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -790,7 +791,7 @@
 				<textFieldExpression><![CDATA[$P{vatListCount3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="139" width="78" height="20" uuid="9f4f7cbf-2bf7-4f09-8d83-169a88c86cb3">
+				<reportElement x="562" y="132" width="78" height="20" uuid="9f4f7cbf-2bf7-4f09-8d83-169a88c86cb3">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -799,7 +800,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateAmount3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="8" y="139" width="161" height="18" uuid="20a16bda-9221-4c22-8211-9fecbd813d6c">
+				<reportElement x="7" y="132" width="161" height="18" uuid="20a16bda-9221-4c22-8211-9fecbd813d6c">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -808,7 +809,7 @@
 				<textFieldExpression><![CDATA[$P{vatRate3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="719" y="139" width="78" height="20" uuid="ca283d4a-7be2-4549-ac03-61fb80069726">
+				<reportElement x="718" y="132" width="78" height="20" uuid="ca283d4a-7be2-4549-ac03-61fb80069726">
 					<printWhenExpression><![CDATA[$P{chkVat3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -817,7 +818,7 @@
 				<textFieldExpression><![CDATA[$P{vatRateSumAmount3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="92" width="78" height="20" uuid="51ffcfa4-5b03-4dee-940c-98b400b3f4c0">
+				<reportElement x="640" y="85" width="78" height="20" uuid="51ffcfa4-5b03-4dee-940c-98b400b3f4c0">
 					<printWhenExpression><![CDATA[$P{chkSumLast1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -826,7 +827,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="116" width="78" height="20" uuid="aac9db23-9c36-4db7-82d3-7e7b879cf125">
+				<reportElement x="640" y="109" width="78" height="20" uuid="aac9db23-9c36-4db7-82d3-7e7b879cf125">
 					<printWhenExpression><![CDATA[$P{chkSumLast2} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -835,7 +836,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="140" width="78" height="20" uuid="e1ae7b7b-8a6e-4c51-bf6e-8e87cd4c113b">
+				<reportElement x="640" y="133" width="78" height="20" uuid="e1ae7b7b-8a6e-4c51-bf6e-8e87cd4c113b">
 					<printWhenExpression><![CDATA[$P{chkSumLast3} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -844,7 +845,7 @@
 				<textFieldExpression><![CDATA[$P{sumAllVatAmoutLast}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="70" width="78" height="20" uuid="46a68cd6-14ec-424a-bae1-0981381c253c">
+				<reportElement x="640" y="63" width="78" height="20" uuid="46a68cd6-14ec-424a-bae1-0981381c253c">
 					<printWhenExpression><![CDATA[$P{chkSumLast1} == "Y"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">

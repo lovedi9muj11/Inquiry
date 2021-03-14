@@ -217,6 +217,7 @@ public class PaymentInvoiceManualDaoImp implements PaymentInvoiceManualDao {
 		param.add(manual_id);
 		sql.append(" GROUP by payment_m.MANUAL_ID  ORDER BY payment_m.CREATE_DATE DESC");
 		Object[] paramArr = param.toArray();
+		System.out.println(sql.toString());
 		return jdbcTemplate.query(sql.toString(), paramArr, PaymentManual);
 	}
 
