@@ -238,7 +238,7 @@
 					
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label class="col-md-4 control-label text-right">เครื่องที่รับชำระ:</label>
+							<label class="col-md-4 control-label text-right">สถานที่รับชำระ:</label>
 							<div class="col-md-5">
 								<input type="text" id="machinePaymentName" name="machinePaymentName" value="" class="form-control" disabled/>
 							</div>

@@ -47,7 +47,7 @@
 		<band height="123">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="507" y="20" width="32" height="15" backcolor="#FFFFFF" uuid="c7681eee-4361-4460-a00b-e89c92583bc6">
+				<reportElement x="507" y="18" width="32" height="15" backcolor="#FFFFFF" uuid="c7681eee-4361-4460-a00b-e89c92583bc6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -56,7 +56,7 @@
 				<textFieldExpression><![CDATA["หน้า : "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="535" y="20" width="32" height="15" backcolor="#FFFFFF" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf">
+				<reportElement x="535" y="18" width="32" height="15" backcolor="#FFFFFF" uuid="5fc998ab-8403-420a-b12b-2464152c6ecf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -65,7 +65,7 @@
 				<textFieldExpression><![CDATA["/ " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="2" y="32" width="80" height="18" isRemoveLineWhenBlank="true" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4">
+				<reportElement style="Cat_Hl_Common" x="2" y="30" width="80" height="18" isRemoveLineWhenBlank="true" uuid="d36f0a74-404b-4e49-98c5-337fa6bb9cc4">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNoCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -75,7 +75,7 @@
 				<text><![CDATA[เลขที่ลูกค้า :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="82" y="32" width="199" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c">
+				<reportElement x="82" y="30" width="199" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="d94aa657-eb43-4fcb-9231-262426e8e53c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNoCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -87,7 +87,7 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="2" y="46" width="80" height="18" isRemoveLineWhenBlank="true" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65">
+				<reportElement style="Cat_Hl_Common" x="2" y="44" width="80" height="18" isRemoveLineWhenBlank="true" uuid="1d668dba-9ee2-4aa2-854d-6bce16502b65">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNameCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -97,14 +97,14 @@
 				<text><![CDATA[ชื่อ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="82" y="46" width="199" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f">
+				<reportElement x="82" y="44" width="199" height="30" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="d69a37ef-cbb8-42eb-bb21-7fe80d65b92f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCustNameCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
 				<box padding="2"/>
-				<textElement>
+				<textElement verticalAlignment="Top">
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-					<paragraph lineSpacingSize="1.5"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustName()]]></textFieldExpression>
 			</textField>
@@ -127,7 +127,7 @@
 				<text><![CDATA[วันที่  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="399" y="46" width="167" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242">
+				<reportElement x="399" y="44" width="167" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="ae0d543d-5634-4487-aa6a-6eadf662c242">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -136,7 +136,7 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getDocumentNo()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="318" y="46" width="80" height="18" isRemoveLineWhenBlank="true" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d">
+				<reportElement style="Cat_Hl_Common" x="318" y="44" width="80" height="18" isRemoveLineWhenBlank="true" uuid="8b8e32c3-06cf-459f-ba11-bb9368e1d85d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
@@ -155,19 +155,19 @@
 				<text><![CDATA[ที่อยู่ :]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="82" y="64" width="236" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec">
+				<reportElement stretchType="RelativeToBandHeight" x="82" y="64" width="236" height="30" backcolor="#FFFFFF" uuid="87cecdb8-586c-434b-b333-c3702ca8a4ec">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getAddressCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
 				<box padding="2"/>
-				<textElement>
+				<textElement verticalAlignment="Top">
 					<font fontName="FreesiaUPC" size="12" isBold="false"/>
-					<paragraph lineSpacing="Proportional" lineSpacingSize="2.0"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="2.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ReportSource}.getCustomerAddress()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Hl_Common" x="2" y="82" width="80" height="18" isRemoveLineWhenBlank="true" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677">
+				<reportElement style="Cat_Hl_Common" x="2" y="84" width="80" height="18" isRemoveLineWhenBlank="true" uuid="392c47e2-97d5-4de3-9d4b-b522326e4677">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -177,7 +177,7 @@
 				<text><![CDATA[TAX ID :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="82" y="82" width="159" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff">
+				<reportElement x="82" y="84" width="159" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="6da2af95-23b5-4d87-8eb3-913e255dd3ff">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getTaxIdCheck() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -208,7 +208,7 @@
 				<text><![CDATA[ชำระด้วย  :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="32" width="116" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="1d85371a-fea9-4e12-885d-fb7e10254537">
+				<reportElement mode="Transparent" x="281" y="30" width="116" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="1d85371a-fea9-4e12-885d-fb7e10254537">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -218,7 +218,7 @@
 				<text><![CDATA[สาขาที่ออกใบกำกับภาษี คือ]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Transparent" x="401" y="32" width="167" height="18" isRemoveLineWhenBlank="true" uuid="a9d258d8-f64e-4ad2-8d7b-b936e802c3d7">
+				<reportElement mode="Transparent" x="401" y="30" width="167" height="18" isRemoveLineWhenBlank="true" uuid="a9d258d8-f64e-4ad2-8d7b-b936e802c3d7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -227,7 +227,7 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getBranArea()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="284" y="82" width="197" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="6f8474cc-e071-43c2-a607-2bb8e260e97c">
+				<reportElement x="284" y="84" width="197" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="6f8474cc-e071-43c2-a607-2bb8e260e97c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -236,7 +236,7 @@
 				<textFieldExpression><![CDATA[$P{ReportSource}.getSouce()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Cat_Bt_Title" x="243" y="82" width="40" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="01b5afbe-c088-4916-9213-085e3c4c8633">
+				<reportElement style="Cat_Bt_Title" x="243" y="84" width="40" height="18" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="01b5afbe-c088-4916-9213-085e3c4c8633">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{ReportSource}.getCheckBran() == "Y"]]></printWhenExpression>
 				</reportElement>
@@ -246,7 +246,7 @@
 				<text><![CDATA[สาขา :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="2" y="4" width="566" height="27" uuid="24f8f063-752b-46d6-9ad7-3a27d098f470">
+				<reportElement mode="Transparent" x="2" y="2" width="566" height="27" uuid="24f8f063-752b-46d6-9ad7-3a27d098f470">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>

@@ -49,7 +49,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 	  </div>
 	  <div name="notClear" id="notClear"  class="alert alert-danger alert-dismissable fade in" style="display: none; font-size: 150%;">
 	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-	    <strong>ไม่สามารถทำการยกเลิก</strong>
+	    <strong>ไม่สามารถยกเลิกได้ เนื่องจากรายการนี้ถูกส่งข้อมูลไปยังระบบออนไลน์แล้ว</strong>
 	  </div>
 		<ul class="list-inline">
 			<li id="li1">ค้นหาข้อมูลการชำระบริการ</li> >>
