@@ -1,10 +1,10 @@
 ยืนยันตัวตน<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="th.co.maximus.bean.MapGLBean"%>
+<%@ page import="th.co.inquiryx.bean.MapGLBean"%>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/menu.jsp"></jsp:include>
-<%@ page import="th.co.maximus.bean.MasterDatasBean"%>
+<%@ page import="th.co.inquiryx.bean.MasterDatasBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>

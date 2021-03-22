@@ -14,6 +14,11 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script src="${contextPath}/resources/js/userMgt.js"></script>
 <script src="${contextPath}/resources/js/HoldOn.js"></script>
+
+<script type="text/javascript">
+var PLS_SELECT = 'กรุณาเลือก';
+</script>
+
 <title>Menu</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -30,89 +35,130 @@
 	<input name="rptCode" id="rptCode" value="${paymentResultReq.rptCode}" type="hidden">
 		<br />
 		<div class="container-fluid">
-		<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>
-		<div class="panel">
+		<div class="panel-heading bHead" style="background-color: #2BB2B6;">จัดการข้อมูล</div>
+		<div class="panel" style="padding: 10px">
 		<br />
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
-<!-- 					<div class="form-group"> -->
-<!-- 						<label class="col-md-2 control-label right">ชื่อ : </label> -->
-<!-- 						<div class="col-md-3 right"> -->
-<!-- 							<input type="text" id="name" class="form-control"></input> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-md-2 left"> -->
-<!-- 							<button type="button" id="search" class="btn btn-primary btn3d" onclick="searchClick()">ค้นหา</button> -->
-<!-- 							<button type="button" id="report" class="btn btn-primary btn3d" onclick="reportClick()">Report Excel</button> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 					<div class="panel panel-default glasshd">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" href="#collapse2">Sync Data Online</a>
+								<a data-toggle="collapse" href="#collapse2">User Data</a>
 							</h4>
 						</div>
 						<div id="collapse2" class="panel-collapse collapse in">
 							<div class="panel-body">
-								<div class="glass">
+<!-- 								<div class="glass"> -->
 									<div class="form-group">
-										<label class="col-sm-4 control-label right">1. Sync MapGL<font color="red">*</font> : </label>
-										<div class="col-sm-4">
-											<button type="button" id="glBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
+										<label class="col-md-2 control-label right">ชื่อ : </label>
+										<div class="col-md-3 right">
+											<input type="text" id="name" class="form-control"></input>
 										</div>
-									</div><br>
-									
-<!-- 									</div> -->
-<!-- 									<div class="glass"> -->
-									<div class="form-group">
-										<label class="col-sm-4 control-label right">2. Master Data<font color="red">*</font> : </label>
-										<div class="col-sm-4">
-											<button type="button" id="msBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
+										<div class="col-md-2 left">
+											<button type="button" id="search" class="btn btn-primary btn3d" onclick="searchClick()">ค้นหา</button>
+											<button type="button" id="search" class="btn btn-success btn3d" onclick="addUser()"><span id="icon" class="fa fa-plus"></span>เพิ่มผู้ใช้งาน</button>
 										</div>
-									</div><br>
-<!-- 									</div> -->
-<!-- 									<div class="glass"> -->
-									<div class="form-group">
-										<label class="col-sm-4 control-label right">3. Sync User<font color="red">*</font> : </label>
-										<div class="col-sm-4">
-											<button type="button" id="userBtn" class="btn btn-success"><i class="fa fa-fw fa-check"></i>Click</button>
+									</div>
+									<div class="row">
+										<div class="col-md-12 col-sm-12">
+											<div class="glass">
+												<div class="">
+													<div class="table-responsive">
+														<table id="masterList" class="table table-striped table-hover">
+															<thead>
+																<tr>
+																	<th style="text-align: center;" width="10%">#</th>
+																	<th style="text-align: center;" width="40%">ชื่อ</th>
+																	<th style="text-align: center;" width="30%">นามสกุล</th>
+																	<th style="text-align: center;" width="2%"></th>
+																	<th style="text-align: center;" width="2%"></th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div><br>
-									
-								</div>
+									</div>
+<!-- 								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-<!-- 			<br /> -->
-			
-<!-- 			<div class="row"> -->
-<!-- 			    <div class="col-md-12 col-sm-12"> -->
-<!-- 			        <div class="glass"> -->
-<!-- 			            <div class="">          -->
-<!-- 			                <div class="table-responsive">  -->
-<!-- 			                    <table id="userList" class="table table-striped table-hover"> -->
-<!-- 			                        <thead> -->
-<!-- 			                            <tr> -->
-<!-- 			                                <th style="text-align: center;" width="10%">#</th> -->
-<!-- 							                <th style="text-align: center;" width="40%">Name</th> -->
-<!-- 							                <th style="text-align: center;" width="30%">Role</th> -->
-<!-- 							                <th style="text-align: center;" width="20%">Action</th> -->
-<!-- 			                            </tr> -->
-<!-- 			                        </thead> -->
-<!-- 			                        <tbody> -->
-<!-- 			                        </tbody> -->
-<!-- 			                    </table> -->
-<!-- 			                </div> -->
-<!-- 			            </div> -->
-<!-- 			        </div> -->
-<!-- 			    </div> -->
-<!-- 			</div> -->
 			
 		</div>
 		</div>
 	</div>
 </form>
+</div>
+
+<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="addUser" >
+  <div class="modal-dialog modal-sm" style="width:650px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ผู้ใช้งาน</h4>
+      </div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right">ชื่อ<span style="color: red"> *</span></label>
+				<div class="col-md-9">
+					<input type="text" name="fname" id="fname" class="form-control text-left">
+					<p id="sfname" style="color: red; display: none">คุณยังไม่ได้กรอก ชื่อ</p>
+				</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right">นามสกุล<span style="color: red"> *</span></label>
+				<div class="col-md-9">
+					<input type="text" name="surname" id="surname" class="form-control text-left">
+					<p id="ssurname" style="color: red; display: none">คุณยังไม่ได้กรอก นามสกุล</p>
+				</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right">Role<span style="color: red"> *</span></label>
+<!-- 				<div class="col-md-9"> -->
+<!-- 					<input type="text" name="surname" id="surname" class="form-control text-left"> -->
+<!-- 					<p id="ssurname" style="color: red; display: none">คุณยังไม่ได้กรอก นามสกุล</p> -->
+<!-- 				</div> -->
+				<div class="col-sm-9">
+					<select class="groupType form-control col-md-6" name="roles" id="roles" list="groupTypeDropdown" listKey="value" listValue="name">
+					</select>
+					<p id="sroles" style="color: red; display: none">กรุณาเลือก Role</p>
+				</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right">ชื่อผู้ใช้<span style="color: red"> *</span></label>
+				<div class="col-md-9">
+					<input type="text" name="username" id="username" class="form-control text-left">
+					<p id="susername" style="color: red; display: none">คุณยังไม่ได้กรอก ชื่อผู้ใช้</p>
+				</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right" id="password1">รหัสผ่าน<span style="color: red"> *</span></label>
+				<div class="col-md-9">
+					<input type="password" name="password" id="password" class="form-control text-left">
+					<p id="spassword" style="color: red; display: none">คุณยังไม่ได้กรอก รหัสผ่าน</p>
+				</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-label text-right" id="cpassword1">ยืนยันรหัสผ่าน<span style="color: red"> *</span></label>
+				<div class="col-md-9">
+					<input type="password" name="cpassword" id="cpassword" class="form-control text-left">
+					<p id="scpassword" style="color: red; display: none">คุณยังไม่ได้กรอก ยืนยันรหัสผ่าน</p>
+					<p id="chkPass2" style="color: red; display: none">รหัสผ่าน และ ยืนยันรหัสผ่าน ไม่ตรงกัน</p>
+				</div>
+			</div>
+		</div>
+    	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modal-btn-add-yes" onclick="modalConfirmAddUser(true)">บักทึก</button>
+        <button type="button" class="btn btn-danger" id="modal-btn-add-no" onclick="modalConfirmAddUser(false)">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -1,9 +1,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="th.co.maximus.bean.MasterDataBean"%>
-<%@ page import="th.co.maximus.bean.MasterDatasBean"%>
-<%@ page import="th.co.maximus.bean.MapGLBean"%>
+<%@ page import="th.co.inquiryx.bean.MasterDataBean"%>
+<%@ page import="th.co.inquiryx.bean.MasterDatasBean"%>
+<%@ page import="th.co.inquiryx.bean.MapGLBean"%>
 <%@ page import="java.util.List"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html >

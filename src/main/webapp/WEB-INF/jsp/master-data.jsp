@@ -33,27 +33,7 @@
 					<div class="panel-heading bHead" style="background-color: #ee7600;">จัดการข้อมูล</div>
 					<div class="panel">
 						<br />
-<!-- 						<div class="row"> -->
-<!-- 							<div class="col-md-12 col-sm-12"> -->
-<!-- 								<div class="form-group"> -->
-<!-- 									<label class="col-md-2 control-label right">ชื่อ : </label> -->
-<!-- 									<div class="col-md-3 right"> -->
-<!-- 										<input type="text" id="name" class="form-control"></input> -->
-<!-- 									</div> -->
-<!-- 									<label class="col-md-2 control-label right">ประเภท : </label>  -->
-<!-- 									<select class="groupType col-md-3" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name"> -->
-<!-- 									</select> -->
-<!-- 								</div> -->
 
-<!-- 								<div class="form-group"> -->
-<!-- 									<div class="col-md-12 center "> -->
-<!-- 										<button type="button" id="search" class="btn btn-primary " onclick="searchClick()">ค้นหา</button> -->
-<%-- 										<a class="btn btn-success " href="${contextPath}/create-master-data">สร้าง</a> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<br /> -->
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
 								<div class="glass">

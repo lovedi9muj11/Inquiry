@@ -25,8 +25,7 @@
 		<div id="" class="row">
 			<div class="col-lg-12">
 				<div class="col-md-12 text-center">
-					<font color="gray" style="font-size: 3em;">ระบบบูรณาการการรับชำระค่าใช้บริการ (EPIS)</font>
-<!-- 					<font color="black">EPIS Offline</font> -->
+					<font color="gray" style="font-size: 3em;">ระบบแบบสอบถาม</font>
 				</div>
 			</div>
 		</div>

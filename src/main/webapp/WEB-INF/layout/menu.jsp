@@ -41,89 +41,32 @@
 								class="pull-right hidden-xs showopacity fa fa-file-text-o"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/userManageMent">Sync Data</a></li>
-								<li><a href="${contextPath}/masterData">Master Data</a></li>
-								<li><a href="${contextPath}/insertBatch">Set Batch</a></li>
+								<li><a href="${contextPath}/userManageMent">จัดการข้อมูล User</a></li>
 							</ul></li>
 					</sec:authorize>
-					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUP')">
+					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUPERVISOR')">
 						<sec:authorize access="hasAuthority('USER')">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">ชำระค่าบริการ <span class="caret"></span>
+								data-toggle="dropdown">Page1 <span class="caret"></span>
 									<span style="font-size: 18px;"
 									class="pull-right hidden-xs glyphicon glyphicon-usd"></span>
 							</a>
 								<ul class="dropdown-menu forAnimate" role="menu">
-									<li><a href="${contextPath}/gotoPayment">ชำระค่าบริการ</a>
-									</li>
-									<li><a href="${contextPath}/payOther">ชำระค่าบริการอื่นๆ</a>
+									<li><a href="${contextPath}/page1">xxx</a>
 									</li>
 								</ul></li>
 						</sec:authorize>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">ยกเลิกรับชำระเงิน <span
+							data-toggle="dropdown">Page2 <span
 								class="caret"></span> <span style="font-size: 18px;"
 								class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/cancalPayment">ยกเลิกรับชำระค่าบริการ</a>
-								</li>
-							</ul>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/cancalPaymentOther">ยกเลิกรับชำระค่าบริการอื่น</a>
+								<li><a href="${contextPath}/page2">xxx2</a>
 								</li>
 							</ul>
 						</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">ประวัติการชำระค่าบริการ <span
-								class="caret"> </span> <span style="font-size: 18px;"
-								class="pull-right hidden-xs glyphicon glyphicon-list-alt"></span>
-						</a>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/gotoHistroryPayment">ประวัติการชำระค่าบริการ</a>
-								</li>
-							</ul>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/gotoHistroryPaymentother">ประวัติการชำระค่าบริการอื่น</a>
-								</li>
-							</ul>
-								<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/reportTranfer">ประวัติการส่งข้อมูลเข้าสู่ระบบออนไลน์</a>
-								</li>
-							</ul>
-							</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">รายงานชำระเงิน <span class="caret"></span>
-								<span style="font-size: 18px;"
-								class="pull-right hidden-xs glyphicon glyphicon-file"></span>
-						</a>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/reportPayment">รายงานรับชำระค่าบริการ</a>
-								</li>
-								<li><a href="${contextPath}/reportPaymentOther">รายงานรับชำระค่าบริการอื่น</a>
-								</li>
-								<li><a href="${contextPath}/reportPaymentTax">รายงานภาษีขาย/ใบกำกับภาษีเต็มรูป</a>
-								</li>
-								<li><a href="${contextPath}/reportPaymentTaxOther">รายงานภาษีขาย/ใบกำกับภาษีอย่างย่อ</a>
-								</li>
-							</ul></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">ส่งข้อมูลเข้าออนไลน์ <span class="caret"></span>
-								<span style="font-size: 18px;"
-								class="pull-right hidden-xs glyphicon glyphicon-road"></span>
-						</a>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/minusOnline">ส่งข้อมูลเข้าออนไลน์</a></li>
-							</ul></li>
 							
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">ลูกค้าขาจร<span class="caret"></span> 
-								<span style="font-size: 18px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span>
-							</a>
-							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/other/customer">ข้อมูลลูกค้าขาจร</a></li>
-							</ul>
-						</li>
 					</sec:authorize>
 				</ul>
 			</div>
