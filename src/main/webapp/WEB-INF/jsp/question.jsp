@@ -13,6 +13,7 @@
 <script type="text/javascript" src="${contextPath}/resources/css/styles/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 <script src="${contextPath}/resources/js/question.js"></script>
 <script src="${contextPath}/resources/js/HoldOn.js"></script>
+<link href="${contextPath}/resources/css/styles/style.css" rel="stylesheet">
 
 <script type="text/javascript">
 var PLS_SELECT = 'กรุณาเลือก';
@@ -41,6 +42,13 @@ var PLS_SELECT = 'กรุณาเลือก';
 				<div class="col-md-12 col-sm-12">
 					<div class="panel panel-default glasshd">
 						<div class="panel-body">
+							<div class="row">
+								<label class="col-md-1 control-label">ประเภท : </label>
+								<div class="col-md-3">
+									<select class="groupType form-control col-md-6" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
+									</select>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-md-12 col-sm-12">
 									<div class="glass">
@@ -576,6 +584,13 @@ var PLS_SELECT = 'กรุณาเลือก';
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12 mt-4 center">
+									<button type="button" id="search" class="btn btn-primary btn3d" onclick="save()"><span id="icon" class="fa fa-save"></span> บันทึก</button>
+									<button type="button" id="search" class="btn btn-danger btn3d" onclick="cancel()"><span id="icon" class="fa fa-plus"></span> ยกเลิก</button>
 								</div>
 							</div>
 						</div>
