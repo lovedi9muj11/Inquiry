@@ -136,9 +136,9 @@ public class UserAuthController {
         return "Page1";
     }
     
-    @RequestMapping(value = {"/page2"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/question"}, method = RequestMethod.GET)
     public String page2(Model model) {
-        return "Page2";
+        return "question";
     }
     
 }

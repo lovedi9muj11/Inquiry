@@ -57,12 +57,12 @@
 								</ul></li>
 						</sec:authorize>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Page2 <span
+							data-toggle="dropdown">แบบสอบถาม <span
 								class="caret"></span> <span style="font-size: 18px;"
 								class="pull-right hidden-xs glyphicon glyphicon-copyright-mark"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/page2">xxx2</a>
+								<li><a href="${contextPath}/question">แบบสอบถาม</a>
 								</li>
 							</ul>
 						</li>
