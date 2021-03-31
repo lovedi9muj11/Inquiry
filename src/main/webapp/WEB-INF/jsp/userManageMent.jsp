@@ -153,8 +153,8 @@ var PLS_SELECT = 'กรุณาเลือก';
 		</div>
     	</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="modal-btn-add-yes" onclick="modalConfirmAddUser(true)">บักทึก</button>
-        <button type="button" class="btn btn-danger" id="modal-btn-add-no" onclick="modalConfirmAddUser(false)">ยกเลิก</button>
+        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAddUser(true)">บักทึก</button>
+        <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmAddUser(false)">ยกเลิก</button>
       </div>
     </div>
   </div>

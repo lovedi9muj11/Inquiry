@@ -20,7 +20,6 @@ import th.co.inquiry.dao.UserDao;
 import th.co.inquiry.model.UserBean;
 import th.co.inquiry.service.MasterDataService;
 import th.co.inquiryx.bean.DropDownBean;
-import th.co.inquiryx.bean.MapGLBean;
 import th.co.inquiryx.bean.MasterDataBean;
 
 @Service
@@ -83,23 +82,6 @@ public class MasterDataServiceImpl implements MasterDataService {
 	public UserBean findByUsername(String username) throws SQLException {
 
 		return userDao.findByUsername(username);
-	}
-
-	void setMSNGL(List<MasterDataBean> masterDataBeans, List<MapGLBean> glBeans, List<MapGLBean> glBeans2) {
-		MasterDataBean msBean = new MasterDataBean();
-		for (MapGLBean beanGL : glBeans) {
-			msBean = new MasterDataBean();
-			msBean.setValue(beanGL.getRevenueTypeCode());
-			msBean.setText(beanGL.getRevenueTypeName());
-			masterDataBeans.add(msBean);
-		}
-
-		for (MapGLBean beanGL2 : glBeans2) {
-			msBean = new MasterDataBean();
-			msBean.setValue(beanGL2.getServiceCode());
-			msBean.setText(beanGL2.getServiceName());
-			masterDataBeans.add(msBean);
-		}
 	}
 
 	@SuppressWarnings("deprecation")

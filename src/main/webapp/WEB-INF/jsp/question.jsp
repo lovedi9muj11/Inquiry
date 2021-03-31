@@ -589,7 +589,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 							
 							<div class="row">
 								<div class="col-md-12 mt-4 center">
-									<button type="button" id="search" class="btn btn-primary btn3d" onclick="save()"><span id="icon" class="fa fa-save"></span> บันทึก</button>
+									<button type="button" id="search" class="btn btn-success btn3d" onclick="save()"><span id="icon" class="fa fa-save"></span> บันทึก</button>
 									<button type="button" id="search" class="btn btn-danger btn3d" onclick="cancel()"><span id="icon" class="fa fa-plus"></span> ยกเลิก</button>
 								</div>
 							</div>
