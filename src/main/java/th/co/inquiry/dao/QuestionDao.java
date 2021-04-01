@@ -8,7 +8,7 @@ public interface QuestionDao {
 	
 	QuestionBean findById(long id) throws Exception;
 	
-	List<QuestionBean> findByType(String type) throws Exception;
+	List<QuestionBean> findByType(String type, String username) throws Exception;
 	
 	List<QuestionBean> findByGroupCode(String code) throws Exception;
 	

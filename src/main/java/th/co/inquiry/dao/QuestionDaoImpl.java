@@ -50,14 +50,15 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<QuestionBean> findByType(String type) throws Exception {
+	public List<QuestionBean> findByType(String type, String username) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
 		
 		sql.append("SELECT * FROM QUESTION ");
-		sql.append(" WHERE TYPE = ? ");
+		sql.append(" WHERE TYPE = ? and CREATE_BY = ? ");
 		
 		param.add(type);
+		param.add(username);
 		Object[] paramArr = param.toArray();
 		
 		List<QuestionBean> res = jdbcTemplate.query(sql.toString(), paramArr, new questionData());
@@ -82,7 +83,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public int save(QuestionBean bean) throws Exception {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO QUESTION (GROUP_CODE , SEQ_NO , SCORE , TYPE , CREATE_BY  , UPDATE_BY )  VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO QUESTION (GROUP_CODE , SEQ_NO , SCORE , TYPE , CREATE_BY  , UPDATE_BY )  VALUES (?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });

@@ -1,5 +1,7 @@
 package th.co.inquiry.model;
 
+import java.util.List;
+
 public class QuestionBean {
 
 	private int id;
@@ -8,6 +10,8 @@ public class QuestionBean {
 	private String score;
 	private String type;
 	private String userId;
+	
+	private List<QuestionBean> questList;
 	
 	public int getId() {
 		return id;
@@ -44,6 +48,12 @@ public class QuestionBean {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public List<QuestionBean> getQuestList() {
+		return questList;
+	}
+	public void setQuestList(List<QuestionBean> questList) {
+		this.questList = questList;
 	}
 	
 }

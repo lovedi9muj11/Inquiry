@@ -21,23 +21,33 @@ public class QuestionService {
 		return resp;
 	}
 
-	public List<QuestionBean> findByType(String type) throws Exception {
+	public List<QuestionBean> findByType(String type, String username) throws Exception {
 		List<QuestionBean> resp = new ArrayList<QuestionBean>();
-		resp = questionDao.findByType(type);
+		resp = questionDao.findByType(type, username);
 		return resp;
 	}
 
 	public List<QuestionBean> findByGroupCode(String code) throws Exception {
 		List<QuestionBean> resp = new ArrayList<QuestionBean>();
-		resp = questionDao.findByType(code);
+		resp = questionDao.findByGroupCode(code);
 		return resp;
 	}
 	
 	public void save(QuestionBean bean) throws Exception {
-		if(bean.getId()>0) {
-			questionDao.update(bean);
-		}else {
-			questionDao.save(bean);
+		for(int i=0; i<bean.getQuestList().size(); i++) {
+			QuestionBean dto = new QuestionBean();
+			dto.setUserId(bean.getUserId());
+			dto.setGroupCode(null);
+			dto.setScore(bean.getQuestList().get(i).getScore());
+			dto.setSeqNo(bean.getQuestList().get(i).getSeqNo());
+			dto.setType(bean.getType());
+			
+			if(bean.getQuestList().get(i).getId()>0) {
+				dto.setId(bean.getQuestList().get(i).getId());
+				questionDao.update(dto);
+			}else {
+				questionDao.save(dto);
+			}
 		}
 		
 	}
