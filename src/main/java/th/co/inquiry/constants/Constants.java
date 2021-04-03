@@ -30,4 +30,6 @@ public class Constants {
 		public static final String LOGIN_FLAG_N = "N";
 	}
 	
+	public static final String QUESTION_TYPE_DD = "QUESTION_TYPE";
+	
 }

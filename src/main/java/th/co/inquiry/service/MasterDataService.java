@@ -1,6 +1,7 @@
 package th.co.inquiry.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ public interface MasterDataService {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
-	void insertBatch(MasterDataBean masterDataBean);
+	List<MasterDataBean> findGroupTypeByGroupKey(String groupKey);
+	
+	List<MasterDataBean> findAll();
 
+	public void save(MasterDataBean masterDataBean);
+	
+	void delete(MasterDataBean masterDataBean, String username);
 }

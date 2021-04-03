@@ -13,12 +13,13 @@ public interface MasterDataDao {
 	
 	public int insertMasterdata(MasterDataBean masterDataBean);
 	
+	void updateMasterdata(MasterDataBean masterDataBean);
+	
 	public int insertMasterdataGroup(MasterDataBean masterDataBean);
 	
 	public List<MasterDataBean> findAllByGropType(String groupType);
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
-	void insertBatch(MasterDataBean masterDataBean);
-
+	public void delete(int id);
 }

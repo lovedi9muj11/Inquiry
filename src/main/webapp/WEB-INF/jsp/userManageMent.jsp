@@ -118,12 +118,8 @@ var PLS_SELECT = 'กรุณาเลือก';
 			</div>
 			<div class="form-group col-md-12">
 				<label class="col-md-3 control-label text-right">Role<span style="color: red"> *</span></label>
-<!-- 				<div class="col-md-9"> -->
-<!-- 					<input type="text" name="surname" id="surname" class="form-control text-left"> -->
-<!-- 					<p id="ssurname" style="color: red; display: none">คุณยังไม่ได้กรอก นามสกุล</p> -->
-<!-- 				</div> -->
 				<div class="col-sm-9">
-					<select class="groupType form-control col-md-6" name="roles" id="roles" list="groupTypeDropdown" listKey="value" listValue="name">
+					<select class="groupType form-control col-md-6" name="roles" id="roles">
 					</select>
 					<p id="sroles" style="color: red; display: none">กรุณาเลือก Role</p>
 				</div>

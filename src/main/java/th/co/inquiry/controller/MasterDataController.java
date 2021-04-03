@@ -1,9 +1,13 @@
 package th.co.inquiry.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.co.inquiry.auth.model.UserProfile;
 import th.co.inquiry.constants.Constants;
 import th.co.inquiry.service.MasterDataService;
 import th.co.inquiryx.bean.MasterDataBean;
+import th.co.inquiryx.bean.ResponscApi;
 
 @Controller
 public class MasterDataController {
@@ -38,7 +44,7 @@ public class MasterDataController {
 
 	@RequestMapping(value = "/insertMasterdata", method = RequestMethod.POST)
 	@ResponseBody
-	public String payment(Model model, @RequestBody MasterDataBean masterDataBean, HttpServletRequest request,
+	public String insert(Model model, @RequestBody MasterDataBean masterDataBean, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int paymentId = 0;
 		try {
@@ -52,16 +58,20 @@ public class MasterDataController {
 
 	@RequestMapping(value = "/insertMasterdataGroup", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertMasterdataGroup(Model model, @RequestBody MasterDataBean masterDataBean,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponscApi insertMasterdataGroup(@RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ResponscApi responscApi = new ResponscApi();
+		String status = Constants.FAIL;
 		int paymentId = 0;
 		try {
 			paymentId = masterDataService.insertGroup(masterDataBean);
+			status = Constants.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		responscApi.setMessage(status);
+		responscApi.setId(paymentId);
 
-		return String.valueOf(paymentId);
+		return responscApi;
 	}
 	
 	@RequestMapping(value = "/findGroupTypeByKeyCode", method = RequestMethod.POST, produces = "application/json")
@@ -77,18 +87,64 @@ public class MasterDataController {
 		return masterData;
 	}
 	
-	@RequestMapping(value = "/insertBatch", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/saveMasterdata", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertBatch(Model model, @RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponscApi save(@RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ResponscApi responscApi = new ResponscApi();
 		String status = Constants.FAIL;
 		try {
-			masterDataService.insertBatch(masterDataBean);
+			masterDataService.save(masterDataBean);
 			status = Constants.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return status;
+		responscApi.setMessage(status);
+
+		return responscApi;
+	}
+	
+	@RequestMapping(value = "/getTypeQuestion", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findByGroupCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		try {
+			masterDataBeans = masterDataService.findGroupTypeByGroupKey(Constants.QUESTION_TYPE_DD);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDataBeans;
+	}
+	
+	@RequestMapping(value = "/findAllMasterData", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findAllMasterData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDataList = new ArrayList<MasterDataBean>();
+		try {
+			masterDataList = masterDataService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return masterDataList;
+	}
+	
+	@RequestMapping(value = "/masterData/delete", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponscApi delete(@RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ResponscApi responscApi = new ResponscApi();
+		String status = Constants.FAIL;
+		try {
+			UserProfile profile = (UserProfile)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			masterDataService.delete(masterDataBean, profile.getUsername());
+			status = Constants.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		responscApi.setMessage(status);
+
+		return responscApi;
 	}
 	
 }

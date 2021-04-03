@@ -8,3 +8,6 @@ INSERT INTO `user` (`ID`, `Name`, `SurName`, `Password`, `Username`, `CREATE_BY`
 
 INSERT INTO `user_role` (`User_ID`, `Role_ID`) VALUES
 (1, 1);
+
+INSERT INTO `master_data` (`ID`, `KEYCODE`, `VALUE`, `GROUP_KEY`, `TYPE`, `STATUS`, `CREATE_BY`, `CREATE_DATE`, `UPDATE_BY`, `UPDATE_DATE`) VALUES
+(1, 'QUESTION_TYPE', 'ประเภทแบบสอบถาม', NULL, 'Group', NULL, NULL, '0000-00-00 00:00:00.000000', NULL, '0000-00-00 00:00:00.000000');			

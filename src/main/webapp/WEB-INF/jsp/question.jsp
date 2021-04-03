@@ -45,7 +45,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 							<div class="row">
 								<label class="col-md-1 control-label">ประเภท : </label>
 								<div class="col-md-3">
-									<select class="groupType form-control col-md-6" name="groupType" id="groupType" list="groupTypeDropdown" listKey="value" listValue="name">
+									<select class="groupType form-control col-md-6" name="groupType" id="groupType">
 									</select>
 								</div>
 							</div>

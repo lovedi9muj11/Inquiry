@@ -18,17 +18,12 @@ import th.co.inquiry.auth.model.Role;
 import th.co.inquiry.auth.model.UserDto;
 import th.co.inquiry.auth.model.UserProfile;
 import th.co.inquiry.auth.repository.UserRepository;
-import th.co.inquiry.constants.Constants;
-import th.co.inquiry.dao.MasterDataDao;
-import th.co.inquiryx.bean.MasterDataBean;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
     @Autowired private UserRepository userRepository;
-    @Autowired private MasterDataDao masterDataDao;
-//	@Value("${text.posno}")
-//	private String posNo;
+//    @Autowired private MasterDataDao masterDataDao;
 	
     @Override
     @Transactional(readOnly = true)
@@ -41,12 +36,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
                 authorities.add(new SimpleGrantedAuthority(role.getName()));
             }
             UserProfile myUserDetails = new UserProfile(user.getUsername(), user.getPassword(), authorities);
-            List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
-            for (MasterDataBean masterDataBean : resultList) {
-				if(masterDataBean.getValue().equals("COST_CENTER")) {
-					   myUserDetails.setCostCenter(masterDataBean.getText());
-				}
-			}
+//            List<MasterDataBean> resultList = masterDataDao.findAllByGropType(Constants.INIT_PROJECT);
+//            for (MasterDataBean masterDataBean : resultList) {
+//				if(masterDataBean.getValue().equals("COST_CENTER")) {
+//					   myUserDetails.setCostCenter(masterDataBean.getText());
+//				}
+//			}
          
             myUserDetails.setRoles(user.getRoles());
             myUserDetails.setLoginFlag(user.getLoginFlag());

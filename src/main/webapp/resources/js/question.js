@@ -1,8 +1,9 @@
 $(document).ready(function() {
 
 	//	$('#groupType').append('<option value="">' + PLS_SELECT + '</option>');
-	$('#groupType').append('<option value="1">' + 'ทดสอบ' + '</option>');
-	$('#groupType').append('<option value="2">' + 'ทดสอบ2' + '</option>');
+	//	$('#groupType').append('<option value="1">' + 'ทดสอบ' + '</option>');
+	//	$('#groupType').append('<option value="2">' + 'ทดสอบ2' + '</option>');
+	getType()
 
 	//	$( "input[type=radio]" ).on( "click", countChecked );
 
@@ -19,12 +20,15 @@ var questDataList = []
 function getType() {
 	$.ajax({
 		type: "GET",
-		url: ctx + "/xxx/getType",
+		url: ctx + "/findAllMasterData",
 		async: false,
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {
-			for (var i = 0; i < res.roleList.length; i++) {
-				$('#groupType').append('<option value="' + (res.roleList[i].key) + '">' + (res.roleList[i].value) + '</option>');
+			msDataList = res
+			for (var i = 0; i < res.length; i++) {
+				if (res[i].type != 'Group') {
+					$('#groupType').append('<option value="' + (res[i].value) + '">' + (res[i].text) + '</option>');
+				}
 			}
 		}
 	})
@@ -140,7 +144,7 @@ function setDataSave() {
 	questDataList = []
 	let type = $('#groupType').val();
 
-	if (questDataResList.length > 0 && type==questDataResList[0].type) {
+	if (questDataResList.length > 0 && type == questDataResList[0].type) {
 		for (let i = 0; i < questDataResList.length; i++) {
 			let question = {}
 			let qtion = 'input[name="q' + (i + 1) + '"]:checked';

@@ -8,6 +8,7 @@ public class ResponscApi {
 	private String message;
 	private List<T> data;
 	private List<DropDownBean> roleList;
+	private int id;
 	
 	public String getMessage() {
 		return message;
@@ -26,6 +27,12 @@ public class ResponscApi {
 	}
 	public void setRoleList(List<DropDownBean> roleList) {
 		this.roleList = roleList;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

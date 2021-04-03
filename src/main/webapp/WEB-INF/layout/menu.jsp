@@ -42,6 +42,7 @@
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/userManageMent">จัดการข้อมูล User</a></li>
+								<li><a href="${contextPath}/masterData">จัดการข้อมูล Master Data</a></li>
 							</ul></li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUPERVISOR')">
