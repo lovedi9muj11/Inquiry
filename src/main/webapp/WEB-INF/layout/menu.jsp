@@ -34,7 +34,7 @@
 							style="font-size: 18px;"
 							class="pull-right hidden-xs showopacity fa fa-home"> </span>
 					</a></li>
-					<sec:authorize access="hasAuthority('ADMIN')">
+					<sec:authorize access="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Manage <span class="caret"></span> <span
 								style="font-size: 18px;"
@@ -46,17 +46,17 @@
 							</ul></li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUPERVISOR')">
-						<sec:authorize access="hasAuthority('USER')">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Page1 <span class="caret"></span>
-									<span style="font-size: 18px;"
-									class="pull-right hidden-xs glyphicon glyphicon-usd"></span>
-							</a>
-								<ul class="dropdown-menu forAnimate" role="menu">
-									<li><a href="${contextPath}/page1">xxx</a>
-									</li>
-								</ul></li>
-						</sec:authorize>
+<%-- 						<sec:authorize access="hasAuthority('USER')"> --%>
+<!-- 							<li class="dropdown"><a href="#" class="dropdown-toggle" -->
+<!-- 								data-toggle="dropdown">Page1 <span class="caret"></span> -->
+<!-- 									<span style="font-size: 18px;" -->
+<!-- 									class="pull-right hidden-xs glyphicon glyphicon-usd"></span> -->
+<!-- 							</a> -->
+<!-- 								<ul class="dropdown-menu forAnimate" role="menu"> -->
+<%-- 									<li><a href="${contextPath}/page1">xxx</a> --%>
+<!-- 									</li> -->
+<!-- 								</ul></li> -->
+<%-- 						</sec:authorize> --%>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">แบบสอบถาม <span
 								class="caret"></span> <span style="font-size: 18px;"
@@ -67,6 +67,18 @@
 								</li>
 							</ul>
 						</li>
+							
+					</sec:authorize>
+					<sec:authorize access="hasAuthority('REPORTER') or hasAuthority('SUPERVISOR')">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Page1 <span class="caret"></span>
+								<span style="font-size: 18px;"
+								class="pull-right hidden-xs glyphicon glyphicon-usd"></span>
+						</a>
+							<ul class="dropdown-menu forAnimate" role="menu">
+								<li><a href="${contextPath}/page1">xxx</a>
+								</li>
+							</ul></li>
 							
 					</sec:authorize>
 				</ul>
