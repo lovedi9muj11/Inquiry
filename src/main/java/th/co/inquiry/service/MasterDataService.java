@@ -21,9 +21,19 @@ public interface MasterDataService {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
+	MasterDataBean findGroupTypeByKeyCode(MasterDataBean bean);
+	
 	List<MasterDataBean> findGroupTypeByGroupKey(String groupKey);
 	
 	List<MasterDataBean> findAll();
+	
+	List<MasterDataBean> findAll4DropDown();
+	
+	List<MasterDataBean> findAllQuestion();
+	
+	List<MasterDataBean> findQuestionByGroupKey(String groupKey);
+	
+	List<MasterDataBean> findQuestion();
 
 	public void save(MasterDataBean masterDataBean);
 	

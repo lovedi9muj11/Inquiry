@@ -123,4 +123,27 @@ public class MasterDataDaoImpl implements MasterDataDao{
 		jdbcTemplate.update(delsql);
 	}
 
+	@Override
+	public List<MasterDataBean> findAllByGropKey(String groupKey) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and GROUP_KEY = '"+groupKey+"'");
+		
+		return jdbcTemplate.query(sql.toString(), new masterData());
+	}
+
+	@Override
+	public MasterDataBean findGroupTypeByKeyCode(String groupKey, String keyCode) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and KEYCODE = '"+keyCode+"'");
+		sql.append(" and GROUP_KEY = '"+groupKey+"'");
+		
+		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
+	}
+
+	@Override
+	public List<MasterDataBean> findAllQuestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

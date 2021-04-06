@@ -19,7 +19,13 @@ public interface MasterDataDao {
 	
 	public List<MasterDataBean> findAllByGropType(String groupType);
 	
+	public List<MasterDataBean> findAllByGropKey(String groupKey);
+	
+	public List<MasterDataBean> findAllQuestion();
+	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
+	
+	MasterDataBean findGroupTypeByKeyCode(String groupKey, String keyCode);
 	
 	public void delete(int id);
 }

@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.inquiry.auth.model.GroupTypeDropdown;
+import th.co.inquiry.constants.Constants;
 import th.co.inquiry.dao.MasterDataDao;
 import th.co.inquiry.dao.UserDao;
 import th.co.inquiry.model.UserBean;
@@ -132,6 +135,68 @@ public class MasterDataServiceImpl implements MasterDataService {
 	@Override
 	public void delete(MasterDataBean masterDataBean, String username) {
 		masterDataDao.delete(masterDataBean.getId());
+	}
+
+	@Override
+	public List<MasterDataBean> findAll4DropDown() {
+		List<MasterDataBean> resp = new ArrayList<MasterDataBean>();
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		masterDataBeans = masterDataDao.findAll();
+		
+		if(CollectionUtils.isNotEmpty(masterDataBeans)) {
+			for(MasterDataBean data : masterDataBeans) {
+				if(StringUtils.isBlank(data.getGroup())) {
+					resp.add(data);
+				}
+			}
+		}
+		
+		return resp;
+	}
+
+	@Override
+	public List<MasterDataBean> findAllQuestion() {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		masterDataBeans = masterDataDao.findAllByGropKey(Constants.QUESTION);
+
+		return masterDataBeans;
+	}
+
+	@Override
+	public List<MasterDataBean> findQuestionByGroupKey(String groupKey) {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		masterDataBeans = masterDataDao.findAllByGropKey(groupKey);
+
+		return masterDataBeans;
+	}
+
+	@Override
+	public MasterDataBean findGroupTypeByKeyCode(MasterDataBean bean) {
+		MasterDataBean masterDataBean = new MasterDataBean();
+		masterDataBean = masterDataDao.findGroupTypeByKeyCode(bean.getGroup(), bean.getKeyCode());
+
+		return masterDataBean;
+	}
+
+	@Override
+	public List<MasterDataBean> findQuestion() {
+		List<MasterDataBean> resps = new ArrayList<MasterDataBean>();
+		MasterDataBean resp = new MasterDataBean();
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		
+		masterDataBeans = masterDataDao.findAllByGropKey(Constants.QUESTION);
+		if(CollectionUtils.isNotEmpty(masterDataBeans)) {
+			for(MasterDataBean data : masterDataBeans) {
+				resp = new MasterDataBean();
+				resp = data;
+				List<MasterDataBean> res = masterDataDao.findAllByGropKey(data.getValue());
+				resp.setList(res);
+				
+				resps.add(resp);
+			}
+		}
+
+		return resps;
 	}
 
 }

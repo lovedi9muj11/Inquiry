@@ -87,6 +87,58 @@ public class MasterDataController {
 		return masterData;
 	}
 	
+	@RequestMapping(value = "/findQuestionByKeyCode", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public MasterDataBean findQuestionByKeyCode(@RequestBody MasterDataBean masterDataBean, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		MasterDataBean masterData = new MasterDataBean();
+		try {
+			masterData = masterDataService.findGroupTypeByKeyCode(masterDataBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterData;
+	}
+	
+	@RequestMapping(value = "/findQuestionByGroup", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findQuestionByGroup(@RequestBody MasterDataBean masterDataBean, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDatas = new ArrayList<MasterDataBean>();
+		try {
+			masterDatas = masterDataService.findQuestionByGroupKey(masterDataBean.getGroup());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDatas;
+	}
+	
+	@RequestMapping(value = "/findQuestionTypeByGroup", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findQuestionTypeByGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDatas = new ArrayList<MasterDataBean>();
+		try {
+			masterDatas = masterDataService.findQuestionByGroupKey(Constants.QUESTION_TYPE_DD);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDatas;
+	}
+	
+	@RequestMapping(value = "/findAllQuestion", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findAllQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDatas = new ArrayList<MasterDataBean>();
+		try {
+			masterDatas = masterDataService.findQuestion();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDatas;
+	}
+	
 	@RequestMapping(value = "/saveMasterdata", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponscApi save(@RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -110,6 +162,32 @@ public class MasterDataController {
 		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
 		try {
 			masterDataBeans = masterDataService.findGroupTypeByGroupKey(Constants.QUESTION_TYPE_DD);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDataBeans;
+	}
+	
+	@RequestMapping(value = "/getQuestionDD", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> getQuestionDD(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		try {
+			masterDataBeans = masterDataService.findAll4DropDown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDataBeans;
+	}
+	
+	@RequestMapping(value = "/getQuestion", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> getQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		try {
+			masterDataBeans = masterDataService.findAllQuestion();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

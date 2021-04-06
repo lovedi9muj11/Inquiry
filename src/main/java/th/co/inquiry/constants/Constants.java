@@ -31,5 +31,6 @@ public class Constants {
 	}
 	
 	public static final String QUESTION_TYPE_DD = "QUESTION_TYPE";
+	public static final String QUESTION = "QUESTION";
 	
 }

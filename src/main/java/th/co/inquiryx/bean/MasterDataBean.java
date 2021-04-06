@@ -13,6 +13,8 @@ public class MasterDataBean {
 	private String type;
 	private String score;
 	
+	private List<MasterDataBean> list;
+	
 	private List<DropDownBean> DropDownBeans;
 	
 	public String getKeyCode() {
@@ -68,6 +70,12 @@ public class MasterDataBean {
 	}
 	public void setScore(String score) {
 		this.score = score;
+	}
+	public List<MasterDataBean> getList() {
+		return list;
+	}
+	public void setList(List<MasterDataBean> list) {
+		this.list = list;
 	}
 
 }
