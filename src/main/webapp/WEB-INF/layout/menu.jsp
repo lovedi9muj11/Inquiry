@@ -38,7 +38,7 @@
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Manage <span class="caret"></span> <span
 								style="font-size: 18px;"
-								class="pull-right hidden-xs showopacity fa fa-file-text-o"></span>
+								class="pull-right hidden-xs showopacity fa fa-sliders"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/userManageMent">จัดการข้อมูล User</a></li>
@@ -71,12 +71,12 @@
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('REPORTER') or hasAuthority('SUPERVISOR')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Page1 <span class="caret"></span>
+							data-toggle="dropdown">รายงาน <span class="caret"></span>
 								<span style="font-size: 18px;"
-								class="pull-right hidden-xs glyphicon glyphicon-usd"></span>
+								class="pull-right hidden-xs fa fa-file-text-o"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/page1">xxx</a>
+								<li><a href="${contextPath}/questionReport">รายงานแบบสอบถาม</a>
 								</li>
 							</ul></li>
 							

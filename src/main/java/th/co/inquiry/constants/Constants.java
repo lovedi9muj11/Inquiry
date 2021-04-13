@@ -33,4 +33,8 @@ public class Constants {
 	public static final String QUESTION_TYPE_DD = "QUESTION_TYPE";
 	public static final String QUESTION = "QUESTION";
 	
+	
+	public static class report {
+		public static final String XXX = "RPTxxx";
+	}
 }

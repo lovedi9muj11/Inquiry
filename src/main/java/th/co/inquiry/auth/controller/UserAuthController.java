@@ -131,9 +131,9 @@ public class UserAuthController {
     	return "confirm-password";
     }
     
-    @RequestMapping(value = {"/page1"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/questionReport"}, method = RequestMethod.GET)
     public String page1(Model model) {
-        return "Page1";
+        return "questionReport";
     }
     
     @RequestMapping(value = {"/question"}, method = RequestMethod.GET)

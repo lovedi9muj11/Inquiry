@@ -7,11 +7,11 @@ $(document).ready(function() {
 
 	//	$( "input[type=radio]" ).on( "click", countChecked );
 
-	search()
+	//	search()
 	$("#groupType").on("change", function() {
 		search()
 	});
-	
+
 	questionList = $('#questionList').DataTable({
 		"filter": false,
 		"info": false,
@@ -34,7 +34,7 @@ var isNumGroup = 0
 function getType() {
 	$.ajax({
 		type: "GET",
-//		url: ctx + "/findAllMasterData",
+		//		url: ctx + "/findAllMasterData",
 		url: ctx + "/findQuestionTypeByGroup",
 		async: false,
 		contentType: "application/json; charset=utf-8",
@@ -95,7 +95,7 @@ function countChecked() {
 
 function validateSave() {
 	let point = $("input:checked").length;
-	
+
 	console.log(isNumGroup)
 	console.log(point)
 
@@ -214,7 +214,7 @@ function search() {
 
 function searchQuestion() {
 	questionList.clear().draw();
-	
+
 	$.ajax({
 		type: "GET",
 		url: ctx + "/findAllQuestion",
@@ -225,6 +225,7 @@ function searchQuestion() {
 			for (var i = 0; i < res.length; i++) {
 				createRow(res[i]);
 			}
+			search()
 		}
 	})
 }
@@ -232,28 +233,28 @@ function searchQuestion() {
 function createRow(data) {
 	colCur = data.text;
 	isNum++
-	
+
 	var t = $('#questionList').DataTable();
 	var rowNode = t.row.add([isNum, colCur, '', '', '', '', '']).draw(true).node();
 	$(rowNode).find('td').eq(0).addClass('center').css('color', 'blue');
 	$(rowNode).find('td').eq(1).attr('colspan', 7).addClass('left').css('color', 'blue');
-	
-	for(let i=0; i<data.list.length; i++) {
-		createRowSub(data.list[i], isNum+'.'+(i+1))
+
+	for (let i = 0; i < data.list.length; i++) {
+		createRowSub(data.list[i], isNum + '.' + (i + 1))
 		isNumGroup++
-		
+
 	}
 }
 
 function createRowSub(data, seq) {
 	colSeq = (seq);
 	colCur2 = data.text;
-	
-	colCurIs5 = '<input type="radio" name="'+data.value+'" id="q'+isNum+'" value="5">';
-	colCurIs4 = '<input type="radio" name="'+data.value+'" id="q'+isNum+'" value="4">';
-	colCurIs3 = '<input type="radio" name="'+data.value+'" id="q'+isNum+'" value="3">';
-	colCurIs2 = '<input type="radio" name="'+data.value+'" id="q'+isNum+'" value="2">';
-	colCurIs1 = '<input type="radio" name="'+data.value+'" id="q'+isNum+'" value="1">';
+
+	colCurIs5 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="5">';
+	colCurIs4 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="4">';
+	colCurIs3 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="3">';
+	colCurIs2 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="2">';
+	colCurIs1 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="1">';
 
 	var t = $('#questionList').DataTable();
 	var rowNode = t.row.add([colSeq, colCur2, colCurIs5, colCurIs4, colCurIs3, colCurIs2, colCurIs1]).draw(true).node();
