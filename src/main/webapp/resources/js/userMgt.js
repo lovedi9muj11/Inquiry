@@ -55,14 +55,18 @@ function createRow(data, seq) {
 	colSeq = (seq + 1);
 	colCur2 = data.name;
 	colCur3 = data.surName;
-	colCur4 = '<button type="button" class="btn btn-warning" onclick="editData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">แก้ไข</buttona>';
-	colCur5 = '<button type="button" class="btn btn-danger" onclick="deleteData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">ลบ</buttona>';
+	colCur4 = data.roleCode;
+	colCur5 = data.userName;
+	colCur6 = '<button type="button" class="btn btn-warning" onclick="editData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">แก้ไข</buttona>';
+	colCur7 = '<button type="button" class="btn btn-danger" onclick="deleteData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">ลบ</buttona>';
 
 	var t = $('#masterList').DataTable();
-	var rowNode = t.row.add([colSeq, colCur2, colCur3, colCur4, colCur5]).draw(true).node();
+	var rowNode = t.row.add([colSeq, colCur2, colCur3, colCur4, colCur5, colCur6, colCur7]).draw(true).node();
 	$(rowNode).find('td').eq(0).addClass('center');
 	$(rowNode).find('td').eq(1).addClass('center');
 	$(rowNode).find('td').eq(2).addClass('center');
+	$(rowNode).find('td').eq(3).addClass('center');
+	$(rowNode).find('td').eq(4).addClass('center');
 }
 
 function editData(id) {

@@ -67,8 +67,10 @@ var PLS_SELECT = 'กรุณาเลือก';
 															<thead>
 																<tr>
 																	<th style="text-align: center;" width="10%">#</th>
-																	<th style="text-align: center;" width="40%">ชื่อ</th>
-																	<th style="text-align: center;" width="30%">นามสกุล</th>
+																	<th style="text-align: center;" width="20%">ชื่อ</th>
+																	<th style="text-align: center;" width="20%">นามสกุล</th>
+																	<th style="text-align: center;" width="20%">Role</th>
+																	<th style="text-align: center;" width="20%">UserName</th>
 																	<th style="text-align: center;" width="2%"></th>
 																	<th style="text-align: center;" width="2%"></th>
 																</tr>
