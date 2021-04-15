@@ -31,13 +31,13 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-6 text-center mb-5">
-				<h2 class="heading-section">Login #Inquiry</h2>
+				<h2 class="heading-section">Login</h2>
 			</div>
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-lg-4">
 				<div class="login-wrap p-0">
-	      	<h3 class="mb-4 text-center">แบบสอบถาม</h3>
+	      	<h3 class="mb-4 text-center">ระบบธุรกิจอัจฉริยะเพื่อแสดง <br>รายงานและข้อมูลกลุ่มลูกหนี้ <br>ที่ไม่ก่อให้เกิดรายได้</h3>
 	      	<form method="POST" action="${contextPath}/login" class="signin-form">
 	      		<div class="form-group">
 <!-- 		      			<input type="text" class="form-control" placeholder="Username" required> -->
