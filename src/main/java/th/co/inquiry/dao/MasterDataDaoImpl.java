@@ -34,7 +34,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	@Override
 	public int insertMasterdata(MasterDataBean masterDataBean) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO MASTER_DATA (KEYCODE, VALUE, GROUP_KEY, TYPE, SCORE)  VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO MASTER_DATA (KEYCODE, VALUE, GROUP_KEY, TYPE, SCORE, TEXT_CODE)  VALUES (?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
@@ -43,6 +43,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 				pst.setString(3, masterDataBean.getGroup());
 				pst.setString(4, masterDataBean.getType());
 				pst.setString(5, masterDataBean.getScore());
+				pst.setString(6, masterDataBean.getTextCode());
 				return pst;
 			}
 		}, keyHolder);
@@ -87,6 +88,7 @@ public class MasterDataDaoImpl implements MasterDataDao{
 			masterDataBean.setGroup(rs.getString("GROUP_KEY"));
 			masterDataBean.setType(rs.getString("TYPE"));
 			masterDataBean.setScore(rs.getString("SCORE"));
+			masterDataBean.setTextCode(rs.getString("TEXT_CODE"));
 			return masterDataBean;
 		}
 
@@ -104,13 +106,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public void updateMasterdata(MasterDataBean masterDataBean) {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" UPDATE MASTER_DATA set KEYCODE = ?, VALUE = ?, GROUP_KEY = ?, TYPE = ?, SCORE = ? WHERE ID = ?");
+		sql.append(" UPDATE MASTER_DATA set KEYCODE = ?, VALUE = ?, GROUP_KEY = ?, TYPE = ?, SCORE = ?, TEXT_CODE = ? WHERE ID = ?");
 		
 		param.add(masterDataBean.getKeyCode());
 		param.add(masterDataBean.getValue());
 		param.add(masterDataBean.getGroup());
 		param.add(masterDataBean.getType());
 		param.add(masterDataBean.getScore());
+		param.add(masterDataBean.getTextCode());
 		param.add(masterDataBean.getId());
 		Object[] paramArr = param.toArray();
 		
@@ -144,6 +147,14 @@ public class MasterDataDaoImpl implements MasterDataDao{
 	public List<MasterDataBean> findAllQuestion() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public MasterDataBean findById(int id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT * FROM MASTER_DATA WHERE 1=1 and ID = '"+id+"'");
+		
+		return jdbcTemplate.queryForObject(sql.toString(), new masterData());
 	}
 
 }

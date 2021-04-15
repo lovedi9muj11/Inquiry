@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	//		$('.groupType').select2();
-
 	masterGroupList = $('#masterGroupList').DataTable({
 		"filter": false,
 		"info": false,
@@ -13,6 +11,18 @@ $(document).ready(function() {
 		}]
 	});
 	searchGroup()
+	
+	reportList = $('#reportList').DataTable({
+		"filter": false,
+		"info": false,
+		"paging": true,
+		"columnDefs": [{
+			"searchable": false,
+			"orderable": false,
+			"targets": 0
+		}]
+	});
+	searchReport()
 
 	masterList = $('#masterList').DataTable({
 		"filter": false,
@@ -25,7 +35,6 @@ $(document).ready(function() {
 		}]
 	});
 	search()
-	getGroups()
 	
 	questionList = $('#questionList').DataTable({
 		"filter": false,
@@ -37,12 +46,12 @@ $(document).ready(function() {
 			"targets": 0
 		}]
 	});
-	getQuestion()
 	searchQuestion()
 
 });
 
 function getGroups() {
+	$('#groups').empty();
 	$.ajax({
 		type: "GET",
 //		url: ctx + "/getTypeQuestion",
@@ -60,6 +69,7 @@ function getGroups() {
 }
 
 function getQuestion() {
+	$('#questions').empty();
 	$.ajax({
 		type: "GET",
 		url: ctx + "/getQuestion",
@@ -84,6 +94,7 @@ var msDataList
 var questionDataList
 var idEdit
 var type
+var reportLists
 
 function searchGroup() {
 	masterGroupList.clear().draw();
@@ -95,6 +106,7 @@ function searchGroup() {
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {
 			msDataGroupList = res
+			getGroups()
 			for (var i = 0; i < res.length; i++) {
 				if(res[i].type=='Group') {
 					createRowGroup(res[i], inum);
@@ -106,7 +118,6 @@ function searchGroup() {
 }
 
 function search() {
-	masterList.clear().draw();
 	let inum2 = 1
 	$.ajax({
 		type: "GET",
@@ -114,7 +125,10 @@ function search() {
 		async: false,
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {
+			if(res.length>0)masterList.clear().draw();
+			
 			msDataList = res
+			getQuestion()
 			for (var i = 0; i < res.length; i++) {
 				if(res[i].type=='QuestionType') {
 					createRow(res[i], inum2);
@@ -126,8 +140,8 @@ function search() {
 }
 
 function searchQuestion() {
-	questionList.clear().draw();
-	
+	if(questionDataList)questionList.clear().draw();
+
 	let dataSend = {
 		"group": $('#questions').val(),
 	}
@@ -140,6 +154,8 @@ function searchQuestion() {
 		async: false,
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {
+			if(res.length>0)questionList.clear().draw();
+			
 			questionDataList = res
 			for (var i = 0; i < res.length; i++) {
 				createQuestionRow(res[i], (i+1));
@@ -238,12 +254,12 @@ function createRow(data, seq) {
 	colCur2 = data.group;
 	colCur3 = data.value;
 	colCur4 = data.text;
-	colCur5 = data.score;
+//	colCur5 = data.score;
 	colCur6 = '<button type="button" class="btn btn-warning" onclick="editData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">แก้ไข</buttona>';
 	colCur7 = '<button type="button" class="btn btn-danger" onclick="deleteData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">ลบ</buttona>';
 
 	var t = $('#masterList').DataTable();
-	var rowNode = t.row.add([colSeq, colCur2, colCur3, colCur4, colCur5, colCur6, colCur7]).draw(true).node();
+	var rowNode = t.row.add([colSeq, colCur2, colCur3, colCur4, colCur6, colCur7]).draw(true).node();
 	$(rowNode).find('td').eq(0).addClass('center');
 	$(rowNode).find('td').eq(1).addClass('center');
 	$(rowNode).find('td').eq(2).addClass('center');
@@ -332,7 +348,8 @@ function modalConfirmAdd(callback) {
 			"group": $('#groups').val(),
 			"keyCode": $('#msCode').val(),
 			"value": $('#msName').val(),
-			"score": $('#msScore').val(),
+//			"score": $('#msScore').val(),
+			"rText": $('#msRText').val(),
 			"type": "QuestionType",
 		}
 
@@ -361,14 +378,15 @@ function clearData() {
 	$('#groups').val('')
 	$('#msCode').val('')
 	$('#msName').val('')
-	$('#msScore').val('')
+//	$('#msScore').val('')
+	$('#msRText').val('')
 }
 
 function clearMsValidate() {
 	$("#sgroups").hide();
 	$("#smsCode").hide();
 	$("#smsName").hide();
-	$("#smsScore").hide();
+//	$("#smsScore").hide();
 }
 
 function validateData() {
@@ -386,8 +404,8 @@ function validateData() {
 		$("#smsName").show();
 		chkValid = false;
 	} else if (!this.msData.score) {
-		$("#smsScore").show();
-		chkValid = false;
+//		$("#smsScore").show();
+//		chkValid = false;
 	}
 
 	return chkValid
@@ -397,7 +415,8 @@ function setData(data) {
 	$('#groups').val(data.group)
 	$('#msCode').val(data.value)
 	$('#msName').val(data.text)
-	$('#msScore').val(data.score)
+//	$('#msScore').val(data.score)
+	$('#msRText').val(data.rText)
 //	type = data.type
 }
 
@@ -478,11 +497,13 @@ function addQuestion() {
 function clearQuestion() {
 	$('#qCode').val('')
 	$('#qName').val('')
+//	$('#qScore').val('')
 }
 
 function clearQuestionValidate() {
 	$("#sqCode").hide();
 	$("#sqName").hide();
+//	$("#sqScore").hide();
 }
 
 function modalConfirmQuestion(callback) {
@@ -492,6 +513,7 @@ function modalConfirmQuestion(callback) {
 			"group": $('#questions').val(),
 			"keyCode": $('#qCode').val(),
 			"value": $('#qName').val(),
+//			"score": $('#qScore').val(),
 			"type": "Question",
 		}
 
@@ -535,12 +557,15 @@ function validateQuestion() {
 	clearQuestionValidate()
 
 	let chkValid = true
-	if (!this.questionData.value) {
+	if (!this.questionData.keyCode) {
 		$("#sqCode").show();
 		chkValid = false;
-	} else if (!this.questionData.keyCode) {
+	} else if (!this.questionData.value) {
 		$("#sqName").show();
 		chkValid = false;
+	} else if (!this.questionData.score) {
+//		$("#sqScore").show();
+//		chkValid = false;
 	}
 
 	return chkValid
@@ -549,6 +574,7 @@ function validateQuestion() {
 function setQuestionData(data) {
 	$('#qCode').val(data.value)
 	$('#qName').val(data.text)
+//	$('#qScore').val(data.score)
 }
 
 function editQuestionData(id) {
@@ -610,6 +636,179 @@ function deleteQuestionData(id) {
 					success: function(res) {
 						console.log(res)
 						searchQuestion()
+						swal('ลบข้อมูลสำเร็จ')
+					}
+				})
+			} else {}
+		});
+}
+
+function addReport() {
+	console.log("function addReport")
+	mode = true
+	idEdit = 0
+	clearRptData()
+	clearRptValidate()
+	$("#addReport").modal('show');
+}
+
+function clearRptData() {
+	$('#rptCode').val('')
+	$('#rptName').val('')
+	$('#rptText').val('')
+}
+
+function clearRptValidate() {
+	$("#srptCode").hide();
+	$("#srptName").hide();
+	$("#srptText").hide();
+}
+
+function modalConfirmReport(callback) {
+	if (callback) {
+		let rptData = {
+			"id": idEdit,
+			"keyCode": $('#rptCode').val(),
+			"value": $('#rptName').val(),
+			"textCode": $('#rptText').val(),
+		}
+
+		if (validateReport(rptData)) {
+			$.ajax({
+				type: "POST",
+				url: ctx + "/saveReport",
+				data: JSON.stringify(rptData),
+				dataType: "json",
+				async: false,
+				contentType: "application/json; charset=utf-8",
+				success: function(res) {
+					searchReport()
+					$("#addReport").modal('hide');
+					swal('บันทึก : ' + res.message)
+				}
+			})
+
+		}
+	} else {
+		$("#addReport").modal('hide');
+	}
+}
+
+function validateReport(data) {
+	console.log(data)
+	clearRptValidate()
+
+	let chkValid = true
+	if (!data.keyCode) {
+		$("#srptCode").show();
+		chkValid = false;
+	} else if (!data.value) {
+		$("#srptName").show();
+		chkValid = false;
+	} else if (!data.textCode) {
+		$("#srptText").show();
+		chkValid = false;
+	}
+
+	return chkValid
+}
+
+function searchReport() {
+	reportList.clear().draw();
+	$.ajax({
+		type: "GET",
+		url: ctx + "/findAllReport",
+		async: false,
+		contentType: "application/json; charset=utf-8",
+		success: function(res) {
+			reportLists = res
+			for (var i = 0; i < res.length; i++) {
+				createReportRow(res[i], (i+1));
+			}
+		}
+	})
+}
+
+function createReportRow(data, seq) {
+	colSeq = (seq);
+	colCur2 = data.value;
+	colCur3 = data.text;
+	colCur4 = data.textCode;
+	colCur5 = '<button type="button" class="btn btn-warning" onclick="editReportData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">แก้ไข</buttona>';
+	colCur6 = '<button type="button" class="btn btn-danger" onclick="deleteReportData(' + data.id + ')"><span name="icon" id="icon" class="fa fa-plus">ลบ</buttona>';
+
+	var t = $('#reportList').DataTable();
+	var rowNode = t.row.add([colSeq, colCur2, colCur3, colCur4, colCur5, colCur6]).draw(true).node();
+	$(rowNode).find('td').eq(0).addClass('center');
+	$(rowNode).find('td').eq(1).addClass('center');
+	$(rowNode).find('td').eq(2).addClass('center');
+	$(rowNode).find('td').eq(3).addClass('center');
+}
+
+function editReportData(id) {
+	console.log(id)
+	mode = false
+	idEdit = id
+	clearRptValidate()
+	
+	let resObjs = this.reportLists.filter(function(Obj) {
+		return Obj.id == id;
+	});
+	
+	dataSend = {
+		"group": resObjs[0].value,
+	}
+
+	$.ajax({
+		type: "POST",
+		url: ctx + "/findGroupTypeByKeyCode",
+		data: JSON.stringify(dataSend),
+		dataType: "json",
+		async: false,
+		contentType: "application/json; charset=utf-8",
+		success: function(res) {
+			setReportData(res)
+			$("#addReport").modal('show');
+		}
+	})
+}
+
+function setReportData(data) {
+	$('#rptCode').val(data.value)
+	$('#rptName').val(data.text)
+	$('#rptText').val(data.textCode)
+}
+
+function deleteReportData(id) {
+	console.log(id)
+	
+	let resObjs = this.reportLists.filter(function(Obj) {
+		return Obj.id == id;
+	});
+	
+	dataSend = {
+		"id": resObjs[0].id,
+	}
+
+	swal({
+		title: "คุณต้องการลบ " + resObjs[0].text,
+		text: "",
+		icon: "warning",
+		buttons: true,
+		successMode: true,
+	})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					type: "POST",
+					url: ctx + "/masterData/delete",
+					data: JSON.stringify(dataSend),
+					dataType: "json",
+					async: false,
+					contentType: "application/json; charset=utf-8",
+					success: function(res) {
+						console.log(res)
+						searchReport()
 						swal('ลบข้อมูลสำเร็จ')
 					}
 				})

@@ -28,8 +28,10 @@ $(document).ready(function() {
 var questData
 var questDataResList = []
 var questDataList = []
+var questList = []
 var isNum = 0
 var isNumGroup = 0
+var isNumQuestion = 0
 
 function getType() {
 	$.ajax({
@@ -128,37 +130,6 @@ function setDataQuestionEmpty() {
 }
 
 function setDataSave() {
-	//	let q1 = document.querySelector('input[name="q1"]:checked').value;
-	//	let q2 = document.querySelector('input[name="q2"]:checked').value;
-	//	let q3 = document.querySelector('input[name="q3"]:checked').value;
-	//	let q4 = document.querySelector('input[name="q4"]:checked').value;
-	//	let q5 = document.querySelector('input[name="q5"]:checked').value;
-	//	let q6 = document.querySelector('input[name="q6"]:checked').value;
-	//	let q7 = document.querySelector('input[name="q7"]:checked').value;
-	//	let q8 = document.querySelector('input[name="q8"]:checked').value;
-	//
-	//	let q9 = document.querySelector('input[name="q9"]:checked').value;
-	//	let q10 = document.querySelector('input[name="q10"]:checked').value;
-	//	let q11 = document.querySelector('input[name="q11"]:checked').value;
-	//	let q12 = document.querySelector('input[name="q12"]:checked').value;
-	//	let q13 = document.querySelector('input[name="q13"]:checked').value;
-	//
-	//	let q14 = document.querySelector('input[name="q14"]:checked').value;
-	//	let q15 = document.querySelector('input[name="q15"]:checked').value;
-	//	let q16 = document.querySelector('input[name="q16"]:checked').value;
-	//	let q17 = document.querySelector('input[name="q17"]:checked').value;
-	//
-	//	let q18 = document.querySelector('input[name="q18"]:checked').value;
-	//	let q19 = document.querySelector('input[name="q19"]:checked').value;
-	//	let q20 = document.querySelector('input[name="q20"]:checked').value;
-	//	let q21 = document.querySelector('input[name="q21"]:checked').value;
-	//
-	//	let q22 = document.querySelector('input[name="q22"]:checked').value;
-	//	let q23 = document.querySelector('input[name="q23"]:checked').value;
-	//	let q24 = document.querySelector('input[name="q24"]:checked').value;
-	//	let q25 = document.querySelector('input[name="q25"]:checked').value;
-	//	let q26 = document.querySelector('input[name="q26"]:checked').value;
-
 	questDataList = []
 	let type = $('#groupType').val();
 
@@ -170,7 +141,9 @@ function setDataSave() {
 			question = {
 				"id": questDataResList[i].id,
 				"seqNo": (i + 1),
-				"score": document.querySelector(qtion).value
+				"score": document.querySelector(qtion).value,
+				"questionCode": questList[i].code,
+				"groupCode": questList[i].group,
 			}
 			questDataList.push(question)
 		}
@@ -182,7 +155,9 @@ function setDataSave() {
 			question = {
 				"id": "",
 				"seqNo": (i + 1),
-				"score": document.querySelector(qtion).value
+				"score": document.querySelector(qtion).value,
+				"questionCode": questList[i].code,
+				"groupCode": questList[i].group,
 			}
 			questDataList.push(question)
 		}
@@ -222,6 +197,7 @@ function searchQuestion() {
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {
 			console.log(res)
+			setQuestionOnly(res)
 			for (var i = 0; i < res.length; i++) {
 				createRow(res[i]);
 			}
@@ -240,6 +216,7 @@ function createRow(data) {
 	$(rowNode).find('td').eq(1).attr('colspan', 7).addClass('left').css('color', 'blue');
 
 	for (let i = 0; i < data.list.length; i++) {
+		isNumQuestion++
 		createRowSub(data.list[i], isNum + '.' + (i + 1))
 		isNumGroup++
 
@@ -250,11 +227,11 @@ function createRowSub(data, seq) {
 	colSeq = (seq);
 	colCur2 = data.text;
 
-	colCurIs5 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="5">';
-	colCurIs4 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="4">';
-	colCurIs3 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="3">';
-	colCurIs2 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="2">';
-	colCurIs1 = '<input type="radio" name="' + data.value + '" id="q' + isNum + '" value="1">';
+	colCurIs5 = '<input type="radio" name="q' + isNumQuestion + '" id="q' + isNum + '" value="5">';
+	colCurIs4 = '<input type="radio" name="q' + isNumQuestion + '" id="q' + isNum + '" value="4">';
+	colCurIs3 = '<input type="radio" name="q' + isNumQuestion + '" id="q' + isNum + '" value="3">';
+	colCurIs2 = '<input type="radio" name="q' + isNumQuestion + '" id="q' + isNum + '" value="2">';
+	colCurIs1 = '<input type="radio" name="q' + isNumQuestion + '" id="q' + isNum + '" value="1">';
 
 	var t = $('#questionList').DataTable();
 	var rowNode = t.row.add([colSeq, colCur2, colCurIs5, colCurIs4, colCurIs3, colCurIs2, colCurIs1]).draw(true).node();
@@ -265,4 +242,19 @@ function createRowSub(data, seq) {
 	$(rowNode).find('td').eq(4).addClass('center');
 	$(rowNode).find('td').eq(5).addClass('center');
 	$(rowNode).find('td').eq(6).addClass('center');
+}
+
+function setQuestionOnly(questLists) {
+	let list = []
+	for(let i=0; i<questLists.length; i++) {
+		let obj = {}
+		for(let j=0; j<questLists[i].list.length; j++) {
+			obj = {
+				"code": questLists[i].list[j].value,
+				"group": questLists[i].list[j].group,
+			}
+			list.push(obj)
+		}
+	}
+	questList = list
 }

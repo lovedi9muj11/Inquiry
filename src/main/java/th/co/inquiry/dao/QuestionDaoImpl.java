@@ -83,7 +83,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public int save(QuestionBean bean) throws Exception {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "INSERT INTO QUESTION (GROUP_CODE , SEQ_NO , SCORE , TYPE , CREATE_BY  , UPDATE_BY )  VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO QUESTION (GROUP_CODE , SEQ_NO , SCORE , TYPE , CREATE_BY  , UPDATE_BY, QUESTION_CODE )  VALUES (?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pst = con.prepareStatement(sql, new String[] { "id" });
@@ -93,6 +93,7 @@ public class QuestionDaoImpl implements QuestionDao {
 				pst.setString(4, bean.getType());
 				pst.setString(5, bean.getUserId());
 				pst.setString(6, bean.getUserId());
+				pst.setString(7, bean.getQuestionCode());
 				return pst;
 			}
 		}, keyHolder);
@@ -105,12 +106,14 @@ public class QuestionDaoImpl implements QuestionDao {
 	public void update(QuestionBean bean) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		List<Object> param = new LinkedList<Object>();
-		sql.append(" UPDATE QUESTION set GROUP_CODE = ?, SEQ_NO = ?, SCORE = ?, TYPE = ? WHERE ID = ?");
+		sql.append(" UPDATE QUESTION set GROUP_CODE = ?, SEQ_NO = ?, SCORE = ?, TYPE = ?, QUESTION_CODE = ? WHERE ID = ?");
 		
 		param.add(bean.getGroupCode());
 		param.add(bean.getSeqNo());
 		param.add(bean.getScore());
 		param.add(bean.getType());
+		param.add(bean.getQuestionCode());
+		
 		param.add(bean.getId());
 		Object[] paramArr = param.toArray();
 		

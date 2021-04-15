@@ -37,10 +37,11 @@ public class QuestionService {
 		for(int i=0; i<bean.getQuestList().size(); i++) {
 			QuestionBean dto = new QuestionBean();
 			dto.setUserId(bean.getUserId());
-			dto.setGroupCode(null);
+			dto.setGroupCode(bean.getQuestList().get(i).getGroupCode());
 			dto.setScore(bean.getQuestList().get(i).getScore());
 			dto.setSeqNo(bean.getQuestList().get(i).getSeqNo());
 			dto.setType(bean.getType());
+			dto.setQuestionCode(bean.getQuestList().get(i).getQuestionCode());
 			
 			if(bean.getQuestList().get(i).getId()>0) {
 				dto.setId(bean.getQuestList().get(i).getId());

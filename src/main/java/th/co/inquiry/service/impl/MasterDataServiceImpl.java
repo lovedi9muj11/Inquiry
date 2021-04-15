@@ -199,4 +199,25 @@ public class MasterDataServiceImpl implements MasterDataService {
 		return resps;
 	}
 
+	@Override
+	public MasterDataBean findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MasterDataBean findReportByCode(String code) {
+		MasterDataBean masterDataBean = new MasterDataBean();
+		masterDataBean = masterDataDao.findGroupTypeByKeyCode(code);
+		
+		String[] codes = masterDataBean.getTextCode().split("<script type='text/javascript'>");
+		String[] codes1 = masterDataBean.getTextCode().split("id='");
+		String[] codes2 = codes1[1].split("'");
+		
+		masterDataBean.setTextCode(codes[0]);
+		masterDataBean.setValue(codes2[0]);
+
+		return masterDataBean;
+	}
+
 }

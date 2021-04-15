@@ -7,11 +7,13 @@ public class MasterDataBean {
 	private int id;
 	private String value;
 	private String text;
+	private String textCode;
 	private String group;
 	private String masterdataGroup;
 	private String keyCode;
 	private String type;
 	private String score;
+	private String rText;
 	
 	private List<MasterDataBean> list;
 	
@@ -76,6 +78,18 @@ public class MasterDataBean {
 	}
 	public void setList(List<MasterDataBean> list) {
 		this.list = list;
+	}
+	public String getrText() {
+		return rText;
+	}
+	public void setrText(String rText) {
+		this.rText = rText;
+	}
+	public String getTextCode() {
+		return textCode;
+	}
+	public void setTextCode(String textCode) {
+		this.textCode = textCode;
 	}
 
 }

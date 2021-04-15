@@ -34,7 +34,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 	<input name="rptCode" id="rptCode" value="${paymentResultReq.rptCode}" type="hidden">
 		<br />
 		<div class="container-fluid">
-		<div class="panel-heading bHead" style="background-color: #2BB2B6;">จัดการข้อมูล</div>
+		<div class="panel-heading bHead">จัดการข้อมูล</div>
 		<div class="panel" style="padding: 10px">
 		<br />
 			<div class="row">
@@ -151,7 +151,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 		</div>
     	</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAddUser(true)">บักทึก</button>
+        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAddUser(true)">บันทึก</button>
         <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmAddUser(false)">ยกเลิก</button>
       </div>
     </div>

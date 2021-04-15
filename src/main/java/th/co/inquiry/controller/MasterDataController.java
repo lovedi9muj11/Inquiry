@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -223,6 +224,76 @@ public class MasterDataController {
 		responscApi.setMessage(status);
 
 		return responscApi;
+	}
+	
+	@RequestMapping(value = "/masterData/findByGroupKey/{group}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findByGroupKey(HttpServletRequest request, HttpServletResponse response, @PathVariable("group") String group) throws Exception {
+		List<MasterDataBean> masterDataList = new ArrayList<MasterDataBean>();
+		try {
+			masterDataList = masterDataService.findQuestionByGroupKey(group);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return masterDataList;
+	}
+	
+	@RequestMapping(value = "/saveReport", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponscApi saveReport(@RequestBody MasterDataBean masterDataBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ResponscApi responscApi = new ResponscApi();
+		String status = Constants.FAIL;
+		try {
+			masterDataBean.setGroup(Constants.QUESTION_REPORT);
+			masterDataService.save(masterDataBean);
+			status = Constants.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		responscApi.setMessage(status);
+
+		return responscApi;
+	}
+	
+	@RequestMapping(value = "/findAllReport", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<MasterDataBean> findAllReport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		try {
+			masterDataBeans = masterDataService.findQuestionByGroupKey(Constants.QUESTION_REPORT);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterDataBeans;
+	}
+	
+	@RequestMapping(value = "/findAllReportPage/{rptCode}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public MasterDataBean findAllReportPage(HttpServletRequest request, HttpServletResponse response, @PathVariable("rptCode") String rptCode) throws Exception {
+		MasterDataBean masterData = new MasterDataBean();
+		try {
+			masterData = masterDataService.findReportByCode(rptCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return masterData;
+	}
+	
+	@RequestMapping(value = "/masterData/findById/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public MasterDataBean findById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id) throws Exception {
+		MasterDataBean masterData = new MasterDataBean();
+		try {
+			masterData = masterDataService.findById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return masterData;
 	}
 	
 }

@@ -35,7 +35,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 	<input name="rptCode" id="rptCode" value="${paymentResultReq.rptCode}" type="hidden">
 		<br />
 		<div class="container-fluid">
-		<div class="panel-heading bHead" style="background-color: #2BB2B6;">แบบสอบถาม</div>
+		<div class="panel-heading bHead">แบบสอบถาม</div>
 		<div class="panel" style="padding: 10px">
 		<br />
 			<div class="row">

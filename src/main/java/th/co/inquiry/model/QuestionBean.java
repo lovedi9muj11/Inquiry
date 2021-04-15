@@ -10,6 +10,7 @@ public class QuestionBean {
 	private String score;
 	private String type;
 	private String userId;
+	private String questionCode;
 	
 	private List<QuestionBean> questList;
 	
@@ -54,6 +55,12 @@ public class QuestionBean {
 	}
 	public void setQuestList(List<QuestionBean> questList) {
 		this.questList = questList;
+	}
+	public String getQuestionCode() {
+		return questionCode;
+	}
+	public void setQuestionCode(String questionCode) {
+		this.questionCode = questionCode;
 	}
 	
 }

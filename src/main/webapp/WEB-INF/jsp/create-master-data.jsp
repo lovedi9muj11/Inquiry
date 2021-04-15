@@ -31,7 +31,7 @@
 			<div id="page-content-wrapper">
 				<br />
 				<div class="container-fluid">
-					<div class="panel-heading bHead" style="background-color: #2BB2B6;">เพิ่มข้อมูล</div>
+					<div class="panel-heading bHead">เพิ่มข้อมูล</div>
 					<div class="panel">
 						<br />
 						<div class="row">

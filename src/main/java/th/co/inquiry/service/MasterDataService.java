@@ -21,6 +21,8 @@ public interface MasterDataService {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey);
 	
+	MasterDataBean findReportByCode(String code);
+	
 	MasterDataBean findGroupTypeByKeyCode(MasterDataBean bean);
 	
 	List<MasterDataBean> findGroupTypeByGroupKey(String groupKey);
@@ -38,4 +40,6 @@ public interface MasterDataService {
 	public void save(MasterDataBean masterDataBean);
 	
 	void delete(MasterDataBean masterDataBean, String username);
+	
+	MasterDataBean findById(int id);
 }

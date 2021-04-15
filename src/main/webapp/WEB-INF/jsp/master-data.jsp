@@ -34,7 +34,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 			<div id="page-content-wrapper">
 				<br />
 				<div class="container-fluid">
-					<div class="panel-heading bHead" style="background-color: #2BB2B6;">จัดการข้อมูล</div>
+					<div class="panel-heading bHead">จัดการข้อมูล</div>
 					<div class="panel">
 						<br />
 						
@@ -48,16 +48,6 @@ var PLS_SELECT = 'กรุณาเลือก';
 									</div>
 									<div id="collapse1" class="panel-collapse collapse">
 										<div class="panel-body">
-<!-- 												<div class="form-group"> -->
-<!-- 													<label class="col-md-2 control-label right">Group Code : </label> -->
-<!-- 													<div class="col-md-3 right"> -->
-<!-- 														<input type="text" id="name" class="form-control"></input> -->
-<!-- 													</div> -->
-<!-- 													<div class="col-md-2 left"> -->
-<!-- 														<button type="button" id="search" class="btn btn-primary btn3d" onclick="searchClick()">ค้นหา</button> -->
-<!-- 														<button type="button" id="search" class="btn btn-success btn3d" onclick="addUser()"><span id="icon" class="fa fa-plus"></span>เพิ่มข้อมูล</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="row">
 													<div class="col-md-12 ml-2">
 														<button type="button" id="search" class="btn btn-success btn3d" onclick="addGroup()"><span id="icon" class="fa fa-plus"></span>เพิ่มข้อมูล</button>
@@ -89,27 +79,60 @@ var PLS_SELECT = 'กรุณาเลือก';
 								</div>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-12 col-sm-12">
+								<div class="panel panel-default glasshd">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" href="#collapse2">จัดการรายงาน</a>
+										</h4>
+									</div>
+									<div id="collapse2" class="panel-collapse collapse">
+										<div class="panel-body">
+												<div class="row">
+													<div class="col-md-12 ml-2">
+														<button type="button" id="report" class="btn btn-success btn3d" onclick="addReport()"><span id="icon" class="fa fa-plus"></span>เพิ่มข้อมูล</button>
+													</div>
+													<div class="col-md-12 col-sm-12">
+														<div class="glass">
+															<div class="">
+																<div class="table-responsive">
+																	<table id="reportList" class="table table-striped table-hover">
+																		<thead>
+																			<tr>
+																				<th style="text-align: center;" width="10%">#</th>
+																				<th style="text-align: center;" width="20%">Report Code</th>
+																				<th style="text-align: center;" width="20%">Report Name</th>
+																				<th style="text-align: center;" width="20%">Report Text</th>
+																				<th style="text-align: center;" width="2%"></th>
+																				<th style="text-align: center;" width="2%"></th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
 								<div class="panel panel-default glasshd">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a data-toggle="collapse" href="#collapse2">Master Data</a>
+											<a data-toggle="collapse" href="#collapse3">Master Data</a>
 										</h4>
 									</div>
-									<div id="collapse2" class="panel-collapse collapse in">
+									<div id="collapse3" class="panel-collapse collapse in">
 										<div class="panel-body">
-<!-- 												<div class="form-group"> -->
-<!-- 													<label class="col-md-2 control-label right">Group Code : </label> -->
-<!-- 													<div class="col-md-3 right"> -->
-<!-- 														<input type="text" id="name" class="form-control"></input> -->
-<!-- 													</div> -->
-<!-- 													<div class="col-md-2 left"> -->
-<!-- 														<button type="button" id="search" class="btn btn-primary btn3d" onclick="searchClick()">ค้นหา</button> -->
-<!-- 														<button type="button" id="search" class="btn btn-success btn3d" onclick="addUser()"><span id="icon" class="fa fa-plus"></span>เพิ่มข้อมูล</button> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
 												<div class="row">
 													<div class="col-md-12 ml-2">
 														<button type="button" id="search2" class="btn btn-success btn3d" onclick="addData()"><span id="icon" class="fa fa-plus"></span>เพิ่มข้อมูล</button>
@@ -125,7 +148,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 																				<th style="text-align: center;" width="20%">Group Code</th>
 																				<th style="text-align: center;" width="20%">Code</th>
 																				<th style="text-align: center;" width="20%">Name</th>
-																				<th style="text-align: center;" width="20%">คะแนน</th>
+<!-- 																				<th style="text-align: center;" width="20%">คะแนน</th> -->
 																				<th style="text-align: center;" width="2%"></th>
 																				<th style="text-align: center;" width="2%"></th>
 																			</tr>
@@ -149,10 +172,10 @@ var PLS_SELECT = 'กรุณาเลือก';
 								<div class="panel panel-default glasshd">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a data-toggle="collapse" href="#collapse3">แบบสอบถาม</a>
+											<a data-toggle="collapse" href="#collapse4">แบบสอบถาม</a>
 										</h4>
 									</div>
-									<div id="collapse3" class="panel-collapse collapse in">
+									<div id="collapse4" class="panel-collapse collapse in">
 										<div class="panel-body">
 												<div class="form-group">
 													<label class="col-md-2 control-label right">ประเภทแบบสอบถาม : </label>
@@ -225,7 +248,7 @@ var PLS_SELECT = 'กรุณาเลือก';
 			</div>
 	    	</div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAddGroup(true)">บักทึก</button>
+	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAddGroup(true)">บันทึก</button>
 	        <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmAddGroup(false)">ยกเลิก</button>
 	      </div>
 	    </div>
@@ -262,17 +285,23 @@ var PLS_SELECT = 'กรุณาเลือก';
 						<p id="smsName" style="color: red; display: none">คุณยังไม่ได้กรอก Name</p>
 					</div>
 				</div>
+<!-- 				<div class="form-group col-md-12"> -->
+<!-- 					<label class="col-md-3 control-label text-right">คะแนน<span style="color: red"> *</span></label> -->
+<!-- 					<div class="col-md-9"> -->
+<!-- 						<input type="text" name="msScore" id="msScore" class="form-control text-left"> -->
+<!-- 						<p id="smsScore" style="color: red; display: none">คุณยังไม่ได้กรอก คะแนน</p> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<div class="form-group col-md-12">
-					<label class="col-md-3 control-label text-right">คะแนน<span style="color: red"> *</span></label>
+					<label class="col-md-3 control-label text-right">Text</label>
 					<div class="col-md-9">
-						<input type="text" name="msScore" id="msScore" class="form-control text-left">
-						<p id="smsScore" style="color: red; display: none">คุณยังไม่ได้กรอก คะแนน</p>
+						<input type="text" name="msRText" id="msRText" class="form-control text-left">
 					</div>
 				</div>
 			</div>
 	    	</div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAdd(true)">บักทึก</button>
+	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmAdd(true)">บันทึก</button>
 	        <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmAdd(false)">ยกเลิก</button>
 	      </div>
 	    </div>
@@ -301,11 +330,57 @@ var PLS_SELECT = 'กรุณาเลือก';
 						<p id="sqName" style="color: red; display: none">คุณยังไม่ได้กรอก Name</p>
 					</div>
 				</div>
+<!-- 				<div class="form-group col-md-12"> -->
+<!-- 					<label class="col-md-3 control-label text-right">คะแนน<span style="color: red"> *</span></label> -->
+<!-- 					<div class="col-md-9"> -->
+<!-- 						<input type="text" name="qScore" id="qScore" class="form-control text-left"> -->
+<!-- 						<p id="sqScore" style="color: red; display: none">คุณยังไม่ได้กรอก คะแนน</p> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 	    	</div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmQuestion(true)">บักทึก</button>
+	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmQuestion(true)">บันทึก</button>
 	        <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmQuestion(false)">ยกเลิก</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="addReport" >
+	  <div class="modal-dialog modal-sm" style="width:650px">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">ข้อมูล</h4>
+	      </div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-label text-right">Code<span style="color: red"> *</span></label>
+					<div class="col-md-9">
+						<input type="text" name="rptCode" id="rptCode" class="form-control text-left">
+						<p id="srptCode" style="color: red; display: none">คุณยังไม่ได้กรอก Code</p>
+					</div>
+				</div>
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-label text-right">Name<span style="color: red"> *</span></label>
+					<div class="col-md-9">
+						<input type="text" name="rptName" id="rptName" class="form-control text-left">
+						<p id="srptName" style="color: red; display: none">คุณยังไม่ได้กรอก Name</p>
+					</div>
+				</div>
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-label text-right">Text Code<span style="color: red"> *</span></label>
+					<div class="col-md-9">
+						<input type="text" name="rptText" id="rptText" class="form-control text-left">
+						<p id="srptText" style="color: red; display: none">คุณยังไม่ได้กรอก Text Code</p>
+					</div>
+				</div>
+			</div>
+	    	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success btn3d" id="modal-btn-add-yes" onclick="modalConfirmReport(true)">บันทึก</button>
+	        <button type="button" class="btn btn-danger btn3d" id="modal-btn-add-no" onclick="modalConfirmReport(false)">ยกเลิก</button>
 	      </div>
 	    </div>
 	  </div>

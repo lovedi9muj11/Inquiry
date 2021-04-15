@@ -27,5 +27,7 @@ public interface MasterDataDao {
 	
 	MasterDataBean findGroupTypeByKeyCode(String groupKey, String keyCode);
 	
+	MasterDataBean findById(int id);
+	
 	public void delete(int id);
 }

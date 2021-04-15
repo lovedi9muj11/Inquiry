@@ -43,6 +43,7 @@
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/userManageMent">จัดการข้อมูล User</a></li>
 								<li><a href="${contextPath}/masterData">จัดการข้อมูล Master Data</a></li>
+								<li><a href="${contextPath}/score">จัดการข้อมูลคะแนน</a></li>
 							</ul></li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('USER') or hasAuthority('SUPERVISOR')">
@@ -77,6 +78,8 @@
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
 								<li><a href="${contextPath}/questionReport">รายงานแบบสอบถาม</a>
+								</li>
+								<li><a href="${contextPath}/report1">รายงาน1</a>
 								</li>
 							</ul></li>
 							

@@ -136,9 +136,19 @@ public class UserAuthController {
         return "questionReport";
     }
     
+    @RequestMapping(value = {"/report1"}, method = RequestMethod.GET)
+    public String report1(Model model) {
+    	return "report1";
+    }
+    
     @RequestMapping(value = {"/question"}, method = RequestMethod.GET)
     public String page2(Model model) {
         return "question";
+    }
+    
+    @RequestMapping(value = {"/score"}, method = RequestMethod.GET)
+    public String page3(Model model) {
+    	return "score";
     }
     
 }
