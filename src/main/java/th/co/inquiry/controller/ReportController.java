@@ -3,6 +3,9 @@ package th.co.inquiry.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,16 +31,21 @@ public class ReportController {
 		String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + "InquiryReport" + ".xls");
 		FileInputStream input_document = new FileInputStream(new File(pathFile));
 		Workbook workbook = new HSSFWorkbook(input_document);
+//		XSSFWorkbook workbook2 = new XSSFWorkbook(input_document);
 
 		input_document.close();
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		
+//		workbook.createSheet("Text1");
 		reportService.controlAllReports(workbook, rptCode).write(byteArrayOutputStream);
 		byte[] bytes = byteArrayOutputStream.toByteArray();
+		
+		Locale TH = new Locale("th", "TH");
+		SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy", TH);
+		String fileName = "Report"+ dateFormate.format(new Date());
 
 		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + "คำนวณคะแนนแบบสอบถาม" +".xls");
-		response.setHeader("Content-Type", "text/xml; charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName +".xls");
 		response.getOutputStream().write(bytes);
 		response.getOutputStream().flush();
 	}

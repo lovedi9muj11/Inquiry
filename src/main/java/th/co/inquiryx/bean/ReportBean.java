@@ -1,5 +1,8 @@
 package th.co.inquiryx.bean;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class ReportBean {
 	
 	private Long reportId;
@@ -15,6 +18,10 @@ public class ReportBean {
 	private String dateToMinute;
 	private String typePrint;
 	private String rptCode;
+	
+	//sum report
+	private List<ReportBean> list;
+	private BigDecimal sumScore;
 	
 	public Long getReportId() {
 		return reportId;
@@ -81,6 +88,18 @@ public class ReportBean {
 	}
 	public void setRptCode(String rptCode) {
 		this.rptCode = rptCode;
+	}
+	public BigDecimal getSumScore() {
+		return sumScore;
+	}
+	public void setSumScore(BigDecimal sumScore) {
+		this.sumScore = sumScore;
+	}
+	public List<ReportBean> getList() {
+		return list;
+	}
+	public void setList(List<ReportBean> list) {
+		this.list = list;
 	}
 	
 }

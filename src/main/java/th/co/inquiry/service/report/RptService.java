@@ -47,6 +47,10 @@ public class RptService extends BaseExcelRptService {
 		CellStyle numRightBor = createCellStyleForNumberTwoDecimalBorder(workbook, fontNormal);
 
 		List<MasterDataBean> masterDatas = new ArrayList<MasterDataBean>();
+		List<ReportBean> reportBeans = new ArrayList<ReportBean>();
+		List<ReportBean> reportBean2s = new ArrayList<ReportBean>();
+		ReportBean reportBean = new ReportBean();
+		ReportBean bean2 = new ReportBean();
 		masterDatas = masterDataService.findQuestionByGroupKey(Constants.QUESTION_TYPE_DD);
 		List<MasterDataBean> msQuestion = masterDataService.findQuestionByGroupKey(Constants.QUESTION);
 		
@@ -70,6 +74,8 @@ public class RptService extends BaseExcelRptService {
 //				List<QuestionBean> questions = new ArrayList<QuestionBean>();
 				try {
 //					questions = questionService.findByType(masterDatas.get(i).getValue());
+					reportBean2s = new ArrayList<ReportBean>();
+					reportBean = new ReportBean();
 					
 					Row row2 = sh.createRow(rowNum++);
 					Cell cell2 = row2.createCell(0);
@@ -140,7 +146,7 @@ public class RptService extends BaseExcelRptService {
 							cell15.setCellValue(isNullInt(score2));
 							cell16.setCellValue(isNullInt(score1));
 							BigDecimal calSum = calScore(score1, score2, score3, score4, score5, score);
-							String calSumStr = isNullBigDecimal(calSum);
+							String calSumStr = formatComma(calSum);
 							cell17.setCellValue(calSumStr);
 							sumSub = sumSub.add(calSum);
 							
@@ -152,10 +158,13 @@ public class RptService extends BaseExcelRptService {
 							cell17.setCellStyle(numRightBor);
 							
 							if((msQuestionSub.size()-1)==(qs)) {
+								bean2 = new ReportBean();
 								Cell cell18 = row3.createCell(7);
-								cell18.setCellValue(isNullBigDecimal(sumSub));
+								cell18.setCellValue(formatComma(sumSub));
 								cell18.setCellStyle(numRightBor);
 								
+								bean2.setSumScore(sumSub);
+								reportBean2s.add(bean2);
 								sumSub = BigDecimal.ZERO;
 							}else {
 								Cell cell18 = row3.createCell(7);
@@ -168,6 +177,8 @@ public class RptService extends BaseExcelRptService {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				reportBean.setList(reportBean2s);
+				reportBeans.add(reportBean);
 			}else {
 				
 			}
@@ -197,25 +208,12 @@ public class RptService extends BaseExcelRptService {
 		
 		rowNumc1 = rowNum;
 		
-		Row row3 = sh.createRow(rowNumc1++);
-		Cell cell31 = row3.createCell(0);
-		cell31.setCellValue("Character");
-		cell31.setCellStyle(txtCenterBor);
-		
-		Row row4 = sh.createRow(rowNumc1++);
-		Cell cell41 = row4.createCell(0);
-		cell41.setCellValue("Capacity");
-		cell41.setCellStyle(txtCenterBor);
-		
-		Row row5 = sh.createRow(rowNumc1++);
-		Cell cell51 = row5.createCell(0);
-		cell51.setCellValue("Capital");
-		cell51.setCellStyle(txtCenterBor);
-		
-		Row row6 = sh.createRow(rowNumc1++);
-		Cell cell61 = row6.createCell(0);
-		cell61.setCellValue("Condition");
-		cell61.setCellStyle(txtCenterBor);
+		for(MasterDataBean data : msQuestion) {
+			Row row3 = sh.createRow(rowNumc1++);
+			Cell cell31 = row3.createCell(0);
+			cell31.setCellValue(subTextQuestion(data.getText()));
+			cell31.setCellStyle(txtLeftBor);
+		}
 		
 		Row row7 = sh.createRow(rowNumc1++);
 		Cell cell71 = row7.createCell(0);
@@ -224,10 +222,6 @@ public class RptService extends BaseExcelRptService {
 		
 		for(int i=0; i<masterDatas.size(); i++) {
 			int rowNumc2 = 3;
-			int rowNumc3 = 4;
-			int rowNumc4 = 5;
-			int rowNumc5 = 6;
-			int rowNumc6 = 7;
 			Cell cell3 = row2.createCell(i+1);
 			
 			cell3.setCellValue(masterDatas.get(i).getText());
@@ -235,39 +229,23 @@ public class RptService extends BaseExcelRptService {
 			cell3.setCellStyle(txtCenterBor);
 			
 			//sum score
-			//Character
-			Row row33 = sh.getRow((rowNumc2));
-			Cell cell331 = row33.createCell(i+1);
-			cell331.setCellValue("Character"+i);
-			cell331.setCellStyle(txtCenterBor);
-			rowNumc2++;
+			ReportBean data = reportBeans.get(i);
+			int iNum = 0;
+			BigDecimal sumScore = BigDecimal.ZERO;
 			
-			//Capacity
-			Row row44 = sh.getRow((rowNumc3));
-			Cell cell441 = row44.createCell(i+1);
-			cell441.setCellValue("Capacity"+i);
-			cell441.setCellStyle(txtCenterBor);
-			rowNumc2++;
+			for(int ii=0; ii<msQuestion.size(); ii++) {
+				sumScore = sumScore.add(data.getList().get(iNum).getSumScore());
+				Row row33 = sh.getRow((rowNumc2));
+				Cell cell331 = row33.createCell(i+1);
+				cell331.setCellValue(formatComma(data.getList().get(iNum++).getSumScore()));
+				cell331.setCellStyle(numRightBor);
+				rowNumc2++;
+			}
 			
-			//Capital
-			Row row55 = sh.getRow((rowNumc4));
-			Cell cell551 = row55.createCell(i+1);
-			cell551.setCellValue("Capital"+i);
-			cell551.setCellStyle(txtCenterBor);
-			rowNumc2++;
-			
-			//Condition
-			Row row66 = sh.getRow((rowNumc5));
-			Cell cell661 = row66.createCell(i+1);
-			cell661.setCellValue("Condition"+i);
-			cell661.setCellStyle(txtCenterBor);
-			rowNumc2++;
-			
-			//sum
-			Row row77 = sh.getRow((rowNumc6));
+			Row row77 = sh.getRow((rowNumc2));
 			Cell cell771 = row77.createCell(i+1);
-			cell771.setCellValue("sum"+i);
-			cell771.setCellStyle(txtCenterBor);
+			cell771.setCellValue(formatComma(sumScore.divide(new BigDecimal("4"))));
+			cell771.setCellStyle(numRightBor);
 			rowNumc2++;
 		}
 		
@@ -300,6 +278,24 @@ public class RptService extends BaseExcelRptService {
 		}
 		
 		return BigDecimal.ZERO;
+	}
+	
+	String formatComma(BigDecimal score) {
+		return String.format("%,.2f", score);
+	}
+	
+	String subTextQuestion(String value) {
+		String result = "";
+		
+		if(StringUtils.isNotBlank(value)) {
+			String[] splits = value.split("\\(");
+			if(splits.length>1) {
+				String[] splits2 = splits[1].split("\\)");
+				result = splits2[0];
+			}
+		}
+		
+		return result;
 	}
 
 }
