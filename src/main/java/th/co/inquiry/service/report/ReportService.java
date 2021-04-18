@@ -27,17 +27,17 @@ public class ReportService {
 	SimpleDateFormat formateYearTH = new SimpleDateFormat("yyyy", localeTH);
 
 	public Workbook controlAllReports(Workbook workbook, String rptCode) throws Exception {
-		if (rptCode.equals(Constants.report.XXX)) {
+		if (rptCode.equals(Constants.report.RPT_CODE)) {
 			ReportBean bean = new ReportBean();
 			bean.setReportId(1L);
 			bean.setName("Ae");
-			List<ReportBean> entity = xxx(bean);
-			workbook = reportExcelService.getReportRptxxx(workbook, entity, bean);
+			List<ReportBean> entity = setBeanList(bean);
+			workbook = reportExcelService.getReportRpt(workbook, entity, bean);
 		} 
 		return workbook;
 	}
 	
-	public List<ReportBean> xxx(ReportBean bean) {
+	public List<ReportBean> setBeanList(ReportBean bean) {
 		List<ReportBean> result = new ArrayList<ReportBean>();
 		result.add(bean);
 		return result;

@@ -25,7 +25,7 @@ public class ReportController {
 	@RequestMapping(value = {"/qReport"})
 	public void payOther(ReportBean reportBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String rptCode = request.getParameter("rptCode");
-		String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + rptCode + ".xls");
+		String pathFile = request.getSession().getServletContext().getRealPath("/report/excel/" + "InquiryReport" + ".xls");
 		FileInputStream input_document = new FileInputStream(new File(pathFile));
 		Workbook workbook = new HSSFWorkbook(input_document);
 
@@ -36,7 +36,8 @@ public class ReportController {
 		byte[] bytes = byteArrayOutputStream.toByteArray();
 
 		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + rptCode+".xls");
+		response.setHeader("Content-Disposition", "attachment;filename=" + "คำนวณคะแนนแบบสอบถาม" +".xls");
+		response.setHeader("Content-Type", "text/xml; charset=UTF-8");
 		response.getOutputStream().write(bytes);
 		response.getOutputStream().flush();
 	}

@@ -34,7 +34,7 @@
 				<input type="hidden" name="userName" id="userName" value="${pageContext.request.userPrincipal.name}" />
 				<div class="panel-body">
 				<form name="reportForm" id="reportForm"  class="form-horizontal" role="form">
-				<input name="rptCode" id="rptCode" value="RPTxxx" type="hidden">
+				<input name="rptCode" id="rptCode" value="RPT_CODE" type="hidden">
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label class="col-md-2 control-label text-right">วันที่
@@ -75,7 +75,7 @@
 					</div>
 					<div class="row" style="padding-bottom: 10px; padding-right: 2px">
 						<div class="col-md-12 text-right">
-							<button id="excel" name="excel"   onclick="reportExcel()" class="btn btn-success glyphicon glyphicon-print" style="width: 7%" disabled="disabled"> Excel</button>
+							<button id="excel" name="excel"   onclick="reportExcel()" class="btn btn-success glyphicon glyphicon-print" style="width: 7%" > Excel</button>
 						</div>
 					</div>
 

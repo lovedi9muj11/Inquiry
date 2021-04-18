@@ -26,6 +26,12 @@ public class QuestionService {
 		resp = questionDao.findByType(type, username);
 		return resp;
 	}
+	
+	public List<QuestionBean> findByType(String type) throws Exception {
+		List<QuestionBean> resp = new ArrayList<QuestionBean>();
+		resp = questionDao.findByType(type);
+		return resp;
+	}
 
 	public List<QuestionBean> findByGroupCode(String code) throws Exception {
 		List<QuestionBean> resp = new ArrayList<QuestionBean>();

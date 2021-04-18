@@ -14,5 +14,7 @@ public interface ScoreDao {
 	
 	List<ScoreBean> findAll() throws Exception;
 	
+	List<ScoreBean> findByGroupAndQGroupAndQCode(String group, String qGroup, String qCode) throws Exception;
+	
 	public void delete(int id);
 }

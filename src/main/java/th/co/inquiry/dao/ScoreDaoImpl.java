@@ -143,4 +143,22 @@ public class ScoreDaoImpl implements ScoreDao {
 		list = resp;
 	}
 
+	@Override
+	public List<ScoreBean> findByGroupAndQGroupAndQCode(String group, String qGroup, String qCode) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		
+		sql.append(" SELECT * FROM SCORE where 1=1 and GROUP_CODE = ? and QUESTION_GROUP = ? and QUESTION_CODE = ? order by QUESTION_CODE ");
+		
+		param.add(group);
+		param.add(qGroup);
+		param.add(qCode);
+		Object[] paramArr = param.toArray();
+		
+		List<ScoreBean> list = jdbcTemplate.query(sql.toString(), paramArr, new mapScore());
+		setNameList(list);
+		
+		return list;
+	}
+
 }

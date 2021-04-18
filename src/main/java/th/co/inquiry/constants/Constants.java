@@ -36,6 +36,11 @@ public class Constants {
 	
 	
 	public static class report {
-		public static final String XXX = "RPTxxx";
+		public static final String RPT_CODE = "RPT_CODE";
+		public static final String SCORE_5 = "5";
+		public static final String SCORE_4 = "4";
+		public static final String SCORE_3 = "3";
+		public static final String SCORE_2 = "2";
+		public static final String SCORE_1 = "1";
 	}
 }

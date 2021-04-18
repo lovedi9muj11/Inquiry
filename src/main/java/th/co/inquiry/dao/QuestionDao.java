@@ -12,6 +12,10 @@ public interface QuestionDao {
 	
 	List<QuestionBean> findByGroupCode(String code) throws Exception;
 	
+	List<QuestionBean> findByType(String type) throws Exception;
+	
+	int findByGroupAndTypeAndScoreAndSeq(String group, String type, String scroe, String seq) throws Exception;
+	
 	public int save(QuestionBean bean) throws Exception;
 	
 	void update(QuestionBean bean) throws Exception;

@@ -120,4 +120,41 @@ public class QuestionDaoImpl implements QuestionDao {
 		jdbcTemplate.update(sql.toString(), paramArr);
 	}
 
+	@Override
+	public List<QuestionBean> findByType(String type) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		
+		sql.append("SELECT * FROM QUESTION ");
+		sql.append(" WHERE TYPE = ? ");
+		
+		param.add(type);
+		Object[] paramArr = param.toArray();
+		
+		List<QuestionBean> res = jdbcTemplate.query(sql.toString(), paramArr, new questionData());
+		return res;
+	}
+
+	@Override
+	public int findByGroupAndTypeAndScoreAndSeq(String group, String type, String scroe, String seq) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new LinkedList<Object>();
+		
+		sql.append(" SELECT * FROM QUESTION ");
+		sql.append(" WHERE GROUP_CODE = ? ");
+		sql.append(" And TYPE = ? ");
+		sql.append(" And SCORE = ? ");
+		sql.append(" And SEQ_NO = ? ");
+		
+		param.add(group);
+		param.add(type);
+		param.add(scroe);
+		param.add(seq);
+		Object[] paramArr = param.toArray();
+		
+		List<QuestionBean> res = jdbcTemplate.query(sql.toString(), paramArr, new questionData());
+		
+		return res.size();
+	}
+
 }
