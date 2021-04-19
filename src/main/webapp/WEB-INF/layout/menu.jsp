@@ -22,6 +22,16 @@
 
 <script src="${contextPath}/resources/lib/sweetalert.min.js"></script>
 
+<%@ page import="th.co.inquiryx.bean.MasterDataBean"%>
+<%@ page import="java.util.List"%>
+<%@ page import="org.apache.commons.collections.CollectionUtils"%>
+<%
+	List<MasterDataBean> msData = null;
+%>
+<%
+	msData = (List<MasterDataBean>) request.getAttribute("msData");
+%>
+
 <!-- sidebar -->
 <div id="wrapper">
 	<div id="sidebar-wrapper">
@@ -77,10 +87,17 @@
 								class="pull-right hidden-xs fa fa-file-text-o"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/questionReport">ผลคะแนนจากแบบสอบถาม</a>
-								</li>
-								<li><a href="${contextPath}/report1">รายงาน1</a>
-								</li>
+<%-- 								<li><a href="${contextPath}/questionReport">ผลคะแนนจากแบบสอบถาม</a> </li> --%>
+<%-- 								<li><a href="${contextPath}/report1">รายงาน1</a> </li> --%>
+								<%
+									if(CollectionUtils.isNotEmpty(msData)) {
+										for (int i = 0; i < msData.size(); i++) {
+								%>
+											<li><a href="${contextPath}/<%=msData.get(i).getValue()%>"><%=msData.get(i).getText()%></a> </li>
+								<%
+										}
+									}
+								%>
 							</ul></li>
 							
 					</sec:authorize>

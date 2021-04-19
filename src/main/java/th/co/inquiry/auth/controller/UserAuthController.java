@@ -1,5 +1,8 @@
 package th.co.inquiry.auth.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,6 +27,8 @@ import th.co.inquiry.auth.service.SecurityService;
 import th.co.inquiry.auth.service.UserService;
 import th.co.inquiry.auth.validator.UserValidator;
 import th.co.inquiry.constants.Constants;
+import th.co.inquiry.service.MasterDataService;
+import th.co.inquiryx.bean.MasterDataBean;
 import th.co.inquiryx.bean.UserBean;
 
 @Controller
@@ -36,6 +41,8 @@ public class UserAuthController {
     @Autowired private UserValidator userValidator;
     
     @Autowired private UserRepository userRepository;
+    
+    @Autowired private MasterDataService masterDataService;;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -85,22 +92,26 @@ public class UserAuthController {
     	if(Constants.USER.LOGIN_FLAG_Y.equalsIgnoreCase(lgFlag)) {
     		return "confirm-password";
     	}else {
+    		setReport(model);
     		return "welcome";
     	}
     }
 	
 	@RequestMapping(value = {"/afterpassword", "/welcomePassword"}, method = RequestMethod.GET)
     public String welcomePassword(Model model) {
+		setReport(model);
 		return "welcome";
     }
     
     @RequestMapping(value = {"/userManageMent"}, method = RequestMethod.GET)
     public String usermgt(Model model) {
+    	setReport(model);
         return "userManageMent";
     }
     
     @RequestMapping(value = {"/masterData"}, method = RequestMethod.GET)
     public String masterData(Model model) {
+    	setReport(model);
         return "master-data";
     }
    
@@ -128,27 +139,68 @@ public class UserAuthController {
     
     @RequestMapping(value = "/change-password", method = RequestMethod.GET)
     public String changePassword(Model model) throws Exception {
+    	setReport(model);
     	return "confirm-password";
     }
     
     @RequestMapping(value = {"/questionReport"}, method = RequestMethod.GET)
     public String page1(Model model) {
+    	setReport(model);
         return "questionReport";
+    }
+    
+    @RequestMapping(value = {"/report0"}, method = RequestMethod.GET)
+    public String report0(Model model) {
+    	setReport(model);
+    	return "report0";
     }
     
     @RequestMapping(value = {"/report1"}, method = RequestMethod.GET)
     public String report1(Model model) {
+    	setReport(model);
     	return "report1";
+    }
+    
+    @RequestMapping(value = {"/report2"}, method = RequestMethod.GET)
+    public String report2(Model model) {
+    	setReport(model);
+    	return "report2";
+    }
+    
+    @RequestMapping(value = {"/report3"}, method = RequestMethod.GET)
+    public String report3(Model model) {
+    	setReport(model);
+    	return "report3";
+    }
+    
+    @RequestMapping(value = {"/report4"}, method = RequestMethod.GET)
+    public String report4(Model model) {
+    	setReport(model);
+    	return "report4";
+    }
+    
+    @RequestMapping(value = {"/report5"}, method = RequestMethod.GET)
+    public String report5(Model model) {
+    	setReport(model);
+    	return "report5";
     }
     
     @RequestMapping(value = {"/question"}, method = RequestMethod.GET)
     public String page2(Model model) {
+    	setReport(model);
         return "question";
     }
     
     @RequestMapping(value = {"/score"}, method = RequestMethod.GET)
     public String page3(Model model) {
+    	setReport(model);
     	return "score";
+    }
+    
+    void setReport(Model model) {
+    	List<MasterDataBean> masterDataBeans = new ArrayList<MasterDataBean>();
+		masterDataBeans = masterDataService.findQuestionByGroupKey(Constants.QUESTION_REPORT);
+		model.addAttribute("msData", masterDataBeans);
     }
     
 }
