@@ -77,7 +77,7 @@
 								class="pull-right hidden-xs fa fa-file-text-o"></span>
 						</a>
 							<ul class="dropdown-menu forAnimate" role="menu">
-								<li><a href="${contextPath}/questionReport">รายงานแบบสอบถาม</a>
+								<li><a href="${contextPath}/questionReport">ผลคะแนนจากแบบสอบถาม</a>
 								</li>
 								<li><a href="${contextPath}/report1">รายงาน1</a>
 								</li>

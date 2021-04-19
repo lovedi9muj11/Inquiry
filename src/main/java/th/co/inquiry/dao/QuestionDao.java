@@ -20,4 +20,5 @@ public interface QuestionDao {
 	
 	void update(QuestionBean bean) throws Exception;
 
+	public int countUser() throws Exception;
 }

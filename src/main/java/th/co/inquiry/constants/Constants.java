@@ -33,6 +33,7 @@ public class Constants {
 	public static final String QUESTION_TYPE_DD = "CLUSTER_NUMBER";
 	public static final String QUESTION = "QUESTION";
 	public static final String QUESTION_REPORT = "QUESTION_REPORT";
+	public static final String REPORT_RESULT = "Result";
 	
 	
 	public static class report {

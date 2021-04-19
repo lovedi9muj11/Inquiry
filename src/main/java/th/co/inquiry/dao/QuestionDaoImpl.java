@@ -37,6 +37,17 @@ public class QuestionDaoImpl implements QuestionDao {
 		}
 
 	}
+	
+	private static final class questionDataDis implements RowMapper<QuestionBean> {
+		
+		@Override
+		public QuestionBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			QuestionBean bean = new QuestionBean();
+			bean.setUserId(rs.getString("CREATE_BY"));
+			return bean;
+		}
+		
+	}
 
 	@Override
 	public QuestionBean findById(long id) throws Exception {
@@ -153,6 +164,17 @@ public class QuestionDaoImpl implements QuestionDao {
 		Object[] paramArr = param.toArray();
 		
 		List<QuestionBean> res = jdbcTemplate.query(sql.toString(), paramArr, new questionData());
+		
+		return res.size();
+	}
+
+	@Override
+	public int countUser() throws Exception {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT DISTINCT CREATE_BY FROM QUESTION ");
+		
+		List<QuestionBean> res = jdbcTemplate.query(sql.toString(), new questionDataDis());
 		
 		return res.size();
 	}

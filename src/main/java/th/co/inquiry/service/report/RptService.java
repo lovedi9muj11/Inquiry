@@ -40,8 +40,8 @@ public class RptService extends BaseExcelRptService {
 	@Autowired
 	ScoreDao scoreDao;
 
-	public Workbook getReport(Workbook workbook, List<ReportBean> entity, ReportBean bean) {
-		Font fontNormal = createFontTHSarabanPSK(workbook, 14, false);
+	public Workbook getReport(Workbook workbook, List<ReportBean> entity, ReportBean bean) throws Exception {
+		Font fontNormal = createFontTHSarabanPSK(workbook, 16, false);
 		CellStyle txtLeftBor = createCellStyleForTextLeftBorder(workbook, fontNormal, true);
 		CellStyle txtCenterBor = createCellStyleForTextCenterBorder(workbook, fontNormal, true);
 		CellStyle numRightBor = createCellStyleForNumberTwoDecimalBorder(workbook, fontNormal);
@@ -54,18 +54,38 @@ public class RptService extends BaseExcelRptService {
 		masterDatas = masterDataService.findQuestionByGroupKey(Constants.QUESTION_TYPE_DD);
 		List<MasterDataBean> msQuestion = masterDataService.findQuestionByGroupKey(Constants.QUESTION);
 		
+		int cUser = questionDao.countUser();
+		
 		int rowNum = 0;
 		for(int i=0; i<=masterDatas.size(); i++) {
+			
+			if(i<masterDatas.size()) {
+				if(i==0)workbook.setSheetName(0, masterDatas.get(i).getText());
+				else workbook.createSheet(masterDatas.get(i).getText());
+			}
+			else workbook.createSheet(Constants.REPORT_RESULT);
+			
 			Sheet sh = workbook.getSheetAt(i);
+			
+			for(int s=0; s<7; s++) {
+				sh.autoSizeColumn(s+1);
+				sh.setColumnWidth((s+1), sh.getColumnWidth(s+1)*15/10);
+			}
+			if(i==masterDatas.size()) {
+				sh.autoSizeColumn(0);
+				sh.setColumnWidth(0, sh.getColumnWidth(0)*20/10);
+			}
+            
 			rowNum = 0;
 			
+			sh.autoSizeColumn(i);
 			Row row1 = sh.createRow(rowNum++);
 			
 			if(i<masterDatas.size()) {
 				Cell cell1 = row1.createCell(0);
 				
-				cell1.setCellValue("คำนวนคะแนนแบบสอบถาม ".concat(masterDatas.get(i).getText()).concat(" โดยผู้เชี่ยวชาญทั้งหมด 7 ท่าน"));
-				CellRangeAddress mergedCell = new CellRangeAddress((rowNum-1), (rowNum-1), 0, 6);
+				cell1.setCellValue("คำนวนคะแนนแบบสอบถาม ".concat(masterDatas.get(i).getText()).concat(" โดยผู้เชี่ยวชาญทั้งหมด ").concat(String.valueOf(cUser)).concat(" ท่าน"));
+				CellRangeAddress mergedCell = new CellRangeAddress((rowNum-1), (rowNum-1), 0, 9);
 				borderMergs(mergedCell, sh, workbook);
 				rowNum++;
 				
