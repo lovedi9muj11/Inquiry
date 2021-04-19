@@ -103,7 +103,7 @@ public class ScoreDaoImpl implements ScoreDao {
 	@Override
 	public List<ScoreBean> findAll() throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM SCORE order by QUESTION_CODE ");
+		sql.append(" SELECT * FROM SCORE order by ID ");
 		
 		List<ScoreBean> list = jdbcTemplate.query(sql.toString() , new mapScore());
 		setNameList(list);

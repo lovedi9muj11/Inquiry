@@ -59,7 +59,7 @@ public class ScoreController {
 		return scoreBean;
 	}
 	
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponscApi delete(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id) throws Exception {
 		ResponscApi responscApi = new ResponscApi();

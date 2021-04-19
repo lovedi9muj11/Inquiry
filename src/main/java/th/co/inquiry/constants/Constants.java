@@ -30,7 +30,7 @@ public class Constants {
 		public static final String LOGIN_FLAG_N = "N";
 	}
 	
-	public static final String QUESTION_TYPE_DD = "QUESTION_TYPE";
+	public static final String QUESTION_TYPE_DD = "CLUSTER_NUMBER";
 	public static final String QUESTION = "QUESTION";
 	public static final String QUESTION_REPORT = "QUESTION_REPORT";
 	

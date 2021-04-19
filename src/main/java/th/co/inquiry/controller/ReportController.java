@@ -42,7 +42,7 @@ public class ReportController {
 		
 		Locale TH = new Locale("th", "TH");
 		SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy", TH);
-		String fileName = "Report"+ dateFormate.format(new Date());
+		String fileName = "Result_Question"+ dateFormate.format(new Date());
 
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName +".xls");
