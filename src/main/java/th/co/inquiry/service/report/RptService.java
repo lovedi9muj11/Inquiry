@@ -82,6 +82,7 @@ public class RptService extends BaseExcelRptService {
 			Row row1 = sh.createRow(rowNum++);
 			
 			if(i<masterDatas.size()) {
+				row1.setHeight((short)(255 * 2));
 				Cell cell1 = row1.createCell(0);
 				
 				cell1.setCellValue("คำนวนคะแนนแบบสอบถาม ".concat(masterDatas.get(i).getText()).concat(" โดยผู้เชี่ยวชาญทั้งหมด ").concat(String.valueOf(cUser)).concat(" ท่าน"));
@@ -212,6 +213,7 @@ public class RptService extends BaseExcelRptService {
 		
 		Row row1 = sh.createRow(rowNum++);
 		
+		row1.setHeight((short)(255 * 2));
 		Cell cell1 = row1.createCell(0);
 		
 		cell1.setCellValue("สรุปผลการประเมิน");
