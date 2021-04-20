@@ -45,7 +45,7 @@ public class ReportController {
 		String fileName = "Result_Question"+ dateFormate.format(new Date());
 
 		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + fileName +".xlsx");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName +".xls");
 		response.getOutputStream().write(bytes);
 		response.getOutputStream().flush();
 	}
