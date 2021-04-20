@@ -8,9 +8,11 @@ $(document).ready(function() {
 function setHTML() {
 	let code = "";
 	let id = '';
+	
+	var rptCode = document.getElementById("rptCode").value;
 	$.ajax({
 		type: "GET",
-		url: ctx + "/findAllReportPage/" + RPT_CODE,
+		url: ctx + "/findAllReportPage/" + rptCode,
 		async: false,
 		contentType: "application/json; charset=utf-8",
 		success: function(res) {

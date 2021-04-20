@@ -149,6 +149,18 @@ public class UserAuthController {
         return "questionReport";
     }
     
+    @RequestMapping(value = {"/report"}, method = RequestMethod.GET)
+    public String report(Model model, String code) {
+    	setReport(model);
+    	model.addAttribute("rptCode", code);
+    	
+    	if("report0".equals(code)) {
+    		return code;
+    	}else {
+    		return "report1";
+    	}
+    }
+    
     @RequestMapping(value = {"/report0"}, method = RequestMethod.GET)
     public String report0(Model model) {
     	setReport(model);

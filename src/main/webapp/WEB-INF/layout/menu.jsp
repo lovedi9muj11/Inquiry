@@ -93,7 +93,8 @@
 									if(CollectionUtils.isNotEmpty(msData)) {
 										for (int i = 0; i < msData.size(); i++) {
 								%>
-											<li><a href="${contextPath}/<%=msData.get(i).getValue()%>"><%=msData.get(i).getText()%></a> </li>
+											<li><a onclick="printReport('<%=msData.get(i).getValue()%>')"><%=msData.get(i).getText()%></a> </li>
+<%-- 											<li><a href="#" onclick="printReport('<%=msData.get(i).getValue()%>')"><%=msData.get(i).getText()%></a> </li> --%>
 								<%
 										}
 									}
@@ -106,3 +107,10 @@
 		</nav>
 	</div>
 </div>
+
+<script type='text/javascript'>
+	function printReport(code) {
+		console.log('555 : ', code)
+		window.location.href = "report?code=" +code;
+	}
+</script>

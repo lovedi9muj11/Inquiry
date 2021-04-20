@@ -24,6 +24,13 @@
 	var RPT_CODE = 'report1';
 </script>
 
+<%
+	String rptCode = "";
+%>
+<%
+	rptCode = (String) request.getAttribute("rptCode");
+%>
+
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${contextPath}/resources/css/select2.min.css"
@@ -36,8 +43,8 @@
 		<jsp:include page="../layout/menu.jsp"></jsp:include>
 		<header class="header_page"></header>
 
-		<form id="reportFrom" method="post" class="form-horizontal"
-			role="form">
+		<form id="reportFrom" method="post" class="form-horizontal" role="form">
+			<input name="rptCode" id="rptCode" value="<%=rptCode%>" type="hidden">
 			<div id="page-content-wrapper">
 				<br />
 				<div class="container-fluid">
