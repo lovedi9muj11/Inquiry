@@ -166,7 +166,14 @@ public class RptService extends BaseExcelRptService {
 							cell14.setCellValue(isNullInt(score3));
 							cell15.setCellValue(isNullInt(score2));
 							cell16.setCellValue(isNullInt(score1));
-							BigDecimal calSum = calScore(score1, score2, score3, score4, score5, score).divide(new BigDecimal(cUser));
+							BigDecimal calSum = calScore(score1, score2, score3, score4, score5, score);
+							if (calSum.compareTo(BigDecimal.ZERO) == 1) {
+//								calSum = calSum.divide(new BigDecimal(cUser));
+								Double pDou = Double.valueOf(calSum.toString());
+								pDou = pDou / cUser;
+								calSum = new BigDecimal(pDou);
+//								calSum = calSum.divide(new BigDecimal(cUser), 2, RoundingMode.DOWN);
+							}
 							String calSumStr = formatComma(calSum);
 							cell17.setCellValue(calSumStr);
 							sumSub = sumSub.add(calSum);
